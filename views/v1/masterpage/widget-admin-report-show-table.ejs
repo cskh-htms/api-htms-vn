@@ -1,0 +1,93 @@
+
+<% if( typeof orders_report_all == 'object' && orders_report_all && orders_report_all.length > 0){  } else{ orders_report_all=[] } %>
+
+
+
+<%
+if(orders_report_all.length == 0){
+%>
+	<div class="not_order"><span>Chưa có đơn hàng nào ...... </span></div>
+<% } else{
+	
+	
+var sum_product = 0;	
+var sum_discount = 0;	
+var sum_shipping = 0;
+var sum_coupon = 0;	
+var sum_fee = 0;	
+var sum_profit = 0;
+
+for( var  x in orders_report_all ) { 
+	if(orders_report_all[x].view_order_report_line_order == "product"){
+		sum_product = orders_report_all[x].view_order_report_price_caution_sum;
+		sum_discount = orders_report_all[x].view_order_report_discount_caution_sum;
+		
+	}else if(orders_report_all[x].view_order_report_line_order == "shipping"){
+		sum_shipping = orders_report_all[x].view_order_report_price_caution_sum;
+		
+	}else if(orders_report_all[x].view_order_report_line_order == "coupon"){
+		sum_coupon = orders_report_all[x].view_order_report_price_caution_sum;
+		
+	}else if(orders_report_all[x].view_order_report_line_order == "add_fee"){
+		sum_fee = orders_report_all[x].view_order_report_price_caution_sum;
+	}
+}
+
+sum_profit = (sum_discount + sum_shipping + sum_fee) - sum_coupon; 
+%>
+	<table class="table-list">
+		<thead>
+			<tr>
+				<th class="user-name">Tổng tiền sản phẩm bán</th>
+				<th class="user-name">Tổng tiền chiết khấu</th>
+				<th class="user-name">Tổng tiền giao hàng</th>
+				<th class="user-name">Tổng tiền khuyến mãi</th>
+				<th class="user-name">Các khoản thu khác</th>
+				<th class="user-name">Tổng lợi nhuận</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+
+
+
+		<tr>
+
+			<td class="user-name">
+				<%- ojs_share.show_price_vnd(sum_product,0,",",".","đ") %>
+			</td>
+			
+			<td class="user-name">
+				<%- ojs_share.show_price_vnd(sum_discount,0,",",".","đ") %>
+			</td>
+
+			<td class="user-name">
+				<%- ojs_share.show_price_vnd(sum_shipping,0,",",".","đ") %>
+			</td>
+
+			<td class="user-name">
+				<%- ojs_share.show_price_vnd(sum_coupon,0,",",".","đ") %>
+			</td>
+
+			<td class="user-name">
+				<%- ojs_share.show_price_vnd(sum_fee,0,",",".","đ") %>
+			</td>	
+			
+			<td class="user-name tong_loi_nhuan">
+				<span><%- ojs_share.show_price_vnd(sum_profit,0,",",".","đ") %></span>
+			</td>				
+			
+
+		</tr>		
+		
+		
+		
+		
+		</tbody>
+		<tfoot>
+
+		</tfoot>
+	</table>
+<% 
+}
+%>

@@ -1,0 +1,107 @@
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+<% include ../masterpage/loader %>
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+
+
+
+<% include ../masterpage/widget-bussiness-order-show-table %>
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+//end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+
+		
+	});//end of save ajax
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

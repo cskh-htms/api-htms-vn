@@ -1,0 +1,170 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../masterpage/loader %>
+
+<script src="../../../javascripts/class-reviews-speciality.js"></script>	
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+	<h1><%= title %></h1>
+
+
+	<p><span>Ngày đăng</span><input type="text" value="<%= datas[0].reviews_speciality_date_created %>" id="reviews_speciality_date_created" /> </p>
+	<p><span>Số sao đánh giá</span><input type="text" value="<%= datas[0].reviews_speciality_number_star %>" id="reviews_speciality_number_star" /> </p>
+
+
+
+
+
+	<!-- ------------------
+	Mô tả danh mục
+	------------------- -->
+	<div class="value_row">
+		<span>Contents reviews</span>
+		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].reviews_speciality_contents ) %></textarea>
+	</div>
+	<!-- ------------------
+	//Mô tả danh mục
+	------------------- -->
+
+
+	<div>
+	<span>Trạng thái cửa hàng<span>
+		<select id="reviews_speciality_status_store">
+			<%- ojs_share.show_status_product(datas[0].reviews_speciality_status_store) %>
+		</select>	
+	</div>
+
+	<div>
+	<span>Trạng thái admin<span>
+		<select id="reviews_speciality_status_admin">
+			<%- ojs_share.show_status_product(datas[0].reviews_speciality_status_admin ) %>
+		</select>	
+	</div>
+
+
+
+
+
+
+
+
+
+
+<div class="btn_box">
+	<a href="/reviews/general/show-all/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Save</button>
+</div>	
+	
+<input type="hidden" id="review_id" value="<%= review_id %>"/>	
+<input type="hidden" id="users_id" value="<%= users_id %>"/>
+
+
+</div>
+
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	//@
+	ojs_loader.loadTinyMCE('noi_dung');
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+
+		//@
+		let review_id = $('#review_id').val();
+		let reviews_speciality_date_created = $('#reviews_speciality_date_created').val();
+		let reviews_speciality_number_star = $('#reviews_speciality_number_star').val();
+		//@
+		//@
+		let reviews_speciality_status_store = $('#reviews_speciality_status_store  option:selected').val();
+		let reviews_speciality_status_admin = $('#reviews_speciality_status_admin  option:selected').val();
+		//@
+		let reviews_speciality_contents = tinymce.get("noi_dung").getContent();
+		
+		//
+		let datas = {
+			"datas":{
+				reviews_speciality_status_store : reviews_speciality_status_store,
+				reviews_speciality_status_admin : reviews_speciality_status_admin,
+				reviews_speciality_contents : reviews_speciality_contents,
+				reviews_speciality_date_created : reviews_speciality_date_created,
+				reviews_speciality_number_star : reviews_speciality_number_star
+			}
+		}
+		//console.log(datas);		
+		//return;
+		
+		ojs_reviews_speciality.ajax_update(datas,review_id);	
+		
+		
+	});//end of save ajax
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% include ../../masterpage/loader-end %>
+
+
+
+
+
+

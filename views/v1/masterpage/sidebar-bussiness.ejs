@@ -1,0 +1,77 @@
+<% 
+if( ( typeof user_id == 'number' || typeof user_id == 'string') && user_id){ user_id = user_id } else{ user_id = 0 } 
+%>
+
+<div id="sidebar" class="sidebar">
+	<ul class="admin-menu">
+		<!-- 
+		//admin
+		-->		
+		<% if(users_type == "admin"){ %>
+		<li><a href="/admin/">
+		<i class="fas fa-tachometer-alt"></i>
+		<div class="menu-name">Admin</div>
+		</a></li>	
+		<% } %>
+		
+		<!-- 
+		//ho sơ
+		-->	
+		<li>
+			<a href="/users/show/<%= user_id %>">
+				<i class="fas fa-user"></i>
+				<div class="menu-name">Hồ sơ </div>
+			</a>
+		</li>			
+		
+		
+		<!-- 
+		//bussiness
+		-->	
+		<li>
+			<a href="/bussiness/<%= user_id %>">
+				<i class="fas fa-user"></i>
+				<div class="menu-name">Quản lý doanh nghiệp</div>
+			</a>
+		</li>	
+		
+		<!-- 
+		//danh sách cửa hàng
+		
+		<li>
+			<i class="fas fa-store"></i>
+			<div class="menu-name">Cửa hàng</div>
+			<ul>
+				<li><a href="/bussiness/stores/show-all/<%= user_id %>">Danh sách cửa hàng</a></li>
+				<li><a href="/bussiness/stores/add/<%= user_id %>">Tạo cửa hàng</a></li>
+			</ul>
+		</li>
+		
+		
+		
+		//orders
+		-->
+		<li>
+			<i class="fas fa-clipboard-list"></i>
+			<div class="menu-name">Đơn hàng</div>
+			<ul>
+				<li><a href="/bussiness/stores/show-all-order/<%= user_id %>">Sản phẩm đã bán</a></li>
+			</ul>
+		</li>		
+		
+		<!-- 
+		//Hướng dẫn
+		-->
+		<li>
+			<i class="fas fa-question-circle"></i>
+			<div class="menu-name">Hướng dẫn</div>
+			<ul>
+				<li><a href="#">Tổng quan doanh nghiệp</a></li>
+				<li><a href="#">Tạo và quản lý cửa hàng</a></li>
+				<li><a href="#">Tạo và quản lý sản phẩm</a></li>
+			</ul>
+		</li>	
+		
+	</ul>
+	
+</div>

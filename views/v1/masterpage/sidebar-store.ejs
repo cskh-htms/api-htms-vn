@@ -1,0 +1,63 @@
+<% if( ( typeof store_id == 'number' || typeof store_id == 'string' ) && store_id){ } else{ store_id = "0" } %>
+<% if(  typeof service_type_name  == 'string'  && service_type_name ){ } else{ service_type_name = "" } %>
+
+<div id="sidebar" class="sidebar">
+	<ul class="admin-menu">
+		<!-- //admin -->	
+		<% if(users_type == "admin"){ %>		
+		<li>
+			<a href="/admin/">
+				<i class="fas fa-tachometer-alt"></i>
+				<div class="menu-name">Admin</div>
+			</a>
+		</li>
+		<% } %>
+		<!-- //bussiness -->
+		<li>
+			<a href="/bussiness/<%= user_id %>">
+				<i class="fas fa-user"></i>
+				<div class="menu-name">Quản lý Doanh nghiệp</div>
+			</a>
+		</li>
+		
+		<!-- //stores -->		
+		<li>
+			<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
+				<i class="fas fa-store"></i>
+				<div class="menu-name">Cửa hàng</div>
+			</a>
+		</li>
+		
+		
+		
+		<!-- //tạo mới  -->
+		<li>
+			<i class="fas fa-box-open"></i>
+			<div class="menu-name">Tạo mới  </div>
+			<ul>
+				
+				<li><a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo sản phẩm</a></li>
+				<li><a href="/categorys/general/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo danh mục</a></li>
+				<li><a href="/options/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo options</a></li>
+				<li><a href="/brands/add/<%= store_id %>/<%= user_id %>">Tạo thương hiệu</a></li>					
+				
+			</ul>		
+		</li>			
+		
+		
+		
+		<!-- //quản lý  -->
+		<li>
+			<i class="fas fa-box-open"></i>
+			<div class="menu-name">Quản lý </div>
+			<ul>
+				<li><a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm </a></li>
+				<li><a href="/categorys/general/<%= service_type_name %>/<%= store_id %>">Danh mục</a></li>
+				<li><a href="/options/<%= service_type_name %>/<%= store_id %>">options</a></li>
+				<li><a href="/brands/<%= store_id %>">Thương hiệu</a></li>
+			</ul>		
+		</li>		
+		
+		
+	</ul>
+</div>

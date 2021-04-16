@@ -1,0 +1,175 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+<% include ../../masterpage/loader %>
+
+
+<script src="../../../javascripts/class-shipping-speciality.js"></script>	
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+	<div class="value_row">
+		<span>Tên khu vực</span>
+		<input type="text" class= "" value="<%- ojs_share.unCape(datas[0].shipping_speciality_name) %>" id="shipping_speciality_name"/>
+	</div>
+	
+	
+	
+	<div class="value_row">
+		<span>Giá vận chuyển</span>
+		<input type="text" class= "" value="<%= datas[0].shipping_speciality_price %>" id="shipping_speciality_price"/>
+	</div>	
+	
+	
+
+	
+	<div class="value_row">
+		<span>Ẩn hiện khu vực</span>
+		<div class="select-wrap">
+			<select id="shipping_speciality_show">
+				<%- ojs_share.show_hide(datas[0].shipping_speciality_show) %>
+			</select>	
+		</div>
+	</div>	
+	
+	
+	
+	
+	<!-- ------------------
+	//danh muc chung
+	------------------- -->
+	<div id="shipping_speciality_parent_id_wrap" class="value_row">
+		<span>Khu vực cha</span>
+		<div id="shipping_speciality_box">
+		<select name="shipping_speciality_parent_id" id="shipping_speciality_parent_id"  >
+			<% include ../../masterpage/widget-shipping-check-box %>
+		</select>
+		</div>
+	</div>	
+	<!-- ------------------
+	//danh muc chung
+	------------------- -->
+
+
+	<!-- ------------------
+	thông tin danh mục
+	------------------- -->
+	<div class="value_row">
+	<span>Mô tả khu vực</span>
+	<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].shipping_speciality_information) %></textarea>
+	</div>
+	<!-- ------------------
+	//thông tin danh mục
+	------------------- -->
+
+<div class="btn_box">
+	<a href="/shipping/speciality/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Save</button>
+</div>	
+	
+
+
+
+
+
+<input type="hidden" id="users_id" value="<%= users_id %>"/>
+<input type="hidden" id="shipping_id" value="<%= shipping_id %>"/>
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	//@
+	ojs_loader.loadTinyMCE('noi_dung');
+	
+	
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let shipping_speciality_name = $('#shipping_speciality_name').val();	
+		//@
+		let shipping_id = $('#shipping_id').val();
+		//@
+		let shipping_speciality_price = $('#shipping_speciality_price').val();
+		//@
+		let shipping_speciality_show = $('#shipping_speciality_show  option:selected').val();
+		let shipping_speciality_parent_id = $('#shipping_speciality_parent_id  option:selected').val();
+		//@
+		let shipping_speciality_information = tinymce.get("noi_dung").getContent();
+		
+		
+		//
+		let datas = {
+			"datas":{
+				shipping_speciality_name : shipping_speciality_name,
+				shipping_speciality_price :  shipping_speciality_price,
+				shipping_speciality_show : shipping_speciality_show,
+				shipping_speciality_parent_id : shipping_speciality_parent_id,
+				shipping_speciality_information : shipping_speciality_information
+			}
+		}
+		//console.log(datas,shipping_id);		
+		//return;
+		
+		ojs_shipping_speciality.ajax_update(datas,shipping_id);	
+		
+	});//end of save ajax
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../../masterpage/loader-end %>

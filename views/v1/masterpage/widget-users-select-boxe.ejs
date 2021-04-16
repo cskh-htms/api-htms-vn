@@ -1,0 +1,38 @@
+
+
+
+
+
+
+<% 
+if (typeof datas == 'object' && datas) { 
+	user_taget_id = datas[0].stores_user_id;
+}else{ 
+	let DanhMucChungMacDinhID = 0;
+	user_taget_id = DanhMucChungMacDinhID;
+}
+if (typeof users_list == 'object' && users_list) { } else {users_list = [];}
+%>	
+
+
+
+
+
+
+<% 
+for(var  x in users_list) { %>
+
+	<% 
+	if(users_list[x].users_ID  == user_taget_id ){ 
+	%>
+		<option  style="font-weight:bold;color:red;"  selected value="<%= users_list[x].users_ID %>"><%= users_list[x].users_first_name + " " + users_list[x].users_last_name  %></option>
+	<%	
+	}else{ 
+	%>
+		<option value ="<%= users_list[x].users_ID %>"><%= users_list[x].users_first_name + " " + users_list[x].users_last_name  %></option>
+	<% 
+	} 
+	%>			
+<% 
+} 
+%>

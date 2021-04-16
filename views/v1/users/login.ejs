@@ -1,0 +1,102 @@
+<% include ../masterpage/loader %>
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content login-wrap">
+	<div class="login-box">
+		<div class="logo">
+		<img src="/images/dala-logo.jpg">
+		</div>
+	  <h1>Đăng nhập</h1>
+	  <div class="textbox">
+		<i class="fas fa-user"></i>
+		<input type="text" id="users_name" placeholder="Tài khoản">
+	  </div>
+
+	  <div class="textbox">
+		<i class="fas fa-lock"></i>
+		<input type="password" id="users_password" placeholder="Mật khẩu">
+	  </div>
+
+	  <input type="button" id="dang_nhap" class="btn" value="Đăng nhập">
+	  
+	  <div class="dangky-link">Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></div>
+	</div>
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+</div><!-- //content_wrap -->	
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->	
+<% include ../masterpage/loader-end %>
+
+<script>
+	$(document).ready(function(){
+	
+
+		//end of test
+		//login
+		$(document).on('click','#dang_nhap',function(e) {
+			let users_name = $('#users_name').val();
+			let users_password = $('#users_password').val();
+			//check trong du lieu
+			if(users_name == "" || users_password == ""){
+				var x = "Vui lòng nhập dữ liệu";
+				ojs_message.message_ok_show(x);
+				return;
+			}
+			//tao data
+			let datas = { 
+				datas:{ users_name: users_name, users_password:users_password }
+			};
+			//goi api
+			$.ajax({
+				type : "POST",	  
+				contentType : "application/json",
+				url : ojs_loader.host + "/login",
+				data : JSON.stringify(datas),
+				dataType : 'json',
+				beforeSend:  function(xhr){
+					ojs_loadding.ajax_show_loadding();
+				},			  
+				error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+				},
+				success : function(result) {
+					ojs_loader.evn = "publish";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+							ojs_message.message_ok_show(result.message);
+						}else{
+							if(result.datas.user_role != "default"){
+								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
+							}else{
+								ojs_message.message_ok_show("user GUEST");
+							}
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();
+				}			  
+			});
+		});
+	});
+</script>	
+
+
+
+
+
+
+
+
+
+

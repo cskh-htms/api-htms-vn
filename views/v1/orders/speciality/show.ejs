@@ -1,0 +1,347 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% if( typeof datas == 'object' && datas){ } else{ datas=[] } %>
+<% if( typeof orders_detail == 'object' && orders_detail){ } else{ orders_detail=[] } %>
+
+
+
+
+<% include ../../masterpage/loader %>
+
+
+<script src="../../../javascripts/class-orders-speciality.js"></script>	
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+	<% 
+	if(datas.length > 0){
+	%>	
+		<div class="order_content">
+			<div class="pro_box order_detail">
+				<h3>Thông tin</h3>	
+				<div class="inside">
+					<div class="value_row">
+						<span>ID đơn hàng</span>
+						<input type="text" disabled class= "" value="<%= datas[0].orders_speciality_ID %>" id="orders_speciality_ID"/>
+					</div>		
+
+					<div class="value_row">
+						<span>Ngày đặt hàng</span>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_date_orders) %>" id="orders_speciality_date_orders"/>
+					</div>	
+					
+					<div class="value_row">
+						<span>Họ</span>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].users_first_name) %>" id="users_first_name"/>
+					</div>	
+						
+					<div class="value_row">
+						<span>Tên</span>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].users_last_name) %>" id="users_last_name"/>
+					</div>	
+					
+					<div class="value_row">
+						<span>Điện thoại</span>
+						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_phone) %>" id="orders_speciality_phone"/>
+					</div>	
+						
+					<div class="value_row">
+						<span>Email</span>
+						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_email) %>" id="orders_speciality_email"/>
+					</div>	
+					
+					<div class="value_row">
+						<span>Địa chỉ giao hàng</span>
+						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_adress) %>" id="orders_speciality_adress"/>
+					</div>		
+					
+					<div class="value_row">
+						<span>Ghi chú giao hàng</span>
+						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_notes) %>" id="orders_speciality_notes"/>
+					</div>	
+				</div>
+			</div>
+		
+			<div class="pro_box trang_thai_box">
+				<h3>Trạng thái</h3>	
+				<div class="inside">
+					<span>Thanh toán:</span>
+					<select id="orders_speciality_status_payment">
+						<%- ojs_share.show_status_checkout(datas[0].orders_speciality_status_payment) %>
+					</select>	
+					<span>Hoàn thành:</span>	
+					<select id="orders_speciality_status_orders">
+						<%- ojs_share.show_status_orders(datas[0].orders_speciality_status_orders) %>
+					</select>
+				</div>
+			</div>	
+		</div>
+	<% 
+	}
+	%>		
+	
+	<% 
+	if(orders_detail.length > 0){
+	%>	
+	
+		<div class="order-box" id="order-box">
+			<% include ../../masterpage/widget-orders-detail-show-tables %>
+		</div>
+	<% 
+	}
+	%>	
+	
+<div class="btn_box">
+	<a href="/orders/speciality/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Save</button>
+</div>	
+	
+
+
+<input type="hidden" id="users_id" value="<%= users_id %>"/>
+<input type="hidden" id="order_id" value="<%= order_id %>"/>
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@@@@@@@
+	//@@@@@@@
+	//@
+	//@
+	// ajax show content add fee
+	$(document).on('click','.add_line',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let order_id = $(this).attr("data_order_id");
+		//@
+		//
+		console.log(order_id);
+		var datas = '' + 
+			'<div class="add_fee_ajax_box">' + 
+				'<div class="add_fee_ajax_box_inner">' + 
+					'<div class="add_fee_content_box">' + 
+						'<span>Dịch vụ</span>' + 
+						'<input class="fee_name" type="text" value=""/>' + 
+						'<span>tiền </span>' + 
+						'<input class="fee_price" type="text" value=""/>' + 
+						'<button id="btn_add_fee" data_order_id="' + order_id + '">save</button>' + 
+					'</div>' + 
+				'</div>' + 
+			'</div>'
+		ojs_loadding.ajax_show_content(datas)
+		//ojs_orders.ajax_add_fee(order_id);	
+		
+	});//end of save detail 	
+		
+	
+	
+	
+	//@
+	//@
+	//@@@@@@@
+	//@@@@@@@
+	//@
+	//@
+	// ajax save add fee
+	$(document).on('click','#btn_add_fee',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let order_id = $(this).attr("data_order_id");
+		let orders_details_speciality_price = $(this).parents(".add_fee_content_box").find(".fee_price").val();
+		let orders_details_medium_text = $(this).parents(".add_fee_content_box").find(".fee_name").val();
+				
+		
+		
+		
+		//@
+		//
+		
+		var datas = {
+			"datas":{
+				orders_details_speciality_price : orders_details_speciality_price,
+				orders_details_speciality_line_order : "add_fee",
+				orders_details_medium_text : orders_details_medium_text,
+				orders_details_speciality_order_id : order_id 
+			}
+		}
+		//console.log(datas);
+		ojs_orders.ajax_add_fee(datas);	
+		
+	});//end of save detail 	
+		
+		
+	
+
+	
+	//@
+	//@
+	//@@@@@@@
+	//@@@@@@@
+	//@
+	//@
+	// ajax luu detail
+	$(document).on('click','.save_order',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let detail_id = $(this).attr("data_save");
+		//@
+		let orders_details_speciality_price = $(this).parents("tr").find(".price").attr("data_value");
+		let orders_details_speciality_qty = $(this).parents("tr").find(".qty").val();
+		if(orders_details_speciality_qty  == undefined){
+			orders_details_speciality_qty = 0;
+		}
+
+		//
+		var datas = {
+			"datas":{
+				orders_details_speciality_price : orders_details_speciality_price,
+				orders_details_speciality_qty : orders_details_speciality_qty
+			}
+		}
+		//console.log(datas);
+		//return;
+		ojs_orders.ajax_update_detail(datas,detail_id);	
+		
+	});//end of save detail 	
+	
+	
+	//@
+	//@
+	//@@@@@@@
+	//@@@@@@@
+	//@
+	//@
+	// delete_order
+	$(document).on('click','.delete_order',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		var detail_id = $(this).attr("data_delete");
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_order_speciality_detail";//function name in callback 
+		let z = ' { "detail_id" : "' + detail_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		
+		//ojs_orders.ajax_delete_detail(detail_id);	
+		
+	});//end of save detail 	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let order_id = $('#orders_speciality_ID').val();	
+		//@
+		let orders_speciality_phone = $('#orders_speciality_phone').val();
+		let orders_speciality_adress = $('#orders_speciality_adress').val();
+		
+		
+		
+		//@
+		let orders_speciality_email = $('#orders_speciality_email').val();
+		//@
+		//@
+		let orders_speciality_notes = $('#orders_speciality_notes').val();
+		//@
+		//@
+		let orders_speciality_status_payment = $('#orders_speciality_status_payment  option:selected').val();		
+		let orders_speciality_status_orders = $('#orders_speciality_status_orders  option:selected').val();
+		
+		
+		//
+		var datas = {
+			"datas":{
+				orders_speciality_phone : orders_speciality_phone,
+				orders_speciality_adress : orders_speciality_adress,
+				orders_speciality_email : orders_speciality_email,
+				orders_speciality_notes : orders_speciality_notes,
+				orders_speciality_status_payment : orders_speciality_status_payment,
+				orders_speciality_status_orders : orders_speciality_status_orders
+			}
+		}
+		//console.log(datas);		
+		//return;
+		
+		ojs_orders.ajax_update(datas,order_id);	
+		
+	});//end of save ajax
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../../masterpage/loader-end %>	
+	
