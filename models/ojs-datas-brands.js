@@ -158,8 +158,8 @@ const ojs_datas_brands = {
 							},
 							{
 								"field" : "brands_status_admin" ,
-								"value" : "0",
-								"compare" : "="
+								"value" : [0,2],
+								"compare" : "in"
 							}						
 						]    
 					}         

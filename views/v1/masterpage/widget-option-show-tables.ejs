@@ -3,6 +3,7 @@
 <% if( typeof options_list == 'object' && options_list){ options_list = options_list } else{ options_list=[] } %>
 
 <table class="table-list">
+
 	<thead>
 		<tr>
 			<th class="user-name">Tên option</th>
@@ -16,7 +17,6 @@
 	for(var  x in options_list) { %>
 		<% 
 		if(options_list[x].options_product_speciality_parent_id == 0) { %>
-		
 				<% //nếu chủ cữa hàng thì hiện màu đỏ
 				if(options_list[x].options_product_speciality_stores_id == store_id  &&  user_role != "admin"){ 		
 					var ex1 = 'my_store';
@@ -30,9 +30,21 @@
 				<td class="user-name"><a href="#"><%= options_list[x].options_product_speciality_name %></a>
 					<div class="row-actions">
 						<% //nếu là admin thì hiển thị update
-						if(user_role == "admin" ||  options_list[x].options_product_speciality_stores_id == store_id){ %>
-							<span class="edit"><a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= store_id %>">Chỉnh sửa</a> | </span>
-							<span class="delete"><a href="#" data_option_id="<%= options_list[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
+						if(user_role == "admin" ||  options_list[x].options_product_speciality_stores_id == store_id  ){ %>
+							<% //neu nếu đã chấp nhận thì ko cho update nua
+							if( options_list[x].options_product_speciality_status_update != "1"){ %>
+								<span class="edit">
+									<a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= store_id %>">
+										Chỉnh sửa</a> | 
+								</span>
+								<span class="delete">
+									<a href="#" data_option_id="<%= options_list[x].options_product_speciality_ID %>" class="submitdelete">
+										Xóa
+									</a>
+								</span>
+							<% // end if
+							}  
+							%>								
 						<% //enf of if
 						}
 						%>
@@ -65,8 +77,15 @@
 						<div class="row-actions">
 							<% //nếu là admin thì hiển thị update
 							if(user_role == "admin" || options_list[y].options_product_speciality_stores_id == store_id){ %>
-								<span class="edit"><a href="/options/speciality/show/<%= options_list[y].options_product_speciality_ID %>/<%= store_id %>"">Chỉnh sửa</a> | </span>
-								<span class="delete"><a  data_option_id="<%= options_list[y].options_product_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
+							
+								<% //neu nếu đã chấp nhận thì ko cho update nua
+								if( options_list[y].options_product_speciality_status_update != "1"){ %>
+									<span class="edit"><a href="/options/speciality/show/<%= options_list[y].options_product_speciality_ID %>/<%= store_id %>"">Chỉnh sửa</a> | </span>
+									<span class="delete"><a  data_option_id="<%= options_list[y].options_product_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
+								<% //enf of if
+								}
+								%>
+							
 							<% //enf of if
 							}
 							%>								

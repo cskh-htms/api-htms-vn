@@ -55,7 +55,7 @@ if(user_role == "admin"){ %>
 
 <p><span>PassWord</span><input type="text" value="" id="users_password" /> </p>
 
-
+<p><span>config PassWord</span><input type="text" value="" id="config_users_password" /> </p>
 
 
 
@@ -130,6 +130,7 @@ $(document).ready(function($){
 		let users_email = $('#users_email').val();
 		let users_phone = $('#users_phone').val();
 		let users_password = $('#users_password').val();
+		let config_users_password = $('#config_users_password').val();
 		let users_users_type_id = $('#users_users_type_id  option:selected').val();
 
 
@@ -141,6 +142,20 @@ $(document).ready(function($){
 
 
 		let user_id = $('#user_id').val();
+		
+		
+		if(users_password.length > 0){
+			if(config_users_password.length <= 0 ){
+				ojs_message.message_ok_show("nhập config pass word");
+				return;
+			}else{
+				if(config_users_password != users_password){
+					ojs_message.message_ok_show("mã xác nhận passsword không đúng");
+					return;					
+				}
+			}
+		}
+		
 		
 		
 		if(users_password.length > 0){

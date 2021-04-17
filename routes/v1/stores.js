@@ -252,8 +252,11 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	//
 	
 	
-	
-	/*
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
 	var store_name;
 	try {
 		store_name = await ojs_shares.get_data_send_token_get(
@@ -277,16 +280,6 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	}	
 		
 	
-	
-	
-	res.send(store_name);
-	return;	
-	
-	*/
-	
-	
-	
-	
 	//send web
 	//@sidebar_type -- loại sibar 
 	//@'users_type' : loai user
@@ -302,7 +295,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
 			"service_type_name" : service_type_name,
-			'js_css_version' : check_datas_result.js_css_version
+			'js_css_version' : check_datas_result.js_css_version,
+			'store_name' : store_name.datas[0].stores_name
 		}
 		//res.send(data_send);
 		//return;

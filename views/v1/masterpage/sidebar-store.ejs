@@ -1,6 +1,16 @@
 <% if( ( typeof store_id == 'number' || typeof store_id == 'string' ) && store_id){ } else{ store_id = "0" } %>
 <% if(  typeof service_type_name  == 'string'  && service_type_name ){ } else{ service_type_name = "" } %>
 
+<% if( ( typeof store_name  == 'string'
+ ||  typeof store_name  == 'number' ) 
+ && service_type_name  && service_type_name.length > 0)
+ {
+	store_name = store_name 
+} else{ 
+	store_name  = "" 
+} %>
+
+
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
 		<!-- //admin -->	
@@ -20,14 +30,34 @@
 			</a>
 		</li>
 		
-		<!-- //stores -->		
-		<li>
-			<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
-				<i class="fas fa-store"></i>
-				<div class="menu-name">Cửa hàng</div>
-			</a>
-		</li>
 		
+
+		<!-- //cua hàng  -->
+		<li>
+			<i class="fas fa-box-open"></i>
+			<div class="menu-name">Cửa hàng <%= store_name %> </div>
+			<ul>
+				<li><a href="/stores/manage/<%= store_id %>/<%= user_id %>">Quản lý</a></li>
+				<li><a href="#">Đơn hàng</a></li>
+			</ul>		
+		</li>			
+		
+		
+		
+		
+		
+		<!--
+		//Thống kê
+		-->
+		<li>
+			<i class="fas fa-clipboard-list"></i>
+			<div class="menu-name">Báo cáo</div>
+			<ul>
+				<li><a href="/bussiness/stores/show-all-order/<%= user_id %>">Sản phẩm đã bán</a></li>
+			</ul>
+		</li>		
+		
+						
 		
 		
 		<!-- //tạo mới  -->
