@@ -5,6 +5,7 @@
 const models_const = require('./models-conts');
 
 const connection_data = {
+	
     host     			: models_const.HOST_NAME,
 	localAddress 		: models_const.HOST_IP,
     user     			: models_const.DATABASE_USER,
@@ -17,6 +18,7 @@ const connection_data = {
     user     		: models_const.DATABASE_USER2,
     password 		: models_const.DATABASE_PASS2,
     database 		: models_const.DATABASE_NAME2,
+	multipleStatements	: true
 	*/
 }
 
