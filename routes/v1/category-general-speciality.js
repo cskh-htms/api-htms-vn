@@ -159,7 +159,35 @@ router.get('/:store_id', async function(req, res, next) {
 	//res.send({ "error" : "42.router_app->category_general_speciality->get", "message": category_general_list } ); 
 	//return;	
 
-
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
+	var store_name;
+	try {
+		store_name = await ojs_shares.get_data_send_token_get(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/' + store_id , token
+		);	
+		
+		if(store_name.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "41.router_stores(app)->show-all->store_name", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_storess(app)->name", "message": error_send } ); 
+		return;			
+	}	
+			
+	
+	
 	//
 	//send web
 	//@sidebar_type -- loại sibar 
@@ -180,7 +208,8 @@ router.get('/:store_id', async function(req, res, next) {
 			'users_full_name' : users_full_name,
 			'datas_category_general' : category_general_list.datas,
 			"js_css_version" : check_datas_result.js_css_version,
-			"service_type_name" : service_type_name
+			"service_type_name" : service_type_name,
+			'store_name' : store_name.datas[0].stores_name
 		}
 		//res.send(data_send);
 		res.render( check_datas_result.view_version + '/categorys/general/speciality/show-all', data_send );	
@@ -342,6 +371,38 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			res.send({ "error" : "2.5.router_category_speciality(app)->add", "message": error_send } ); 
 			return;	
 	}
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
+	var store_name;
+	try {
+		store_name = await ojs_shares.get_data_send_token_get(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/' + store_id , token
+		);	
+		
+		if(store_name.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "41.router_stores(app)->show-all->store_name", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_storess(app)->name", "message": error_send } ); 
+		return;			
+	}	
+			
+	
+		
+	
 	//
 	//send web
 	//@sidebar_type -- loại sibar 
@@ -361,7 +422,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			'users_full_name' : users_full_name,
 			'datas_category_general' : category_general_list.datas,
 			'js_css_version':check_datas_result.js_css_version,
-			"service_type_name" : service_type_name
+			"service_type_name" : service_type_name,
+			'store_name' : store_name.datas[0].stores_name
 		}
 		//res.send(data_send);
 		//return;
@@ -638,6 +700,42 @@ router.get('/show/:cat_id/:store_id', async function(req, res, next) {
 	//	
 	//res.send(category_datas);
 	
+	
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
+	var store_name;
+	try {
+		store_name = await ojs_shares.get_data_send_token_get(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/' + store_id , token
+		);	
+		
+		if(store_name.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "41.router_stores(app)->show-all->store_name", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_storess(app)->name", "message": error_send } ); 
+		return;			
+	}	
+			
+	
+		
+	
+	
+	
+	
+	
+	
 	//send web
 	//@sidebar_type -- loại sibar 
 	//@'users_type' : loai user
@@ -659,7 +757,8 @@ router.get('/show/:cat_id/:store_id', async function(req, res, next) {
 			'datas_category_general' : category_general_list.datas,
 			'datas' : category_datas.datas,
 			'js_css_version' : check_datas_result.js_css_version,
-			'service_type_name':service_type_name
+			'service_type_name':service_type_name,
+			'store_name' : store_name.datas[0].stores_name
 		}
 		//res.send(data_send);
 		//return;

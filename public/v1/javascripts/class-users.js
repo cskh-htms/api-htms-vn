@@ -67,7 +67,12 @@ $(document).ready(function($){
 						if(result.error.length > 0){
 							ojs_message.message_ok_show(result.message);
 						}else{
-							ojs_message.message_ok_show(" Đã update");
+							let users_password = $('#users_password').val();
+							if(users_password.length > 0){
+								ojs_message.message_ok_show(" Đã update",ojs_loader.host + "/logout");
+							}else{
+								ojs_message.message_ok_show(" Đã update");
+							}
 						}
 					}					  
 					ojs_loadding.ajax_hide_loadding();				  

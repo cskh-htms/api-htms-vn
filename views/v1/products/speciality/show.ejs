@@ -350,6 +350,45 @@ $(document).ready(function($){
 	
 	
 	
+	
+	// ajax luu san pham
+	$(document).on('keyup','#products_speciality_date_start',function(e) {		
+		e.preventDefault();
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
+		if(products_speciality_sale_of_price.length <=0 ){
+			ojs_message.message_ok_show("Vui lòng nhập gía khuyến mãi");
+			$(this).val('');
+		}
+	});//end of save ajax
+
+	// ajax luu san pham
+	$(document).on('keyup','#products_speciality_sale_of_price',function(e) {		
+		e.preventDefault();
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
+		if(products_speciality_sale_of_price.length <=0 ){
+			$('#products_speciality_date_end').val('');
+			$('#products_speciality_date_start').val('');
+		}
+	});//en
+
+
+	// ajax luu san pham
+	$(document).on('keyup','#products_speciality_date_end',function(e) {		
+		e.preventDefault();
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
+		if(products_speciality_sale_of_price.length <=0 ){
+			ojs_message.message_ok_show("Vui lòng nhập gía khuyến mãi");
+			$(this).val('');
+		}
+	});//end of save ajax
+			
+	
+	
+	
+	
+	
+	
+	
 	// ajax luu san pham
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();

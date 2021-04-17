@@ -29,8 +29,13 @@
 				<div class="row-actions">
 					<% //nếu là admin thì hiển thị update
 					if(user_role == "admin" ||  datas[x].brands_stores_id == store_id){ %>
-						<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= store_id %>">Chỉnh sửa</a> | </span>
-						<span class="delete"><a href="#" data_brand_id="<%= datas[x].brands_ID %>" class="submitdelete">Xóa</a></span>
+						<% //neu nếu đã chấp nhận thì ko cho update nua
+						if( datas[x].brands_status_update != "1"){ %>				
+							<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= store_id %>">Chỉnh sửa</a> | </span>
+							<span class="delete"><a href="#" data_brand_id="<%= datas[x].brands_ID %>" class="submitdelete">Xóa</a></span>
+						<% //enf of if
+						}
+						%>	
 					<% //enf of if
 					}
 					%>
