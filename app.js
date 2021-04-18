@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
 
-
+//day la master sua
 
 //router
 app.use('/',ojs_shares.check_meaintenance,  require('./routes/' + app_config.router_version + '/index'));
