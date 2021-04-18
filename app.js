@@ -29,6 +29,10 @@ app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: t
 
 //day la master sua
 
+//day la bao bao bao
+
+
+
 //router
 app.use('/',ojs_shares.check_meaintenance,  require('./routes/' + app_config.router_version + '/index'));
 app.use('/api/v0/', require('./api/v0/routers/routers-index'));
