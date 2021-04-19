@@ -3,6 +3,31 @@
 
 <% if( (typeof users_type == 'string' || typeof users_type == 'number')  && users_type){  } else{ users_type = 0 } %>
 
+
+<% 
+if( (typeof users_type == 'string' 
+|| typeof users_type == 'number')
+&& users_type){ 
+	users_type = users_type;
+} else{ 
+	users_type = 0 
+} 
+%>
+
+<% 
+if( typeof datas_local == 'object' 
+&& datas_local && datas_local.length > 0){ 
+	datas_local = datas_local;
+} else{ 
+	datas_local = [] 
+} 
+%>
+
+
+
+
+
+
 <% 
 if(users_type == "admin"){
 	var status_disebale = "";
@@ -10,6 +35,11 @@ if(users_type == "admin"){
 	var status_disebale = "disabled";
 }
 %>
+
+
+
+
+
 
 <% include ../masterpage/loader %>
 
@@ -36,9 +66,62 @@ content
 	<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
 	
 	<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
-	<p><span>Tỉnh thành</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_province) %>" id="stores_province"/></p>
-	<p><span>Quận huyện</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_district) %>" id="stores_district"/></p>
-	<p><span>Phường xã</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_wards) %>" id="stores_wards"/></p>	
+	
+	
+	
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Tỉnh thành</p>
+	<select id="select_stores_province">
+		<option value="0"></option>
+	</select>
+	<p style="display:none"><span>Tỉnh thành</span>
+		<input type="text" class= "" 
+		value="<%- ojs_share.unCape(datas[0].stores_province) %>" 
+		id="stores_province" 
+		data_value="<%- ojs_share.unCape(datas[0].stores_province) %>"
+		/>
+	</p>
+	</div>
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Tỉnh thành</p>
+	<select id="select_stores_district">
+		<option value="0"></option>
+	</select>	
+	<p style="display:none"><span>Quận huyện</span>
+		<input type="text" 
+		class= "" 
+		value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
+		data_value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
+		id="stores_district"
+		/>
+	</p>
+	</div>
+	
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Phường xã</p>
+	<select id="select_stores_wards">
+		<option value="0"></option>
+	</select>		
+	<p style="display:none"><span>Phường xã</span>
+		<input type="text" 
+		class= "" 
+		value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
+		data_value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
+		id="stores_wards"
+		/>
+	</p>
+	</div>	
+	
+	
+
+	
+	
 	<p><span>Địa chỉ</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_adress) %>" id="stores_adress"/></p>
 	<p><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
 	<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
@@ -168,9 +251,13 @@ $(document).ready(function($){
 		let stores_local_x = $('#stores_local_x').val();
 		let stores_local_y = $('#stores_local_y').val();
 		
-		let stores_province = $('#stores_province').val();
-		let stores_district = $('#stores_district').val();
-		let stores_wards = $('#stores_wards').val();		
+		
+		
+		let stores_province = $('#stores_province').attr("data_value");
+		let stores_district = $('#stores_district').attr("data_value");
+		let stores_wards = $('#stores_wards').attr("data_value");
+
+		
 		let stores_local_adress = $('#stores_local_adress').val();
 		
 		
@@ -229,6 +316,18 @@ $(document).ready(function($){
 		
 	});//end of save ajax
 	//
+	
+	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
+		//console.log(datas);
+		let tinh_thanh = ojs_loader.get_tinh_thanh(datas);
+		$('#select_stores_province').html(tinh_thanh);
+		ojs_loader.tinh_thanh_datas = datas;
+		console.log(ojs_loader.tinh_thanh_datas);
+	});	
+	
+	
+	
+	
 	//
 ///////////////////////////////////////////////////////
 });//end of document
