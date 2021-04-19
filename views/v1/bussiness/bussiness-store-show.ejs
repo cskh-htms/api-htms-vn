@@ -74,7 +74,7 @@ content
 	<div class="select-box-tinh-thanh">
 	<p>Tỉnh thành</p>
 	<select id="select_stores_province">
-		<option value="0"></option>
+		<%- ojs_share.show_local_province(datas_local,datas[0].stores_province) %>
 	</select>
 	<p style="display:none"><span>Tỉnh thành</span>
 		<input type="text" class= "" 
@@ -89,7 +89,7 @@ content
 	<div class="select-box-tinh-thanh">
 	<p>Tỉnh thành</p>
 	<select id="select_stores_district">
-		<option value="0"></option>
+		<%- ojs_share.show_local_district(datas_local,datas[0].stores_district) %>
 	</select>	
 	<p style="display:none"><span>Quận huyện</span>
 		<input type="text" 
@@ -320,7 +320,6 @@ $(document).ready(function($){
 	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
 		//console.log(datas);
 		let tinh_thanh = ojs_loader.get_tinh_thanh(datas);
-		$('#select_stores_province').html(tinh_thanh);
 		ojs_loader.tinh_thanh_datas = datas;
 		console.log(ojs_loader.tinh_thanh_datas);
 	});	

@@ -526,7 +526,62 @@ ojs_share = {
 			ntext = ntext + n_split[i];
 		}
 		return parseInt(ntext);
-	}
+	},
+	
+	//@
+	//@ show local province
+	show_local_province: function(datas,taget){
+		//@
+		//@
+		let data_return = "";
+		//@
+		
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			if(datas[i].Name == taget){
+				txt_for = txt_for + '<option selected  value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
+			}else{
+				txt_for = txt_for + '<option value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
+			}
+			
+		}
+		data_return = data_return + txt_for;		
+		
+		//@
+		//@	
+		return data_return;	
+	},
+	//@	
+	//@
+	//@ show local
+	show_local_district: function(datas,taget){
+		//@
+		//@
+		let data_return = "";
+		//return '<option value="asdasd">dasdas</option>';
+		//@
+		
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			/*
+			for(let ii = 0; ii < datas[i].length ; ii ++ ){
+				if(datas[i]Districts[ii].Name == taget){
+					txt_for = txt_for + '<option selected  value="' +  datas[i]Districts[ii].Name + '">' + datas[i]Districts[ii].Name + '</option>';
+				}else{
+					txt_for = txt_for + '<option value="' +  datas[i]Districts[ii].Name + '">' + datas[i]Districts[ii].Name + '</option>';
+				}
+			}
+			*/
+		}
+		data_return = data_return + txt_for;		
+		
+		//@
+		//@	
+		return data_return;	
+	},
+	//@		
 }
 %>
 
