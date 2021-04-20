@@ -442,11 +442,25 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 //
 //
 router.get('/show/:brand_id/:store_id', async function(req, res, next) {
+	
+	
+	
 	//
 	let token = req.session.token;	
 	let brand_id = req.params.brand_id;
 	let store_id = req.params.store_id;
 	//
+	
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}	
+	
+	
+	
 	//@@
 	//@@lấy version
 	let datas_check = {
@@ -716,12 +730,6 @@ router.post('/save', async function(req, res, next) {
 	let datas  = req.body;
 	//res.send(datas);
 	//@
-	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
 	//
 	//@@
 	//@@
@@ -812,6 +820,9 @@ router.get('/delete/:brand_id', async function(req, res, next) {
 	let brand_id = req.params.brand_id;
 	
 	//
+	
+	//@
+	//@
 	//@@
 	//@@lấy version
 	let datas_check = {

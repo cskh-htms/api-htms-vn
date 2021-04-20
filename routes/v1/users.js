@@ -367,7 +367,6 @@ router.get('/show/:user_id', async function(req, res, next) {
 		//@
 		data_send = {
 			'title' : 'Chỉnh sửa tài khoản',
-			'sidebar_type' : 1,
 			'users_type' : users_type,
 			'user_role':users_type,
 			'user_id' : user_id,

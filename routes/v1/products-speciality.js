@@ -937,6 +937,15 @@ router.get('/show/:product_id/:store_id/', async function(req, res, next) {
 	let token = req.session.token;
 	//
 	//@@
+	
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//	
+	
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,

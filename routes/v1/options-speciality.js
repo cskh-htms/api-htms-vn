@@ -444,7 +444,11 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 	let token = req.session.token;	
 	let option_id = req.params.option_id;
 	let store_id = req.params.store_id;
-	
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login")
+	}	
 	//
 	//@@
 	//@@lấy version
@@ -753,12 +757,7 @@ router.post('/save', async function(req, res, next) {
 	let datas  = req.body;
 	//res.send(datas);
 	//@
-	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
+
 	//
 	//@@
 	//@@

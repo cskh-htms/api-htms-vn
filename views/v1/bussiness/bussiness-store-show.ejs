@@ -70,9 +70,9 @@ content
 	
 	
 	
-	
+	<br>
 	<div class="select-box-tinh-thanh">
-	<p>Tỉnh thành</p>
+	<span>Tỉnh thành</span>
 	<select id="select_stores_province">
 		<%- ojs_share.show_local_province(datas_local,datas[0].stores_province) %>
 	</select>
@@ -85,11 +85,11 @@ content
 	</p>
 	</div>
 	
-	
+	<br>
 	<div class="select-box-tinh-thanh">
-	<p>Tỉnh thành</p>
+	<span>Quận huyện</span>
 	<select id="select_stores_district">
-		<%- ojs_share.show_local_district(datas_local,datas[0].stores_district) %>
+		<%- ojs_share.show_local_district(datas_local,datas[0].stores_province,datas[0].stores_district) %>
 	</select>	
 	<p style="display:none"><span>Quận huyện</span>
 		<input type="text" 
@@ -102,11 +102,11 @@ content
 	</div>
 	
 	
-	
+	<br>
 	<div class="select-box-tinh-thanh">
-	<p>Phường xã</p>
+	<span>Phường xã</span>
 	<select id="select_stores_wards">
-		<option value="0"></option>
+		<%- ojs_share.show_local_wards(datas_local,datas[0].stores_district,datas[0].stores_wards) %>
 	</select>		
 	<p style="display:none"><span>Phường xã</span>
 		<input type="text" 
@@ -325,7 +325,51 @@ $(document).ready(function($){
 	});	
 	
 	
+
 	
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_province',function(e) {		
+		e.preventDefault();
+		
+
+		//@		
+		let taget = $(this).val();
+		let quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
+		
+		$('#select_stores_district').html(quan_huyen);
+		$('#select_stores_wards').html('<option value="0"></option>');
+		
+		//@
+		//@		
+		ojs_loader.set_value_local();
+		//return;	
+	});//end of
+	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_district',function(e) {		
+		e.preventDefault();
+		
+		let taget = $(this).val();
+		let phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
+		
+		$('#select_stores_wards').html(phuong_xa);
+		
+		//@
+		//@		
+		ojs_loader.set_value_local();		
+		//return;	
+	});//end of	
+	
+	
+	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_wards',function(e) {		
+		e.preventDefault();
+		//@
+		//@		
+		ojs_loader.set_value_local();		
+		//return;	
+	});//end of			
 	
 	//
 ///////////////////////////////////////////////////////

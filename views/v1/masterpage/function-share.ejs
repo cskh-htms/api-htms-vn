@@ -104,6 +104,7 @@ ojs_share = {
 		let arr = [
 			['<option value="0"',' >chờ phê duyệt</option>'],
 			['<option value="1"',' >Đã phê duyệt</option>'],
+			['<option value="2"',' >Chỉnh sữa chờ phê duyệt</option>'],
 			['<option value="3"',' >Từ chối</option>']
 			
 		]
@@ -555,28 +556,66 @@ ojs_share = {
 	//@	
 	//@
 	//@ show local
-	show_local_district: function(datas,taget){
+	show_local_district: function(datas,parent_taget,taget){
 		//@
 		//@
 		let data_return = "";
 		//return '<option value="asdasd">dasdas</option>';
 		//@
-		
 		let i;
 		let txt_for = '<option value="0"></option>';
 		for(i = 0; i < datas.length ; i ++ ){
-			/*
-			for(let ii = 0; ii < datas[i].length ; ii ++ ){
-				if(datas[i]Districts[ii].Name == taget){
-					txt_for = txt_for + '<option selected  value="' +  datas[i]Districts[ii].Name + '">' + datas[i]Districts[ii].Name + '</option>';
-				}else{
-					txt_for = txt_for + '<option value="' +  datas[i]Districts[ii].Name + '">' + datas[i]Districts[ii].Name + '</option>';
+			//@
+			//perent taget
+			if(datas[i].Name == parent_taget){
+				//@
+				//loop districts
+				for(let ii = 0; ii < datas[i].Districts.length ; ii ++ ){
+					if(datas[i].Districts[ii].Name == taget){
+						txt_for = txt_for + '<option selected  value="' +  datas[i].Districts[ii].Name + '">' + datas[i].Districts[ii].Name + '</option>';
+					}else{
+						txt_for = txt_for + '<option value="' +  datas[i].Districts[ii].Name + '">' + datas[i].Districts[ii].Name + '</option>';
+					}
 				}
-			}
-			*/
+			}//end of parent taget
 		}
 		data_return = data_return + txt_for;		
-		
+		//@
+		//@	
+		return data_return;	
+	},
+	//@	
+	//@
+	//@ show local
+	show_local_wards: function(datas,parent_taget,taget){
+		//@
+		//@
+		let data_return = "";
+		//return '<option value="asdasd">dasdas</option>';
+		//@
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			//@
+			//@
+			for(let ii = 0; ii < datas[i].Districts.length ; ii ++ ){
+				//@
+				//@
+				//parent taget
+				if(datas[i].Districts[ii].Name == parent_taget){
+					for(let iii = 0; iii < datas[i].Districts[ii].Wards.length ; iii ++ ){
+						if(datas[i].Districts[ii].Wards[iii].Name == taget){
+							txt_for = txt_for + '<option selected  value="' +  datas[i].Districts[ii].Wards[iii].Name  + '">' + datas[i].Districts[ii].Wards[iii].Name + '</option>';
+						}else{
+							txt_for = txt_for + '<option value="' +  datas[i].Districts[ii].Wards[iii].Name + '">' + datas[i].Districts[ii].Wards[iii].Name + '</option>';
+						}
+					}	
+				}
+			}
+			//@
+			//@
+		}
+		data_return = data_return + txt_for;		
 		//@
 		//@	
 		return data_return;	

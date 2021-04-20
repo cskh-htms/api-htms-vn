@@ -17,6 +17,22 @@ $(document).ready(function($){
 		
 		//console.log(number_change);
 	});		
+	
+	//tu dong format so khi thay doi text class number_change
+	$('.number_change_empty').on('keyup', function () {
+		var n_value = $(this).val();
+		if(n_value == ""){
+			$(this).val('');
+			$(this).attr("data_value",'');
+			return;
+		}
+		var number_change = ojs_loader.string_to_int(n_value);
+		
+		$(this).attr("data_value",number_change);
+		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
+		
+		//console.log(number_change);
+	});		
 	//tu dong chuyen datapike date text
 	$(function() {
 		$.datepicker.regional['vi'] = {

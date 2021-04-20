@@ -26,12 +26,6 @@ router.post('/ajax-report-order-store/:user_id', async  function(req, res, next)
 	
 	//@
 	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
-	//
 	//@@
 	//@@
 	let datas_check = {
@@ -749,14 +743,6 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 	let user_id = req.params.user_id;
 	let store_id = req.params.store_id;
 	
-	
-	
-	
-
-		
-	
-	
-
 	//
 	//
 	//
@@ -1160,11 +1146,6 @@ router.get('/stores/delete/:store_id', async function(req, res, next) {
 	let store_id = req.params.store_id;
 	//res.send([store_id]);
 	//return;
-	//
-	//res.send( { "error" : "welCom !!!" });
-	
-	//
-	//
 	//
 	//@
 	//@
