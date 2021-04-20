@@ -464,12 +464,8 @@ const get_having = function(condition_arr){
 //@
 //phan tich loi~
 function get_message_error(error){
-	if(error.sqlMessage.search("dala_products_speciality_name_empty") >= 0 ){
+	if(error.sqlMessage.search("products_speciality_name_empty") >= 0 ){
 		return "Tên sản phẩm không được để trống";
-	}else if(error.sqlMessage.search("delete or update") >= 0){
-		return " Sản phẩm đã có danh mục, hoặc options hoặc đơn hàng không thể xoá ";
-	}else if(error.sqlMessage.search("dala_stores_chk_2") || error.sqlMessage.search("dala_stores_phone") >= 0){
-		return "Chưa nhập số Điện thoại hoặc số điện thoại không hợp lệ";
 	}else{
 		return "Lỗi máy chủ vui lòng thao tác lại hoặc liên hệ admin";
 	}

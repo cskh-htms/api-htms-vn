@@ -37,7 +37,7 @@ content
 				<h3>Thuộc tính</h3>
 				<div class="inside">
 					<p><span>Mã sku</span><input type="text" value="" id="products_speciality_sku" /> </p>	
-					<p><span>Tồn kho</span><input type="text" value="" id="products_speciality_stock" /> </p>
+					<p><span>Tồn kho</span><input class="number_change" data_value="" type="text" value="" id="products_speciality_stock" /> </p>
 					<p style="display:none"><span>Loại sản phẩm</span>	
 						<select id="products_speciality_type">
 							<%- ojs_share.show_product_type(0) %>
@@ -49,8 +49,10 @@ content
 			<div class="pro_box gia_box">
 				<h3>Giá sản phẩm</h3>
 				<div class="inside">
-					<p><span>Giá bán</span><input type="text" value="0" id="products_speciality_price" /> </p>
-					<p><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu sản phẩm không có KM</span></span><input type="text" value="" id="products_speciality_sale_of_price" /> </p>
+					<p><span>Giá bán</span><input class="number_change" data_value="0" type="text" value="0" id="products_speciality_price" /> </p>
+					<p><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu sản phẩm không có KM</span></span>
+						<input  class="number_change_empty" data_value="0" type="text" value="" id="products_speciality_sale_of_price" /> 
+					</p>
 					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span><input type="text" value="" id="products_speciality_date_start" /> </p>	
 					<p><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span><input type="text" value="" id="products_speciality_date_end" /> </p>
 				</div>
@@ -59,10 +61,11 @@ content
 			<div class="pro_box quy_cach_box">
 				<h3>Quy cách</h3>
 				<div class="inside">
-					<p><span>Chiều dài(cm)</span><input type="text" value="" id="products_speciality_length" /> </p>
-					<p><span>Chiều rộng(cm)</span><input type="text" value="" id="products_speciality_width" /> </p>
-					<p><span>Chiều cao(cm)</span><input type="text" value="" id="products_speciality_height" /> </p>	
-					<p><span>Cân nặng(g)</span><input type="text" value="500" id="products_speciality_weight" /> </p>
+					<p><span>Chiều dài(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_length" /> </p>
+					<p><span>Chiều rộng(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_width" /> </p>
+					<p><span>Chiều cao(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_height" /> </p>	
+					
+					<p><span>Cân nặng(g)</span><input  class="number_change" data_value="0"  type="text" value="500" id="products_speciality_weight" /> </p>
 					<p style="display:none"><span>Option variation</span><input type="text" value="" id="products_speciality_variation_option" /> </p>
 				</div>
 			</div>
@@ -163,7 +166,7 @@ content
 			<div class="pro_box chiet_khau_box">
 				<h3>Chiết khấu</h3>
 				<div class="inside">
-					<input type="text" value="0" id="products_speciality_discount" />	
+					<input  class="number_change" data_value="0"  type="text" value="0" id="products_speciality_discount" />	
 					<select id="products_speciality_unit_discount">
 						<%- ojs_share.show_unit_discount(0) %>
 					</select>
@@ -237,6 +240,21 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
+
+
+	$( "#products_speciality_date_start" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( "#products_speciality_date_end" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+
 	//
 	//@
 	ojs_loader.loadTinyMCE('noi_dung');
@@ -316,7 +334,7 @@ $(document).ready(function($){
 	//		
 	//	
 	
-	// ajax luu san pham
+	// event keyup ngày
 	$(document).on('keyup','#products_speciality_date_start',function(e) {		
 		e.preventDefault();
 		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
@@ -347,6 +365,40 @@ $(document).ready(function($){
 		}
 	});//end of save ajax
 		
+	
+	
+	
+	
+	
+	// ajax luu san pham
+	$(document).on('change','#products_speciality_date_start',function(e) {		
+		e.preventDefault();
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
+		if(products_speciality_sale_of_price.length <=0 ){
+			ojs_message.message_ok_show("Vui lòng nhập gía khuyến mãi");
+			$(this).val('');
+		}
+	});//end of save ajax
+
+
+	// ajax luu san pham
+	$(document).on('change','#products_speciality_date_end',function(e) {		
+		e.preventDefault();
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
+		if(products_speciality_sale_of_price.length <=0 ){
+			ojs_message.message_ok_show("Vui lòng nhập gía khuyến mãi");
+			$(this).val('');
+		}
+	});//end of save ajax
+			
+	
+			
+	
+	
+	
+	
+	
+	
 	
 	// ajax luu san pham
 	$(document).on('click','#btn_save',function(e) {		
@@ -407,11 +459,21 @@ $(document).ready(function($){
 		
 		
 		
-		let products_speciality_price = $('#products_speciality_price').val();
-		let products_speciality_sale_of_price = $('#products_speciality_sale_of_price').val();
-		let products_speciality_date_start = $('#products_speciality_date_start').val() ;
-		let products_speciality_date_end = $('#products_speciality_date_end').val() ;
-		let products_speciality_stock = $('#products_speciality_stock').val() ;
+		let products_speciality_price = $('#products_speciality_price').attr("data_value")
+		let products_speciality_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value")
+		
+		
+		
+		let date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
+		let products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
+		
+		let date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
+		let products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		
+		
+		
+		
+		let products_speciality_stock = $('#products_speciality_stock').attr("data_value")
 		
 		let products_speciality_brand = $('#products_speciality_brand  option:selected').val();		
 		let products_speciality_status_store = $('#products_speciality_status_store  option:selected').val();
@@ -419,12 +481,12 @@ $(document).ready(function($){
 		let products_speciality_variation_option = $('#products_speciality_variation_option').val() ;
 		
 		
-		let products_speciality_height = $('#products_speciality_height').val();
-		let products_speciality_width = $('#products_speciality_width').val();
-		let products_speciality_length = $('#products_speciality_length').val();
-		let products_speciality_weight = $('#products_speciality_weight').val();
+		let products_speciality_height = $('#products_speciality_height').attr("data_value")
+		let products_speciality_width = $('#products_speciality_width').attr("data_value")
+		let products_speciality_length = $('#products_speciality_length').attr("data_value")
+		let products_speciality_weight = $('#products_speciality_weight').attr("data_value")
 		
-		let products_speciality_discount = $('#products_speciality_discount').val();
+		let products_speciality_discount = $('#products_speciality_discount').attr("data_value")
 		
 		
 		let products_speciality_unit_discount = $('#products_speciality_unit_discount  option:selected').val();
@@ -440,6 +502,10 @@ $(document).ready(function($){
 		if(products_speciality_width == ""){products_speciality_width = null;};
 		if(products_speciality_length == ""){products_speciality_length = null;};
 		if(products_speciality_weight == ""){products_speciality_weight = null;};
+		
+		if(products_speciality_brand == ""){products_speciality_brand = null;};
+		
+		
 		
 		if(products_speciality_sale_of_price == ""){products_speciality_sale_of_price = null;};
 		if(products_speciality_date_start == ""){products_speciality_date_start = null;};

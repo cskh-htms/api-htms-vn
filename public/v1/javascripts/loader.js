@@ -17,6 +17,22 @@ $(document).ready(function($){
 		
 		//console.log(number_change);
 	});		
+	
+	//tu dong format so khi thay doi text class number_change
+	$('.number_change_empty').on('keyup', function () {
+		var n_value = $(this).val();
+		if(n_value == ""){
+			$(this).val('');
+			$(this).attr("data_value",'');
+			return;
+		}
+		var number_change = ojs_loader.string_to_int(n_value);
+		
+		$(this).attr("data_value",number_change);
+		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
+		
+		//console.log(number_change);
+	});		
 	//tu dong chuyen datapike date text
 	$(function() {
 		$.datepicker.regional['vi'] = {
@@ -43,9 +59,11 @@ $(document).ready(function($){
 
 	
 	ojs_loader = {	
-		//
-		//
-		//
+
+		//@
+		//@
+		//@
+		tinh_thanh_datas:[],
 		//Khai báo hosting global
 		//khi đổi tên miền có thể thay đổi biến này
 		//biến này là global
@@ -681,14 +699,94 @@ $(document).ready(function($){
 			ntext = ntext + n_split[i];
 		}
 		return parseInt(ntext);
-	}	
+	},	
+	//@
+	//@
+	//@
+	//lấy danh sách tỉnh thành
+	get_tinh_thanh:function(datas){
+		let data_return = "";
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			txt_for = txt_for + '<option value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
+		}
+		data_return = data_return + txt_for;
+		return data_return;
+	},	
+	//@
+	//@
+	//@
+	//lấy danh sách quận huyện
+	get_quan_huyen:function(datas,taget){
+		let data_return = "";
 		
+		let i;
+		let txt_for = '<option value="0"></option>';
 		
+		//@
+		//@
+		for(i = 0; i < datas.length ; i ++ ){
+			
+			if(datas[i].Name == taget){
+				for(let t = 0; t < datas[i].Districts.length ; t ++ ){
+					txt_for = txt_for + '<option value="' +  datas[i].Districts[t].Name + '">' + datas[i].Districts[t].Name + '</option>';
+				}
+			}
+			
+		}
 		
-		
+		//@
+		//@
+		data_return = data_return + txt_for;
+		return data_return;
+	},	
 
+	//@
+	//@
+	//@
+	//lấy danh sách quận huyện
+	get_phuong_xa:function(datas,taget){
+		let data_return = "";
+		
+		//return data_return;
 		
 		
+		let i;
+		let txt_for = '<option value="0"></option>';
+		
+		//@
+		//@
+		for(i = 0; i < datas.length ; i ++ ){
+			for(let ii = 0; ii < datas[i].Districts.length ; ii ++ ){
+				if(datas[i].Districts[ii].Name == taget){
+					for(let t = 0; t < datas[i].Districts[ii].Wards.length ; t ++ ){
+						txt_for = txt_for + '<option value="' +  datas[i].Districts[ii].Wards[t].Name + '">' + datas[i].Districts[ii].Wards[t].Name + '</option>';
+					}
+				}
+			}
+		}
+		
+		//@
+		//@
+		data_return = data_return + txt_for;
+		return data_return;
+	},			
+	//@
+	//@
+	//@
+	//set value districts
+	set_value_local:function(){
+		let province  = $('#select_stores_province   option:selected').val();
+		let districts = $('#select_stores_district  option:selected').val();
+		let wards = $('#select_stores_wards  option:selected').val();
+		
+		
+		$('#stores_province').attr("data_value",province);
+		$('#stores_district').attr("data_value",districts);
+		$('#stores_wards').attr("data_value",wards);
+		
+	}
 		
 	///////////////////////////
 	//////////////////////////////

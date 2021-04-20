@@ -26,12 +26,6 @@ router.post('/ajax-report-order-store/:user_id', async  function(req, res, next)
 	
 	//@
 	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
-	//
 	//@@
 	//@@
 	let datas_check = {
@@ -537,6 +531,13 @@ router.get('/stores/show-all/:user_id', async  function(req, res, next) {
 		return;			
 	}	
 	
+	
+	
+
+	
+
+	
+	
 	//@
 	try {
 		let users_full_name = ojs_shares.get_users_full_name(token);
@@ -742,7 +743,6 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 	let user_id = req.params.user_id;
 	let store_id = req.params.store_id;
 	
-
 	//
 	//
 	//
@@ -860,6 +860,13 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 	//
 	
 	
+	
+	//@
+	//@
+	//@get json local 
+	let local_json = await ojs_shares.get_data_no_token_get(ojs_configs.domain + '/uploads/files/local.json'); 
+	
+	
 	//@
 	try {
 		let users_full_name = ojs_shares.get_users_full_name(token);
@@ -872,7 +879,8 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 			"datas" : stores_tager.datas,
 			"service_type_list" : service_type_list.datas,
 			'store_id' : store_id,
-			'js_css_version' : check_datas_result.js_css_version
+			'js_css_version' : check_datas_result.js_css_version,
+			'datas_local': local_json
 		}
 		//res.send(data_send);
 		//return;
@@ -1138,11 +1146,6 @@ router.get('/stores/delete/:store_id', async function(req, res, next) {
 	let store_id = req.params.store_id;
 	//res.send([store_id]);
 	//return;
-	//
-	//res.send( { "error" : "welCom !!!" });
-	
-	//
-	//
 	//
 	//@
 	//@

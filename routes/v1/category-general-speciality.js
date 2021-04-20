@@ -453,13 +453,7 @@ router.post('/save', async function(req, res, next) {
 	let datas  = req.body;
 	//res.send(datas);
 	//@
-	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
-	//
+
 	//@@
 	//@@
 	let datas_check = {
@@ -554,6 +548,15 @@ router.get('/show/:cat_id/:store_id', async function(req, res, next) {
 	let store_id = req.params.store_id;
 	//
 	//@@
+	
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}	
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -797,7 +800,8 @@ router.post('/update/:cat_id', async function(req, res, next) {
 	let cat_id = req.params.cat_id;
 	let datas  = req.body;
 	//
-	//@@
+
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -899,6 +903,8 @@ router.get('/delete/:cat_id', async function(req, res, next) {
 	let cat_id = req.params.cat_id;
 	//
 	//@@
+	//@
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,

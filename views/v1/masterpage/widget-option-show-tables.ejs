@@ -32,7 +32,7 @@
 						<% //nếu là admin thì hiển thị update
 						if(user_role == "admin" ||  options_list[x].options_product_speciality_stores_id == store_id  ){ %>
 							<% //neu nếu đã chấp nhận thì ko cho update nua
-							if( options_list[x].options_product_speciality_status_update != "1"){ %>
+							if( options_list[x].options_product_speciality_status_update != "1"   || user_role == "admin"){ %>
 								<span class="edit">
 									<a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= store_id %>">
 										Chỉnh sửa</a> | 
@@ -79,7 +79,7 @@
 							if(user_role == "admin" || options_list[y].options_product_speciality_stores_id == store_id){ %>
 							
 								<% //neu nếu đã chấp nhận thì ko cho update nua
-								if( options_list[y].options_product_speciality_status_update != "1"){ %>
+								if( options_list[y].options_product_speciality_status_update != "1"   || user_role == "admin"){ %>
 									<span class="edit"><a href="/options/speciality/show/<%= options_list[y].options_product_speciality_ID %>/<%= store_id %>"">Chỉnh sửa</a> | </span>
 									<span class="delete"><a  data_option_id="<%= options_list[y].options_product_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
 								<% //enf of if

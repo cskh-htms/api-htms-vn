@@ -26,9 +26,36 @@ content
 
 	<p><span>Tên cửa hàng</span><input type="text" class= "" value="" id="stores_name"/></p>
 	<p><span>Số điện thoại</span><input type="text" class= "" value="" id="stores_phone"/></p>
-	<p><span>Tỉnh thành</span><input type="text" class= "" value="" id="stores_province"/></p>
-	<p><span>Quận huyện</span><input type="text" class= "" value="" id="stores_district"/></p>
-	<p><span>Phường xã</span><input type="text" class= "" value="" id="stores_wards"/></p>
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Tỉnh thành</p>
+	<select id="select_stores_province">
+		<option value="0"></option>
+	</select>
+	<p style="display:none"><span>Tỉnh thành</span><input type="text" class= "" value="" id="stores_province"/></p>
+	</div>
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Tỉnh thành</p>
+	<select id="select_stores_district">
+		<option value="0"></option>
+	</select>	
+	<p style="display:none"><span>Quận huyện</span><input type="text" class= "" value="" id="stores_district"/></p>
+	</div>
+	
+	
+	
+	<div class="select-box-tinh-thanh">
+	<p>Phường xã</p>
+	<select id="select_stores_wards">
+		<option value="0"></option>
+	</select>		
+	<p style="display:none"><span>Phường xã</span><input type="text" class= "" value="" id="stores_wards"/></p>
+	</div>
+	
+	
 	<p><span>Số nhà, tên đường</span><input type="text" class= "" value="" id="stores_adress"/></p>
 	<p><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
 	<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
@@ -76,6 +103,8 @@ content
 	</select>
 	<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
 	</p>
+	
+	
 	
 
 	<p>
@@ -161,9 +190,9 @@ $(document).ready(function($){
 		let stores_payment_limit = $('#stores_payment_limit').attr("data_value");		
 		
 		
-		let stores_province = $('#stores_province').val();
-		let stores_district = $('#stores_district').val();
-		let stores_wards = $('#stores_wards').val();
+		let stores_province = $('#stores_province').attr("data_value");
+		let stores_district = $('#stores_district').attr("data_value");
+		let stores_wards = $('#stores_wards').attr("data_value");
 		let stores_adress = $('#stores_adress').val();
 		
 		
@@ -213,8 +242,66 @@ $(document).ready(function($){
 		
 		ojs_bussiness.ajax_save(datas);	
 		
+		
+		
+		
+		
 	});//end of save ajax
+	
+	
+	
+	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
+		//console.log(datas);
+		let tinh_thanh = ojs_loader.get_tinh_thanh(datas);
+		$('#select_stores_province').html(tinh_thanh);
+		ojs_loader.tinh_thanh_datas = datas;
+		console.log(ojs_loader.tinh_thanh_datas);
+	});
+	
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_province',function(e) {		
+		e.preventDefault();
+		
+
+		//@		
+		let taget = $(this).val();
+		let quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
+		
+		$('#select_stores_district').html(quan_huyen);
+		$('#select_stores_wards').html('<option value="0"></option>');
+		
+		//@
+		//@		
+		ojs_loader.set_value_local();
+		//return;	
+	});//end of
 	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_district',function(e) {		
+		e.preventDefault();
+		
+		let taget = $(this).val();
+		let phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
+		
+		$('#select_stores_wards').html(phuong_xa);
+		
+		//@
+		//@		
+		ojs_loader.set_value_local();		
+		//return;	
+	});//end of	
+	
+	
+	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_wards',function(e) {		
+		e.preventDefault();
+		//@
+		//@		
+		ojs_loader.set_value_local();		
+		//return;	
+	});//end of		
+	
 	//
 ///////////////////////////////////////////////////////
 });//end of document
