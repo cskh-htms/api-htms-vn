@@ -64,7 +64,9 @@ const ojs_datas_category = {
 				"category_general_speciality_stores_status",
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
-				"category_general_speciality_update_status"
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
 				],
 				"condition" :
 				[
@@ -109,7 +111,9 @@ const ojs_datas_category = {
 				"category_general_speciality_stores_status",
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
-				"category_general_speciality_update_status"
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"				
 				],
 				"condition" :
 				[
@@ -152,7 +156,8 @@ const ojs_datas_category = {
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
 				"category_general_speciality_update_status",
-				"users_ID"
+				"users_ID",
+				"stores_ID"
 				],
 				"condition" :
 				[
@@ -194,7 +199,8 @@ const ojs_datas_category = {
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
 				"category_general_speciality_update_status",
-				"users_ID"
+				"users_ID",
+				"stores_ID"
 				]
 			}
 		}	
@@ -246,7 +252,8 @@ const ojs_datas_category = {
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
 				"category_general_speciality_update_status",
-				"users_ID"
+				"users_ID",
+				"stores_ID"
 				],
 				"condition" :
 				[
@@ -317,7 +324,8 @@ const ojs_datas_category = {
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
 				"category_general_speciality_update_status",
-				"users_ID"
+				"users_ID",
+				"stores_ID"
 				],
 				"condition" :
 				[

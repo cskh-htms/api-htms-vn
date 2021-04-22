@@ -179,7 +179,7 @@ router.get('/:user_id', async  function(req, res, next) {
 	try {
 		options_list = await ojs_shares.get_data_send_token_post(
 			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/options/speciality/search', 
-			ojs_datas_option.get_data_option_list_bussiness_news(), 
+			ojs_datas_option.get_data_option_list_bussiness_news(user_id), 
 			token
 		);	
 		
@@ -1924,23 +1924,57 @@ router.get('/options/:user_id', async  function(req, res, next) {
 	}
 	
 
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.owner != "1" && check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
-		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "3.options->check_datas_result", "message": error_send } ); 
-		return;			
-	}
-	
 	//=======================
 	//=======================
 	//=====/header check ====
 	//@
 	
+	
+	
+	
+	let options_list_datas;
+	//@
+	//@
+	//neu admin thi lay datas kieu admin ko thì lấy datas kiểu bussiness
+	//admin thì status = 0, show = 0, status store = 1	
+	if(check_datas_result.user_role == "admin"){
+		options_list_datas = ojs_datas_option.get_data_option_list_admin();
+	}else{
+		options_list_datas = ojs_datas_option.get_data_option_list_bussiness();
+	}	
+	
+	
+	//
+	//Lấy danh sách các options
+	var options_list;
+	try {
+
+		
+		options_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/options/speciality/search', 
+			options_list_datas, 
+			token
+		);	
+		
+		if(options_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,options_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "33.router_options_speciality(app)->get", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "34.router_options_speciality(app)->get", "message": error_send } ); 
+			return;		
+	}
+	//
+	//@
+	//@
 	//@
 	//
 	//send web
@@ -1949,9 +1983,11 @@ router.get('/options/:user_id', async  function(req, res, next) {
 		data_send = {
 			'title' : 'Quản lý option',
 			'users_type' : check_datas_result.user_role,
+			'user_role':check_datas_result.user_role,
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
-			'js_css_version' : check_datas_result.js_css_version
+			'js_css_version' : check_datas_result.js_css_version,
+			'options_list' : options_list.datas
 		}
 		//res.send(data_send);
 		//return;
