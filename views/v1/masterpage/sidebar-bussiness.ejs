@@ -1,6 +1,28 @@
 <% 
 if( ( typeof user_id == 'number' || typeof user_id == 'string') && user_id){ user_id = user_id } else{ user_id = 0 } 
+
 %>
+
+
+<% if( typeof store_list == 'object' 
+&& store_list && store_list.length > 0){
+	store_list = store_list;
+} else{ 
+	store_list=[] ;
+} %>
+
+<%
+//order check
+if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) { 
+	news_sum = '<span class="red">' + news_sum + '</span>';
+} else{ 
+	news_sum = "";
+}
+
+%>
+
+
+
 
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
@@ -27,40 +49,28 @@ if( ( typeof user_id == 'number' || typeof user_id == 'string') && user_id){ use
 		
 		<!-- 
 		//bussiness
-		-->	
-		<li>
-			<a href="/bussiness/<%= user_id %>">
-				<i class="fas fa-user"></i>
-				<div class="menu-name">Quản lý doanh nghiệp</div>
-			</a>
-		</li>	
-		
-		<!-- 
-		//danh sách cửa hàng
-		
-		<li>
-			<i class="fas fa-store"></i>
-			<div class="menu-name">Cửa hàng</div>
-			<ul>
-				<li><a href="/bussiness/stores/show-all/<%= user_id %>">Danh sách cửa hàng</a></li>
-				<li><a href="/bussiness/stores/add/<%= user_id %>">Tạo cửa hàng</a></li>
-			</ul>
-		</li>
-		
-		<!--
-		//Sử lý
-		-->
+		-->			
 		<li>
 			<i class="fas fa-clipboard-list"></i>
-			<div class="menu-name">Sử lý</div>
+			<div class="menu-name">Quản lý doanh nghiệp</div>
 			<ul>
-				<li><a href="#">sản phẩm</a></li>
-				<li><a href="#">danh mục</a></li>
-				<li><a href="#">option</a></li>
-				<li><a href="#">brand</a></li>				
+				<li><a href="/bussiness/<%= user_id %>">Tổng quan<%- news_sum %></a></li>
+				<li><a href="/bussiness/stores/add/<%= user_id %>">Tạo cửa hàng</a></li>
+				<% 
+				if(store_list.length > 0){
+				for( var  x in store_list ) { 
+				%>
+					<li><a href="/stores/manage/<%= store_list[x].stores_ID %>/<%= store_list[x].stores_user_id %>"><%- ojs_share.unCape(store_list[x].stores_name) %></a></li>
+				<%
+				} 
+				}
+				%>
 			</ul>
-		</li>	
-
+		</li>		
+		
+		
+		
+		
 		<!--
 		//orders
 		-->

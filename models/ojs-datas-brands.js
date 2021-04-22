@@ -174,6 +174,30 @@ const ojs_datas_brands = {
 	//@@
 	//@@
 	//data cho  option list data amin
+	get_data_brands_list_bussiness_news : function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"brands_ID",
+				"brands_name",
+				"brands_status_stores",
+				"brands_status_admin",
+				"brands_stores_id",
+				"brands_status_update"
+				]
+			}
+		}	
+		return datas_return;
+	},
+	//@
+	//@@
+	//@@
+	//@@
+	//@@
+	//data cho  option list data amin
 	get_data_brands_list_add_product : function(){
 		
 		let datas_return = 	

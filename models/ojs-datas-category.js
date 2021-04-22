@@ -64,7 +64,9 @@ const ojs_datas_category = {
 				"category_general_speciality_stores_status",
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
-				"category_general_speciality_update_status"
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
 				],
 				"condition" :
 				[
@@ -109,7 +111,9 @@ const ojs_datas_category = {
 				"category_general_speciality_stores_status",
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
-				"category_general_speciality_update_status"
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"				
 				],
 				"condition" :
 				[
@@ -134,6 +138,44 @@ const ojs_datas_category = {
 	},
 	//
 	//@@
+	//
+	//
+	//get data choa show all
+	get_data_category_list_bussiness_news: function(user_id){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[ 
+				"category_general_speciality_ID",
+				"category_general_speciality_name",
+				"category_general_speciality_category_parent_id",
+				"category_general_speciality_stores_id",
+				"category_general_speciality_stores_status",
+				"category_general_speciality_show",
+				"category_general_speciality_admin_status",
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{    "field"    :"users_ID",
+							"value"     : user_id,
+							"compare" 	: "="
+						}						
+						]    
+					}     
+				]
+			}
+		}	
+		return datas_return;
+	},	//@@
 	//@@		
 	//@@
 	//@@		
@@ -156,20 +198,9 @@ const ojs_datas_category = {
 				"category_general_speciality_stores_status",
 				"category_general_speciality_show",
 				"category_general_speciality_admin_status",
-				"category_general_speciality_update_status"
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[
-						{   "field"    :"category_general_speciality_stores_status",
-							"value"     : [0,1],
-							"compare" 	: "in"
-						}					
-						]    
-					}     
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
 				]
 			}
 		}	
@@ -177,6 +208,137 @@ const ojs_datas_category = {
 	},
 	//@@		
 	//@@
+	//
+	
+	
+	//get_data_category_list_admin
+	
+	
+	//
+	//get data choa show all
+	get_data_category_list_admin_ajax: function(datas){
+		
+		
+		let condition_where = [];
+		//@
+		//@add status_admin_where
+		if(datas.status_admin){
+			let status_admin_where = {
+				"field"     :"category_general_speciality_admin_status",
+				"value"     : datas.status_admin,
+				"compare" : "in"
+			}
+			condition_where.push(status_admin_where);
+		}			
+				
+		let status_store_where = {
+			"field"     :"category_general_speciality_stores_status",
+			"value"     : "1",
+			"compare" : "="
+		}
+		condition_where.push(status_store_where);		
+		//@
+		//@
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[ 
+				"category_general_speciality_ID",
+				"category_general_speciality_name",
+				"category_general_speciality_category_parent_id",
+				"category_general_speciality_stores_id",
+				"category_general_speciality_stores_status",
+				"category_general_speciality_show",
+				"category_general_speciality_admin_status",
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[
+					{    
+						"relation": "and",
+						"where" :condition_where   
+					}
+				]				
+			}
+		}	
+		return datas_return;
+	},
+	//@@	
+	//@@
+	//	
+	
+	
+	
+	//
+	//get data choa show all
+	get_data_category_list_bussiness_ajax: function(datas){
+		
+		
+		let condition_where = [];
+		//@
+		//@add user_where
+		if(datas.user_id){
+			let user_where = {
+				"field"     :"users_ID",
+				"value"     : datas.user_id,
+				"compare" : "="
+			}
+			condition_where.push(user_where);
+		}
+		//@
+		//@add store_where
+		if(datas.store_id){
+			let store_where = {
+				"field"     :"category_general_speciality_stores_id ",
+				"value"     : datas.store_id,
+				"compare" : "="
+			}
+			condition_where.push(store_where);
+		}		
+		//@
+		//@add status_admin_where
+		if(datas.status_admin){
+			let status_admin_where = {
+				"field"     :"category_general_speciality_admin_status",
+				"value"     : datas.status_admin,
+				"compare" : "in"
+			}
+			condition_where.push(status_admin_where);
+		}			
+				
+		
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[ 
+				"category_general_speciality_ID",
+				"category_general_speciality_name",
+				"category_general_speciality_category_parent_id",
+				"category_general_speciality_stores_id",
+				"category_general_speciality_stores_status",
+				"category_general_speciality_show",
+				"category_general_speciality_admin_status",
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[
+					{    
+						"relation": "and",
+						"where" :condition_where   
+					}
+				]				
+			}
+		}	
+		return datas_return;
+	},
+	//@@	
 	//@@
 	//
 	//

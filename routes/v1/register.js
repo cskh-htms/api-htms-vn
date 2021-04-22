@@ -53,6 +53,7 @@ router.get('/', async function(req, res, next) {
 			'js_css_version' : js_css_version
 		}
 		//res.send(data_send);
+		//return;
 		res.render(view_version +  '/users/register', data_send );	
 	}
 	catch(error){
