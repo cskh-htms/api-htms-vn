@@ -138,6 +138,28 @@ const ojs_datas_option = {
 	},
 	//@@
 	//@@
+	//@@
+	//data cho  option list data bussiness news
+	get_data_option_list_bussiness_news : function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"options_product_speciality_parent_id",
+				"options_product_speciality_name",
+				"options_product_speciality_ID",
+				"options_product_speciality_stores_id",
+				"options_product_speciality_status_admin",
+				"options_product_speciality_status_stores",
+				"options_product_speciality_status_update"
+				]
+			}
+		}	
+		return datas_return;
+	},
+	//@@
 	//data cho  option list data amin
 	get_data_option_list_bussiness : function(){
 		

@@ -6,7 +6,14 @@ const ojs_configs = require('../../configs/config');
 const ojs_shares = require('../../models/ojs-shares');
 
 
+const ojs_datas_bussiness = require('../../models/ojs-datas-bussiness.js');
+const ojs_datas_orders = require('../../models/ojs-datas-orders.js');
 const ojs_datas_stores = require('../../models/ojs-datas-stores.js');
+const ojs_datas_products = require('../../models/ojs-datas-products.js');
+const ojs_datas_category = require('../../models/ojs-datas-category.js');
+const ojs_datas_option = require('../../models/ojs-datas-option.js');
+const ojs_datas_brands = require('../../models/ojs-datas-brands.js');
+
 
 
 //get
@@ -222,6 +229,153 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	//@	
 	//@	
 	
+	
+
+
+	//
+	//Lấy danh sách products news
+	var product_list;
+	try {
+
+		
+		product_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/products/speciality/search', 
+			ojs_datas_products.get_data_product_list_store_news(store_id), 
+			token
+		);	
+		
+		if(product_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,product_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router_app->bussiness->get", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router_admin(app)->bussiness->get", "message": error_send } ); 
+			return;		
+	}
+	//		
+	
+	//@
+	//@
+	//@
+	//@	tin tức category	
+	var category_general_list;
+	try {
+		category_general_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/categorys/general/speciality/search', 
+				ojs_datas_category.get_data_category_list_bussiness_news(user_id), 
+				token
+			);
+
+		if(category_general_list.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, category_general_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "41.router_admin(app)->bussiness->category_general_list", "message": error_send } ); 
+			return;				
+		}
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "42.router_admin(app)->bussiness->category_general_list", "message": error_send } ); 
+		return;	
+	}
+	
+	//@
+	//@
+
+
+	//@
+	//@
+	//@
+	//@	tin tức options	
+	var options_list;
+	try {
+		options_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/options/speciality/search', 
+			ojs_datas_option.get_data_option_list_bussiness_news(), 
+			token
+		);	
+		
+		if(options_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,options_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "33.router_bussiness(app)->get->options_list", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "34.router_bussiness(app)->get->options_list", "message": error_send } ); 
+			return;		
+	}
+	//
+	//	
+	
+
+
+	//
+	//Lấy danh sách các options
+	var brands_list;
+	try {
+
+		
+		brands_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/brands/search', 
+			ojs_datas_brands.get_data_brands_list_bussiness_news(), 
+			token
+		);	
+		
+		if(brands_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,brands_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router_app->brands->get", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router_admin(app)->brands", "message": error_send } ); 
+			return;		
+	}
+	//	
+	//@
+	//@
+	//@
+	//@end of news
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@lấy id nghành nghề cửa hàng
 	var service_type_id;
 	var service_type_name;
@@ -279,6 +433,29 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		return;			
 	}	
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	//send web
 	//@sidebar_type -- loại sibar 
@@ -295,6 +472,10 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
 			"service_type_name" : service_type_name,
+			'product_list':product_list.datas,
+			'brands_list':brands_list.datas,
+			'category_general_list':category_general_list.datas,
+			'options_list':options_list.datas,
 			'js_css_version' : check_datas_result.js_css_version,
 			'store_name' : store_name.datas[0].stores_name
 		}

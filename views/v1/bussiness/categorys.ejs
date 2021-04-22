@@ -1,0 +1,205 @@
+<%if( typeof title == 'string' && title){ title = title } else{ title="" }%>
+<% if( typeof order_list == 'object' && order_list && order_list.length > 0){ order_list = order_list; } else{ order_list=[] } %>
+<% if( typeof store_list == 'object' && store_list && store_list.length > 0){ datas = store_list;} else{ datas=[] ;} %>
+
+
+
+
+<% include ../masterpage/loader %>
+<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+
+	<div class="store_row">
+		<button id = "all" class="btn_add_store  active" data_btn="all"><a href="#">Tất cả</a></button>
+		<button id = "complate" class="btn_add_store" data_btn="all"><a href="#">Dã phê duyệt</a></button>
+		<button id = "new" class="btn_add_store" data_btn="new"><a href="#">Sản phẩm mới chờ sử lý</a></button>
+		<button id = "update" class="btn_add_store" data_btn="update"><a href="#">sản phẩm chỉnh sữa</a></button>
+		<button id = "not" class="btn_add_store" data_btn="not"><a href="#">Sản phẩm bị từ chối</a></button>
+	</div>		
+	
+	
+	<br>
+	<br>
+	<div id="ajax-wrap">
+	<% include ../masterpage/widget-category-general-show-tables-bussiness %>
+	</div>
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+<script>
+	$(document).ready(function(){
+	//////////////////////////////////////////////
+		
+	//
+	//@
+	//add class active
+	$(document).on('click','.btn_add_store',function(e) {	
+		e.preventDefault();
+		$('.store_row').find('.btn_add_store').removeClass('active');
+		$(this).addClass('active');
+	});//end of function	
+	//@
+	//@	
+	//@
+	//goi ajax
+	$(document).on('click','#all',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let status_admin = [0,1,2,3];
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_category(datas);	
+
+	});//end of function		
+
+	//@
+	//goi ajax
+	$(document).on('click','#complate',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let status_admin = [1]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_category_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#new',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let status_admin = [0]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_category_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#update',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let status_admin = [2]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_category_no(datas);	
+
+	});//end of function
+
+
+	//@
+	//goi ajax
+	$(document).on('click','#not',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let status_admin = [3]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_category_no(datas);	
+
+	});//end of function
+
+
+		
+	/////////////////////////////////////////////////		
+	});
+</script>	
+
+
+
+
