@@ -587,7 +587,7 @@ var delete_orders_spaciality = async function (order_id) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//insert app
 var insert_orders_spaciality_app = async function (datas,data_details) {
 	
 	let sql_text = "";
@@ -609,12 +609,13 @@ var insert_orders_spaciality_app = async function (datas,data_details) {
 	
 	sql_text = "START TRANSACTION ; "
 	sql_text = "INSERT INTO " + ojs_configs.db_prefix + "orders_speciality  SET ? ; ";
-	
+
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
 	
 	//
 	// sql details
 	//
+
 	if(data_details.length > 0){
 		let sql_details_all = "";
 		for(let i = 0; i < data_details.length; i ++){
@@ -647,10 +648,12 @@ var insert_orders_spaciality_app = async function (datas,data_details) {
 	//-----------------------------	
 	
 
-
 	
 	//commit
 	sql_text = sql_text + " COMMIT;"	
+	
+	
+	//return sql_text;
 	
 	try {
 		return new Promise( (resolve,reject) => {

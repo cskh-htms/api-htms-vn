@@ -112,8 +112,9 @@ var search = async function (datas) {
 	try {
 		if(datas.select_field){
 			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
-			//Object.assign(ojs_assign, { 'sql_select_fields' : sql_field });
-		}		
+		}else{
+			sql_field = "";
+		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -125,8 +126,16 @@ var search = async function (datas) {
 			
 		
 	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
-	Object.assign(get_sql_search, { 'sql_select_fields' : sql_field });
-	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);		
+	
+	
+	
+	//@
+	//@
+	let get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//@	
+	
+	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search_1,sql_from_default,sql_link_search);		
 		
 	//return get_sql_search_group;
 	//@

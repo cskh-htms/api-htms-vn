@@ -16,6 +16,7 @@ const ojs_datas_option = require('../../models/ojs-datas-option.js');
 
 const ojs_datas_brands = require('../../models/ojs-datas-brands.js');
 
+const ojs_datas = require('../../models/ojs-datas.js');
 
 
 
@@ -212,7 +213,7 @@ router.get('/:user_id', async  function(req, res, next) {
 		
 		brands_list = await ojs_shares.get_data_send_token_post(
 			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/brands/search', 
-			ojs_datas_brands.get_data_brands_list_bussiness_news(), 
+			ojs_datas_brands.get_data_brands_list_bussiness_news(user_id), 
 			token
 		);	
 		
@@ -2051,7 +2052,7 @@ router.get('/brands/:user_id', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "2.1.controller_bussiness->brands->get/", "message": error_send } ); 
+		res.send({ "error" : "2.1.router->bussiness-barnds/", "message": error_send } ); 
 		return;			
 	}
 	
@@ -2068,30 +2069,47 @@ router.get('/brands/:user_id', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//////evn = "dev";;;
 		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "3.brands->->check_datas_result", "message": error_send } ); 
+		res.send({ "error" : "3.router->bussiness-barnds", "message": error_send } ); 
 		return;			
 	}
 	
 
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.owner != "1" && check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
-		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "3.brands->check_datas_result", "message": error_send } ); 
-		return;			
-	}
-	
 	//=======================
 	//=======================
 	//=====/header check ====
-	//@
-	
-	//@
 	//
+	
+	
+
+	var brands_list;
+	try {
+
+		
+		brands_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/brands/search', 
+			data_brand_list = ojs_datas_brands.get_data_brands_list_bussiness(user_id), 
+			token
+		);	
+		
+		if(brands_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,brands_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->bussiness-barnds", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->bussiness-barnds", "message": error_send } ); 
+			return;		
+	}
+	//		
+	
+	
 	//send web
 	try {	
 		let users_full_name = ojs_shares.get_users_full_name(token);
@@ -2100,6 +2118,7 @@ router.get('/brands/:user_id', async  function(req, res, next) {
 			'users_type' : check_datas_result.user_role,
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
+			'list_datas' : brands_list.datas,
 			'js_css_version' : check_datas_result.js_css_version
 		}
 		//res.send(data_send);
@@ -2110,13 +2129,168 @@ router.get('/brands/:user_id', async  function(req, res, next) {
 			var evn = ojs_configs.evn;
 			//////evn = "dev";;;
 			var error_send = ojs_shares.show_error( evn,error, "Lỗi lấu dữ liệu product_order_list" );
-			res.send({ "error" : "61.router_bussiness(app)->brands->send", "message": error_send } ); 
+			res.send({ "error" : "61.router->bussiness-barnds", "message": error_send } ); 
 			return;		
 	}	
 });
 //@
 //@
 //@
+//@
+//@
+//@
+//@
+//@
+//
+//options
+router.get('/orders/:user_id', async  function(req, res, next) {
+	//
+	//let session_token = req.session;
+	let user_id = req.params.user_id;
+	
+		
+	//@
+	//=======================
+	//=======================
+	//=====header check ====
+	//@
+	//@
+	//@
+	//lấy token
+	var token = req.session.token;	
+		//@
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//
+	//@@
+	//@@
+	let datas_check = {
+		"token":token,
+		"user_id": user_id
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		//res.send(check_datas_result);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.router->bussiness-orders/", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "3.router->bussiness-orders", "message": error_send } ); 
+		return;			
+	}
+	
 
+	//=======================
+	//=======================
+	//=====/header check ====
+	//
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	var orders_list;
+	try {
+		var date_star = ojs_shares.get_current_month_now();
+		var date_end = ojs_shares.get_current_date_end();
+		var sattus_number = [0,1,2,3];
+		
+		
+		var orders_list = await ojs_shares.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality-detail/search', 
+			ojs_datas_orders.get_data_orders_list_bussiness(user_id,date_star,date_end,sattus_number),
+			token
+		);
+		
+		
+		
+		res.send(orders_list);
+		return;
+		
+		if(orders_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->bussiness-orders", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->bussiness-orders", "message": error_send } ); 
+			return;		
+	}
+	//		
+	
+	res.send(orders_list);
+	return;
+	
+	
+	
+	//send web
+	try {	
+		let users_full_name = ojs_shares.get_users_full_name(token);
+		data_send = {
+			'title' : 'Quản lý thương hiệu',
+			'users_type' : check_datas_result.user_role,
+			'user_id' : user_id,
+			'users_full_name' : users_full_name,
+			'orders_list' : orders_list.datas,
+			'js_css_version' : check_datas_result.js_css_version
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/bussiness/orders',  data_send );
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi lấu dữ liệu product_order_list" );
+			res.send({ "error" : "61.router->bussiness-orderss", "message": error_send } ); 
+			return;		
+	}	
+});
+//@
+//@
+//@
 
 module.exports = router;

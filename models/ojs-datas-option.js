@@ -255,7 +255,7 @@ const ojs_datas_option = {
 		if(datas.status_admin){
 			let status_admin_where = {
 				"field"     :"options_product_speciality_status_admin",
-				"value"     : [0,1,2],
+				"value"     : datas.status_admin,
 				"compare" : "in"
 			}
 			condition_where.push(status_admin_where);

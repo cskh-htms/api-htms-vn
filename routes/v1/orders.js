@@ -20,7 +20,6 @@ router.get('/', function(req, res, next) {
 ---------------------------------------------- */
 router.use('/speciality', require('../../routes/' + ojs_configs.router_version  + '/orders-speciality'));
     
-
 	
 module.exports = router;
 	
