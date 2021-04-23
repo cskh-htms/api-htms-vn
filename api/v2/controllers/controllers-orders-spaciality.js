@@ -383,7 +383,9 @@ async  function insert_orders_spaciality_app(req, res, next) {
 			res.send( {"error" : "", "datas" : results} );
 			//
 		}, error => {
-			var error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+			env = ojs_configs.api_evn;
+			env = "dev";
+			var error_send = ojs_shares.show_error( env, error, "lỗi truy xuất database" );
 			res.send( { "error": "ctl_api_2", "message" : error_send  } );	
 		});
 	}
