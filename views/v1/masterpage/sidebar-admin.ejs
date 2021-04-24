@@ -31,7 +31,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
-		<li>
+		<li id="sidebar_tong_quan">
 			<a href="/admin/">
 				<i class="fas fa-tachometer-alt"></i>
 				<div class="menu-name">Tổng quan <%- news_sum %></div>
@@ -45,7 +45,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		<i class="fas fa-user"></i>
 		<div class="menu-name">Tài khoản</div>
 		<ul>
-			<li><a href="/users">Danh sách tài khoản</a></li>
+			<li id="sidebar_danh_sach_tai_khoan"><a href="/users">Danh sách tài khoản</a></li>
 		</ul>
 		</li>
 		
@@ -54,76 +54,16 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		-->	
 		<li>
 		<i class="fas fa-store"></i>
-		<div class="menu-name">Cửa hàng</div>
+		<div class="menu-name">Quản lý</div>
 		<ul>
-			<li><a href="/stores/">Cửa hàng đặc sản</a></li>
+			<liid="sidebar_cua_hang"><a href="/stores/">Cửa hàng</a></li>
+			<li id="sidebar_don_hang_dac_san"><a href="/orders/speciality">Đơn hàng</a>  </li>
+			<li><a href="/products/speciality/17"> Sản phẩm</a></li>
+			<li><a href="/categorys/general/speciality/17">Danh mục</a></li>
+			<li><a href="/options/speciality/17">options</a></li>
+			<li><a href="/brands/17">Danh sách thương hiệu</a></li>
 		</ul>
 		</li>	
 
-
-		
-		<!-- 
-		//products
-		-->	
-		<li>
-		<i class="fas fa-box-open"></i>
-		<div class="menu-name">Sản phẩm</div>
-		<ul>
-			<li><a href="/products/speciality/17"> Sản phẩm đặc sản</a></li>
-			<li><a href="/products/speciality/add/17/49"> Tạo Sản phẩm đặc sản</a></li>
-		</ul>
-		</li>		
-
-
-
-
-		
-		<!-- 
-		//danh mục chung
-		-->	
-		<li>
-		<i class="fas fa-archive"></i>
-		<div class="menu-name">Danh mục</div>
-		<ul>
-			<li><a href="/categorys/general/speciality/17">Danh mục chung đặc sản</a></li>
-			<li><a href="/categorys/general/speciality/add/17/49">Tạo Danh mục đặc sản</a></li>
-		</ul>
-		</li>
-		
-		
-		<!-- 
-		//options
-		-->
-		<li>
-		<i class="fas fa-filter"></i>
-		<div class="menu-name">Options</div>
-		<ul>
-			<li><a href="/options/speciality/17">danh sách options</a></li>
-			<li><a href="/options/speciality/add/17/49">Tạo options</a></li>
-		</ul>
-		</li>		
-		
-		
-		
-		<!-- 
-		//brand
-		-->
-		<li>
-		<i class="fas fa-store"></i>
-		<div class="menu-name">Thương hiệu</div>
-		<ul>
-			<li><a href="/brands/17">Danh sách thương hiệu</a></li>
-			<li><a href="/brands/add/17/49">Tạo thương hiệu</a></li>
-		</ul>
-		</li>		
-		
-		
-		
-
-
-
-
-
-	
 	</ul>
 </div>

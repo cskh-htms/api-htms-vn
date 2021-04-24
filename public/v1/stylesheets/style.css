@@ -577,9 +577,7 @@ select, input[type="button"] {
 
 /* ====== BUSINESS ====== */
 .store_row {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
+
 }
 .store_row .btn_add_store {
 	background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
@@ -593,6 +591,7 @@ select, input[type="button"] {
 .store_row .btn_add_store a {
 	color: black;
 	text-decoration: none;
+	outline: none;
 }
 .store_content {
 	background: white;
@@ -906,6 +905,7 @@ css ordres
 }
 .report_wrap .report_bock.report_bock_order {
 	width: 100%;
+		flex-wrap:wrap
 }
 .report_link_box {
     display: inline-flex;
@@ -969,12 +969,19 @@ css ordres
     background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
 }
 .status_box {
-    display: inline-flex;
+	display: inline-flex;
     margin: 0;
     padding: 0;
-    margin-left: 2%;
+    margin-left: 0;
 }
-
+.ul-wrap {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 20px;
+}
 .status_box li {
 	display: inline-block;
 	vertical-align: middle;
@@ -982,13 +989,14 @@ css ordres
     margin: 0;
 }
 .status_box li a{
-	display: block;
+display: block;
     padding: 8px 10px;
     border-bottom: 0;
     background-color: #9e9d9d;
     color: white;
     text-decoration: none;
-	border-radius: 0 4px 4px 0;
+    border-radius: 0;
+    margin: 0px 2px;
 }
 .status_box li:first-child a {
 	border-radius: 4px 0 0 4px;
@@ -1006,6 +1014,7 @@ css ordres
     padding: 3px 7px;
     font-size: 10px;
     margin-left: 5px;
+
 }
 
 .reset_box {
@@ -1186,6 +1195,36 @@ van luc 07.04.2021
     align-items: center;
     text-align: center;
 }
+.gray {
+    display: inline-flex;
+    background-color: gray;
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 50%;
+    min-width: 23px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.store_row li {
+    list-style: none;
+}
+
+.store_row li a{
+
+}
+
+.store_row li a span{
+	margin-left:3px;
+	display:inline-block;
+}
+
+
+
+
 .news-ul {
     display: flex;
     flex-direction: column;
@@ -1213,6 +1252,7 @@ van luc 07.04.2021
 	background: #e49494;
     color: white;
 	position:relative;
+	    outline: none;
 }
 #content .btn_add_store.active:before{
     content: "";
@@ -1227,6 +1267,20 @@ van luc 07.04.2021
     transform: rotate(45deg);
     z-index: -1;
 }
+
+.ordres-list tr td,
+.ordres-list tr th{
+	text-align:center;
+}
+.order-detail-box {
+    background-color: white;
+    padding: 5% 10%;
+}
+
+#sidebar ul li.menu_taget {
+    background-color: #35575d;
+}
+
 /* 
 end of van luc 07.04.2021 
 */

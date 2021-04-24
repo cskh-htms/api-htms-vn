@@ -290,7 +290,7 @@ async function update_products_spaciality(req, res, next) {
 			
 			
 			var evn = ojs_configs.evn;
-			//////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares.show_error( evn, error, message_error);
 			res.send({ "error" : "1.4.controllers-product-speciality->update ", "message": error_send } ); 
 			return;	
@@ -298,7 +298,7 @@ async function update_products_spaciality(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "45.controller_product_speciality->update", "message": error_send } ); 
 		return;		
@@ -426,7 +426,7 @@ async function insert_products_spaciality(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev";
 			var error_send = ojs_shares.show_error( evn, error,message_error );
 			res.send({ "error" : "2.5.controllers_product_speciality(app)", "message": error_send } ); 
 			return;
@@ -434,7 +434,7 @@ async function insert_products_spaciality(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		evn = "dev";
 		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "2.6.controllers_product_speciality(app)->insert", "message": error_send } ); 
 		return;	

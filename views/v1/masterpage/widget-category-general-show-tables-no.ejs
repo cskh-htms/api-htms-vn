@@ -1,0 +1,53 @@
+
+
+<% if( typeof datas_category_general == 'object' && datas_category_general){ datas_category_general = datas_category_general } else{ datas_category_general=[] } %>
+
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tên danh mục</th>
+			<th class="user-name">trạng thái admin</th>
+			<th class="user-name">trạng thái cửa hàng</th>		
+		</tr>
+	</thead>
+	<tbody>
+
+
+	<% 
+	for(var  x in datas_category_general) { %>
+
+	   <tr>
+			<td class="user-name"><a href="#"><%= datas_category_general[x].category_general_speciality_name %></a>
+				<div class="row-actions">
+					<span class="edit">
+						<a href="/categorys/general/speciality/show/<%= datas_category_general[x].category_general_speciality_ID %>/<%= datas_category_general[x].stores_ID %>">
+						Chỉnh sửa</a> | 
+					</span>
+					<span class="delete">
+						<a href="#" data_cat_id="<%= datas_category_general[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a>
+					</span>
+				</div>
+			</td>
+		
+			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas_category_general[x].category_general_speciality_admin_status) %></td>
+			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas_category_general[x].category_general_speciality_stores_status) %></td>
+
+	   </tr>
+
+	<% 
+	} 
+	%>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên danh mục</th>
+			<th class="user-name">trạng thái admin</th>
+			<th class="user-name">trạng thái cửa hàng</th>			
+		</tr>
+	</tfoot>
+</table>
+	

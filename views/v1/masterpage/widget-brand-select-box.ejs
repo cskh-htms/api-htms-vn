@@ -5,7 +5,7 @@
 
 
 <% 
-if (typeof datas == 'object' && datas) { 
+if (typeof datas == 'object' && datas && datas.length > 0) { 
 	brand_taget_id = datas[0].products_speciality_brand;
 }else{ 
 	let DanhMucChungMacDinhID = 0;
@@ -18,8 +18,10 @@ if (typeof brands_list == 'object' && brands_list) { } else {brands_list = [];}
 
 
 
-<option value="10">Mặc định</option>
+<option value="">Chưa có thương hiệu</option>
 <% 
+if(brands_list.length > 0){
+
 for(var  x in brands_list) { %>
 
 	<% 
@@ -33,6 +35,9 @@ for(var  x in brands_list) { %>
 	<% 
 	} 
 	%>			
+<% 
+} 
+%>
 <% 
 } 
 %>

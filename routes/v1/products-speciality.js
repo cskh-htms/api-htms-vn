@@ -233,7 +233,8 @@ router.get('/:store_id', async function(req, res, next) {
 			"service_type_name" : service_type_name,
 			"products_list" : products_list.datas,
 			"category_link_datas" : category_link_list.datas,	
-			'store_name' : store_name.datas[0].stores_name			
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_san_pham'			
 		}
 		//res.send(data_send);
 		//return;
@@ -799,7 +800,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			"brands_list" : brands_list.datas,
 			"datas_category_general" : category_general_list.datas,
 			'options_list' : options_list.datas	,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_tao_san_pham'
 		}
 		//res.send(data_send);
 		//return;
@@ -937,6 +939,15 @@ router.get('/show/:product_id/:store_id/', async function(req, res, next) {
 	let token = req.session.token;
 	//
 	//@@
+	
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//	
+	
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -1401,6 +1412,155 @@ router.post('/update/:product_id', async function(req, res, next) {
 
 
 
+//lay danh sach danh muc
+router.post('/ajax-products-list/', async function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	
+	
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login")
+	}
+
+
+	//
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
+	}
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "20.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error == ""){
+	}else{
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "21.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@	
+	//@	
+	
+	//Lấy danh sách product
+	var products_list;
+	//@
+	let data_products_list;
+	//@
+	if(check_datas_result.user_role == "admin"){
+		data_products_list = ojs_datas_products.get_data_products_list_admin_ajax(datas);
+	}else{
+		data_products_list = ojs_datas_products.get_data_products_list_ajax(datas);
+	}		
+	
+	//res.send(data_products_list);
+	//return;
+	
+	
+	
+	//@
+	try {
+		
+		products_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/products/speciality/search', 
+				data_products_list, 
+				token
+			);		
+			
+		if(products_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, products_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "44.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+		res.send({ "error" : "45.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+		return;	
+	}	
+	//@
+	//@
+	//@
+	//@
+	//@lấy category_link
+	var category_link_list;
+	var category_link_datas = ojs_datas_products.get_category_link_datas();		
+	try {
+		category_link_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/categorys/general/speciality-link/search', 
+				category_link_datas, 
+				token
+			);		
+
+		
+		if(category_link_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, category_link_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "48.router_product_speciality(app)->ajax-product-listt", "message": error_send } ); 
+			return;				
+		}		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, error , "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "49.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+			return;		
+	}		
+	
+	
+	//
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	//@
+	try {	
+		//
+		//@
+		data_send = {
+			"products_list" : products_list.datas,
+			"category_link_datas" : category_link_list.datas		
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/masterpage/widget-product-speciality-show-tables', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_product_speciality(app)->ajax-product-list", "message": error_send } ); 
+		return;	
+	}
+
+});
+
+//
+//@@
 
 
 

@@ -1,6 +1,9 @@
 
 
-<% if( typeof datas == 'object' && datas){ } else{ datas=[] } %>
+<% if( typeof datas == 'object' && datas && datas.length > 0){ } else{ datas=[] } %>
+
+
+<% datas = list_datas %>
 
 <table class="table-list">
 	<thead>
@@ -13,10 +16,11 @@
 	<tbody>
 
 	<% 
+	if(datas.length > 0){
 	for(var  x in datas) { %>
 	
 			<% //nếu chủ cữa hàng thì hiện màu đỏ
-			if(datas[x].brands_stores_id == store_id  &&  user_role != "admin"){ 		
+			if(datas[x].users_ID == user_id  &&  user_role != "admin"){ 		
 				var ex1 = 'my_store';
 			}else{
 				var ex1 = '';
@@ -28,10 +32,10 @@
 			<td class="user-name"><a href="#"><%= datas[x].brands_name %></a>
 				<div class="row-actions">
 					<% //nếu là admin thì hiển thị update
-					if(user_role == "admin" ||  datas[x].brands_stores_id == store_id){ %>
+					if(user_role == "admin" ||  datas[x].users_ID == user_id){ %>
 						<% //neu nếu đã chấp nhận thì ko cho update nua
-						if( datas[x].brands_status_update != "1"){ %>				
-							<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= store_id %>">Chỉnh sửa</a> | </span>
+						if( datas[x].brands_status_update != "1"   || user_role == "admin"){ %>				
+							<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= datas[x].stores_ID %>">Chỉnh sửa</a> | </span>
 							<span class="delete"><a href="#" data_brand_id="<%= datas[x].brands_ID %>" class="submitdelete">Xóa</a></span>
 						<% //enf of if
 						}
@@ -48,8 +52,11 @@
 
 	   </tr>
 	<% 
-	} %>
-
+	} 
+	%>
+	<% 
+	} 
+	%>
 	</tbody>
 	<tfoot>
 		<tr>

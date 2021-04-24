@@ -113,7 +113,8 @@ router.get('/', async function(req, res, next) {
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
 			'users_list' : users_list.datas,
-			'js_css_version' : check_datas_result.js_css_version
+			'js_css_version' : check_datas_result.js_css_version,
+			'menu_taget':'sidebar_danh_sach_tai_khoan'
 		}
 		//res.send(data_send);
 		//return;
@@ -367,7 +368,6 @@ router.get('/show/:user_id', async function(req, res, next) {
 		//@
 		data_send = {
 			'title' : 'Chỉnh sửa tài khoản',
-			'sidebar_type' : 1,
 			'users_type' : users_type,
 			'user_role':users_type,
 			'user_id' : user_id,

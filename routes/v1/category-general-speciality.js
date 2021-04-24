@@ -156,9 +156,6 @@ router.get('/:store_id', async function(req, res, next) {
 		return;	
 	}
 
-	//res.send({ "error" : "42.router_app->category_general_speciality->get", "message": category_general_list } ); 
-	//return;	
-
 	//@
 	//@
 	//@
@@ -209,7 +206,8 @@ router.get('/:store_id', async function(req, res, next) {
 			'datas_category_general' : category_general_list.datas,
 			"js_css_version" : check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_danh_muc'
 		}
 		//res.send(data_send);
 		res.render( check_datas_result.view_version + '/categorys/general/speciality/show-all', data_send );	
@@ -423,7 +421,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			'datas_category_general' : category_general_list.datas,
 			'js_css_version':check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_tao_danh_muc'
 		}
 		//res.send(data_send);
 		//return;
@@ -453,13 +452,7 @@ router.post('/save', async function(req, res, next) {
 	let datas  = req.body;
 	//res.send(datas);
 	//@
-	//@
-	//neu không có token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login");
-		return;
-	}
-	//
+
 	//@@
 	//@@
 	let datas_check = {
@@ -554,6 +547,15 @@ router.get('/show/:cat_id/:store_id', async function(req, res, next) {
 	let store_id = req.params.store_id;
 	//
 	//@@
+	
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}	
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -797,7 +799,8 @@ router.post('/update/:cat_id', async function(req, res, next) {
 	let cat_id = req.params.cat_id;
 	let datas  = req.body;
 	//
-	//@@
+
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -899,6 +902,8 @@ router.get('/delete/:cat_id', async function(req, res, next) {
 	let cat_id = req.params.cat_id;
 	//
 	//@@
+	//@
+	
 	//@@lấy version
 	let datas_check = {
 		"token":token,
@@ -974,8 +979,368 @@ router.get('/delete/:cat_id', async function(req, res, next) {
 //@@@@@@@@@
 //@@@@@@@@@
 //@@
+
+//lay danh sach danh muc
+router.post('/ajax-category-list/', async function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	let store_id = datas.store_id
+
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login")
+	}
+
+
+	//
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
+	}
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "20.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error == ""){
+	}else{
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "21.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@	
+	//@	
+	let category_general_list_datas;
+	//@
+	//@
+	//neu admin thi lay datas kieu admin ko thì lấy datas kiểu bussiness
+	//admin thì status = 0, show = 0, status store = 1	
+	if(check_datas_result.user_role == "admin"){
+		category_general_list_datas = ojs_datas_category.get_data_category_list_admin();
+	}else{
+		category_general_list_datas = ojs_datas_category.get_data_category_list_bussiness();
+	}
+	//res.send(category_general_list_datas);
+	//return;
+	let category_general_list;
+	try {
+		category_general_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/categorys/general/speciality/search', 
+				category_general_list_datas, 
+				token
+			);
+
+		if(category_general_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, category_general_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "41.category_general_speciality(app)->get", "message": error_send } ); 
+			return;				
+		}
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "42.router_app->category_general_speciality->get", "message": error_send } ); 
+		return;	
+	}	
+	
+	//
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	//@
+	try {	
+		//
+		//@
+		let user_id = ojs_shares.get_users_id(token);	
+		data_send = {
+			'datas_category_general' : category_general_list.datas,
+			'user_role': check_datas_result.user_role,
+			'store_id':store_id
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/masterpage/widget-category-general-show-tables', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;	
+	}
+
+});
+
 //@@
 //
+//@@
+//@@
+//@@@@@@@@@
+//@@@@@@@@@
+//@@
+
+//lay danh sach danh muc
+router.post('/ajax-category-list-bussiness/', async function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	
+
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login")
+	}
+
+
+	//
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
+	}
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "20.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error == ""){
+	}else{
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "21.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@	
+	//@	
+	let category_general_list_datas;
+	//@
+	//@
+	//neu admin thi lay datas kieu admin ko thì lấy datas kiểu bussiness
+	//admin thì status = 0, show = 0, status store = 1	
+	if(check_datas_result.user_role == "admin"){
+		category_general_list_datas = ojs_datas_category.get_data_category_list_admin();
+	}else{
+		category_general_list_datas = ojs_datas_category.get_data_category_list_bussiness();
+	}
+	//res.send(category_general_list_datas);
+	//return;
+	let category_general_list;
+	try {
+		category_general_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/categorys/general/speciality/search', 
+				category_general_list_datas, 
+				token
+			);
+
+		if(category_general_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, category_general_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "41.category_general_speciality(app)->get", "message": error_send } ); 
+			return;				
+		}
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "42.router_app->category_general_speciality->get", "message": error_send } ); 
+		return;	
+	}	
+	
+	//
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	//@
+	try {	
+		//
+		//@
+		let user_id = ojs_shares.get_users_id(token);	
+		data_send = {
+			'datas_category_general' : category_general_list.datas,
+			'user_id':user_id,
+			'user_role': check_datas_result.user_role
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/masterpage/widget-category-general-show-tables-bussiness', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;	
+	}
+
+});
+
+//@@
+//@@
+//@@@@@@@@@
+//@@@@@@@@@
+//@@
+router.post('/ajax-category-list-no/', async function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	
+
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login")
+	}
+
+
+	//
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
+	}
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "20.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error == ""){
+	}else{
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "21.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@	
+	//@	
+	let category_general_list_datas;
+	//@
+	//@
+	//neu admin thi lay datas kieu admin ko thì lấy datas kiểu bussiness
+	//admin thì status = 0, show = 0, status store = 1	
+	if(check_datas_result.user_role == "admin"){
+		category_general_list_datas = ojs_datas_category.get_data_category_list_admin_ajax(datas);
+	}else{
+		category_general_list_datas = ojs_datas_category.get_data_category_list_bussiness_ajax(datas);
+	}
+	//res.send(category_general_list_datas);
+	//return;
+	let category_general_list;
+	try {
+		category_general_list = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/categorys/general/speciality/search', 
+				category_general_list_datas, 
+				token
+			);
+
+		if(category_general_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, category_general_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "41.category_general_speciality(app)->get", "message": error_send } ); 
+			return;				
+		}
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "42.router_app->category_general_speciality->get", "message": error_send } ); 
+		return;	
+	}	
+	
+	//
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	//@
+	try {	
+		//
+		//@
+		let user_id = ojs_shares.get_users_id(token);	
+		data_send = {
+			'datas_category_general' : category_general_list.datas,
+			'user_id':user_id,
+			'user_role': check_datas_result.user_role
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/masterpage/widget-category-general-show-tables-no', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;	
+	}
+
+});
+//@@
+//@@
+//@@@@@@@@@
+//@@@@@@@@@
+//@@
+//@@
+
+
+
+
+
 //@@
 //@@
 //@@@@@@@@@

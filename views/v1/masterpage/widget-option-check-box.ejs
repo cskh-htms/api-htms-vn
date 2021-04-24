@@ -5,7 +5,7 @@
 
 
 <% 
-if (typeof datas == 'object' && datas) { 
+if (typeof datas == 'object' && datas && datas.length > 0) { 
 	data_parent_id = datas[0].options_product_speciality_parent_id;
 	data_id = datas[0].options_product_speciality_ID ;
 }else{ 
@@ -13,7 +13,7 @@ if (typeof datas == 'object' && datas) {
 	data_parent_id = DanhMucChungMacDinhID;
 	data_id = DanhMucChungMacDinhID;
 }
-if (typeof options_list == 'object' && options_list) { } else {options_list = [];}
+if (typeof options_list == 'object' && options_list  && options_list.length > 0) { } else {options_list = [];}
 %>	
 
 
@@ -22,6 +22,7 @@ if (typeof options_list == 'object' && options_list) { } else {options_list = []
 
 <option value="0">Chọn option cha</option>
 <% 
+if( options_list.length > 0){
 for(var  x in options_list) { %>
 	<% 
 	if(options_list[x].options_product_speciality_parent_id == 0) { %>
@@ -41,4 +42,8 @@ for(var  x in options_list) { %>
     <% 
     } %>
 <% 
-} %>
+} 
+%>
+<% 
+} 
+%>

@@ -252,7 +252,7 @@ var search = async function (datas) {
 	
 	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
 
-
+	//return get_sql_search_group;
 
 
 	//@
@@ -522,8 +522,20 @@ var check_store_link = async function (store_id) {
 //@@
 //insert
 var update_products_spaciality = async function (datas,product_id,cat_string,option_string) {
+	
+	
+	
+	
 	let cat_arr = JSON.parse(cat_string);
 	let option_arr = JSON.parse(option_string);
+	
+	
+	//return [cat_arr,option_arr];
+	
+	
+	
+	
+	
 	let sqlSet = "";
 	
 	//tao arr key
@@ -577,12 +589,13 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 	//
 	// sql options
 	//
-	if(option_arr.length > 0){
-		let sql_option_all = "";
-		let table_name_option  = ojs_configs.db_prefix + "options_product_speciality_link ";
-		let field_where_option  = ojs_configs.db_prefix + "options_product_speciality_link_product_id ";
-		let sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
+	
+	let sql_option_all = "";
+	let table_name_option  = ojs_configs.db_prefix + "options_product_speciality_link ";
+	let field_where_option  = ojs_configs.db_prefix + "options_product_speciality_link_product_id ";
+	let sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
 		
+	if(option_arr.length > 0){	
 		for(let i = 0; i < option_arr.length; i ++){
 			
 			///ex
@@ -599,8 +612,9 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 		}//end of for option_arr	
 		
 		
-		sql_text = sql_text + sql_option_delete + sql_option_all;
+		//sql_text = sql_text + sql_option_delete + sql_option_all;
 	}
+	sql_text = sql_text + sql_option_delete + sql_option_all;
 	//
 	// end of sql options
 	//-----------------------------	
@@ -608,14 +622,14 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 	//
 	// sql category
 	//
-	if(cat_arr.length > 0){
-		let sql_cat_all = "";
-		let table_name_cat  = ojs_configs.db_prefix + "category_general_speciality_link ";
-		let field_where_cat  = ojs_configs.db_prefix + "category_general_speciality_link_product_id ";
-		let sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';			
+	
+	let sql_cat_all = "";
+	let table_name_cat  = ojs_configs.db_prefix + "category_general_speciality_link ";
+	let field_where_cat  = ojs_configs.db_prefix + "category_general_speciality_link_product_id ";
+	let sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';			
 		
-		
-		for(let i = 0; i < option_arr.length; i ++){
+	if(cat_arr.length > 0){	
+		for(let i = 0; i < cat_arr.length; i ++){
 			///ex
 			sql_cat = "INSERT INTO " + ojs_configs.db_prefix + "category_general_speciality_link  ";
 			sql_cat = sql_cat + "(" +
@@ -628,8 +642,9 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 						") ; ";		
 			sql_cat_all	= sql_cat_all  + sql_cat		
 		}//end of for option_arr	
-		sql_text = sql_text + sql_cat_delete +  sql_cat_all;
+		//sql_text = sql_text + sql_cat_delete +  sql_cat_all;
 	}
+	sql_text = sql_text + sql_cat_delete +  sql_cat_all;	
 	//
 	// end of sql category
 	//-----------------------------	

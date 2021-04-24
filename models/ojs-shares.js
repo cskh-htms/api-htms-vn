@@ -87,6 +87,8 @@ const ojs_shares = {
 	//@
 	//@
 	//@lay ngya hien tai thoi gian 00:00:00
+	//today
+	//ngay gio hom nay 
 	get_current_date_star : function(){
 		var time_string = "";
 		var time_add_zone = new Date(Date.now());

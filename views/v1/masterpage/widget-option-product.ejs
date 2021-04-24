@@ -1,16 +1,19 @@
 
 <%
-if (typeof options_link_datas == 'object' && options_link_datas) { } else {options_link_datas = [];}
+if (typeof options_link_datas == 'object' && options_link_datas  && options_link_datas.length > 0) { options_link_datas = options_link_datas } else {options_link_datas = [];}
 %>
 
 
 <% 
-if (typeof options_list == 'object' && options_list) { } else {options_list = [];}
+if (typeof options_list == 'object' && options_list && options_list.length > 0) { options_list = options_list} else {options_list = [];}
 %>	
 
 
 
 <% 
+
+if(options_list.length > 0){
+	
 for(var  x in options_list) { %>
 	<% if(options_list[x].options_product_speciality_parent_id == 0) { %>
 		<div class="option_line_wrap">
@@ -125,6 +128,9 @@ for(var  x in options_list) { %>
    <% 
    } //end of if option parrent
    %>
+<% 
+} //end of for
+%>
 <% 
 } //end of for
 %>

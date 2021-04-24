@@ -11,6 +11,23 @@
 } %>
 
 
+
+
+<%
+//order check
+if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) { 
+	news_sum = '<span class="red">' + news_sum + '</span>';
+} else{ 
+	news_sum = "";
+}
+
+%>
+
+
+
+
+
+
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
 		<!-- //admin -->	
@@ -26,7 +43,7 @@
 		<li>
 			<a href="/bussiness/<%= user_id %>">
 				<i class="fas fa-user"></i>
-				<div class="menu-name">Quản lý Doanh nghiệp</div>
+				<div class="menu-name">Quản lý Doanh nghiệp </div>
 			</a>
 		</li>
 		
@@ -37,39 +54,21 @@
 			<i class="fas fa-box-open"></i>
 			<div class="menu-name">Cửa hàng <%= store_name %> </div>
 			<ul>
-				<li><a href="/stores/manage/<%= store_id %>/<%= user_id %>">Quản lý</a></li>
-				<li><a href="#">Đơn hàng</a></li>
+				<li id="sidebar_quan_ly"><a href="/stores/manage/<%= store_id %>/<%= user_id %>">Quản lý  <%- news_sum %></a></li>
 			</ul>		
 		</li>			
 		
 		
-		
-		
-		
-		<!--
-		//Thống kê
-		-->
-		<li>
-			<i class="fas fa-clipboard-list"></i>
-			<div class="menu-name">Báo cáo</div>
-			<ul>
-				<li><a href="/bussiness/stores/show-all-order/<%= user_id %>">Sản phẩm đã bán</a></li>
-			</ul>
-		</li>		
-		
-						
-		
-		
-		<!-- //tạo mới  -->
+			<!-- //tạo mới  -->
 		<li>
 			<i class="fas fa-box-open"></i>
 			<div class="menu-name">Tạo mới  </div>
 			<ul>
 				
-				<li><a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo sản phẩm</a></li>
-				<li><a href="/categorys/general/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo danh mục</a></li>
-				<li><a href="/options/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo options</a></li>
-				<li><a href="/brands/add/<%= store_id %>/<%= user_id %>">Tạo thương hiệu</a></li>					
+				<li id="sidebar_tao_san_pham"><a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo sản phẩm</a></li>
+				<li id="sidebar_tao_danh_muc"><a href="/categorys/general/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo danh mục</a></li>
+				<li id="sidebar_tao_option"><a href="/options/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo options</a></li>
+				<li id="sidebar_tao_thuong_hieu"><a href="/brands/add/<%= store_id %>/<%= user_id %>">Tạo thương hiệu</a></li>					
 				
 			</ul>		
 		</li>			
@@ -81,10 +80,10 @@
 			<i class="fas fa-box-open"></i>
 			<div class="menu-name">Quản lý </div>
 			<ul>
-				<li><a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm </a></li>
-				<li><a href="/categorys/general/<%= service_type_name %>/<%= store_id %>">Danh mục</a></li>
-				<li><a href="/options/<%= service_type_name %>/<%= store_id %>">options</a></li>
-				<li><a href="/brands/<%= store_id %>">Thương hiệu</a></li>
+				<li id="sidebar_san_pham"><a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm </a></li>
+				<li id="sidebar_danh_muc"><a href="/categorys/general/<%= service_type_name %>/<%= store_id %>">Danh mục</a></li>
+				<li id="sidebar_option"><a href="/options/<%= service_type_name %>/<%= store_id %>">options</a></li>
+				<li id="sidebar_thuong_hieu"><a href="/brands/<%= store_id %>">Thương hiệu</a></li>
 			</ul>		
 		</li>		
 		
