@@ -413,7 +413,8 @@ router.get('/', async  function(req, res, next) {
 		category_general_list.datas.length + 
 		brands_list.datas.length + 
 		product_list.datas.length + 
-		options_list.datas.length ;
+		options_list.datas.length +
+		orders_check.datas.length;
 	
 	data_send = {
 		'title' : 'Admin quản lý dala',
@@ -431,7 +432,8 @@ router.get('/', async  function(req, res, next) {
 		'option_new': options_list.datas.length,
 		'brand_new': brands_list.datas.length,
 		'product_new': product_list.datas.length,
-		"news_sum": news_sum
+		"news_sum": news_sum,
+		'menu_taget':'sidebar_tong_quan'
 	}
 	
 	//res.send(data_send);

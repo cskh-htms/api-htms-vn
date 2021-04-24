@@ -21,12 +21,19 @@
 				</div>	
 			</td>
 			<td class="user-name"><%- ojs_share.unCape(datas[x].users_first_name) + " " + ojs_share.unCape(datas[x].users_last_name) %></td>
-			<td class="user-name"><%- ojs_share.unCape(datas[x].service_type_name)  %></td>
+			<td class="user-name"><%- ojs_share.unCape(datas[x].service_type_name) %></td>
 			<td class="user-name"><%- ojs_share.unCape(datas[x].stores_phone) %></td>
-			<td class="user-name"><%- ojs_share.unCape(datas[x].stores_adress) %></td>
+			<td class="user-name">
+				<%- ojs_share.unCape(datas[x].stores_province) %>, 
+				<%- ojs_share.unCape(datas[x].stores_district) %>, 
+				<%- ojs_share.unCape(datas[x].stores_wards) %>, 
+				<%- ojs_share.unCape(datas[x].stores_adress) %>, 
+			</td>
 			<td class="user-name"><%- ojs_share.show_price_format(datas[x].stores_payment_limit,0,",",".","") %></td>
 			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas[x].stores_status_stores ) %></td>
-			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></td>
+			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></td>		
+			
+			
 		</tr>
 
 	<% } %>

@@ -64,11 +64,28 @@ let sql_order_default = " order by " +
 //from table
 let sql_link_search = 	""  + 
 
-	" INNER JOIN " + 
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "orders_speciality_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID "   
+
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "orders_details_speciality  ON  " + 
+	ojs_configs.db_prefix + "orders_details_speciality_order_id  = " + 
+	ojs_configs.db_prefix + "orders_speciality_ID "   + 
 	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "products_speciality  ON  " + 
+	ojs_configs.db_prefix + "orders_details_speciality_product_id  = " + 
+	ojs_configs.db_prefix + "products_speciality_ID "    + 
+		
+		
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "stores  ON  " + 
+	ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+	ojs_configs.db_prefix + "stores_ID "    + 
+			
+		
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "users  ON  " + 
+	ojs_configs.db_prefix + "stores_user_id  = " + 
+	ojs_configs.db_prefix + "users_ID "   
 
 
 	
@@ -132,49 +149,51 @@ let sql_from_default_view = 	" from " +
 //search
 var search = async function (datas) {
 	
-	//return [datas.datas.select_field,sql_select_all];
 	//@
+	//@
+	//@
+	//@ select field
+	var sql_field;
 	try {
-		var sql_field = ojs_shares.get_select_field(datas.select_field, sql_select_all);
+		if(datas.select_field){
+			sql_field = default_field2.get_select_fields(datas.select_field, sql_select_all)
+		}else{
+			sql_field = "";
+		}			
 	}
 	catch(error){
-		return  { "error" : "m_10", "message" : error } ;
-	}
-
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "0.1.model_orders_speciality->search", "message": error_send } ); 
+		return;	
+	}		
+			
+		
+	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
+	
+	
+	
 	//@
-	try {
-		var sql_conditions = ojs_shares.get_condition(datas.condition);
-	}
-	catch(error){
-		return  { "error" : "m_11", "message" : error } ;
-	}
 	//@
-	try {
-		var sql_order = ojs_shares.get_order_text(datas.order);
-	}
-	catch(error){
-		return  { "error" : "m_12", "message" : error } ;
-	}
-
-
-	var sql_text = 	"SELECT " + sql_field +
-					sql_from_default + 
-					sql_link_search + 
-					sql_conditions + 
-					sql_order 
-	//return sql_text		;		
-
+	let get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//@	
+	
+	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search_1,sql_from_default,sql_link_search);		
+		
+		
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "01.model_orders_speciality->search", "message" : error } ;
 	}
 };
 	
@@ -587,7 +606,7 @@ var delete_orders_spaciality = async function (order_id) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//insert app
 var insert_orders_spaciality_app = async function (datas,data_details) {
 	
 	let sql_text = "";
@@ -609,12 +628,13 @@ var insert_orders_spaciality_app = async function (datas,data_details) {
 	
 	sql_text = "START TRANSACTION ; "
 	sql_text = "INSERT INTO " + ojs_configs.db_prefix + "orders_speciality  SET ? ; ";
-	
+
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
 	
 	//
 	// sql details
 	//
+
 	if(data_details.length > 0){
 		let sql_details_all = "";
 		for(let i = 0; i < data_details.length; i ++){
@@ -647,10 +667,12 @@ var insert_orders_spaciality_app = async function (datas,data_details) {
 	//-----------------------------	
 	
 
-
 	
 	//commit
 	sql_text = sql_text + " COMMIT;"	
+	
+	
+	//return sql_text;
 	
 	try {
 		return new Promise( (resolve,reject) => {

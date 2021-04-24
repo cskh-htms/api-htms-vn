@@ -77,10 +77,7 @@
 				){
 					sql_field_check  = "DATE_FORMAT(" + ojs_configs.db_prefix  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
 					
-				}
-				
-				
-				if(field_arr[x] == "orders_details_speciality_qty_sum" ){	
+				}else if(field_arr[x] == "orders_details_speciality_qty_sum" ){	
 					sql_field_check  = "sum(" + ojs_configs.db_prefix  + "orders_details_speciality_qty" + ")";
 				
 				}else if(field_arr[x] == "orders_details_speciality_price_sum" ){	

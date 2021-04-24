@@ -71,26 +71,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 					//console.log(result);
-					$('#ajax_load').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					return;
-					//ojs_loader.evn = "demo";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
-					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được orders \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được orders");
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã tạo orders",ojs_loader.host + "/orders");
-						}
-					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					//return;
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
@@ -129,7 +112,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					//ojs_loader.evn = "demo";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -170,7 +153,10 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					//ojs_loader.evn = "demo";
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();	
+					//return;
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);

@@ -233,7 +233,8 @@ router.get('/:store_id', async function(req, res, next) {
 			"service_type_name" : service_type_name,
 			"products_list" : products_list.datas,
 			"category_link_datas" : category_link_list.datas,	
-			'store_name' : store_name.datas[0].stores_name			
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_san_pham'			
 		}
 		//res.send(data_send);
 		//return;
@@ -799,7 +800,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			"brands_list" : brands_list.datas,
 			"datas_category_general" : category_general_list.datas,
 			'options_list' : options_list.datas	,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_tao_san_pham'
 		}
 		//res.send(data_send);
 		//return;

@@ -72,6 +72,35 @@ $(document).ready(function($){
 		//
 		//
 		//load products bussiness
+		ajax_load_brand	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/brands/ajax-brand-list/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save				
+		//		
+		//		
+		//
+		//
+		//load products bussiness
 		ajax_load_category	: function(datas){		
 			//console.log(datas);
 			//return;
@@ -367,8 +396,104 @@ $(document).ready(function($){
 				ojs_loadding.ajax_hide_loadding();	
 			  }			  
 			});	
-		}//end of ajax save				
-		//		//
+		},//end of ajax save				
+		////
+		
+		//@		
+		//@
+		//@
+		//* load order_id
+		//* khi bussines click view_order
+		//* load ajax order_detail theo id order
+		ajax_load_order_detail	: function(datas){		
+			//console.log(order_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/ajax-order-detail-bussiness/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				ojs_loadding.ajax_hide_loadding();
+				ojs_loadding.ajax_show_content('<div class="order-detail-box">' + result + '</div>');
+				//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save				
+		//		
+		//		
+		//		
+		//@
+		//@
+		//@
+		//* ajax_load_order_bussiness
+		ajax_load_order_bussiness	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/ajax_load_order_bussiness/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				console.log(result);
+				ojs_loadding.ajax_hide_loadding();
+				$('#ajax-wrap').html(result);
+				//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save	
+
+
+		//@
+		//@
+		//@
+		//* ajax_load_order_sale bussiness(load san pham da ban)
+		ajax_load_order_sale_bussiness	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/ajax_load_order_sale_bussiness/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				console.log(result);
+				ojs_loadding.ajax_hide_loadding();
+				$('#ajax-wrap').html(result);
+				//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save	
+
+
+
+
+		
 	///////////////////////////
 	//////////////////////////////
 	}//end of ojs loader

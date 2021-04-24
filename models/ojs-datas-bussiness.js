@@ -32,7 +32,10 @@ const ojs_datas_bussiness = {
 					"stores_status_update",
 					"stores_status",
 					"stores_status_stores",
-					"users_type_name"
+					"users_type_name",
+					"stores_province",
+					"stores_district",
+					"stores_wards"
 					
 				],
 				"condition" : 

@@ -205,7 +205,8 @@ router.get('/:store_id', async function(req, res, next) {
 			"js_css_version" : check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
 			'options_list' : options_list.datas,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_option'
 		}
 		//res.send(data_send);
 		//return;
@@ -419,7 +420,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			'options_list' : options_list.datas,
 			'js_css_version':check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_tao_option'
 		}
 		//res.send(data_send);
 		//return;

@@ -206,7 +206,8 @@ router.get('/:store_id', async function(req, res, next) {
 			'datas_category_general' : category_general_list.datas,
 			"js_css_version" : check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_danh_muc'
 		}
 		//res.send(data_send);
 		res.render( check_datas_result.view_version + '/categorys/general/speciality/show-all', data_send );	
@@ -420,7 +421,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			'datas_category_general' : category_general_list.datas,
 			'js_css_version':check_datas_result.js_css_version,
 			"service_type_name" : service_type_name,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_tao_danh_muc'
 		}
 		//res.send(data_send);
 		//return;

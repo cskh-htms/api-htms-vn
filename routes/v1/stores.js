@@ -91,6 +91,7 @@ router.get('/', async  function(req, res, next) {
 	//@
 	
 	
+	
 	var danhSachCuaHang;
 	try {
 		danhSachCuaHang = await ojs_shares.get_data_send_token_post(
@@ -125,13 +126,13 @@ router.get('/', async  function(req, res, next) {
 		let users_full_name = ojs_shares.get_users_full_name(token);
 		data_send = {
 			'title' : 'Quản lý cửa hàng',
-			'sidebar_type' : 1,
 			'users_type' : user_type,
 			'user_role': user_type,
 			'user_id'	: user_id_send,
 			'datas' : danhSachCuaHang.datas,
 			'users_full_name' : users_full_name,
-			"js_css_version": check_datas_result.js_css_version
+			"js_css_version": check_datas_result.js_css_version,
+			'menu_taget': 'sidebar_cua_hang'
 		}
 		//res.send(data_send);
 		//return;
@@ -477,7 +478,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'category_general_list':category_general_list.datas,
 			'options_list':options_list.datas,
 			'js_css_version' : check_datas_result.js_css_version,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			'menu_taget':'sidebar_quan_ly'
 		}
 		//res.send(data_send);
 		//return;

@@ -42,6 +42,11 @@ content
 	<div class="news-wrap">
 		<ul class="news-ul">
 		
+			<% if(orders_check > 0 || orders_check.length > 0 ){ %>
+				<li><a href="/orders/speciality/">Đơn hàng cần sử lý <span class="red"><%= orders_check.length %></span></a></li>
+			<% } %>			
+		
+		
 			<% if(product_new > 0 || product_new.length > 0 ){ %>
 				<li><a href="/products/speciality/17">Sản phẩm Cần sử lý <span class="red"><%= product_new %></span></a></li>
 			<% } %>			
@@ -63,6 +68,10 @@ content
 			<% if(brand_new > 0 || brand_new.length > 0 ){ %>
 				<li><a href="/brands/17">Brand cần sử lý <span class="red"><%= brand_new %></span></a></li>
 			<% } %>	
+
+
+
+
 
 
 			

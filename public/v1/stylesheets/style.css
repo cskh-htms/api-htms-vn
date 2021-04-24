@@ -905,6 +905,7 @@ css ordres
 }
 .report_wrap .report_bock.report_bock_order {
 	width: 100%;
+		flex-wrap:wrap
 }
 .report_link_box {
     display: inline-flex;
@@ -968,12 +969,19 @@ css ordres
     background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
 }
 .status_box {
-    display: inline-flex;
+	display: inline-flex;
     margin: 0;
     padding: 0;
-    margin-left: 2%;
+    margin-left: 0;
 }
-
+.ul-wrap {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 20px;
+}
 .status_box li {
 	display: inline-block;
 	vertical-align: middle;
@@ -981,13 +989,14 @@ css ordres
     margin: 0;
 }
 .status_box li a{
-	display: block;
+display: block;
     padding: 8px 10px;
     border-bottom: 0;
     background-color: #9e9d9d;
     color: white;
     text-decoration: none;
-	border-radius: 0 4px 4px 0;
+    border-radius: 0;
+    margin: 0px 2px;
 }
 .status_box li:first-child a {
 	border-radius: 4px 0 0 4px;
@@ -1005,6 +1014,7 @@ css ordres
     padding: 3px 7px;
     font-size: 10px;
     margin-left: 5px;
+
 }
 
 .reset_box {
@@ -1257,6 +1267,20 @@ van luc 07.04.2021
     transform: rotate(45deg);
     z-index: -1;
 }
+
+.ordres-list tr td,
+.ordres-list tr th{
+	text-align:center;
+}
+.order-detail-box {
+    background-color: white;
+    padding: 5% 10%;
+}
+
+#sidebar ul li.menu_taget {
+    background-color: #35575d;
+}
+
 /* 
 end of van luc 07.04.2021 
 */
