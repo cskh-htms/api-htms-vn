@@ -127,7 +127,7 @@ var search = async function (datas) {
 		
 	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
 	
-	
+
 	
 	//@
 	//@

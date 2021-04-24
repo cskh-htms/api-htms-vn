@@ -17,7 +17,7 @@ if (typeof order_sum == 'number' && order_sum) {
 
 <% include ../../masterpage/loader %>
 
-<script src="../../../javascripts/class-orders-speciality.js"></script>	
+<script src="../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>	
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -37,11 +37,13 @@ content
 <div id="content" class="content">
 
 	<h1><%= title %></h1>
+	
+	
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">
 				<li class="one report_link">
-					<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
 				<li class="one report_link" >
 					<a href="#"  data_send="hom_qua">Hôm qua</a>
@@ -54,34 +56,47 @@ content
 				</li>					
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
-			<ul class="status_box">
-				<li>
-					<a href="#"  data_send="chua_hoan_thanh" class="status_link status_active">Chưa xử lý </a>
-				</li>				
-				<li >
-					<a class="one status_link" href="#" data_send="da_hoan_thanh">Đã hoàn thành</a>
-				</li>				
-				
-			</ul>	
+			
+			<div class="ul-wrap">
+				<ul class="status_box">
+			
+					<li>
+						<a href="#"  data_send="[0]" class="status_link   status_active">chờ xử lý </a>
+					</li>	
 
-			<ul class="reset_box">
-				<li>
-					<a href="https://appdala.com/orders/speciality"  data_send="" class="">Đặt lại</a>
-				</li>				
-				
-			</ul>				
+					<li>
+						<a href="#"  data_send="[2]" class="status_link">Đang lấy hàng</a>
+					</li>	
+
+					<li>
+						<a href="#"  data_send="[3]" class="status_link">Đang vận chuyển</a>
+					</li>	
+					<li >
+						<a class="one status_link" href="#" data_send="[1]">Đã hoàn thành</a>
+					</li>						
+				</ul>	
+				<ul class="reset_box">
+					<li>
+						<a href="/orders/speciality/"  data_send="" class="">Đặt lại</a>
+					</li>				
+					
+				</ul>	
+			</div>
 		</div>
 		
 	</div>
 	
-	<div id="ajax_load">
+	
+	<br>
+	<br>
+	<div id="ajax-wrap">
 	<% include ../../masterpage/widget-orders-show-tables %>
 	</div>
 	
 
 
 
-<input type="hidden" id="users_id" value="<%= users_id %>"/>
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 
 

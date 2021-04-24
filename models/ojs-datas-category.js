@@ -8,9 +8,62 @@
 */
 
 const ojs_datas_category = {
-	//
-	//
-	//
+	//@
+	//@
+	//@
+	//@
+	//* lấy danh mục cho update order
+	get_data_category_list_update_order: function(order_id){	
+		let datas_return = 	
+		{	
+			"datas" :   {
+				"select_field" :
+				[
+					"orders_speciality_user_id",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"orders_speciality_adress",
+					"orders_speciality_notes",
+					"orders_speciality_phone",
+					"orders_speciality_email",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"orders_details_speciality_price",
+					"orders_details_speciality_discount",
+					"orders_details_speciality_unit_discount",
+					"products_speciality_name",
+					"orders_speciality_ID",
+					"orders_details_medium_text",
+					"orders_details_speciality_ID"				
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[        
+							{   "field"     :"orders_details_speciality_order_id",
+								"value"     : order_id,
+								"compare" 	: "="
+							} 					
+						]    
+					}         
+				],
+				"order" :
+				 [
+						{    "field"  :"orders_details_speciality_line_order",
+							"compare" : "ASC"
+						}   
+				 ]
+			}	
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@
+	//@
 	get_data_category_list: function(cat_id,user_id){
 		
 		let datas_return = 	

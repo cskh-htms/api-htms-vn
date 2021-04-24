@@ -113,7 +113,8 @@ router.get('/', async function(req, res, next) {
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
 			'users_list' : users_list.datas,
-			'js_css_version' : check_datas_result.js_css_version
+			'js_css_version' : check_datas_result.js_css_version,
+			'menu_taget':'sidebar_danh_sach_tai_khoan'
 		}
 		//res.send(data_send);
 		//return;
