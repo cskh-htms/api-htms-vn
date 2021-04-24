@@ -51,8 +51,8 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("a foreign key constraint fails") >= 0 ){
-			return "Chưa chọn service";
+		if(error.sqlMessage.search("Cannot delete") >= 0 ){
+			return "Cửa hàng đã có data không thể xoá";
 		}else if(error.sqlMessage.search("'dala_stores_chk_1") >= 0){
 			return "Chưa nhập tên cửa hàng ";
 		}else if(error.sqlMessage.search("dala_stores_chk_2") || error.sqlMessage.search("dala_stores_phone") >= 0){
