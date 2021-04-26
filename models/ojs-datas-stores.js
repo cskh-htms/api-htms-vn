@@ -88,12 +88,7 @@ const ojs_datas_stores = {
 								"field" : "stores_status" ,
 								"value" : [0,1,2],
 								"compare" : "in"
-							},
-							{
-								"field" : "stores_status_stores" ,
-								"value" : 1,
-								"compare" : "="
-							}								
+							}							
 						]    
 					}         
 				],
