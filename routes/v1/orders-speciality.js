@@ -573,44 +573,60 @@ router.get('/delete/:order_id', async function(req, res, next) {
 	let order_id = req.params.order_id;
 	//res.send([order_id]);
 	//
-	//neu chua co token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login")
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
 	}
-	//
-	//neu khong phai admin thi ra login
-	if(ojs_shares.get_users_type(token) == "2" || ojs_shares.get_users_type(token) == "1") {
-		//goo
-	}else{
-		res.redirect("/login")
-	}
-	
-	//check token data 
-	let send_datas_token = { 
-		"datas" : {
-			"token" : token
-		}
-	}
-	//call api check token  
-	//check token
-	try {
-		let check_user = await ojs_shares.get_data_no_token_post('https://appdala.com/api/v1/users/check-token', send_datas_token );
-		if(check_user.error != "") { res.redirect("/login") }
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
 	}
 	catch(error){
-		res.send( { "error" : "10" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1.router_app->orders-speciality->->delete", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error != "" ){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.router_app->orders-speciality->->delete", "message": error_send } ); 
+		return;			
 	}	
-	//
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.user_role != "admin" ){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "3.router_app->orders-speciality->->delete", "message": error_send } ); 
+		return;			
+	}		
 	//send web
 	//@sidebar_type -- loại sibar 
 	//@'users_type' : loai user
 	try {	
 		//Lấy danh sách loại danh mục
-		let active_delete = await ojs_shares.get_data_send_token_delete('https://appdala.com/api/v1/orders/speciality/' + order_id, token);
+		let active_delete = await ojs_shares.get_data_send_token_delete(ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/' + order_id, token);
 		res.send(active_delete);	
 	}
 	catch(error){
-		res.send( { "error" : "r_11" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi xóa dữ liệu , vui lòng liên hệ admin", "Lỗi xóa dữ liệu , vui lòng liên hệ admin" );
+		res.send({ "error" : "33.router_app->orders-speciality->->delete", "message": error_send } ); 
+		return;		
 	}		
 });
 

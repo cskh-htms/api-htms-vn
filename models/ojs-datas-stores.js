@@ -177,6 +177,68 @@ const ojs_datas_stores = {
 	},	
 	//@
 	//@
+	//@
+	//news
+	get_data_store_list_bussiness_news: function(user_id){
+		
+		let datas_return = 	
+		{
+			"datas" : 
+			{
+				"select_field" :
+				[ 
+					"stores_ID",
+					"stores_user_id",
+					"stores_name" ,
+					"stores_date_created",
+					"stores_adress",
+					"stores_phone",
+					"service_type_name",
+					"users_first_name",
+					"users_last_name",
+					"stores_payment_limit",
+					"stores_status_update",
+					"stores_status",
+					"stores_status_stores",
+					"users_type_name"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "users_ID" ,
+								"value" : user_id,
+								"compare" : "="
+							},							
+							{
+								"field" : "stores_status" ,
+								"value" : [0,1,2,3],
+								"compare" : "in"
+							}
+							
+						]    
+					}         
+				],
+				"order" : 
+				[	
+					{	
+						"field"	: "service_type_name",
+						"compare" : "ASC"
+					},
+					{	
+						"field"	: "stores_date_created",
+						"compare" : "DESC"
+					}						
+				]
+			}//data
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
 	//data cho ojs_shares->get_datas_check
 	get_data_danhSachCuaHang: function(user_id,store_id){	
 	

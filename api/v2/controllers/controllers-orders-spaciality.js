@@ -310,91 +310,78 @@ async  function insert_orders_spaciality(req, res, next) {
 async  function delete_orders_spaciality(req, res, next) {
 	let order_id = req.params.order_id;
 	let token = req.headers['token'];
-	var token_decode = jwt.decode(token);
-	//res.send([order_id]);
-	//return;
 	//@
-	
-	
-
-	//@check chủ sỡ hữu
-	//phải là chủ sỡ hữu comment mới update dc	
-	var data_check;
-	try {	
-		data_check = {
-			"datas" :   {
-				"select_field" :
-				[
-					"orders_speciality_ID"
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[
-						{   "field"     :"orders_speciality_ID",
-							"value"     : order_id,
-							"compare" 	: "="
-						},  
-						{   "field"     :"orders_speciality_user_id",
-							"value"     : token_decode.users_ID,
-							"compare" 	: "="
-						}					
-						]    
-					}         
-				],
-				"order" :
-				 [
-
-				 ]
-			}
-		}	
-	}
-	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_14", "message" : error_send  } );
-	}		
-	
-	//res.send( data_check );
 	//@@
-	let check_chu_so_huu;
-	try {
-		check_chu_so_huu = await models_orders_spaciality.search( data_check.datas );
+
+	
+	
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_12", "message" : error_send  } );
-	}	
-	//res.send( check_chu_so_huu );
-	//return;
-	
-	
-	if (check_chu_so_huu.hasOwnProperty("error")) {
-		res.send(check_chu_so_huu); 
-		return;	
-	}else{
-		if(check_chu_so_huu.length <= 0 ){
-			if(ojs_shares.check_role_admin(token_decode.users_type_infomation) != true ){ 
-				res.send( { "error": "c_ctl_api_15", "message" : "Bạn không có quyền update"  } ); 
-				return;
-			}
-		}
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.controllers_order_speciality(app)->delete", "message": error_send } ); 
+		return;			
 	}
-	//#end of check chủ sỡ hữu commnet
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, check_datas_result.error, "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.controllers_order_speciality(app)->delete", "message": error_send } ); 
+		return;			
+	}
+	
 
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.3.controllers_order_speciality(app)->delete", "message": error_send } ); 
+		return;			
+	}
+	
 	//@
 	try {
 		models_orders_spaciality.delete_orders_spaciality(order_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_api_2", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+			res.send({ "error" : "2.33.controllers_order_speciality(app)->delete", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_3", "message" : error_send  } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "243.controllers_order_speciality(app)->delete", "message": error_send } ); 
+		return;	
 	}	
 }
 

@@ -39,6 +39,18 @@ content
 
 	
 	
+	
+	
+	<% //stores
+	let stores_new2 = 0;
+	for (let i = 0 ; i < stores_new.length; i ++){
+		if(stores_new[i].stores_status == 3){
+			stores_new2 = stores_new2 + 1;
+		}
+	}
+	%>	
+	
+
 	<% //product
 	let product_new = 0;
 	for (let i = 0 ; i < product_list.length; i ++){
@@ -88,20 +100,24 @@ content
 	<div class="news-wrap">
 
 		<ul class="news-ul">
+			<% if(stores_new2 > 0 ){ %>
+				<li><a style="pointer-events: none;" href="/stores/<%= user_id %>">Cửa hàng từ chối <span class="red"><%= stores_new2 %></span></a></li>
+			<% } %>				
+		
 			<% if(product_new > 0 ){ %>
 				<li><a href="/bussiness/products/<%= user_id %>">Sản phẩm từ chối <span class="red"><%= product_new %></span></a></li>
 			<% } %>		
 
 			<% if(category_new > 0 || category_new.length > 0 ){ %>
-				<li><a href="/categorys/general/speciality/17">danh mục cần sử lý <span class="red"><%= category_new %></span></a></li>
+				<li><a href="/bussiness/categorys/<%= user_id %>">danh mục bị từ chối <span class="red"><%= category_new %></span></a></li>
 			<% } %>
 			
 			<% if(option_new > 0 || option_new.length > 0 ){ %>
-				<li><a href="/options/speciality/17">options cần sử lý <span class="red"><%= option_new %></span></a></li>
+				<li><a href="/bussiness/options/<%= user_id %>">options bị từ chối <span class="red"><%= option_new %></span></a></li>
 			<% } %>
 			
 			<% if(brand_new > 0 || brand_new.length > 0 ){ %>
-				<li><a href="/brands/17">Brand cần sử lý <span class="red"><%= brand_new %></span></a></li>
+				<li><a href="/bussiness/brands/<%= user_id %>">Brand bị từ chối <span class="red"><%= brand_new %></span></a></li>
 			<% } %>	
 
 			

@@ -316,7 +316,8 @@ $(document).ready(function($){
 								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được cửa hàng");
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã tạo cửa hàng",location.href);
+							let user_id = $('#user_id').val();
+							ojs_message.message_ok_show(" Đã tạo cửa hàng",ojs_loader.host + '/bussiness/' + user_id);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

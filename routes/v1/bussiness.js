@@ -235,6 +235,41 @@ router.get('/:user_id', async  function(req, res, next) {
 	}
 	//	
 	//@
+	
+	
+	
+	
+		//@
+	//@
+	//@
+	//@	tin tức cửa hàng	
+	var danhSachCuaHang;
+	try {
+		danhSachCuaHang = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/search', 
+			ojs_datas_stores.get_data_store_list_bussiness_news(user_id), 
+			token
+		);	
+		
+		if(danhSachCuaHang.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, danhSachCuaHang.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "48.router_bussiness(app)->show-all->danhSachCuaHang", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_bussiness(app)->show-all->danhSachCuaHang", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send(danhSachCuaHang);
+	//return;
 	//@
 	//@
 	//@end of news
@@ -374,7 +409,8 @@ router.get('/:user_id', async  function(req, res, next) {
 			'options_list':options_list.datas,
 			'product_order_list' : product_order_list.datas,
 			'js_css_version' : check_datas_result.js_css_version,
-			'menu_taget':'sidebar_tong_quan'
+			'menu_taget':'sidebar_tong_quan',
+			'stores_new': danhSachCuaHang.datas
 		}
 		
 		//res.send(data_send);
