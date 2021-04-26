@@ -1,0 +1,49 @@
+
+
+<% if( typeof news_list == 'object' && news_list){ } else{ news_list=[] } %>
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th class="user-name">Người bình luận</th>
+			<th class="user-name">Ngày bình luận</th>
+			<th class="user-name">Trạng thái cửa hàng</th>
+			<th class="user-name">Trạng thái admin</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<% 
+	for( var  x in news_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name"><a href="#"><%- news_list[x].products_speciality_name %></a>
+				<div class="row-actions">
+					<span class="edit"><a href="/comments/speciality/show/<%= news_list[x].comments_speciality_ID  %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_comment_id="<%= news_list[x].comments_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>
+			
+			<td class="user-name"><%= news_list[x].users_first_name + " " + news_list[x].users_last_name %></td>				
+			<td class="user-name"><%= news_list[x].comments_speciality_date_created %></td>
+			<td class="user-name"><%- ojs_share.show_table_status_product(news_list[x].comments_speciality_status_store ) %></td>	
+			<td class="user-name"><%- ojs_share.show_table_status_product(news_list[x].comments_speciality_status_admin ) %></td>			
+			
+	   </tr>
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th class="user-name">Người bình luận</th>
+			<th class="user-name">Ngày bình luận</th>
+			<th class="user-name">Trạng thái cửa hàng</th>
+			<th class="user-name">Trạng thái admin</th>
+		</tr>
+	</tfoot>
+</table>

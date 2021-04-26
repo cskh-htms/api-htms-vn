@@ -1,0 +1,163 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+
+<% include ../masterpage/loader %>
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+
+<% include ../masterpage/header %>
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+
+
+
+	<!-- ---------
+	//tin tức
+	---------- -->	
+	
+
+	
+	
+	<% //product
+	let product_new = 0;
+	for (let i = 0 ; i < product_list.length; i ++){
+		if(product_list[i].products_speciality_status_admin == 3){
+			product_new = product_new + 1;
+		}
+	}
+	%>
+
+	<% //category
+	let category_new = 0;
+	for (let i = 0 ; i < category_general_list.length; i ++){
+		if(category_general_list[i].category_general_speciality_admin_status == 3){
+			category_new = category_new + 1;
+		}
+	}
+	%>
+	
+	<% //option
+	let option_new = 0;
+	for (let i = 0 ; i < options_list.length; i ++){
+		if(options_list[i].options_product_speciality_status_admin == 3){
+			option_new = option_new + 1;
+		}
+	}
+	%>
+		
+	<% //barnd
+	let brand_new = 0;
+	for (let i = 0 ; i < brands_list.length; i ++){
+		if(brands_list[i].brands_status_admin == 3){
+			brand_new = brand_new + 1;
+		}
+	}
+	%>	
+	
+	
+	
+	<% //tổng từ chối
+	let news_sum = 0;
+	news_sum = product_new + 	
+	category_new + 
+	option_new  + 
+	brand_new
+	%>
+
+	<div class="news-wrap">
+
+		<ul class="news-ul">
+			<% if(product_new > 0 ){ %>
+				<li><a href="/products/speciality/17">Sản phẩm từ chối <span class="red"><%= product_new %></span></a></li>
+			<% } %>		
+
+			<% if(category_new > 0 || category_new.length > 0 ){ %>
+				<li><a href="/categorys/general/speciality/17">danh mục cần sử lý <span class="red"><%= category_new %></span></a></li>
+			<% } %>
+			
+			<% if(option_new > 0 || option_new.length > 0 ){ %>
+				<li><a href="/options/speciality/17">options cần sử lý <span class="red"><%= option_new %></span></a></li>
+			<% } %>
+			
+			<% if(brand_new > 0 || brand_new.length > 0 ){ %>
+				<li><a href="/brands/17">Brand cần sử lý <span class="red"><%= brand_new %></span></a></li>
+			<% } %>	
+
+			
+		</ul>
+
+	</div>
+		
+		
+		
+		
+		
+	<!-- ---------
+	//end of tin tức
+	---------- -->	
+
+
+
+
+
+
+
+
+
+
+	<div class="store_row">
+		<button class="btn_add_store"><a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo sản phẩm</a></button>
+		<button class="btn_add_store"><a href="/categorys/general/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo danh mục</a></button>
+		<button class="btn_add_store"><a href="/options/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>">Tạo options</a></button>
+		<button class="btn_add_store"><a href="/brands/add/<%= store_id %>/<%= user_id %>">Tạo thương hiệu</a></button>
+
+	</div>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+<% include ../masterpage/loader-end %>

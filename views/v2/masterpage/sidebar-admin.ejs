@@ -1,0 +1,69 @@
+
+
+
+<% 
+//order check
+if (typeof orders_check == 'object' && orders_check && orders_check.length > 0 ) { 
+	orders_check_show = '<span class="status_menu">' + orders_check.length + '</span>';
+} else{ 
+	orders_check_show = "";
+}
+
+//order check
+if (typeof product_check == 'object' && product_check && product_check.length > 0 ) { 
+	product_check_show = '<span class="status_menu">' + product_check.length + '</span>';
+} else{ 
+	product_check_show = "";
+}
+
+
+//order check
+if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) { 
+	news_sum = '<span class="red">' + news_sum + '</span>';
+} else{ 
+	news_sum = "";
+}
+
+
+
+%>
+
+
+<div id="sidebar" class="sidebar">
+	<ul class="admin-menu">
+		<li id="sidebar_tong_quan">
+			<a href="/admin/">
+				<i class="fas fa-tachometer-alt"></i>
+				<div class="menu-name">Tổng quan <%- news_sum %></div>
+			</a>
+		</li>
+		
+		<!-- 
+		//users
+		-->	
+		<li>
+		<i class="fas fa-user"></i>
+		<div class="menu-name">Tài khoản</div>
+		<ul>
+			<li id="sidebar_danh_sach_tai_khoan"><a href="/users">Danh sách tài khoản</a></li>
+		</ul>
+		</li>
+		
+		<!-- 
+		//cửa hàng
+		-->	
+		<li>
+		<i class="fas fa-store"></i>
+		<div class="menu-name">Quản lý</div>
+		<ul>
+			<liid="sidebar_cua_hang"><a href="/stores/">Cửa hàng</a></li>
+			<li id="sidebar_don_hang_dac_san"><a href="/orders/speciality">Đơn hàng</a>  </li>
+			<li><a href="/products/speciality/17"> Sản phẩm</a></li>
+			<li><a href="/categorys/general/speciality/17">Danh mục</a></li>
+			<li><a href="/options/speciality/17">options</a></li>
+			<li><a href="/brands/17">Danh sách thương hiệu</a></li>
+		</ul>
+		</li>	
+
+	</ul>
+</div>

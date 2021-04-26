@@ -1,0 +1,123 @@
+<% include ../masterpage/loader %>
+<script src="../../../../<%= js_css_version %>/javascripts/class-users.js"></script>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content login-wrap">
+	<div class="login-box">
+		<div class="logo">
+		<img src="/images/dala-logo.jpg">
+		</div>
+		<h1><%= title %></h1>
+		<div class="textbox">
+			<i class="fas fa-user"></i>
+			<input type="text" id="users_name" placeholder="Tài khoản">
+		</div>
+		<div class="textbox">
+			<i class="fas fa-user"></i>
+			<input type="text" value="" id="users_first_name" placeholder="Họ" />
+		</div>
+		<div class="textbox">
+			<i class="fas fa-user"></i>
+			<input type="text" value="" id="users_last_name" placeholder="Tên" />
+		</div>
+		<div class="textbox">
+			<i class="fas fa-map-marker-alt"></i>
+			<input type="text" value="" id="users_adress" placeholder="Địa chỉ" />
+		</div>
+		<div class="textbox">
+			<i class="fas fa-envelope"></i>
+			<input type="text" value="" id="users_email" placeholder="Email" />
+		</div>
+		<div class="textbox">
+			<i class="fas fa-mobile-alt"></i>
+			<input type="text" value="" id="users_phone" placeholder="Điện thoại" />
+		</div>
+		<div class="textbox">
+			<i class="fas fa-lock"></i>
+			<input type="password" id="users_password" placeholder="Mật khẩu">
+		 </div>
+		<div class="textbox">
+			<span>Loại tài khoản</span>
+			<select name="users_users_type_id" id="users_users_type_id">
+				<% include ../masterpage/widget-users-type %>
+			</select>
+		</div>
+	<button id="btn_save" class="btn">Đăng ký</button>
+		
+	<div class="dangky-link">Bạn đã có tài khoản? <a href="/login">Đăng nhập ngay</a></div>
+
+
+</div>
+	
+	
+	
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+</div><!-- //content_wrap -->	
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->	
+<% include ../masterpage/loader-end %>
+
+<script>
+
+$(document).ready(function($){
+//////////////////////////////////////////////////////////////	
+	//@@
+	//@@	
+	$(document).on('click','#btn_save',function(e) {
+		
+		e.preventDefault();
+		//alert("sdasdasd");
+		//return;
+		let users_name = $('#users_name').val();
+		let users_first_name = $('#users_first_name').val();
+		let users_last_name = $('#users_last_name').val();
+		let users_adress = $('#users_adress').val();
+		let users_email = $('#users_email').val();
+		let users_phone = $('#users_phone').val();
+		let users_password = $('#users_password').val();
+		let users_users_type_id = $('#users_users_type_id  option:selected').val();
+		
+		
+
+		var datas = {
+			"datas":{
+				users_name : users_name,
+				users_first_name : users_first_name,
+				users_last_name : users_last_name,
+				users_adress : users_adress,
+				users_email : users_email,
+				users_phone : users_phone,
+				users_password : users_password,
+				users_users_type_id  : users_users_type_id 
+			}
+		}
+
+
+		
+		//console.log(datas);
+		//return;			
+	
+		ojs_users.ajax_save(datas);		
+	//#
+	//#
+	//#
+	});
+/////////////////////////////////////////////////////////////////////////
+});
+	
+</script>
+
+
+
+
+
+
