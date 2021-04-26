@@ -118,7 +118,7 @@ router.get('/', async function(req, res, next) {
 	try {
 		orders_list = await ojs_shares.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
-			ojs_datas_orders.get_data_orders_list(),
+			ojs_datas_orders.get_data_orders_list_admin(),
 			token
 		);
 		
@@ -138,6 +138,10 @@ router.get('/', async function(req, res, next) {
 			res.send({ "error" : "38.router_app->router_app->orders-speciality->get", "message": error_send } ); 
 			return;		
 	}
+
+	//res.send(orders_list);
+	//return;
+
 
 	//
 	//lay tong so luong don hang chưa sử lý

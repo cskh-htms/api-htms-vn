@@ -11,7 +11,87 @@ const ojs_datas_orders = {
 	//
 	
 	
+	//@
+	//@
+	//@
+	//* 
+	// * data order list 
+	get_data_orders_list_admin : function(){
+		
+		let datas_return = 		
+		{	
 	
+		"datas" :   {
+			"select_field" :
+			[
+				"orders_speciality_ID",
+				"orders_speciality_date_orders",
+				"stores_name",
+				"users_first_name",
+				"users_last_name",
+				"orders_speciality_phone",
+				"orders_speciality_status_orders",
+				"orders_speciality_status_payment",
+				"orders_speciality_adress",
+				"orders_speciality_notes",			
+				"orders_details_speciality_qty_sum"		
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[   
+						{
+							"field" : "orders_speciality_status_orders" ,
+							"value" : "0",
+							"compare" : "="
+						}					
+					]    
+				}         
+			],
+			"order" :
+			 [
+				{    "field"  :"orders_speciality_date_orders",
+					"compare" : "DESC"
+				},
+				{    "field"  :"stores_name",
+					"compare" : "ASC"
+				}  				
+			],
+			"group_by" : 
+			[
+				"orders_speciality_ID",
+				"orders_speciality_date_orders",
+				"stores_name",
+				"users_first_name",
+				"users_last_name",
+				"orders_speciality_phone",
+				"orders_speciality_status_orders",
+				"orders_speciality_status_payment",
+				"orders_speciality_adress",
+				"orders_speciality_notes",	
+			],
+			"having" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"stores_name",
+						"value"     : " ",
+						"compare" : "is not null"
+					}                         
+					]    
+				}         
+			],
+		}	
+		}	
+		return datas_return;	
+	},	
+	
+		
 	//@
 	//@
 	//@
@@ -63,9 +143,6 @@ const ojs_datas_orders = {
 		return datas_return;	
 	},	
 	
-	
-	//@
-	//@
 	//@
 	//* 
 	// * data order list ajax for admin
@@ -75,18 +152,17 @@ const ojs_datas_orders = {
 			"datas" :   {
 				"select_field" :
 				[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders",
-				"orders_speciality_user_id",
-				"users_first_name",
-				"users_last_name",
-				"orders_speciality_phone",
-				"orders_speciality_status_orders",
-				"orders_speciality_status_payment",
-				"orders_speciality_adress",
-				"orders_speciality_notes",
-				"orders_speciality_email",
-				"stores_name"
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"stores_name",
+					"users_first_name",
+					"users_last_name",
+					"orders_speciality_phone",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"orders_speciality_adress",
+					"orders_speciality_notes",			
+					"orders_details_speciality_qty_sum"		
 				],
 				"condition" :
 				[
@@ -111,13 +187,43 @@ const ojs_datas_orders = {
 							}							
 						]    
 					}         
-				],
-				"order" :
-				 [
-						{    "field"  :"orders_speciality_date_orders",
-							"compare" : "ASC"
-						}   
-				 ]
+			],
+			"order" :
+			 [
+				{    "field"  :"orders_speciality_date_orders",
+					"compare" : "DESC"
+				},
+				{    "field"  :"stores_name",
+					"compare" : "ASC"
+				}  				
+			],
+			"group_by" : 
+			[
+				"orders_speciality_ID",
+				"orders_speciality_date_orders",
+				"stores_name",
+				"users_first_name",
+				"users_last_name",
+				"orders_speciality_phone",
+				"orders_speciality_status_orders",
+				"orders_speciality_status_payment",
+				"orders_speciality_adress",
+				"orders_speciality_notes",	
+			],
+			"having" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"stores_name",
+						"value"     : " ",
+						"compare" : "is not null"
+					}                         
+					]    
+				}         
+			],
 			}	
 		}	
 		return datas_return;	

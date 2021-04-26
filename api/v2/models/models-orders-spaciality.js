@@ -182,7 +182,7 @@ var search = async function (datas) {
 	
 	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search_1,sql_from_default,sql_link_search);		
 		
-		
+	//return 	get_sql_search_group;
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {
