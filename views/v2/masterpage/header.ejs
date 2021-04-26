@@ -1,0 +1,18 @@
+
+
+<%
+if(typeof users_full_name == 'string' && users_full_name){}else{users_full_name="";}
+%>
+
+<div id="header" class="header">
+	<div class="logo">
+	<img src="/images/dala-logo.jpg">
+	</div>
+	<div class="user">
+		<div class="user-image"><img id="test" src="/images/unnamed.png"></div>
+		<div class="user-text">
+			<a class="user-name" href="#"><%= users_full_name %></a>
+			<a class="logout" href="/logout" id="logOut">Đăng xuất</a>
+		</div>
+	</div>
+</div>

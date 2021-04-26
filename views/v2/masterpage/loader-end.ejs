@@ -1,0 +1,27 @@
+<% include ./loadding-message %>
+<input type="hidden" value="<%- menu_taget %>" id="id_taget"/>
+</body>
+</html>
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	//@active sidebar
+	//ihien thi active bên sidebar
+	let id_value = $('#id_taget').val();
+	if(id_value != "abc"){
+		$('#' + id_value).addClass('menu_taget');
+	}
+	
+	
+	
+
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+

@@ -129,7 +129,7 @@ router.get('/', async  function(req, res, next) {
 			'users_type' : user_type,
 			'user_role': user_type,
 			'user_id'	: user_id_send,
-			'datas' : danhSachCuaHang.datas,
+			'store_list' : danhSachCuaHang.datas,
 			'users_full_name' : users_full_name,
 			"js_css_version": check_datas_result.js_css_version,
 			'menu_taget': 'sidebar_cua_hang'
