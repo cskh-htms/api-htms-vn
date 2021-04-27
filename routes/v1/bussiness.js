@@ -2376,8 +2376,8 @@ router.get('/sale_by_store/:user_id', async  function(req, res, next) {
 
 	//return;
 	//lấy dữ liệu orders
-	//var date_star = "2020/01/01 00:00:00";
-	var date_star = ojs_shares.get_current_date_star();
+	var date_star = "2020/01/01 00:00:00";
+	//var date_star = ojs_shares.get_current_date_star();
 	var date_end = ojs_shares.get_current_date_end();
 	var sattus_number = [0,1,2,3];
 	//	

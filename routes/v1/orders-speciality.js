@@ -1079,6 +1079,8 @@ router.post('/load/', async function(req, res, next) {
 			res.send({ "error" : "38.router_app->router_app->orders-speciality->get", "message": error_send } ); 
 			return;		
 	}
+	
+
 
 	data_send = {
 		'datas' : orders_list.datas

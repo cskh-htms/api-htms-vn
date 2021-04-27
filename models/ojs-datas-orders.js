@@ -169,7 +169,12 @@ const ojs_datas_orders = {
 					{    
 					"relation": "and",
 					"where" :
-						[  
+						[   
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : status_number,
+								"compare" : "in"
+							},
 							{
 								"field" : "orders_speciality_date_orders" ,
 								"value" : date_star,
@@ -179,53 +184,48 @@ const ojs_datas_orders = {
 								"field" : "orders_speciality_date_orders" ,
 								"value" : date_end,
 								"compare" : "<="
-							},
-							{
-								"field" : "orders_speciality_status_orders" ,
-								"value" : status_number,
-								"compare" : "in"
-							}							
+							}								
 						]    
 					}         
-			],
-			"order" :
-			 [
-				{    "field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				},
-				{    "field"  :"stores_name",
-					"compare" : "ASC"
-				}  				
-			],
-			"group_by" : 
-			[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders",
-				"stores_name",
-				"users_first_name",
-				"users_last_name",
-				"orders_speciality_phone",
-				"orders_speciality_status_orders",
-				"orders_speciality_status_payment",
-				"orders_speciality_adress",
-				"orders_speciality_notes",	
-			],
-			"having" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"stores_name",
-						"value"     : " ",
-						"compare" : "is not null"
-					}                         
-					]    
-				}         
-			],
+				],
+				"order" :
+				 [
+					{    "field"  :"orders_speciality_date_orders",
+						"compare" : "DESC"
+					},
+					{    "field"  :"stores_name",
+						"compare" : "ASC"
+					}  				
+				],
+				"group_by" : 
+				[
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"stores_name",
+					"users_first_name",
+					"users_last_name",
+					"orders_speciality_phone",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"orders_speciality_adress",
+					"orders_speciality_notes",	
+				],
+				"having" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"stores_name",
+							"value"     : " ",
+							"compare" : "is not null"
+						}                         
+						]    
+					}         
+				],
 			}	
-		}	
+		}		
 		return datas_return;	
 	},		
 

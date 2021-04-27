@@ -40,6 +40,11 @@
 				if(check_data_fields.check_datas.check_min(datas.stores_phone,10) == false){check_errer =  "Số điện thoại í nhất 10 số, bạn chưa nhập dữ liệu";	return;}	
 				if(check_data_fields.check_datas.check_max(datas.stores_phone,11) == false){check_errer =  "Số điện thoại nhiều nhất 11 số, bạn chưa nhập dữ liệu";	return;}
 			}			
+			if(item == "stores_service_type_id"){
+				if(check_data_fields.stores_service_type_id == 0){check_errer =  "Chưa chọn service";	return;}
+			}				
+			
+			
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer ;
