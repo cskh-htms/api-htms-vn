@@ -71,6 +71,7 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
 					//return;
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();
