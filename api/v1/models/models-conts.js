@@ -1,7 +1,26 @@
+
+/*
 const HOST_NAME = "localhost";
 const HOST_IP = "localhost";
 const DATABASE_USER = "root";
 const DATABASE_PASS = "Dala@2020!@#$%^";
+const DATABASE_NAME = "dalacenter";
+*/
+
+/*
+const HOST_NAME = "localhost";
+const HOST_IP = "localhost";
+const DATABASE_USER = "root";
+const DATABASE_PASS = "";
+const DATABASE_NAME = "dalacenter";
+*/
+
+
+
+const HOST_NAME = "localhost";
+const HOST_IP = "localhost";
+const DATABASE_USER = "root";
+const DATABASE_PASS = "";
 const DATABASE_NAME = "dalacenter";
 
 
@@ -10,8 +29,6 @@ const HOST_IP2 = "localhost"; // server user remote
 const DATABASE_USER2 = "remote1";
 const DATABASE_PASS2 = "Vanluc@2003";
 const DATABASE_NAME2 = "dalacenter";
-
-
 
 
 module.exports = {
