@@ -2242,12 +2242,12 @@ router.get('/orders/:user_id', async  function(req, res, next) {
 	try {
 		var date_star = ojs_shares.get_current_date_star();
 		var date_end = ojs_shares.get_current_date_end();
-		var sattus_number = [1];
+		var sattus_number = [0,1,2,3,4];
 		
 		
 		orders_list = await ojs_shares.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
-			ojs_datas_orders.get_data_orders_list_bussiness(user_id,date_star,date_end,sattus_number),
+			ojs_datas_orders.get_data_orders_list_bussiness_load(user_id,date_star,date_end,sattus_number),
 			token
 		);
 		
