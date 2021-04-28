@@ -588,7 +588,7 @@ const ojs_datas_orders = {
 							}							
 						]    
 					}          
-				]
+				],
 				"group_by" :	
 				[
 					"stores_ID",
