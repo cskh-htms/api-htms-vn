@@ -2,6 +2,10 @@
 <% if( typeof order_list == 'object' && order_list && order_list.length > 0){ order_list = order_list; } else{ order_list=[] } %>
 <% if( typeof store_list == 'object' && store_list && store_list.length > 0){ datas = store_list;} else{ datas=[] ;} %>
 
+<% if( typeof user_role == 'string' && user_role && user_role.length > 0 ){ user_role = user_role } else{ user_role="" } %>
+<% if( ( typeof store_id == 'number' || typeof store_id == 'string' ) && store_id){ } else{ store_id = "0" } %>
+<% if(  typeof service_type_name  == 'string'  && service_type_name ){ } else{ service_type_name = "" } %>
+
 
 
 
@@ -11,11 +15,7 @@
 
 
 
-
-
-
-
-<div id="page_wrap" class="page_wrap">
+<div id="page_wrap" class="page_wrap no_sidebar">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
 <!-- --------------------
@@ -31,119 +31,97 @@ content
 	<h1><%= title %></h1>
 
 
-
-	<!-- ---------
-	//tin tức
-	---------- -->	
-	
-
-	
-	
-	
-	
-	<% //stores
-	let stores_new2 = 0;
-	for (let i = 0 ; i < stores_new.length; i ++){
-		if(stores_new[i].stores_status == 3){
-			stores_new2 = stores_new2 + 1;
-		}
-	}
-	%>	
-	
-
-	<% //product
-	let product_new = 0;
-	for (let i = 0 ; i < product_list.length; i ++){
-		if(product_list[i].products_speciality_status_admin == 3){
-			product_new = product_new + 1;
-		}
-	}
+	<%
+	var store_number = 0;
+	var product_sale = 0;
 	%>
-
-	<% //category
-	let category_new = 0;
-	for (let i = 0 ; i < category_general_list.length; i ++){
-		if(category_general_list[i].category_general_speciality_admin_status == 3){
-			category_new = category_new + 1;
-		}
-	}
-	%>
-	
-	<% //option
-	let option_new = 0;
-	for (let i = 0 ; i < options_list.length; i ++){
-		if(options_list[i].options_product_speciality_status_admin == 3){
-			option_new = option_new + 1;
-		}
-	}
-	%>
-		
-	<% //barnd
-	let brand_new = 0;
-	for (let i = 0 ; i < brands_list.length; i ++){
-		if(brands_list[i].brands_status_admin == 3){
-			brand_new = brand_new + 1;
-		}
-	}
-	%>	
-	
-	
-	
-	<% //tổng từ chối
-	let news_sum = 0;
-	news_sum = product_new + 	
-	category_new + 
-	option_new  + 
-	brand_new
-	%>
-
-	<div class="news-wrap">
-
-		<ul class="news-ul">
-			<% if(stores_new2 > 0 ){ %>
-				<li><a style="pointer-events: none;" href="/stores/<%= user_id %>">Cửa hàng từ chối <span class="red"><%= stores_new2 %></span></a></li>
-			<% } %>				
-		
-			<% if(product_new > 0 ){ %>
-				<li><a href="/bussiness/products/<%= user_id %>">Sản phẩm từ chối <span class="red"><%= product_new %></span></a></li>
-			<% } %>		
-
-			<% if(category_new > 0 || category_new.length > 0 ){ %>
-				<li><a href="/bussiness/categorys/<%= user_id %>">danh mục bị từ chối <span class="red"><%= category_new %></span></a></li>
-			<% } %>
-			
-			<% if(option_new > 0 || option_new.length > 0 ){ %>
-				<li><a href="/bussiness/options/<%= user_id %>">options bị từ chối <span class="red"><%= option_new %></span></a></li>
-			<% } %>
-			
-			<% if(brand_new > 0 || brand_new.length > 0 ){ %>
-				<li><a href="/bussiness/brands/<%= user_id %>">Brand bị từ chối <span class="red"><%= brand_new %></span></a></li>
-			<% } %>	
-
-			
-		</ul>
-
-	</div>
-		
-		
-		
-		
-		
-	<!-- ---------
-	//end of tin tức
-	---------- -->	
-
-
-
-
-
-
-
 	<!-- ---------------
 	//@
 	//@
 	//hien thi cua hang
 	------------------- -->
+	<!--<% 
+	if(store_list.length > 0){
+	for( var  x in store_list ) { 
+		store_number = store_number  + 1 ;
+	} 
+	}
+	%>
+	<h4>Tổng số cửa hàng  <span>[ <%= store_number %> ]</span> </h4> -->
+	
+	<script>
+		console.log(<%- JSON.stringify(datas) %>);
+		console.log(<%- JSON.stringify(product_list) %>);
+	</script>
+	
+	<% 
+	if(datas.length > 0){
+		let product_count = {};
+		let product_sale_count = {};
+		datas.map( data => {
+			product_count[data.stores_ID] = 0;
+			product_sale_count[data.stores_ID] = 0;
+		})
+		product_list.map( product => {
+			product_count[product.stores_ID] += 1;
+			if (product.products_speciality_sale_of_price_time_check == "đangkhuyếnmãi") {
+				product_sale_count[product.stores_ID] += 1;
+			}
+			else {
+			}
+			
+		})
+	%>
+	
+	
+
+	<%
+	for( var  x in datas ) { %>
+		<div class="store_box">
+			<div class="store_name"><h3><a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>"><%- ojs_share.unCape(datas[x].stores_name) %></a></h3><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></i></div>
+			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý<span>6</span></a>
+			<ul class="store_don_hang">
+				<li><a href=""><span class="number">2</span>Chờ xác nhận</a></li>
+				<li><a href=""><span class="number">4</span>Chờ lấy hàng</a></li>
+				<li><a href=""><span class="number">2</span>Đang giao</a></li>
+				<li><a href=""><span class="number">1</span>Đổi trả</a></li>
+			</ul>
+			<div class="store_box_content">
+				<div class="store_thang_nay">
+					Doanh thu tháng này <span class="number">200.000d</span> với <span>27</span> sản phẩm bán ra.
+				</div>
+				<div class="store_san_pham">
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span class="number"><%= product_count[datas[x].stores_ID] %></span> sản phẩm</a>
+					<a href="/products/<%= datas[x].service_type_name %>/add/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>" class="btn_add_sp">Thêm sản phẩm</a>
+					<a href="#"><span><%= product_sale_count[datas[x].stores_ID] %></span> đang KM</a>
+					<a href="#"><span>0</span> hết hàng</a>
+				</div>
+				<div class="store_thong_tin">
+					<p>Điện thoại: <span><%- ojs_share.unCape(datas[x].stores_phone) %></span></p>
+					<p>Địa chỉ: <span><%- ojs_share.unCape(datas[x].stores_adress) %>,
+					<%- ojs_share.unCape(datas[x].stores_wards) %>,
+					<%- ojs_share.unCape(datas[x].stores_district) %>,
+					<%- ojs_share.unCape(datas[x].stores_province) %>
+				</span></p>
+					<p>Dịch vụ: <span><%- ojs_share.unCape(datas[x].service_type_name) %></span></p>
+					<p>Hạn mức: <span><%- ojs_share.show_price_format(datas[x].stores_payment_limit,0,",",".","") %></span></p>
+				</div>
+			</div>
+		</div>
+	<% 
+	} 
+	%>
+	<% 
+	} 
+	%>
+
+	<div class="btn_add_store"><a href="/bussiness/stores/add/<%= user_id %>" class="btn_bd_green"><i class="fas fa-plus"></i>Tạo cửa hàng</a></div>
+
+
+
+
+
+<!--
 	<table class="table-list">
 		<thead>
 			<tr>
@@ -163,24 +141,58 @@ content
 
 		</tbody>
 	</table>
-
-
+-->
 	<!-- ---------------
 	//@
 	//@
 	//end of hien thi cua hang
 	--------------------->
 
-	<br>
-	<br>
-	<p>Số cửa hàng <span class="gray"><%= store_list.length %></span></p>
-	<div class="store_row">
+
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+		<br>
+		<h1>Thống kê doanh thu</h1>
+		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+			<div class="report_bock report_bock_payment">
+				<ul class="report_link_box report_bock_payment">
+					<li class="one report_link">
+						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					</li>
+					<li class="one report_link" >
+						<a href="#"  data_send="hom_qua">Hôm qua</a>
+					</li>				
+					<li class="one report_link">
+						<a href="#" data_send="tuan_nay">Tuần này</a>
+					</li>
+					<li class="one report_link">
+						<a href="#"  data_send="thang_nay" >tháng này</a>
+					</li>		
+					<li class="one report_link">
+						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+					</li>	
+					<li class="one report_link">
+						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+		</div>	
 		
-		<li><a href="/bussiness/products/<%= user_id %>">Sản Phẩm <span class="gray"><%= product_list.length %></span></a></li>
-		<li><a href="/bussiness/categorys/<%= user_id %>"">Danh mục <span class="gray"><%= category_general_list.length %></span></a></li>
-		<li><a href="/bussiness/options/<%= user_id %>"">Options <span class="gray"><%= options_list.length %></span></a></li>
-		<li><a href="/bussiness/brands/<%= user_id %>"">Thương hiệu <span class="gray"><%= brands_list.length %></span></a></li>
-	</div>
+		<div id="ajax_load_payment" class="ajax_load"">
+		<% include ../masterpage/widget-bussiness-report-stores %>		
+		</div>	
+
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
+
+
+
+
+
 
 
 
@@ -201,7 +213,6 @@ end content
 <% include ../masterpage/footer %>
 
 </div><!-- //content_wrap -->	
-
 
 <% include ../masterpage/sidebar %>
 
