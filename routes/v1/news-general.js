@@ -25,27 +25,42 @@ router.get('/', async function(req, res, next) {
 		res.redirect("/login")
 	}
 	//
-	//neu khong phai admin thi ra login
-	if(ojs_shares.get_users_type(token) == "2" || ojs_shares.get_users_type(token) == "1") {
-		//goo
-	}else{
+	//
+	//neu chua co token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
 		res.redirect("/login")
 	}
-	
-	//check token data 
-	let send_datas_token = { 
-		"datas" : {
-			"token" : token
-		}
+
+
+	//
+	//@@
+	//@@lấy version
+	let datas_check = {
+		"token":token
 	}
-	//call api check token  
-	//check token
-	try {
-		let check_user = await ojs_shares.get_data_no_token_post('https://appdala.com/api/v1/users/check-token', send_datas_token );
-		if(check_user.error != "") { res.redirect("/login") }
+	//@
+	//@
+	let check_datas_result;	
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
 	}
 	catch(error){
-		res.send( { "error" : "10" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.router_app->news-general->get", "message": error_send } ); 
+		return;			
 	}	
 	
 
@@ -53,13 +68,22 @@ router.get('/', async function(req, res, next) {
 	//Lấy danh sách các danh mục chung
 	let news_list;
 	try {
-		news_list = await ojs_shares.get_data_send_token_get('https://appdala.com/api/v1/news/general',token);
-		if(news_list.error != "") res.redirect("/login");	
-		//res.send(news_list);
-		//return;
+		news_list = await ojs_shares.get_data_send_token_get(ojs_configs.domain + '/api/' + check_datas_result.api_version + '/news/general',token);
+		if(news_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy datas new list", "Lỗi lấy datas new list" );
+			res.send({ "error" : "3.router_app->news-general->get", "message": error_send } ); 
+			return;			
+		}		
+
 	}
 	catch(error){
-		res.send( { "error" : "r_10" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy datas new list", "Lỗi lấy datas new list" );
+		res.send({ "error" : "5.router_app->news-general->get", "message": error_send } ); 
+		return;			
 	}
 
 	//
