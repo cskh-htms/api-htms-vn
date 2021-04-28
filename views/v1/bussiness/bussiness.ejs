@@ -14,7 +14,6 @@
 
 
 
-
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
@@ -29,9 +28,10 @@ content
 <div id="content" class="content">
 
 	<h1><%= title %></h1>
-
-
-
+	<script>
+	console.log(<%- JSON.stringify(order_list_all) %>) 
+	console.log(<%-  JSON.stringify(order_list_sum) %>)
+	</script>
 	<!-- ---------
 	//tin tức
 	---------- -->	
