@@ -11,8 +11,8 @@ const ojs_shares = require('../../models/ojs-shares');
 router.get('/', async function(req, res, next) {
 	//
 	let token = req.session.token;	
-	//res.send("welCom !!!");
-	//
+	res.send("welCom !!!");
+	return;
 	//neu chua co token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		res.redirect("/login")
