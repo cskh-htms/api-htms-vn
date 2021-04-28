@@ -9,13 +9,6 @@ const app_config = require('./configs/config');
 const ojs_shares = require('./models/ojs-shares');
 var app = express();
 
-// tao server localhost
-/*
-var localHttp = require('http');
-var localServer = localHttp.createServer(app);
-localServer.listen(2021,'localhost');
-*/
-// view engine setup
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -315,7 +315,83 @@ router.get('/:user_id', async  function(req, res, next) {
 	//return;
 
 
+	//order_list_all
+	//
+	var sattus_number = [0,2,3,4,5,6,7,8,9];
+	
+	//var date_star = ojs_shares.get_current_month_now();
+	var date_star = "2020/01/01 00:00:00";
+	var date_end = ojs_shares.get_current_date_end() ;
+	//	
+	var order_list_all;
+	try {
+		//res.send( order_list_datas );
+		//return;
+		//
+		order_list_all = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
+			ojs_datas_orders.get_order_list_datas_all(user_id,date_star,date_end,sattus_number), 
+			token
+		);
+		//res.send(order_list);
+		//return;
+	
+		if(order_list_all.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, order_list_all.error, "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "31.router_bussiness(app)->order_list_all", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu order", "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "32.router_bussiness(app)->order_list_all", "message": error_send } ); 
+			return;	
+	}		
+	//res.send(order_list_all);
+	//return;
 
+	//order_list_sum
+	//
+	var sattus_number = [1];
+	
+	var date_star = ojs_shares.get_current_month_now();
+	//var date_star = "2020/01/01 00:00:00";
+	var date_end = ojs_shares.get_current_date_end() ;
+	//	
+	var order_list_sum;
+	try {
+		//res.send( order_list_datas );
+		//return;
+		//
+		order_list_sum = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
+			ojs_datas_orders.get_order_list_datas_sum(user_id,date_star,date_end,sattus_number), 
+			token
+		);
+		//res.send(order_list);
+		//return;
+	
+		if(order_list_sum.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, order_list_sum.error, "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "31.router_bussiness(app)->order_list_sum", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu order", "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "32.router_bussiness(app)->order_list_sum", "message": error_send } ); 
+			return;	
+	}		
+	//res.send(order_list_sum);
+	//return;
 
 
 
@@ -402,6 +478,8 @@ router.get('/:user_id', async  function(req, res, next) {
 			'user_id' : user_id,
 			'users_full_name' : users_full_name,
 			'order_list' : order_list.datas,
+			'order_list_all' : order_list_all.datas,
+			'order_list_sum' : order_list_sum.datas,
 			'store_list' : store_list.datas,
 			'product_list':product_list.datas,
 			'brands_list':brands_list.datas,
