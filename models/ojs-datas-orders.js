@@ -561,7 +561,7 @@ const ojs_datas_orders = {
 				"select_field" :
 				[ 
 					
-					"orders_speciality_ID",
+					"stores_ID",
 					"orders_speciality_status_orders",
 					"orders_speciality_date_orders"
 				],
@@ -588,16 +588,10 @@ const ojs_datas_orders = {
 							}							
 						]    
 					}          
-				],
-				"order" :[
-						{    
-							"field"  :"orders_speciality_ID",
-							"compare" : "ASC"
-						}					
-				],
+				]
 				"group_by" :	
 				[
-					"orders_speciality_ID",
+					"stores_ID",
 					"orders_speciality_status_orders",
 					"orders_speciality_date_orders"
 				]				
