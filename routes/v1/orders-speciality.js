@@ -892,10 +892,6 @@ router.post('/ajax_load_order_bussiness/', async  function(req, res, next) {
 		'orders_list' : orders_list.datas
 	}
 	
-	//res.send(data_send);
-	//return;	
-	
-	
 	res.render( check_datas_result.view_version + '/masterpage/widget-order-show-table-bussiness', data_send );	
 
 });
@@ -1079,6 +1075,8 @@ router.post('/load/', async function(req, res, next) {
 			res.send({ "error" : "38.router_app->router_app->orders-speciality->get", "message": error_send } ); 
 			return;		
 	}
+	
+
 
 	data_send = {
 		'datas' : orders_list.datas

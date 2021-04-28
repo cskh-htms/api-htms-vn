@@ -338,18 +338,25 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 
+
+	let date_s1 = $('#products_speciality_date_start').val();
+	let date_s2 = $('#products_speciality_date_end').val();
+		
+
 	$( "#products_speciality_date_start" ).datepicker({
 			dateFormat: "yy-mm-dd",
 			timeFormat:  "hh:mm:ss",
 			language: 'vi'
 		}
-	);
+	).datepicker ('setDate',  new Date (date_s1));
+	
+	
 	$( "#products_speciality_date_end" ).datepicker({
 			dateFormat: "yy-mm-dd",
 			timeFormat:  "hh:mm:ss",
 			language: 'vi'
 		}
-	);
+	).datepicker ('setDate',  new Date (date_s2));
 
 
 
@@ -551,6 +558,11 @@ $(document).ready(function($){
 		let date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
 		let products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
 		
+		console.log(date_01);
+		
+		
+		
+		
 		let date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
 		let products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
 		
@@ -625,7 +637,6 @@ $(document).ready(function($){
 				products_speciality_unit_discount : products_speciality_unit_discount,
 				products_speciality_status_update : products_speciality_status_update,
 				products_speciality_qoute :products_speciality_qoute
-							
 			}
 		}
 	//console.log(datas);		

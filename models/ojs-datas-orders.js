@@ -169,7 +169,12 @@ const ojs_datas_orders = {
 					{    
 					"relation": "and",
 					"where" :
-						[  
+						[   
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : status_number,
+								"compare" : "in"
+							},
 							{
 								"field" : "orders_speciality_date_orders" ,
 								"value" : date_star,
@@ -179,53 +184,48 @@ const ojs_datas_orders = {
 								"field" : "orders_speciality_date_orders" ,
 								"value" : date_end,
 								"compare" : "<="
-							},
-							{
-								"field" : "orders_speciality_status_orders" ,
-								"value" : status_number,
-								"compare" : "in"
-							}							
+							}								
 						]    
 					}         
-			],
-			"order" :
-			 [
-				{    "field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				},
-				{    "field"  :"stores_name",
-					"compare" : "ASC"
-				}  				
-			],
-			"group_by" : 
-			[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders",
-				"stores_name",
-				"users_first_name",
-				"users_last_name",
-				"orders_speciality_phone",
-				"orders_speciality_status_orders",
-				"orders_speciality_status_payment",
-				"orders_speciality_adress",
-				"orders_speciality_notes",	
-			],
-			"having" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"stores_name",
-						"value"     : " ",
-						"compare" : "is not null"
-					}                         
-					]    
-				}         
-			],
+				],
+				"order" :
+				 [
+					{    "field"  :"orders_speciality_date_orders",
+						"compare" : "DESC"
+					},
+					{    "field"  :"stores_name",
+						"compare" : "ASC"
+					}  				
+				],
+				"group_by" : 
+				[
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"stores_name",
+					"users_first_name",
+					"users_last_name",
+					"orders_speciality_phone",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"orders_speciality_adress",
+					"orders_speciality_notes",	
+				],
+				"having" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"stores_name",
+							"value"     : " ",
+							"compare" : "is not null"
+						}                         
+						]    
+					}         
+				],
 			}	
-		}	
+		}		
 		return datas_return;	
 	},		
 
@@ -623,7 +623,76 @@ const ojs_datas_orders = {
 	//@@
 	//@@
 	//@@	
-	
+	//
+	//
+	//bussiness loader orders
+	get_data_orders_list_bussiness_load : function(user_id,date_star,date_end,sattus_number){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"orders_details_speciality_order_id",
+					"orders_details_speciality_qty_sum",
+					"orders_details_speciality_price_sum",
+					"orders_details_speciality_discount_sum",
+					"orders_speciality_date_orders",
+					"stores_name"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: "product",
+								"compare" : "="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_star,
+								"compare" : ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : sattus_number,
+								"compare" : "in"
+							},
+							{
+								"field" : "users_ID" ,
+								"value" : user_id,
+								"compare" : "="
+							}		
+						]    
+					}          
+				],
+				"order" :[
+						{    
+							"field"  :"orders_speciality_date_orders",
+							"compare" : "DESC"
+						}      
+				],
+				"group_by" :	
+				[
+					"orders_details_speciality_order_id",
+					"stores_name"
+				]				
+			}
+		}	
+		return datas_return;			
+	},
+	//@@
+	//@@
+	//@@		
 	//@@
 	//@@
 	//@@
@@ -690,7 +759,8 @@ const ojs_datas_orders = {
 				],
 				"group_by" :	
 				[
-					"orders_details_speciality_order_id"
+					"orders_details_speciality_order_id",
+					"stores_name"
 				]				
 			}
 		}	

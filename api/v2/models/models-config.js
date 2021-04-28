@@ -27,7 +27,7 @@ const connection_data = {
     user     			: models_const.DATABASE_USER,
     password 			: models_const.DATABASE_PASS,
     database 			: models_const.DATABASE_NAME,
-	multipleStatements	: true	
+	multipleStatements	: true
 	
 }
 

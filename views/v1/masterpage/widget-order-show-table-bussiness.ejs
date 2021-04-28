@@ -1,6 +1,6 @@
 
 
-<% if( typeof orders_list == 'object' && orders_list){  } else{ orders_list=[] } %>
+<% if( typeof orders_list == 'object' && orders_list && orders_list.length > 0){  } else{ orders_list=[] } %>
 
 
 
@@ -33,6 +33,7 @@
 	<tbody>
 
 	<% 
+	if(orders_list.length > 0){
 	for(var  x in orders_list) { 
 	%>
 	   <tr>
@@ -89,7 +90,9 @@
 	<% 
 	} 
 	%>
-	
+	<% 
+	} 
+	%>	
 	</tbody>
 	<tfoot>
 
