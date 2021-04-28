@@ -1,6 +1,16 @@
 
 
-<% if( typeof datas_category_news_general == 'object' && datas_category_news_general){ datas_category_news_general = datas_category_news_general } else{ datas_category_news_general=[] } %>
+<% 
+if( 
+typeof datas_category_news_general == 'object' 
+&& datas_category_news_general  
+&& datas_category_news_general.length > 0 )
+{ 
+	datas_category_news_general = datas_category_news_general 
+} else{ 
+	datas_category_news_general=[] 
+} 
+%>
 
 
 
@@ -14,6 +24,7 @@
 	<tbody>
 
 	<% 
+	if(datas_category_news_general.length > 0 ){ 
 	for(var  x in datas_category_news_general) { %>
 		<% if(datas_category_news_general[x].category_news_parent_id == 0) { %>
 			   <tr>
@@ -52,6 +63,7 @@
 				<% } %>
 	   
 	   <% } %>
+	<% } %>
 	<% } %>
 
 	</tbody>

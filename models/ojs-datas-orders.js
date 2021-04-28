@@ -620,7 +620,7 @@ const ojs_datas_orders = {
 				"select_field" :
 				[ 
 					
-					"stores_name",
+					"orders_speciality_ID",
 					"orders_details_speciality_qty_sum",
 					"orders_details_speciality_price_sum",
 					"orders_details_speciality_discount_sum"
@@ -661,13 +661,13 @@ const ojs_datas_orders = {
 				],
 				"order" :[
 						{    
-							"field"  :"stores_name",
+							"field"  :"orders_speciality_ID",
 							"compare" : "ASC"
 						}      
 				],
 				"group_by" :	
 				[
-					"stores_name"
+					"orders_speciality_ID"
 				]				
 			}
 		}	

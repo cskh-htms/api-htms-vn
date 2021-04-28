@@ -1,6 +1,6 @@
 
 
-<% if( typeof news_list == 'object' && news_list){ } else{ news_list=[] } %>
+<% if( typeof news_list == 'object' && news_list && news_list.length > 0 ){ } else{ news_list=[] } %>
 
 <table class="table-list">
 	<thead>
@@ -15,6 +15,7 @@
 	<tbody>
 
 	<% 
+	if(news_list.length > 0){
 	for( var  x in news_list ) { 
 	%>
 
@@ -33,6 +34,7 @@
 	   </tr>
 
 
+	<% } %>
 	<% } %>
 	
 	</tbody>
