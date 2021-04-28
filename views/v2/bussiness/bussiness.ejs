@@ -93,8 +93,8 @@ content
 				<div class="store_san_pham">
 					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span class="number"><%= product_count[datas[x].stores_ID] %></span> sản phẩm</a>
 					<a href="/products/<%= datas[x].service_type_name %>/add/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>" class="btn_add_sp">Thêm sản phẩm</a>
-					<a href="#"><span><%= product_sale_count[datas[x].stores_ID] %></span> đang KM</a>
-					<a href="#"><span>0</span> hết hàng</a>
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span><%= product_sale_count[datas[x].stores_ID] %></span> đang KM</a>
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span>0</span> hết hàng</a>
 				</div>
 				<div class="store_thong_tin">
 					<p>Điện thoại: <span><%- ojs_share.unCape(datas[x].stores_phone) %></span></p>

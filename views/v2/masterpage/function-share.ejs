@@ -15,12 +15,12 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>Chưa phê duyệt</option>' + 
-			'<option value="1">Đã phê duyệt</option>'
+			'<option value="0"  selected>Chưa duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'
 		}else{
 			result = "" + 
-			'<option value="0">Chưa phê duyệt</option>' + 
-			'<option value="1" selected>Đã phê duyệt</option>'
+			'<option value="0">Chưa duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'
 		}		
 		//	
 		return result;	
@@ -32,10 +32,10 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<span class="demo">Chưa phê duyệt</span>'
+			'<span class="demo">Chưa duyệt</span>'
 		}else{
 			result = "" + 
-			'<span class="push">Đã phê duyệt</span>'
+			'<span class="push"><i class="fas fa-check-circle"></i></span>'
 		}		
 		//	
 		return result;	
@@ -43,7 +43,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_select_share_all_two: function(status){
@@ -51,12 +51,12 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>chờ phê duyệt</option>' + 
-			'<option value="1">Đã phê duyệt</option>'
+			'<option value="0"  selected>Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'
 		}else{
 			result = "" + 
-			'<option value="0">Chưa phê duyệt</option>' + 
-			'<option value="1" selected>Đã phê duyệt</option>'
+			'<option value="0">Chưa duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'
 		}		
 		//	
 		return result;	
@@ -64,7 +64,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_table_share_all: function(status){
@@ -73,16 +73,16 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<span class="demo">chờ phê duyệt</span>'
+			'<span class="demo">Chờ duyệt</span>'
 		}else if(status == 1){
 			result = "" + 
-			'<span class="push">Đã phê duyệt</span>'
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
 		}else if(status == 2){
 			result = "" + 
-			'<span class="demo push_edit">Chỉnh sữa chờ phê duyệt</span>'
+			'<span class="demo push_edit">Chỉnh sửa chờ duyệt</span>'
 		}else if(status == 3){
 			result = "" + 
-			'<span class="demo refuse">Từ chối</span>'
+			'<i class="fas fa-times-circle" title="Từ chối"></i>'
 		}	
 		//	
 		return result;	
@@ -91,7 +91,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_select_share_all: function(status){
@@ -102,9 +102,9 @@ ojs_share = {
 		
 		
 		let arr = [
-			['<option value="0"',' >chờ phê duyệt</option>'],
-			['<option value="1"',' >Đã phê duyệt</option>'],
-			['<option value="2"',' >Chỉnh sữa chờ phê duyệt</option>'],
+			['<option value="0"',' >Chờ duyệt</option>'],
+			['<option value="1"',' >Đã duyệt</option>'],
+			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
 			['<option value="3"',' >Từ chối</option>']
 			
 		]
