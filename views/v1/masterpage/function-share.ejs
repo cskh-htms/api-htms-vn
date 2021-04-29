@@ -315,16 +315,33 @@ ojs_share = {
 	//@ hiển thị trạng thái don hàng
 	show_status_orders_complate: function(status){
 		//
+		
 		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<span class="demo">Chưa hoàn thành</span>'
-		}else{
-			result = "" + 
-			'<span class="push">Đã hoàn thành</span>'
-		}		
-		//	
+		let selected_status = "";
+		let status_arr = [
+			"Chờ xác nhận",
+			"Hoàn thành",
+			"Chờ lấy hàng",
+			"Đang giao",
+			"Đổi trả",
+			"Đã hủy"
+			];
+			
+		//@
+		//@
+		//* get selected_text	
+
+		for(var i = 0; i < status_arr.length ; i ++){
+			if(status ==  1 ){
+				selected_status = "push";
+			}else{
+				selected_status = "demo";	
+			}
+		}			
+		
+		result = "" + 
+		'<span class="' + selected_status + '">' + status_arr[status] + '</span>'	
+		
 		return result;	
 	},
 	//@
@@ -443,17 +460,38 @@ ojs_share = {
 		//
 		//
 		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<option value="0"  selected>Chưa hoàn thành</option>' + 
-			'<option value="1">Đã hoàn thành</option>'
-		}else{
-			result = "" + 
-			'<option value="0">Chưa hoàn thành</option>' + 
-			'<option value="1" selected>Đã hoàn thành</option>'
+		let selected_status = "";
+		let status_arr = [
+			"Chờ xác nhận",
+			"Hoàn thành",
+			"Chờ lấy hàng",
+			"Đang giao",
+			"Đổi trả",
+			"Đã hủy"
+			];
+			
+		//@	
+		//* get selected_text	
+		for(var i = 0; i < status_arr.length ; i ++){
+			if(status ==  i ){
+				selected_status = "";
+			}
 		}		
-		//	
+				
+		//@
+		//@
+		//* get selected_text	
+
+		for(var i = 0; i < status_arr.length ; i ++){
+			if(status ==  i ){
+				result = result  +
+				'<option value="' + i + '" ' + "selected" + ' >' + status_arr[i] + '</option>'
+			}else{
+			result = result  +
+				'<option value="' + i + '" >' + status_arr[i] + '</option>'				
+			}
+		}	
+
 		return result;	
 	},
 	//@
