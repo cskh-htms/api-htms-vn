@@ -501,11 +501,262 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 
 
 
+//get
+//appdala.com/admin
+//@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@
+router.get('/manage/orders/:store_id/:status_int', async  function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let store_id = req.params.store_id;
+	let status_int = req.params.status_int;
+	//
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//
+	//@@
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.router_stores(app)->manage ", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.router_stores(app)->manage_orders", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//=======================
+	//=======================
+	//=====/header check ====
+	//@
+	//@	
+
+	var orders_list;
+	try {
+		var date_star = "2000/01/01 00:00:00";
+		var date_end = ojs_shares.get_current_date_end();
+		var sattus_number = [status_int];
+		
+		
+		orders_list = await ojs_shares.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
+			ojs_datas_orders.get_data_orders_list_store_order(store_id,date_star,date_end,sattus_number),
+			token
+		);
+		
+		//res.send(orders_list);
+		//return;
+		
+		
+		if(orders_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->stores->manage_orders", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->router->stores->manage_orders", "message": error_send } ); 
+			return;		
+	}
+	//		
+	
+	
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	try {	
+		let users_type = check_datas_result.user_role;	
+		let user_id = ojs_shares.get_users_id(token);	
+		let users_full_name = ojs_shares.get_users_full_name(token);
+		//@
+		//@
+		data_send = {
+			'title' : 'Quản lý đơn hàng',
+			'sidebar_type' : 4,
+			'users_type' : check_datas_result.user_role,
+			'store_id' : store_id,
+			'user_id' : user_id,
+			'users_full_name' : users_full_name,
+			'js_css_version' : check_datas_result.js_css_version,
+			'menu_taget':'sidebar_don_hang',
+			'orders_list' : orders_list.datas,
+			"status_int":status_int
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/stores/orders', data_send );	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi send view", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "33.router->stores->manage_orders", "message": error_send } ); 
+		return;	
+	}	
+});
+//end of get admin
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 
 
 
+//get
+//appdala.com/admin
+//@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@
+router.get('/ajax-orders-list', async  function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	//
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//
+	//@@
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.router_stores(app)->ajax-orders-list ", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.router_stores(app)->ajax-orders-list", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//=======================
+	//=======================
+	//=====/header check ====
+	//@
+	//@	
+
+	var orders_list;
+	try {
+		orders_list = await ojs_shares.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
+			ojs_datas_orders.get_data_orders_list_store_order(datas.store_id,datas.date_star,datas.date_end,JSON.parse(datas.sattus_number)),
+			token
+		);
+		
+		//res.send(orders_list);
+		//return;
+		
+		
+		if(orders_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->stores->ajax-orders-list", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->router->stores->ajax-orders-list", "message": error_send } ); 
+			return;		
+	}
+	//		
+	
+	
+	//send web
+	//@sidebar_type -- loại sibar 
+	//@'users_type' : loai user
+	try {	
+		let users_type = check_datas_result.user_role;	
+		let user_id = ojs_shares.get_users_id(token);	
+		let users_full_name = ojs_shares.get_users_full_name(token);
+		//@
+		//@
+		data_send = {
+			'orders_list' : orders_list.datas
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/masterpage/widget-order-show-table-stores', data_send );	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi send view", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "33.router->stores->ajax-orders-list", "message": error_send } ); 
+		return;	
+	}	
+});
+//end of get admin
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 
