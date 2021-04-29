@@ -317,7 +317,7 @@ router.get('/:user_id', async  function(req, res, next) {
 
 	//order_list_all
 	//
-	var sattus_number = [0,2,3,4,5,6,7,8,9];
+	var sattus_number = [0,1,2,3,4,5,6,7,8,9];
 	
 	//var date_star = ojs_shares.get_current_month_now();
 	var date_star = "2020/01/01 00:00:00";

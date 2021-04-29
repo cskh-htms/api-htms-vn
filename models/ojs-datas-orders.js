@@ -42,11 +42,7 @@ const ojs_datas_orders = {
 				"relation": "and",
 				"where" :
 					[   
-						{
-							"field" : "orders_speciality_status_orders" ,
-							"value" : "0",
-							"compare" : "="
-						}					
+				
 					]    
 				}         
 			],
