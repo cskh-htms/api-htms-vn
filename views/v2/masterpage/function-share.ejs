@@ -73,16 +73,16 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<span class="demo">Chờ duyệt</span>'
+			'<i class="fas fa-minus-circle grey" title="Chờ duyệt"></i>'
 		}else if(status == 1){
 			result = "" + 
 			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
 		}else if(status == 2){
 			result = "" + 
-			'<span class="demo push_edit">Chỉnh sửa chờ duyệt</span>'
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
 		}else if(status == 3){
 			result = "" + 
-			'<i class="fas fa-times-circle" title="Từ chối"></i>'
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
 		}	
 		//	
 		return result;	
@@ -197,7 +197,7 @@ ojs_share = {
 			'<span class="percent"> % </span>'
 		}else{
 			result = "" + 
-			'<span class="push"> đ </span>'
+			'<span> đ </span>'
 		}		
 		//	
 		return result;	

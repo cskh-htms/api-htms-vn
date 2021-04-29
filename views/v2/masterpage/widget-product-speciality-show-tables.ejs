@@ -8,14 +8,13 @@
 	<thead>
 		<tr>
 			<th class="user-name">Tên sản phẩm</th>
-			<th class="user-name">Cửa hàng</th>
-			<th class="user-name">Danh mục</th>
-			<th class="user-name">Giá bán</th>
-			<th class="user-name">Giá khuyến mãi</th>
-			<th class="user-name">Hạn khuyến mãi</th>
-			<th class="user-name">Chiết khấu</th>
-			<th class="user-name">Trạng thái cửa hàng</th>
-			<th class="user-name">Trạng thái admin</th>
+			<th>Danh mục</th>
+			<th>Giá bán</th>
+			<th>Giá khuyến mãi</th>
+			<th>Hạn khuyến mãi</th>
+			<th>Chiết khấu</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,14 +35,13 @@
 					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>
-			<td class="user-name"><%- products_list[x].stores_name %></td>
-			<td class="user-name"><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
-			<td class="user-name"><%= products_list[x].products_speciality_price %></td>		
-			<td class="user-name"><%= products_list[x].products_speciality_sale_of_price %></td>
-			<td class="user-name" style="color:<%= fm %>;"><%- products_list[x].products_speciality_sale_of_price_time_check %></td>
-			<td class="user-name"><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
-			<td class="user-name"><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
-			<td class="user-name"><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
+			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
+			<td><%= products_list[x].products_speciality_price %></td>		
+			<td><%= products_list[x].products_speciality_sale_of_price %></td>
+			<td style="color:<%= fm %>;"><%- products_list[x].products_speciality_sale_of_price_time_check %></td>
+			<td><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
 			
 	   </tr>
 
@@ -54,14 +52,13 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Tên sản phẩm</th>
-			<th class="user-name">Cửa hàng</th>
-			<th class="user-name">Danh mục</th>
-			<th class="user-name">Giá bán</th>
-			<th class="user-name">Giá khuyến mãi</th>
-			<th class="user-name">Hạn khuyến mãi</th>
-			<th class="user-name">Chiết khấu</th>
-			<th class="user-name">Trạng thái cửa hàng</th>
-			<th class="user-name">Trạng thái admin</th>
+			<th>Danh mục</th>
+			<th>Giá bán</th>
+			<th>Giá khuyến mãi</th>
+			<th>Hạn khuyến mãi</th>
+			<th>Chiết khấu</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
 		</tr>
 	</tfoot>
 </table>

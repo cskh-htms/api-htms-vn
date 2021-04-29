@@ -60,9 +60,21 @@ content
 	if(datas.length > 0){
 		let product_count = {};
 		let product_sale_count = {};
+		let doanh_thu = {};
+		let sp_ban_ra = {};
+		let cho_xac_nhan = {};
+		let cho_lay_hang = {};
+		let dang_giao = {};
+		let doi_tra = {};
 		datas.map( data => {
 			product_count[data.stores_ID] = 0;
 			product_sale_count[data.stores_ID] = 0;
+			doanh_thu[data.stores_ID] = 0;
+			sp_ban_ra[data.stores_ID] = 0;
+			cho_xac_nhan[data.stores_ID] = 0;
+			cho_lay_hang[data.stores_ID] = 0;
+			dang_giao[data.stores_ID] = 0;
+			doi_tra[data.stores_ID] = 0;
 		})
 		product_list.map( product => {
 			product_count[product.stores_ID] += 1;
@@ -71,7 +83,29 @@ content
 			}
 			else {
 			}
-			
+		})
+		order_list_sum.map( order => {
+			doanh_thu[order.stores_ID] = order.orders_details_speciality_price_sum;
+			sp_ban_ra[order.stores_ID] = order.orders_details_speciality_qty_sum;
+		})
+		order_list_all.map( order_status => {
+			let num = order_status.orders_speciality_status_orders;
+			switch(num) {
+				case 0: 
+					cho_xac_nhan[order_status.stores_ID] += 1;
+					break;
+				case 1:
+					cho_lay_hang[order_status.stores_ID] += 1;
+					break;
+				case 2:
+					dang_giao[order_status.stores_ID] += 1;
+					break;
+				case 3:
+					doi_tra[order_status.stores_ID] += 1;
+					break;
+				default:
+					break;
+			}
 		})
 	%>
 	
@@ -83,14 +117,14 @@ content
 			<div class="store_name"><h3><a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>"><%- ojs_share.unCape(datas[x].stores_name) %></a></h3><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></i></div>
 			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý<span>6</span></a>
 			<ul class="store_don_hang">
-				<li><a href=""><span class="number">2</span>Chờ xác nhận</a></li>
-				<li><a href=""><span class="number">4</span>Chờ lấy hàng</a></li>
-				<li><a href=""><span class="number">2</span>Đang giao</a></li>
-				<li><a href=""><span class="number">1</span>Đổi trả</a></li>
+				<li><a href=""><span class="number"><%= cho_xac_nhan[datas[x].stores_ID] %></span>Chờ xác nhận</a></li>
+				<li><a href=""><span class="number"><%= cho_lay_hang[datas[x].stores_ID] %></span>Chờ lấy hàng</a></li>
+				<li><a href=""><span class="number"><%= dang_giao[datas[x].stores_ID] %></span>Đang giao</a></li>
+				<li><a href=""><span class="number"><%= doi_tra[datas[x].stores_ID] %></span>Đổi trả</a></li>
 			</ul>
 			<div class="store_box_content">
 				<div class="store_thang_nay">
-					Doanh thu tháng này <span class="number">200.000d</span> với <span>27</span> sản phẩm bán ra.
+					Doanh thu tháng này <span class="number"><%= ojs_share.show_price_format(doanh_thu[datas[x].stores_ID],0,",",".","đ") %></span> với <span><%= sp_ban_ra[datas[x].stores_ID] %></span> sản phẩm bán ra.
 				</div>
 				<div class="store_san_pham">
 					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span class="number"><%= product_count[datas[x].stores_ID] %></span> sản phẩm</a>
