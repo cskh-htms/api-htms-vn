@@ -812,8 +812,72 @@ const ojs_datas_orders = {
 	//@@
 	//@@
 	//@@
-	//
-	
+	//get_data_orders_list_store_order	
+	get_data_orders_list_store_order : function(store_id,date_star,date_end,sattus_number){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"orders_details_speciality_qty_sum",
+					"orders_details_speciality_price_sum",
+					"orders_details_speciality_discount_sum"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: "product",
+								"compare" : "="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_star,
+								"compare" : ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : sattus_number,
+								"compare" : "in"
+							},
+							{
+								"field" : "stores_ID" ,
+								"value" : store_id,
+								"compare" : "="
+							}		
+						]    
+					}          
+				],
+				"order" :[
+						{    
+							"field"  :"orders_speciality_date_orders",
+							"compare" : "DESC"
+						}      
+				],
+				"group_by" :	
+				[
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders"
+				]				
+			}
+		}	
+		return datas_return;			
+	},	
 	//
 	//
 	//bussiness
