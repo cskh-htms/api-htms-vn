@@ -29,7 +29,71 @@ content
 <div id="content" class="content">
 
 	<h1><%= title %></h1>
+	<!-- ---------
+	//tin tức
+	---------- -->	
+	
 
+	
+	
+	
+	
+	<% //stores
+	let stores_new2 = 0;
+	for (let i = 0 ; i < stores_new.length; i ++){
+		if(stores_new[i].stores_status == 3){
+			stores_new2 = stores_new2 + 1;
+		}
+	}
+	%>	
+	
+
+	<% //product
+	let product_new = 0;
+	for (let i = 0 ; i < product_list.length; i ++){
+		if(product_list[i].products_speciality_status_admin == 3){
+			product_new = product_new + 1;
+		}
+	}
+	%>
+
+	<% //category
+	let category_new = 0;
+	for (let i = 0 ; i < category_general_list.length; i ++){
+		if(category_general_list[i].category_general_speciality_admin_status == 3){
+			category_new = category_new + 1;
+		}
+	}
+	%>
+	
+	<% //option
+	let option_new = 0;
+	for (let i = 0 ; i < options_list.length; i ++){
+		if(options_list[i].options_product_speciality_status_admin == 3){
+			option_new = option_new + 1;
+		}
+	}
+	%>
+		
+	<% //barnd
+	let brand_new = 0;
+	for (let i = 0 ; i < brands_list.length; i ++){
+		if(brands_list[i].brands_status_admin == 3){
+			brand_new = brand_new + 1;
+		}
+	}
+	%>	
+	
+	
+	
+	<% //tổng từ chối
+	let news_sum = 0;
+	news_sum = product_new + 	
+	category_new + 
+	option_new  + 
+	brand_new
+	%>
+	
 
 	<%
 	var store_number = 0;
@@ -115,7 +179,7 @@ content
 	for( var  x in datas ) { %>
 		<div class="store_box">
 			<div class="store_name"><h3><a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>"><%- ojs_share.unCape(datas[x].stores_name) %></a></h3><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></i></div>
-			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý<span>6</span></a>
+			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý<span><%= news_sum %></span></a>
 			<ul class="store_don_hang">
 				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/0"><span class="number"><%= cho_xac_nhan[datas[x].stores_ID] %></span>Chờ xác nhận</a></li>
 				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/2"><span class="number"><%= cho_lay_hang[datas[x].stores_ID] %></span>Chờ lấy hàng</a></li>
