@@ -556,6 +556,44 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 		return;			
 	}
 	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
+	var store_name;
+	try {
+		store_name = await ojs_shares.get_data_send_token_get(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/' + store_id , token
+		);	
+		
+		if(store_name.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "41.router_stores(app)->orders->store_name", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_storess(app)->name", "message": error_send } ); 
+		return;			
+	}	
+		
+		
+		
+			
+	
+	
+	
+	
+	
 
 	//=======================
 	//=======================
@@ -567,7 +605,13 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	try {
 		var date_star = "2000/01/01 00:00:00";
 		var date_end = ojs_shares.get_current_date_end();
-		var sattus_number = [status_int];
+		var sattus_number;
+		
+		if(status_int == "all"){
+			sattus_number = [0,1,2,3,4,5,6,7,8,9];
+		}else{
+			sattus_number = [status_int];
+		}
 		
 		
 		orders_list = await ojs_shares.get_data_send_token_post( 
@@ -618,7 +662,8 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 			'js_css_version' : check_datas_result.js_css_version,
 			'menu_taget':'sidebar_don_hang',
 			'orders_list' : orders_list.datas,
-			"status_int":status_int
+			"status_int":status_int,
+			'store_name' : store_name.datas[0].stores_name
 		}
 		//res.send(data_send);
 		//return;
