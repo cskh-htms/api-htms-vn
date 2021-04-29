@@ -558,6 +558,36 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	
 	
 	
+	//@lấy id nghành nghề cửa hàng
+	var service_type_id;
+	var service_type_name;
+	try {
+		//
+		let service_type_id_result = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/search', 
+				ojs_datas_stores.get_sevice_type(store_id), 
+				token
+			);
+		if(service_type_id_result.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+			res.send({ "error" : "31.router_store(app)->manage", "message": error_send } ); 
+			return;				
+		}
+		service_type_id = service_type_id_result.datas[0].stores_service_type_id;
+		service_type_name = service_type_id_result.datas[0].service_type_name;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_store(app)->manage", "message": error_send } ); 
+		return;	
+	}	
+	//
+	
+		
 	
 	//@
 	//@
@@ -663,7 +693,8 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 			'menu_taget':'sidebar_don_hang',
 			'orders_list' : orders_list.datas,
 			"status_int":status_int,
-			'store_name' : store_name.datas[0].stores_name
+			'store_name' : store_name.datas[0].stores_name,
+			"service_type_name" : service_type_name
 		}
 		//res.send(data_send);
 		//return;
