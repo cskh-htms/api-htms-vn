@@ -1,0 +1,385 @@
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+<% include ../masterpage/loader %>
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+	
+	
+	
+	
+	
+	
+	
+	<div class="report_wrap">
+		<div class="report_bock report_bock_order">
+			<ul class="report_link_box">
+				<li class="one report_link">
+					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
+				</li>
+				<li class="one report_link" >
+					<a href="#"  data_send="hom_qua">Hôm qua</a>
+				</li>				
+				<li class="one report_link">
+					<a href="#" data_send="tuan_nay">Tuần này</a>
+				</li>
+				<li class="one report_link">
+					<a href="#"  data_send="thang_nay">Tháng này</a>
+				</li>					
+			</ul>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
+			
+			<div class="ul-wrap">
+				<ul class="status_box">
+					<li >
+						<a class="one status_link  status_active" href="#" data_send="[1]">Đã hoàn thành</a>
+					</li>				
+					<li>
+						<a href="#"  data_send="[0]" class="status_link">chờ xử lý </a>
+					</li>	
+
+					<li>
+						<a href="#"  data_send="[2]" class="status_link">Đang lấy hàng</a>
+					</li>	
+
+					<li>
+						<a href="#"  data_send="[3]" class="status_link">Đang vận chuyển</a>
+					</li>	
+				</ul>	
+				<ul class="reset_box">
+					<li>
+						<a href="/bussiness/orders/<%= user_id %>"  data_send="" class="">Đặt lại</a>
+					</li>				
+					
+				</ul>	
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<br>
+	<br>
+	<div id="ajax-wrap">
+	
+	<% include ../masterpage/widget-order-show-table-stores %>
+	
+	</div>
+
+
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>	
+	
+	
+	
+	
+	
+	
+	
+
+
+</div>
+<!-- --------------------
+//end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+
+	
+	//@
+	//@
+	//@
+	//* xem chi tiết order-show-table-bussiness
+	//* khi click vao id đơn hàng htì ajax chi tiet đơn hàng
+	
+	$(document).on('click','.view_detail',function(e) {		
+		e.preventDefault();
+		let order_id = $(this).attr('data_order_id');
+		//console.log(order_id);
+		
+		
+		//@
+		//@
+		//*gọi ajax show detail
+		let datas = {
+			"datas": {
+				order_id : order_id
+			}
+		}
+			
+		ojs_bussiness.ajax_load_order_detail(datas);
+		
+		//ojs_loadding.ajax_show_content("sdasdasd");
+		//return;
+
+		
+	});//end of save ajax
+	//
+
+
+
+	$( "#datepicker" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( "#datepicker2" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	
+
+	//
+	//@
+	//@
+	$(document).on('click','#btn_date',function(e) {	
+	
+		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+
+		
+		if(date_01 == null || date_02 == null){
+			ojs_message.message_ok_show("vui lòng chọn ngày");
+			return;
+		}
+	
+		//
+		//
+		$(this).parents('#content').find(".report_wrap").find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		//@
+		e.preventDefault();		
+		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+		var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+		date_01_ok = date_01_ok + " 00:00:00";
+		//@
+		//@
+		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+		var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+		date_02_ok = date_02_ok + " 23:59:59";
+
+		var data_status = $('.status_box').find('.status_active').attr("data_send");
+		var user_id = $('#user_id').val();
+		//
+		var datas = {
+			"datas":{
+				date_star : date_01_ok,
+				date_end : date_02_ok,
+				status_send : data_status,
+				user_id : user_id
+			}
+		}		
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_order_bussiness(datas);		
+		
+		//
+		//@
+		//@
+	});			
+	//		
+	//	
+	
+	
+	//
+	//@
+	//search theo ngày giờ set class
+	$(document).on('click','.report_link_box li a',function(e) {	
+		//@
+		e.preventDefault();	
+		$(this).parents('.report_link_box').find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		$('#btn_date').removeClass("report_active");
+		//
+		//lay thòi gian
+		var date_send = $(this).attr("data_send");
+		var date_star = ojs_loader.get_date_star(date_send);
+		var date_end = ojs_loader.get_date_end(date_send);
+		var user_id = $('#user_id').val();
+		//
+		//lấy atatus
+		var data_status = $('.status_box').find('.status_active').attr("data_send");
+				
+		
+		var datas = {
+			"datas":{
+				date_star 	: date_star,
+				date_end 	: date_end,
+				status_send : data_status,
+				user_id : user_id
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_order_bussiness(datas);	
+				
+		//@
+	});			
+	//		
+	//		
+	
+	//
+	//@
+	//search theo ngày giờ set class
+	$(document).on('click','.status_box li a',function(e) {	
+		//@
+		e.preventDefault();	
+		
+		var check_day = $('.report_link_box').find('.report_active');
+		//
+		if($("#btn_date").hasClass( "report_active" ) == false && check_day.length == 0){
+			var date_star = "2020/01/01 00:00:00";
+			var date_end = ojs_loader.get_date_end('hom_nay');	
+		}else{
+			var date_star="";
+			var date_end="";
+			//@@
+			if($("#btn_date").hasClass( "report_active" )){
+				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+
+			
+				if(date_01 == null || date_02 == null){
+					ojs_message.message_ok_show("vui lòng chọn ngày");
+					return;
+				}
+			
+				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+				var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+				date_star = date_01_ok + " 00:00:00";
+				//@
+				//@
+				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+				var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+				date_end = date_02_ok  + " 23:59:59";			
+			}else{
+			//lay thòi gian
+				var date_send = $('.report_link_box').find('.report_active').attr("data_send");
+				var date_star = ojs_loader.get_date_star(date_send);
+				var date_end = ojs_loader.get_date_end(date_send);			
+			}
+		}
+		//
+		//
+		
+		$(this).parents('.status_box').find("a").removeClass("status_active");
+		$(this).addClass("status_active");
+				
+		
+		//
+		//@
+		var data_status = $(this).attr("data_send");
+		var user_id = $('#user_id').val();	
+		//@
+		var datas = {
+			"datas":{
+				date_star 	: date_star,
+				date_end 	: date_end,
+				status_send : data_status,
+				user_id : user_id
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_order_bussiness(datas);				
+		
+	});			
+	//		
+	//		
+	
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

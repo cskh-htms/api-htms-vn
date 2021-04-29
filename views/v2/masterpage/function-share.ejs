@@ -314,18 +314,33 @@ ojs_share = {
 	//@
 	//@ hiển thị trạng thái don hàng
 	show_status_orders_complate: function(status){
-		//
 		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<span class="demo">Chưa hoàn thành</span>'
-		}else{
-			result = "" + 
-			'<span class="push">Đã hoàn thành</span>'
-		}		
-		//	
-		return result;	
+		let selected_status = "";
+		let status_arr = [
+			"Chờ xác nhận",
+			"Hoàn thành",
+			"Chờ lấy hàng",
+			"Đang giao",
+			"Đổi trả",
+			"Đã hủy"
+			];
+			
+		//@
+		//@
+		//* get selected_text	
+
+		for(var i = 0; i < status_arr.length ; i ++){
+			if(status ==  1 ){
+				selected_status = "push";
+			}else{
+				selected_status = "demo";	
+			}
+		}			
+		
+		result = "" + 
+		'<span class="' + selected_status + '">' + status_arr[status] + '</span>'	
+		
+		return result;
 	},
 	//@
 	//@ hiển thị trạng thái thanh toán
