@@ -27,8 +27,12 @@ content
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">
+			
 				<li class="one report_link">
-					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
+					<a class="report_active" href="#" class="" data_send="tat_ca">Tất cả</a>
+				</li>			
+				<li class="one report_link">
+					<a class="" href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
 				<li class="one report_link" >
 					<a href="#"  data_send="hom_qua">Hôm qua</a>
@@ -45,7 +49,11 @@ content
 			<div class="ul-wrap">
 				<ul class="status_box">
 					<li >
-						<a class="one status_link  status_active" href="#" data_send="[1]">Đã hoàn thành</a>
+						<a class="one status_link  status_active" href="#" data_send="[0,1,2,3,4,5,6,7,8,9]">Tất cả</a>
+					</li>					
+				
+					<li >
+						<a class="one status_link" href="#" data_send="[1]">Đã hoàn thành</a>
 					</li>				
 					<li>
 						<a href="#"  data_send="[0]" class="status_link">chờ xử lý </a>
@@ -61,7 +69,7 @@ content
 				</ul>	
 				<ul class="reset_box">
 					<li>
-						<a href="/bussiness/orders/<%= user_id %>"  data_send="" class="">Đặt lại</a>
+						<a href="/bussiness/sale_by_store/<%= user_id %>"  data_send="" class="">Đặt lại</a>
 					</li>				
 					
 				</ul>	
@@ -120,31 +128,6 @@ $(document).ready(function($){
 	//* xem chi tiết order-show-table-bussiness
 	//* khi click vao id đơn hàng htì ajax chi tiet đơn hàng
 	
-	$(document).on('click','.view_detail',function(e) {		
-		e.preventDefault();
-		let order_id = $(this).attr('data_order_id');
-		//console.log(order_id);
-		
-		
-		//@
-		//@
-		//*gọi ajax show detail
-		let datas = {
-			"datas": {
-				order_id : order_id
-			}
-		}
-			
-		ojs_bussiness.ajax_load_order_detail(datas);
-		
-		//ojs_loadding.ajax_show_content("sdasdasd");
-		//return;
-
-		
-	});//end of save ajax
-	//
-
-
 
 	$( "#datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd",
@@ -202,7 +185,7 @@ $(document).ready(function($){
 		}		
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);		
+		ojs_bussiness.ajax_load_order_sale_by_store_bussiness(datas);		
 		
 		//
 		//@
@@ -242,7 +225,7 @@ $(document).ready(function($){
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);	
+		ojs_bussiness.ajax_load_order_sale_by_store_bussiness(datas);	
 				
 		//@
 	});			
@@ -312,7 +295,7 @@ $(document).ready(function($){
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);				
+		ojs_bussiness.ajax_load_order_sale_by_store_bussiness(datas);				
 		
 	});			
 	//		

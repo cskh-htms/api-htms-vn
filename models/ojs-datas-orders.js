@@ -246,7 +246,8 @@ const ojs_datas_orders = {
 					"products_speciality_name",
 					"orders_details_medium_text",
 					"orders_speciality_date_orders",
-					"stores_name"					
+					"stores_name",
+					"orders_speciality_status_orders"				
 				],
 				"condition" :
 				[
@@ -750,7 +751,8 @@ const ojs_datas_orders = {
 					"orders_details_speciality_price_sum",
 					"orders_details_speciality_discount_sum",
 					"orders_speciality_date_orders",
-					"stores_name"
+					"stores_name",
+					"orders_speciality_status_orders"
 				],
 				"condition" :
 				[
@@ -890,7 +892,8 @@ const ojs_datas_orders = {
 					"orders_details_speciality_price_sum",
 					"orders_details_speciality_discount_sum",
 					"orders_speciality_date_orders",
-					"stores_name"
+					"stores_name",
+					"orders_speciality_status_orders"
 				],
 				"condition" :
 				[

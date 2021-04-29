@@ -1449,9 +1449,9 @@ router.get('/stores/show-all-order/:user_id', async  function(req, res, next) {
 	
 	var orders_list;
 	try {
-		var date_star = ojs_shares.get_current_date_star();
+		var date_star = "2021/01/01 00:00:00";
 		var date_end = ojs_shares.get_current_date_end();
-		var sattus_number = [1];
+		var sattus_number = [0,1,2,3,4,5,6,7,8,9];
 		
 		
 		var orders_list = await ojs_shares.get_data_send_token_post( 
@@ -2318,9 +2318,9 @@ router.get('/orders/:user_id', async  function(req, res, next) {
 
 	var orders_list;
 	try {
-		var date_star = ojs_shares.get_current_date_star();
+		var date_star = "2021/01/01 00:00:";
 		var date_end = ojs_shares.get_current_date_end();
-		var sattus_number = [0,1,2,3,4];
+		var sattus_number = [0,1,2,3,4,5,6,7,8,9];
 		
 		
 		orders_list = await ojs_shares.get_data_send_token_post( 
@@ -2457,7 +2457,149 @@ router.get('/sale_by_store/:user_id', async  function(req, res, next) {
 	var date_star = "2020/01/01 00:00:00";
 	//var date_star = ojs_shares.get_current_date_star();
 	var date_end = ojs_shares.get_current_date_end();
-	var sattus_number = [0,1,2,3];
+	var sattus_number = [0,1,2,3,4,5,6,7,8,9];
+	//	
+	var order_list;
+	try {
+		//res.send( order_list_datas );
+		//return;
+		//
+		order_list = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
+			ojs_datas_orders.get_order_list_datas(user_id,date_star,date_end,sattus_number), 
+			token
+		);
+		//res.send(order_list);
+		//return;
+	
+		if(order_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, order_list.error, "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "31.router_bussiness(app)->sale_by_store", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu order", "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "32.router_bussiness(app)->sale_by_store", "message": error_send } ); 
+			return;	
+	}		
+	//res.send(order_list);
+	//return;
+
+	
+	
+	
+	
+	
+
+	//=======================
+	//=======================
+	//=====/header check ====
+	//
+	//send web
+	try {	
+		let users_full_name = ojs_shares.get_users_full_name(token);
+		data_send = {
+			'title' : 'Doanh thu theo cửa hàng',
+			'users_type' : check_datas_result.user_role,
+			'user_id' : user_id,
+			'order_list' : order_list.datas,
+			'users_full_name' : users_full_name,
+			'js_css_version' : check_datas_result.js_css_version,
+			'menu_taget':'sidebar_doanh_thu_theo_cua_hang'
+		}
+		//res.send(data_send);
+		//return;
+		res.render( check_datas_result.view_version + '/bussiness/sale_by_store',  data_send );
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi lấu dữ liệu product_order_list" );
+			res.send({ "error" : "61.router->bussiness-orderss->sale_by_store", "message": error_send } ); 
+			return;		
+	}	
+});
+//@
+//@
+
+
+
+
+
+//@
+//@
+//@
+//
+//doanh thu theo cua hang
+router.post('/ajax-sale-by-store', async  function(req, res, next) {
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	let user_id = datas.user_id;
+	//@
+	//@
+	res.send( datas );	
+	return;		
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		res.redirect("/login");
+		return;
+	}
+	//
+	//@@
+	//@@
+	let datas_check = {
+		"token":token,
+		"user_id": user_id
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		//res.send(check_datas_result);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.router->bussiness-orders->sale_by_store/", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "3.router->bussiness-orders->sale_by_store", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+
+	//return;
+	//lấy dữ liệu orders
+	var date_star = "2020/01/01 00:00:00";
+	//var date_star = ojs_shares.get_current_date_star();
+	var date_end = ojs_shares.get_current_date_end();
+	var sattus_number = [0,1,2,3,4,5,6,7,8,9];
 	//	
 	var order_list;
 	try {

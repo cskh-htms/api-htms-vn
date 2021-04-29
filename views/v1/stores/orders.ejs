@@ -5,6 +5,7 @@
 
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -33,7 +34,10 @@ content
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">
 				<li class="one report_link">
-					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
+					<a class="report_active" href="#" class="" data_send="tat_ca">Tất cả</a>
+				</li>
+				<li class="one report_link">
+					<a class="" href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
 				<li class="one report_link" >
 					<a href="#"  data_send="hom_qua">Hôm qua</a>
@@ -50,7 +54,10 @@ content
 			<div class="ul-wrap">
 				<ul class="status_box">
 					<li >
-						<a class="one status_link  status_active" href="#" data_send="[1]">Đã hoàn thành</a>
+						<a class="one status_link  status_active" href="#" data_send="[0,1,2,3,4,5,6,7,8,9]">Tất cả</a>
+					</li>					
+					<li >
+						<a class="one status_link" href="#" data_send="[1]">Đã hoàn thành</a>
 					</li>				
 					<li>
 						<a href="#"  data_send="[0]" class="status_link">chờ xử lý </a>
@@ -66,7 +73,7 @@ content
 				</ul>	
 				<ul class="reset_box">
 					<li>
-						<a href="/bussiness/orders/<%= user_id %>"  data_send="" class="">Đặt lại</a>
+						<a href="/stores/manage/orders/<%= store_id %>/all %>"  data_send="" class="">Đặt lại</a>
 					</li>				
 					
 				</ul>	
@@ -86,7 +93,7 @@ content
 
 
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>	
-	
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>	
 	
 	
 	
@@ -204,19 +211,19 @@ $(document).ready(function($){
 		date_02_ok = date_02_ok + " 23:59:59";
 
 		var data_status = $('.status_box').find('.status_active').attr("data_send");
-		var user_id = $('#user_id').val();
+		var store_id = $('#store_id').val();
 		//
 		var datas = {
 			"datas":{
 				date_star : date_01_ok,
 				date_end : date_02_ok,
 				status_send : data_status,
-				user_id : user_id
+				store_id : store_id
 			}
 		}		
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);		
+		ojs_stores.ajax_load_order(datas);	
 		
 		//
 		//@
@@ -240,7 +247,7 @@ $(document).ready(function($){
 		var date_send = $(this).attr("data_send");
 		var date_star = ojs_loader.get_date_star(date_send);
 		var date_end = ojs_loader.get_date_end(date_send);
-		var user_id = $('#user_id').val();
+		var store_id = $('#store_id').val();
 		//
 		//lấy atatus
 		var data_status = $('.status_box').find('.status_active').attr("data_send");
@@ -251,12 +258,12 @@ $(document).ready(function($){
 				date_star 	: date_star,
 				date_end 	: date_end,
 				status_send : data_status,
-				user_id : user_id
+				store_id : store_id
 			}
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);	
+		ojs_stores.ajax_load_order(datas);
 				
 		//@
 	});			
@@ -314,19 +321,19 @@ $(document).ready(function($){
 		//
 		//@
 		var data_status = $(this).attr("data_send");
-		var user_id = $('#user_id').val();	
+		var store_id = $('#store_id').val();	
 		//@
 		var datas = {
 			"datas":{
 				date_star 	: date_star,
 				date_end 	: date_end,
 				status_send : data_status,
-				user_id : user_id
+				store_id : store_id
 			}
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness(datas);				
+		ojs_stores.ajax_load_order(datas);				
 		
 	});			
 	//		

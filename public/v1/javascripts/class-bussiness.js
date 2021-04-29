@@ -4,10 +4,35 @@ $(document).ready(function($){
 	ojs_bussiness = {	
 		//
 		//
-		
-	
-		//		
 		//
+		//ajax_load_order_sale_by_store_bussiness
+		ajax_load_order_sale_by_store_bussiness	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/bussiness/ajax-sale-by-store/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					console.log(result);
+					//$('#ajax_load_payment').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save				
+		//
+		//				
+		
 		//
 		//load report order store
 		ajax_load_report_order_store	: function(datas,user_id){		

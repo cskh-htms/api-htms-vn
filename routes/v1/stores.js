@@ -719,11 +719,12 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 //appdala.com/admin
 //@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@
-router.get('/ajax-orders-list', async  function(req, res, next) {
+router.post('/ajax-orders-list', async  function(req, res, next) {
 	//
 	let token = req.session.token;	
 	let datas  = req.body.datas;
 	//
+
 	//@
 	//@
 	//neu không có token thì trỏ ra login page
@@ -770,23 +771,22 @@ router.get('/ajax-orders-list', async  function(req, res, next) {
 	}
 	
 
+
+
 	//=======================
 	//=======================
 	//=====/header check ====
 	//@
 	//@	
 
+	
 	var orders_list;
 	try {
 		orders_list = await ojs_shares.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
-			ojs_datas_orders.get_data_orders_list_store_order(datas.store_id,datas.date_star,datas.date_end,JSON.parse(datas.sattus_number)),
+			ojs_datas_orders.get_data_orders_list_store_order(datas.store_id,datas.date_star,datas.date_end,JSON.parse(datas.status_send)),
 			token
 		);
-		
-		//res.send(orders_list);
-		//return;
-		
 		
 		if(orders_list.error != ""){
 			var evn = ojs_configs.evn;

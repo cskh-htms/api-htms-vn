@@ -96,12 +96,9 @@
 
 				<td class="sum_line" data_sum_line="">
 					<% 
-					var order_sum_discount_line = ojs_share.show_order_sum_discount_line(
-						orders_detail[x].orders_details_speciality_qty * orders_detail[x].orders_details_speciality_price,
-						orders_detail[x].orders_details_speciality_discount,
-						orders_detail[x].orders_details_speciality_unit_discount,
-						orders_detail[x].orders_details_speciality_qty
-					) 
+					var order_sum_discount_line = 
+						(orders_detail[x].orders_details_speciality_qty * orders_detail[x].orders_details_speciality_price ) + 
+						order_caution_discount_line
 					%>
 					<%= ojs_share.show_price_format(order_sum_discount_line,0,",",".","") %>
 				</td>	
@@ -123,13 +120,7 @@
 						orders_detail[x].orders_details_speciality_unit_discount,
 						orders_detail[x].orders_details_speciality_qty
 					); 			
-			sum_all = sum_all + 					
-					ojs_share.show_order_sum_discount_line(
-						orders_detail[x].orders_details_speciality_qty * orders_detail[x].orders_details_speciality_price,
-						orders_detail[x].orders_details_speciality_discount,
-						orders_detail[x].orders_details_speciality_unit_discount,
-						orders_detail[x].orders_details_speciality_qty
-					) 
+			sum_all = sum_all + order_sum_discount_line  
 			
 		}//end of product 
 		%>
