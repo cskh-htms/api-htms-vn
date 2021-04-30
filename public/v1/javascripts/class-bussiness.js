@@ -23,8 +23,8 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					console.log(result);
-					//$('#ajax_load_payment').html(result);
+					//console.log(result);
+					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					return;
 			  }//end of success			  

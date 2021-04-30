@@ -283,8 +283,11 @@ var search = async function (datas) {
 //insert
 var insert_products_spaciality = async function (datas,cat_string,option_string) {
 	//@
-	let cat_arr = JSON.parse(cat_string);
-	let option_arr = JSON.parse(option_string);
+	//let cat_arr = JSON.parse(cat_string);
+	let cat_arr = cat_string;
+	
+	
+	let option_arr = option_string;
 	
 	//return  { "error" : "1", "message" : [cat_arr,option_arr,datas] } ;
 	//
@@ -366,9 +369,12 @@ var insert_products_spaciality = async function (datas,cat_string,option_string)
 		//
 		// sql category
 		//
+		//return  { "error" : "m_api_12", "message" : cat_arr.length } ;
+		
+		
 		if(cat_arr.length > 0){
 			let sql_cat_all = "";
-			for(let i = 0; i < option_arr.length; i ++){
+			for(let i = 0; i < cat_arr.length; i ++){
 				///ex
 				sql_cat = "INSERT INTO " + ojs_configs.db_prefix + "category_general_speciality_link  ";
 				sql_cat = sql_cat + "(" +
@@ -391,6 +397,7 @@ var insert_products_spaciality = async function (datas,cat_string,option_string)
 		
 		//commit
 		sql_text = sql_text + " COMMIT;"
+		
 		
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
@@ -520,14 +527,14 @@ var check_store_link = async function (store_id) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//
 var update_products_spaciality = async function (datas,product_id,cat_string,option_string) {
 	
 	
 	
 	
-	let cat_arr = JSON.parse(cat_string);
-	let option_arr = JSON.parse(option_string);
+	let cat_arr = cat_string;
+	let option_arr = option_string;
 	
 	
 	//return [cat_arr,option_arr];
@@ -677,7 +684,7 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//
 var delete_products_spaciality = async function (product_id) {
 
 	let table_name  = ojs_configs.db_prefix + "products_speciality ";

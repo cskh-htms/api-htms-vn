@@ -323,7 +323,8 @@ async function insert_products_spaciality(req, res, next) {
 	let token = req.headers['token'];
 	
 
-	//res.send(datas);
+	//res.send(cat_string);
+	//return
 	//@
 	//@
 	//neu không có token thì trỏ ra login page
