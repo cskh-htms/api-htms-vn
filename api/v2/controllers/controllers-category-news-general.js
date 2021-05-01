@@ -101,18 +101,60 @@ async  function get_one_category_news_general(req, res, next) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//
 async  function update_category_news_general(req, res, next) {
 	let datas = req.body.datas;
 	let category_news_id = req.params.category_news_id;
 	let token = req.headers['token'];
-	var token_decode = jwt.decode(token);	
-	//res.send([link_id]);
+	//@@
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1.1.controllers-category-news-speciality->update ", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
 	//@
-	//chi co admin moi nhap lieu dc
-	if(ojs_shares.check_role_admin(token_decode.users_type_infomation) != true ){ 
-		res.send( { "error": "2_ctrl_api_insert_category", "message" : "Bạn không đủ quyền "  } ); return;
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.2.controllers-category-news-speciality->update ", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.3.controllers-category-news-speciality->update ", "message": error_send } ); 
+		return;			
 	}	
+	
 
 	try {
 		let data_check = default_field.check_datas(datas);
@@ -131,13 +173,19 @@ async  function update_category_news_general(req, res, next) {
 		models_category_news_general.update_category_news_general(datas,category_news_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi update datas" );
+			res.send({ "error" : "1.33.controllers-category-news-speciality->update ", "message": error_send } ); 
+			return;		
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi update datas" );
+			res.send({ "error" : "1.34.controllers-category-news-speciality->update ", "message": error_send } ); 
+			return;		
 	}	
 }
 
@@ -155,12 +203,54 @@ async  function update_category_news_general(req, res, next) {
 async  function insert_category_news_general(req, res, next) {
 	let datas = req.body.datas;
 	let token = req.headers['token'];
-	var token_decode = jwt.decode(token);	
-	//res.send([link_id]);
+	//
+	//@@
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1.1.controllers-category-news-speciality->insert ", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
 	//@
-	//chi co admin moi nhap lieu dc
-	if(ojs_shares.check_role_admin(token_decode.users_type_infomation) != true ){ 
-		res.send( { "error": "2_ctrl_api_insert_category", "message" : "Bạn không đủ quyền"  } ); return;
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.2.controllers-category-news-speciality->insert ", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.3.controllers-category-news-speciality->insert ", "message": error_send } ); 
+		return;			
 	}	
 	
 	//@@
@@ -179,8 +269,11 @@ async  function insert_category_news_general(req, res, next) {
 		}
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_1", "message" : error_send  } );
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
+		res.send({ "error" : "1.33.controllers-category-news-speciality->insert ", "message": error_send } ); 
+		return;	
 	}			
 	
 	//res.send(datas_assign);
@@ -191,13 +284,19 @@ async  function insert_category_news_general(req, res, next) {
 		models_category_news_general.insert_category_news_general(datas_assign).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
+			res.send({ "error" : "1.34.controllers-category-news-speciality->insert ", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
+		res.send({ "error" : "1.35.controllers-category-news-speciality->insert ", "message": error_send } ); 
+		return;	
 	}	
 }
 
@@ -213,67 +312,73 @@ async  function insert_category_news_general(req, res, next) {
 async function delete_category_news_general(req, res, next) {
 	let category_news_id = req.params.category_news_id;
 	let token = req.headers['token'];
-	var token_decode = jwt.decode(token);	
-	//res.send([link_id]);
-	//@
-	//chi co admin moi nhap lieu dc
-	if(ojs_shares.check_role_admin(token_decode.users_type_infomation) != true ){ 
-		res.send( { "error": "2_ctrl_api_insert_category", "message" : "Bạn không đủ quyền"  } ); return;
-	}	
-	
-	
-	
-	
-	//@
-	//@
-	//check xem cua hang da co san pham chua
-	//neu co thi ko cho xoa
 	//@@
-	//@@	
-	var check_news_link;
-	try {
-		//
-		check_news_link = await models_news_general.check_news_link( category_news_id ).then( results => {
-				if(typeof results.error == 'string' && results.error ){ 
-					return  { "error" : "1_check_news_link", "message" : results } ;
-				}else{
-					if(Object.entries(results).length  > 0){
-						return {"error":"2_check_news_link","message":" danh mục đã có bài viết, không thể xoá"} 
-					}else{
-						return {"error":"","message":"ok"} 
-					}
-				}
-			}, error => {
-				return {"error":"3_check_news_link","message":"Lỗi máy chủ"} 
-			}
-		);	
-		
-		//res.send( store_check );
-		if(check_news_link.error.length > 0) { res.send(check_news_link); return ;}
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "4_check_store_link", "message" : error_send  } );
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1.1.controllers-category-news-speciality->delete ", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.2.controllers-category-news-speciality->delete ", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "1.3.controllers-category-news-speciality->delete ", "message": error_send } ); 
+		return;			
 	}	
-		
-	
-	
-	
-	
-	
 	
 	//@
 	try {
 		models_category_news_general.delete_category_news_general(category_news_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_api_2", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi delete datas" );
+			res.send({ "error" : "1.33.controllers-category-news-speciality->delete ", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_3", "message" : error_send  } );
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi delete datas" );
+			res.send({ "error" : "1.333.controllers-category-news-speciality->delete ", "message": error_send } ); 
+			return;	
 	}	
 }
 

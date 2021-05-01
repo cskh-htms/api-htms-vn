@@ -5,7 +5,7 @@
 <% include ../../masterpage/loader %>
 
 
-<script src="../../../../javascripts/class-category-news-general.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/class-category-news-general.js"></script>	
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -38,7 +38,7 @@ content
 		<div id="category_general_box">
 		<select name="category_general" id="category_news_parent_id"  >
 			<option value="0">Chọn danh mục cha</option>
-			<% include ../../masterpage/widget-category-news-general-check-box %>
+			<% include ../../masterpage/widget-category-news-general-check-box-update %>
 		</select>
 		</div>
 	</div>
@@ -110,7 +110,7 @@ content
 </div>	
 	
 
-<input type="hidden" id="users_id" value="<%= users_id %>"/>
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="cat_id" value="<%= cat_id %>"/>
 
 

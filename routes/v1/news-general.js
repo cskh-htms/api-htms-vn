@@ -40,7 +40,7 @@ router.get('/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		res.send({ "error" : "1.router_app->news-general->get", "message": error_send } ); 
 		return;			
 	}
 	
@@ -55,7 +55,16 @@ router.get('/', async function(req, res, next) {
 		return;			
 	}	
 	
-
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "22.router_app->news-general->add", "message": error_send } ); 
+		return;			
+	}	
 
 	//
 	//Lấy danh sách các danh mục chung
@@ -148,7 +157,7 @@ router.get('/add', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		res.send({ "error" : "1.router_app->news-general->add", "message": error_send } ); 
 		return;			
 	}
 	
@@ -159,7 +168,7 @@ router.get('/add', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.router_app->news-general->get", "message": error_send } ); 
+		res.send({ "error" : "2.router_app->news-general->add", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -173,7 +182,7 @@ router.get('/add', async function(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares.show_error( evn, "Lỗi không xác định, vui lòng liên hệ admin", "Lỗi không xác định, vui lòng liên hệ admin" );
-			res.send({ "error" : "66.router_app->news-general->show", "message": error_send } ); 
+			res.send({ "error" : "66.router_app->news-general->add", "message": error_send } ); 
 			return;		
 		}
 		//res.send(category_news_general_list);
@@ -311,18 +320,20 @@ router.get('/show/:news_id', async function(req, res, next) {
 	//@sidebar_type -- loại sibar 
 	//@'users_type' : loai user
 	try {	
-		let users_type = ojs_shares.get_users_type(token);	
-		let users_id = ojs_shares.get_users_id(token);	
+		let users_type = check_datas_result.user_role;	
+		let user_id = ojs_shares.get_users_id(token);	
 		let users_full_name = ojs_shares.get_users_full_name(token);
 		//
+		
 		//@
 		data_send = {
 			'title' : 'Chỉnh sửa tin tức',
-			'sidebar_type' : 1,
 			'users_type' : users_type,
-			'users_id' : users_id,
-			'news_id' : news_id,
+			'user_role'  : users_type,
+			'user_id' : user_id,
 			'users_full_name' : users_full_name,
+			"js_css_version" : check_datas_result.js_css_version,
+			'news_id' : news_id,
 			'datas_category_news_general' : category_news_general_list.datas,
 			'datas' : news_tager.datas
 		}
@@ -377,7 +388,7 @@ router.post('/update/:news_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		res.send({ "error" : "1.router_app->news-general->update", "message": error_send } ); 
 		return;			
 	}
 	
@@ -388,10 +399,20 @@ router.post('/update/:news_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.router_app->news-general->get", "message": error_send } ); 
+		res.send({ "error" : "2.router_app->news-general->update", "message": error_send } ); 
 		return;			
 	}	
 	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "22.router_app->news-general->update", "message": error_send } ); 
+		return;			
+	}	
 
 	//send web
 	//@sidebar_type -- loại sibar 
@@ -448,7 +469,7 @@ router.post('/save', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		res.send({ "error" : "1.router_app->news-general->save", "message": error_send } ); 
 		return;			
 	}
 	
@@ -459,23 +480,31 @@ router.post('/save', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.router_app->news-general->get", "message": error_send } ); 
+		res.send({ "error" : "2.router_app->news-general->save", "message": error_send } ); 
 		return;			
 	}	
 	
-
-	//send web
-	//@sidebar_type -- loại sibar 
-	//@'users_type' : loai user
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "22.router_app->news-general->save", "message": error_send } ); 
+		return;			
+	}	
+	
 	try {	
-		//Lấy danh sách loại danh mục
 		let active_save = await ojs_shares.get_data_send_token_post(ojs_configs.domain + '/api/' + check_datas_result.api_version + '/news/general',datas, token);
-		//if(activeUpdate.error != "") res.redirect("/login");	
-		
 		res.send(active_save);	
 	}
 	catch(error){
-		res.send( { "error" : "r_11" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi save datas" );
+		res.send({ "error" : "223.router_app->news-general->save", "message": error_send } ); 
+		return;		
 	}			
 });
 	
@@ -497,13 +526,6 @@ router.get('/delete/:news_id', async function(req, res, next) {
 	let token = req.session.token;	
 	let news_id = req.params.news_id;
 	//
-	//neu chua co token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login")
-	}
-
-
-	//
 	//@@
 	//@@lấy version
 	let datas_check = {
@@ -519,7 +541,7 @@ router.get('/delete/:news_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.router_app->brands->get", "message": error_send } ); 
+		res.send({ "error" : "1.router_app->news-general->delete", "message": error_send } ); 
 		return;			
 	}
 	
@@ -530,22 +552,33 @@ router.get('/delete/:news_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.router_app->news-general->get", "message": error_send } ); 
+		res.send({ "error" : "2.router_app->news-general->delete", "message": error_send } ); 
 		return;			
 	}	
 	
+	//@
+	//@
+	//@neu phan quyen khong du thi tro ra login
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "22.router_app->news-general->delete", "message": error_send } ); 
+		return;			
+	}	
 
 	//
-	//send web
-	//@sidebar_type -- loại sibar 
-	//@'users_type' : loai user
 	try {	
 		//Lấy danh sách loại danh mục
 		let active_delete = await ojs_shares.get_data_send_token_delete(ojs_configs.domain + '/api/' + check_datas_result.api_version + '/news/general/' + news_id, token);
 		res.send(active_delete);	
 	}
 	catch(error){
-		res.send( { "error" : "r_11" , "message" : error } );
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi xoá datas" );
+		res.send({ "error" : "422.router_app->news-general->delete", "message": error_send } ); 
+		return;		
 	}		
 });
 

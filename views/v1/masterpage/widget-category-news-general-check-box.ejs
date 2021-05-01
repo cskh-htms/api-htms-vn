@@ -1,6 +1,5 @@
-
 <% 
-if (typeof datas == 'object' && datas) { 
+if (typeof datas == 'object' && datas && datas.length > 0) { 
 	data_parent_id = datas[0].category_news_parent_id;
 	data_id = datas[0].category_news_ID ;
 }else{ 
@@ -8,7 +7,7 @@ if (typeof datas == 'object' && datas) {
 	data_parent_id = DanhMucChungMacDinhID;
 	data_id = DanhMucChungMacDinhID;
 }
-if (typeof datas_category_news_general == 'object' && datas_category_news_general) { } else {datas_category_news_general = [];}
+if (typeof datas_category_news_general == 'object' && datas_category_news_general && datas_category_news_general.length) { } else {datas_category_news_general = [];}
 %>	
 
 
@@ -17,6 +16,7 @@ if (typeof datas_category_news_general == 'object' && datas_category_news_genera
 
 
 <% 
+if(datas_category_news_general.length > 0){
 for(var  x in datas_category_news_general) { %>
 	<% if(datas_category_news_general[x].category_news_parent_id == 0) { %>
 
@@ -27,7 +27,7 @@ for(var  x in datas_category_news_general) { %>
 			<% 
 			}else if(datas_category_news_general[x].category_news_ID  == data_id){ 
 			%>
-				<option value ="<%= datas_category_news_general[x].category_news_ID %>" disabled><%= datas_category_news_general[x].category_news_name %></option>
+				<option value ="<%= datas_category_news_general[x].category_news_ID %>" selected disabled><%= datas_category_news_general[x].category_news_name %></option>
 			<% 
 			}else{ 
 			%>
@@ -50,7 +50,7 @@ for(var  x in datas_category_news_general) { %>
 					<% 
 					}else if(datas_category_news_general[y].category_news_ID  == data_id){ 
 					%>	
-						<option value ="<%= datas_category_news_general[y].category_news_ID %>"  disabled >&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[y].category_news_name %></option>
+						<option value ="<%= datas_category_news_general[y].category_news_ID %>"  disabled selected >&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[y].category_news_name %></option>
 					<% 
 					} else{
 					%>
@@ -71,11 +71,11 @@ for(var  x in datas_category_news_general) { %>
 							<% 
 							}else if(datas_category_news_general[z].category_news_ID  == data_id){ 
 							%>		
-								<option value ="<%= datas_category_news_general[z].category_news_ID %>"  disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[z].category_news_name %></option>
+								<option value ="<%= datas_category_news_general[z].category_news_ID %>"  selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[z].category_news_name %></option>
 							<% 
 							} else{
 							%>
-								<option value ="<%= datas_category_news_general[z].category_news_ID %>"  disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[z].category_news_name %></option>							
+								<option value ="<%= datas_category_news_general[z].category_news_ID %>"  selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= datas_category_news_general[z].category_news_name %></option>							
 							<% 
 							} 
 							%>							
@@ -96,6 +96,9 @@ for(var  x in datas_category_news_general) { %>
    <% 
    } 
    %>
+<% 
+} 
+%>
 <% 
 } 
 %>
