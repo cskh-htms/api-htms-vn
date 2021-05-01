@@ -285,8 +285,8 @@ async  function insert_category_news_general(req, res, next) {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
 			var evn = ojs_configs.evn;
-			//////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
+			evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "insert datas , liên hệ admin" );
 			res.send({ "error" : "1.34.controllers-category-news-speciality->insert ", "message": error_send } ); 
 			return;	
 		});

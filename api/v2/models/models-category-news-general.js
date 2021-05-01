@@ -60,7 +60,8 @@ var insert_category_news_general = async function (datas) {
 			"category_news_featured_image"				: mysql.escape(datas.category_news_featured_image).replace(/^'|'$/gi, ""),		
 			"category_news_sort_order"					: datas.category_news_sort_order,
 			"category_news_infomation"					: mysql.escape(datas.category_news_infomation).replace(/^'|'$/gi, ""),	
-			"category_news_show"						: datas.category_news_show
+			"category_news_show"						: datas.category_news_show,
+			"category_news_stores_id"					: datas.category_news_stores_id
 	}
 
 	let kes = Object.keys(dataGo);

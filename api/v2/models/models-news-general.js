@@ -101,7 +101,9 @@ var insert_news_general = async function (datas) {
 			"news_featured_image"				: mysql.escape(datas.news_featured_image).replace(/^'|'$/gi, ""),		
 			"news_excerpt"						: mysql.escape(datas.news_excerpt).replace(/^'|'$/gi, ""),
 			"news_contents"						: mysql.escape(datas.news_contents).replace(/^'|'$/gi, ""),	
-			"news_status"						: datas.news_status
+			"news_status"						: datas.news_status,
+			"news_qoute"						:""
+			
 	}
 
 	let kes = Object.keys(dataGo);

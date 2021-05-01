@@ -1,7 +1,7 @@
 const HOST_NAME = "localhost";
 const HOST_IP = "localhost";
 const DATABASE_USER = "root";
-const DATABASE_PASS = "";
+const DATABASE_PASS = "Dala@2020!@#$%^";
 const DATABASE_NAME = "dalacenter";
 
 

@@ -12,7 +12,8 @@
 		"news_featured_image"	: "",	
 		"news_contents"			: "",
 		"news_status"			: 0,
-		"news_excerpt"			: ""
+		"news_excerpt"			: "",
+		"news_qoute"			: ""
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);

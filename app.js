@@ -23,11 +23,11 @@ app.use(bodyParser.json());
 app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
 
 // tao server localhost
-
+/*
 var localHttp = require('http');
 var localServer = localHttp.createServer(app);
 localServer.listen(2021,'localhost');
-
+*/
 
 //router
 app.use('/',ojs_shares.check_meaintenance,  require('./routes/' + app_config.router_version + '/index'));

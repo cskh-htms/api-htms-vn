@@ -11,7 +11,8 @@
 		"category_news_featured_image"		: "",	
 		"category_news_infomation"			: "",	
 		"category_news_sort_order"			: 0,
-		"category_news_show"				: 0
+		"category_news_show"				: 0,
+		"category_news_stores_id"			:17
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);

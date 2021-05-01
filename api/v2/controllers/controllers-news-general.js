@@ -267,7 +267,7 @@ async function insert_news_general(req, res, next) {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev";
 			var error_send = ojs_shares.show_error( evn, error, "Lỗi insert datas" );
 			res.send({ "error" : "222.controllers_news_general->insert", "message": error_send } ); 
 			return;		
