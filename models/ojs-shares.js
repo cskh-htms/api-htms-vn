@@ -830,8 +830,13 @@ const ojs_shares = {
 	get_condition : function(condition_arr){
 		
 		var sql_condition = "";
-		var sql_conditions = " where '2020' = '2020' ";
-		
+		var sql_conditions = " where '2020' = '2020' and ";
+		//@
+		var relation_check=[
+			"or",
+			"and"
+		];
+	
 		//return sql_conditions;
 		//@
 		//@
@@ -863,8 +868,20 @@ const ojs_shares = {
 					}				
 					
 					
+
+					var relation = condition_arr[x].relation;
 					
-					sql_condition = sql_condition + condition_arr[x].relation + " ";
+					if(relation_check.indexOf(relation) < 0 ){
+						relation = "and";
+					}						
+					
+					
+					if(s == 0 && x == 0){
+						relation = " ";
+					}
+					
+
+					sql_condition = sql_condition + relation + " ";
 					sql_condition = sql_condition + 
 						consition_field + " " + 
 						condition_arr[x].where[s].compare +  " " + 

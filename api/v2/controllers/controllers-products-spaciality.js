@@ -91,7 +91,7 @@ async function search(req, res, next) {
 			res.send( { "error" : "", "datas" : results } );
 		}, error => {
 				var evn = ojs_configs.evn;
-				//evn = "dev";;
+				evn = "dev";
 				var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 				res.send({ "error" : "1.2.controller_product_speciality", "message": error_send } ); 
 				return;	
@@ -99,7 +99,7 @@ async function search(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
+		evn = "dev";
 		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "1.3.controller_product_speciality", "message": error_send } ); 
 		return;	

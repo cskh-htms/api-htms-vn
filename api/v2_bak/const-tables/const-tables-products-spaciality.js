@@ -302,10 +302,14 @@ const get_order_text = function(order_arr){
 //@
 const get_condition = function(condition_arr){
 	var sql_condition = "";
-	var sql_conditions = " where '2020' = '2020' ";
-	//return sql_conditions;
-	
-	
+	var sql_conditions = " where '2020' = '2020' and ";
+	//@
+	//@
+	var relation_check=[
+		"or",
+		"and"
+	];
+	//@
 	//@
 	if(Object.keys(condition_arr).length == 0){
 		sql_condition = "";
@@ -360,7 +364,22 @@ const get_condition = function(condition_arr){
 				}				
 				
 				
-				sql_condition = sql_condition + condition_arr[x].relation + " ";
+
+				var relation = condition_arr[x].relation;
+				
+				if(relation_check.indexOf(relation) < 0 ){
+					relation = "and";
+				}						
+				
+				
+				if(s == 0 && x == 0){
+					relation = " ";
+				}
+								
+				
+			
+				
+				sql_condition = sql_condition + relation + " ";
 				sql_condition = sql_condition + 
 					consition_field + " " + 
 					condition_arr[x].where[s].compare +  " " + 

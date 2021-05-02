@@ -157,12 +157,13 @@ router.get('/:store_id', async function(req, res, next) {
 				token
 			);		
 
-		
+		//res.send(category_link_list);
+		//return;
 		if(category_link_list.error != ""){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares.show_error( evn, category_link_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
-			res.send({ "error" : "48.category_general_speciality(app)->get", "message": error_send } ); 
+			res.send({ "error" : "48.reouters_products_speciality->app->get", "message": error_send } ); 
 			return;				
 		}		
 	}
@@ -170,7 +171,7 @@ router.get('/:store_id', async function(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares.show_error( evn, error , "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
-			res.send({ "error" : "49.category_general_speciality(app)->get", "message": error_send } ); 
+			res.send({ "error" : "49.reouters_products_speciality->app->get", "message": error_send } ); 
 			return;		
 	}		
 	
@@ -192,7 +193,7 @@ router.get('/:store_id', async function(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
-			res.send({ "error" : "41.router_stores(app)->show-all->store_name", "message": error_send } ); 
+			res.send({ "error" : "41.reouters_products_speciality->app->get", "message": error_send } ); 
 			return;				
 		}
 	}

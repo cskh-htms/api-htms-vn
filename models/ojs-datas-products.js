@@ -332,12 +332,7 @@ const ojs_datas_products = {
 					"category_general_speciality_link_category_general_id",
 					"category_general_speciality_ID",
 					"category_general_speciality_name"
-				],
-				"condition" : 
-				[
-									
-				],
-				"order" :[]
+				]
 			}//data
 		}
 		return datas_return;
@@ -372,8 +367,7 @@ const ojs_datas_products = {
 						}						
 						]	
 					}				
-				],
-				"order" :[]
+				]
 			}//data
 		}
 		return datas_return;

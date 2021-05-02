@@ -503,7 +503,7 @@ async  function search(req, res, next) {
 			res.send( { "error" : "", "datas" : results } );
 		}, error => {
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev";
 			var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "51->controllers-category-general-speciality->search", "message": error_send } ); 
 			return;	
@@ -511,7 +511,7 @@ async  function search(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev"
 			var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "52->controllers-category-general-speciality->search", "message": error_send } ); 
 			return;	
