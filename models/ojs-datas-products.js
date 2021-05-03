@@ -30,7 +30,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -112,7 +112,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -147,7 +147,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -195,7 +195,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -266,7 +266,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -436,7 +436,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -487,7 +487,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[
@@ -536,7 +536,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[				
@@ -581,7 +581,7 @@ const ojs_datas_products = {
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
 					"products_speciality_status_admin",
-					"products_speciality_name"
+					"products_speciality_featured_image"
 				],
 				"condition" :
 				[				
