@@ -20,17 +20,16 @@
 <table class="table-list ordres-list">
 	<thead>
 		<tr>
-			<th class="user-name">Mã đơn hàng</th>
-			<th class="user-name">Ngày đặt hàng</th>
-			<th class="user-name">Số sản phẩm</th>
-			<th class="user-name">Tổng tiền bán</th>
-			<th class="user-name">Tổng tiền chiếc khấu</th>
-			<th class="user-name">Tổng tiền</th>
-			<th class="user-name">Trạng thái đơn hàng</th>
+			<th>Mã đơn hàng</th>
+			<th>Trạng thái</th>
+			<th>Ngày đặt hàng</th>
+			<th>Số sản phẩm</th>
+			<th>Tổng đơn hàng</th>
+			<th>Chiết khấu</th>
+			<th>Còn lại</th>
 		</tr>
 	</thead>
 	<tbody>
-
 	<% 
 	if(orders_list.length > 0){
 	for(var  x in orders_list) { 
@@ -39,8 +38,10 @@
 			<td class="line_order user-name">
 				<a href="#" class="view_detail" data_order_id="<%= orders_list[x].orders_speciality_ID %>"><%= orders_list[x].orders_speciality_ID %></a>
 			</td>	
-					
-			<td class="qty_box" style="text-align:left">
+			<td>
+				<%- ojs_share.show_status_orders_complate(orders_list[x].orders_speciality_status_orders) %>
+			</td>	
+			<td class="qty_box">
 				<%- orders_list[x].orders_speciality_date_orders %>
 			</td>	
 
@@ -67,11 +68,6 @@
 				<%= ojs_share.show_price_format(sum_line,0,",",".","") %>
 			</td>	
 
-			<td class="user-name">
-				<%- ojs_share.show_status_orders_complate(orders_list[x].orders_speciality_status_orders) %>
-			</td>	
-
-		
 		</tr>
 		
 		<%
@@ -91,12 +87,11 @@
 	<tfoot>
 
 		<tr>
-			<th class="user-name" colspan="2">Tổng cộng</th>
-			<th class="user-name"> <%=  sum_qty  %> </th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>
-			<th class="user-name"></th>			
+			<th colspan="3">Tổng cộng</th>
+			<th> <%=  sum_qty  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
+			<th> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>		
 		</tr>
 
 	</tfoot>

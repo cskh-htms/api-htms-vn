@@ -24,9 +24,37 @@ content
 	
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
+			<div class="ul-wrap">
+				<ul class="status_box">
+					<li >
+						<a class="one status_link  status_active" href="#" data_send="[1]">Tất cả</a>
+					</li>
+					<li>
+						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận</a>
+					</li>	
+					<li>
+						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng</a>
+					</li>
+					<li>
+						<a href="#"  data_send="[3]" class="status_link">Đang giao</a>
+					</li>
+					<li >
+						<a class="one status_link" href="#" data_send="[1]">Hoàn thành</a>
+					</li>
+					<li >
+						<a class="one status_link" href="#" data_send="[4]">Đổi trả</a>
+					</li>
+					<li >
+						<a class="one status_link" href="#" data_send="[5]">Đơn hủy</a>
+					</li>
+				</ul>
+			</div>
 			<ul class="report_link_box">
 				<li class="one report_link">
-					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
+					<a class="report_active" href="#" class="">Từ trước đến nay</a>
+				</li>
+				<li class="one report_link">
+					<a href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
 				<li class="one report_link" >
 					<a href="#"  data_send="hom_qua">Hôm qua</a>
@@ -36,41 +64,18 @@ content
 				</li>
 				<li class="one report_link">
 					<a href="#"  data_send="thang_nay">Tháng này</a>
-				</li>					
+				</li>
+	<li class="one report_link">
+					<a href="#"  data_send="thang_nay">Tháng trước</a>
+				</li>				
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
 			
-			<div class="ul-wrap">
-				<ul class="status_box">
-					<li >
-						<a class="one status_link  status_active" href="#" data_send="[1]">Đã hoàn thành</a>
-					</li>				
-					<li>
-						<a href="#"  data_send="[0]" class="status_link">chờ xử lý </a>
-					</li>	
-
-					<li>
-						<a href="#"  data_send="[2]" class="status_link">Đang lấy hàng</a>
-					</li>	
-
-					<li>
-						<a href="#"  data_send="[3]" class="status_link">Đang vận chuyển</a>
-					</li>	
-				</ul>	
-				<ul class="reset_box">
-					<li>
-						<a href="/bussiness/orders/<%= user_id %>"  data_send="" class="">Đặt lại</a>
-					</li>				
-					
-				</ul>	
-			</div>
+			
 		</div>
 		
 	</div>
 	
-	
-	<br>
-	<br>
 	<div id="ajax-wrap">
 	
 	<% include ../masterpage/widget-order-show-table-stores %>

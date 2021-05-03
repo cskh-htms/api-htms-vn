@@ -54,6 +54,10 @@ a {
 .dark_red {
 	color: #ee4d2d;
 }
+.yellow {
+	color: #ffc800;
+}
+	
 /* ====== LOGIN ====== */
 .login-wrap {
 	background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
@@ -371,8 +375,22 @@ a {
 .table-list .my_store {
     background-color: #f9f9f9;
 }
+.table-list .pro-img {
+	float: left;
+    width: 45px;
+    height: 45px;
+    margin: 0 5px 0 0;
+    background: gray;
+    border-radius: 3px;
+}
+.table-list .pro-img img {
+	display: block;
+	margin: 0;
+	border-radius: 3px;
+}
 .table-list tr .user-name {
 	text-align: left;
+	width: 25%;
 }
 .table-list tr .pro-image {
 	width: 5%;
@@ -429,7 +447,44 @@ a {
     font-size: 85%;
 	margin-right: 5px;
 }
+.dang_km, .luon_km, .het_han {
+	display: inline-block;
+	color: #4caf50;
+    background: #e4fbe6;
+    font-size: 88%;
+    padding: 3px 10px;
+    border-radius: 25px;
+	margin-bottom: 5px;
+}
+.het_han {
+	color: #ee4d2d;
+    background: #fff0ed;
+}
+.luon_km {
+	background: #dcf5f7;
+    color: #009ba5;
+}
 
+
+.sap_xep_loc {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+.sap_xep_loc .loc_wrap {
+	text-align: right;
+}
+.sap_xep_loc select {
+	border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    padding: 8px 12px;
+	margin-left: 10px;
+}
+.sap_xep_loc .sap_xep_wrap select {
+	margin-left: 0;
+}
 /* ====== PRODUCT DETAIL ====== */
 .pro_content_edit {
 	display: flex;
@@ -697,7 +752,6 @@ select, input[type="button"] {
 .store_box .store_name i {
 	display: inline-block;
 	vertical-align: middle;
-	color: lightgray;
 }
 .store_box .store_name i.fa-check-circle {
 	color: #4caf50;
@@ -1298,12 +1352,7 @@ css ordres
     color: #fff;
     background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
 }
-.status_box {
-	display: inline-flex;
-    margin: 0;
-    padding: 0;
-    margin-left: 2%;
-}
+
 .ul-wrap {
     width: 100%;
     display: flex;
@@ -1312,24 +1361,36 @@ css ordres
     align-items: flex-start;
     padding-top: 20px;
 }
+.status_box {
+	display: flex;
+	width: 100%;
+    margin: 0 0 30px;
+    padding: 0;
+	align-items: center;
+	justify-content: center;
+}
 .status_box li {
-	display: inline-block;
+	display: block;
 	vertical-align: middle;
     padding: 0;
     margin: 0;
+	font-size: 120%;
 }
 .status_box li a{
 	display: block;
-    padding: 8px 10px;
+    padding: 12px 20px;
     border-bottom: 0;
     background-color: #9e9d9d;
     color: white;
     text-decoration: none;
     border-radius: 0;
-    margin: 0px 2px;
+    margin: 0px;
 }
 .status_box li:first-child a {
-	border-radius: 4px 0 0 4px;
+	border-radius: 5px 0 0 5px;
+}
+.status_box li:last-child a {
+	border-radius: 0 5px 5px 0;
 }
 .status_box li a.status_active {
     background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);

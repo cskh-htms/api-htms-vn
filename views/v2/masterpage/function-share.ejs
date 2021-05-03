@@ -1,6 +1,27 @@
 
 <%
 ojs_share = {
+	//Hien thi han khuyen mai san pham
+	show_han_km: function(hankm){
+		//
+		let result = "";
+		//
+		switch(hankm) {
+				case 'đãhếthạn': 
+					result = '<span class="het_han">Hết hạn giảm giá</span>';
+					break;
+				case 'đangkhuyếnmãi':
+					result = '<span class="dang_km">Đang giảm giá</span>';
+					break;
+				case 'khuyếnmãivôthờihạn':
+					result = '<span class="luon_km">Luôn giảm giá</span>';
+					break;
+				default:
+					break;
+			}
+			return result;
+	},
+	
 	//
 	//thay cac ky tu  thoat khi insert database
 	unCape: function(datas){
@@ -73,7 +94,7 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<i class="fas fa-minus-circle grey" title="Chờ duyệt"></i>'
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
 		}else if(status == 1){
 			result = "" + 
 			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'

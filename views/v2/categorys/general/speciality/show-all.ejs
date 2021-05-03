@@ -42,10 +42,19 @@ content
 		<button  <%- status_disebale %> id = "not" class="btn_add_store" data_btn="not"><a href="#">Sản phẩm bị từ chối</a></button>
 	</div>		
 	
-	
-	
-	<br>
-	<br>
+	<div class="sap_xep_loc">
+		<div class="sap_xep_wrap">
+		</div>
+		<div class="loc_wrap">
+			<select>
+				<option>Tất cả trạng thái</option>
+				<option>Chờ duyệt</option>
+				<option>Đã sửa chờ duyệt</option>
+				<option>Bị từ chối</option>
+				<option>Đã duyệt</option>
+			</select>
+		</div>
+	</div>
 	<div id="ajax-wrap">	
 	<% include ../../../masterpage/widget-category-general-show-tables %>
 	</div>
