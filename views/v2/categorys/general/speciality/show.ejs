@@ -58,117 +58,111 @@ content
 --------------------- -->
 <div id="content" class="content category">
 
-	<h1><%= title %></h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/categorys/general/speciality/<%= store_id %>">Danh mục</a><i class="fas fa-chevron-right"></i>Sửa danh mục</h1>
 
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<div class="pro_box ten_sp_box">
+				<h3>Tên danh mục</h3>
+				<div class="inside">
+					<input <%- enable_text %> type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
+				</div>
+			</div>
+			
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
+			<div class="pro_box">
+				<h3>Mô tả danh mục</h3>
+				<div class="inside">
+					<textarea <%- enable_text %>  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
+					<%- ojs_share.unCape(datas[0].category_general_speciality_infomation) %>
+					</textarea>
+				</div>
+			</div>
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea <%- enable_text %> id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
+				</div>
+			</div>	
 
-
-
-	<div class="value_row">
-		<span>Tên danh mục</span>
-		<input <%- enable_text %> type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
-	</div>
-
-
-
-
-	<!-- ------------------
-	//danh muc chung
-	------------------- -->
-	<div id="category_general_wrap" class="value_row">
-		<span>Danh mục cha</span>
-		<div id="category_general_box">
-		<select name="category_general" id="category_general_speciality_category_parent_id" <%- enable_text %> >
-			<% include ../../../masterpage/widget-category-general-check-box %>
-		</select>
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//danh muc chung
+			------------------- -->
+			<div id="category_general_wrap" class="value_row pro_box">
+				<h3>Danh mục cha</h3>
+				<div id="category_general_box" class="inside">
+					<select name="category_general" id="category_general_speciality_category_parent_id" <%- enable_text %> >
+						<% include ../../../masterpage/widget-category-general-check-box %>
+					</select>
+				</div>
+			</div>
+			<!-- ------------------
+			//danh muc chung
+			------------------- -->
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share.unCape( datas[0].category_general_speciality_featured_image ) %>" 
+						style="display:none;" 
+					/>
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//sap xep 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Sắp xếp<span class="giai-thich"><span>Để sắp xếp thứ tự danh mục trong cửa hàng, ưu tiên số thấp(muốn danh mục đứng đầu nhập '0')</span></span></h3>
+				<div class="inside">
+					<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" id="category_general_speciality_sort_order" />
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Ẩn hiện danh mục</h3>
+				<div class="select-wrap inside">
+					<select id="category_general_speciality_show">
+						<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
+					</select>		
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="category_general_speciality_stores_status"  <%- enable_text3 %> >
+						<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
+					</select>
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<select id="category_general_speciality_admin_status" <%- enable_text2 %>>
+						<%- ojs_share.show_status_select_share_all(datas[0].category_general_speciality_admin_status ) %>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- ------------------
-	//danh muc chung
-	------------------- -->
-
-
-
-
-	<!-- ------------------
-	//hình đại diện 
-	------------------- -->
-	<div class="pro_box" <%- enable_text %>>
-		<h3>Ảnh đại diện</h3>	
-		<div class="inside">
-			<input type="text" 
-				value="" 
-				id="featured_image" 
-				data_value="<%-  ojs_share.unCape( datas[0].category_general_speciality_featured_image ) %>" 
-				style="display:none;" 
-			/>
-			<input type="button" value="Thêm ảnh" id="btn_featured_image">
-			<div id="img_box_dai_dien"></div>
-			<input type='file' accept="image/*" id='upload_image' style="display:none;">
-		</div>
-	</div>
-	<!-- ------------------
-	//end of hình đại diện 
-	------------------- -->
-
-
-
-	<div class="value_row" >
-		<span>Ẩn hiện danh mục</span>
-		<div class="select-wrap">
-			<select id="category_general_speciality_show">
-				<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
-			</select>	
-		</div>
-	</div>
-
-
-
-	<!-- ------------------
-	//thông tin danh mục
-	------------------- -->
-	<div class="value_row">
-		<span>Mô tả danh mục</span>
-		<textarea <%- enable_text %>  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
-		<%- ojs_share.unCape(datas[0].category_general_speciality_infomation) %>
-		</textarea>
-	</div>
-	<!-- ------------------
-	//thông tin danh mục
-	------------------- -->
-
-	<div class="value_row">
-		<span>Sắp xếp </span>
-		<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" id="category_general_speciality_sort_order" />
-	</div>
-	
-
-	<p>
-	<span>Trạng thái cửa hàng:</span>
-	<select id="category_general_speciality_stores_status"  <%- enable_text3 %> >
-		<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
-	</select>
-	</p>
-	
-	
-
-	<p>
-	<span>Trạng thái admin:</span>
-	<select id="category_general_speciality_admin_status" <%- enable_text2 %>>
-		<%- ojs_share.show_status_select_share_all(datas[0].category_general_speciality_admin_status ) %>
-	</select>
-	</p>	
-	
-
-	<p>
-		<span>qoute</span>
-		<br>
-		<textarea <%- enable_text %> id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
-	</p>	
-
-
-
-
-
 
 
 

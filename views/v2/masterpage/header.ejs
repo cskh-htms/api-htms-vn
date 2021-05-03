@@ -9,9 +9,10 @@ if(typeof users_full_name == 'string' && users_full_name){}else{users_full_name=
 	<img src="/images/dala-logo.jpg">
 	</div>
 	<div class="user">
-		<div class="user-image"><img id="test" src="/images/unnamed.png"></div>
+		<a href="#" target="_blank" title="Trợ giúp" class="support_btn"><i class="fas fa-question-circle"></i></a>
+		<div class="user-image"><a href="/users/show/<%= user_id %>" title="Thông tin tài khoản"><img id="test" src="/images/unnamed.png"></a></div>
 		<div class="user-text">
-			<a class="user-name" href="#"><%= users_full_name %></a>
+			<a class="user-name" href="/users/show/<%= user_id %>"><%= users_full_name %></a>
 			<a class="logout" href="/logout" id="logOut">Đăng xuất</a>
 		</div>
 	</div>

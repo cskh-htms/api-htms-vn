@@ -3,47 +3,48 @@
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
 
-
+<script>
+		console.log(<%- JSON.stringify(products_list) %>);
+	</script>
 <table class="table-list">
 	<thead>
 		<tr>
-			<th class="user-name">Tên sản phẩm</th>
-			<th class="user-name">Cửa hàng</th>
-			<th class="user-name">Danh mục</th>
-			<th class="user-name">Giá bán</th>
-			<th class="user-name">Giá khuyến mãi</th>
-			<th class="user-name">Hạn khuyến mãi</th>
-			<th class="user-name">Chiết khấu</th>
-			<th class="user-name">Trạng thái cửa hàng</th>
-			<th class="user-name">Trạng thái admin</th>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Chiết khấu</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
 		</tr>
 	</thead>
 	<tbody>
-
 	<% 
 	for( var  x in products_list ) { 
-	if(products_list[x].products_speciality_sale_of_price_time_check=="đãhếthạn"){
-		fm = "red";
-	}else{
-		fm = "blue";
-	}
 	%>
 
 	   <tr>
-			<td class="user-name"><a href="#"><%- products_list[x].products_speciality_name %></a>
+			<td class="user-name">
+				<a href="#" class="pro-img"><img /></a>
+				<a href="#"><%- products_list[x].products_speciality_name %></a>
 				<div class="row-actions">
 					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>
-			<td class="user-name"><%- products_list[x].stores_name %></td>
-			<td class="user-name"><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
-			<td class="user-name"><%= products_list[x].products_speciality_price %></td>		
-			<td class="user-name"><%= products_list[x].products_speciality_sale_of_price %></td>
-			<td class="user-name" style="color:<%= fm %>;"><%- products_list[x].products_speciality_sale_of_price_time_check %></td>
-			<td class="user-name"><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
-			<td class="user-name"><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
-			<td class="user-name"><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
+			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
+			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
+				<td class="pro-price">
+					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+					<span class="price-off"><%= products_list[x].products_speciality_price %></span><%= products_list[x].products_speciality_sale_of_price %>
+				</td>
+			<% } else { %>
+				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
+			<% } %>
+			<td>5</td>
+			<td><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
 			
 	   </tr>
 
@@ -53,15 +54,13 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th class="user-name">Tên sản phẩm</th>
-			<th class="user-name">Cửa hàng</th>
-			<th class="user-name">Danh mục</th>
-			<th class="user-name">Giá bán</th>
-			<th class="user-name">Giá khuyến mãi</th>
-			<th class="user-name">Hạn khuyến mãi</th>
-			<th class="user-name">Chiết khấu</th>
-			<th class="user-name">Trạng thái cửa hàng</th>
-			<th class="user-name">Trạng thái admin</th>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Chiết khấu</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
 		</tr>
 	</tfoot>
 </table>

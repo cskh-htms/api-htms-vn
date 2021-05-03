@@ -1,6 +1,27 @@
 
 <%
 ojs_share = {
+	//Hien thi han khuyen mai san pham
+	show_han_km: function(hankm){
+		//
+		let result = "";
+		//
+		switch(hankm) {
+				case 'đãhếthạn': 
+					result = '<span class="het_han">Hết hạn giảm giá</span>';
+					break;
+				case 'đangkhuyếnmãi':
+					result = '<span class="dang_km">Đang giảm giá</span>';
+					break;
+				case 'khuyếnmãivôthờihạn':
+					result = '<span class="luon_km">Luôn giảm giá</span>';
+					break;
+				default:
+					break;
+			}
+			return result;
+	},
+	
 	//
 	//thay cac ky tu  thoat khi insert database
 	unCape: function(datas){
@@ -15,12 +36,12 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>Chưa phê duyệt</option>' + 
-			'<option value="1">Đã phê duyệt</option>'
+			'<option value="0"  selected>Chưa duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'
 		}else{
 			result = "" + 
-			'<option value="0">Chưa phê duyệt</option>' + 
-			'<option value="1" selected>Đã phê duyệt</option>'
+			'<option value="0">Chưa duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'
 		}		
 		//	
 		return result;	
@@ -32,10 +53,10 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<span class="demo">Chưa phê duyệt</span>'
+			'<span class="demo">Chưa duyệt</span>'
 		}else{
 			result = "" + 
-			'<span class="push">Đã phê duyệt</span>'
+			'<span class="push"><i class="fas fa-check-circle"></i></span>'
 		}		
 		//	
 		return result;	
@@ -43,7 +64,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_select_share_all_two: function(status){
@@ -51,12 +72,12 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>chờ phê duyệt</option>' + 
-			'<option value="1">Đã phê duyệt</option>'
+			'<option value="0"  selected>Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'
 		}else{
 			result = "" + 
-			'<option value="0">Chưa phê duyệt</option>' + 
-			'<option value="1" selected>Đã phê duyệt</option>'
+			'<option value="0">Chưa duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'
 		}		
 		//	
 		return result;	
@@ -64,7 +85,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_table_share_all: function(status){
@@ -73,16 +94,16 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<span class="demo">chờ phê duyệt</span>'
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
 		}else if(status == 1){
 			result = "" + 
-			'<span class="push">Đã phê duyệt</span>'
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
 		}else if(status == 2){
 			result = "" + 
-			'<span class="demo push_edit">Chỉnh sữa chờ phê duyệt</span>'
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
 		}else if(status == 3){
 			result = "" + 
-			'<span class="demo refuse">Từ chối</span>'
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
 		}	
 		//	
 		return result;	
@@ -91,7 +112,7 @@ ojs_share = {
 	//@
 	//@
 	//@
-	//@ hiển thị trạng thái phê duyệt
+	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
 	show_status_select_share_all: function(status){
@@ -102,9 +123,9 @@ ojs_share = {
 		
 		
 		let arr = [
-			['<option value="0"',' >chờ phê duyệt</option>'],
-			['<option value="1"',' >Đã phê duyệt</option>'],
-			['<option value="2"',' >Chỉnh sữa chờ phê duyệt</option>'],
+			['<option value="0"',' >Chờ duyệt</option>'],
+			['<option value="1"',' >Đã duyệt</option>'],
+			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
 			['<option value="3"',' >Từ chối</option>']
 			
 		]
@@ -197,7 +218,7 @@ ojs_share = {
 			'<span class="percent"> % </span>'
 		}else{
 			result = "" + 
-			'<span class="push"> đ </span>'
+			'<span> đ </span>'
 		}		
 		//	
 		return result;	
@@ -314,18 +335,33 @@ ojs_share = {
 	//@
 	//@ hiển thị trạng thái don hàng
 	show_status_orders_complate: function(status){
-		//
 		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<span class="demo">Chưa hoàn thành</span>'
-		}else{
-			result = "" + 
-			'<span class="push">Đã hoàn thành</span>'
-		}		
-		//	
-		return result;	
+		let selected_status = "";
+		let status_arr = [
+			"Chờ xác nhận",
+			"Hoàn thành",
+			"Chờ lấy hàng",
+			"Đang giao",
+			"Đổi trả",
+			"Đã hủy"
+			];
+			
+		//@
+		//@
+		//* get selected_text	
+
+		for(var i = 0; i < status_arr.length ; i ++){
+			if(status ==  1 ){
+				selected_status = "push";
+			}else{
+				selected_status = "demo";	
+			}
+		}			
+		
+		result = "" + 
+		'<span class="' + selected_status + '">' + status_arr[status] + '</span>'	
+		
+		return result;
 	},
 	//@
 	//@ hiển thị trạng thái thanh toán
