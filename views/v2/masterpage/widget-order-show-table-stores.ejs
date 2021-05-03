@@ -13,8 +13,8 @@
 
 	//@
 	var tong_tien_thanh_toan = 0;
-
 %>
+
 
 
 <table class="table-list ordres-list">
@@ -60,7 +60,7 @@
 			<% 
 			let sum_line = 
 				(orders_list[x].orders_details_speciality_qty_sum *  
-				orders_list[x].orders_details_speciality_price_sum) + 
+				orders_list[x].orders_details_speciality_price_sum) - 
 				orders_list[x].orders_details_speciality_discount_sum
 			%>
 

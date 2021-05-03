@@ -724,6 +724,75 @@ select, input[type="button"] {
 	background: #1a1c1d;
 }
 
+
+/* ====== ORDER ====== */
+.ul-wrap {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 20px;
+}
+.status_box {
+	display: flex;
+	width: 100%;
+    margin: 0 0 30px;
+    padding: 0;
+	align-items: center;
+	justify-content: center;
+}
+.status_box li {
+	display: block;
+	vertical-align: middle;
+    padding: 0;
+    margin: 0;
+	font-size: 120%;
+}
+.status_box li a{
+	display: block;
+    padding: 15px 30px;
+    border-bottom: 0;
+    background-color: #9e9d9d;
+    color: white;
+    text-decoration: none;
+    border-radius: 0;
+    margin: 0px;
+	position: relative;
+}
+.status_box li:first-child a {
+	border-radius: 5px 0 0 5px;
+}
+.status_box li:last-child a {
+	border-radius: 0 5px 5px 0;
+}
+.status_box li a.status_active {
+    background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
+	color: white;
+}
+.num_abs {
+	position: absolute;
+    top: 8px;
+    right: 12px;
+    z-index: 0;
+    font-size: 85%;
+    background: #ee4d2d;
+    padding: 0 5px;
+    border-radius: 50%;
+}
+
+
+
+
+.ordres-list tr td,
+.ordres-list tr th{
+	text-align:center;
+}
+.order-detail-box {
+    background-color: white;
+    padding: 5% 10%;
+}
+
 /* ====== BUSINESS ====== */
 .store_box {
 	background: #fff;
@@ -1353,50 +1422,6 @@ css ordres
     background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
 }
 
-.ul-wrap {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-top: 20px;
-}
-.status_box {
-	display: flex;
-	width: 100%;
-    margin: 0 0 30px;
-    padding: 0;
-	align-items: center;
-	justify-content: center;
-}
-.status_box li {
-	display: block;
-	vertical-align: middle;
-    padding: 0;
-    margin: 0;
-	font-size: 120%;
-}
-.status_box li a{
-	display: block;
-    padding: 12px 20px;
-    border-bottom: 0;
-    background-color: #9e9d9d;
-    color: white;
-    text-decoration: none;
-    border-radius: 0;
-    margin: 0px;
-}
-.status_box li:first-child a {
-	border-radius: 5px 0 0 5px;
-}
-.status_box li:last-child a {
-	border-radius: 0 5px 5px 0;
-}
-.status_box li a.status_active {
-    background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
-	color: white;
-}
-
 .status_red {
     background-color: red;
     color: white;
@@ -1653,14 +1678,6 @@ van luc 07.04.2021
     z-index: -1;
 }
 
-.ordres-list tr td,
-.ordres-list tr th{
-	text-align:center;
-}
-.order-detail-box {
-    background-color: white;
-    padding: 5% 10%;
-}
 
 
 
