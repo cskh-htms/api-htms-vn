@@ -142,7 +142,52 @@ router.get('/:store_id', async function(req, res, next) {
 	}	
 	
 	
+	//get_data_orders_report_product_sale : function(user_id,date_star,date_end,status_number){	
+	
+	
+	
+	
+	
+	
+	//@
+		//Lấy danh sách product
+	try {
 
+		var products_count;
+		//@
+		let data_products_count;
+		//@
+		if(check_datas_result.user_role == "admin"){
+			data_products_count = ojs_datas_orders.get_data_products_count_admin();
+		}else{
+			data_products_count = ojs_datas_orders.get_data_products_count(store_id);
+		}		
+		//@
+		//@
+		//@
+		products_count = await ojs_shares.get_data_send_token_post(
+				ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
+				data_products_count, 
+				token
+			);		
+			
+		if(products_count.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, products_count.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+			res.send({ "error" : "55.products_speciality(app)->get", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
+		res.send({ "error" : "66.products_speciality(app)->get", "message": error_send } ); 
+		return;	
+	}		
+	
+	
 	//@
 	//@
 	//@
@@ -235,7 +280,8 @@ router.get('/:store_id', async function(req, res, next) {
 			"products_list" : products_list.datas,
 			"category_link_datas" : category_link_list.datas,	
 			'store_name' : store_name.datas[0].stores_name,
-			'menu_taget':'sidebar_san_pham'			
+			'menu_taget':'sidebar_san_pham',
+			"products_count"	: products_count.datas		
 		}
 		//res.send(data_send);
 		//return;
