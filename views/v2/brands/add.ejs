@@ -23,76 +23,77 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><%= title %></h1>
-	<div class="value_row">
-		<span>Tên thương hiệu</span>
-		<input type="text" class= "" value="" id="brands_name"/>
-	</div>
-
-
-
-
-	<!-- ------------------
-	//hình đại diện 
-	------------------- -->
-	<div class="pro_box">
-		<h3>Ảnh đại diện</h3>	
-		<div class="inside">
-			<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
-			<input type="button" value="Thêm ảnh" id="btn_featured_image">
-			<div id="img_box_dai_dien"></div>
-			<input type='file' accept="image/*" id='upload_image' style="display:none;">
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/brands/<%= store_id %>">Thương hiệu</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<!-- ------------------
+			//Ten thuong hieu
+			------------------- -->
+			<div class="pro_box ten_sp_box">
+				<h3>Tên thương hiệu</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="brands_name"/>
+				</div>
+			</div>
+		
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div  style="display:none;" class="value_row">
+				<span>Mô tả ngắn</span><br>
+				<textarea class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"></textarea>
+			</div>
+			<!-- ------------------
+			//thông tin mô tả
+			------------------- -->
+			
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div class="pro_box" style="display: none;">
+				<h3>Chi tiết thương hiệu</h3>
+				
+					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%"></textarea>
+				
+			</div>
+			<!-- ------------------
+			//Lời nhắn
+			------------------- -->
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="brands_qoute"  rows="5" cols="100%" ></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box" style="display: none;">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">	
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//end of hình đại diện 	
+			------------------- -->
+			
+			<div class="pro_box">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="brands_status_stores">
+						<%- ojs_share.show_status_product() %>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- ------------------
-	//end of hình đại diện 
-	------------------- -->
-
-
-
-
-	<!-- ------------------
-	thông tin mô tả
-	------------------- -->
-	<div  style="display:none;" class="value_row">
-		<span>Mô tả ngắn</span><br>
-		<textarea class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"></textarea>
-	</div>
-	<!-- ------------------
-	//thông tin mô tả
-	------------------- -->
-	
-	<!-- ------------------
-	thông tin mô tả
-	------------------- -->
-	<div class="value_row">
-		<span>Chi tiết thương hiệu</span><br>
-		<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%"></textarea>
-	</div>
-	<!-- ------------------
-	//thông tin mô tả
-	------------------- -->
-
-
-
-	
-	<p>
-	<span>Trạng thái cửa hàng:</span>
-	<select id="brands_status_stores">
-		<%- ojs_share.show_status_product() %>
-	</select>
-	</p>
-		
-	
-	
-	<p>
-		<span>qoute</span>
-		<br>
-		<textarea id="brands_qoute"  rows="5" cols="100%" ></textarea>
-	</p>	
-
-
-
 
 
 

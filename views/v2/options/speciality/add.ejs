@@ -22,33 +22,57 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><%= title %></h1>
-
-	<div class="value_row">
-		<span>Tên tùy chọn</span>
-		<input type="text" class= "" value="" id="options_product_speciality_name"/>
-	</div>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/options/speciality/<%= store_id %>">Tùy chọn</a><i class="fas fa-chevron-right"></i>Tạo tùy chọn</h1>
 	
-	<!-- ------------------
-	//option cha
-	------------------- -->
-	<div id="category_general_wrap" class="value_row">
-		<span>Tùy chọn cha</span>
-		<div id="category_general_box">
-		<select name="category_general" id="options_product_speciality_parent_id"  >
-			<% include ../../masterpage/widget-option-check-box %>
-		</select>
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<div class="pro_box ten_sp_box">
+				<h3>Tên tùy chọn</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="options_product_speciality_name"/>
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ></textarea>
+				</div>
+			</div>	
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//option cha
+			------------------- -->
+			<div id="category_general_wrap" class="value_row pro_box">
+				<h3>Tùy chọn cha</h3>
+				<div id="category_general_box" class="inside">
+					<select name="category_general" id="options_product_speciality_parent_id"  >
+						<% include ../../masterpage/widget-option-check-box %>
+					</select>
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="options_product_speciality_status_stores">
+						<%- ojs_share.show_status_product() %>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- ------------------
-	//option cha
-	------------------- -->
+	
+	
+	
 
 
 	<!-- ------------------
 	//hình đại diện 
 	------------------- -->
-	<div class="pro_box">
+	<div class="pro_box" style="display: none">
 		<h3>Ảnh đại diện</h3>	
 		<div class="inside">
 			<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
@@ -64,7 +88,7 @@ content
 	<!-- ------------------
 	thông tin danh mục
 	------------------- -->
-	<div class="value_row">
+	<div class="value_row" style="display: none">
 		<span>Mô tả tùy chọn</span>
 		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"></textarea>
 	</div>
@@ -74,20 +98,11 @@ content
 	
 	
 	
-	<p>
-	<span>Trạng thái cửa hàng:</span>
-	<select id="options_product_speciality_status_stores">
-		<%- ojs_share.show_status_product() %>
-	</select>
-	</p>
+	
 		
 	
 	
-	<p>
-		<span>qoute</span>
-		<br>
-		<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ></textarea>
-	</p>	
+	
 	
 	
 
