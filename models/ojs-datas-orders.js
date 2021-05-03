@@ -13,7 +13,80 @@ const ojs_datas_orders = {
 	
 	//@
 	//@
+	//* 
+	// * lấy dố lượng bán của sản phẩm
+	//* lấy danh sách sản phẩm và số lượng bán của mỗi sản phẩm
+	//* cho product trình bày
+	get_data_products_count : function(store_id){	
+		let datas_return = 		
+		{	
+			"datas" :   {
+				"select_field" :
+				[
+					"products_speciality_ID",		
+					"orders_details_speciality_qty_sum"		
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" : "stores_ID" ,
+								"value" : store_id,
+								"compare" : "="
+							}		
+						]    
+					}          
+				],
+				"order" :
+				 [
+					{    "field"  :"products_speciality_ID",
+						"compare" : "ASC"
+					} 				
+				],
+				"group_by" : 
+				[
+					"products_speciality_ID"
+				]
+			}	
+		}		
+		return datas_return;	
+	},	
 	//@
+	
+	//@
+	//@
+	//* 
+	// * lấy dố lượng bán của sản phẩm (cho admin)
+	//* lấy danh sách sản phẩm và số lượng bán của mỗi sản phẩm
+	//* cho product trình bày
+	get_data_products_count_admin : function(){	
+		let datas_return = 		
+		{	
+			"datas" :   {
+				"select_field" :
+				[
+					"products_speciality_ID",		
+					"orders_details_speciality_qty_sum"		
+				],
+				"order" :
+				 [
+					{    "field"  :"products_speciality_ID",
+						"compare" : "ASC"
+					} 				
+				],
+				"group_by" : 
+				[
+					"products_speciality_ID"
+				]
+			}	
+		}		
+		return datas_return;	
+	},	
+	//@
+	//* 	
 	//* 
 	// * data order list 
 	get_data_orders_list_admin : function(){
@@ -35,16 +108,6 @@ const ojs_datas_orders = {
 				"orders_speciality_adress",
 				"orders_speciality_notes",			
 				"orders_details_speciality_qty_sum"		
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[   
-				
-					]    
-				}         
 			],
 			"order" :
 			 [
