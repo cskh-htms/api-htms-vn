@@ -867,6 +867,10 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 	let user_id = req.params.user_id;
 	let store_id = req.params.store_id;
 	
+	
+	
+	//res.send("sdasdasdasd");
+	//return;
 	//
 	//
 	//
@@ -899,8 +903,7 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(check_datas_result );	
-	//return;	
+
 	
 	
 	
@@ -983,32 +986,57 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 	}
 	//
 	
-	
-	
+	//@
+	//@
+	//@
+	//@
+	//lấy tên cửa ah2ng
+	var store_name;
+	try {
+		store_name = await ojs_shares.get_data_send_token_get(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/stores/' + store_id , token
+		);	
+		
+		if(store_name.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, store_name.error, "Lỗi lấu dữ liệu store" );
+			res.send({ "error" : "41.router_bussiness(app)->show-all->store_name", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy danh sách cửa hàng, liên hệ admin");
+		res.send({ "error" : "2.3.router_bussiness(app)->name", "message": error_send } ); 
+		return;			
+	}	
+		
+
 	//@
 	//@
 	//@get json local 
 	let local_json = await ojs_shares.get_data_no_token_get(ojs_configs.domain + '/uploads/files/local.json'); 
 	
-	
+
 	//@
 	try {
 		let users_full_name = ojs_shares.get_users_full_name(token);
 		data_send = {
 			'title' : 'Chỉnh sửa cửa hàng',
-			'sidebar_type' : 2,
 			'users_type' : check_datas_result.user_role,
 			'user_id'	: user_id,
 			'users_full_name' : users_full_name,
 			"datas" : stores_tager.datas,
 			"service_type_list" : service_type_list.datas,
 			'store_id' : store_id,
+			'store_name' : store_name.datas[0].stores_name,
 			'js_css_version' : check_datas_result.js_css_version,
 			'datas_local': local_json
 		}
-		//res.send(data_send);
-		//return;
-		res.render( ojs_configs.view_version + '/bussiness/bussiness-store-show', data_send  );	
+		
+		res.render( check_datas_result.view_version + '/bussiness/bussiness-store-show', data_send  );	
 	}
 	catch(error){
 		let error_send = ojs_shares.show_error( ojs_shares.evn, error, "server đang bận, truy cập lại sau" );
