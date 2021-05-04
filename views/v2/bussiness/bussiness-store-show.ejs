@@ -27,7 +27,6 @@ if( typeof datas_local == 'object'
 
 
 
-
 <% 
 if(users_type == "admin"){
 	var status_disebale = "";
@@ -35,9 +34,6 @@ if(users_type == "admin"){
 	var status_disebale = "disabled";
 }
 %>
-
-
-
 
 
 
@@ -62,13 +58,9 @@ content
 <div id="content" class="content user_edit">
 
 	<h1><%= title %></h1>
-
 	<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
 	
 	<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
-	
-	
-	
 	
 	<br>
 	<div class="select-box-tinh-thanh">

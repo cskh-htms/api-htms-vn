@@ -5,6 +5,7 @@
 
 <script>
 		console.log(<%- JSON.stringify(products_list) %>);
+		console.log(<%- JSON.stringify(products_count) %>);
 	</script>
 <table class="table-list">
 	<thead>
@@ -25,7 +26,7 @@
 
 	   <tr>
 			<td class="user-name">
-				<a href="#" class="pro-img"><img /></a>
+				<a href="#" class="pro-img"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
 				<a href="#"><%- products_list[x].products_speciality_name %></a>
 				<div class="row-actions">
 					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
@@ -41,7 +42,17 @@
 			<% } else { %>
 				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
 			<% } %>
-			<td>5</td>
+			<td>
+			<%
+				let da_ban = 0;
+				for( var  y in products_count ) { 
+					if(products_list[x].products_speciality_ID == products_count[y].products_speciality_ID) {
+						da_ban = products_count[y].orders_details_speciality_qty_sum;
+					}
+				}
+			%>
+			<%= da_ban %>
+			</td>
 			<td><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				

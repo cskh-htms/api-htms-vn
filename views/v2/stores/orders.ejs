@@ -3,8 +3,8 @@
 
 <% include ../masterpage/loader %>
 
-
 <script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -14,6 +14,40 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 
+<script>
+	console.log(<%- JSON.stringify(orders_list) %>);
+</script>
+
+
+<%
+	let cho_xac_nhan = 0;
+	let cho_lay_hang = 0;
+	let dang_giao = 0;
+	let doi_tra = 0;
+	let don_huy = 0;
+	orders_list.map( order_status => {
+			let num = order_status.orders_speciality_status_orders;
+			switch(num) {
+				case 0: 
+					cho_xac_nhan += 1;
+					break;
+				case 2:
+					cho_lay_hang += 1;
+					break;
+				case 3:
+					dang_giao += 1;
+					break;
+				case 4:
+					doi_tra += 1;
+					break;
+				case 5:
+					don_huy += 1;
+					break;
+				default:
+					break;
+			}
+		})
+%>
 
 
 <!-- --------------------
@@ -30,22 +64,28 @@ content
 						<a class="one status_link  status_active" href="#" data_send="[1]">Tất cả</a>
 					</li>
 					<li>
-						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận</a>
+						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận
+							<% if(cho_xac_nhan != 0){ %><span class="num_abs"><%= cho_xac_nhan %></span><% } %>
+						</a>
 					</li>	
 					<li>
-						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng</a>
+						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng
+						<% if(cho_lay_hang != 0){ %><span class="num_abs"><%= cho_lay_hang %></span><% } %></a>
 					</li>
 					<li>
-						<a href="#"  data_send="[3]" class="status_link">Đang giao</a>
+						<a href="#"  data_send="[3]" class="status_link">Đang giao
+						<% if(dang_giao != 0){ %><span class="num_abs"><%= dang_giao %></span><% } %></a>
 					</li>
 					<li >
 						<a class="one status_link" href="#" data_send="[1]">Hoàn thành</a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[4]">Đổi trả</a>
+						<a class="one status_link" href="#" data_send="[4]">Đổi trả
+						<% if(doi_tra != 0){ %><span class="num_abs"><%= doi_tra %></span><% } %></a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[5]">Đơn hủy</a>
+						<a class="one status_link" href="#" data_send="[5]">Đơn hủy
+						<% if(don_huy != 0){ %><span class="num_abs"><%= don_huy %></span><% } %></a>
 					</li>
 				</ul>
 			</div>

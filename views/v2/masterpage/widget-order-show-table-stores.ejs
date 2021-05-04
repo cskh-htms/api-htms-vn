@@ -13,8 +13,8 @@
 
 	//@
 	var tong_tien_thanh_toan = 0;
-
 %>
+
 
 
 <table class="table-list ordres-list">
@@ -49,22 +49,22 @@
 				<%= orders_list[x].orders_details_speciality_qty_sum %>
 			</td>			
 
-			<td class="price_box" data_price="<%= orders_list[x].orders_details_speciality_price_sum %>">
+			<td data_price="<%= orders_list[x].orders_details_speciality_price_sum %>">
 				<%= ojs_share.show_price_format(orders_list[x].orders_details_speciality_price_sum,0,",",".","") %>
 			</td>
 			
-			<td class="price_box" data_discount="<%= orders_list[x].orders_details_speciality_discount_sum %>">
+			<td data_discount="<%= orders_list[x].orders_details_speciality_discount_sum %>">
 				<%= ojs_share.show_price_format(orders_list[x].orders_details_speciality_discount_sum,0,",",".","") %>
 			</td>			
 
 			<% 
 			let sum_line = 
 				(orders_list[x].orders_details_speciality_qty_sum *  
-				orders_list[x].orders_details_speciality_price_sum) + 
+				orders_list[x].orders_details_speciality_price_sum) - 
 				orders_list[x].orders_details_speciality_discount_sum
 			%>
 
-			<td class="price_box" data_sum_line="<%= sum_line %>">
+			<td data_sum_line="<%= sum_line %>">
 				<%= ojs_share.show_price_format(sum_line,0,",",".","") %>
 			</td>	
 
@@ -91,7 +91,7 @@
 			<th> <%=  sum_qty  %> </th>
 			<th> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
 			<th> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
-			<th> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>		
+			<th class="price_box"> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>		
 		</tr>
 
 	</tfoot>
