@@ -39,28 +39,84 @@ const jwt    = require('jsonwebtoken');
 //@@
 //get all category chung
 async  function get_all_orders_spaciality(req, res, next) {
-	//res.send({ "title" : "welcome" });
-	//return;
+	let token = req.headers['token'];
+	//@
+	//@@
+
+	
+	
+	//@@
+	let datas_check = {
+		"token":token
+	}
+	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.controllers_order_speciality(app)->get-all", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, check_datas_result.error, "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.controllers_order_speciality(app)->get-all", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.3.controllers_order_speciality(app)->get-all", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	//@
+	//@
 	//@
 	try {
 		models_orders_spaciality.get_all_orders_spaciality().then( results => {
-			
 			res.send( {"error" : "", "datas" : results} );
-			
 		}, error => {
-
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2_api", "message" : error_send  } );	
-
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error,"Lỗi get datas all orders, Vui lòng liên hệ CSKH Dala" );
+			res.send({ "error" : "2.4.controllers_order_speciality(app)->get-all", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3_api", "message" : error_send  } );
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error,"Lỗi get datas all orders, Vui lòng liên hệ CSKH Dala" );
+			res.send({ "error" : "2.5.controllers_order_speciality(app)->get-all", "message": error_send } ); 
+			return;	
 	}	
 }
-
-
 
 //
 //@@
