@@ -64,22 +64,28 @@ content
 						<a class="one status_link  status_active" href="#" data_send="[1]">Tất cả</a>
 					</li>
 					<li>
-						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận<span class="num_abs"><%= cho_xac_nhan %></span></a>
+						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận
+							<% if(cho_xac_nhan != 0){ %><span class="num_abs"><%= cho_xac_nhan %></span><% } %>
+						</a>
 					</li>	
 					<li>
-						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng<span class="num_abs"><%= cho_lay_hang %></span></a>
+						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng
+						<% if(cho_lay_hang != 0){ %><span class="num_abs"><%= cho_lay_hang %></span><% } %></a>
 					</li>
 					<li>
-						<a href="#"  data_send="[3]" class="status_link">Đang giao<span class="num_abs"><%= dang_giao %></span></a>
+						<a href="#"  data_send="[3]" class="status_link">Đang giao
+						<% if(dang_giao != 0){ %><span class="num_abs"><%= dang_giao %></span><% } %></a>
 					</li>
 					<li >
 						<a class="one status_link" href="#" data_send="[1]">Hoàn thành</a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[4]">Đổi trả<span class="num_abs"><%= doi_tra %></span></a>
+						<a class="one status_link" href="#" data_send="[4]">Đổi trả
+						<% if(doi_tra != 0){ %><span class="num_abs"><%= doi_tra %></span><% } %></a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[5]">Đơn hủy<span class="num_abs"><%= don_huy %></span></a>
+						<a class="one status_link" href="#" data_send="[5]">Đơn hủy
+						<% if(don_huy != 0){ %><span class="num_abs"><%= don_huy %></span><% } %></a>
 					</li>
 				</ul>
 			</div>

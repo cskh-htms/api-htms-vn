@@ -380,13 +380,14 @@ a {
     width: 45px;
     height: 45px;
     margin: 0 5px 0 0;
-    background: gray;
+    background: #c7c7c7;
     border-radius: 3px;
 }
 .table-list .pro-img img {
 	display: block;
 	margin: 0;
 	border-radius: 3px;
+	width: 100%;
 }
 .table-list tr .user-name {
 	text-align: left;
@@ -782,7 +783,9 @@ select, input[type="button"] {
 }
 
 
-
+.price_box {
+    color: #ee4d2d;
+}
 
 .ordres-list tr td,
 .ordres-list tr th{
@@ -1309,10 +1312,7 @@ css ordres
 .order_content .trang_thai_box {
 	width: 250px;
 }
-.price_box {
-    color: red;
-    font-size: 18px;
-}
+
 
 /*loodding*/
 .add_fee_ajax_box {
