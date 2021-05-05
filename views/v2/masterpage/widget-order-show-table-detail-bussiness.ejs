@@ -20,17 +20,29 @@
 
 %>
 
-
+<div class="order_detail_top">
+	<div class="order_id">Đơn hàng<span>#26158</span></div>
+	<div class="order_status demo">Chờ xác nhận</div>
+</div>
+<div class="ship_number">
+	GHTK | Mã vận đơn
+	<span>272069727</span>
+</div>
+<div class="order_customer">
+	<div class="customer_name">Khách hàng<span>Lê Tuấn Bảo</span></div>
+	<div class="customer_address">Địa chỉ nhận hàng<span>11 Đặng Đức Thuật, KP3, P.Tam Hòa, BH, ĐN</span></div>
+	<div class="order_date">Đặt hàng lúc<span>11/05/2021</span></div>
+</div>
 <table class="table-list">
 	<thead>
 		<tr>
 			<th class="user-name">Tên sản phẩm</th>
-			<th class="user-name">Giá bán</th>
-			<th class="user-name">Số lượng</th>
-			<th class="user-name">Tổng tiền</th>
-			<th class="user-name">Chiết khấu</th>
-			<th class="user-name">Tiền chiết khấu</th>
-			<th class="user-name">Tổng tiền</th>	
+			<th>Giá</th>
+			<th>Số lượng</th>
+			<th>Tổng tiền</th>
+			<!--<th>Chiết khấu</th>-->
+			<th>Chiết khấu</th>
+			<th>Còn lại</th>	
 		</tr>
 	</thead>
 	<tbody>
@@ -45,9 +57,7 @@
 				<td class="line_order" data_product_id="orders_detail[x].orders_details_speciality_product_id %>">
 					<%= orders_detail[x].products_speciality_name %>
 				</td>	
-				
-
-				<td class="price_box" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
+				<td class="" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
 					<%= ojs_share.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>
 				</td>
 				
@@ -57,9 +67,9 @@
 				
 				<td class="total_line_box"  data_total_line="">
 					<%= ojs_share.show_price_format(orders_detail[x].orders_details_speciality_qty * orders_detail[x].orders_details_speciality_price,0,",",".","") %>
-				</td>				
+				</td>
 				
-				<td class="discount" data_discount="">
+				<!--<td class="discount" data_discount="">
 					<div class="discount_box">
 						<span class="order_discount">
 							 <%= ojs_share.show_price_format(orders_detail[x].orders_details_speciality_discount,0,",",".","")  %>
@@ -68,7 +78,7 @@
 							<%- ojs_share.show_table_unit_discount(orders_detail[x].orders_details_speciality_unit_discount) %>
 						</span>				
 					</div>
-				</td>		
+				</td>	-->	
 
 				<td class="sum_line" data_sum_line="">
 					<% 
@@ -126,16 +136,15 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th class="user-name">Tổng cộng</th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
-			<th class="user-name"> <%=  sum_qty  %> </th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_line,0,",",".","")  %> </th>
-			<th class="user-name"></th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
-			<th class="user-name"> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>
+			<th colspan="2">Tổng cộng</th>
+			<!--<th> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>-->
+			<th> <%=  sum_qty  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_line,0,",",".","")  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
+			<th class="price_box"> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>
 		
 		</tr>
 	</tfoot>
 </table>
-
+<div style="text-align: right"><a href="#" class="btn_green">Xác nhận & chờ lấy hàng</a></div>
 

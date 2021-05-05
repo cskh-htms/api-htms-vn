@@ -39,7 +39,7 @@ if(users_type == "admin"){
 <% 
 sidebar_type = 4;
 %>
-
+<% menu_taget = "sidebar_chinh_sua_cua_hang" %>
 
 <% include ../masterpage/loader %>
 
@@ -62,122 +62,117 @@ content
 <div id="content" class="content user_edit">
 
 	<h1><%= title %></h1>
-	<h1>bao san</h1>
-	<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
-	
-	<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
-	
-	<br>
-	<div class="select-box-tinh-thanh">
-	<span>Tỉnh thành</span>
-	<select id="select_stores_province">
-		<%- ojs_share.show_local_province(datas_local,datas[0].stores_province) %>
-	</select>
-	<p style="display:none"><span>Tỉnh thành</span>
-		<input type="text" class= "" 
-		value="<%- ojs_share.unCape(datas[0].stores_province) %>" 
-		id="stores_province" 
-		data_value="<%- ojs_share.unCape(datas[0].stores_province) %>"
-		/>
-	</p>
-	</div>
-	
-	<br>
-	<div class="select-box-tinh-thanh">
-	<span>Quận huyện</span>
-	<select id="select_stores_district">
-		<%- ojs_share.show_local_district(datas_local,datas[0].stores_province,datas[0].stores_district) %>
-	</select>	
-	<p style="display:none"><span>Quận huyện</span>
-		<input type="text" 
-		class= "" 
-		value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
-		data_value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
-		id="stores_district"
-		/>
-	</p>
-	</div>
-	
-	
-	<br>
-	<div class="select-box-tinh-thanh">
-	<span>Phường xã</span>
-	<select id="select_stores_wards">
-		<%- ojs_share.show_local_wards(datas_local,datas[0].stores_district,datas[0].stores_wards) %>
-	</select>		
-	<p style="display:none"><span>Phường xã</span>
-		<input type="text" 
-		class= "" 
-		value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
-		data_value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
-		id="stores_wards"
-		/>
-	</p>
-	</div>	
-	
-	
-
-	
-	
-	<p><span>Địa chỉ</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_adress) %>" id="stores_adress"/></p>
-	<p><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
-	<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
-	<p><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
-	<p><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
-	<br>
-	<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
-	<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
-	
-	<div id="loai_service_wrap">
-	<span>Loại dịch vụ </span>
-	<select name="stores_service_type_id" id="stores_service_type_id">
-		<option value="0">Chọn service</option>
-		<% include ../masterpage/widget-service-type %>
-	</select>
-	<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
-	</div>
-
-	<p>
-		<span>Hạn mức thanh toán</span>
-		<input type="text" class= "number_change" <%- status_disebale %>
-			data_value="<%= datas[0].stores_payment_limit %>" 
-			value="<%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>" 
-			id="stores_payment_limit"
-		/>
-		<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng.</span></span>
-	</p>
-	
-	
-	<p>
-		<span>Thông tin chuyển khoản</span>
+		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
+		
+		<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
+		
 		<br>
-		<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].stores_info_banking) %></textarea>
-		<span class="giai-thich"><span>(Nhập số tài khoản, ngân hàng và tên chủ tài khoản.)</span></span>
-	</p>	
-	
-	
-	<p>
-	<span>Trạng thái cửa hàng:</span>
-	<select id="stores_status_stores">
-		<%- ojs_share.show_status_select_share_all_two(datas[0].stores_status_stores) %>
-	</select>
-	<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
-	</p>
-	
-	<p>
-		<span>Trạng thái admin:</span>
-		<select id="stores_status" <%- status_disebale %>>
-			<%- ojs_share.show_status_select_share_all(datas[0].stores_status) %>
+		<div class="select-box-tinh-thanh">
+		<span>Tỉnh thành</span>
+		<select id="select_stores_province">
+			<%- ojs_share.show_local_province(datas_local,datas[0].stores_province) %>
+		</select>
+		<p style="display:none"><span>Tỉnh thành</span>
+			<input type="text" class= "" 
+			value="<%- ojs_share.unCape(datas[0].stores_province) %>" 
+			id="stores_province" 
+			data_value="<%- ojs_share.unCape(datas[0].stores_province) %>"
+			/>
+		</p>
+		</div>
+		
+		<br>
+		<div class="select-box-tinh-thanh">
+		<span>Quận huyện</span>
+		<select id="select_stores_district">
+			<%- ojs_share.show_local_district(datas_local,datas[0].stores_province,datas[0].stores_district) %>
 		</select>	
-		<span class="giai-thich"><span>Cửa hàng đã được admin duyệt chưa</span></span>
-	</p>
-	
-	<p>
-		<span>Lời nhắn</span>
+		<p style="display:none"><span>Quận huyện</span>
+			<input type="text" 
+			class= "" 
+			value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
+			data_value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
+			id="stores_district"
+			/>
+		</p>
+		</div>
+		
+		
 		<br>
-		<textarea id="stores_qoute" class="area365" rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].stores_qoute) %></textarea>
-		<span class="giai-thich"><span>Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây.</span></span>
-	</p>		
+		<div class="select-box-tinh-thanh">
+		<span>Phường xã</span>
+		<select id="select_stores_wards">
+			<%- ojs_share.show_local_wards(datas_local,datas[0].stores_district,datas[0].stores_wards) %>
+		</select>		
+		<p style="display:none"><span>Phường xã</span>
+			<input type="text" 
+			class= "" 
+			value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
+			data_value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
+			id="stores_wards"
+			/>
+		</p>
+		</div>	
+		
+		<p><span>Địa chỉ</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_adress) %>" id="stores_adress"/></p>
+		<p><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
+		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
+		<p><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
+		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
+		<br>
+		<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
+		<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
+		
+		<div id="loai_service_wrap">
+		<span>Loại dịch vụ </span>
+		<select name="stores_service_type_id" id="stores_service_type_id">
+			<option value="0">Chọn service</option>
+			<% include ../masterpage/widget-service-type %>
+		</select>
+		<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
+		</div>
+
+		<p>
+			<span>Hạn mức thanh toán</span>
+			<input type="text" class= "number_change" <%- status_disebale %>
+				data_value="<%= datas[0].stores_payment_limit %>" 
+				value="<%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>" 
+				id="stores_payment_limit"
+			/>
+			<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng.</span></span>
+		</p>
+		
+		
+		<p>
+			<span>Thông tin chuyển khoản</span>
+			<br>
+			<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].stores_info_banking) %></textarea>
+			<span class="giai-thich"><span>(Nhập số tài khoản, ngân hàng và tên chủ tài khoản.)</span></span>
+		</p>	
+		
+		
+		<p>
+		<span>Trạng thái cửa hàng:</span>
+		<select id="stores_status_stores">
+			<%- ojs_share.show_status_select_share_all_two(datas[0].stores_status_stores) %>
+		</select>
+		<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
+		</p>
+		
+		<p>
+			<span>Trạng thái admin:</span>
+			<select id="stores_status" <%- status_disebale %>>
+				<%- ojs_share.show_status_select_share_all(datas[0].stores_status) %>
+			</select>	
+			<span class="giai-thich"><span>Cửa hàng đã được admin duyệt chưa</span></span>
+		</p>
+		
+		<p>
+			<span>Lời nhắn</span>
+			<br>
+			<textarea id="stores_qoute" class="area365" rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].stores_qoute) %></textarea>
+			<span class="giai-thich"><span>Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây.</span></span>
+		</p>		
 	
 	
 

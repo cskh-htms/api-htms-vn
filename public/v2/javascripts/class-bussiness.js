@@ -118,7 +118,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//console.log(result);
+					console.log(result);
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;

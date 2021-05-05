@@ -46,7 +46,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 															  
 			<ul>
 				<li id="sidebar_quan_ly"><a href="/stores/manage/<%= store_id %>/<%= user_id %>">Quản lý <%- news_sum %></a></li>
-				<li><a href="/bussiness/stores/show/<%= store_id %>/<%= user_id %>">Chỉnh sửa thông tin</a></li>
+				<li id="sidebar_chinh_sua_cua_hang"><a href="/bussiness/stores/show/<%= store_id %>/<%= user_id %>">Chỉnh sửa thông tin</a></li>
 			</ul>		
 		</li>	
 		
@@ -57,7 +57,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 			<i class="fas fa-clipboard-list"></i>
 			<div class="menu-name">Đơn hàng</div>
 			<ul>
-				<li><a href="/stores/manage/orders/<%= store_id %>/all">Tất cả đơn hàng</a></li>
+				<li id="sidebar_don_hang"><a href="/stores/manage/orders/<%= store_id %>/all">Tất cả đơn hàng</a></li>
 				<li><a href="/stores/manage/orders/<%= store_id %>/0">Chờ xác nhận</a></li>																											 
 			</ul>
 		</li>		

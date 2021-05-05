@@ -8,13 +8,13 @@ ojs_share = {
 		//
 		switch(hankm) {
 				case 'đãhếthạn': 
-					result = '<span class="het_han">Hết hạn giảm giá</span>';
+					result = '<span class="status_red mb5">Hết hạn giảm giá</span>';
 					break;
 				case 'đangkhuyếnmãi':
-					result = '<span class="dang_km">Đang giảm giá</span>';
+					result = '<span class="status_green mb5">Đang giảm giá</span>';
 					break;
 				case 'khuyếnmãivôthờihạn':
-					result = '<span class="luon_km">Luôn giảm giá</span>';
+					result = '<span class="status_blue mb5">Luôn giảm giá</span>';
 					break;
 				default:
 					break;
@@ -56,7 +56,7 @@ ojs_share = {
 			'<span class="demo">Chưa duyệt</span>'
 		}else{
 			result = "" + 
-			'<span class="push"><i class="fas fa-check-circle"></i></span>'
+			'<span class="status_green"><i class="fas fa-check-circle"></i></span>'
 		}		
 		//	
 		return result;	
@@ -352,9 +352,17 @@ ojs_share = {
 
 		for(var i = 0; i < status_arr.length ; i ++){
 			if(status ==  1 ){
-				selected_status = "push";
-			}else{
-				selected_status = "demo";	
+				selected_status = "status_green";
+			}else if(status ==  0 ){
+				selected_status = "status_yellow";	
+			}else if(status ==  4 ){
+				selected_status = "status_red";	
+			}
+			else if(status ==  5 ){
+				selected_status = "status_gray";	
+			}
+			else{
+				selected_status = "status_blue";	
 			}
 		}			
 		
@@ -374,7 +382,7 @@ ojs_share = {
 			'<span class="demo">Chưa thanh toán</span>'
 		}else{
 			result = "" + 
-			'<span class="push">Đã thanh toán</span>'
+			'<span class="status_green">Đã thanh toán</span>'
 		}		
 		//	
 		return result;	
