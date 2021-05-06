@@ -65,6 +65,7 @@ a {
     padding: 3px 10px;
     border-radius: 25px;
 	min-width: 100px;
+	text-align: center;
 }
 .status_red {
 	color: #ee4d2d;
@@ -830,7 +831,7 @@ body .ajax-load-bt {
 .order_detail_top .order_status {
 	display: inline-block;
 	vertical-align: bottom;
-	font-size: 16px;
+	font-size: 18px;
 }
 .ship_number {
 	position: absolute;

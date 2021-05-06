@@ -16,6 +16,7 @@ page wrap
 <% menu_taget = "sidebar_don_hang" %>
 <script>
 	console.log(<%- JSON.stringify(orders_list) %>);
+	
 </script>
 
 
@@ -25,7 +26,7 @@ page wrap
 	let dang_giao = 0;
 	let doi_tra = 0;
 	let don_huy = 0;
-	orders_list.map( order_status => {
+	order_list_all.map( order_status => {
 			let num = order_status.orders_speciality_status_orders;
 			switch(num) {
 				case 0: 
@@ -61,30 +62,30 @@ content
 			<div class="ul-wrap">
 				<ul class="status_box">
 					<li >
-						<a class="one status_link  status_active" href="#" data_send="[0,1,2,3,4,5,6,7,8,9]">Tất cả</a>
+						<a class="one status_link" href="#" status_num="all" data_send="[0,1,2,3,4,5,6,7,8,9]">Tất cả</a>
 					</li>
 					<li>
-						<a href="#"  data_send="[0]" class="status_link">Chờ xác nhận
+						<a href="#" status_num="0" data_send="[0]" class="status_link">Chờ xác nhận
 							<% if(cho_xac_nhan != 0){ %><span class="num_abs"><%= cho_xac_nhan %></span><% } %>
 						</a>
 					</li>	
 					<li>
-						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng
+						<a href="#" status_num="2" data_send="[2]" class="status_link">Chờ lấy hàng
 						<% if(cho_lay_hang != 0){ %><span class="num_abs"><%= cho_lay_hang %></span><% } %></a>
 					</li>
 					<li>
-						<a href="#"  data_send="[3]" class="status_link">Đang giao
+						<a href="#" status_num="3" data_send="[3]" class="status_link">Đang giao
 						<% if(dang_giao != 0){ %><span class="num_abs"><%= dang_giao %></span><% } %></a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[1]">Hoàn thành</a>
+						<a class="one status_link" href="#" status_num="1" data_send="[1]">Hoàn thành</a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[4]">Đổi trả
+						<a class="one status_link" href="#" status_num="4" data_send="[4]">Đổi trả
 						<% if(doi_tra != 0){ %><span class="num_abs"><%= doi_tra %></span><% } %></a>
 					</li>
 					<li >
-						<a class="one status_link" href="#" data_send="[5]">Đơn hủy
+						<a class="one status_link" href="#" status_num="5" data_send="[5]">Đơn hủy
 						<% if(don_huy != 0){ %><span class="num_abs"><%= don_huy %></span><% } %></a>
 					</li>
 				</ul>
@@ -166,6 +167,7 @@ $(document).ready(function($){
 	//
 
 	
+
 	//@
 	//@
 	//@
@@ -369,7 +371,14 @@ $(document).ready(function($){
 	//		
 	
 
-
+	let status_num_link = location.href;
+	console.log(status_num_link);
+	var res = status_num_link.split("/");
+	console.log(res);
+	let res_lenght = res[res.length - 1];
+	console.log(res_lenght);
+	
+	$('[status_num=' + res_lenght + ']' ).addClass('status_active');
 
 
 

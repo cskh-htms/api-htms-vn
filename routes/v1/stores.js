@@ -679,7 +679,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 
 		order_list_all = await ojs_shares.get_data_send_token_post(
 			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
-			ojs_datas_orders.get_order_list_datas_all(user_id,date_star,date_end,sattus_number), 
+			ojs_datas_orders.get_order_list_datas_all_store(store_id,date_star,date_end,sattus_number), 
 			token
 		);
 	
@@ -698,8 +698,8 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 			res.send({ "error" : "42.router_stores(app)->order_list_all", "message": error_send } ); 
 			return;	
 	}		
-	res.send(order_list_all);
-	return;	
+	//res.send(order_list_all);
+	//return;	
 
 	
 	//send web

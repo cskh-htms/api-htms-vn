@@ -702,7 +702,59 @@ const ojs_datas_orders = {
 	//@@
 	//@@
 	//@@
+	//
+	//
+	//
+	get_order_list_datas_all_store : function(store_id,date_star,date_end,sattus_number){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"stores_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" : "stores_ID" ,
+								"value" : store_id,
+								"compare" : "="
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: "product",
+								"compare" : "="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : sattus_number,
+								"compare" : "in"
+							}							
+						]    
+					}          
+				],
+				"group_by" :	
+				[
+					"stores_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders"
+				]				
+			}
+		}	
+		return datas_return;			
+	},
 	//@@
+	//@@
+	//@@
+	//@@	//@@
 	//
 	//ghet all data view order
 	//bussiness làm báo cáo

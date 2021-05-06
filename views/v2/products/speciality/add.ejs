@@ -23,7 +23,8 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-	<h1><%= title %></h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm</a><i class="fas fa-chevron-right"></i>Thêm sản phẩm</h1>
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
@@ -38,6 +39,10 @@ content
 				<div class="inside">
 					<p><span>Mã sku</span><input type="text" value="" id="products_speciality_sku" /> </p>	
 					<p><span>Tồn kho</span><input class="number_change" data_value="" type="text" value="" id="products_speciality_stock" /> </p>
+					<p><span>Cân nặng(g)</span><input  class="number_change" data_value="0"  type="text" value="500" id="products_speciality_weight" /> </p>
+					<p><span>Chiều dài(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_length" /> </p>
+					<p><span>Chiều rộng(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_width" /> </p>
+					<p><span>Chiều cao(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_height" /> </p>	
 					<p style="display:none"><span>Loại sản phẩm</span>	
 						<select id="products_speciality_type">
 							<%- ojs_share.show_product_type(0) %>
@@ -58,29 +63,31 @@ content
 				</div>
 			</div>
 			
-			<div class="pro_box quy_cach_box">
+			<div class="pro_box quy_cach_box" style="display:none">
 				<h3>Quy cách</h3>
 				<div class="inside">
-					<p><span>Chiều dài(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_length" /> </p>
-					<p><span>Chiều rộng(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_width" /> </p>
-					<p><span>Chiều cao(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_height" /> </p>	
-					
-					<p><span>Cân nặng(g)</span><input  class="number_change" data_value="0"  type="text" value="500" id="products_speciality_weight" /> </p>
-					<p style="display:none"><span>Option variation</span><input type="text" value="" id="products_speciality_variation_option" /> </p>
+					<p><span>Option variation</span><input type="text" value="" id="products_speciality_variation_option" /> </p>
 				</div>
 			</div>
 			
 			<!-- ------------------
 			//Mô tả ngắn
 			------------------- -->
-			<h3>Mô tả ngắn (excerpt)</h3>
-			<textarea class="noi_dung" id="excerpt"  rows="10" cols="100%"></textarea>
-			
+			<div class="pro_box" style="display:none">
+				<h3>Mô tả ngắn</h3>
+				<div class="inside">
+					<textarea class="noi_dung" id="excerpt"  rows="10" cols="100%"></textarea>
+				</div>
+			</div>
 			<!-- ------------------
 			//Thông tin chi tiết
 			------------------- -->
-			<h3>Thông tin chi tiết sản phẩm</h3>
-			<textarea class="noi_dung" id="noi_dung"  rows="40" cols="100%"></textarea>
+			<div class="pro_box">
+				<h3>Mô tả sản phẩm</h3>
+				<div class="inside">
+					<textarea class="noi_dung" id="noi_dung"  rows="20" cols="100%"></textarea>
+				</div>
+			</div>
 			
 		</div>
 		

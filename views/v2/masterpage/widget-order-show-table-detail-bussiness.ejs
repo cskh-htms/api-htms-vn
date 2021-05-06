@@ -25,17 +25,17 @@
 </script>
 
 <div class="order_detail_top">
-	<div class="order_id">Đơn hàng<span>#26158</span></div>
-	<div class="order_status demo">Chờ xác nhận</div>
+	<div class="order_id">Đơn hàng<span>#<%= order_taget[0].orders_speciality_ID %></span></div>
+	<div class="order_status"><%- ojs_share.show_status_orders_complate(order_taget[0].orders_speciality_status_orders) %></div>
 </div>
 <div class="ship_number">
 	GHTK | Mã vận đơn
 	<a href="https://i.ghtk.vn/" target="_blank" style="color: #000"><span>272069727</span></a>
 </div>
 <div class="order_customer">
-	<div class="customer_name">Khách hàng<span>Lê Tuấn Bảo</span></div>
-	<div class="customer_address">Địa chỉ nhận hàng<span>11 Đặng Đức Thuật, KP3, P.Tam Hòa, BH, ĐN</span></div>
-	<div class="order_date">Đặt hàng lúc<span>11/05/2021</span></div>
+	<div class="customer_name">Khách hàng<span><%= order_taget[0].users_first_name %> <%= order_taget[0].users_last_name %></span></div>
+	<div class="customer_address">Địa chỉ nhận hàng<span><%= order_taget[0].orders_speciality_adress %></span></div>
+	<div class="order_date">Đặt hàng lúc<span><%= order_taget[0].orders_speciality_date_orders %></span></div>
 </div>
 <table class="table-list">
 	<thead>
