@@ -20,13 +20,17 @@
 
 %>
 
+<script>
+	console.log(<%- JSON.stringify(orders_detail) %>);
+</script>
+
 <div class="order_detail_top">
 	<div class="order_id">Đơn hàng<span>#26158</span></div>
 	<div class="order_status demo">Chờ xác nhận</div>
 </div>
 <div class="ship_number">
 	GHTK | Mã vận đơn
-	<span>272069727</span>
+	<a href="https://i.ghtk.vn/" target="_blank" style="color: #000"><span>272069727</span></a>
 </div>
 <div class="order_customer">
 	<div class="customer_name">Khách hàng<span>Lê Tuấn Bảo</span></div>

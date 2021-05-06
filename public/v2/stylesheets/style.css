@@ -64,6 +64,7 @@ a {
     font-size: 88%;
     padding: 3px 10px;
     border-radius: 25px;
+	min-width: 100px;
 }
 .status_red {
 	color: #ee4d2d;
@@ -384,7 +385,7 @@ a {
     border-bottom: 1px solid #f1f1f1;
 }
 .table-list tbody tr:hover {
-	background: #f3f3f3;
+	background: #e3f3ea;
 }
 .table-list tr td, .table-list tr th {
 	padding: 10px;
@@ -397,7 +398,7 @@ a {
 	border-top: 1px solid #e5e5e5;
 }
 .table-list .my_store {
-    background-color: #f9f9f9;
+    background-color: #ebf7f0;
 }
 .table-list .pro-img {
 	float: left;
@@ -807,7 +808,7 @@ body .ajax-load-bt {
 }
 .order-detail-box {
     background-color: white;
-    padding: 3%;
+    padding: 50px;
     margin-top: 40px;
     max-width: 1200px;
 	position: relative;
@@ -833,13 +834,13 @@ body .ajax-load-bt {
 }
 .ship_number {
 	position: absolute;
-	top: 40px;
-    right: 40px;
+	top: 50px;
+    right: 50px;
 }	
 .order_customer .customer_name, .order_customer .customer_address {
 	display: inline-block;
 	vertical-align: middle;
-	border-right: 1px solid #999;
+	border-right: 1px solid lightgray;
 	padding-right: 20px;
 	margin-right: 20px;
 }
@@ -864,7 +865,7 @@ body .ajax-load-bt {
 	background: #fff;
 	padding: 20px;
 	border-radius: 5px;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 	box-shadow: 0 0 5px rgba(0,0,0,0.1);
 	position: relative;
 }
