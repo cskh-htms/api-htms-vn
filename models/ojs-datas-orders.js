@@ -9,8 +9,6 @@
 
 const ojs_datas_orders = {
 	//
-	
-	
 	//@
 	//@
 	//* 
@@ -36,7 +34,12 @@ const ojs_datas_orders = {
 								"field" : "stores_ID" ,
 								"value" : store_id,
 								"compare" : "="
-							}		
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : "1",
+								"compare" : "="
+							}	
 						]    
 					}          
 				],
@@ -399,6 +402,43 @@ const ojs_datas_orders = {
 	},
 	//	
 	//@
+	//@
+	//@
+	//* get_data_orders_detail_bussiness
+	// * load detail oeder khi click vao
+	get_data_orders_detail_bussiness_taget : function(order_id){
+		
+		let datas_return = 		
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+					"orders_speciality_ID",
+					"orders_speciality_status_orders",
+					"users_first_name",
+					"users_last_name",
+					"orders_speciality_adress",
+					"orders_speciality_date_orders"		
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[        
+							{   "field"     :"orders_speciality_ID",
+								"value"     : order_id,
+								"compare" 	: "="
+							} 					
+						]    
+					}         
+				]
+			}	
+		}	
+		return datas_return;	
+	},
+	//	
 	//@
 	//@
 	//@
@@ -1012,7 +1052,78 @@ const ojs_datas_orders = {
 	//@@		
 	
 	
-	
+	//
+	//
+	//get_data_orders_detail_bussiness_store_ajax
+	get_data_orders_detail_bussiness_store_ajax : function(store_id,date_star,date_end,sattus_number){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"orders_details_speciality_qty_sum",
+					"orders_details_speciality_price_sum",
+					"orders_details_speciality_discount_sum"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: "product",
+								"compare" : "="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_star,
+								"compare" : ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : sattus_number,
+								"compare" : "in"
+							},
+							{
+								"field" : "stores_ID" ,
+								"value" : store_id,
+								"compare" : "="
+							}		
+						]    
+					}          
+				],
+				"order" :[
+						{    
+							"field"  :"orders_speciality_date_orders",
+							"compare" : "DESC"
+						}      
+				],
+				"group_by" :	
+				[
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders"
+				]				
+			}
+		}	
+		return datas_return;			
+	},
+	//@@
+	//@@
+	//@@		
+		
 	
 	
 	

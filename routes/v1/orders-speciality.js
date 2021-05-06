@@ -796,10 +796,52 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 			return;		
 	}
 	//			
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.router_bussiness(app)->ajax-order-detail-bussiness", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+	var orders_list_taget;
+	try {
+		var orders_list_taget = await ojs_shares.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality-detail/search', 
+			ojs_datas_orders.get_data_orders_detail_bussiness_taget(order_id),
+			token
+		);
+		
+		if(orders_list_taget.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,orders_list_taget.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "40.router->bussiness-orders->ajax-order-detail-bussiness", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "41.router->bussiness-orders->ajax-order-detail-bussiness", "message": error_send } ); 
+			return;		
+	}
+	//			
+	
+	
 	
 	//send web
 	data_send = {
-		'orders_detail' : orders_list.datas
+		'orders_detail' : orders_list.datas,
+		'order_taget' : orders_list_taget.datas
 	}
 	
 	//res.send(data_send);
@@ -898,7 +940,99 @@ router.post('/ajax_load_order_bussiness/', async  function(req, res, next) {
 //end of get admin
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
+
+//@
+//@
+//@
+//* ajax_load_order_bussiness
+//* load don hang tren trang bussiness ajax
+router.post('/ajax_load_order_bussiness_store/', async  function(req, res, next) {
+	//
+	let token = req.session.token;	
+	let datas  = req.body.datas;
+	//@
+	//@
+	//@@
+	//@@
+	let datas_check = {
+		"token":token
+	}
 	
+	//res.send(datas_check );	
+	//return;		
+	let check_datas_result;
+	try{
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2.1.router_bussiness(app)->ajax_load_order_bussiness_store", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(check_datas_result );	
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(check_datas_result.error != ""){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "2.2.router_bussiness(app)->ajax_load_order_bussiness_store", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+	var orders_list;
+	try {
+		var orders_list = await ojs_shares.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
+			ojs_datas_orders.get_data_orders_detail_bussiness_store_ajax(datas.store_id,datas.date_star, datas.date_end,JSON.parse(datas.status_send)),
+			token
+		);
+		
+		
+		//res.send(orders_list);
+		//return;
+		
+		
+		if(orders_list.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->bussiness-orders->ajax_load_order_bussiness_store", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->bussiness-orders->ajax_load_order_bussiness_store", "message": error_send } ); 
+			return;		
+	}
+	//			
+	
+	//send web
+	data_send = {
+		'orders_list' : orders_list.datas
+	}
+	
+	res.render( check_datas_result.view_version + '/masterpage/widget-order-show-table-stores', data_send );	
+
+});
+//end of get admin
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		
 //@
 //@
 //@

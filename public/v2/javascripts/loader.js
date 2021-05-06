@@ -299,7 +299,8 @@ $(document).ready(function($){
 			var date_star = "";
 			if(date_send == "hom_nay"){
 				date_star = ojs_loader.get_current_date_string_star();
-				
+			}else if(date_send == "tat_ca"){
+				date_star = "2021/01/01 00:00:00"				
 			}else if(date_send == "hom_qua"){
 				date_star = ojs_loader.get_current_date_string_star_minus_date(1)
 				
@@ -338,6 +339,9 @@ $(document).ready(function($){
 			if(date_send == "hom_nay"){
 
 				date_end =  ojs_loader.get_current_date_string_end();
+				
+			}else if(date_send == "tat_ca"){
+				date_end = ojs_loader.get_current_date_string_end()	
 				
 			}else if(date_send == "hom_qua"){
 

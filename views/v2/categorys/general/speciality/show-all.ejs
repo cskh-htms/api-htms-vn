@@ -48,7 +48,7 @@ content
 		</div>
 		<div class="loc_wrap">
 			<select id="trang_thai">
-				<option value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option value="all">Tất cả trạng thái</option>
 				<option value="[0]">Chờ duyệt</option>
 				<option value="[2]">Đã sửa chờ duyệt</option>
 				<option value="[3]">Bị từ chối</option>
@@ -240,21 +240,33 @@ $(document).ready(function($){
 	$(document).on('change','#trang_thai',function(e) {	
 		e.preventDefault();
 		let x = $('#trang_thai').val();
-		//alert(x);
-		
 		let store_id = $('#store_id').val();
-		let status_admin = JSON.parse(x);
-		
-		var datas = {
-			"datas":{
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_category(datas);		
-		
+		//@
+		//@
+		//@//neu chon trang thai la tat ca
+		if(x == "all"){
+			var status_admin = [0,1,2,3,4];
+			var datas = {
+				"datas":{
+					status_admin : status_admin,
+					store_id:store_id
+				}
+			}	
+			//console.log(datas);
+			//return;
+			ojs_bussiness.ajax_load_category(datas);				
+		}else{//cac trang thai khac
+			var status_admin = JSON.parse(x);
+			var datas = {
+				"datas":{
+					status_admin : status_admin,
+					store_id:store_id
+				}
+			}	
+			console.log(datas);
+			return;		
+			ojs_bussiness.ajax_load_category_no(datas);				
+		}
 
 	});//end of function
 
