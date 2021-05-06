@@ -510,6 +510,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	let token = req.session.token;	
 	let store_id = req.params.store_id;
 	let status_int = req.params.status_int;
+	let user_id = ojs_shares.get_users_id(token);
 	//
 	//@
 	//@
@@ -538,9 +539,6 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 		res.send({ "error" : "2.1.router_stores(app)->manage ", "message": error_send } ); 
 		return;			
 	}
-	
-	//res.send(check_datas_result );	
-	//return;	
 	
 	
 	
@@ -617,12 +615,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	}	
 		
 		
-		
-			
-	
-	
-	
-	
+
 	
 
 	//=======================
@@ -673,12 +666,47 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	//		
 	
 	
+	
+	//
+	var sattus_number = [0,1,2,3,4,5,6,7,8,9];
+	
+	//var date_star = ojs_shares.get_current_month_now();
+	var date_star = "2020/01/01 00:00:00";
+	var date_end = ojs_shares.get_current_date_end() ;
+	//	
+	var order_list_all;
+	try {
+
+		order_list_all = await ojs_shares.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + check_datas_result.api_version + '/orders/speciality/search', 
+			ojs_datas_orders.get_order_list_datas_all(user_id,date_star,date_end,sattus_number), 
+			token
+		);
+	
+		if(order_list_all.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, order_list_all.error, "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "41.router_stores(app)->order_list_all", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//////evn = "dev";;;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu order", "Lỗi lấy dữ liệu order" );
+			res.send({ "error" : "42.router_stores(app)->order_list_all", "message": error_send } ); 
+			return;	
+	}		
+	res.send(order_list_all);
+	return;	
+
+	
 	//send web
 	//@sidebar_type -- loại sibar 
 	//@'users_type' : loai user
 	try {	
 		let users_type = check_datas_result.user_role;	
-		let user_id = ojs_shares.get_users_id(token);	
 		let users_full_name = ojs_shares.get_users_full_name(token);
 		//@
 		//@
@@ -692,6 +720,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 			'js_css_version' : check_datas_result.js_css_version,
 			'menu_taget':'sidebar_don_hang',
 			'orders_list' : orders_list.datas,
+			'order_list_all' : order_list_all.datas,
 			"status_int":status_int,
 			'store_name' : store_name.datas[0].stores_name,
 			"service_type_name" : service_type_name

@@ -882,6 +882,7 @@ router.post('/save', async function(req, res, next) {
 	let token = req.session.token;	
 	let datas  = req.body;
 	//res.send(datas);
+	//return;
 	//@
 	//@
 	//neu không có token thì trỏ ra login page

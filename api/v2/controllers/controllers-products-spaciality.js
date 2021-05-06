@@ -348,7 +348,7 @@ async function insert_products_spaciality(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		evn = "dev";
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
 		res.send({ "error" : "2.1.controllers_product_speciality(app)->insert", "message": error_send } ); 
 		return;			
