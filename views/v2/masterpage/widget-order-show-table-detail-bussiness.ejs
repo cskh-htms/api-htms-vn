@@ -150,5 +150,49 @@
 		</tr>
 	</tfoot>
 </table>
-<div style="text-align: right"><a href="#" class="btn_green">Xác nhận & chờ lấy hàng</a></div>
+<% if(order_taget[0].orders_speciality_status_orders == 0) { %>
+	<div style="text-align: right"><a href="#" id="btn_xac_nhan_order" class="btn_green">Xác nhận & chờ lấy hàng</a></div>
+<% } %>
 
+<script>
+	$(document).ready(function($){
+		$('#btn_xac_nhan_order').click(function(e){
+			e.preventDefault();
+			//alert('abc');
+			
+			
+			let orders_speciality_status_orders = 2;
+		
+			//
+			var datas = {
+				"datas":{
+					orders_speciality_status_orders : orders_speciality_status_orders
+				}
+			}
+			//console.log(datas);		
+			//return;
+			
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/update/" + <%= order_taget[0].orders_speciality_ID %>,
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+									ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				ojs_loadding.ajax_hide_loadding();		  
+			  }//end of success			  
+			});	//end of ajax
+			
+			//$('.status_yellow').html('Chờ lấy hàng');
+			
+		});
+	});
+</script>
