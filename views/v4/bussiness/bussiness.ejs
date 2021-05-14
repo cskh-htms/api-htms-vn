@@ -1,0 +1,482 @@
+<%if( typeof title == 'string' && title){ title = title } else{ title="" }%>
+<% if( typeof order_list == 'object' && order_list && order_list.length > 0){ order_list = order_list; } else{ order_list=[] } %>
+<% if( typeof store_list == 'object' && store_list && store_list.length > 0){ datas = store_list;} else{ datas=[] ;} %>
+
+<% if( typeof user_role == 'string' && user_role && user_role.length > 0 ){ user_role = user_role } else{ user_role="" } %>
+<% if( ( typeof store_id == 'number' || typeof store_id == 'string' ) && store_id){ } else{ store_id = "0" } %>
+<% if(  typeof service_type_name  == 'string'  && service_type_name ){ } else{ service_type_name = "" } %>
+
+
+
+
+<% include ../masterpage/loader %>
+<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+
+
+
+
+<div id="page_wrap" class="page_wrap no_sidebar">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+	<!-- ---------
+	//tin tức
+	---------- -->	
+	
+
+	
+	
+	
+	
+	<% //stores
+	let stores_new2 = 0;
+	for (let i = 0 ; i < stores_new.length; i ++){
+		if(stores_new[i].stores_status == 3){
+			stores_new2 = stores_new2 + 1;
+		}
+	}
+	%>	
+	
+
+	<% //product
+	let product_new = 0;
+	for (let i = 0 ; i < product_list.length; i ++){
+		if(product_list[i].products_speciality_status_admin == 3){
+			product_new = product_new + 1;
+		}
+	}
+	%>
+
+	<% //category
+	let category_new = 0;
+	for (let i = 0 ; i < category_general_list.length; i ++){
+		if(category_general_list[i].category_general_speciality_admin_status == 3){
+			category_new = category_new + 1;
+		}
+	}
+	%>
+	
+	<% //option
+	let option_new = 0;
+	for (let i = 0 ; i < options_list.length; i ++){
+		if(options_list[i].options_product_speciality_status_admin == 3){
+			option_new = option_new + 1;
+		}
+	}
+	%>
+		
+	<% //barnd
+	let brand_new = 0;
+	for (let i = 0 ; i < brands_list.length; i ++){
+		if(brands_list[i].brands_status_admin == 3){
+			brand_new = brand_new + 1;
+		}
+	}
+	%>	
+	
+	
+	
+	<% //tổng từ chối
+	let news_sum = 0;
+	news_sum = product_new + 	
+	category_new + 
+	option_new  + 
+	brand_new
+	%>
+	
+
+	<%
+	var store_number = 0;
+	var product_sale = 0;
+	%>
+	<!-- ---------------
+	//@
+	//@
+	//hien thi cua hang
+	------------------- -->
+	<!--<% 
+	if(store_list.length > 0){
+	for( var  x in store_list ) { 
+		store_number = store_number  + 1 ;
+	} 
+	}
+	%>
+	<h4>Tổng số cửa hàng  <span>[ <%= store_number %> ]</span> </h4> -->
+	
+	<script>
+		console.log(<%- JSON.stringify(datas) %>);
+		console.log(<%- JSON.stringify(product_list) %>);
+		console.log(<%- JSON.stringify(order_list_sum) %>);
+		console.log(<%- JSON.stringify(order_list_all) %>);
+	</script>
+	
+	<% 
+	if(datas.length > 0){
+		let product_count = {};
+		let product_sale_count = {};
+		let doanh_thu = {};
+		let sp_ban_ra = {};
+		let cho_xac_nhan = {};
+		let cho_lay_hang = {};
+		let dang_giao = {};
+		let doi_tra = {};
+		datas.map( data => {
+			product_count[data.stores_ID] = 0;
+			product_sale_count[data.stores_ID] = 0;
+			doanh_thu[data.stores_ID] = 0;
+			sp_ban_ra[data.stores_ID] = 0;
+			cho_xac_nhan[data.stores_ID] = 0;
+			cho_lay_hang[data.stores_ID] = 0;
+			dang_giao[data.stores_ID] = 0;
+			doi_tra[data.stores_ID] = 0;
+		})
+		product_list.map( product => {
+			product_count[product.stores_ID] += 1;
+			if (product.products_speciality_sale_of_price_time_check == "đangkhuyếnmãi") {
+				product_sale_count[product.stores_ID] += 1;
+			}
+			else {
+			}
+		})
+		order_list_sum.map( order => {
+			doanh_thu[order.stores_ID] = order.orders_details_speciality_price_sum;
+			sp_ban_ra[order.stores_ID] = order.orders_details_speciality_qty_sum;
+		})
+		order_list_all.map( order_status => {
+			let num = order_status.orders_speciality_status_orders;
+			switch(num) {
+				case 0: 
+					cho_xac_nhan[order_status.stores_ID] += 1;
+					break;
+				case 2:
+					cho_lay_hang[order_status.stores_ID] += 1;
+					break;
+				case 3:
+					dang_giao[order_status.stores_ID] += 1;
+					break;
+				case 4:
+					doi_tra[order_status.stores_ID] += 1;
+					break;
+				default:
+					break;
+			}
+		})
+	%>
+	
+	
+
+	<%
+	for( var  x in datas ) { %>
+		<div class="store_box">
+			<div class="store_name"><h3><a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>"><%- ojs_share.unCape(datas[x].stores_name) %></a></h3><%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></i></div>
+			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý<span><%= news_sum %></span></a>
+			<ul class="store_don_hang">
+				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/0"><span class="number"><%= cho_xac_nhan[datas[x].stores_ID] %></span>Chờ xác nhận</a></li>
+				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/2"><span class="number"><%= cho_lay_hang[datas[x].stores_ID] %></span>Chờ lấy hàng</a></li>
+				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/3"><span class="number"><%= dang_giao[datas[x].stores_ID] %></span>Đang giao</a></li>
+				<li><a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/4"><span class="number"><%= doi_tra[datas[x].stores_ID] %></span>Đổi trả</a></li>
+			</ul>
+			<div class="store_box_content">
+				<div class="store_thang_nay">
+					Doanh thu tháng này <span class="number"><%= ojs_share.show_price_format(doanh_thu[datas[x].stores_ID],0,",",".","đ") %></span> với <span><%= sp_ban_ra[datas[x].stores_ID] %></span> sản phẩm bán ra.
+				</div>
+				<div class="store_san_pham">
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span class="number"><%= product_count[datas[x].stores_ID] %></span> sản phẩm</a>
+					<a href="/products/<%= datas[x].service_type_name %>/add/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>" class="btn_add_sp">Thêm sản phẩm</a>
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span><%= product_sale_count[datas[x].stores_ID] %></span> đang KM</a>
+					<a href="/products/<%= datas[x].service_type_name %>/<%= datas[x].stores_ID %>"><span>0</span> hết hàng</a>
+				</div>
+				<div class="store_thong_tin">
+					<p>Điện thoại: <span><%- ojs_share.unCape(datas[x].stores_phone) %></span></p>
+					<p>Địa chỉ: <span><%- ojs_share.unCape(datas[x].stores_adress) %>,
+					<%- ojs_share.unCape(datas[x].stores_wards) %>,
+					<%- ojs_share.unCape(datas[x].stores_district) %>,
+					<%- ojs_share.unCape(datas[x].stores_province) %>
+				</span></p>
+					<p>Dịch vụ: <span><%- ojs_share.unCape(datas[x].service_type_name) %></span></p>
+					<p>Hạn mức: <span><%- ojs_share.show_price_format(datas[x].stores_payment_limit,0,",",".","") %></span></p>
+				</div>
+			</div>
+		</div>
+	<% 
+	} 
+	%>
+	<% 
+	} 
+	%>
+
+	<div class="btn_add_store"><a href="/bussiness/stores/add/<%= user_id %>" class="btn_bd_green"><i class="fas fa-plus"></i>Tạo cửa hàng</a></div>
+
+
+
+
+
+<!--
+	<table class="table-list">
+		<thead>
+			<tr>
+				<th class="user-name">Tên cửa hàng</th>
+				<th class="user-name">Chủ cửa hàng</th>
+				<th class="user-email">Nghành nghề</th>
+				<th class="user-phone">Điện thoại</th>
+				<th class="user-role">Địa chỉ</th>
+				<th class="user-role">Hạn mức thanh toán</th>
+				<th class="user-role">Trạng thái cửa hàng</th>
+				<th class="user-role">Trạng thái admin</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		<% include ../masterpage/widget-stores-show-table %>
+
+		</tbody>
+	</table>
+-->
+	<!-- ---------------
+	//@
+	//@
+	//end of hien thi cua hang
+	--------------------->
+
+
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+	
+	<!--
+		<br>
+		<h1>Thống kê doanh thu</h1>
+		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+			<div class="report_bock report_bock_payment">
+				<ul class="report_link_box report_bock_payment">
+					<li class="one report_link">
+						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					</li>
+					<li class="one report_link" >
+						<a href="#"  data_send="hom_qua">Hôm qua</a>
+					</li>				
+					<li class="one report_link">
+						<a href="#" data_send="tuan_nay">Tuần này</a>
+					</li>
+					<li class="one report_link">
+						<a href="#"  data_send="thang_nay" >tháng này</a>
+					</li>		
+					<li class="one report_link">
+						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+					</li>	
+					<li class="one report_link">
+						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+		</div>	
+		
+		<div id="ajax_load_payment" class="ajax_load"">
+		<% include ../masterpage/widget-bussiness-report-stores %>		
+		</div>	
+-->
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+
+
+<script>
+	$(document).ready(function(){
+	//////////////////////////////////////////////
+
+		$( "#datepicker_payment" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		);
+		$( "#datepicker2_payment" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		);		
+		
+
+		
+
+	//
+	//@
+	//xoa
+	$(document).on('click','#btn_date_payment',function(e) {	
+		e.preventDefault();
+		var date_01 = $( "#datepicker_payment" ).datepicker( "getDate" );
+		var date_02 = $( "#datepicker2_payment" ).datepicker( "getDate" );
+
+		
+		if(date_01 == null || date_02 == null){
+			ojs_message.message_ok_show("vui lòng chọn ngày");
+			return;
+		}
+	
+		//
+		//
+		$(this).parents('#content').find(".report_wrap").find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		//@
+				
+		var date_01 = $( "#datepicker_payment" ).datepicker( "getDate" );
+		var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+		date_01_ok = date_01_ok + " 00:00:00";
+		//@
+		//@
+		var date_02 = $( "#datepicker2_payment" ).datepicker( "getDate" );
+		var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+		date_02_ok = date_02_ok + " 23:59:59";
+
+		
+		//
+		var user_id = $('#user_id').val();
+		var datas = {
+			"datas":{
+				date_star : date_01_ok,
+				date_end : date_02_ok
+			}
+		}		
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_report_order_store(datas,user_id);	
+		
+		//
+		//@
+		//@
+	});	
+
+
+
+	//
+	//@
+	//xoa cửa hàng
+	$(document).on('click','.submitdelete',function(e) {	
+		//@
+		e.preventDefault();		
+		let store_id = $(this).attr("data_stores_id");
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_store";//function name in callback 
+		let z = ' { "store_id" : "' + store_id + '"}';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	//		
+	//	
+	//
+
+
+
+	
+	//
+	//@
+	//search theo ngày giờ set class payment
+	$(document).on('click','#report_wrap_payment .report_link_box li a',function(e) {	
+		//@
+		e.preventDefault();	
+		$(this).parents('.report_link_box').find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		$('#btn_date_payment').removeClass("report_active");
+		//
+		//lay thòi gian
+		var date_send = $(this).attr("data_send");
+		var date_star = ojs_loader.get_date_star(date_send);
+		var date_end = ojs_loader.get_date_end(date_send);
+		
+		//
+		//lấy atatus
+				
+		var user_id = $('#user_id').val();
+		var datas = {
+			"datas":{
+				date_star 	: date_star,
+				date_end 	: date_end
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_report_order_store(datas,user_id);	
+				
+		//@
+	});				
+	
+
+		
+	/////////////////////////////////////////////////		
+	});
+</script>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% include ../masterpage/loader-end %>

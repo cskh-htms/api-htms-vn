@@ -1,0 +1,100 @@
+
+
+<% if( typeof orders_list == 'object' && orders_list && orders_list.length > 0){  } else{ orders_list=[] } %>
+
+
+
+<%
+	var sum_qty = 0;
+	var sum_price = 0;
+	var sum_discount = 0;
+	var sum_all = 0;
+	//@
+
+	//@
+	var tong_tien_thanh_toan = 0;
+%>
+
+
+
+<table class="table-list ordres-list">
+	<thead>
+		<tr>
+			<th>Mã đơn hàng</th>
+			<th>Trạng thái</th>
+			<th>Ngày đặt hàng</th>
+			<th>Số sản phẩm</th>
+			<th>Tổng đơn hàng</th>
+			<th>Chiết khấu</th>
+			<th>Còn lại</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% 
+	if(orders_list.length > 0){
+	for(var  x in orders_list) { 
+	%>
+	   <tr>
+			<td class="line_order user-name">
+				<a href="#" class="view_detail" data_order_id="<%= orders_list[x].orders_speciality_ID %>"><%= orders_list[x].orders_speciality_ID %></a>
+			</td>	
+			<td>
+				<%- ojs_share.show_status_orders_complate(orders_list[x].orders_speciality_status_orders) %>
+			</td>	
+			<td class="qty_box">
+				<%- orders_list[x].orders_speciality_date_orders %>
+			</td>	
+
+			<td class="qty_box" data_qty="<%= orders_list[x].orders_details_speciality_qty_sum %>">
+				<%= orders_list[x].orders_details_speciality_qty_sum %>
+			</td>			
+
+			<td data_price="<%= orders_list[x].orders_details_speciality_price_sum %>">
+				<%= ojs_share.show_price_format(orders_list[x].orders_details_speciality_price_sum,0,",",".","") %>
+			</td>
+			
+			<td data_discount="<%= orders_list[x].orders_details_speciality_discount_sum %>">
+				<%= ojs_share.show_price_format(orders_list[x].orders_details_speciality_discount_sum,0,",",".","") %>
+			</td>			
+
+			<% 
+			let sum_line = 
+				(orders_list[x].orders_details_speciality_qty_sum *  
+				orders_list[x].orders_details_speciality_price_sum) - 
+				orders_list[x].orders_details_speciality_discount_sum
+			%>
+
+			<td data_sum_line="<%= sum_line %>">
+				<%= ojs_share.show_price_format(sum_line,0,",",".","") %>
+			</td>	
+
+		</tr>
+		
+		<%
+		sum_qty = sum_qty + orders_list[x].orders_details_speciality_qty_sum;
+		sum_price = sum_price + orders_list[x].orders_details_speciality_price_sum;
+		sum_discount = sum_discount + orders_list[x].orders_details_speciality_discount_sum;
+		sum_all = sum_all + sum_line;
+		%>
+		
+	<% 
+	} 
+	%>
+	<% 
+	} 
+	%>	
+	</tbody>
+	<tfoot>
+
+		<tr>
+			<th colspan="3">Tổng cộng</th>
+			<th> <%=  sum_qty  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
+			<th> <%= ojs_share.show_price_format(sum_discount,0,",",".","")  %> </th>
+			<th class="price_box"> <%= ojs_share.show_price_format(sum_all,0,",",".","")  %> </th>		
+		</tr>
+
+	</tfoot>
+</table>
+
+

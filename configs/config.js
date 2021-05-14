@@ -6,10 +6,10 @@ const ojs_config_app = {
 	//version default
 	//nếu không lấy dc version thì mặc định version là đây
 	//user mới tạo sẽ lấy version mặc đ5nh này
-	router_version : "v1",
-	api_version : "v2",
-	view_version : "v1",
-	js_css_version : "v1",
+	router_version : "v4",
+	api_version : "v4",
+	view_version : "v4",
+	js_css_version : "v4",
 	
 	
 	//@

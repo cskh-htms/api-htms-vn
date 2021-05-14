@@ -1,0 +1,233 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../masterpage/loader %>
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality.js"></script>	
+<script src="../../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Tùy chọn</h1>
+	
+	<div class="sap_xep_loc">
+		<div class="sap_xep_wrap">
+		</div>
+		<div class="loc_wrap">
+			<select>
+				<option>Tất cả trạng thái</option>
+				<option>Chờ duyệt</option>
+				<option>Đã sửa chờ duyệt</option>
+				<option>Bị từ chối</option>
+				<option>Đã duyệt</option>
+			</select>
+		</div>
+	</div>
+	
+	<div id="ajax-wrap">	
+
+	<% include ../../masterpage/widget-option-show-tables %>
+	</div>
+	
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	//@
+	//xoa
+	$(document).on('click','.submitdelete',function(e) {	
+		//@
+		e.preventDefault();		
+		let option_id = $(this).attr("data_option_id");
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_option_speciality";//function name in callback 
+		let z = ' { "option_id" : "' + option_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	//		
+		
+	//
+	//@
+	//add class active
+	$(document).on('click','.btn_add_store',function(e) {	
+		e.preventDefault();
+		$('.store_row').find('.btn_add_store').removeClass('active');
+		$(this).addClass('active');
+	});//end of function	
+	//@
+	//@	
+	//@
+	//goi ajax
+	$(document).on('click','#all',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let status_admin = [0,1,2,3];
+		
+		var datas = {
+			"datas":{
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_bussiness(datas);	
+
+	});//end of function		
+
+	//@
+	//goi ajax
+	$(document).on('click','#complate',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [1]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#new',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [0]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#update',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [2]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+
+	//@
+	//goi ajax
+	$(document).on('click','#not',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [3]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function	
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+<% include ../../masterpage/loader-end %>

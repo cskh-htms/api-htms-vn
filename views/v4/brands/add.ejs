@@ -1,0 +1,266 @@
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../masterpage/loader %>
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-brands.js"></script>	
+
+
+
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/brands/<%= store_id %>">Thương hiệu</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<!-- ------------------
+			//Ten thuong hieu
+			------------------- -->
+			<div class="pro_box ten_sp_box">
+				<h3>Tên thương hiệu</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="brands_name"/>
+				</div>
+			</div>
+		
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div  style="display:none;" class="value_row">
+				<span>Mô tả ngắn</span><br>
+				<textarea class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"></textarea>
+			</div>
+			<!-- ------------------
+			//thông tin mô tả
+			------------------- -->
+			
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div class="pro_box" style="display: none;">
+				<h3>Chi tiết thương hiệu</h3>
+				
+					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%"></textarea>
+				
+			</div>
+			<!-- ------------------
+			//Lời nhắn
+			------------------- -->
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="brands_qoute"  rows="5" cols="100%" ></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box" style="display: none;">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">	
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//end of hình đại diện 	
+			------------------- -->
+			
+			<div class="pro_box">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="brands_status_stores">
+						<%- ojs_share.show_status_product() %>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<div class="btn_box">
+	<a href="/brands/<%= store_id %>/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Save</button>
+</div>	
+	
+
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//@
+	ojs_loader.loadTinyMCE('noi_dung');
+	//
+	//@
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+	});		
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		ojs_loader.delete_s3(url);
+		
+		//$('#featured_image').attr("data_s3","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
+	});			
+	//		
+	//	
+	
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		let brands_name = $('#brands_name').val();	
+		//@
+		let store_id = $('#store_id').val();
+		//@
+		let brands_featured_image = $('#featured_image').attr('data_value');
+		//@
+		//@
+		let brands_information = tinymce.get("noi_dung").getContent();
+		
+		let brands_excerpt =$("#brands_excerpt").val();
+		let brands_qoute =$("#brands_qoute").val();
+		
+		
+		let brands_status_stores = $('#brands_status_stores  option:selected').val();	
+		
+		
+		
+		
+		
+		
+		//
+		let datas = {
+			"datas":{
+				brands_name : brands_name,
+				brands_information :  brands_information,
+				brands_excerpt : brands_excerpt,
+				brands_featured_image : brands_featured_image,
+				brands_stores_id : store_id,
+				brands_qoute : brands_qoute,
+				brands_status_stores : brands_status_stores
+			}
+		}
+		//console.log(datas);		
+		//return;
+		
+		ojs_brands.ajax_save(datas);	
+		
+	});//end of save ajax
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
