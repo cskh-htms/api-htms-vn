@@ -23,6 +23,11 @@ const ojs_datas_brands = require('../../models/ojs-datas-brands.js');
 //@@@@@@@@@@@@@@
 router.get('/', async  function(req, res, next) {
 	
+	
+	//res.send("asdasdasd");
+	//return;
+	
+	
 	//@
 	//=======================
 	//=======================
@@ -436,7 +441,7 @@ router.get('/', async  function(req, res, next) {
 		'menu_taget':'sidebar_tong_quan'
 	}
 	
-	//res.send(data_send);
+	//res.send(check_datas_result.view_version);
 	//return;	
 	res.render( check_datas_result.view_version + '/users/admin', data_send );	
 
