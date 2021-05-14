@@ -34,7 +34,7 @@ a {
 
 /* ====== LOGIN ====== */
 .login-wrap {
-	background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
+	background: linear-gradient(to bottom right, #72bf44 0%, #4a914b 100%);
 	display: flex;
     align-items: center;
     justify-content: center;
@@ -45,6 +45,7 @@ a {
     padding: 30px;
     border-radius: 10px;
 	background: white;
+	max-width: 90%;
 }
 .login-box h1{
   float: left;
@@ -117,6 +118,7 @@ a {
 }
 .login-box .logo img{
 	width:150px;
+	border-radius: 5px;
 }
 
 /* ====== SIDEBAR ====== */

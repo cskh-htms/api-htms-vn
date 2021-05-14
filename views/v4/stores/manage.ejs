@@ -28,9 +28,20 @@ content
 			<li><a href=""><span class="number">2</span>Đang giao</a></li>
 			<li><a href=""><span class="number">1</span>Đổi trả</a></li>
 		</ul>
-		<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_bd_green btn_add_sp">Tạo sản phẩm</a>
+		<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_bd_green btn_add_sp">Thêm sản phẩm</a>
 	</div>
 	<div class="store_row">
+		<div class="store_col doanh_thu_thang_nay">
+			<h2>Doanh thu tháng này</h2>
+				<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+				<circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<circle class="circle-chart__circle" stroke="#00acc1" stroke-width="2" stroke-dasharray="40,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<g class="circle-chart__info">
+					<text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">30%</text>
+					<text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Yay 30% progress!</text>
+				</g>
+			</svg>
+		</div>
 		<div class="store_col store_sp_km">
 			<h2>Sản phẩm đang khuyến mãi</h2>
 			<ul>
@@ -124,38 +135,39 @@ content
 	<!-- ---------
 	//thong ke theo cua hang
 	---------- -->
-		
-		<h1>Thống kê doanh thu</h1>
-		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
-			<div class="report_bock report_bock_payment">
-				<ul class="report_link_box report_bock_payment">
-					<li class="one report_link">
-						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
-					</li>
-					<li class="one report_link" >
-						<a href="#"  data_send="hom_qua">Hôm qua</a>
-					</li>				
-					<li class="one report_link">
-						<a href="#" data_send="tuan_nay">Tuần này</a>
-					</li>
-					<li class="one report_link">
-						<a href="#"  data_send="thang_nay" >tháng này</a>
-					</li>		
-					<li class="one report_link">
-						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
-					</li>	
-					<li class="one report_link">
-						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
-					</li>					
-				</ul>
+	<div class="doanh_thu">
+		<h2>Thống kê doanh thu</h2>
+		<div class="thong_ke_doanh_thu">
+			<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+				<div class="report_bock report_bock_payment">
+					<ul class="report_link_box report_bock_payment">
+						<li class="one report_link">
+							<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+						</li>
+						<li class="one report_link" >
+							<a href="#"  data_send="hom_qua">Hôm qua</a>
+						</li>				
+						<li class="one report_link">
+							<a href="#" data_send="tuan_nay">Tuần này</a>
+						</li>
+						<li class="one report_link">
+							<a href="#"  data_send="thang_nay" >tháng này</a>
+						</li>		
+						<li class="one report_link">
+							<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+						</li>	
+						<li class="one report_link">
+							<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+						</li>					
+					</ul>
+				</div>
+				<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
 			</div>
-			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
-		</div>	
-		
-		<div id="ajax_load_payment" class="ajax_load"">
-		<% include ../masterpage/widget-bussiness-report-stores %>		
-		</div>	
-
+			<div id="ajax_load_payment" class="ajax_load"">
+				<% include ../masterpage/widget-bussiness-report-stores %>		
+			</div>	
+		</div>
+	</div>
 			
 	<!-- ---------
 	//end of thong ke theo cua hang
