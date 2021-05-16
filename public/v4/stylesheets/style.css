@@ -1048,7 +1048,7 @@ body .ajax-load-bt {
 }
 .store_row_btn .store_don_hang {
 	margin: 0;
-    padding: 20px;
+    padding: 15px;
     background: #4a914b;
     border-radius: 5px;
     box-shadow: 0 0 5px rgb(0 0 0 / 10%);
@@ -1060,11 +1060,104 @@ body .ajax-load-bt {
 .store_row_btn .store_don_hang li {
     border-color: #99ce99;
 }
+.store_row_btn .store_don_hang li a {
+	color: #fff;
+}
 .store_row_btn .store_don_hang .number {
 	display: block;
     font-size: 26px;
 	color: #fff;
 }
+.tu_choi_btn {
+	position: relative;
+}
+.tu_choi_btn:hover .store_thong_bao_wrap {
+	visibility: visible;
+}
+.tu_choi_btn .store_thong_bao_wrap {
+	position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+	visibility: hidden;
+    width: 300px;
+	padding-top: 15px;
+}
+.tu_choi_btn .store_thong_bao:before {
+	content: '';
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    z-index: 1;
+}
+.store_thong_bao_wrap .store_thong_bao {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    padding: 15px;
+    text-align: left;
+}
+.tu_choi_btn .store_thong_bao h2 {
+	margin: 0 0 10px;
+	color: #555;
+	font-weight: normal;
+	font-size: 16px;
+}
+.tu_choi_btn .store_thong_bao ul {
+	padding: 0;
+}
+.tu_choi_btn .store_thong_bao ul li {
+	position: relative;
+	padding: 0 0 20px 20px;
+	display: block;
+    width: 100%;
+    border: none;
+}
+.tu_choi_btn .store_thong_bao ul li a {
+	padding: 0;
+	background: none;
+	min-height: unset;
+	color: #555;
+}
+.tu_choi_btn .store_thong_bao ul li span {
+	color: #000;
+	display: block;
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+.tu_choi_btn .store_thong_bao ul li:hover span {
+	color: #4a914b;
+}
+.tu_choi_btn .store_thong_bao ul li:before {
+	content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4a914b;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+	z-index: 1;
+}
+.tu_choi_btn .store_thong_bao ul li:after {
+	content: '';
+    display: block;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 8px;
+    background: lightgray;
+}
+.tu_choi_btn .store_thong_bao ul li:first-child:after {
+	top: 4px;
+}
+
 .btn_add_sp {
 	display: flex;
     align-items: center;
@@ -1146,49 +1239,33 @@ body .ajax-load-bt {
 	padding-left: 14px;
 	margin-left: 12px;
 }
-.store_col.store_thong_bao ul li {
+.doanh_thu_han_muc {
 	position: relative;
-	padding: 0 0 20px 20px;
 }
-.store_col.store_thong_bao ul li a {
-	padding: 0;
-	background: none;
-	min-height: unset;
+.doanh_thu_han_muc a {
+	position: absolute;
+    right: 17px;
+    top: 17px;
+    font-size: 14px;
+    text-transform: none;
+    padding: 5px 10px;
 }
-.store_col.store_thong_bao ul li span {
-	color: #000;
-	display: block;
-	margin-bottom: 5px;
-	font-size: 16px;
+.doanh_thu_han_muc p {
+	margin: 0;
+	text-align: center;
 }
-.store_col.store_thong_bao ul li:hover span {
-	color: #4a914b;
-}
-.store_col.store_thong_bao ul li:before {
-	content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #4a914b;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-	z-index: 1;
-}
-.store_col.store_thong_bao ul li:after {
-	content: '';
+.doanh_thu_han_muc .circle-chart {
+	margin: 15px auto 10px;
     display: block;
-    width: 1px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 8px;
-    background: lightgray;
-}
-.store_col.store_thong_bao ul li:first-child:after {
-	top: 4px;
 }
 
+.doanh_thu_thang_nay p {
+	text-align: center;
+}
+.doanh_thu_thang_nay .number {
+	font-size: 26px;
+    color: #4a914b;
+}
 
 /* Thong ke doanh thu */
 .doanh_thu {
