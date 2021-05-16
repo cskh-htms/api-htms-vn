@@ -143,9 +143,7 @@ CREATE TABLE IF NOT EXISTS `dala_category_news_link` (
   `dala_category_news_link_ID` int NOT NULL AUTO_INCREMENT,
   `dala_category_news_link_news_id` int NOT NULL,
   `dala_category_news_link_category_news_id` int NOT NULL,
-  PRIMARY KEY (`dala_category_news_link_ID`),
-  KEY `dala_category_news_link_news_id__dala_news_ID` (`dala_category_news_link_news_id`),
-  KEY `dala_category_news_link_category_news_id__	dala_category_news_ID` (`dala_category_news_link_category_news_id`)
+  PRIMARY KEY (`dala_category_news_link_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -166,9 +164,7 @@ CREATE TABLE IF NOT EXISTS `dala_comments_food_drink` (
   `dala_comments_food_drink_status_admin` int NOT NULL DEFAULT '0',
   `dala_comments_food_drink_status_update` int NOT NULL DEFAULT '0',
   `dala_comments_food_drink_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_comments_food_drink_ID`),
-  KEY `dala_comments_food_drink_user_id__dala_users_ID` (`dala_comments_food_drink_user_id`),
-  KEY `dala_comments_food_drink_product_id__ala_products_food_drink_ID` (`dala_comments_food_drink_product_id`)
+  PRIMARY KEY (`dala_comments_food_drink_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -189,9 +185,7 @@ CREATE TABLE IF NOT EXISTS `dala_comments_news` (
   `dala_comments_news_status_admin` int NOT NULL DEFAULT '0',
   `dala_comments_news_status_update` tinyint(1) NOT NULL DEFAULT '0',
   `dala_comments_news_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_comments_news_ID`),
-  KEY `dala_comments_news_user_id__dala_users_ID` (`dala_comments_news_user_id`),
-  KEY `	dala_comments_news_news_id__dala_news_ID` (`dala_comments_news_news_id`)
+  PRIMARY KEY (`dala_comments_news_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -212,9 +206,7 @@ CREATE TABLE IF NOT EXISTS `dala_comments_speciality` (
   `dala_comments_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_comments_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
   `dala_comments_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_comments_speciality_ID`),
-  KEY `dala_comments_speciality_user_id__dala_users_ID` (`dala_comments_speciality_user_id`),
-  KEY `dala_comments_speciality_product_id__dala_products_speciality_ID` (`dala_comments_speciality_product_id`)
+  PRIMARY KEY (`dala_comments_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -243,8 +235,7 @@ CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_stores_id` int NOT NULL,
   `dala_coupon_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_coupon_speciality_ID`),
-  KEY `dala_coupon_speciality_stores_id__	dala_stores_ID` (`dala_coupon_speciality_stores_id`)
+  PRIMARY KEY (`dala_coupon_speciality_ID`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -257,17 +248,16 @@ DROP TABLE IF EXISTS `dala_news`;
 CREATE TABLE IF NOT EXISTS `dala_news` (
   `dala_news_ID` int NOT NULL AUTO_INCREMENT,
   `dala_news_title` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_news_user_id` int NOT NULL,
   `dala_news_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dala_news_category_id` int NOT NULL,
   `dala_news_featured_image` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_news_excerpt` varchar(6000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_news_contents` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_news_status` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_news_statue_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_news_status_update` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_news_status_stores` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_news_stores_id` int NOT NULL,
   `dala_news_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_news_ID`),
-  KEY `dala_news_user_id__dala_users_ID` (`dala_news_user_id`),
-  KEY `dala_news_category_iddala_category_news_ID__` (`dala_news_category_id`)
+  PRIMARY KEY (`dala_news_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -557,9 +547,7 @@ CREATE TABLE IF NOT EXISTS `dala_reviews_speciality` (
   `dala_reviews_speciality_number_star` int NOT NULL DEFAULT '5',
   `dala_reviews_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
   `dala_reviews_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_reviews_speciality_ID`),
-  KEY `dala_reviews_speciality_user_id__dala_users_ID` (`dala_reviews_speciality_user_id`),
-  KEY `dala_reviews_speciality_product_id__dala_products_speciality_ID` (`dala_reviews_speciality_product_id`)
+  PRIMARY KEY (`dala_reviews_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -674,6 +662,8 @@ CREATE TABLE IF NOT EXISTS `dala_stores` (
   `dala_stores_local_adress` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_stores_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_stores_status_update` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_stores_payment_methods` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_stores_payment_time` tinyint(1) NOT NULL DEFAULT '28',
   `dala_stores_upload_limit_day` smallint UNSIGNED NOT NULL DEFAULT '20',
   `dala_stores_upload_limit_month` smallint UNSIGNED NOT NULL DEFAULT '300',
   PRIMARY KEY (`dala_stores_ID`)
@@ -733,6 +723,9 @@ CREATE TABLE IF NOT EXISTS `dala_users` (
   `dala_users_view_version` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'v1',
   `dala_users_js_css_version` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'v1',
   `dala_users_users_type_id` int DEFAULT NULL,
+  `dala_users_verification_status` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_users_verification_code` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_users_verification_time` datetime DEFAULT NULL,
   PRIMARY KEY (`dala_users_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
