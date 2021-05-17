@@ -1,6 +1,9 @@
 
 $(document).ready(function($){
-
+	$('.category_wrap .cat_parent_line > input').attr('disabled','disabled');
+	$('.cat_child_line_wrap .cat_child_line input').click(function(){
+		$(this).closest('.cat_check').css('color','red');
+	});
 	ojs_products_speciality = {	
 		//
 		//
