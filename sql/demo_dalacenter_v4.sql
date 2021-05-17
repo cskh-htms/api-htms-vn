@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `dala_category_general_speciality` (
   `dala_category_general_speciality_stores_id` int NOT NULL,
   `dala_category_general_speciality_update_status` tinyint NOT NULL DEFAULT '0',
   `dala_category_general_speciality_admin_status` tinyint NOT NULL DEFAULT '0',
+  `dala_category_general_speciality_type` tinyint NOT NULL DEFAULT '0',
   `dala_category_general_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_category_general_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -723,6 +724,7 @@ CREATE TABLE IF NOT EXISTS `dala_users` (
   `dala_users_view_version` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'v1',
   `dala_users_js_css_version` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'v1',
   `dala_users_users_type_id` int DEFAULT NULL,
+  `dala_users_shipping_status` tinyint(1) NOT NULL DEFAULT '0',
   `dala_users_verification_status` tinyint(1) NOT NULL DEFAULT '0',
   `dala_users_verification_code` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_users_verification_time` datetime DEFAULT NULL,
