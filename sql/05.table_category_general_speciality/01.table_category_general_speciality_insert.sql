@@ -83,7 +83,7 @@ IF(NEW.dala_category_general_speciality_category_parent_id > 0 ) THEN
 	
 	SET @checkID = (select dala_category_general_speciality_ID  
 	from dala_category_general_speciality 
-	where dala_category_general_speciality_category_parent_id = NEW.dala_category_general_speciality_category_parent_id);
+	where dala_category_general_speciality_ID = NEW.dala_category_general_speciality_category_parent_id);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_check_category_general_speciality_category_parent_id_no_parent'; 
