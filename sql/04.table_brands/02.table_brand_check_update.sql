@@ -46,7 +46,7 @@ DROP TRIGGER  IF EXISTS  trig_brands_stores_id_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_brands_stores_id_update UPDATE INSERT ON dala_brands 
+CREATE TRIGGER trig_brands_stores_id_update BEFORE UPDATE ON dala_brands 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_brands_stores_id) <= 0) THEN 

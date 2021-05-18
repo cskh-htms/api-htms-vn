@@ -42,7 +42,7 @@ DELIMITER ;
 -- 
 -- 
 -- check category_news_stores_id
-DROP TRIGGER  IF EXISTS  trig_category_news_stores_id_update
+DROP TRIGGER  IF EXISTS  trig_category_news_stores_id_update; 
 -- 
 
 DELIMITER $$ 
