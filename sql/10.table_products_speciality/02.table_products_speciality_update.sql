@@ -15,69 +15,107 @@ START TRANSACTION;
 
 -- 
 -- 
--- check stores_name insert
-DROP TRIGGER  IF EXISTS  trig_stores_name;
+-- check products_speciality_name insert
+DROP TRIGGER  IF EXISTS  trig_products_speciality_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_stores_name BEFORE UPDATE ON dala_stores 
+CREATE TRIGGER trig_products_speciality_name_update BEFORE UPDATE ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
-IF(NEW.dala_stores_name  is null or NEW.dala_stores_name = '') THEN 
+IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_stores_name_empty';   
-ELSE 
-	IF (NEW.dala_stores_name REGEXP '^[A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
+	SET MESSAGE_TEXT = 'trig_products_speciality_name_empty';   
+END IF;	
+END $$ 
+DELIMITER ;
+
+
+
+
+
+
+
+-- 
+-- 
+-- 
+-- check products_speciality_price insert
+DROP TRIGGER  IF EXISTS  trig_products_speciality_price_update;
+-- 
+
+DELIMITER $$ 
+CREATE TRIGGER trig_products_speciality_price_update BEFORE UPDATE ON dala_products_speciality 
+FOR EACH ROW  
+BEGIN  
+IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_products_speciality_price_empty';   
+END IF;	
+END $$ 
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 
+-- 
+-- check products_speciality_store_id
+DROP TRIGGER  IF EXISTS  trig_products_speciality_store_id_update;
+-- 
+
+DELIMITER $$ 
+CREATE TRIGGER trig_products_speciality_store_id_update BEFORE UPDATE ON dala_products_speciality
+FOR EACH ROW  
+BEGIN  
+IF(LENGTH(NEW.dala_products_speciality_store_id) <= 0) THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_products_speciality_store_id_empty';   
+END IF;
+END $$ 
+DELIMITER ;
+
+
+
+
+
+
+
+
+--
+-- *data type
+DROP TRIGGER  IF EXISTS  trig_products_speciality_brand_update;
+--
+
+DELIMITER $$ 
+CREATE TRIGGER trig_products_speciality_brand_update BEFORE UPDATE ON dala_products_speciality 
+FOR EACH ROW  
+BEGIN  
+
+IF(LENGTH(NEW.dala_products_speciality_brand) > 0 ) THEN 
+	
+	SET @checkID = (select dala_brands_ID  from dala_brands where dala_brands_ID  = NEW.dala_products_speciality_brand);
+	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_stores_name_data_type';   
-	END IF; 
+		SET MESSAGE_TEXT = 'trig_products_speciality_brand_no_refe'; 
+	END IF;	
 END IF;
-END $$ 
+
+
+END $$
 DELIMITER ;
 
-
-
-
-
--- 
--- 
--- check stores_user_id
-DROP TRIGGER  IF EXISTS  trig_stores_user_id;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_stores_user_id BEFORE UPDATE ON dala_stores 
-FOR EACH ROW  
-BEGIN  
-IF(LENGTH(NEW.dala_stores_user_id) <= 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_stores_user_id_empty';   
-END IF;
-END $$ 
-DELIMITER ;
-
-
-
---
---
---
--- 
---       
--- stores_service_type_id
--- 
-DROP TRIGGER  IF EXISTS  trig_stores_service_type_id;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_stores_service_type_id BEFORE UPDATE ON dala_stores 
-FOR EACH ROW  
-BEGIN  
-IF(LENGTH(NEW.dala_stores_service_type_id) <= 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_stores_service_type_id_empty';   
-END IF;
-END $$ 
-DELIMITER ;
 
 
 

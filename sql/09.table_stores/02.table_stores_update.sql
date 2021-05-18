@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check stores_name insert
-DROP TRIGGER  IF EXISTS  trig_stores_name;
+DROP TRIGGER  IF EXISTS  trig_stores_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_stores_name BEFORE UPDATE ON dala_stores 
+CREATE TRIGGER trig_stores_name_update BEFORE UPDATE ON dala_stores 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_stores_name  is null or NEW.dala_stores_name = '') THEN 
@@ -42,11 +42,11 @@ DELIMITER ;
 -- 
 -- 
 -- check stores_user_id
-DROP TRIGGER  IF EXISTS  trig_stores_user_id;
+DROP TRIGGER  IF EXISTS  trig_stores_user_id_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_stores_user_id BEFORE UPDATE ON dala_stores 
+CREATE TRIGGER trig_stores_user_id_update BEFORE UPDATE ON dala_stores 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_stores_user_id) <= 0) THEN 
@@ -65,11 +65,11 @@ DELIMITER ;
 --       
 -- stores_service_type_id
 -- 
-DROP TRIGGER  IF EXISTS  trig_stores_service_type_id;
+DROP TRIGGER  IF EXISTS  trig_stores_service_type_id_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_stores_service_type_id BEFORE UPDATE ON dala_stores 
+CREATE TRIGGER trig_stores_service_type_id_update BEFORE UPDATE ON dala_stores 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_stores_service_type_id) <= 0) THEN 

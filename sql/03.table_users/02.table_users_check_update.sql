@@ -27,12 +27,12 @@ SET time_zone = "+07:00";
 -- 
 -- *data type
 
-DROP TRIGGER  IF EXISTS  trig_check_users_name;
+DROP TRIGGER  IF EXISTS  trig_check_users_name_update;
 -- 
 
 -- DELIMITER $$ 
 DELIMITER $$ 
-CREATE TRIGGER trig_check_users_name BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_check_users_name_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 
@@ -57,11 +57,11 @@ DELIMITER ;
 -- 
 -- *data type
 
-DROP TRIGGER  IF EXISTS  trig_check_users_first_name;
+DROP TRIGGER  IF EXISTS  trig_check_users_first_name_update;
 -- 
 -- 
 DELIMITER $$ 
-CREATE TRIGGER trig_users_first_name BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_users_first_name_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 
@@ -87,11 +87,11 @@ DELIMITER ;
 -- 
 -- *data type
 
-DROP TRIGGER  IF EXISTS  trig_check_users_last_name;
+DROP TRIGGER  IF EXISTS  trig_check_users_last_name_update;
 -- 
 -- 
 DELIMITER $$ 
-CREATE TRIGGER trig_users_last_name BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_users_last_name_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 
@@ -120,11 +120,11 @@ DELIMITER ;
 
 --
 -- *data type
-DROP TRIGGER  IF EXISTS  trig_check_users_phone_data;
+DROP TRIGGER  IF EXISTS  trig_check_users_phone_data_update;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_check_users_phone_data BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_check_users_phone_data_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 
@@ -152,11 +152,11 @@ DELIMITER ;
 
 --
 -- *data type
-DROP TRIGGER  IF EXISTS  trig_check_users_email_data;
+DROP TRIGGER  IF EXISTS  trig_check_users_email_data_update;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_check_users_email_data BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_check_users_email_data_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 

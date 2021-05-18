@@ -22,9 +22,27 @@ source ./sql/demo_dalacenter_v4.sql;
 -- 
 
 
+
+
+
+
 --
--- tao check insert
-source ./sql/demo_check_insert_v4.sql;
+-- check insert all
+source ./sql/command_line_check_insert_v4.sql;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 --

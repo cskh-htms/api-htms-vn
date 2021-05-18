@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check news_title insert
-DROP TRIGGER  IF EXISTS  trig_news_title;
+DROP TRIGGER  IF EXISTS  trig_news_title_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_news_title BEFORE INSERT ON dala_news 
+CREATE TRIGGER trig_news_title_insert BEFORE INSERT ON dala_news 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_news_title  is null or NEW.dala_news_title = '') THEN 
@@ -42,11 +42,11 @@ DELIMITER ;
 -- 
 -- 
 -- check news_stores_id
-DROP TRIGGER  IF EXISTS  trig_news_stores_id;
+DROP TRIGGER  IF EXISTS  trig_news_stores_id_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_news_stores_id BEFORE INSERT ON dala_news 
+CREATE TRIGGER trig_news_stores_id_insert BEFORE INSERT ON dala_news 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_news_stores_id) <= 0) THEN 

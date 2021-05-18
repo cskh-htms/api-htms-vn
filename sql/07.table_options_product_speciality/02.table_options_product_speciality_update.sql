@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check options_product_speciality_name insert
-DROP TRIGGER  IF EXISTS  trig_options_product_speciality_name;
+DROP TRIGGER  IF EXISTS  trig_options_product_speciality_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_options_product_speciality_name BEFORE UPDATE ON dala_options_product_speciality 
+CREATE TRIGGER trig_options_product_speciality_name_update BEFORE UPDATE ON dala_options_product_speciality 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_options_product_speciality_name  is null or NEW.dala_options_product_speciality_name = '') THEN 
@@ -42,11 +42,11 @@ DELIMITER ;
 -- 
 -- 
 -- check options_product_speciality_stores_id
-DROP TRIGGER  IF EXISTS  trig_options_product_speciality_stores_id;
+DROP TRIGGER  IF EXISTS  trig_options_product_speciality_stores_id_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_options_product_speciality_stores_id BEFORE UPDATE ON dala_options_product_speciality 
+CREATE TRIGGER trig_options_product_speciality_stores_id_update BEFORE UPDATE ON dala_options_product_speciality 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_options_product_speciality_stores_id) <= 0) THEN 

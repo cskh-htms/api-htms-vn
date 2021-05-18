@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check category_news_name insert
-DROP TRIGGER  IF EXISTS  trig_category_news_name;
+DROP TRIGGER  IF EXISTS  trig_category_news_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_news_name BEFORE UPDATE ON dala_category_news 
+CREATE TRIGGER trig_category_news_name_update BEFORE UPDATE ON dala_category_news 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_category_news_name  is null or NEW.dala_category_news_name = '') THEN 
@@ -42,11 +42,11 @@ DELIMITER ;
 -- 
 -- 
 -- check category_news_stores_id
-DROP TRIGGER  IF EXISTS  trig_category_news_stores_id;
+DROP TRIGGER  IF EXISTS  trig_category_news_stores_id_update
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_news_stores_id BEFORE UPDATE ON dala_category_news  
+CREATE TRIGGER trig_category_news_stores_id_update BEFORE UPDATE ON dala_category_news  
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_category_news_stores_id) <= 0) THEN 
@@ -71,11 +71,11 @@ DELIMITER ;
 -- 
 --
 -- category_news_parent_id
-DROP TRIGGER  IF EXISTS  trig_category_news_parent_id;
+DROP TRIGGER  IF EXISTS  trig_category_news_parent_id_update;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_news_parent_id BEFORE UPDATE ON dala_category_news  
+CREATE TRIGGER trig_category_news_parent_id_update BEFORE UPDATE ON dala_category_news  
 FOR EACH ROW  
 BEGIN  
 

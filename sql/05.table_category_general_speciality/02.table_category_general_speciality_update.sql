@@ -15,14 +15,14 @@ START TRANSACTION;
 -- 
 -- 
 -- check category_general_speciality_name insert
-DROP TRIGGER  IF EXISTS  trig_category_general_speciality_name;
+DROP TRIGGER  IF EXISTS  trig_category_general_speciality_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_general_speciality_name BEFORE UPDATE ON dala_category_general_speciality 
+CREATE TRIGGER trig_category_general_speciality_name_update BEFORE UPDATE ON dala_category_general_speciality 
 FOR EACH ROW  
 BEGIN  
-IF(NEW.dala_category_general_speciality_name  is null or NEW.dala_category_general_speciality_name = '') THEN 
+IF(NEW.dala_category_general_speciality_name_update  is null or NEW.dala_category_general_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
 	SET MESSAGE_TEXT = 'trig_category_general_speciality_name_name_empty';   
 ELSE 
@@ -41,11 +41,11 @@ DELIMITER ;
 -- 
 -- 
 -- check category_general_speciality_stores_id
-DROP TRIGGER  IF EXISTS  trig_category_general_speciality_stores_id;
+DROP TRIGGER  IF EXISTS  trig_category_general_speciality_stores_id_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_general_speciality_stores_id BEFORE UPDATE ON dala_category_general_speciality 
+CREATE TRIGGER trig_category_general_speciality_stores_id_update BEFORE UPDATE ON dala_category_general_speciality 
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_category_general_speciality_stores_id) <= 0) THEN 
@@ -67,11 +67,11 @@ DELIMITER ;
 -- 
 --
 -- category_general_speciality_category_parent_id
-DROP TRIGGER  IF EXISTS  trig_category_general_speciality_category_parent_id;
+DROP TRIGGER  IF EXISTS  trig_category_general_speciality_category_parent_id_update;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_category_general_speciality_category_parent_id BEFORE UPDATE ON dala_category_general_speciality 
+CREATE TRIGGER trig_category_general_speciality_category_parent_id_update BEFORE UPDATE ON dala_category_general_speciality 
 FOR EACH ROW  
 BEGIN  
 

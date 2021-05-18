@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check service_type name update
-DROP TRIGGER  IF EXISTS  trig_service_type_name;
+DROP TRIGGER  IF EXISTS  trig_service_type_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_service_type_name BEFORE UPDATE ON dala_service_type  
+CREATE TRIGGER trig_service_type_name_update BEFORE UPDATE ON dala_service_type  
 FOR EACH ROW  
 BEGIN  
 

@@ -135,6 +135,39 @@ CREATE TABLE IF NOT EXISTS `dala_category_news` (
 
 -- --------------------------------------------------------
 
+
+
+
+
+--
+-- Table structure for table `dala_shipping_tracking`
+--
+
+DROP TABLE IF EXISTS `dala_shipping_tracking`;
+CREATE TABLE IF NOT EXISTS `dala_shipping_tracking` (
+  `dala_shipping_tracking_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_shipping_tracking_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_shipping_tracking_users_id` int NOT NULL ,
+  `dala_shipping_tracking_orders_id` int NOT NULL ,
+  `dala_shipping_tracking_infomation` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_shipping_tracking_orders_status` tinyint(1) NOT NULL,
+  `dala_shipping_tracking_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dala_shipping_tracking_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 --
 -- Table structure for table `dala_category_news_link`
 --
@@ -361,8 +394,6 @@ CREATE TABLE IF NOT EXISTS `dala_orders_details_food_drink` (
   `dala_orders_details_food_drink_product_id` int NOT NULL,
   `dala_orders_details_food_drink_qty` int NOT NULL,
   `dala_orders_details_food_drink_price` float NOT NULL,
-  `dala_orders_details_food_drink_discount` float NOT NULL DEFAULT '0',
-  `dala_orders_details_food_drink_unit_discount` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_orders_details_food_drink_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -381,8 +412,6 @@ CREATE TABLE IF NOT EXISTS `dala_orders_details_speciality` (
   `dala_orders_details_speciality_qty` int NOT NULL DEFAULT '0',
   `dala_orders_details_speciality_price` double NOT NULL DEFAULT '0',
   `dala_orders_details_medium_text` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `dala_orders_details_speciality_discount` double NOT NULL DEFAULT '0',
-  `dala_orders_details_speciality_unit_discount` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_orders_details_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -423,6 +452,7 @@ CREATE TABLE IF NOT EXISTS `dala_orders_speciality` (
   `dala_orders_speciality_notes` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_orders_speciality_phone` char(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_orders_speciality_email` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_orders_speciality_shipping_code` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_orders_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

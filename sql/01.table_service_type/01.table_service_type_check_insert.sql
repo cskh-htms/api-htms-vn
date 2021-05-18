@@ -13,11 +13,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check service_type name insert
-DROP TRIGGER  IF EXISTS  trig_service_type_name;
+DROP TRIGGER  IF EXISTS  trig_service_type_name_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_service_type_name BEFORE INSERT ON dala_service_type  
+CREATE TRIGGER trig_service_type_name_insert BEFORE INSERT ON dala_service_type  
 FOR EACH ROW  
 BEGIN  
 

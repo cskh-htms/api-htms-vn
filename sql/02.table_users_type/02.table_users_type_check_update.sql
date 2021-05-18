@@ -18,11 +18,11 @@ SET time_zone = "+07:00";
 -- 
 -- 
 -- check users_type name
-DROP TRIGGER  IF EXISTS  trig_users_type_name;
+DROP TRIGGER  IF EXISTS  trig_users_type_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_users_type_name BEFORE UPDATE ON dala_users_type  
+CREATE TRIGGER trig_users_type_name_update BEFORE UPDATE ON dala_users_type  
 FOR EACH ROW  
 BEGIN  
 
@@ -48,11 +48,11 @@ DELIMITER  ;
 -- 
 -- 
 -- check users_users_type_infomation empty
-DROP TRIGGER  IF EXISTS  trig_users_type_infomation;
+DROP TRIGGER  IF EXISTS  trig_users_type_infomation_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_users_type_infomation BEFORE UPDATE ON dala_users_type  
+CREATE TRIGGER trig_users_type_infomation_update BEFORE UPDATE ON dala_users_type  
 FOR EACH ROW  
 BEGIN  
 	IF(NEW.dala_users_type_infomation is null or NEW.dala_users_type_infomation = '') THEN 

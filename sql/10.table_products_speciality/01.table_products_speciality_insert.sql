@@ -16,11 +16,11 @@ START TRANSACTION;
 -- 
 -- 
 -- check products_speciality_name insert
-DROP TRIGGER  IF EXISTS  trig_products_speciality_name;
+DROP TRIGGER  IF EXISTS  trig_products_speciality_name_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_name BEFORE INSERT ON dala_products_speciality 
+CREATE TRIGGER trig_products_speciality_name_insert BEFORE INSERT ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
@@ -40,11 +40,11 @@ DELIMITER ;
 -- 
 -- 
 -- check products_speciality_price insert
-DROP TRIGGER  IF EXISTS  trig_products_speciality_price;
+DROP TRIGGER  IF EXISTS  trig_products_speciality_price_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_price BEFORE INSERT ON dala_products_speciality 
+CREATE TRIGGER trig_products_speciality_price_insert BEFORE INSERT ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
 IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
@@ -72,11 +72,11 @@ DELIMITER ;
 -- 
 -- 
 -- check products_speciality_store_id
-DROP TRIGGER  IF EXISTS  trig_products_speciality_store_id;
+DROP TRIGGER  IF EXISTS  trig_products_speciality_store_id_insert;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_store_id BEFORE INSERT ON dala_products_speciality
+CREATE TRIGGER trig_products_speciality_store_id_insert BEFORE INSERT ON dala_products_speciality
 FOR EACH ROW  
 BEGIN  
 IF(LENGTH(NEW.dala_products_speciality_store_id) <= 0) THEN 
@@ -95,11 +95,11 @@ DELIMITER ;
 
 --
 -- *data type
-DROP TRIGGER  IF EXISTS  trig_products_speciality_brand;
+DROP TRIGGER  IF EXISTS  trig_products_speciality_brand_insert;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_brand BEFORE INSERT ON dala_products_speciality 
+CREATE TRIGGER trig_products_speciality_brand_insert BEFORE INSERT ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
 
