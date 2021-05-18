@@ -47,7 +47,7 @@ content
 				<h3>Thuộc tính</h3>
 				<div class="inside">
 					<p><span>Mã sku</span>
-						<input type="text" value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
+						<input type="text" disabled value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
 					<p><span>Tồn kho</span>
 						<input  
 						class="number_change" 
@@ -151,6 +151,13 @@ content
 				<div class="inside">
 					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%= ojs_share.unCape( datas[0].products_speciality_contents ) %></textarea>
 				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>	
+				<div class="inside">
+					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ><%-  ojs_share.unCape( datas[0].products_speciality_qoute ) %></textarea>
+				</div>	
 			</div>
 		</div>	
 	
@@ -256,7 +263,7 @@ content
 
 
 
-
+			<!--
 			<div class="pro_box chiet_khau_box">
 				<h3>Chiết khấu</h3>	
 				<div class="inside">
@@ -272,26 +279,19 @@ content
 					</select>
 				</div>
 			</div>
+			-->
 			
 			<div class="pro_box trang_thai_box">
-				<h3>Trạng thái</h3>	
+				<h3>Trạng thái admin</h3>	
 				<div class="inside">
-					<span>Cửa hàng:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
+					<!--<span>Cửa hàng:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
 					<select id="products_speciality_status_store">
 						<%- ojs_share.show_status_select_share_all_two(datas[0].products_speciality_status_store) %>
-					</select>	
-					<span>Admin:</span>	
+					</select>	-->
 					<select id="products_speciality_status_admin"  <%- status_disebale %> >
 						<%- ojs_share.show_status_select_share_all(datas[0].products_speciality_status_admin) %>
 					</select>
 				</div>
-			</div>
-
-			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>	
-				<div class="inside">
-					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ><%-  ojs_share.unCape( datas[0].products_speciality_qoute ) %></textarea>
-				</div>	
 			</div>
 
 			
@@ -304,7 +304,8 @@ content
 	
 <div class="btn_box">
 	<a href="/products/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
+	<a href="#" class="btn_back">Lưu & Ẩn</a>
+	<button id="btn_save" class="btn_save">Lưu</button>
 </div>	
 	
 	

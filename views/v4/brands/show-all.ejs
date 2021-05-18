@@ -15,8 +15,6 @@ page wrap
 
 
 
-
-
 <!-- --------------------
 content
 --------------------- -->
@@ -27,12 +25,12 @@ content
 		<div class="sap_xep_wrap">
 		</div>
 		<div class="loc_wrap">
-			<select>
-				<option>Tất cả trạng thái</option>
-				<option>Chờ duyệt</option>
-				<option>Đã sửa chờ duyệt</option>
-				<option>Bị từ chối</option>
-				<option>Đã duyệt</option>
+			<select id="loc_trang_thai">
+				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
+				<option id="refuse" value="[3]">Bị từ chối</option>
+				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
 	</div>
@@ -106,6 +104,27 @@ $(document).ready(function($){
 	//@
 	//@	
 	//@
+	
+	
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_brand(datas);	
+	});
+	
+	
+	/*
 	//goi ajax
 	$(document).on('click','#all',function(e) {	
 		e.preventDefault();
@@ -220,6 +239,8 @@ $(document).ready(function($){
 		ojs_bussiness.ajax_load_brand(datas);	
 
 	});//end of function
+	
+	*/
 	
 	//
 ///////////////////////////////////////////////////////

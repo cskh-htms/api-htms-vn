@@ -37,7 +37,7 @@ content
 			<div class="pro_box thuoc_tinh_box">
 				<h3>Thuộc tính</h3>
 				<div class="inside">
-					<p><span>Mã sku</span><input type="text" value="" id="products_speciality_sku" /> </p>	
+					<p><span>Mã sku</span><input type="text" disabled value="" id="products_speciality_sku" /> </p>	
 					<p><span>Tồn kho</span><input class="number_change" data_value="" type="text" value="" id="products_speciality_stock" /> </p>
 					<p><span>Cân nặng(g)</span><input  class="number_change" data_value="0"  type="text" value="500" id="products_speciality_weight" /> </p>
 					<p><span>Chiều dài(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_length" /> </p>
@@ -89,6 +89,12 @@ content
 				</div>
 			</div>
 			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>	
+				<div class="inside">
+					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ></textarea>	
+				</div>	
+			</div>
 		</div>
 		
 		<div class="pro_col02">
@@ -169,7 +175,7 @@ content
 			<!-- ------------------
 			//end of hình slider 
 			------------------- -->
-			
+			<!--
 			<div class="pro_box chiet_khau_box">
 				<h3>Chiết khấu</h3>
 				<div class="inside">
@@ -180,6 +186,7 @@ content
 				</div>
 			</div>
 			
+			
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái</h3>
 				<div class="inside">
@@ -189,12 +196,8 @@ content
 					</select>		
 				</div>
 			</div>
-			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>	
-				<div class="inside">
-					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ></textarea>	
-				</div>	
-			</div>
+			-->
+			
 			
 			
 		</div>
@@ -213,7 +216,8 @@ content
 	
 <div class="btn_box">
 	<a href="/products/speciality/ <%= store_id %>" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
+	<a href="#" class="btn_back">Lưu & Ẩn</a>
+	<button id="btn_save" class="btn_save">Đăng</button>
 </div>
 	
 	

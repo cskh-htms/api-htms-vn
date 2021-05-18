@@ -310,7 +310,7 @@ a {
     max-width: calc(100% - 300px);
 }
 .content_wrap #content {
-	padding: 10px 25px 50px;
+	padding: 10px 25px 60px;
 	max-width: 1300px;
     margin: 0 auto;
 }
@@ -696,6 +696,9 @@ input[type="checkbox"] {
 select, input[type="button"] {
 	cursor: pointer;
 }
+input[disabled] {
+	background: #ececec;
+}
 .area365 {
 	max-width: 365px;
 	max-height: 150px;
@@ -711,19 +714,23 @@ select, input[type="button"] {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0;
-	position: fixed;
-    bottom: 15px;
-    right: 15px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     z-index: 9;
+    background: white;
+    width: calc(100% - 300px);
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 20%);
 }
 .btn_save, .btn_back {
-    background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
+    background: #4a914b;
     border: none;
-    padding: 10px 30px;
-    color: black;
-    text-transform: uppercase;
+    padding: 6px 30px;
+    color: white;
     margin-right: 10px;
     text-decoration: none;
     line-height: 1.5;
@@ -731,19 +738,19 @@ select, input[type="button"] {
     border-radius: 4px;
     cursor: pointer;
     transition: 0.3s all;
-    box-shadow: 0 0 30px 0px rgba(0,0,0,0.5);
+	border: 1px solid #4a914b;
 }
 .btn_save:hover {
-	background: linear-gradient(to right, #11d7e4 0%, #48eaa1 0%);
+	background: #086e35;
 }
 .btn_back {
-	background: #23282d;
-    color: white;
+	background: #ffffff;
+    color: #000;
+	border: 1px solid #bbb;
 }
 .btn_back:hover {
-	background: #1a1c1d;
+	background: #efefef;
 }
-
 
 /* ====== ORDER ====== */
 .ul-wrap {
@@ -782,8 +789,8 @@ select, input[type="button"] {
     position: relative;
 }
 .status_box li a.status_active {
-    background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
-	color: #000000;
+    background: #4a914b;
+    color: #ffffff;
 }
 .num_abs {
 	position: absolute;
@@ -1031,9 +1038,9 @@ body .ajax-load-bt {
 }
 .btn_green {
 	display: inline-block;
-	background: linear-gradient(to bottom right, #11d7e4 0%, #48eaa1 100%);
+	background: #4a914b;
 	text-align: center;
-	color: #000;
+	color: #fff;
 	font-size: 16px;
 	border-radius: 5px;
 	text-decoration: none;
@@ -1188,7 +1195,7 @@ body .ajax-load-bt {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	max-height: 210px;
+	max-height: 235px;
 	overflow-y: auto;
 }
 .store_col ul li {
@@ -1254,17 +1261,13 @@ body .ajax-load-bt {
 	margin: 0;
 	text-align: center;
 }
-.doanh_thu_han_muc .circle-chart {
+.doanh_thu_han_muc .circle-chart, .doanh_thu_thang_nay .circle-chart {
 	margin: 15px auto 10px;
     display: block;
 }
 
 .doanh_thu_thang_nay p {
 	text-align: center;
-}
-.doanh_thu_thang_nay .number {
-	font-size: 26px;
-    color: #4a914b;
 }
 
 /* Thong ke doanh thu */
