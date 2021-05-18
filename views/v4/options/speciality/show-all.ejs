@@ -108,7 +108,8 @@ $(document).ready(function($){
 	//@
 	//@	
 	
-	
+	//Loc trang thai
+	///////////////////////////
 	$("#loc_trang_thai").change(function() {
 		let user_id = $('#user_id').val();
 		let store_id = $('#store_id').val();
@@ -123,7 +124,7 @@ $(document).ready(function($){
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
+		ojs_bussiness.ajax_load_option_no(datas);	
 	});
 	
 	/*

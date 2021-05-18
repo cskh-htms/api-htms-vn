@@ -33,33 +33,33 @@ content
 		
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
-			<select>
-				<option>Sắp xếp theo tên</option>
-				<option>Mới nhất</option>
-				<option>Giá cao > thấp</option>
-				<option>Giá thấp > cao</option>
-				<option>Bán chạy</option>
+			<select id="sap_xep_sp">
+				<option value="ten">Sắp xếp theo tên</option>
+				<option value="moinhat">Mới nhất</option>
+				<option value="giacao">Giá cao > thấp</option>
+				<option value="giathap">Giá thấp > cao</option>
+				<option value="banchay">Bán chạy</option>
 			</select>
 		</div>
 		<div class="loc_wrap">
-			<select>
-				<option>Tất cả danh mục</option>
+			<select id="loc_danh_muc">
+				<option value="all">Tất cả danh mục</option>
 				<option>Mứt dâu</option>
 				<option>Cà phê</option>
 			</select>
-			<select>
-				<option>Tất cả giá</option>
-				<option>Đang giảm giá</option>
-				<option>Luôn giảm giá</option>
-				<option>Hết hạn giảm giá</option>
-				<option>Không giảm giá</option>
+			<select id="loc_km">
+				<option value="all">Tất cả giá</option>
+				<option value="đangkhuyếnmãi">Đang giảm giá</option>
+				<option value="khuyếnmãivôthờihạn">Luôn giảm giá</option>
+				<option value="đãhếthạn">Hết hạn giảm giá</option>
+				<option value="">Không giảm giá</option>
 			</select>
-			<select>
-				<option>Tất cả trạng thái</option>
-				<option>Chờ duyệt</option>
-				<option>Đã sửa chờ duyệt</option>
-				<option>Bị từ chối</option>
-				<option>Đã duyệt</option>
+			<select id="loc_trang_thai">
+				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
+				<option id="refuse" value="[3]">Bị từ chối</option>
+				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
 	</div>
@@ -123,6 +123,66 @@ $(document).ready(function($){
 	});//end of function	
 	//@
 	//@	
+	
+	//sap xep san pham
+	///////////////////////////
+	$("#sap_xep_sp").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let kieu_sap_xep = $('#sap_xep_sp').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				kieu_sap_xep : kieu_sap_xep
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_products(datas);	
+	});
+	
+	
+	//Loc han khuyen mai
+	///////////////////////////
+	$("#loc_km").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let han_km = $('#loc_km').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				han_km : han_km
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_products(datas);	
+	});
+	
+	//Loc trang thai san pham
+	///////////////////////////
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_products(datas);	
+	});
+	
+	/*
 	//@
 	//goi ajax
 	$(document).on('click','#all',function(e) {	
@@ -241,7 +301,7 @@ $(document).ready(function($){
 		ojs_bussiness.ajax_load_products(datas);	
 
 	});//end of function	
-	
+	*/
 	
 	//
 ///////////////////////////////////////////////////////
