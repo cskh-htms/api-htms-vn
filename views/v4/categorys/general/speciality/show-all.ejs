@@ -32,27 +32,16 @@ content
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh mục</h1>
 
-
-
-	<div class="store_row">
-		<button id = "all" class="btn_add_store  active" data_btn="all"><a href="#">Tất cả</a></button>
-		<button id = "complate" class="btn_add_store" data_btn="all"><a href="#">Dã phê duyệt</a></button>
-		<button id = "new" class="btn_add_store" data_btn="new"><a href="#">Sản phẩm mới chờ sử lý</a></button>
-		<button id = "update" class="btn_add_store" data_btn="update"><a href="#">sản phẩm chỉnh sữa</a></button>
-		<button  <%- status_disebale %> id = "not" class="btn_add_store" data_btn="not"><a href="#">Sản phẩm bị từ chối</a></button>
-	</div>	
-
-	
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 		</div>
 		<div class="loc_wrap">
-			<select id="trang_thai">
-				<option value="all">Tất cả trạng thái</option>
-				<option value="[0]">Chờ duyệt</option>
-				<option value="[2]">Đã sửa chờ duyệt</option>
-				<option value="[3]">Bị từ chối</option>
-				<option value="[1]">Đã duyệt</option>
+			<select id="loc_trang_thai">
+				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
+				<option id="refuse" value="[3]">Bị từ chối</option>
+				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
 	</div>
@@ -124,6 +113,27 @@ $(document).ready(function($){
 	});//end of function	
 	//@
 	//@	
+	
+	
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_brand(datas);	
+	});
+	
+	/*
+	
 	//@
 	//goi ajax
 	$(document).on('click','#all',function(e) {	
@@ -270,7 +280,7 @@ $(document).ready(function($){
 
 	});//end of function
 
-
+	*/
 	
 	//	
 	//

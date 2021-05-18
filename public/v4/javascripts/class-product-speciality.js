@@ -1,9 +1,32 @@
 
 $(document).ready(function($){
 	$('.category_wrap .cat_parent_line > input').attr('disabled','disabled');
+	/*
 	$('.cat_child_line_wrap .cat_child_line input').click(function(){
-		$(this).closest('.cat_check').css('color','red');
+		$(this).closest('.cat_line_wrap').find('.cat_parent_line > .cat_check').attr('checked','checked');
+		$(this).closest('.cat_child_line_wrap').find('.cat_child_line > .cat_check').attr('checked', 'checked');
 	});
+	*/
+	
+	
+	$('.cat_child_line_wrap .cat_child_line input').click(function(){
+		var checked_attr = $(this).prop('checked');
+		$(this).closest('#category_inner').find('.cat_check').prop('checked', false);
+		if(checked_attr == true) {
+			$(this).closest('.cat_line_wrap').find('.cat_parent_line > .cat_check').prop('checked', true);
+			if($(this).parent().hasClass('cat_child_line_2')) {
+				$(this).parent().prev().prev().prop('checked', true);
+				$(this).prop('checked', true);
+			} else {
+				$(this).prop('checked', true);
+			}
+		} else {
+			$(this).closest('.cat_line_wrap').find('.cat_parent_line > .cat_check').prop('checked', false);
+		}
+	});	
+	
+	
+	
 	ojs_products_speciality = {	
 		//
 		//
