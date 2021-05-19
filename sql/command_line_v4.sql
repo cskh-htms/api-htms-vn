@@ -1,9 +1,12 @@
 
 
 
+-- fsgza>Kpe4kx
 
 
-
+--
+-- one script
+source ./sql/command_script_v4.sql;
 
 
 --
@@ -15,6 +18,22 @@ source ./sql/drop_create_database.sql;
 --
 -- tao bang
 source ./sql/demo_dalacenter_v4.sql;
+
+
+
+--
+-- insert all datas
+source ./sql/dalacenter4_datas_only_19052021_1950.sql;
+
+
+
+
+
+
+
+
+
+
 
 
 -- 
