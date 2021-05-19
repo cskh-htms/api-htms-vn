@@ -64,18 +64,17 @@ a {
 	color: #ffc800;
 }
 .status_green, .status_blue, .status_red, .status_yellow, .status_gray {
-	display: inline-block;
+	display: block;
 	color: #4a914b;
     background: #e4fbe6;
     font-size: 88%;
     padding: 3px 10px;
     border-radius: 25px;
-	min-width: 100px;
 	text-align: center;
 }
 .status_red {
 	color: #ee4d2d;
-    background: #fff0ed;
+    background: #ffeae6;
 }
 .status_blue {
 	background: #dcf5f7;
@@ -87,7 +86,7 @@ a {
 }
 .status_gray {
 	color: #555;
-    background: #efefef;
+    background: #eaeaea;
 }
 .demo {
     color: #e69212;
@@ -878,6 +877,22 @@ body .ajax-load-bt {
 	margin-bottom: 30px;
 }
 
+.order_content {
+	display: flex;
+	justify-content: space-between;
+}
+.order_content table {
+	width: 70%;
+}
+.order_content table .user-name {
+	width: 50%;
+}
+.order_content .order_sum {
+	width: 25%;
+}
+.order_sum table tr td {
+	padding: 5px 0;
+}
 /* ====== BUSINESS ====== */
 .store_box {
 	background: #fff;
@@ -1638,7 +1653,7 @@ css ordres
 }
 #btn_date.report_active, .btn_date.report_active {
     color: #fff;
-    background: linear-gradient(to right, #11d7e4 0%, #48eaa1 100%);
+    background: #4a914b;
 }
 
 .reset_box {
