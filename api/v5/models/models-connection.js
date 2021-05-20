@@ -14,7 +14,7 @@ const connection = mysql.createConnection(ojs_models_config.connection_data);
 // connect to database
 connection.connect(function(err, results, fields) {
     if (err) throw err;
-	console.log("connection v4 ok");
+	console.log("connection v5 ok");
 });
 //
 //exprort concection
