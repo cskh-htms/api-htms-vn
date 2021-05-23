@@ -14,7 +14,6 @@
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
-			<th>Chiết khấu</th>
 			<th>Cửa hàng</th>
 			<th>Admin</th>
 		</tr>
@@ -52,8 +51,7 @@
 				}
 			%>
 			<%= da_ban %>
-			</td>
-			<td><%= products_list[x].products_speciality_discount %> <%- ojs_share.show_table_unit_discount(products_list[x].products_speciality_unit_discount) %> </td>	
+			</td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
 			
@@ -69,7 +67,6 @@
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
-			<th>Chiết khấu</th>
 			<th>Cửa hàng</th>
 			<th>Admin</th>
 		</tr>

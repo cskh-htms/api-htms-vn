@@ -872,27 +872,37 @@ body .ajax-load-bt {
 	margin-top: 5px;
 }
 
-.order-detail-box .table-list {
-	border: 1px solid #e5e5e5;
-	margin-bottom: 30px;
-}
-
 .order_content {
 	display: flex;
 	justify-content: space-between;
 }
-.order_content table {
-	width: 70%;
+.order_content .order_content_col01 {
+	width: 100%;
 }
-.order_content table .user-name {
+.order_content .order_content_col01 table {
+	box-shadow: none;
+	border: 1px solid #e5e5e5;
+}
+.order_content .order_content_col01 table td:first-child,.order_content .order_content_col01 table th:first-child {
 	width: 50%;
+	text-align: left;
 }
 .order_content .order_sum {
 	width: 25%;
+	max-width: 220px;
+	margin-left: 2%;
 }
-.order_sum table tr td {
+.order_sum tr td {
 	padding: 5px 0;
 }
+.order_sum tr td:last-child {
+	text-align: right;
+	font-weight: bold;
+}
+#btn_xac_nhan_order {
+	margin-top: 20px;
+}
+	
 /* ====== BUSINESS ====== */
 .store_box {
 	background: #fff;
