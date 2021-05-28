@@ -202,8 +202,9 @@ a {
 /* ====== SIDEBAR ====== */
 #sidebar {
 	width: 100%;
-    max-width: 300px;
-    background-color: #23282d;
+    max-width: 280px;
+    background-color: #4a914b;
+	padding: 25px 0 25px 25px;
 }
 #sidebar .admin-menu {
 	margin: 0;
@@ -212,56 +213,109 @@ a {
 #sidebar .admin-menu li {
 	list-style: none;
 	font-size: 15px;
-	color: #72bf44;
 	padding: 0;
-}
-#sidebar .admin-menu > li {
-	border-bottom: 5px solid #1a1c1d;
-	padding: 15px 0 10px;
-}
-#sidebar .admin-menu li i {
-	float: left;
-    margin-right: 6px;
-	margin-left: 15px;
-	width: 20px;
-    text-align: center;
+	position: relative;
+	margin-bottom: 10px;
+	color: rgba(255,255,255,0.8);
 }
 #sidebar .admin-menu li a {
 	text-decoration: none;
-	color: white;
+	color: rgba(255,255,255,0.8);
 	display: block;
     width: 100%;
-    padding: 10px 10px 10px 40px;
+    padding: 14px 20px;
 	box-sizing: border-box;
+	border-radius: 50px 0 0 50px;
 }
-#sidebar .admin-menu > li > a {
-	list-style: none;
-	font-size: 15px;
-	color: #72bf44;
-	padding: 10px 0;
-}
-#sidebar .admin-menu li.chua_lam a {
-	color: #ccc;
-	display: none;
-}
-
-
-#sidebar .admin-menu li a * {
+#sidebar .admin-menu li a i {
 	display: inline-block;
-    vertical-align: middle;
+	vertical-align: middle;
+    margin-right: 6px;
+	width: 20px;
+    text-align: center;
+	height: 16px;
+}
+#sidebar .admin-menu li a .menu-name {
+	display: inline-block;
+	vertical-align: middle;
+}
+#sidebar .admin-menu li a.btn_add {
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	width: auto;
+    box-sizing: border-box;
+	z-index: -1;
+	padding: 8px 10px;
+	border-radius: 50%;
+}
+#sidebar .admin-menu li a.btn_add i {
+	display: block;
+	margin: 0;
+	width: auto;
 }
 #sidebar .admin-menu li a:hover {
 	color: #fff;
-	background: #4a914b;
 }
 
+#sidebar .admin-menu li:hover a.btn_add {
+	z-index: 1;
+}
+#sidebar .admin-menu li:hover a.btn_add:hover {
+	background: rgba(255,255,255,0.2);
+}
+
+
+/* List child */
 #sidebar .admin-menu ul {
-	padding: 10px 0 0;
+	padding: 0;
 }
-#sidebar .admin-menu li a{
+#sidebar .admin-menu ul li {
+	margin: 0;
+}
+#sidebar .admin-menu ul li a {
+	padding-left: 50px;
+}
+
+/* Menu Current */
+#sidebar ul li.menu_taget {
 	position: relative;
-    display: block;
 }
+#sidebar ul li.menu_taget > a {
+	color: #4a914b;
+	background: #f1f1f1;
+}
+#sidebar ul li.menu_taget > a:hover {
+	color: #4a914b;
+}
+#sidebar ul li.menu_taget:before {
+	content: '';
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    right: 0;
+    top: -23px;
+    background: url(../../images/menu-sidebar_03.png) center;
+    background-size: contain;
+}
+#sidebar ul li.menu_taget:after {
+	content: '';
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    right: 0;
+    bottom: -23px;
+    background: url(../../images/menu-sidebar_02.png) center;
+    background-size: contain;
+}
+
+
+
+#sidebar .admin-menu li.chua_lam a {
+	display: none;
+}
+
 
 .status_menu {
 	right: 0;
@@ -274,22 +328,6 @@ a {
     border-radius: 50%;
     margin-right: 5px;
     font-size: 11px;
-}
-
-#sidebar ul li.menu_taget {
-    background-color: #3c4248;
-	position: relative;
-}
-#sidebar ul li.menu_taget:before {
-	content: '';
-    width: 10px;
-    height: 10px;
-    background: #f1f1f1;
-    transform: rotate(45deg);
-    position: absolute;
-    right: -5px;
-    top: calc(50% - 5px);
-    z-index: 1;
 }
 
 
@@ -306,7 +344,7 @@ a {
 /* ====== CONTENT ====== */
 .content_wrap {
     width: 100%;
-    max-width: calc(100% - 300px);
+    max-width: calc(100% - 280px);
 }
 .content_wrap #content {
 	padding: 10px 25px 60px;
@@ -1071,7 +1109,13 @@ body .ajax-load-bt {
 	text-decoration: none;
     padding: 10px 20px;
 }
-
+.sap_xep_wrap .btn_green {
+	padding: 8px 15px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 100%;
+}
 /* ====== STORE ====== */
 .store_row_btn {
 	display: flex;
@@ -1357,8 +1401,7 @@ body .ajax-load-bt {
 #sidebar .admin-menu .store_name > a {
     width: auto;
     border-radius: 50%;
-    padding: 4px 5px 8px;
-    margin-left: 10px;
+    padding: 14px 14px 14px 0;
 }
 #sidebar .admin-menu .store_name i {
 	float: none;
@@ -1366,16 +1409,17 @@ body .ajax-load-bt {
 }
 #sidebar .admin-menu .store_name .menu-name {
 	font-size: 17px;
-    margin-left: 5px;
+    margin-left: 14px;
 }
 #sidebar .admin-menu .store_name ul {
 	width: 100%;
 }
 .num_noti {
 	background: #ee4d2d;
-	padding: 2px 8px;
-	border-radius: 50%;
-	margin-left: 10px;
+    padding: 2px 7px;
+    border-radius: 50%;
+    margin-left: 10px;
+    color: #fff;
 }
 
 h3 .giai-thich {
@@ -1401,12 +1445,14 @@ h3 .giai-thich {
     border-radius: 5px;
     visibility: hidden;
     position: absolute;
-    left: 30px;
-    top: 0;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
     z-index: 1;
     width: 100%;
     min-width: 300px !important;
-	margin: 0 !important;
+    margin: 0 !important;
+    box-shadow: 0 0 8px rgb(0 0 0 / 20%);
 }
 .giai-thich:hover span {
 	visibility: visible;
@@ -1414,6 +1460,20 @@ h3 .giai-thich {
 .pro_content_edit .pro_col02 .giai-thich span {
 	min-width: 150px !important;
 }
+
+
+/* ====== STORE EDIT ====== */
+.store_content {
+	display: flex;
+	justify-content: space-between;
+}
+.store_content .white_box {
+	width: 49%;
+}
+
+
+
+
 /*-------------------------
 css category
 --------------------------*/

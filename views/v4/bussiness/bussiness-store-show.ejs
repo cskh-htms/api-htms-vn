@@ -61,12 +61,20 @@ content
 --------------------- -->
 <div id="content" class="content user_edit">
 
-	<h1><%= title %></h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<div class="store_content">
+	<div class="white_box">
 		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
-		
+		<div id="loai_service_wrap">
+			<span>Loại dịch vụ </span>
+			<select name="stores_service_type_id" id="stores_service_type_id">
+				<option value="0">Chọn service</option>
+				<% include ../masterpage/widget-service-type %>
+			</select>
+			<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
+		</div>
 		<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
 		
-		<br>
 		<div class="select-box-tinh-thanh">
 		<span>Tỉnh thành</span>
 		<select id="select_stores_province">
@@ -119,19 +127,12 @@ content
 		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
 		<p><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
 		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
-		<br>
+	</div>
+	<div class="white_box">
 		<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
 		<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
 		
-		<div id="loai_service_wrap">
-		<span>Loại dịch vụ </span>
-		<select name="stores_service_type_id" id="stores_service_type_id">
-			<option value="0">Chọn service</option>
-			<% include ../masterpage/widget-service-type %>
-		</select>
-		<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
-		</div>
-
+		
 		<p>
 			<span>Hạn mức thanh toán</span>
 			<input type="text" class= "number_change" <%- status_disebale %>
@@ -151,13 +152,13 @@ content
 		</p>	
 		
 		
-		<p>
+		<!--<p>
 		<span>Trạng thái cửa hàng:</span>
 		<select id="stores_status_stores">
 			<%- ojs_share.show_status_select_share_all_two(datas[0].stores_status_stores) %>
 		</select>
 		<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
-		</p>
+		</p>-->
 		
 		<p>
 			<span>Trạng thái admin:</span>
@@ -173,12 +174,12 @@ content
 			<textarea id="stores_qoute" class="area365" rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].stores_qoute) %></textarea>
 			<span class="giai-thich"><span>Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây.</span></span>
 		</p>		
-	
-	
+	</div>
+	</div>
 
 <div class="btn_box">
-	<a href="/bussiness/<%= user_id %>/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
+	<a href="/stores/manage/<%= store_id %>/<%= user_id %>/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Lưu</button>
 </div>	
 	
 
