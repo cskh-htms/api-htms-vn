@@ -205,6 +205,11 @@ a {
     max-width: 280px;
     background-color: #4a914b;
 	padding: 25px 0 25px 25px;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
 }
 #sidebar .admin-menu {
 	margin: 0;
@@ -242,13 +247,15 @@ a {
 #sidebar .admin-menu li a.btn_add {
 	position: absolute;
 	top: 50%;
-	right: 15px;
+	right: 0px;
 	transform: translateY(-50%);
 	width: auto;
     box-sizing: border-box;
-	z-index: -1;
+	z-index: 0;
 	padding: 8px 10px;
 	border-radius: 50%;
+	visibility: hidden;
+	transition: 0.2s all ease;
 }
 #sidebar .admin-menu li a.btn_add i {
 	display: block;
@@ -260,7 +267,8 @@ a {
 }
 
 #sidebar .admin-menu li:hover a.btn_add {
-	z-index: 1;
+	visibility: visible;
+	right: 15px;
 }
 #sidebar .admin-menu li:hover a.btn_add:hover {
 	background: rgba(255,255,255,0.2);
@@ -758,7 +766,7 @@ input[disabled] {
     right: 0;
     z-index: 9;
     background: white;
-    width: calc(100% - 300px);
+    width: calc(100% - 280px);
     text-align: center;
     padding: 15px;
     box-shadow: 0 0 5px rgb(0 0 0 / 20%);
@@ -1396,7 +1404,6 @@ body .ajax-load-bt {
 #sidebar .admin-menu .store_name {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
 }
 #sidebar .admin-menu .store_name > a {
     width: auto;
@@ -1984,10 +1991,57 @@ end of van luc 07.04.2021
 
 
 
-
-
-
-
+@media screen and (max-width: 1024px) {
+	#sidebar {
+		max-width: 220px;
+		padding: 25px 0 25px 15px;
+	}
+	.content_wrap {
+		max-width: calc(100% - 220px);
+	}
+	.btn_box {
+		width: calc(100% - 220px);
+	}
+	.store_row_btn .store_don_hang {
+		padding: 10px;
+	}
+	.store_don_hang li {
+		width: 19%;
+	}
+	.btn_bd_green {
+		padding: 8px 12px;
+	}
+	.doanh_thu_han_muc a {
+		position: static;
+	}
+	.status_box li {
+		font-size: 110%;
+	}
+	.status_box li a {
+		padding: 10px 18px;
+	}
+	.num_abs {
+		top: 0px;
+		right: 4px;
+		font-size: 80%;
+		padding: 0 4px;
+	}
+	.sap_xep_loc select {
+		min-width: unset;
+		padding: 8px;
+	}
+	.store_row_btn .store_don_hang .number {
+		font-size: 22px;
+	}
+}
+@media screen and (max-width: 680px) {
+	#sidebar {
+		display: none;
+	}
+	.content_wrap {
+		width: 100%;
+	}
+}
 
 
 
