@@ -43,4 +43,33 @@ source ./sql/command_line_insert_constraints_v4.sql;
 
 
 
+--
+--  create views
+source ./sql/command_line_create_view_v4.sql;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
