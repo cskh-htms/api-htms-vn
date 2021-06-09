@@ -40,7 +40,7 @@ INSERT INTO `dala_stores` (`dala_stores_ID`, `dala_stores_user_id`, `dala_stores
 -- Đang đổ dữ liệu cho bảng `dala_users`
 --
 
-INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) VALUES
+INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_full_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) VALUES
 (50, '2021-05-19 14:36:30', 'manage-dala', 'a3dcb4d229de6fde0db5686dee47145d', 'manage-dala', 'manage-dala', 'manage-dala', '0948036018', 'htms.group.vn@gmail.com', 'v4', 'v4', 'v4', 'v4', 13, 0, 0, '', NULL),
 (51, '2021-05-19 14:37:36', 'dala-store', 'a3dcb4d229de6fde0db5686dee47145d', 'dala-store', 'dala-store', 'dala-store', '09480360101', 'dala-store@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),
 (52, '2021-05-19 14:39:27', 'saokim', 'a3dcb4d229de6fde0db5686dee47145d', 'Cua hang', 'Sao Kim', '11 Dang Duc Thuat', '09480360102', 'saokim.team@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),

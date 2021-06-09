@@ -2214,7 +2214,7 @@ DROP TABLE IF EXISTS `dala_users`;
 CREATE TABLE `dala_users` (
   `dala_users_ID` int NOT NULL AUTO_INCREMENT,
   `dala_users_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dala_users_name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_users_full_name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_users_password` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_users_first_name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_users_last_name` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -2255,17 +2255,15 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_check_users_name_insert` BEFORE INSERT ON `dala_users` FOR EACH ROW BEGIN  
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_users_full_name_insert` BEFORE INSERT ON `dala_users` FOR EACH ROW BEGIN  
 
-IF(NEW.dala_users_name is null or NEW.dala_users_name = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_check_users_name_empty';   
-ELSE 
-	IF (NEW.dala_users_name REGEXP '^[\-_ A-Za-z0-9]+$' ) = 0 THEN 
+IF(LENGTH(NEW.dala_users_full_name) > 0 ) THEN 
+	
+	IF (NEW.dala_users_full_name REGEXP '^[\-_ A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_check_users_name_data_type';   
+		SET MESSAGE_TEXT = 'trig_check_users_full_name_data_type';   
 	END IF;   
-END IF;
+END IF; 	
 
 END */;;
 DELIMITER ;
@@ -2390,17 +2388,15 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_check_users_name_update` BEFORE UPDATE ON `dala_users` FOR EACH ROW BEGIN  
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_users_full_name_update` BEFORE UPDATE ON `dala_users` FOR EACH ROW BEGIN  
 
-IF(NEW.dala_users_name is null or NEW.dala_users_name = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_check_users_name_empty';   
-ELSE 
-	IF (NEW.dala_users_name REGEXP '^[\-_ A-Za-z0-9]+$' ) = 0 THEN 
+IF(LENGTH(NEW.dala_users_full_name) > 0 ) THEN 
+	
+	IF (NEW.dala_users_full_name REGEXP '^[\-_ A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_check_users_name_data_type';   
+		SET MESSAGE_TEXT = 'trig_check_users_full_name_data_type';   
 	END IF;   
-END IF;
+END IF; 	
 
 END */;;
 DELIMITER ;
@@ -2641,6 +2637,405 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Temporary view structure for view `view_order_report`
+--
+
+DROP TABLE IF EXISTS `view_order_report`;
+/*!50001 DROP VIEW IF EXISTS `view_order_report`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_order_report` AS SELECT 
+ 1 AS `dala_orders_speciality_date_orders`,
+ 1 AS `dala_orders_speciality_ID`,
+ 1 AS `dala_stores_name`,
+ 1 AS `dala_orders_details_speciality_line_order`,
+ 1 AS `dala_orders_details_speciality_qty`,
+ 1 AS `dala_orders_details_speciality_price`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_orders_customer`
+--
+
+DROP TABLE IF EXISTS `view_orders_customer`;
+/*!50001 DROP VIEW IF EXISTS `view_orders_customer`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_orders_customer` AS SELECT 
+ 1 AS `dala_orders_speciality_ID`,
+ 1 AS `dala_orders_speciality_user_id`,
+ 1 AS `dala_orders_speciality_date_orders`,
+ 1 AS `dala_orders_speciality_status_orders`,
+ 1 AS `dala_orders_speciality_status_payment`,
+ 1 AS `dala_orders_speciality_adress`,
+ 1 AS `dala_orders_speciality_notes`,
+ 1 AS `dala_orders_speciality_phone`,
+ 1 AS `dala_orders_speciality_email`,
+ 1 AS `dala_orders_speciality_shipping_code`,
+ 1 AS `dala_orders_details_speciality_ID`,
+ 1 AS `dala_orders_details_speciality_order_id`,
+ 1 AS `dala_orders_details_speciality_line_order`,
+ 1 AS `dala_orders_details_speciality_product_id`,
+ 1 AS `dala_orders_details_speciality_qty`,
+ 1 AS `dala_orders_details_speciality_price`,
+ 1 AS `dala_orders_details_medium_text`,
+ 1 AS `dala_products_speciality_ID`,
+ 1 AS `dala_products_speciality_name`,
+ 1 AS `dala_products_speciality_type`,
+ 1 AS `dala_products_speciality_date_created`,
+ 1 AS `dala_products_speciality_sku`,
+ 1 AS `dala_products_speciality_store_id`,
+ 1 AS `dala_products_speciality_featured_image`,
+ 1 AS `dala_products_speciality_image_slider`,
+ 1 AS `dala_products_speciality_contents`,
+ 1 AS `dala_products_speciality_price`,
+ 1 AS `dala_products_speciality_sale_of_price`,
+ 1 AS `dala_products_speciality_date_start`,
+ 1 AS `dala_products_speciality_date_end`,
+ 1 AS `dala_products_speciality_stock`,
+ 1 AS `dala_products_speciality_brand`,
+ 1 AS `dala_products_speciality_status_admin`,
+ 1 AS `dala_products_speciality_status_store`,
+ 1 AS `dala_products_speciality_status_update`,
+ 1 AS `dala_products_speciality_variation_option`,
+ 1 AS `dala_products_speciality_excerpt`,
+ 1 AS `dala_products_speciality_qoute`,
+ 1 AS `dala_products_speciality_height`,
+ 1 AS `dala_products_speciality_width`,
+ 1 AS `dala_products_speciality_length`,
+ 1 AS `dala_products_speciality_weight`,
+ 1 AS `dala_products_speciality_discount`,
+ 1 AS `dala_products_speciality_unit_discount`,
+ 1 AS `dala_stores_ID`,
+ 1 AS `dala_stores_user_id`,
+ 1 AS `dala_stores_date_created`,
+ 1 AS `dala_stores_name`,
+ 1 AS `dala_stores_payment_limit`,
+ 1 AS `dala_stores_service_type_id`,
+ 1 AS `dala_stores_adress`,
+ 1 AS `dala_stores_province`,
+ 1 AS `dala_stores_district`,
+ 1 AS `dala_stores_wards`,
+ 1 AS `dala_stores_status_admin`,
+ 1 AS `dala_stores_status_stores`,
+ 1 AS `dala_stores_info_banking`,
+ 1 AS `dala_stores_local_x`,
+ 1 AS `dala_stores_local_y`,
+ 1 AS `dala_stores_local_adress`,
+ 1 AS `dala_stores_qoute`,
+ 1 AS `dala_stores_status_update`,
+ 1 AS `dala_stores_payment_methods`,
+ 1 AS `dala_stores_payment_time`,
+ 1 AS `dala_stores_upload_limit_day`,
+ 1 AS `dala_stores_upload_limit_month`,
+ 1 AS `dala_users_ID`,
+ 1 AS `dala_users_date_created`,
+ 1 AS `dala_users_full_name`,
+ 1 AS `dala_users_password`,
+ 1 AS `dala_users_first_name`,
+ 1 AS `dala_users_last_name`,
+ 1 AS `dala_users_adress`,
+ 1 AS `dala_users_phone`,
+ 1 AS `dala_users_email`,
+ 1 AS `dala_users_api_version`,
+ 1 AS `dala_users_router_version`,
+ 1 AS `dala_users_view_version`,
+ 1 AS `dala_users_js_css_version`,
+ 1 AS `dala_users_users_type_id`,
+ 1 AS `dala_users_shipping_status`,
+ 1 AS `dala_users_verification_status`,
+ 1 AS `dala_users_verification_code`,
+ 1 AS `dala_users_verification_time`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_orders_users`
+--
+
+DROP TABLE IF EXISTS `view_orders_users`;
+/*!50001 DROP VIEW IF EXISTS `view_orders_users`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_orders_users` AS SELECT 
+ 1 AS `dala_orders_speciality_ID`,
+ 1 AS `dala_orders_speciality_user_id`,
+ 1 AS `dala_orders_speciality_date_orders`,
+ 1 AS `dala_orders_speciality_status_orders`,
+ 1 AS `dala_orders_speciality_status_payment`,
+ 1 AS `dala_orders_speciality_adress`,
+ 1 AS `dala_orders_speciality_notes`,
+ 1 AS `dala_orders_speciality_phone`,
+ 1 AS `dala_orders_speciality_email`,
+ 1 AS `dala_orders_speciality_shipping_code`,
+ 1 AS `dala_orders_details_speciality_ID`,
+ 1 AS `dala_orders_details_speciality_order_id`,
+ 1 AS `dala_orders_details_speciality_line_order`,
+ 1 AS `dala_orders_details_speciality_product_id`,
+ 1 AS `dala_orders_details_speciality_qty`,
+ 1 AS `dala_orders_details_speciality_price`,
+ 1 AS `dala_orders_details_medium_text`,
+ 1 AS `dala_products_speciality_ID`,
+ 1 AS `dala_products_speciality_name`,
+ 1 AS `dala_products_speciality_type`,
+ 1 AS `dala_products_speciality_date_created`,
+ 1 AS `dala_products_speciality_sku`,
+ 1 AS `dala_products_speciality_store_id`,
+ 1 AS `dala_products_speciality_featured_image`,
+ 1 AS `dala_products_speciality_image_slider`,
+ 1 AS `dala_products_speciality_contents`,
+ 1 AS `dala_products_speciality_price`,
+ 1 AS `dala_products_speciality_sale_of_price`,
+ 1 AS `dala_products_speciality_date_start`,
+ 1 AS `dala_products_speciality_date_end`,
+ 1 AS `dala_products_speciality_stock`,
+ 1 AS `dala_products_speciality_brand`,
+ 1 AS `dala_products_speciality_status_admin`,
+ 1 AS `dala_products_speciality_status_store`,
+ 1 AS `dala_products_speciality_status_update`,
+ 1 AS `dala_products_speciality_variation_option`,
+ 1 AS `dala_products_speciality_excerpt`,
+ 1 AS `dala_products_speciality_qoute`,
+ 1 AS `dala_products_speciality_height`,
+ 1 AS `dala_products_speciality_width`,
+ 1 AS `dala_products_speciality_length`,
+ 1 AS `dala_products_speciality_weight`,
+ 1 AS `dala_products_speciality_discount`,
+ 1 AS `dala_products_speciality_unit_discount`,
+ 1 AS `dala_stores_ID`,
+ 1 AS `dala_stores_user_id`,
+ 1 AS `dala_stores_date_created`,
+ 1 AS `dala_stores_name`,
+ 1 AS `dala_stores_payment_limit`,
+ 1 AS `dala_stores_service_type_id`,
+ 1 AS `dala_stores_adress`,
+ 1 AS `dala_stores_province`,
+ 1 AS `dala_stores_district`,
+ 1 AS `dala_stores_wards`,
+ 1 AS `dala_stores_status_admin`,
+ 1 AS `dala_stores_status_stores`,
+ 1 AS `dala_stores_info_banking`,
+ 1 AS `dala_stores_local_x`,
+ 1 AS `dala_stores_local_y`,
+ 1 AS `dala_stores_local_adress`,
+ 1 AS `dala_stores_qoute`,
+ 1 AS `dala_stores_status_update`,
+ 1 AS `dala_stores_payment_methods`,
+ 1 AS `dala_stores_payment_time`,
+ 1 AS `dala_stores_upload_limit_day`,
+ 1 AS `dala_stores_upload_limit_month`,
+ 1 AS `dala_users_ID`,
+ 1 AS `dala_users_date_created`,
+ 1 AS `dala_users_full_name`,
+ 1 AS `dala_users_password`,
+ 1 AS `dala_users_first_name`,
+ 1 AS `dala_users_last_name`,
+ 1 AS `dala_users_adress`,
+ 1 AS `dala_users_phone`,
+ 1 AS `dala_users_email`,
+ 1 AS `dala_users_api_version`,
+ 1 AS `dala_users_router_version`,
+ 1 AS `dala_users_view_version`,
+ 1 AS `dala_users_js_css_version`,
+ 1 AS `dala_users_users_type_id`,
+ 1 AS `dala_users_shipping_status`,
+ 1 AS `dala_users_verification_status`,
+ 1 AS `dala_users_verification_code`,
+ 1 AS `dala_users_verification_time`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_products`
+--
+
+DROP TABLE IF EXISTS `view_products`;
+/*!50001 DROP VIEW IF EXISTS `view_products`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_products` AS SELECT 
+ 1 AS `dala_products_speciality_ID`,
+ 1 AS `dala_products_speciality_name`,
+ 1 AS `dala_products_speciality_type`,
+ 1 AS `dala_products_speciality_date_created`,
+ 1 AS `dala_products_speciality_sku`,
+ 1 AS `dala_products_speciality_store_id`,
+ 1 AS `dala_products_speciality_featured_image`,
+ 1 AS `dala_products_speciality_image_slider`,
+ 1 AS `dala_products_speciality_contents`,
+ 1 AS `dala_products_speciality_price`,
+ 1 AS `dala_products_speciality_sale_of_price`,
+ 1 AS `dala_products_speciality_date_start`,
+ 1 AS `dala_products_speciality_date_end`,
+ 1 AS `dala_products_speciality_stock`,
+ 1 AS `dala_products_speciality_brand`,
+ 1 AS `dala_products_speciality_status_admin`,
+ 1 AS `dala_products_speciality_status_store`,
+ 1 AS `dala_products_speciality_status_update`,
+ 1 AS `dala_products_speciality_variation_option`,
+ 1 AS `dala_products_speciality_excerpt`,
+ 1 AS `dala_products_speciality_qoute`,
+ 1 AS `dala_products_speciality_height`,
+ 1 AS `dala_products_speciality_width`,
+ 1 AS `dala_products_speciality_length`,
+ 1 AS `dala_products_speciality_weight`,
+ 1 AS `dala_products_speciality_discount`,
+ 1 AS `dala_products_speciality_unit_discount`,
+ 1 AS `dala_options_product_speciality_link_ID`,
+ 1 AS `dala_options_product_speciality_link_product_id`,
+ 1 AS `dala_options_product_speciality_link_option_id`,
+ 1 AS `dala_options_product_speciality_link_variation_type`,
+ 1 AS `dala_options_product_speciality_ID`,
+ 1 AS `dala_options_product_speciality_name`,
+ 1 AS `dala_options_product_speciality_featured_image`,
+ 1 AS `dala_options_product_speciality_parent_id`,
+ 1 AS `dala_options_product_speciality_stores_id`,
+ 1 AS `dala_options_product_speciality_status_stores`,
+ 1 AS `dala_options_product_speciality_status_admin`,
+ 1 AS `dala_options_product_speciality_status_update`,
+ 1 AS `dala_options_product_speciality_information`,
+ 1 AS `dala_options_product_speciality_date_created`,
+ 1 AS `dala_options_product_speciality_qoute`,
+ 1 AS `dala_category_general_speciality_link_ID`,
+ 1 AS `dala_category_general_speciality_link_product_id`,
+ 1 AS `dala_category_general_speciality_link_category_general_id`,
+ 1 AS `dala_category_general_speciality_ID`,
+ 1 AS `dala_category_general_speciality_date_created`,
+ 1 AS `dala_category_general_speciality_name`,
+ 1 AS `dala_category_general_speciality_category_parent_id`,
+ 1 AS `dala_category_general_speciality_infomation`,
+ 1 AS `dala_category_general_speciality_featured_image`,
+ 1 AS `dala_category_general_speciality_sort_order`,
+ 1 AS `dala_category_general_speciality_show`,
+ 1 AS `dala_category_general_speciality_stores_status`,
+ 1 AS `dala_category_general_speciality_stores_id`,
+ 1 AS `dala_category_general_speciality_update_status`,
+ 1 AS `dala_category_general_speciality_admin_status`,
+ 1 AS `dala_category_general_speciality_type`,
+ 1 AS `dala_category_general_speciality_qoute`,
+ 1 AS `dala_brands_ID`,
+ 1 AS `dala_brands_name`,
+ 1 AS `dala_brands_featured_image`,
+ 1 AS `dala_brands_information`,
+ 1 AS `dala_brands_excerpt`,
+ 1 AS `dala_brands_status_stores`,
+ 1 AS `dala_brands_status_admin`,
+ 1 AS `dala_brands_status_update`,
+ 1 AS `dala_brands_stores_id`,
+ 1 AS `dala_brands_qoute`,
+ 1 AS `dala_stores_ID`,
+ 1 AS `dala_stores_user_id`,
+ 1 AS `dala_stores_date_created`,
+ 1 AS `dala_stores_name`,
+ 1 AS `dala_stores_payment_limit`,
+ 1 AS `dala_stores_service_type_id`,
+ 1 AS `dala_stores_adress`,
+ 1 AS `dala_stores_province`,
+ 1 AS `dala_stores_district`,
+ 1 AS `dala_stores_wards`,
+ 1 AS `dala_stores_status_admin`,
+ 1 AS `dala_stores_status_stores`,
+ 1 AS `dala_stores_info_banking`,
+ 1 AS `dala_stores_local_x`,
+ 1 AS `dala_stores_local_y`,
+ 1 AS `dala_stores_local_adress`,
+ 1 AS `dala_stores_qoute`,
+ 1 AS `dala_stores_status_update`,
+ 1 AS `dala_stores_payment_methods`,
+ 1 AS `dala_stores_payment_time`,
+ 1 AS `dala_stores_upload_limit_day`,
+ 1 AS `dala_stores_upload_limit_month`,
+ 1 AS `dala_users_ID`,
+ 1 AS `dala_users_date_created`,
+ 1 AS `dala_users_full_name`,
+ 1 AS `dala_users_password`,
+ 1 AS `dala_users_first_name`,
+ 1 AS `dala_users_last_name`,
+ 1 AS `dala_users_adress`,
+ 1 AS `dala_users_phone`,
+ 1 AS `dala_users_email`,
+ 1 AS `dala_users_api_version`,
+ 1 AS `dala_users_router_version`,
+ 1 AS `dala_users_view_version`,
+ 1 AS `dala_users_js_css_version`,
+ 1 AS `dala_users_users_type_id`,
+ 1 AS `dala_users_shipping_status`,
+ 1 AS `dala_users_verification_status`,
+ 1 AS `dala_users_verification_code`,
+ 1 AS `dala_users_verification_time`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `view_order_report`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_order_report`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_order_report` AS select `dala_orders_speciality`.`dala_orders_speciality_date_orders` AS `dala_orders_speciality_date_orders`,`dala_orders_speciality`.`dala_orders_speciality_ID` AS `dala_orders_speciality_ID`,`dala_stores`.`dala_stores_name` AS `dala_stores_name`,`dala_orders_details_speciality`.`dala_orders_details_speciality_line_order` AS `dala_orders_details_speciality_line_order`,`dala_orders_details_speciality`.`dala_orders_details_speciality_qty` AS `dala_orders_details_speciality_qty`,`dala_orders_details_speciality`.`dala_orders_details_speciality_price` AS `dala_orders_details_speciality_price` from ((((`dala_orders_speciality` left join `dala_orders_details_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_order_id` = `dala_orders_speciality`.`dala_orders_speciality_ID`))) left join `dala_products_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_product_id` = `dala_products_speciality`.`dala_products_speciality_ID`))) left join `dala_stores` on((`dala_products_speciality`.`dala_products_speciality_store_id` = `dala_stores`.`dala_stores_ID`))) left join `dala_users` on((`dala_orders_speciality`.`dala_orders_speciality_user_id` = `dala_users`.`dala_users_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_orders_customer`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_orders_customer`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_orders_customer` AS select `dala_orders_speciality`.`dala_orders_speciality_ID` AS `dala_orders_speciality_ID`,`dala_orders_speciality`.`dala_orders_speciality_user_id` AS `dala_orders_speciality_user_id`,`dala_orders_speciality`.`dala_orders_speciality_date_orders` AS `dala_orders_speciality_date_orders`,`dala_orders_speciality`.`dala_orders_speciality_status_orders` AS `dala_orders_speciality_status_orders`,`dala_orders_speciality`.`dala_orders_speciality_status_payment` AS `dala_orders_speciality_status_payment`,`dala_orders_speciality`.`dala_orders_speciality_adress` AS `dala_orders_speciality_adress`,`dala_orders_speciality`.`dala_orders_speciality_notes` AS `dala_orders_speciality_notes`,`dala_orders_speciality`.`dala_orders_speciality_phone` AS `dala_orders_speciality_phone`,`dala_orders_speciality`.`dala_orders_speciality_email` AS `dala_orders_speciality_email`,`dala_orders_speciality`.`dala_orders_speciality_shipping_code` AS `dala_orders_speciality_shipping_code`,`dala_orders_details_speciality`.`dala_orders_details_speciality_ID` AS `dala_orders_details_speciality_ID`,`dala_orders_details_speciality`.`dala_orders_details_speciality_order_id` AS `dala_orders_details_speciality_order_id`,`dala_orders_details_speciality`.`dala_orders_details_speciality_line_order` AS `dala_orders_details_speciality_line_order`,`dala_orders_details_speciality`.`dala_orders_details_speciality_product_id` AS `dala_orders_details_speciality_product_id`,`dala_orders_details_speciality`.`dala_orders_details_speciality_qty` AS `dala_orders_details_speciality_qty`,`dala_orders_details_speciality`.`dala_orders_details_speciality_price` AS `dala_orders_details_speciality_price`,`dala_orders_details_speciality`.`dala_orders_details_medium_text` AS `dala_orders_details_medium_text`,`dala_products_speciality`.`dala_products_speciality_ID` AS `dala_products_speciality_ID`,`dala_products_speciality`.`dala_products_speciality_name` AS `dala_products_speciality_name`,`dala_products_speciality`.`dala_products_speciality_type` AS `dala_products_speciality_type`,`dala_products_speciality`.`dala_products_speciality_date_created` AS `dala_products_speciality_date_created`,`dala_products_speciality`.`dala_products_speciality_sku` AS `dala_products_speciality_sku`,`dala_products_speciality`.`dala_products_speciality_store_id` AS `dala_products_speciality_store_id`,`dala_products_speciality`.`dala_products_speciality_featured_image` AS `dala_products_speciality_featured_image`,`dala_products_speciality`.`dala_products_speciality_image_slider` AS `dala_products_speciality_image_slider`,`dala_products_speciality`.`dala_products_speciality_contents` AS `dala_products_speciality_contents`,`dala_products_speciality`.`dala_products_speciality_price` AS `dala_products_speciality_price`,`dala_products_speciality`.`dala_products_speciality_sale_of_price` AS `dala_products_speciality_sale_of_price`,`dala_products_speciality`.`dala_products_speciality_date_start` AS `dala_products_speciality_date_start`,`dala_products_speciality`.`dala_products_speciality_date_end` AS `dala_products_speciality_date_end`,`dala_products_speciality`.`dala_products_speciality_stock` AS `dala_products_speciality_stock`,`dala_products_speciality`.`dala_products_speciality_brand` AS `dala_products_speciality_brand`,`dala_products_speciality`.`dala_products_speciality_status_admin` AS `dala_products_speciality_status_admin`,`dala_products_speciality`.`dala_products_speciality_status_store` AS `dala_products_speciality_status_store`,`dala_products_speciality`.`dala_products_speciality_status_update` AS `dala_products_speciality_status_update`,`dala_products_speciality`.`dala_products_speciality_variation_option` AS `dala_products_speciality_variation_option`,`dala_products_speciality`.`dala_products_speciality_excerpt` AS `dala_products_speciality_excerpt`,`dala_products_speciality`.`dala_products_speciality_qoute` AS `dala_products_speciality_qoute`,`dala_products_speciality`.`dala_products_speciality_height` AS `dala_products_speciality_height`,`dala_products_speciality`.`dala_products_speciality_width` AS `dala_products_speciality_width`,`dala_products_speciality`.`dala_products_speciality_length` AS `dala_products_speciality_length`,`dala_products_speciality`.`dala_products_speciality_weight` AS `dala_products_speciality_weight`,`dala_products_speciality`.`dala_products_speciality_discount` AS `dala_products_speciality_discount`,`dala_products_speciality`.`dala_products_speciality_unit_discount` AS `dala_products_speciality_unit_discount`,`dala_stores`.`dala_stores_ID` AS `dala_stores_ID`,`dala_stores`.`dala_stores_user_id` AS `dala_stores_user_id`,`dala_stores`.`dala_stores_date_created` AS `dala_stores_date_created`,`dala_stores`.`dala_stores_name` AS `dala_stores_name`,`dala_stores`.`dala_stores_payment_limit` AS `dala_stores_payment_limit`,`dala_stores`.`dala_stores_service_type_id` AS `dala_stores_service_type_id`,`dala_stores`.`dala_stores_adress` AS `dala_stores_adress`,`dala_stores`.`dala_stores_province` AS `dala_stores_province`,`dala_stores`.`dala_stores_district` AS `dala_stores_district`,`dala_stores`.`dala_stores_wards` AS `dala_stores_wards`,`dala_stores`.`dala_stores_status_admin` AS `dala_stores_status_admin`,`dala_stores`.`dala_stores_status_stores` AS `dala_stores_status_stores`,`dala_stores`.`dala_stores_info_banking` AS `dala_stores_info_banking`,`dala_stores`.`dala_stores_local_x` AS `dala_stores_local_x`,`dala_stores`.`dala_stores_local_y` AS `dala_stores_local_y`,`dala_stores`.`dala_stores_local_adress` AS `dala_stores_local_adress`,`dala_stores`.`dala_stores_qoute` AS `dala_stores_qoute`,`dala_stores`.`dala_stores_status_update` AS `dala_stores_status_update`,`dala_stores`.`dala_stores_payment_methods` AS `dala_stores_payment_methods`,`dala_stores`.`dala_stores_payment_time` AS `dala_stores_payment_time`,`dala_stores`.`dala_stores_upload_limit_day` AS `dala_stores_upload_limit_day`,`dala_stores`.`dala_stores_upload_limit_month` AS `dala_stores_upload_limit_month`,`dala_users`.`dala_users_ID` AS `dala_users_ID`,`dala_users`.`dala_users_date_created` AS `dala_users_date_created`,`dala_users`.`dala_users_full_name` AS `dala_users_full_name`,`dala_users`.`dala_users_password` AS `dala_users_password`,`dala_users`.`dala_users_first_name` AS `dala_users_first_name`,`dala_users`.`dala_users_last_name` AS `dala_users_last_name`,`dala_users`.`dala_users_adress` AS `dala_users_adress`,`dala_users`.`dala_users_phone` AS `dala_users_phone`,`dala_users`.`dala_users_email` AS `dala_users_email`,`dala_users`.`dala_users_api_version` AS `dala_users_api_version`,`dala_users`.`dala_users_router_version` AS `dala_users_router_version`,`dala_users`.`dala_users_view_version` AS `dala_users_view_version`,`dala_users`.`dala_users_js_css_version` AS `dala_users_js_css_version`,`dala_users`.`dala_users_users_type_id` AS `dala_users_users_type_id`,`dala_users`.`dala_users_shipping_status` AS `dala_users_shipping_status`,`dala_users`.`dala_users_verification_status` AS `dala_users_verification_status`,`dala_users`.`dala_users_verification_code` AS `dala_users_verification_code`,`dala_users`.`dala_users_verification_time` AS `dala_users_verification_time` from ((((`dala_orders_speciality` left join `dala_orders_details_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_order_id` = `dala_orders_speciality`.`dala_orders_speciality_ID`))) left join `dala_products_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_product_id` = `dala_products_speciality`.`dala_products_speciality_ID`))) left join `dala_stores` on((`dala_products_speciality`.`dala_products_speciality_store_id` = `dala_stores`.`dala_stores_ID`))) left join `dala_users` on((`dala_orders_speciality`.`dala_orders_speciality_user_id` = `dala_users`.`dala_users_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_orders_users`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_orders_users`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_orders_users` AS select `dala_orders_speciality`.`dala_orders_speciality_ID` AS `dala_orders_speciality_ID`,`dala_orders_speciality`.`dala_orders_speciality_user_id` AS `dala_orders_speciality_user_id`,`dala_orders_speciality`.`dala_orders_speciality_date_orders` AS `dala_orders_speciality_date_orders`,`dala_orders_speciality`.`dala_orders_speciality_status_orders` AS `dala_orders_speciality_status_orders`,`dala_orders_speciality`.`dala_orders_speciality_status_payment` AS `dala_orders_speciality_status_payment`,`dala_orders_speciality`.`dala_orders_speciality_adress` AS `dala_orders_speciality_adress`,`dala_orders_speciality`.`dala_orders_speciality_notes` AS `dala_orders_speciality_notes`,`dala_orders_speciality`.`dala_orders_speciality_phone` AS `dala_orders_speciality_phone`,`dala_orders_speciality`.`dala_orders_speciality_email` AS `dala_orders_speciality_email`,`dala_orders_speciality`.`dala_orders_speciality_shipping_code` AS `dala_orders_speciality_shipping_code`,`dala_orders_details_speciality`.`dala_orders_details_speciality_ID` AS `dala_orders_details_speciality_ID`,`dala_orders_details_speciality`.`dala_orders_details_speciality_order_id` AS `dala_orders_details_speciality_order_id`,`dala_orders_details_speciality`.`dala_orders_details_speciality_line_order` AS `dala_orders_details_speciality_line_order`,`dala_orders_details_speciality`.`dala_orders_details_speciality_product_id` AS `dala_orders_details_speciality_product_id`,`dala_orders_details_speciality`.`dala_orders_details_speciality_qty` AS `dala_orders_details_speciality_qty`,`dala_orders_details_speciality`.`dala_orders_details_speciality_price` AS `dala_orders_details_speciality_price`,`dala_orders_details_speciality`.`dala_orders_details_medium_text` AS `dala_orders_details_medium_text`,`dala_products_speciality`.`dala_products_speciality_ID` AS `dala_products_speciality_ID`,`dala_products_speciality`.`dala_products_speciality_name` AS `dala_products_speciality_name`,`dala_products_speciality`.`dala_products_speciality_type` AS `dala_products_speciality_type`,`dala_products_speciality`.`dala_products_speciality_date_created` AS `dala_products_speciality_date_created`,`dala_products_speciality`.`dala_products_speciality_sku` AS `dala_products_speciality_sku`,`dala_products_speciality`.`dala_products_speciality_store_id` AS `dala_products_speciality_store_id`,`dala_products_speciality`.`dala_products_speciality_featured_image` AS `dala_products_speciality_featured_image`,`dala_products_speciality`.`dala_products_speciality_image_slider` AS `dala_products_speciality_image_slider`,`dala_products_speciality`.`dala_products_speciality_contents` AS `dala_products_speciality_contents`,`dala_products_speciality`.`dala_products_speciality_price` AS `dala_products_speciality_price`,`dala_products_speciality`.`dala_products_speciality_sale_of_price` AS `dala_products_speciality_sale_of_price`,`dala_products_speciality`.`dala_products_speciality_date_start` AS `dala_products_speciality_date_start`,`dala_products_speciality`.`dala_products_speciality_date_end` AS `dala_products_speciality_date_end`,`dala_products_speciality`.`dala_products_speciality_stock` AS `dala_products_speciality_stock`,`dala_products_speciality`.`dala_products_speciality_brand` AS `dala_products_speciality_brand`,`dala_products_speciality`.`dala_products_speciality_status_admin` AS `dala_products_speciality_status_admin`,`dala_products_speciality`.`dala_products_speciality_status_store` AS `dala_products_speciality_status_store`,`dala_products_speciality`.`dala_products_speciality_status_update` AS `dala_products_speciality_status_update`,`dala_products_speciality`.`dala_products_speciality_variation_option` AS `dala_products_speciality_variation_option`,`dala_products_speciality`.`dala_products_speciality_excerpt` AS `dala_products_speciality_excerpt`,`dala_products_speciality`.`dala_products_speciality_qoute` AS `dala_products_speciality_qoute`,`dala_products_speciality`.`dala_products_speciality_height` AS `dala_products_speciality_height`,`dala_products_speciality`.`dala_products_speciality_width` AS `dala_products_speciality_width`,`dala_products_speciality`.`dala_products_speciality_length` AS `dala_products_speciality_length`,`dala_products_speciality`.`dala_products_speciality_weight` AS `dala_products_speciality_weight`,`dala_products_speciality`.`dala_products_speciality_discount` AS `dala_products_speciality_discount`,`dala_products_speciality`.`dala_products_speciality_unit_discount` AS `dala_products_speciality_unit_discount`,`dala_stores`.`dala_stores_ID` AS `dala_stores_ID`,`dala_stores`.`dala_stores_user_id` AS `dala_stores_user_id`,`dala_stores`.`dala_stores_date_created` AS `dala_stores_date_created`,`dala_stores`.`dala_stores_name` AS `dala_stores_name`,`dala_stores`.`dala_stores_payment_limit` AS `dala_stores_payment_limit`,`dala_stores`.`dala_stores_service_type_id` AS `dala_stores_service_type_id`,`dala_stores`.`dala_stores_adress` AS `dala_stores_adress`,`dala_stores`.`dala_stores_province` AS `dala_stores_province`,`dala_stores`.`dala_stores_district` AS `dala_stores_district`,`dala_stores`.`dala_stores_wards` AS `dala_stores_wards`,`dala_stores`.`dala_stores_status_admin` AS `dala_stores_status_admin`,`dala_stores`.`dala_stores_status_stores` AS `dala_stores_status_stores`,`dala_stores`.`dala_stores_info_banking` AS `dala_stores_info_banking`,`dala_stores`.`dala_stores_local_x` AS `dala_stores_local_x`,`dala_stores`.`dala_stores_local_y` AS `dala_stores_local_y`,`dala_stores`.`dala_stores_local_adress` AS `dala_stores_local_adress`,`dala_stores`.`dala_stores_qoute` AS `dala_stores_qoute`,`dala_stores`.`dala_stores_status_update` AS `dala_stores_status_update`,`dala_stores`.`dala_stores_payment_methods` AS `dala_stores_payment_methods`,`dala_stores`.`dala_stores_payment_time` AS `dala_stores_payment_time`,`dala_stores`.`dala_stores_upload_limit_day` AS `dala_stores_upload_limit_day`,`dala_stores`.`dala_stores_upload_limit_month` AS `dala_stores_upload_limit_month`,`dala_users`.`dala_users_ID` AS `dala_users_ID`,`dala_users`.`dala_users_date_created` AS `dala_users_date_created`,`dala_users`.`dala_users_full_name` AS `dala_users_full_name`,`dala_users`.`dala_users_password` AS `dala_users_password`,`dala_users`.`dala_users_first_name` AS `dala_users_first_name`,`dala_users`.`dala_users_last_name` AS `dala_users_last_name`,`dala_users`.`dala_users_adress` AS `dala_users_adress`,`dala_users`.`dala_users_phone` AS `dala_users_phone`,`dala_users`.`dala_users_email` AS `dala_users_email`,`dala_users`.`dala_users_api_version` AS `dala_users_api_version`,`dala_users`.`dala_users_router_version` AS `dala_users_router_version`,`dala_users`.`dala_users_view_version` AS `dala_users_view_version`,`dala_users`.`dala_users_js_css_version` AS `dala_users_js_css_version`,`dala_users`.`dala_users_users_type_id` AS `dala_users_users_type_id`,`dala_users`.`dala_users_shipping_status` AS `dala_users_shipping_status`,`dala_users`.`dala_users_verification_status` AS `dala_users_verification_status`,`dala_users`.`dala_users_verification_code` AS `dala_users_verification_code`,`dala_users`.`dala_users_verification_time` AS `dala_users_verification_time` from ((((`dala_orders_speciality` left join `dala_orders_details_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_order_id` = `dala_orders_speciality`.`dala_orders_speciality_ID`))) left join `dala_products_speciality` on((`dala_orders_details_speciality`.`dala_orders_details_speciality_product_id` = `dala_products_speciality`.`dala_products_speciality_ID`))) left join `dala_stores` on((`dala_products_speciality`.`dala_products_speciality_store_id` = `dala_stores`.`dala_stores_ID`))) left join `dala_users` on((`dala_stores`.`dala_stores_user_id` = `dala_users`.`dala_users_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_products`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_products`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = latin1 */;
+/*!50001 SET character_set_results     = latin1 */;
+/*!50001 SET collation_connection      = latin1_swedish_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_products` AS select `dala_products_speciality`.`dala_products_speciality_ID` AS `dala_products_speciality_ID`,`dala_products_speciality`.`dala_products_speciality_name` AS `dala_products_speciality_name`,`dala_products_speciality`.`dala_products_speciality_type` AS `dala_products_speciality_type`,`dala_products_speciality`.`dala_products_speciality_date_created` AS `dala_products_speciality_date_created`,`dala_products_speciality`.`dala_products_speciality_sku` AS `dala_products_speciality_sku`,`dala_products_speciality`.`dala_products_speciality_store_id` AS `dala_products_speciality_store_id`,`dala_products_speciality`.`dala_products_speciality_featured_image` AS `dala_products_speciality_featured_image`,`dala_products_speciality`.`dala_products_speciality_image_slider` AS `dala_products_speciality_image_slider`,`dala_products_speciality`.`dala_products_speciality_contents` AS `dala_products_speciality_contents`,`dala_products_speciality`.`dala_products_speciality_price` AS `dala_products_speciality_price`,`dala_products_speciality`.`dala_products_speciality_sale_of_price` AS `dala_products_speciality_sale_of_price`,`dala_products_speciality`.`dala_products_speciality_date_start` AS `dala_products_speciality_date_start`,`dala_products_speciality`.`dala_products_speciality_date_end` AS `dala_products_speciality_date_end`,`dala_products_speciality`.`dala_products_speciality_stock` AS `dala_products_speciality_stock`,`dala_products_speciality`.`dala_products_speciality_brand` AS `dala_products_speciality_brand`,`dala_products_speciality`.`dala_products_speciality_status_admin` AS `dala_products_speciality_status_admin`,`dala_products_speciality`.`dala_products_speciality_status_store` AS `dala_products_speciality_status_store`,`dala_products_speciality`.`dala_products_speciality_status_update` AS `dala_products_speciality_status_update`,`dala_products_speciality`.`dala_products_speciality_variation_option` AS `dala_products_speciality_variation_option`,`dala_products_speciality`.`dala_products_speciality_excerpt` AS `dala_products_speciality_excerpt`,`dala_products_speciality`.`dala_products_speciality_qoute` AS `dala_products_speciality_qoute`,`dala_products_speciality`.`dala_products_speciality_height` AS `dala_products_speciality_height`,`dala_products_speciality`.`dala_products_speciality_width` AS `dala_products_speciality_width`,`dala_products_speciality`.`dala_products_speciality_length` AS `dala_products_speciality_length`,`dala_products_speciality`.`dala_products_speciality_weight` AS `dala_products_speciality_weight`,`dala_products_speciality`.`dala_products_speciality_discount` AS `dala_products_speciality_discount`,`dala_products_speciality`.`dala_products_speciality_unit_discount` AS `dala_products_speciality_unit_discount`,`dala_options_product_speciality_link`.`dala_options_product_speciality_link_ID` AS `dala_options_product_speciality_link_ID`,`dala_options_product_speciality_link`.`dala_options_product_speciality_link_product_id` AS `dala_options_product_speciality_link_product_id`,`dala_options_product_speciality_link`.`dala_options_product_speciality_link_option_id` AS `dala_options_product_speciality_link_option_id`,`dala_options_product_speciality_link`.`dala_options_product_speciality_link_variation_type` AS `dala_options_product_speciality_link_variation_type`,`dala_options_product_speciality`.`dala_options_product_speciality_ID` AS `dala_options_product_speciality_ID`,`dala_options_product_speciality`.`dala_options_product_speciality_name` AS `dala_options_product_speciality_name`,`dala_options_product_speciality`.`dala_options_product_speciality_featured_image` AS `dala_options_product_speciality_featured_image`,`dala_options_product_speciality`.`dala_options_product_speciality_parent_id` AS `dala_options_product_speciality_parent_id`,`dala_options_product_speciality`.`dala_options_product_speciality_stores_id` AS `dala_options_product_speciality_stores_id`,`dala_options_product_speciality`.`dala_options_product_speciality_status_stores` AS `dala_options_product_speciality_status_stores`,`dala_options_product_speciality`.`dala_options_product_speciality_status_admin` AS `dala_options_product_speciality_status_admin`,`dala_options_product_speciality`.`dala_options_product_speciality_status_update` AS `dala_options_product_speciality_status_update`,`dala_options_product_speciality`.`dala_options_product_speciality_information` AS `dala_options_product_speciality_information`,`dala_options_product_speciality`.`dala_options_product_speciality_date_created` AS `dala_options_product_speciality_date_created`,`dala_options_product_speciality`.`dala_options_product_speciality_qoute` AS `dala_options_product_speciality_qoute`,`dala_category_general_speciality_link`.`dala_category_general_speciality_link_ID` AS `dala_category_general_speciality_link_ID`,`dala_category_general_speciality_link`.`dala_category_general_speciality_link_product_id` AS `dala_category_general_speciality_link_product_id`,`dala_category_general_speciality_link`.`dala_category_general_speciality_link_category_general_id` AS `dala_category_general_speciality_link_category_general_id`,`dala_category_general_speciality`.`dala_category_general_speciality_ID` AS `dala_category_general_speciality_ID`,`dala_category_general_speciality`.`dala_category_general_speciality_date_created` AS `dala_category_general_speciality_date_created`,`dala_category_general_speciality`.`dala_category_general_speciality_name` AS `dala_category_general_speciality_name`,`dala_category_general_speciality`.`dala_category_general_speciality_category_parent_id` AS `dala_category_general_speciality_category_parent_id`,`dala_category_general_speciality`.`dala_category_general_speciality_infomation` AS `dala_category_general_speciality_infomation`,`dala_category_general_speciality`.`dala_category_general_speciality_featured_image` AS `dala_category_general_speciality_featured_image`,`dala_category_general_speciality`.`dala_category_general_speciality_sort_order` AS `dala_category_general_speciality_sort_order`,`dala_category_general_speciality`.`dala_category_general_speciality_show` AS `dala_category_general_speciality_show`,`dala_category_general_speciality`.`dala_category_general_speciality_stores_status` AS `dala_category_general_speciality_stores_status`,`dala_category_general_speciality`.`dala_category_general_speciality_stores_id` AS `dala_category_general_speciality_stores_id`,`dala_category_general_speciality`.`dala_category_general_speciality_update_status` AS `dala_category_general_speciality_update_status`,`dala_category_general_speciality`.`dala_category_general_speciality_admin_status` AS `dala_category_general_speciality_admin_status`,`dala_category_general_speciality`.`dala_category_general_speciality_type` AS `dala_category_general_speciality_type`,`dala_category_general_speciality`.`dala_category_general_speciality_qoute` AS `dala_category_general_speciality_qoute`,`dala_brands`.`dala_brands_ID` AS `dala_brands_ID`,`dala_brands`.`dala_brands_name` AS `dala_brands_name`,`dala_brands`.`dala_brands_featured_image` AS `dala_brands_featured_image`,`dala_brands`.`dala_brands_information` AS `dala_brands_information`,`dala_brands`.`dala_brands_excerpt` AS `dala_brands_excerpt`,`dala_brands`.`dala_brands_status_stores` AS `dala_brands_status_stores`,`dala_brands`.`dala_brands_status_admin` AS `dala_brands_status_admin`,`dala_brands`.`dala_brands_status_update` AS `dala_brands_status_update`,`dala_brands`.`dala_brands_stores_id` AS `dala_brands_stores_id`,`dala_brands`.`dala_brands_qoute` AS `dala_brands_qoute`,`dala_stores`.`dala_stores_ID` AS `dala_stores_ID`,`dala_stores`.`dala_stores_user_id` AS `dala_stores_user_id`,`dala_stores`.`dala_stores_date_created` AS `dala_stores_date_created`,`dala_stores`.`dala_stores_name` AS `dala_stores_name`,`dala_stores`.`dala_stores_payment_limit` AS `dala_stores_payment_limit`,`dala_stores`.`dala_stores_service_type_id` AS `dala_stores_service_type_id`,`dala_stores`.`dala_stores_adress` AS `dala_stores_adress`,`dala_stores`.`dala_stores_province` AS `dala_stores_province`,`dala_stores`.`dala_stores_district` AS `dala_stores_district`,`dala_stores`.`dala_stores_wards` AS `dala_stores_wards`,`dala_stores`.`dala_stores_status_admin` AS `dala_stores_status_admin`,`dala_stores`.`dala_stores_status_stores` AS `dala_stores_status_stores`,`dala_stores`.`dala_stores_info_banking` AS `dala_stores_info_banking`,`dala_stores`.`dala_stores_local_x` AS `dala_stores_local_x`,`dala_stores`.`dala_stores_local_y` AS `dala_stores_local_y`,`dala_stores`.`dala_stores_local_adress` AS `dala_stores_local_adress`,`dala_stores`.`dala_stores_qoute` AS `dala_stores_qoute`,`dala_stores`.`dala_stores_status_update` AS `dala_stores_status_update`,`dala_stores`.`dala_stores_payment_methods` AS `dala_stores_payment_methods`,`dala_stores`.`dala_stores_payment_time` AS `dala_stores_payment_time`,`dala_stores`.`dala_stores_upload_limit_day` AS `dala_stores_upload_limit_day`,`dala_stores`.`dala_stores_upload_limit_month` AS `dala_stores_upload_limit_month`,`dala_users`.`dala_users_ID` AS `dala_users_ID`,`dala_users`.`dala_users_date_created` AS `dala_users_date_created`,`dala_users`.`dala_users_full_name` AS `dala_users_full_name`,`dala_users`.`dala_users_password` AS `dala_users_password`,`dala_users`.`dala_users_first_name` AS `dala_users_first_name`,`dala_users`.`dala_users_last_name` AS `dala_users_last_name`,`dala_users`.`dala_users_adress` AS `dala_users_adress`,`dala_users`.`dala_users_phone` AS `dala_users_phone`,`dala_users`.`dala_users_email` AS `dala_users_email`,`dala_users`.`dala_users_api_version` AS `dala_users_api_version`,`dala_users`.`dala_users_router_version` AS `dala_users_router_version`,`dala_users`.`dala_users_view_version` AS `dala_users_view_version`,`dala_users`.`dala_users_js_css_version` AS `dala_users_js_css_version`,`dala_users`.`dala_users_users_type_id` AS `dala_users_users_type_id`,`dala_users`.`dala_users_shipping_status` AS `dala_users_shipping_status`,`dala_users`.`dala_users_verification_status` AS `dala_users_verification_status`,`dala_users`.`dala_users_verification_code` AS `dala_users_verification_code`,`dala_users`.`dala_users_verification_time` AS `dala_users_verification_time` from (((((((`dala_products_speciality` left join `dala_options_product_speciality_link` on((`dala_products_speciality`.`dala_products_speciality_ID` = `dala_options_product_speciality_link`.`dala_options_product_speciality_link_product_id`))) left join `dala_options_product_speciality` on((`dala_options_product_speciality_link`.`dala_options_product_speciality_link_option_id` = `dala_options_product_speciality`.`dala_options_product_speciality_ID`))) left join `dala_category_general_speciality_link` on((`dala_products_speciality`.`dala_products_speciality_ID` = `dala_category_general_speciality_link`.`dala_category_general_speciality_link_product_id`))) left join `dala_category_general_speciality` on((`dala_category_general_speciality_link`.`dala_category_general_speciality_link_category_general_id` = `dala_category_general_speciality`.`dala_category_general_speciality_ID`))) left join `dala_brands` on((`dala_products_speciality`.`dala_products_speciality_brand` = `dala_brands`.`dala_brands_ID`))) left join `dala_stores` on((`dala_products_speciality`.`dala_products_speciality_store_id` = `dala_stores`.`dala_stores_ID`))) left join `dala_users` on((`dala_stores`.`dala_stores_user_id` = `dala_users`.`dala_users_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2651,4 +3046,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-19 21:55:39
+-- Dump completed on 2021-06-09  9:57:50
