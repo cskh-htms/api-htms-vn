@@ -46,7 +46,7 @@ INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_user
 (52, '2021-05-19 14:39:27', 'saokim', 'a3dcb4d229de6fde0db5686dee47145d', 'Cua hang', 'Sao Kim', '11 Dang Duc Thuat', '09480360102', 'saokim.team@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),
 (55, '2021-05-19 14:45:47', 'tuanbao', 'a3dcb4d229de6fde0db5686dee47145d', 'tuanbao', 'tuanbao', 'tuanbao', '09480360105', 'tuanbao@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),
 (56, '2021-05-19 14:47:18', 'custommer', 'a3dcb4d229de6fde0db5686dee47145d', 'custommer', 'custommer', 'custommer', '09480360106', 'custommer@gmail.com', 'v4', 'v4', 'v4', 'v4', 15, 0, 0, '', NULL),
-(57, '2021-05-19 14:48:49', 'GuestDalaAll', 'f5ca855650189adb730ef1dedd82dc25', 'GuestDalaAll', 'GuestDalaAll', 'GuestDalaAll', '09480360107', 'GuestDalaAll@gmail.com', 'v4', 'v4', 'v4', 'v4', 16, 0, 0, '', NULL);
+(57, '2021-05-19 14:48:49', 'GuestDalaAll', '412789534f5cd5b263bb574ba2f09585', 'GuestDalaAll', 'GuestDalaAll', 'GuestDalaAll', '09480360107', 'GuestDalaAll@gmail.com', 'v4', 'v4', 'v4', 'v4', 16, 0, 0, '', NULL);
 
 --
 -- Đang đổ dữ liệu cho bảng `dala_users_type`
@@ -57,7 +57,32 @@ INSERT INTO `dala_users_type` (`dala_users_type_ID`, `dala_users_type_name`, `da
 (14, 'bussiness', '950a14f62033feb91295dcb123d88e06'),
 (15, 'customer', 'c20284d123204abaf547da15957b17f8'),
 (16, 'default', '319b17162d07a5697a5b2175279a54b0');
+
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng `dala_token`
+--
+
+INSERT INTO `dala_token` (`dala_token_ID`, `dala_token_key`, `dala_token_value`, `dala_token_date_created`) VALUES (NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJfcm9sZSI6ImRlZmF1bHQiLCJpYXQiOjE2MjMyMjg3NTl9.iQrzkanw_3SAyFT03Kq3GbWLdpcZtvkuswhKaKtsn0M', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJzX3Bob25lIjoiMDk0ODAzNjAxMDciLCJ1c2Vyc19lbWFpbCI6Ikd1ZXN0RGFsYUFsbEBnbWFpbC5jb20iLCJ1c2Vyc19wYXNzd29yZCI6IjQxMjc4OTUzNGY1Y2Q1YjI2M2JiNTc0YmEyZjA5NTg1IiwidXNlcl9yb2xlIjoiZGVmYXVsdCIsImlhdCI6MTYyMzIyODc1OX0.q5Qv9zG_ynJsnOFFqcB4mDpMftZ9fxHToXbFfuAxXBo', CURRENT_TIMESTAMP);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

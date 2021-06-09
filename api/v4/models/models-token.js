@@ -6,12 +6,16 @@ const connection = require('./models-connection');
 const md5 = require('md5');
 var mysql = require('mysql');
 
-//@
-//@
-//configs/config
-//function share
+
 const ojs_configs = require('../../../configs/config');
 const ojs_shares = require('../../../models/ojs-shares');
+
+
+
+
+
+
+
 
 //tao data filed chung cho select
 let sql_select_all = 	"" + 
@@ -32,34 +36,14 @@ let sql_from_default = 	" from " +
 //@@
 //@@
 //search
-var search = async function (datas) {
-	//@
-	try {
-		var sql_field = ojs_shares.get_select_field(datas.select_field,sql_select_all);
-	}
-	catch(error){
-		return  { "error" : "m_10_token", "message" : error } ;
-	}
-
-	//@
-	try {
-		var sql_conditions = ojs_shares.get_condition(datas.condition);
-	}
-	catch(error){
-		return  { "error" : "m_11", "message" : error } ;
-	}
-	//@
-	try {
-		var sql_order = ojs_shares.get_order_text(datas.order);
-	}
-	catch(error){
-		return  { "error" : "m_12", "message" : error } ;
-	}
+var search = async function (token) {
 
 
-	var sql_text = 	"SELECT " + sql_field +
+	var sql_text = 	"SELECT " + sql_select_all +
 					sql_from_default + 
-					sql_conditions 
+					" where " + 
+					ojs_configs.db_prefix + "token_key = '" + token + "' ";
+							
 					
 					
 	//@
@@ -89,11 +73,13 @@ var search = async function (datas) {
 //@@
 //insert
 var insert_token = async function (datas) {
+	
+	
 	//@
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "token  SET ?";
 	let dataGo = {
-			"token_key"						: mysql.escape(datas.token_key).replace(/^'|'$/gi, ""),	
-			"token_value"					: mysql.escape(datas.token_value).replace(/^'|'$/gi, "")
+			"token_key"						: datas.datas.token_key,	
+			"token_value"					: datas.datas.token_value
 	}
 
 	let kes = Object.keys(dataGo);
@@ -101,6 +87,9 @@ var insert_token = async function (datas) {
 		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
 	}
 	//@
+
+
+
 
 	try {
 		return new Promise( (resolve,reject) => {

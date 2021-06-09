@@ -1,5 +1,21 @@
 
 
+/*
+
+
+1. [insert_users]
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 //connect 
 const connection = require('./models-connection');
@@ -15,11 +31,12 @@ const ojs_configs = require('../../../configs/config');
 const ojs_shares = require('../../../models/ojs-shares');
 
 
+
 //tao data filed chung cho select
 let sql_select_all = 	"" + 
 	ojs_configs.db_prefix + "users_ID as users_ID, " + 
 	ojs_configs.db_prefix + "users_date_created as users_date_created, " + 
-	ojs_configs.db_prefix + "users_name as users_name, " + 
+	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
 	ojs_configs.db_prefix + "users_password as users_password, " + 
 	ojs_configs.db_prefix + "users_first_name as users_first_name, " + 
 	ojs_configs.db_prefix + "users_last_name as users_last_name, " + 
@@ -31,6 +48,14 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix + "users_view_version as users_view_version, " + 
 	ojs_configs.db_prefix + "users_js_css_version as users_js_css_version, " + 
 	ojs_configs.db_prefix + "users_api_version as users_api_version, " + 	
+
+
+	ojs_configs.db_prefix + "users_shipping_status as users_shipping_status, " + 
+	ojs_configs.db_prefix + "users_verification_status as users_verification_status, " + 
+	ojs_configs.db_prefix + "users_verification_code as users_verification_code, " + 
+	ojs_configs.db_prefix + "users_verification_time as users_verification_time, " + 
+
+
 
 	ojs_configs.db_prefix + "users_type_ID as users_type_ID, " + 
 	ojs_configs.db_prefix + "users_type_name as users_type_name, " +
@@ -48,17 +73,108 @@ let sql_link_default = 	"" +
 	
 	
 	
-//login
-var login = async function (datas) {
-
-	//create sql text
-	let sql_text = 	"SELECT " + sql_select_all +
-					sql_from_default + 
-					"where " + 
-					sql_link_default +
-					"and " + ojs_configs.db_prefix + "users_name = '" + datas.users_name + "' " + 
-					"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
 	
+	
+	
+
+//
+//@@
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+//1. [insert_users]
+//@
+const insert_users = async function (datas) {
+	//@
+	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "users  SET ?";
+	let dataGo = {
+		"users_full_name"					: mysql.escape(datas.users_full_name).replace(/^'|'$/gi, ""),
+		"users_password"					: md5(datas.users_password),	
+		"users_first_name"					: mysql.escape(datas.users_first_name).replace(/^'|'$/gi, ""),	
+		"users_last_name"					: mysql.escape(datas.users_last_name).replace(/^'|'$/gi, ""),
+		"users_adress"						: mysql.escape(datas.users_adress).replace(/^'|'$/gi, ""),
+		"users_phone"						: mysql.escape(datas.users_phone).replace(/^'|'$/gi, ""),	
+		"users_email"						: mysql.escape(datas.users_email).replace(/^'|'$/gi, ""),
+		"users_users_type_id"				: datas.users_users_type_id,
+		
+		"users_router_version"				: mysql.escape(datas.users_router_version).replace(/^'|'$/gi, ""),			
+		"users_view_version"				: mysql.escape(datas.users_view_version).replace(/^'|'$/gi, ""),
+		"users_js_css_version"				: mysql.escape(datas.users_js_css_version).replace(/^'|'$/gi, ""),			
+		"users_api_version"					: mysql.escape(datas.users_api_version).replace(/^'|'$/gi, ""),
+		
+		"users_shipping_status"				: mysql.escape(datas.users_shipping_status).replace(/^'|'$/gi, ""),			
+		"users_verification_status"			: mysql.escape(datas.users_verification_status).replace(/^'|'$/gi, ""),
+		"users_verification_code"			: mysql.escape(datas.users_verification_code).replace(/^'|'$/gi, ""),			
+		"users_verification_time"			: mysql.escape(datas.users_verification_time).replace(/^'|'$/gi, "")			
+	}
+
+	let kes = Object.keys(dataGo);
+	for(let x in kes){
+		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+	}
+	//@
+
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models->users->error_number : 1 ", "message" : error } ;
+	}
+
+};
+//@@
+//1. end of insert_users	
+	
+	
+//
+//@@
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+//2. [login]
+//@
+const login = async function (datas) {
+
+	//@
+	//@
+	// check data user login type
+	//@
+	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+	var name_check = datas.users_login_name;
+
+	if (regex.test(name_check)) {
+		//@
+		//if data type là email
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			"where " + 
+			sql_link_default +
+			"and " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
+			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
+
+
+	} else {
+		//@
+		//if data type là phone
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			"where " + 
+			sql_link_default +
+			"and " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
+			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
+	}
+	
+	//@
+	//@
 	//run sql
 	return new Promise( (resolve,reject) => {
 		connection.query( { sql:sql_text, timeout: 20000 } , ( err , results , fields ) => {
@@ -68,6 +184,9 @@ var login = async function (datas) {
 	} );
 
 };//end of function login
+
+//2. end of [login]
+
 
 //login
 var login_default = async function (datas) {
@@ -183,52 +302,7 @@ var search = async function (datas) {
 };
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var insert_users = async function (datas) {
-	//@
-	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "users  SET ?";
-	let dataGo = {
-			"users_name"						: mysql.escape(datas.users_name).replace(/^'|'$/gi, ""),
-			"users_password"					: md5(datas.users_password),	
-			"users_first_name"					: mysql.escape(datas.users_first_name).replace(/^'|'$/gi, ""),	
-			"users_last_name"					: mysql.escape(datas.users_last_name).replace(/^'|'$/gi, ""),
-			"users_adress"						: mysql.escape(datas.users_adress).replace(/^'|'$/gi, ""),
-			"users_phone"						: mysql.escape(datas.users_phone).replace(/^'|'$/gi, ""),	
-			"users_email"						: mysql.escape(datas.users_email).replace(/^'|'$/gi, ""),
-			"users_users_type_id"				: datas.users_users_type_id,
-			"users_router_version"				: mysql.escape(datas.users_router_version).replace(/^'|'$/gi, ""),			
-			"users_view_version"				: mysql.escape(datas.users_view_version).replace(/^'|'$/gi, ""),
-			"users_js_css_version"				: mysql.escape(datas.users_js_css_version).replace(/^'|'$/gi, ""),			
-			"users_api_version"					: mysql.escape(datas.users_api_version).replace(/^'|'$/gi, "")
-	}
 
-	let kes = Object.keys(dataGo);
-	for(let x in kes){
-		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
-	}
-	//@
-
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-
-};
-//@@
 //@@
 //@@@@@@@@@@
 //@@@@@@@@@@

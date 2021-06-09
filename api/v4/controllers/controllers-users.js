@@ -6,7 +6,7 @@
 //@
 // * 1. [register-app]
 
-
+// * 2. [login-app]
 
 */
 
@@ -24,7 +24,6 @@ const md5 = require('md5');
 
 //database model
 const default_field = require('../const-tables/const-tables-users');
-const models_users = require('../models/models-users');
 
 
 //@
@@ -36,8 +35,8 @@ const ojs_shares = require('../../../models/ojs-shares');
 
 
 
-
-
+const models_token = require('../models/models-token');
+const models_users = require('../models/models-users');
 const models_stores = require('../models/models-stores');
 const models_orders_spaciality = require('../models/models-orders-spaciality');
 const models_reviews_spaciality = require('../models/models-reviews-spaciality');
@@ -60,58 +59,63 @@ const models_comments_spaciality = require('../models/models-comments-spaciality
 //@@@@@@@@@@
 //@@
 //@@
-//register-app
+//1. [register-app]
 //đăng ký user trên app
 //
 async function register_app(req, res, next) {
+	
+	//@
 	//@
 	//@
 	// lấy data request
 	try {
-		let datas = req.body.datas;
-		res.send(datas);
-		return;
+		var datas = req.body.datas;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
 		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "1_controller_users->register_app", "message": error_send } ); 
+		res.send({ "error" : "controller_users->register_app->error_number : 1", "message": error_send } ); 
 		return;	
 	}		
 	//@
-	let datas_assign;
-	
+	//@
+	//@
+	// gộp data database version
 	
 	try {
+		var datas_assign;
 		var version_default = {
 			"users_router_version":ojs_configs.router_version,
 			"users_js_css_version":ojs_configs.js_css_version,
 			"users_api_version":ojs_configs.api_version,
-			"users_view_version":ojs_configs.view_version
+			"users_view_version":ojs_configs.view_version,
 		};
 		
 		datas_assign = Object.assign(default_field.default_fields, version_default);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1_controller_users->register_users->version_default", "message": error_send } ); 
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi gộp đầu vào data version, vui lòng liên hệ cskh dala" );
+		res.send({ "error" : "controller_users->register_app->error_number : 2", "message": error_send } ); 
 		return;	
 	}		
 	
-	
-	
-	
+
+	//@
+	//@
+	//@
+	// check đầu vào data	
 	try {
+		//@
 		//gop voi data drfault field in mysql database
-		datas_assign = Object.assign(default_field.default_fields, datas);
+		var datas_assign_check = Object.assign(datas_assign, datas);
 		
+		//@
 		//neu data không hợp lệ thì return loi;
+		let data_check = default_field.check_datas(datas_assign_check);
 		
-		let data_check = default_field.check_datas(datas_assign);
-		
+		//@
+		//return data check
 		if(data_check != 0){
 			res.send({"error" : "1", "message" : data_check } );
 			return;
@@ -119,36 +123,208 @@ async function register_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "2_controller_users->register_users->datas_assign", "message": error_send } ); 
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi check đầu vào data, Vui lòng liên hệ cskh DALA" );
+		res.send({ "error" : "controller_users->register_app->error_number : 3", "message": error_send } ); 
 		return;	
 	}			
-	
 
+	
 	//@
 	//@
 	//@
 	//insert users
 	try {
+		//@
+		//@
+		// cố định user_type = 15 (user type customer)
+		var datas_insert_users_type = {
+			"users_users_type_id":15
+		};
+		//@
+		var datas_insert = Object.assign(datas_assign_check, datas_insert_users_type);
+		
+		//@
+		//@
+		// register
 		models_users.insert_users(datas_assign).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-			res.send({ "error" : "3_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
+			//evn = "dev";
+			//@
+			//@
+			//datatype error
+			var message_error = default_field.get_message_error(error);
+			
+			//@
+			//@
+			//return				
+			var error_send = ojs_shares.show_error( evn, error, message_error );
+			res.send({ "error" : "controller_users->register_app->error_number : 4", "message": error_send } ); 
 			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
+		
 		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "4_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
+		res.send({ "error" : "controller_users->register_app->error_number : 5", "message": error_send } ); 
 		return;
 	}	
 }
+
+//1. end of [register-app] 
+
+
+
+
+
+//@
+//@
+//@
+//@
+//2. [login-app] 
+//@
+const login_app = function (req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@
+	// lấy data request
+	try {
+		var datas = req.body.datas;
+		//res.send(datas);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "controller_users->login_app->error_number : 1", "message": error_send } ); 
+		return;	
+	}	
+	//@
+	//@
+	//@
+	//login
+	models_users.login(datas).then( results => {
+		//res.send(results);
+		//return;
+		//@//nếu login thành công
+		if(results.length  > 0) {
+			try {	
+				//@
+				//@
+				// lấy role text
+				var role_text = ojs_shares.check_role(results[0].users_type_infomation);
+				if(role_text =="admin"){
+					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
+					return;
+				}
+				//@
+				//@
+				//tạo token send data
+				var payload = { 
+					"users_ID": results[0].users_ID, 
+					"users_full_name" :  results[0].users_full_name, 
+					"user_role":role_text
+				};
+				var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
+		
+			}
+			catch (error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
+				res.send({ "error" : "controller_users->login_app->error_number : 6", "message": error_send } ); 
+				return;	
+			}
+
+			try {
+		
+				//@
+				//@
+				//tạo token database data				
+				var payload_database = { 
+					"users_ID": results[0].users_ID, 
+					"users_full_name": results[0].users_full_name,
+					"users_phone": results[0].users_phone,
+					"users_email": results[0].users_email,
+					"users_password":results[0].users_password,
+					"user_role":role_text
+				};
+				
+				var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});				
+				
+				
+				var data_insert = {
+					"datas": {
+						"token_key": token,
+						"token_value": token_database
+					}
+				}
+			}
+			catch (error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
+				res.send({ "error" : "controller_users->login_app->error_number : 7", "message": error_send } ); 
+				return;	
+			}
+
+
+
+			try {
+				models_token.insert_token(data_insert).then( results => {
+					let datas_return = { "error" : "","token" : token,"datas" : payload };
+					res.send( datas_return );
+					return;
+				}, error => {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
+					res.send({ "error" : "controller_users->login_app->error_number : 3", "message": error_send } ); 
+					return;
+				});
+			}
+			catch (error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+				res.send({ "error" : "controller_users->login_app->error_number : 8", "message": error_send } ); 
+				return;	
+			}	
+			
+		}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+			res.send({ "error" : "controller_users->login_app->error_number : 4", "message": error_send } ); 
+			return;
+		}
+	}, error => {
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+		res.send({ "error" : "controller_users->login_app->error_number : 2", "message": error_send } ); 
+		return;
+	});	
+
+}//end of functions login;
+
+//2. end of [login-app] 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -736,7 +912,8 @@ module.exports = {
 		delete_users,
 		register_users,
 		check_token_app,
-		register_app
+		register_app,
+		login_app
 };
 
 

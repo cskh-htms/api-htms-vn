@@ -11,12 +11,10 @@ const md5 = require('md5');
 
 
 
-//@
-//@
-//configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
 const ojs_shares = require('../../../models/ojs-shares');
+
+
 
 
 

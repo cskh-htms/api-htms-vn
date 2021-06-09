@@ -8,8 +8,8 @@ const ojs_config_app = {
 	//user mới tạo sẽ lấy version mặc đ5nh này
 	router_version : "v4",
 	api_version : "v4",
-	view_version : "v1",
-	js_css_version : "v1",
+	view_version : "v4",
+	js_css_version : "v4",
 	
 	
 	//@

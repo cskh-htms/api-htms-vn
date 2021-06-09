@@ -8,6 +8,13 @@
 
 1. 	* [register-app]
 	* Đăng ký users trên app
+	
+2. 	* [login-app]
+	* login users trên app	
+	
+	
+	
+	
 */
 
 var express = require('express');
@@ -24,9 +31,14 @@ var controllers_users = require('../controllers/controllers-users');
 //@@
 //@@
 //@@
-//register-app
+//1. [register-app]
 router.post('/register-app', controllers_users.register_app);
 
+//@@
+//@@
+//@@
+//2. [login-app]
+router.post('/login-app', controllers_users.login_app);
 
 
 
