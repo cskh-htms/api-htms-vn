@@ -5,6 +5,9 @@
 @@@@@
 @@@@@
 @@@@@
+
+1. 	* [register-app]
+	* Đăng ký users trên app
 */
 
 var express = require('express');
@@ -13,6 +16,17 @@ var middle_ware =  require('./routers-middle-ware');
 
 //chuyen huong controller 
 var controllers_users = require('../controllers/controllers-users');
+
+
+
+
+
+//@@
+//@@
+//@@
+//register-app
+router.post('/register-app', controllers_users.register_app);
+
 
 
 

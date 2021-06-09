@@ -2,7 +2,7 @@ const HOST_NAME = "localhost";
 const HOST_IP = "localhost";
 const DATABASE_USER = "root";
 const DATABASE_PASS = "";
-const DATABASE_NAME = "dalacenter";
+const DATABASE_NAME = "dalacenter4";
 
 
 const HOST_NAME2 = "103.110.86.240"; //server remote

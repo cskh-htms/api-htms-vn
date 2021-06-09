@@ -19,32 +19,31 @@ SET time_zone = "+07:00";
 
 
 
+
+
 -- ----------------------
--- users_name field
+-- users_full_name field
 -- ----------------------
 
 
 -- 
 -- *data type
 
-DROP TRIGGER  IF EXISTS  trig_check_users_name_update;
+DROP TRIGGER  IF EXISTS  trig_check_users_full_name_update;
 -- 
-
--- DELIMITER $$ 
+-- 
 DELIMITER $$ 
-CREATE TRIGGER trig_check_users_name_update BEFORE UPDATE ON dala_users 
+CREATE TRIGGER trig_users_full_name_update BEFORE UPDATE ON dala_users 
 FOR EACH ROW  
 BEGIN  
 
-IF(NEW.dala_users_name is null or NEW.dala_users_name = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_check_users_name_empty';   
-ELSE 
-	IF (NEW.dala_users_name REGEXP '^[\-_ A-Za-z0-9]+$' ) = 0 THEN 
+IF(LENGTH(NEW.dala_users_full_name) > 0 ) THEN 
+	
+	IF (NEW.dala_users_full_name REGEXP '^[\-_ A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_check_users_name_data_type';   
+		SET MESSAGE_TEXT = 'trig_check_users_full_name_data_type';   
 	END IF;   
-END IF;
+END IF; 	
 
 END $$ 
 DELIMITER ; 

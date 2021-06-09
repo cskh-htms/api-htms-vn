@@ -1,5 +1,16 @@
+/*
+
+
+
 //@
 //@
+// * 1. [register-app]
+
+
+
+*/
+
+
 //@ app express
 var express = require('express');
 var router = express.Router();
@@ -31,6 +42,123 @@ const models_stores = require('../models/models-stores');
 const models_orders_spaciality = require('../models/models-orders-spaciality');
 const models_reviews_spaciality = require('../models/models-reviews-spaciality');
 const models_comments_spaciality = require('../models/models-comments-spaciality');
+
+
+
+
+
+
+
+
+
+
+
+//
+//@@
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+//register-app
+//đăng ký user trên app
+//
+async function register_app(req, res, next) {
+	//@
+	//@
+	// lấy data request
+	try {
+		let datas = req.body.datas;
+		res.send(datas);
+		return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "1_controller_users->register_app", "message": error_send } ); 
+		return;	
+	}		
+	//@
+	let datas_assign;
+	
+	
+	try {
+		var version_default = {
+			"users_router_version":ojs_configs.router_version,
+			"users_js_css_version":ojs_configs.js_css_version,
+			"users_api_version":ojs_configs.api_version,
+			"users_view_version":ojs_configs.view_version
+		};
+		
+		datas_assign = Object.assign(default_field.default_fields, version_default);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "1_controller_users->register_users->version_default", "message": error_send } ); 
+		return;	
+	}		
+	
+	
+	
+	
+	try {
+		//gop voi data drfault field in mysql database
+		datas_assign = Object.assign(default_field.default_fields, datas);
+		
+		//neu data không hợp lệ thì return loi;
+		
+		let data_check = default_field.check_datas(datas_assign);
+		
+		if(data_check != 0){
+			res.send({"error" : "1", "message" : data_check } );
+			return;
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "2_controller_users->register_users->datas_assign", "message": error_send } ); 
+		return;	
+	}			
+	
+
+	//@
+	//@
+	//@
+	//insert users
+	try {
+		models_users.insert_users(datas_assign).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+			res.send({ "error" : "3_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
+			return;
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "4_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
+		return;
+	}	
+}
+
+
+
+
+
+
+
+
+
+
 
 
 //
@@ -607,7 +735,8 @@ module.exports = {
 		insert_users,
 		delete_users,
 		register_users,
-		check_token_app
+		check_token_app,
+		register_app
 };
 
 
