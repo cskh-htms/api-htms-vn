@@ -339,8 +339,17 @@ const ojs_shares = {
 		
 		//@
 		//@
-		//@		
-		let token = datas_check.token;
+		//@	
+		try{		
+			var token = datas_check.token;
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi get request data" );
+			return { "error" : "ojs_shares->get_check_data->get-request->error_number : 1", "message": error_send } ; 
+		
+		}
 		
 		//@
 		//@
@@ -349,7 +358,7 @@ const ojs_shares = {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares.show_error( evn,"no-token", "no-token" );
-			return { "error" : "2.ojs_shares->get_check_data->checktoken", "message": error_send } ; 			
+			return { "error" : "ojs_shares->get_check_data->get-request->error_number : 2", "message": error_send } ; 			
 		}
 
 		//@
@@ -357,17 +366,20 @@ const ojs_shares = {
 		//@
 		//check token . xem token còn hạn hay không
 		//@pamar:token
-		var send_datas_token = { 
-			"datas" : {
-				"token" : datas_check.token
-			}
-		}
-		//call api check token  
-		//check token xem còn hạng hay không
-		let check_user;
 		try {
+			//@
+			//@
+			var send_datas_token = { 
+				"datas" : {
+					"token" : datas_check.token
+				}
+			}
+			var check_user;	
+			
+			//@
+			//@
 			check_user = await ojs_shares.get_data_no_token_post(ojs_configs.domain + '/api/v0/users/check-token', send_datas_token );
-			if(check_user.error != "") { return {"error":"1.ojs_shares->get_check_data->check_user","message":check_user}}
+			if(check_user.error != "") { return {"error":"ojs_shares->get_check_data->get-request->error_number : 3","message":check_user}}
 		}
 		catch(error){
 			var evn = ojs_configs.evn;

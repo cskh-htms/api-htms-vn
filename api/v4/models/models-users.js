@@ -6,9 +6,11 @@
 1. [insert_users]
 
 
+2.  [login]
 
+3.  [get_all_users]
 
-
+4.  [get_one_user]
 
 
 
@@ -188,6 +190,91 @@ const login = async function (datas) {
 //2. end of [login]
 
 
+
+
+
+
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+// 3.  [get_all_users]
+var get_all_users = async function () {
+	//create sql text
+	let sql_text = 	"SELECT " +  sql_select_all +
+					sql_from_default  + 
+					" where " + 
+					sql_link_default 
+					
+	//return sql_text;
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->get_all_users->error_number : 1", "message" : error } ;
+	}
+};
+
+
+
+
+//@@
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+//4.  [get_one_users]
+const get_one_users = async function (user_id) {
+	//create sql text
+	let sql_text = 	"SELECT " +  sql_select_all + 
+					sql_from_default + 
+					" where " +  
+					sql_link_default + 
+					" and " + 
+					ojs_configs.db_prefix + "users_ID = '" + user_id + "' " 
+	
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->get_one_users->error_number : 1", "message" : error } ;
+	}
+};
+
+//4. end of  [get_one_users]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //login
 var login_default = async function (datas) {
 
@@ -303,67 +390,7 @@ var search = async function (datas) {
 
 
 
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_all_users = async function () {
-	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all +
-					sql_from_default  + 
-					" where " + 
-					sql_link_default 
-					
-	//return sql_text;
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
 
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_one_users = async function (user_id) {
-	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					" where " +  
-					sql_link_default + 
-					" and " + 
-					ojs_configs.db_prefix + "users_ID = '" + user_id + "' " 
-	
-	//return sql_text;
-	
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
 
 
 

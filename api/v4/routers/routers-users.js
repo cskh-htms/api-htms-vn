@@ -12,8 +12,15 @@
 2. 	* [login-app]
 	* login users trên app	
 	
+3. 	* [aet_all_users]
+	* lấy tất cả users
+	* chỉ admin mới được lấy
 	
-	
+
+4. 	* [aet_one_user]
+	* lấy user theo ID
+	* Chỉ có chủ user mới dc lấy
+
 	
 */
 
@@ -39,6 +46,41 @@ router.post('/register-app', controllers_users.register_app);
 //@@
 //2. [login-app]
 router.post('/login-app', controllers_users.login_app);
+
+
+//@@
+//@@
+//@@
+//3. [get_all_users] 
+router.get('/', middle_ware, controllers_users.get_all_users);
+
+
+
+
+
+//@@
+//@@
+//@@
+//4. [get_one_user] 
+router.get('/:user_id', middle_ware, controllers_users.get_one_users);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,24 +112,7 @@ catch(error){
 //@@
 //@@
 //@@
-//get all 
-try {
-	router.get('/', middle_ware, controllers_users.get_all_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_11_users" , "mesage" : error } );
-}
 
-//@@
-//@@
-//@@
-//get one 
-try {
-	router.get('/:user_id', middle_ware, controllers_users.get_one_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_12_users" , "mesage" : error } );
-}
 
 
 

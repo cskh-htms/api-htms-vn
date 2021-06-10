@@ -465,7 +465,7 @@ async function get_version(req, res, next) {
 			models_users.get_one_users(token_value_decode.users_ID).then( results2 => {
 				if(Object.entries(results2).length  > 0) {
 					
-					if(token_value_decode.users_name == results2[0].users_name   && token_value_decode.users_password == results2[0].users_password){
+					if(token_value_decode.users_phone == results2[0].users_phone   && token_value_decode.users_password == results2[0].users_password){
 						var data_return = {
 							"api_version" : results2[0].users_api_version,
 							"router_version" : results2[0].users_router_version,

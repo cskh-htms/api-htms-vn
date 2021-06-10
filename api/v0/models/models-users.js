@@ -21,7 +21,7 @@ const ojs_shares = require('../../../models/ojs-shares');
 let sql_select_all = 	"" + 
 	ojs_configs.db_prefix + "users_ID as users_ID, " + 
 	ojs_configs.db_prefix + "users_date_created as users_date_created, " + 
-	ojs_configs.db_prefix + "users_name as users_name, " + 
+	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
 	ojs_configs.db_prefix + "users_password as users_password, " + 
 	ojs_configs.db_prefix + "users_first_name as users_first_name, " + 
 	ojs_configs.db_prefix + "users_last_name as users_last_name, " + 
@@ -32,7 +32,15 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix + "users_router_version as users_router_version, " + 
 	ojs_configs.db_prefix + "users_view_version as users_view_version, " + 
 	ojs_configs.db_prefix + "users_js_css_version as users_js_css_version, " + 
-	ojs_configs.db_prefix + "users_api_version as users_api_version, " + 
+	ojs_configs.db_prefix + "users_api_version as users_api_version, " + 	
+
+
+	ojs_configs.db_prefix + "users_shipping_status as users_shipping_status, " + 
+	ojs_configs.db_prefix + "users_verification_status as users_verification_status, " + 
+	ojs_configs.db_prefix + "users_verification_code as users_verification_code, " + 
+	ojs_configs.db_prefix + "users_verification_time as users_verification_time, " + 
+
+
 
 	ojs_configs.db_prefix + "users_type_ID as users_type_ID, " + 
 	ojs_configs.db_prefix + "users_type_name as users_type_name, " +
@@ -267,8 +275,8 @@ var get_all_users = async function () {
 //@@@@@@@@@@
 //@@
 //@@
-//get ALL category chung;
-var get_one_users = async function (user_id) {
+//4.  [get_one_users]
+const get_one_users = async function (user_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -277,8 +285,8 @@ var get_one_users = async function (user_id) {
 					" and " + 
 					ojs_configs.db_prefix + "users_ID = '" + user_id + "' " 
 	
-	//return sql_text;
-	
+	//@
+	//@
 	//@
 	try {
 		return new Promise( (resolve,reject) => {
@@ -289,9 +297,12 @@ var get_one_users = async function (user_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "models_users->get_one_users->error_number : 1", "message" : error } ;
 	}
 };
+
+//4. end of  [get_one_users]
+
 
 
 
