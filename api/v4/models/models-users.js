@@ -5,14 +5,13 @@
 
 1. [insert_users]
 
-
 2.  [login]
 
 3.  [get_all_users]
 
 4.  [get_one_user]
 
-
+5.  [update_users ]
 
 
 
@@ -264,6 +263,95 @@ const get_one_users = async function (user_id) {
 
 
 
+//@@
+//@@
+//@@@@@@@@@@
+//@@@@@@@@@@
+//@@
+//@@
+//5.  [update_users]
+const update_users = async function (datas,user_id) {
+	
+	let sqlSet = "";
+	
+	//tao arr key
+	let arrDatas = Object.keys(datas);
+	
+	//tao arr value 
+	let arrValueDatas = [];
+	let x;
+	for (x in datas){
+		arrValueDatas.push(datas[x]);
+	}	
+	
+	
+	//return  arrValueDatas;
+	
+	//tao sqlset 
+	let i = 0;
+	arrDatas.forEach(function(item) {
+		
+		//thay md5 cho passs
+		if(item == "users_password"){
+			arrValueDatas[i] = md5(arrValueDatas[i]);
+		}
+		
+		
+		//
+		if(arrValueDatas[i]== null){
+			if(sqlSet.length == 0){
+				sqlSet = ojs_configs.db_prefix + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+			}else{
+				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+			}
+		}else{
+			if(sqlSet.length == 0){
+				sqlSet = ojs_configs.db_prefix + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
+			}else{
+				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
+			}		
+		}
+
+		i = i + 1 ;
+	});		
+
+
+	let table_name  = ojs_configs.db_prefix + "users ";
+	let field_where  = ojs_configs.db_prefix + "users_ID ";
+	//create sql text
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->update_users->error_number : 1", "message" : error } ;
+	}
+};
+
+
+
+//5. end of  [update_users ]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -390,85 +478,6 @@ var search = async function (datas) {
 
 
 
-
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var update_users = async function (datas,user_id) {
-	
-	let sqlSet = "";
-	
-	//tao arr key
-	let arrDatas = Object.keys(datas);
-	
-	//tao arr value 
-	let arrValueDatas = [];
-	let x;
-	for (x in datas){
-		arrValueDatas.push(datas[x]);
-	}	
-	
-	
-	//return  arrValueDatas;
-	
-	//tao sqlset 
-	let i = 0;
-	arrDatas.forEach(function(item) {
-		
-		//thay md5 cho passs
-		if(item == "users_password"){
-			arrValueDatas[i] = md5(arrValueDatas[i]);
-		}
-		
-		
-		//
-		if(arrValueDatas[i]== null){
-			if(sqlSet.length == 0){
-				sqlSet = ojs_configs.db_prefix + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
-			}else{
-				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
-			}
-		}else{
-			if(sqlSet.length == 0){
-				sqlSet = ojs_configs.db_prefix + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
-			}else{
-				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
-			}		
-		}
-
-		i = i + 1 ;
-	});		
-
-
-	let table_name  = ojs_configs.db_prefix + "users ";
-	let field_where  = ojs_configs.db_prefix + "users_ID ";
-	//create sql text
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
-	
-	
-	//return sql_text;
-	
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
 
 
 

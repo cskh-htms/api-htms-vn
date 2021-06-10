@@ -78,7 +78,13 @@
 	
 	function get_message_error(error){
 		
+		
+		
+		
+		
 		if(error.sqlMessage.search("trig_check_users_email_data_double") >= 0 ){
+			return "Email đã có người đăng ký";
+		}else if(error.sqlMessage.search("trig_check_users_email_double") >= 0){
 			return "Email đã có người đăng ký";
 		}else if(error.sqlMessage.search("users_phone_unique") >= 0){
 			return "Số điện thoại này đã đăng ký";

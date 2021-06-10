@@ -14,6 +14,18 @@
 
 * 4. [get_one_user]
 
+* 5. [update_users]
+
+* 6. [get_verification_code]
+
+
+* 7. [verification_code]
+
+
+
+
+
+
 */
 
 
@@ -227,6 +239,10 @@ const login_app = function (req, res, next) {
 					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
 					return;
 				}
+				if(role_text =="default"){
+					res.send("Lỗi phân quyền -> guest users không cần  login ");
+					return;
+				}
 				//@
 				//@
 				//tạo token send data
@@ -355,6 +371,24 @@ async function get_all_users(req, res, next) {
 		return;			
 	}	
 	//
+	
+	//@
+	//@
+	//neu không có token thì return
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return { "error" : "ojs_shares->get_all_users->check_token_empty->error_number : 2", "message": error_send } ; 			
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@ kiểm tra phân quyền 
@@ -434,6 +468,19 @@ async function get_one_users(req, res, next) {
 		return;			
 	}	
 	//
+	
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return { "error" : "ojs_shares->get_one_users->check_token_empty->error_number : 2", "message": error_send } ; 			
+	}	
+		
+	
+	
 	//@
 	//@
 	//@ kiểm tra phân quyền 
@@ -491,6 +538,547 @@ async function get_one_users(req, res, next) {
 }
 
 //4. end of  [get_one_users]
+
+
+
+
+
+
+
+//
+//@@
+//@@
+//@@
+//@@
+//5. [update_users]
+// chỉ có admin và chủ sỡ hữ mới uodate được
+async function update_users(req, res, next) {
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var user_id = req.params.user_id;
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->update_users->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return { "error" : "ojs_shares->update_users->check_token_empty->error_number : 2", "message": error_send } ; 			
+	}	
+		
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"user_id":user_id
+		}
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+
+
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_user == "1" ){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 3", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//@
+	// nếu là user guest thì kho6nf cho update
+	if(check_datas_result.user_role == "default" ){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Users guest không update", "Users guest không update" );
+		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 4", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	// nếu có users type và không pahi3 admin thi thoat ra
+	if(datas.users_users_type_id  &&  check_datas_result.user_role != "admin"){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Chỉ có admin mới có quyền thay đổi users type ", "Chỉ có admin mới có quyền thay đổi users type" );
+		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 5", "message": error_send } ); 
+		return;	
+	}	
+
+
+
+	//@
+	//@
+	// check data user login type
+	try{
+		var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+		var name_check = datas.users_login_name;
+		//@
+		//@
+		//check type
+		if (regex.test(name_check)) {
+			//@
+			//if data type là email			
+			var datas_email_field = {
+				"users_email":name_check
+			};
+			//@
+			var datas_insert = Object.assign(datas, datas_email_field);
+
+
+		} else {
+			//@
+			//if data type là phone
+			var datas_phone_field = {
+				"users_phone":name_check
+			};
+			//@
+			var datas_insert = Object.assign(datas, datas_phone_field);
+		}
+		
+		delete datas_insert.users_login_name;
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi chuyển đổi data type, Liên hệ bộ phan HTKT dala" );
+			res.send({ "error" : "controller_users->update_users->change type->error_number : 1", "message": error_send } ); 
+			return;	
+	}
+
+
+	//res.send(datas_insert ); 
+	//return;	
+
+
+
+
+	//@
+	//@
+	//@
+	try {
+		models_users.update_users(datas_insert,user_id).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+		}, error => {
+			
+			let message_error = default_field.get_message_error(error);
+			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, message_error );
+			res.send({ "error" : "controller_users->update_users-> error_number : 4", "message": error_send } ); 
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+			res.send({ "error" : "controller_users->update_users-> catch-end->error_number : 5", "message": error_send } ); 
+			return;	
+	}	
+}
+
+
+//5. end of  [update_users]
+
+
+
+
+
+
+
+//
+//@@
+//@@
+//@@
+//@@
+//* 6. [get_verification_code]
+async function get_verification_code(req, res, next) {
+	
+	//@
+	//@
+	//@	get datas req
+	try {
+		var token = req.headers['token'];
+		var de_token = jwt.decode(token);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->get_verification_code->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return { "error" : "ojs_shares->get_verification_code->check_token_empty->error_number : 2", "message": error_send } ; 			
+	}	
+		
+	
+	//@
+	//@
+	//@lấy data users
+	try {
+		models_users.get_one_users(de_token.users_ID).then( results => {
+			//@
+			//@
+			//@ nếu có datas
+			if(results.length > 0){
+				//@
+				//@
+				//kiểm tra user đã xác thực số dt chưa
+				//nếu xác thực rùi thì return
+				//nếu chưa xác thực thì gữi max xác thực
+				if(results[0].users_verification_status == "0"){
+					//@
+					//@
+					var verification_code = Math.floor(1000 + Math.random() * 9000);
+					//@
+					//@
+					//@
+					// lưu code vào database
+					try {
+						
+						var datas_verification = {
+							"users_verification_code":verification_code,
+							"users_verification_time":ojs_shares.get_current_date_now()
+						}
+						//res.send(datas_verification);
+						//return;	
+						
+						//@
+						//@
+						//@ lưu verification code
+						models_users.update_users(datas_verification,de_token.users_ID).then( results => {
+							//@
+							//@
+							//send data
+							res.send( {"error" : "", "code" : verification_code} );
+							return;
+							
+							
+							
+							
+							
+						}, error => {
+							
+							let message_error = default_field.get_message_error(error);
+							
+							var evn = ojs_configs.evn;
+							//evn = "dev";
+							var error_send = ojs_shares.show_error( evn, error, message_error );
+							res.send({ "error" : "controller_users->get_verification_code->update_users-> error_number : 4", "message": error_send } ); 
+							return;	
+						});
+					}
+					catch(error){
+						var evn = ojs_configs.evn;
+						//evn = "dev";
+						var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+						res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 5", "message": error_send } ); 
+						return;	
+					}	
+					
+				}else{
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, "users đã xác thực", "users đã xác thực" );
+					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 6", "message": error_send } ); 
+					return;					
+				}
+			//@
+			//@
+			//@ nếu không có datas
+			}else{
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, error, "Không tìm thấy users" );
+					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 7", "message": error_send } ); 
+					return;				
+			}
+			
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 8", "message": error_send } ); 
+			return;			
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 9", "message": error_send } ); 
+			return;	
+	}	
+
+}
+//* end of  6. [get_verification_code]
+
+
+
+
+
+//
+//@@
+//@@
+//@@
+//@@
+//* 7. [verification_code]
+async function verification_code(req, res, next) {
+	
+	//@
+	//@
+	//@	get datas req
+	try {
+		var token = req.headers['token'];
+		var datas = req.body.datas;
+		var user_id = datas.users_ID;
+		//res.send([token,datas,user_id]);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->verification_code->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return { "error" : "ojs_shares->verification_code->check_token_empty->error_number : 2", "message": error_send } ; 			
+	}	
+		
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"user_id":user_id
+		}
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares.get_check_data(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->verification_code->check_role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	// nếu không phải chủ sở hữ user thì return error
+	if(check_datas_result.owner_user != "1" ){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controller_users->verification_code->check_role -> error_number : 3", "message": error_send } ); 
+		return;			
+	}	
+
+	try{
+		models_users.get_one_users(user_id).then( results => {
+			//@
+			//@
+			//@ nếu có datas
+			if(results.length > 0){
+				//@
+				//@
+				//kiểm tra user đã xác thực số dt chưa
+				//nếu xác thực rùi thì return
+				//nếu chưa xác thực thì gữi max xác thực
+				if(results[0].users_verification_status == "1"){
+					res.send({ "error" : "controller_users->verification_code->get_one_users->->error_number : 10", "message": "User này đã xác thực rồi"} ); 
+					return;						
+				}
+				
+				//@
+				//@
+				// kiểm tra mã xác thực
+				if(results[0].users_verification_code == datas.users_verification_code){
+					//@
+					//@
+					//@
+					//@
+					//@
+					//tinh htoi gian song cua code
+					try {
+						var date_now = Date.now();
+						var date_database = Date.parse(results[0].users_verification_time);
+						var date_live = date_now - date_database;
+						var date_minute = Math.floor(date_live / ( 60 * 1000 ));
+						//@
+						//@
+						// nếu quá hạn 10 phú thì là hết hạn
+						if(date_minute > 10 ){
+							res.send({ "error" : "controller_users->verification_code->get_one_users->->error_number : 5", "message": "hết thời gian"} ); 
+							return;	
+						}
+						
+					}
+					catch(error){
+						var evn = ojs_configs.evn;
+						//evn = "dev";
+						var error_send = ojs_shares.show_error( evn, error, "Lỗi tính thời gian code live, Liên hệ bộ phan HTKT dala" );
+						res.send({ "error" : "controller_users->verification_code->get_one_users->->error_number : 5", "message": error_send } ); 
+						return;	
+					}		
+
+					//@
+					//@
+					// update verification status
+					try {
+						
+						var datas_verification = {
+							"users_verification_code":"",
+							"users_verification_status":1
+						}
+						//res.send(datas_verification);
+						//return;	
+						
+						//@
+						//@
+						//@ lưu verification code
+						models_users.update_users(datas_verification,user_id).then( results => {
+							//@
+							//@
+							//send data
+							res.send( {"error" : "", "message" : "verification ok "} );
+							return;
+
+						}, error => {
+							
+							let message_error = default_field.get_message_error(error);
+							
+							var evn = ojs_configs.evn;
+							//evn = "dev";
+							var error_send = ojs_shares.show_error( evn, error, message_error );
+							res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 4", "message": error_send } ); 
+							return;	
+						});
+					}
+					catch(error){
+						var evn = ojs_configs.evn;
+						//evn = "dev";
+						var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+						res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 5", "message": error_send } ); 
+						return;	
+					}	
+					
+				}else{
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, "Mã xác thực không đúng hoặc đã hết hạn", "Mã xác thực không đúng hoặc đã hết hạn" );
+					res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 6", "message": error_send } ); 
+					return;					
+				}
+			//@
+			//@
+			//@ nếu không có datas
+			}else{
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, error, "Không tìm thấy users" );
+					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 7", "message": error_send } ); 
+					return;				
+			}
+			
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 8", "message": error_send } ); 
+			return;			
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 9", "message": error_send } ); 
+			return;	
+	}	
+
+
+}
+//* end of  7. [verification_code]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -854,49 +1442,6 @@ const search = async function (req, res, next) {
 //@@
 //@@
 //insert
-async function update_users(req, res, next) {
-	let datas = req.body.datas;
-	let user_id = req.params.user_id;
-	let token = req.headers['token'];
-	var token_decode = jwt.decode(token);	
-	
-	//res.send({"error":"","datas":datas});
-	//return;
-	//@
-	try {
-		models_users.update_users(datas,user_id).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-		}, error => {
-			
-			let message_error = default_field.get_message_error(error);
-			
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn, error, message_error );
-			res.send({ "error" : "10_contreoller_users->cupdate_users", "message": error_send } ); 
-			return;	
-		});
-	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-			res.send({ "error" : "11_contreoller_users->cupdate_users->catch", "message": error_send } ); 
-			return;	
-	}	
-}
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
 function insert_users(req, res, next) {
 	let datas = req.body.datas;
 	//res.send(datas);
@@ -1013,7 +1558,9 @@ module.exports = {
 		register_users,
 		check_token_app,
 		register_app,
-		login_app
+		login_app,
+		get_verification_code,
+		verification_code
 };
 
 

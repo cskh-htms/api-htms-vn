@@ -127,10 +127,8 @@ CREATE TRIGGER trig_check_users_phone_data_update BEFORE UPDATE ON dala_users
 FOR EACH ROW  
 BEGIN  
 
-IF(NEW.dala_users_phone is null or NEW.dala_users_phone = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_check_users_phone_data_empty';   
-ELSE 
+
+IF(LENGTH(NEW.dala_users_phone) > 0 ) THEN 
 	IF (NEW.dala_users_phone REGEXP '^[0-9]{10,11}+$' ) = 0 THEN 
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_check_users_phone_data_type';   

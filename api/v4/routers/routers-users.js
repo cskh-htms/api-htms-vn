@@ -20,7 +20,21 @@
 4. 	* [aet_one_user]
 	* lấy user theo ID
 	* Chỉ có chủ user mới dc lấy
-
+	
+5. 	* [update_users]
+	* update users
+	* Chỉ có chủ user mới dc update
+	
+	
+	
+6. 	* [get-verification-code]
+	*  tạo max xác thực
+	
+	
+7. 	* [verification-code]
+	* xác thực	điện thoại
+	
+	
 	
 */
 
@@ -67,11 +81,29 @@ router.get('/:user_id', middle_ware, controllers_users.get_one_users);
 
 
 
+//@@
+//@@
+//@@
+//5. [update_users] 
+router.put('/:user_id', middle_ware, controllers_users.update_users);
+
+
+
+//@@
+//@@
+//@@
+//6. [get-verification-code] 
+router.post('/get-verification-code', middle_ware, controllers_users.get_verification_code);
 
 
 
 
 
+//@@
+//@@
+//@@
+//7. [verification-code] 
+router.post('/verification-code', middle_ware, controllers_users.verification_code);
 
 
 
@@ -115,17 +147,6 @@ catch(error){
 
 
 
-
-//@@
-//@@
-//@@
-//update
-try {
-	router.put('/:user_id', middle_ware, controllers_users.update_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_users" , "mesage" : error } );
-}
 
 
 //@@
