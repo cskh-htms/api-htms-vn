@@ -27,9 +27,9 @@ router.get('/', async function (req, res, next) {
 
 	const options = {
 		from: authUser,
-		to: 'phamquocvuong94@gmail.com',
-		subject: 'Tiêu đề email 1',
-		html: '<h1>Xin chào khách hàng 1</h1>'
+		to: 'htms.group.vn@gmail.com',
+		subject: 'test email title',
+		html: '<h1>Xin chào</h1>'
 	}
 	
 	transporter.sendMail(options, function(err,info){
@@ -43,7 +43,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
 
-	res.send("vuong san post");
+	res.send("email test");
 
 });
 

@@ -39,7 +39,14 @@
 	* lấy lại mật khẩu
 		
 	
+9. 	* [login]
+	* login trên website
+		
 	
+10. 	* [register]
+	* đăng ký trên web 
+		
+			
 	
 	
 */
@@ -123,8 +130,19 @@ router.post('/lost-password', controllers_users.lost_password);
 
 
 
+//@@
+//@@
+//@@
+//9. [login] 
+router.post('/login', controllers_users.login);
 
 
+
+//@@
+//@@
+//@@
+//10. [register] 
+router.post('/register', controllers_users.register);
 
 
 
@@ -143,22 +161,6 @@ catch(error){
 }
 //@@
 //@@
-
-//@@
-//@@
-//@@
-//register
-try {
-	router.post('/register', controllers_users.register_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_users" , "mesage" : error } );
-}
-//@@
-//@@
-//@@
-//@@
-
 
 
 

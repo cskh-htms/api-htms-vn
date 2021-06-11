@@ -15,7 +15,7 @@
 
 6.  [search_email]
 
-
+7.  [users_update_email]
 
 */
 
@@ -266,8 +266,8 @@ const get_one_users = async function (user_id) {
 
 //@@
 //@@
-//@@@@@@@@@@
-//@@@@@@@@@@
+//@@
+//@@
 //@@
 //@@
 //5.  [update_users]
@@ -385,7 +385,43 @@ const search_email = async function (email) {
 
 
 
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+//7.  [update_users_email]
+const update_users_email = async function (datas,user_id) {
+	
+	//@
+	//@
+	//@
+	var table_name  = ojs_configs.db_prefix + "users ";
+	var field_where  = ojs_configs.db_prefix + "users_ID ";
+	var sqlSet = " " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'" ;
+	//create sql text
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->update_users_email->error_number : 1", "message" : error } ;
+	}
+};
 
+
+
+//7. end of  [update_users_email ]
 
 
 
@@ -645,19 +681,20 @@ var check_trung_phone = async function ( phone ) {
 
 //export module
 module.exports = { 
-				login ,
-				login_default,
-				search,
-				check_token,
-				get_all_users,
-				get_one_users,
-				update_users,
-				insert_users,
-				delete_users,
-				check_trung_user_name,
-				check_trung_email,
-				check_trung_phone,
-				search_email
+	login ,
+	login_default,
+	search,
+	check_token,
+	get_all_users,
+	get_one_users,
+	update_users,
+	insert_users,
+	delete_users,
+	check_trung_user_name,
+	check_trung_email,
+	check_trung_phone,
+	search_email,
+	update_users_email
 };
 
 
