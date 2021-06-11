@@ -35,6 +35,12 @@
 	* xác thực	điện thoại
 	
 	
+8. 	* [lost-password]
+	* lấy lại mật khẩu
+		
+	
+	
+	
 	
 */
 
@@ -106,6 +112,14 @@ router.post('/get-verification-code', middle_ware, controllers_users.get_verific
 router.post('/verification-code', middle_ware, controllers_users.verification_code);
 
 
+
+
+
+//@@
+//@@
+//@@
+//8. [lost-password] 
+router.post('/lost-password', controllers_users.lost_password);
 
 
 

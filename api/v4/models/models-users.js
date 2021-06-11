@@ -11,8 +11,9 @@
 
 4.  [get_one_user]
 
-5.  [update_users ]
+5.  [update_users]
 
+6.  [search_email]
 
 
 
@@ -345,7 +346,39 @@ const update_users = async function (datas,user_id) {
 
 
 
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+//6.  [search_email]
+const search_email = async function (email) {
+	//create sql text
+	let sql_text = 	"SELECT " +  sql_select_all + 
+					sql_from_default + 
+					" where " +  
+					sql_link_default + 
+					" and " + 
+					ojs_configs.db_prefix + "users_email = '" + email + "' " 
+	
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->search_email->error_number : 1", "message" : error } ;
+	}
+};
 
+//6. end of  [search_email]
 
 
 
@@ -623,7 +656,8 @@ module.exports = {
 				delete_users,
 				check_trung_user_name,
 				check_trung_email,
-				check_trung_phone
+				check_trung_phone,
+				search_email
 };
 
 

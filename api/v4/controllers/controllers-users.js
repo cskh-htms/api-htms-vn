@@ -21,7 +21,7 @@
 
 * 7. [verification_code]
 
-
+* 8. [lost_password]
 
 
 
@@ -1062,10 +1062,57 @@ async function verification_code(req, res, next) {
 
 
 
+//
+//@@
+//@@
+//@@
+//@@
+//* 8. [lost_password]
+async function lost_password(req, res, next) {
+	
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		//res.send([datas]);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->lost_password->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//@
+	//@
+	//@
+	//get user data
+	try {
+		models_users.search_email(datas.users_email ).then( results => {
+			if(results.length  > 0) {
+				res.send( { "error" : "", "datas" : results } );
+			}else{
+				res.send( { "error": "ctl_1", "message" :  results } );
+			}		
+		}, error => {
+			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+			res.send( { "error": "ctl_2", "message" : error_send  } );	
+		});
+	}
+	catch(error){
+		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+		res.send( { "error": "c_ctl_3", "message" : error_send  } );
+	}
 
 
 
 
+}
+//* end of  8. [lost_password]
 
 
 
@@ -1560,7 +1607,8 @@ module.exports = {
 		register_app,
 		login_app,
 		get_verification_code,
-		verification_code
+		verification_code,
+		lost_password
 };
 
 
