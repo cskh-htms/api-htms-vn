@@ -474,7 +474,7 @@ const search = async function (datas) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file select, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "model_users->search->sql_field->error_number : 1", "message": error_send } ); 
 		return;	
@@ -504,7 +504,6 @@ const search = async function (datas) {
 	}		
 		
 	
-	
 	//@
 	//@
 	//@
@@ -525,7 +524,6 @@ const search = async function (datas) {
 		res.send({ "error" : "model_users->search->error_number : 3", "message": error_send } ); 
 		return;	
 	}		
-		
 
 
 	//@
@@ -556,7 +554,7 @@ const search = async function (datas) {
 	//@
 	//@ghep data	
 	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-	//return get_sql_search;
+
 	//@
 	//@
 	var get_sql_search_1 = {...get_sql_search};
@@ -565,7 +563,10 @@ const search = async function (datas) {
 	//@
 	//@	
 	let get_sql_search_2 = {...get_sql_search_1};
-	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
+	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
+	
+	
+
 	//@
 	//@	
 	let get_sql_search_3 = {...get_sql_search_2};
@@ -577,13 +578,18 @@ const search = async function (datas) {
 	let get_sql_search_4 = {...get_sql_search_3};
 	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });	
 
-	
+
+
+
 	//@
 	//@
 	//@
 	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
 	
 
+	
+
+	
 	
 	//@
 	try {	

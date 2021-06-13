@@ -70,47 +70,57 @@ const ojs_shares_sql = {
 	//@
 	// get condition text
 	get_condition : function(condition_arr){
-		
 		var sql_condition = "";
 		var sql_conditions = " where '2020' = '2020' and ";
 		//@
-		var relation_check=[
+		//@
+		var relation_check = [
 			"or",
 			"and"
 		];
-	
-		//return sql_conditions;
-		//@
-		//@
+
 		//@
 		if(Object.keys(condition_arr).length == 0){
 			sql_condition = "";
 		}else{
 			//return sql_conditions;
-			
 			for (var x in condition_arr){
 				for (var s in condition_arr[x].where){
 					let consition_value = "";
 					let consition_field = "";//condition_arr[x].where[s].field
 					
 					//
-					//
-					//@@ edit date order
+					//ac dinh set value va file
+					consition_value = " '" + condition_arr[x].where[s].value + "' ";
+					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;				
 					
-					if(ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true || ojs_shares_date.check_date(condition_arr[x].where[s].value) == true ){
+					//
+					//@@
+					//var number_check = 0;
+					//
+					//
+					//@@ edit date 
+					if(
+					ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true 
+					|| 
+					ojs_shares_date.check_date(condition_arr[x].where[s].value) == true 
+					){
 						consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
 						consition_field = " UNIX_TIMESTAMP(" + ojs_configs.db_prefix + condition_arr[x].where[s].field + ") ";
 					
-					}else if(condition_arr[x].where[s].compare == "in"){
+					}
+					
+					
+					
+					//
+					//@in condition
+					if(condition_arr[x].where[s].compare == "in"){
 						consition_value = "(" + condition_arr[x].where[s].value + ")";
 						consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
-					}else{
-						consition_value = " '" + condition_arr[x].where[s].value + "' ";
-						consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
-					}				
+					}
 					
 					
-
+		
 					var relation = condition_arr[x].relation;
 					
 					if(relation_check.indexOf(relation) < 0 ){
@@ -121,8 +131,10 @@ const ojs_shares_sql = {
 					if(s == 0 && x == 0){
 						relation = " ";
 					}
-					
+									
+								
 
+					
 					sql_condition = sql_condition + relation + " ";
 					sql_condition = sql_condition + 
 						consition_field + " " + 
@@ -135,6 +147,7 @@ const ojs_shares_sql = {
 		sql_conditions = sql_conditions + sql_condition;
 		sql_conditions = sql_conditions + " ";
 		return sql_conditions;
+
 	},//end of get_condition
 	
 	//@

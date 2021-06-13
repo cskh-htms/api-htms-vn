@@ -708,12 +708,6 @@ async function update_users(req, res, next) {
 	}
 
 
-	//res.send(datas_insert ); 
-	//return;	
-
-
-
-
 	//@
 	//@
 	//@
@@ -1262,6 +1256,11 @@ const login = function (req, res, next) {
 					res.send("Lỗi phân quyền -> guest users không cần  login ");
 					return;
 				}
+				
+				if(role_text =="supper-job"){
+					res.send("Lỗi phân quyền -> job users không cần  login ");
+					return;
+				}				
 				//@
 				//@
 				//tạo token send data
@@ -1615,7 +1614,7 @@ const search = async function (req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->search->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
@@ -1651,12 +1650,7 @@ const search = async function (req, res, next) {
 	try {
 		models_users.search(datas).then( results => {
 			
-			res.send( { "error" : "", "datas" : results } );
-			return;			
-			
-			
-			
-			if(results.length  > 0) {
+		if(results.length  > 0) {
 				res.send( { "error" : "", "datas" : results } );
 				return;
 			}else{
