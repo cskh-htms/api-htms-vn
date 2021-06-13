@@ -46,7 +46,12 @@ INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_user
 (52, '2021-05-19 14:39:27', 'saokim', 'a3dcb4d229de6fde0db5686dee47145d', 'Cua hang', 'Sao Kim', '11 Dang Duc Thuat', '09480360102', 'saokim.team@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),
 (55, '2021-05-19 14:45:47', 'tuanbao', 'a3dcb4d229de6fde0db5686dee47145d', 'tuanbao', 'tuanbao', 'tuanbao', '09480360105', 'tuanbao@gmail.com', 'v4', 'v4', 'v4', 'v4', 14, 0, 0, '', NULL),
 (56, '2021-05-19 14:47:18', 'custommer', 'a3dcb4d229de6fde0db5686dee47145d', 'custommer', 'custommer', 'custommer', '09480360106', 'custommer@gmail.com', 'v4', 'v4', 'v4', 'v4', 15, 0, 0, '', NULL),
-(57, '2021-05-19 14:48:49', 'GuestDalaAll', '412789534f5cd5b263bb574ba2f09585', 'GuestDalaAll', 'GuestDalaAll', 'GuestDalaAll', '09480360107', 'GuestDalaAll@gmail.com', 'v4', 'v4', 'v4', 'v4', 16, 0, 0, '', NULL);
+(57, '2021-05-19 14:48:49', 'GuestDalaAll', '412789534f5cd5b263bb574ba2f09585', 'GuestDalaAll', 'GuestDalaAll', 'GuestDalaAll', '09480360107', 'GuestDalaAll@gmail.com', 'v4', 'v4', 'v4', 'v4', 16, 0, 0, '', NULL),
+(62, '2021-05-19 14:48:49', 'supper-job', 'e6f6c1856909fd4b527b3ab04d0e99a3', 'supper-job', 'supper-job', 'supper-job', '0889450307', 'supper-job@gmail.com', 'v4', 'v4', 'v4', 'v4', 17, 0, 0, '', NULL);
+
+
+
+
 
 --
 -- Đang đổ dữ liệu cho bảng `dala_users_type`
@@ -56,7 +61,8 @@ INSERT INTO `dala_users_type` (`dala_users_type_ID`, `dala_users_type_name`, `da
 (13, 'admin', '354aae4c3655725e157156614010b592'),
 (14, 'bussiness', '950a14f62033feb91295dcb123d88e06'),
 (15, 'customer', 'c20284d123204abaf547da15957b17f8'),
-(16, 'default', '319b17162d07a5697a5b2175279a54b0');
+(16, 'default', '319b17162d07a5697a5b2175279a54b0'),
+(17, 'supper-job', '22e9dfe5055e7e35bd4f754a01c365f7');
 
 
 

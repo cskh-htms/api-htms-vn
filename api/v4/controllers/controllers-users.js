@@ -26,8 +26,14 @@
 * 9. [login]
 
 
-* 10. [register]
+* 10. [insert_users]
 
+
+
+* 11. [search]
+
+
+* 12. [delete]
 
 
 
@@ -43,7 +49,7 @@ var router = express.Router();
 //@
 //@
 //@
-// npm exstands
+//npm exstands
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
@@ -54,22 +60,29 @@ const default_field = require('../const-tables/const-tables-users');
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
+
+
+
+//@
+//@
+//function share
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
 const ojs_shares_send_code_to_phone = require('../../../models/ojs-shares-send-code-to-phone');
-
-
+const ojs_shares_others = require('../../../models/ojs-shares-others');
 const ojs_shares_send_email = require('../../../models/ojs-shares-send-email');
+const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
+const ojs_shares_date = require('../../../models/ojs-shares-date');
+const ojs_shares_fetch_data= require('../../../models/ojs-shares-fetch-data');
 
 
+
+
+//@
+//@
+//model
 const models_token = require('../models/models-token');
 const models_users = require('../models/models-users');
-const models_stores = require('../models/models-stores');
-const models_orders_spaciality = require('../models/models-orders-spaciality');
-const models_reviews_spaciality = require('../models/models-reviews-spaciality');
-const models_comments_spaciality = require('../models/models-comments-spaciality');
-
 
 
 
@@ -101,7 +114,7 @@ async function register_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "controller_users->register_app->error_number : 1", "message": error_send } ); 
 		return;	
 	}		
@@ -123,7 +136,7 @@ async function register_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi gộp đầu vào data version, vui lòng liên hệ cskh dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi gộp đầu vào data version, vui lòng liên hệ cskh dala" );
 		res.send({ "error" : "controller_users->register_app->error_number : 2", "message": error_send } ); 
 		return;	
 	}		
@@ -151,7 +164,7 @@ async function register_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi check đầu vào data, Vui lòng liên hệ cskh DALA" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check đầu vào data, Vui lòng liên hệ cskh DALA" );
 		res.send({ "error" : "controller_users->register_app->error_number : 3", "message": error_send } ); 
 		return;	
 	}			
@@ -187,7 +200,7 @@ async function register_app(req, res, next) {
 			//@
 			//@
 			//return				
-			var error_send = ojs_shares.show_error( evn, error, message_error );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 			res.send({ "error" : "controller_users->register_app->error_number : 4", "message": error_send } ); 
 			return;
 		});
@@ -195,7 +208,7 @@ async function register_app(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
 		res.send({ "error" : "controller_users->register_app->error_number : 5", "message": error_send } ); 
 		return;
 	}	
@@ -227,7 +240,7 @@ const login_app = function (req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "controller_users->login_app->error_number : 1", "message": error_send } ); 
 		return;	
 	}	
@@ -244,7 +257,11 @@ const login_app = function (req, res, next) {
 				//@
 				//@
 				// lấy role text
-				var role_text = ojs_shares.check_role(results[0].users_type_infomation);
+				var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
+				
+				//res.send(role_text);
+				//return;
+				
 				if(role_text =="admin"){
 					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
 					return;
@@ -253,6 +270,10 @@ const login_app = function (req, res, next) {
 					res.send("Lỗi phân quyền -> guest users không cần  login ");
 					return;
 				}
+				if(role_text =="supper-job"){
+					res.send("Lỗi phân quyền -> supper-job users không cần  login ");
+					return;
+				}				
 				//@
 				//@
 				//tạo token send data
@@ -267,7 +288,7 @@ const login_app = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login_app->error_number : 6", "message": error_send } ); 
 				return;	
 			}
@@ -299,7 +320,7 @@ const login_app = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login_app->error_number : 7", "message": error_send } ); 
 				return;	
 			}
@@ -314,7 +335,7 @@ const login_app = function (req, res, next) {
 				}, error => {
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
 					res.send({ "error" : "controller_users->login_app->error_number : 3", "message": error_send } ); 
 					return;
 				});
@@ -322,7 +343,7 @@ const login_app = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login_app->error_number : 8", "message": error_send } ); 
 				return;	
 			}	
@@ -330,14 +351,14 @@ const login_app = function (req, res, next) {
 		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+			var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
 			res.send({ "error" : "controller_users->login_app->error_number : 4", "message": error_send } ); 
 			return;
 		}
 	}, error => {
 		var evn = ojs_configs.evn;
 		evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
 		res.send({ "error" : "controller_users->login_app->error_number : 2", "message": error_send } ); 
 		return;
 	});	
@@ -376,7 +397,7 @@ async function get_all_users(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->get_all_users->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -388,7 +409,7 @@ async function get_all_users(req, res, next) {
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return { "error" : "ojs_shares->get_all_users->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 	
@@ -408,21 +429,21 @@ async function get_all_users(req, res, next) {
 		}
 		
 		var check_datas_result;		
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
-		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->get_all_users->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
-	if(check_datas_result.user_role != "admin"){
+	
+	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" ){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
 		res.send({ "error" : "controller_users->get_all_users->check_role -> error_number : 3", "message": error_send } ); 
 		return;				
 	}
@@ -437,7 +458,7 @@ async function get_all_users(req, res, next) {
 		}, error => {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi get datas user, Liên hệ bộ phận HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get datas user, Liên hệ bộ phận HTKT dala" );
 			res.send({ "error" : "controller_users->get_all_users->error_number : 6", "message": error_send } ); 
 			return;
 		});
@@ -445,7 +466,7 @@ async function get_all_users(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,error, "Lỗi get datas user, Liên hệ bộ phận HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi get datas user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->get_all_users->error_number : 5", "message": error_send } ); 
 		return;
 	}	
@@ -473,7 +494,7 @@ async function get_one_users(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->get_one_users->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -485,7 +506,7 @@ async function get_one_users(req, res, next) {
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return { "error" : "ojs_shares->get_one_users->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
@@ -501,12 +522,12 @@ async function get_one_users(req, res, next) {
 		}
 		
 		var check_datas_result;		
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->get_one_users->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
@@ -519,7 +540,7 @@ async function get_one_users(req, res, next) {
 	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_user == "1" ){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
 		res.send({ "error" : "controller_users->get_one_users->check_role -> error_number : 3", "message": error_send } ); 
 		return;			
 	}
@@ -536,13 +557,13 @@ async function get_one_users(req, res, next) {
 			
 		}, error => {
 
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 			res.send( { "error": "ctl_api_2", "message" : error_send  } );	
 
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 		res.send( { "error": "c_ctl_api_3", "message" : error_send  } );
 	}	
 }
@@ -574,7 +595,7 @@ async function update_users(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->update_users->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -584,7 +605,7 @@ async function update_users(req, res, next) {
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return { "error" : "ojs_shares->update_users->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
@@ -599,12 +620,12 @@ async function update_users(req, res, next) {
 		}
 		
 		var check_datas_result;		
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
@@ -617,7 +638,7 @@ async function update_users(req, res, next) {
 	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_user == "1" ){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
 		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 3", "message": error_send } ); 
 		return;			
 	}	
@@ -628,7 +649,7 @@ async function update_users(req, res, next) {
 	if(check_datas_result.user_role == "default" ){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Users guest không update", "Users guest không update" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Users guest không update", "Users guest không update" );
 		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 4", "message": error_send } ); 
 		return;			
 	}	
@@ -639,7 +660,7 @@ async function update_users(req, res, next) {
 	if(datas.users_users_type_id  &&  check_datas_result.user_role != "admin"){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Chỉ có admin mới có quyền thay đổi users type ", "Chỉ có admin mới có quyền thay đổi users type" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Chỉ có admin mới có quyền thay đổi users type ", "Chỉ có admin mới có quyền thay đổi users type" );
 		res.send({ "error" : "controller_users->update_users->check_role -> error_number : 5", "message": error_send } ); 
 		return;	
 	}	
@@ -681,7 +702,7 @@ async function update_users(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi chuyển đổi data type, Liên hệ bộ phan HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi chuyển đổi data type, Liên hệ bộ phan HTKT dala" );
 			res.send({ "error" : "controller_users->update_users->change type->error_number : 1", "message": error_send } ); 
 			return;	
 	}
@@ -705,7 +726,7 @@ async function update_users(req, res, next) {
 			
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, message_error );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 			res.send({ "error" : "controller_users->update_users-> error_number : 4", "message": error_send } ); 
 			return;	
 		});
@@ -713,7 +734,7 @@ async function update_users(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 			res.send({ "error" : "controller_users->update_users-> catch-end->error_number : 5", "message": error_send } ); 
 			return;	
 	}	
@@ -746,7 +767,7 @@ async function get_verification_code(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->get_verification_code->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -757,7 +778,7 @@ async function get_verification_code(req, res, next) {
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return { "error" : "ojs_shares->get_verification_code->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
@@ -788,7 +809,7 @@ async function get_verification_code(req, res, next) {
 						
 						var datas_verification = {
 							"users_verification_code":verification_code,
-							"users_verification_time":ojs_shares.get_current_date_now()
+							"users_verification_time":ojs_shares_date.get_current_date_now()
 						}
 						//res.send(datas_verification);
 						//return;	
@@ -819,7 +840,7 @@ async function get_verification_code(req, res, next) {
 							
 							var evn = ojs_configs.evn;
 							//evn = "dev";
-							var error_send = ojs_shares.show_error( evn, error, message_error );
+							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 							res.send({ "error" : "controller_users->get_verification_code->update_users-> error_number : 4", "message": error_send } ); 
 							return;	
 						});
@@ -827,7 +848,7 @@ async function get_verification_code(req, res, next) {
 					catch(error){
 						var evn = ojs_configs.evn;
 						//evn = "dev";
-						var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 						res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 5", "message": error_send } ); 
 						return;	
 					}	
@@ -835,7 +856,7 @@ async function get_verification_code(req, res, next) {
 				}else{
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, "users đã xác thực", "users đã xác thực" );
+					var error_send = ojs_shares_show_errors.show_error( evn, "users đã xác thực", "users đã xác thực" );
 					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 6", "message": error_send } ); 
 					return;					
 				}
@@ -845,7 +866,7 @@ async function get_verification_code(req, res, next) {
 			}else{
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, error, "Không tìm thấy users" );
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
 					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 7", "message": error_send } ); 
 					return;				
 			}
@@ -853,7 +874,7 @@ async function get_verification_code(req, res, next) {
 		}, error => {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 8", "message": error_send } ); 
 			return;			
 		});
@@ -861,7 +882,7 @@ async function get_verification_code(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 9", "message": error_send } ); 
 			return;	
 	}	
@@ -894,7 +915,7 @@ async function verification_code(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->verification_code->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -905,7 +926,7 @@ async function verification_code(req, res, next) {
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return { "error" : "ojs_shares->verification_code->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
@@ -920,12 +941,12 @@ async function verification_code(req, res, next) {
 		}
 		
 		var check_datas_result;		
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controller_users->verification_code->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
@@ -937,7 +958,7 @@ async function verification_code(req, res, next) {
 	if(check_datas_result.owner_user != "1" ){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
 		res.send({ "error" : "controller_users->verification_code->check_role -> error_number : 3", "message": error_send } ); 
 		return;			
 	}	
@@ -985,7 +1006,7 @@ async function verification_code(req, res, next) {
 					catch(error){
 						var evn = ojs_configs.evn;
 						//evn = "dev";
-						var error_send = ojs_shares.show_error( evn, error, "Lỗi tính thời gian code live, Liên hệ bộ phan HTKT dala" );
+						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi tính thời gian code live, Liên hệ bộ phan HTKT dala" );
 						res.send({ "error" : "controller_users->verification_code->get_one_users->->error_number : 5", "message": error_send } ); 
 						return;	
 					}		
@@ -1018,7 +1039,7 @@ async function verification_code(req, res, next) {
 							
 							var evn = ojs_configs.evn;
 							//evn = "dev";
-							var error_send = ojs_shares.show_error( evn, error, message_error );
+							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 							res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 4", "message": error_send } ); 
 							return;	
 						});
@@ -1026,7 +1047,7 @@ async function verification_code(req, res, next) {
 					catch(error){
 						var evn = ojs_configs.evn;
 						//evn = "dev";
-						var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 						res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 5", "message": error_send } ); 
 						return;	
 					}	
@@ -1034,7 +1055,7 @@ async function verification_code(req, res, next) {
 				}else{
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, "Mã xác thực không đúng hoặc đã hết hạn", "Mã xác thực không đúng hoặc đã hết hạn" );
+					var error_send = ojs_shares_show_errors.show_error( evn, "Mã xác thực không đúng hoặc đã hết hạn", "Mã xác thực không đúng hoặc đã hết hạn" );
 					res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 6", "message": error_send } ); 
 					return;					
 				}
@@ -1044,7 +1065,7 @@ async function verification_code(req, res, next) {
 			}else{
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, error, "Không tìm thấy users" );
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
 					res.send({ "error" : "controller_users->get_verification_code->update_users-> catch-end->error_number : 7", "message": error_send } ); 
 					return;				
 			}
@@ -1052,7 +1073,7 @@ async function verification_code(req, res, next) {
 		}, error => {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 8", "message": error_send } ); 
 			return;			
 		});
@@ -1060,7 +1081,7 @@ async function verification_code(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			res.send({ "error" : "controller_users->verification_code->update_users-> catch-end->error_number : 9", "message": error_send } ); 
 			return;	
 	}	
@@ -1097,7 +1118,7 @@ async function lost_password(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req get_verification_code, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->lost_password->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -1111,6 +1132,16 @@ async function lost_password(req, res, next) {
 		models_users.search_email( datas.users_email ).then( results => {
 			if(results.length  > 0) {
 				
+				
+				var users_role = ojs_shares_others.check_role(results[0].users_type_infomation);
+				//@
+				//@
+				// chỉ có khách hàng với chủ cửa hàng mới dc thay đổi mật khẩu
+				if(users_role == "customer" || users_role == "bussiness"){
+				}else{
+					res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 10", "message": "chỉ có customer hoặc bussiness mới dc lost password" } ); 
+					return;					
+				}
 				
 				//@
 				//@
@@ -1147,7 +1178,7 @@ async function lost_password(req, res, next) {
 						
 						var evn = ojs_configs.evn;
 						//evn = "dev";
-						var error_send = ojs_shares.show_error( evn, error, message_error );
+						var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 						res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 4", "message": error_send } ); 
 						return;	
 					});
@@ -1155,24 +1186,24 @@ async function lost_password(req, res, next) {
 				catch(error){
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 					res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 5", "message": error_send } ); 
 					return;	
 				}					
 			}else{
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 				res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 6", "message": error_send } ); 
 				return;	
 			}		
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 			res.send( { "error": "ctl_2", "message" : error_send  } );	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 		res.send( { "error": "c_ctl_3", "message" : error_send  } );
 	}
 
@@ -1205,7 +1236,7 @@ const login = function (req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "controller_users->login->error_number : 1", "message": error_send } ); 
 		return;	
 	}	
@@ -1222,7 +1253,7 @@ const login = function (req, res, next) {
 				//@
 				//@
 				// lấy role text
-				var role_text = ojs_shares.check_role(results[0].users_type_infomation);
+				var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
 				if(role_text =="customer"){
 					res.send("Lỗi phân quyền -> khách hàng chỉ login trên app");
 					return;
@@ -1245,7 +1276,7 @@ const login = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login->error_number : 6", "message": error_send } ); 
 				return;	
 			}
@@ -1277,7 +1308,7 @@ const login = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login->error_number : 7", "message": error_send } ); 
 				return;	
 			}
@@ -1292,7 +1323,7 @@ const login = function (req, res, next) {
 				}, error => {
 					var evn = ojs_configs.evn;
 					//evn = "dev";
-					var error_send = ojs_shares.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
 					res.send({ "error" : "controller_users->login->error_number : 3", "message": error_send } ); 
 					return;
 				});
@@ -1300,7 +1331,7 @@ const login = function (req, res, next) {
 			catch (error){
 				var evn = ojs_configs.evn;
 				//evn = "dev";
-				var error_send = ojs_shares.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
 				res.send({ "error" : "controller_users->login->error_number : 8", "message": error_send } ); 
 				return;	
 			}	
@@ -1308,14 +1339,14 @@ const login = function (req, res, next) {
 		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+			var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
 			res.send({ "error" : "controller_users->login->error_number : 4", "message": error_send } ); 
 			return;
 		}
 	}, error => {
 		var evn = ojs_configs.evn;
 		evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
 		res.send({ "error" : "controller_users->login->error_number : 2", "message": error_send } ); 
 		return;
 	});	
@@ -1331,9 +1362,9 @@ const login = function (req, res, next) {
 //@
 //@
 //@
-//10. [register] 
+//10. [insert_users] 
 //@
-async function register(req, res, next) {
+async function insert_users(req, res, next) {
 	
 	//@
 	//@
@@ -1350,7 +1381,7 @@ async function register(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
 		res.send({ "error" : "controller_users->register->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
@@ -1360,7 +1391,7 @@ async function register(req, res, next) {
 	if(typeof token == "undefined" || token == "" || token == null ){
 		var evn = ojs_configs.evn;
 		
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền truy cập  ", "Bạn không đủ quyền truy cập" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền truy cập  ", "Bạn không đủ quyền truy cập" );
 		res.send({ "error" : "controller_users->register->error_number : 5", "message": error_send } ); 
 		return;
 	}
@@ -1376,13 +1407,13 @@ async function register(req, res, next) {
 		}
 		
 		var check_datas_result;		
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controller_users->register->check_role -> error_number : 2", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->insert_users->check_role -> error_number : 4", "message": error_send } ); 
 		return;			
 	}
 	
@@ -1394,7 +1425,7 @@ async function register(req, res, next) {
 	if(check_datas_result.user_role != "admin"){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
 		res.send({ "error" : "controller_users->register->check_role -> error_number : 3", "message": error_send } ); 
 		return;			
 	}	
@@ -1416,7 +1447,7 @@ async function register(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi gộp đầu vào data version, vui lòng liên hệ cskh dala" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi gộp đầu vào data version, vui lòng liên hệ cskh dala" );
 		res.send({ "error" : "controller_users->register->error_number : 2", "message": error_send } ); 
 		return;	
 	}		
@@ -1444,7 +1475,7 @@ async function register(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi check đầu vào data, Vui lòng liên hệ cskh DALA" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check đầu vào data, Vui lòng liên hệ cskh DALA" );
 		res.send({ "error" : "controller_users->register->error_number : 3", "message": error_send } ); 
 		return;	
 	}			
@@ -1471,7 +1502,7 @@ async function register(req, res, next) {
 			//@
 			//@
 			//return				
-			var error_send = ojs_shares.show_error( evn, error, message_error );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 			res.send({ "error" : "controller_users->register->error_number : 4", "message": error_send } ); 
 			return;
 		});
@@ -1479,417 +1510,251 @@ async function register(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
 		res.send({ "error" : "controller_users->register->error_number : 5", "message": error_send } ); 
 		return;
 	}	
 }
 
-//1. end of [register-app] 
+//10. end of [register-app] 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//register
-async function register_users(req, res, next) {
-	let datas = req.body.datas;
-	//res.send(datas);
-	//return;
-	//@
-	let datas_assign;
-	
-	
-	try {
-		var version_default = {
-			"users_router_version":ojs_configs.router_version,
-			"users_js_css_version":ojs_configs.js_css_version,
-			"users_api_version":ojs_configs.api_version,
-			"users_view_version":ojs_configs.view_version
-		};
-		
-		datas_assign = Object.assign(default_field.default_fields, version_default);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1_controller_users->register_users->version_default", "message": error_send } ); 
-		return;	
-	}		
-	
-	
-	
-	
-	try {
-		//gop voi data drfault field in mysql database
-		datas_assign = Object.assign(default_field.default_fields, datas);
-		
-		//neu data không hợp lệ thì return loi;
-		
-		let data_check = default_field.check_datas(datas_assign);
-		
-		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
-			return;
-		}
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "2_controller_users->register_users->datas_assign", "message": error_send } ); 
-		return;	
-	}			
-	
-
-	//@
-	//@
-	//@
-	//insert users
-	try {
-		models_users.insert_users(datas_assign).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-		}, error => {
-			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-			res.send({ "error" : "3_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
-			return;
-		});
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "4_controller_users->register_users->models_users.insert_users", "message": error_send } ); 
-		return;
-	}	
-}
-
-
-
-
-
-const login_default = async function (req, res, next) {
-	let datas = req.body.datas;
-	models_users.login(datas).then( results => {
-		try {
-			if(results.length  > 0) {
-				const payload = { 
-					"users_ID": results[0].users_ID, 
-					"users_full_name" :  results[0].users_last_name + " " + results[0].users_first_name, 
-					"users_name": results[0].users_name,
-					"users_nice_name": ojs_shares.encrypt(datas.users_password), 
-					"users_users_type_id": results[0].users_users_type_id,
-					"users_type_infomation" : results[0].users_type_infomation
-				};
-			
-				var token = jwt.sign(payload, ojs_configs.jwt_secret, {
-					expiresIn: "20d"
-				});
-				
-				let datas_return = { "error" : "","token" : token,"datas" : payload };
-				res.send( datas_return );	
-			}else{
-				res.send( { "error": "2", "message" : " users hoặc mật khẩu không đúng " } );
-				return;
-			}
-		}
-		catch (error){
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "server đang bận, truy cập lại sau" );
-			res.send( { "error": "3", "message" : error_send } );	
-		}
-	}, error => {
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "4", "message" : error_send  } );
-		return;
-	});	
-}//end of functions login;
-
-
-
-
-//check token
-function check_token(req, res, next) {
-	let token = req.body.datas.token;
-	var newPayload = jwt.decode(token);
-	
-	//res.send({ "error" : "", "datas": newPayload });
-	//return;	
-	
-    if (token) {
-	try{	
-		jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
-			if (err) {
-		
-				if(ojs_shares.check_role_default(newPayload.users_type_infomation) == true){
-					//kiểm tra mật khẩu neu dung thi cap them token
-					var datas_check = {
-						"users_name" : newPayload.users_name,
-						"users_password" : ojs_shares.decrypt(newPayload.users_nice_name)
-					}
-					
-					models_users.check_token(datas_check).then( results => {
-						if(Object.entries(results).length  > 0) {
-							var  payload = { 
-								"users_ID": newPayload.users_ID, 
-								"users_full_name" :  newPayload.users_last_name + " " + newPayload.users_first_name, 
-								"users_name": newPayload.users_name,
-								"users_nice_name": newPayload.users_nice_name, 
-								"users_users_type_id": newPayload.users_users_type_id,
-								"users_type_infomation": newPayload.users_type_infomation
-							};
-							//@
-							var token_new = jwt.sign(payload, ojs_configs.jwt_secret, {
-								expiresIn: "20d"
-							});
-							//@
-							res.send({ "error" : "", "token": token_new, "datas": payload });
-							return;
-						}else{
-							let error_send = ojs_shares.show_error( ojs_configs.api_evn, " User hoặc mật khẩu không đúng", "server đang bận, truy cập lại sau" );
-							res.send({ "error" : "111", "message": error_send } );   
-							return;
-						}
-						
-					}, error => {
-						let error_send = ojs_shares.show_error( ojs_configs.api_evn,error, "server đang bận, truy cập lại sau" );
-						res.send({ "error" : "3333", "message": error_send } );   
-						return;
-					});						
-					
-				}else{
-					let error_send = ojs_shares.show_error( ojs_configs.api_evn, "Phiên làm việc đã hết hạn", "server đang bận, truy cập lại sau" );
-					res.send({ "error" : "333", "message": error_send , "decode" : newPayload }); 
-					return;					
-				}
-
-			} else {
-				//tao pay load moi de tao token moi
-				var newPayload = {
-					"users_ID": decoded.users_ID, 
-					"users_full_name" :  decoded.users_full_name,
-					"users_name": decoded.users_name,
-					"users_nice_name": decoded.users_nice_name, 
-					"users_users_type_id": decoded.users_users_type_id,	
-					"users_type_infomation": decoded.users_type_infomation									
-				};
-				//res.send({ "error" : "1111", "message": "token het han", "datas": newPayload });
-				//return;
-				
-				
-				var token_new = jwt.sign(newPayload, ojs_configs.jwt_secret, {
-					expiresIn: "20d" 
-				});
-
-				//res.send({ "error" : "1111", "message": "token het han", "datas": token_new });
-				//return;
-				
-				var datas_check = {
-						"users_name" : newPayload.users_name,
-						"users_password" : ojs_shares.decrypt(decoded.users_nice_name)
-					}
-					
-				//res.send({ "error" : "1111", "message": "token het han", "datas": datas_check });
-				//return;					
-					
-				//kiểm tra mật khẩu lần nữa
-				models_users.check_token(datas_check).then( results => {
-					if(Object.entries(results).length  > 0) {
-						res.send({ "error" : "", "token": token_new, "datas": decoded });
-					}else{
-						let error_send = ojs_shares.show_error( ojs_configs.api_evn, " User hoặc mật khẩu không đúng", "server đang bận, truy cập lại sau" );
-						res.send({ "error" : "2", "message": error_send } );   
-					}
-				}, error => {
-					let error_send = ojs_shares.show_error( ojs_configs.api_evn,error, "server đang bận, truy cập lại sau" );
-					res.send({ "error" : "3", "message": error_send } );   
-				});	
-				
-			}
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn,"Chuỗi token không hợp lệ hoặc token đã hết hạn", "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "3", "message": error_send } );   
-	}		
-	}
-
-}
-
-
-
-
-
-//check token
-function check_token_app(req, res, next) {
-	let token = req.body.datas.token;
-	
-	//res.send({ "error" : "", "datas": newPayload });
-	//return;	
-	
-    if (token) {
-		try{	
-			jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
-				if (err) {
-					res.send({ "error" : "", "datas": "0" });
-					return;
-
-				} else {
-					res.send({ "error" : "", "datas": "1" });
-					return;				
-				}
-			});
-		}
-		catch(error){
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn,"Chuỗi token không hợp lệ hoặc token đã hết hạn", "server đang bận, truy cập lại sau" );
-			res.send({ "error" : "1", "message": error_send } );   
-		}		
-	}else{
-		res.send({ "error" : "2", "message": "không có token" });
-		return;		
-	}
-
-}
-
-
-
-
-
-
-
-//search users
+//@
+//@
+//@
+//@
+//11. [search] 
+//@
 const search = async function (req, res, next) {
-	let datas = req.body.datas;
-	//res.send(datas);
-	try {
-		models_users.search(datas).then( results => {
-			if(results.length  > 0) {
-				res.send( { "error" : "", "datas" : results } );
-			}else{
-				res.send( { "error": "ctl_1", "message" :  results } );
-			}		
-		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
-	}
-
-}//end of functions login;
-
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-function insert_users(req, res, next) {
-	let datas = req.body.datas;
-	//res.send(datas);
 	//@
-	let datas_assign;
-	try {
-		//gop voi data drfault field in mysql database
-		datas_assign = Object.assign(default_field.default_fields, datas);
-		
-		//neu data không hợp lệ thì return loi;
-		
-		let data_check = default_field.check_datas(datas_assign);
-		
-		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
-			return;
-		}
-	}
-	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_1", "message" : error_send  } );
-	}			
-	
-	//res.send(datas_assign);
-	
-	
 	//@
+	//@
+	//@	get datas req
 	try {
-		models_users.insert_users(datas_assign).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
-	}	
-}
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
 
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-async function delete_users(req, res, next) {
-	let user_id = req.params.user_id;
-	let token = req.headers['token'];
-	//
-	//@@
-	//@@
-	let datas_check = {
-		"token":token
-	}
-	
-	//res.send(datas_check );	
-	//return;		
-	let check_datas_result;
-	try{
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.controller_users->delete_users", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->search->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//neu không có token thì trỏ ra login page
+	if(typeof token == "undefined" || token == "" || token == null ){
+		var evn = ojs_configs.evn;
+		
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền truy cập  ", "Bạn không đủ quyền truy cập" );
+		res.send({ "error" : "controller_users->search->error_number : 5", "message": error_send } ); 
+		return;
+	}
+	
+	
+	//@
+	//@
+	//@ kiểm tra xem có phải search user theo ids
+	//@ nếu search theo id thì phải chủ sở hữu id mới dc searhc
+	//@ nếu không pahỉ search theo id thì pahỉ là admin mới dc search
+	try{
+		var check_condition_id = 0;
+		var user_id = 0;
+		if ( datas.condition  && typeof datas.condition !== 'undefined' ){
+			
+			for ( x in datas.condition){
+				if(datas.condition[x].hasOwnProperty('where') && datas.condition[x].where.length > 0){
+					
+					for ( z in datas.condition[x].where){
+						if( datas.condition[x].where[z].hasOwnProperty('field')  
+							&& datas.condition[x].where[z].field == "users_ID"  
+							&& datas.condition[x].where[z].hasOwnProperty('compare')    
+							&& datas.condition[x].where[z].compare == "="  
+						){
+							check_condition_id = 1;
+							user_id = datas.condition[x].where[z].value;
+						}
+					}	
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+		return;			
+	}		
+	
+
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		
+		if(check_condition_id == 1){
+			var datas_check = {
+				"token":token,
+				"user_id": user_id
+			}			
+		}else{
+			var datas_check = {
+				"token":token
+			}			
+		}
+
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->search->check_role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
+	
+	//@
+	//@
+	//@ nếu không có lộc theo users id thì pahỉ là admin
+	if(check_condition_id == 0){
+		if(check_datas_result.user_role != "admin"){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
+			res.send({ "error" : "controller_users->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;	
+		}		
+	}else if (check_condition_id == 1){
+		if( check_datas_result.owner_user != "1" &&  check_datas_result.user_role != "admin"){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "controller_users->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;			
+		}			
+	}
+
+	
+
+	//@@
+	//@@
+	//@@
+	try {
+		models_users.search(datas).then( results => {
+			
+			res.send( { "error" : "", "datas" : results } );
+			return;			
+			
+			
+			
+			if(results.length  > 0) {
+				res.send( { "error" : "", "datas" : results } );
+				return;
+			}else{
+				var evn = ojs_configs.evn;
+				evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi search users, liên hệ bộ phẫn HTKT dala", "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
+				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 2", "message": error_send } ); 
+				return;		
+			}		
+		}, error => {
+				var evn = ojs_configs.evn;
+				evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
+				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 3", "message": error_send } ); 
+				return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
+		res.send({ "error" : "controller_users->search->models_users.search -> error_number : 4", "message": error_send } ); 
+		return;	
+	}
+
+}//
+
+//11. end of  [search] 
+
+
+
+
+
+//@
+//@
+//@
+//@
+//12. [delete] 
+//@
+async function delete_users(req, res, next) {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var user_id = req.params.user_id;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->delete_users->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//neu không có token thì trỏ ra login page
+	if(typeof token == "undefined" || token == "" || token == null ){
+		var evn = ojs_configs.evn;
+		
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền truy cập  ", "Bạn không đủ quyền truy cập" );
+		res.send({ "error" : "controller_users->delete_users->error_number : 5", "message": error_send } ); 
+		return;
+	}
+	
+	
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		
+		var datas_check = {
+				"token":token
+			}			
+
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->delete_users->check_role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}	
+	
+	
 	if(check_datas_result.user_role != "admin"){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "11.controller_users->delete_users", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controller_users->delete_users->error_number : 6", "message": error_send } ); 
 		return;				
 	}
 	
@@ -1901,13 +1766,13 @@ async function delete_users(req, res, next) {
 		models_users.delete_users(user_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "2_controller_Users->models_users.delete_users", "message" : error_send  } );	
+			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi delete users, liên hệ bộ phẫn HTKT dala" );
+			res.send( { "error": "controller_users->delete_users->error_number : 7", "message" : error_send  } );	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "3_controller_Users.delete_users", "message" : error_send  } );
+		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi delete users, liên hệ bộ phẫn HTKT dala" );
+		res.send( { "error": "controller_users->delete_users->error_number : 8", "message" : error_send  } );
 	}	
 
 }
@@ -1916,22 +1781,17 @@ async function delete_users(req, res, next) {
 
 module.exports = { 
 		login,
-		login_default,
 		search,
-		check_token,
 		get_all_users,
 		get_one_users,
 		update_users,
 		insert_users,
 		delete_users,
-		register_users,
-		check_token_app,
 		register_app,
 		login_app,
 		get_verification_code,
 		verification_code,
-		lost_password,
-		register
+		lost_password
 };
 
 

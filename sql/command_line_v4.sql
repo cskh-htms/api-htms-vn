@@ -111,3 +111,51 @@ source ./sql/demo_datas_origin_v4.sql;
 
 
 
+
+
+
+INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_full_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) 
+VALUES (NULL, CURRENT_TIMESTAMP, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'asdasd', '0948000001', 'asdasdasd@gmail.com', 'v1', 'v1', 'v1', 'v1', '15', '0', '0', '', NULL);
+
+
+
+INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_full_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) 
+VALUES (NULL, CURRENT_TIMESTAMP, 'asdasd2', 'asdasd2', 'asdasd2', 'asdasd2', 'asdasd2', '0948000002', 'asdasdasd2@gmail.com', 'v1', 'v1', 'v1', 'v1', '15', '0', '0', '', NULL);
+
+
+INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_full_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) 
+VALUES (NULL, CURRENT_TIMESTAMP, 'asdasd3', 'asdasd2', 'asdasd2', 'asdasd2', 'asdasd2', '0948000003', 'asdasdasd3@gmail.com', 'v1', 'v1', 'v1', 'v1', '15', '0', '0', '', NULL);
+
+
+INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_users_full_name`, `dala_users_password`, `dala_users_first_name`, `dala_users_last_name`, `dala_users_adress`, `dala_users_phone`, `dala_users_email`, `dala_users_api_version`, `dala_users_router_version`, `dala_users_view_version`, `dala_users_js_css_version`, `dala_users_users_type_id`, `dala_users_shipping_status`, `dala_users_verification_status`, `dala_users_verification_code`, `dala_users_verification_time`) 
+VALUES (NULL, CURRENT_TIMESTAMP, 'asdasd4', 'asdasd2', 'asdasd2', 'asdasd2', 'asdasd2', '0948000004', 'asdasdasd4@gmail.com', 'v1', 'v1', 'v1', 'v1', '15', '0', '0', '', NULL);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

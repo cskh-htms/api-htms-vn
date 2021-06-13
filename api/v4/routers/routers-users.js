@@ -43,11 +43,20 @@
 	* login trên website
 		
 	
-10. 	* [register]
+10. * [insert_users]
 	* đăng ký trên web 
 		
 			
-	
+11. * [search]
+	* lấy data user theo cách search
+		
+			
+
+12. * [delete]
+	* xoá users
+		
+			
+			
 	
 */
 
@@ -141,70 +150,23 @@ router.post('/login', controllers_users.login);
 //@@
 //@@
 //@@
-//10. [register] 
-router.post('/register', controllers_users.register);
+//10. [insert_users] 
+router.post('/', middle_ware, controllers_users.insert_users);
 
 
-
+//@@
+//@@
+//@@
+//11. [search] 
+router.post('/search', middle_ware, controllers_users.search);
 
 
 
 //@@
 //@@
 //@@
-//insert
-try {
-	router.post('/', middle_ware, controllers_users.insert_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_users" , "mesage" : error } );
-}
-//@@
-//@@
-
-
-
-
-//@@
-//@@
-//@@
-//delete
-try {
-	router.delete('/:user_id', middle_ware, controllers_users.delete_users);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_users" , "mesage" : error } );
-}
-
-
-//@@
-//@@
-//@@
-//search
-try {
-	router.post('/search', middle_ware, controllers_users.search);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_users" , "mesage" : error } );
-}
-
-
-//login user//@->/controllers/controllers-users.js
-router.post('/login', controllers_users.login);
-
-//login user//@->/controllers/controllers-users.js
-router.post('/login-default', controllers_users.login_default);
-
-
-//check token
-router.post('/check-token', controllers_users.check_token);
-
-
-
-//check token
-router.post('/check-token-app', controllers_users.check_token_app);
-
-
+//12. [delete] 
+router.delete('/:user_id', middle_ware, controllers_users.delete_users);
 
 
 

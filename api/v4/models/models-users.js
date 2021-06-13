@@ -17,21 +17,41 @@
 
 7.  [users_update_email]
 
+8.  [search]
+
+9.  [get_role]
+
+10.  [delete_users]
+
+
 */
 
 //connect 
 const connection = require('./models-connection');
 
+
+
+//@
+//@
+//@
+//npm exstands
 const md5 = require('md5');
-var mysql = require('mysql');
+const mysql = require('mysql');
+const jwt = require('jsonwebtoken');
 
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
 
+
+
+//@
+//@
+//function share
+const ojs_shares_others = require('../../../models/ojs-shares-others');
+const ojs_shares_sql = require('../../../models/ojs-shares-sql');
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
 
 
 //tao data filed chung cho select
@@ -69,21 +89,23 @@ let sql_from_default = 	" from " +
 	ojs_configs.db_prefix + "users_type " 
 	
 //link table	
-let sql_link_default = 	"" + 
+let sql_link_default = 	" " + 
 	ojs_configs.db_prefix + "users." + ojs_configs.db_prefix + "users_users_type_id = " + 
 	ojs_configs.db_prefix + "users_type." + ojs_configs.db_prefix + "users_type_ID " 
 	
 	
 	
+//link search	
+let sql_link_search = 	" " + 
+	ojs_configs.db_prefix + "users." + ojs_configs.db_prefix + "users_users_type_id = " + 
+	ojs_configs.db_prefix + "users_type." + ojs_configs.db_prefix + "users_type_ID " 
 	
 	
-	
-
-//
+		
 //@@
 //@@
-//@@@@@@@@@@
-//@@@@@@@@@@
+//@@
+//@@
 //@@
 //@@
 //1. [insert_users]
@@ -114,7 +136,7 @@ const insert_users = async function (datas) {
 
 	let kes = Object.keys(dataGo);
 	for(let x in kes){
-		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
 	}
 	//@
 
@@ -427,123 +449,271 @@ const update_users_email = async function (datas,user_id) {
 
 
 
-
-
-
-
-
-//login
-var login_default = async function (datas) {
-
-	//create sql text
-	let sql_text = 	"SELECT " + sql_select_all +
-					sql_from_default + 
-					"where " + 
-					sql_link_default +
-					"and " + ojs_configs.db_prefix + "users_name = '" + datas.users_name + "' " + 
-					"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+// * 8. [search]
+const search = async function (datas) {
 	
-	//run sql
-	return new Promise( (resolve,reject) => {
-		connection.query( { sql:sql_text, timeout: 20000 } , ( err , results , fields ) => {
-			if( err ) reject(err);
-			resolve(results);
-		} );
-	} );
-
-};//end of function login
-
-
-
-
-
-
-//update users
-var check_token = async function (datas) {
 	
-	//create sql text
-	let sqlText = 	"SELECT * from " +
-					ojs_configs.db_prefix + "users "  + 
-					"where " + 
-					ojs_configs.db_prefix + "users_name = '"  +  datas.users_name + "' ";
-					"and " + ojs_configs.db_prefix + "users_passwordsss = '" + md5(datas.users_password) + "'";
-	//run sql
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sqlText, timeout: 15000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
-
-
-
-
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//search
-var search = async function (datas) {
-	//@
-	try {
-		var sql_field = ojs_shares.get_select_field(datas.select_field,sql_select_all);
-	}
-	catch(error){
-		return  { "error" : "m_10", "message" : error } ;
-	}
-
-	//@
-	try {
-		var sql_conditions = ojs_shares.get_condition(datas.condition);
-	}
-	catch(error){
-		return  { "error" : "m_11", "message" : error } ;
-	}
-	//@
-	try {
-		var sql_order = ojs_shares.get_order_text(datas.order);
-	}
-	catch(error){
-		return  { "error" : "m_12", "message" : error } ;
-	}
-
-
-	var sql_text = 	"SELECT " + sql_field +
-					sql_from_default + 
-					sql_conditions + 
-					" and " +
-					sql_link_default + 
-					sql_order 
-					
-					
-	//@
-	//return sql_text;
 	
+	//@
+	//@
+	//@
+	//@ select field
+	try {
+		var sql_field;
+		if(datas.select_field){
+			sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
+		}else{
+			sql_field = "";
+		}	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file select, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->sql_field->error_number : 1", "message": error_send } ); 
+		return;	
+	}		
+			
+			
+			
+	//@
+	//@
+	//@
+	//@ get_order_text	
+	
+	try {
+		var sql_order;
+		if(datas.order){
+			sql_order = ojs_shares_sql.get_order_text(datas.order)
+		}else{
+			sql_order = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql_order, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" :"model_users->search->error_number : 2", "message": error_send } ); 
+		return;	
+	}		
+		
+	
+	
+	//@
+	//@
+	//@
+	//@ get_condition	
+	
+	try {
+		var sql_condition;
+		if(datas.condition){
+			sql_condition = ojs_shares_sql.get_condition(datas.condition)
+		}else{
+			sql_condition = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->error_number : 3", "message": error_send } ); 
+		return;	
+	}		
+		
+
+
+	//@
+	//@
+	//@
+	//@ get_having	
+	var sql_having;
+	try {
+		if(datas.having){
+			sql_having = ojs_shares_sql.get_having(datas.having)
+		}else{
+			sql_having = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->error_number : 4", "message": error_send } ); 
+		return;	
+	}		
+			
+	
+
+			
+	//@
+	//@
+	//@
+	//@ghep data	
+	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+	//return get_sql_search;
+	//@
+	//@
+	var get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//return get_sql_search_1;
+	//@
+	//@	
+	let get_sql_search_2 = {...get_sql_search_1};
+	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
+	//@
+	//@	
+	let get_sql_search_3 = {...get_sql_search_2};
+	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });	
+
+	//return get_sql_search_3;
+	//@
+	//@	
+	let get_sql_search_4 = {...get_sql_search_3};
+	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });	
+
+	
+	//@
+	//@
+	//@
+	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
+	
+
+	
+	//@
 	try {	
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model_users->search->error_number: 1", "message" : error } ;
+	}
+};
+
+// * end of 8. [search]	
+	
+
+//
+//@
+//@
+//@
+//@
+//. 9. [get_role]
+// lấy role text (admin, default .... )
+async function get_role(datas_check) {
+	
+
+	//@
+	//@
+	//decode token
+	try {
+		var users_decode = jwt.decode(datas_check.datas.token);
+		if(typeof users_decode.users_ID == 'number' && users_decode.users_ID){
+		}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi decode token -> get_role" );
+			return { "error" : "model_users->get_role->error_number : 1", "message": error_send } ; 
+		}
+	}
+	catch (error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi decode token -> get_role" );
+		return{ "error" : "model_users->get_role->error_number : 2", "message": error_send } ; 
+
+	}	
+	
+	//return{ "error" : "", "message": users_decode.users_ID} ; 	
+
+	//@
+	//@
+	//lấy datauser từ database
+	//lấy role
+	try {
+		var users_data = await get_one_users(users_decode.users_ID);
+		
+		var users_role = ojs_shares_others.check_role(users_data[0].users_type_infomation);
+		return { "error": "", "message": users_role };
+	}
+	catch (error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		return{  "error" : "model_users->get_role->get_one_users->error_number : 4", "message": error_send } ; 
+	}		
+}
+
+//@
+//@ end of 9.
+
+
+	
+	
+	
+	
+	
+//
+//@
+//@
+//@
+//@
+//* 10. [get_owner_user]
+// kiểm tra user token va userid chủ sở hữu user
+async function get_owner_user(datas_check) {
+	//return{ "error" : "", "resule": datas_check } ; 
+	//@
+	//@
+	//decode token
+	try {
+		var users_decode = jwt.decode(datas_check.datas.token);
+		
+		//return{ "error" : "", "resule": users_decode } ; 
+		
+		if(typeof users_decode.users_ID == 'number' && users_decode.users_ID){
+		}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi decode token -> get_owner_user" );
+			return { "error" : "model_users->get_owner_user->error_number : 1", "message": error_send } ; 
+		}
+	}
+	catch (error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi decode token -> get_owner_user" );
+		return{ "error" : "model_users->get_owner_user->error_number : 2", "message": error_send } ; 
+
+	}	
+	
+	//@
+	//@
+	//so sành 2 user_id nếu = nhau thì return 1 khong = nhau thi return 0
+	//
+	
+
+	
+	if(users_decode.users_ID == datas_check.datas.user_id){
+		return { "error" : "", "datas": "1" } ; 
+	}else{
+		return{ "error" : "", "datas": "0" } ; 
 	}
 
-};
+
+}
+//* end of 10. [get_owner_user]
+	
+	
+
 
 
 
@@ -557,7 +727,7 @@ var search = async function (datas) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
+//10.  [delete_users]
 var delete_users = async function (user_id) {
 
 	let table_name  = ojs_configs.db_prefix + "users ";
@@ -578,102 +748,13 @@ var delete_users = async function (user_id) {
 	}
 };
 
+//10. end of [delete_users]
 
 
 
 
 
-//@@
-//@@
-//@@
-//@@
-//check username exits
-var check_trung_user_name = async function ( user_name ) {
-	
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					" where " +  
-					sql_link_default + 
-					" and " + 
-					ojs_configs.db_prefix + "users_name= '" + user_name + "' " 
-					
-	//return sql_text;
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
 
-};
-
-
-//@@
-//@@
-//@@
-//@@
-//check username exits
-var check_trung_email = async function ( email ) {
-	
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					" where " +  
-					sql_link_default + 
-					" and " + 
-					ojs_configs.db_prefix + "users_email= '" + email + "' " 
-					
-	//return sql_text;
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_14", "message" : error } ;
-	}
-
-};
-
-
-//@@
-//@@
-//@@
-//@@
-//check username exits
-var check_trung_phone = async function ( phone ) {
-	
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					" where " +  
-					sql_link_default + 
-					" and " + 
-					ojs_configs.db_prefix + "users_phone= '" + phone + "' " 
-					
-	//return sql_text;
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_15", "message" : error } ;
-	}
-
-};
 
 
 
@@ -682,19 +763,16 @@ var check_trung_phone = async function ( phone ) {
 //export module
 module.exports = { 
 	login ,
-	login_default,
 	search,
-	check_token,
 	get_all_users,
 	get_one_users,
 	update_users,
 	insert_users,
 	delete_users,
-	check_trung_user_name,
-	check_trung_email,
-	check_trung_phone,
 	search_email,
-	update_users_email
+	update_users_email,
+	get_role,
+	get_owner_user
 };
 
 

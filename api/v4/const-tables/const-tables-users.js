@@ -13,12 +13,12 @@
 		"users_adress"		: "",	
 		"users_phone"		: "",
 		"users_email"		: "",
-		"users_users_type_id" : "",
-		
+				
 		"users_router_version" : "v4",
 		"users_view_version" : "v4",
 		"users_js_css_version" : "v4",
 		"users_api_version" : "v4",
+		"users_users_type_id" : "",		
 		
 		"users_shipping_status" : 0,
 		"users_verification_status" : 0,
@@ -78,10 +78,6 @@
 	
 	function get_message_error(error){
 		
-		
-		
-		
-		
 		if(error.sqlMessage.search("trig_check_users_email_data_double") >= 0 ){
 			return "Email đã có người đăng ký";
 		}else if(error.sqlMessage.search("trig_check_users_email_double") >= 0){
@@ -101,8 +97,6 @@
 		}else if(error.sqlMessage.search("trig_check_users_phone_data_type") >= 0){
 			return "Số điện thoại không hợp lệ";
 			
-			
-			
 		}else if(error.sqlMessage.search("trig_check_users_full_name_update") >= 0){
 			return "Dữ liệu tên full khách hàng không hợp lệ";
 		}else if(error.sqlMessage.search("trig_check_users_first_name_update") >= 0){
@@ -116,7 +110,8 @@
 		}
 		
 		
-	}	//
+	}	
+	//
 	//
 	//
 	module.exports = { 

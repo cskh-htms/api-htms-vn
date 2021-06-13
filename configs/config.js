@@ -42,7 +42,7 @@ const ojs_config_app = {
 	//@
 	//@
 	//thiết lập user guest
-	user_guest : { "users_name" : "GuestDalaAll", "users_password" : "asdasdasd!@#$" },
+	user_guest : { "users_name" : "GuestDalaAll", "users_password" : "" },
 	
 	//@
 	//@
@@ -68,7 +68,8 @@ const ojs_config_app = {
 		"admin",
 		"bussiness",
 		"customer",
-		"default"
+		"default",
+		"supper-job"
 	],
 	//@
 	//giá trịnh trong database user infomation(md5)
@@ -76,7 +77,8 @@ const ojs_config_app = {
 		"0" : "admin-ne",
 		"1" : "bussiness-ne",
 		"2" : "customer-ne",
-		"3" : "default-ne"
+		"3" : "default-ne",
+		"4" : "supper-job-ne"
 	},
 	//@
 	// biến cấu hình cho search 

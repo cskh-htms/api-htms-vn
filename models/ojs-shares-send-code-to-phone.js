@@ -5,7 +5,7 @@
 @
 @
 */
-const ojs_shares = require('./ojs-shares');
+const ojs_shares_fetch_data = require('./ojs-shares-fetch-data');
 //@
 //@
 //@
@@ -31,7 +31,7 @@ const ojs_shares_send_code_to_phone = {
 		
 		//@
 		//@
-		var get_code_verification = await ojs_shares.get_data_no_token_post(
+		var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_post(
 			'http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json/',
 			datas );
 		res.send(get_code_verification);
