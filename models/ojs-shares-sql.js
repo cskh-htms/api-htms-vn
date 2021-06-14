@@ -307,8 +307,6 @@ const ojs_shares_sql = {
 		}		
 		
 		
-		
-		
 		//@
 		//@
 		//@
@@ -425,7 +423,9 @@ const ojs_shares_sql = {
 		if(data_assigns.sql_conditions == "" && sql_link_search.length > 0){
 			sql_link_search = " where " + sql_link_search;
 		}else{
-			sql_link_search = " and " + sql_link_search;
+			if(sql_link_search != ""){
+				sql_link_search = " and " + sql_link_search;
+			}
 		}
 		//@
 		var sql_text = 	"SELECT  " + 

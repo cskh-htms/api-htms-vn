@@ -4,7 +4,7 @@
 -- 
 -- 
 
-CREATE VIEW view_order_report AS 
+CREATE VIEW dala_view_order_report AS 
 SELECT 
 dala_orders_speciality_date_orders, 
 dala_orders_speciality_ID, 

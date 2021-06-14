@@ -13,7 +13,7 @@
 
 * 4. [update_category_general_speciality]
 
-
+* 5. [delete_category_general_speciality]
 
 
 
@@ -70,48 +70,30 @@ router.put('/:cat_id', middle_ware, controllers_category_general_speciality.upda
 
 
 
+//@@
+//@@
+//@@
+// 5. [delete_category_general_speciality]
+router.delete('/:cat_id', middle_ware, controllers_category_general_speciality.delete_category_general_speciality);
 
 
 
-//@@
-//@@
-//@@
-//@@
-//delete
-try {
-	router.delete('/:cat_id', middle_ware, controllers_category_general_speciality.delete_category_general_speciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_11_category_general_speciality" , "mesage" : error } );
-}
-//@@
-//@@
 
 
 //@@
 //@@
 //@@
-//@@
-//@@
-//delete
-try {
-	router.post('/search', middle_ware, controllers_category_general_speciality.search);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_11_category_general_speciality" , "mesage" : error } );
-}
-//@@
-//@@
+// 6. [delete_category_general_speciality]
+router.post('/search', middle_ware, controllers_category_general_speciality.search);
 
 
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
+
+
+//@@
+//@@
+//@@
 
 module.exports = router;
 

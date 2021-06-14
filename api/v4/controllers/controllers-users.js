@@ -1529,17 +1529,6 @@ const search = async function (req, res, next) {
 	}	
 	
 	//@
-	//neu không có token thì trỏ ra login page
-	if(typeof token == "undefined" || token == "" || token == null ){
-		var evn = ojs_configs.evn;
-		
-		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền truy cập  ", "Bạn không đủ quyền truy cập" );
-		res.send({ "error" : "controller_users->search->error_number : 5", "message": error_send } ); 
-		return;
-	}
-	
-	
-	//@
 	//@
 	//@ kiểm tra xem có phải search user theo ids
 	//@ nếu search theo id thì phải chủ sở hữu id mới dc searhc
@@ -1605,7 +1594,7 @@ const search = async function (req, res, next) {
 	
 	//@
 	//@
-	//@ nếu không có lộc theo users id thì pahỉ là admin
+	//@ nếu không có lộc theo users id thì phải là admin
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role != "admin"){
 			var evn = ojs_configs.evn;
@@ -1632,19 +1621,19 @@ const search = async function (req, res, next) {
 	try {
 		models_users.search(datas).then( results => {
 			
-		if(results.length  > 0) {
+			if(results.length  > 0) {
 				res.send( { "error" : "", "datas" : results } );
 				return;
 			}else{
 				var evn = ojs_configs.evn;
-				evn = "dev";
+				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi search users, liên hệ bộ phẫn HTKT dala", "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
 				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 2", "message": error_send } ); 
 				return;		
 			}		
 		}, error => {
 				var evn = ojs_configs.evn;
-				evn = "dev";
+				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
 				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 3", "message": error_send } ); 
 				return;	

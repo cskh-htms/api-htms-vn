@@ -141,6 +141,7 @@ const check_owner = async function(datas_check){
 					}
 				}				
 				owner_store_get = await await models_category_gemeral_speciality.get_owner_store(send_datas_check_owner_store);	
+				//return owner_store_get;
 				//@
 				//@
 				if(owner_store_get.error) { return {"error":owner_store_get.error,"message":owner_store_get.error} }	

@@ -13,6 +13,10 @@ model-category
 
 * 5. [get_one_category_general_speciality]
 
+* 6. [update_category_general_speciality]
+
+* 7. [delete_category_general_speciality]
+
 
 */
 //@
@@ -71,7 +75,7 @@ let sql_select_all = 	"" +
 
 
 //from table
-let sql_search = 	"" + 	
+var sql_search = 	"" + 	
 	ojs_configs.db_prefix  + "category_general_speciality_ID as category_general_speciality_ID, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "category_general_speciality_date_created,'%Y/%m/%d %H:%i:%s') as category_general_speciality_date_created, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_name as category_general_speciality_name, " + 
@@ -88,46 +92,20 @@ let sql_search = 	"" +
 
 	//stores
 	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_user_id as stores_user_id, " + 
-	ojs_configs.db_prefix  + "stores_date_created as stores_date_created, " +  
 	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
-	ojs_configs.db_prefix  + "stores_service_type_id as stores_service_type_id, " + 
-	ojs_configs.db_prefix  + "stores_province as stores_province, " + 
-	ojs_configs.db_prefix  + "stores_district as stores_district, " + 
-	ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
-	ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 
-	ojs_configs.db_prefix  + "stores_local_x as stores_local_x, " + 
-	ojs_configs.db_prefix  + "stores_local_y as stores_local_y, " + 
-	ojs_configs.db_prefix  + "stores_local_adress as stores_local_adress, " + 
-	ojs_configs.db_prefix  + "stores_payment_limit as stores_payment_limit, " + 
-	ojs_configs.db_prefix  + "stores_status as stores_status, " + 	
-	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
-	ojs_configs.db_prefix  + "stores_phone as stores_phone, " + 
-	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
-	ojs_configs.db_prefix  + "stores_status_update as stores_status_update, " + 
-	ojs_configs.db_prefix  + "stores_qoute as stores_qoute, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month, "  + 
 
 	//users
 	ojs_configs.db_prefix + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix + "users_date_created as users_date_created, " + 
-	ojs_configs.db_prefix + "users_name as users_name, " + 
-	ojs_configs.db_prefix + "users_password as users_password, " + 
-	ojs_configs.db_prefix + "users_first_name as users_first_name, " + 
-	ojs_configs.db_prefix + "users_last_name as users_last_name, " + 
-	ojs_configs.db_prefix + "users_adress as users_adress, " + 
-	ojs_configs.db_prefix + "users_phone as users_phone, " + 
-	ojs_configs.db_prefix + "users_email as users_email, " + 
-	ojs_configs.db_prefix + "users_users_type_id as users_users_type_id, " + 	
-	ojs_configs.db_prefix + "users_router_version as users_router_version, " + 
-	ojs_configs.db_prefix + "users_view_version as users_view_version, " + 
-	ojs_configs.db_prefix + "users_js_css_version as users_js_css_version, " + 
-	ojs_configs.db_prefix + "users_api_version as users_api_version " 	
+	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
+	ojs_configs.db_prefix + "products_count as products_count "
+	
+	
+	
 
 //from table
 let sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "category_general_speciality "  ;
+	
 	
 //link table	
 let sql_link_default = 	"" ;
@@ -139,22 +117,31 @@ let sql_order_default = " order by " +
 	
 	
 	
+
+	
 //--------------------------------
 //sql search
 //--------------------------------	
 	
-//link search	
-let sql_link_search =  "" +
-
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "stores  ON  " + 
-	ojs_configs.db_prefix + "category_general_speciality_stores_id  = " + 
-	ojs_configs.db_prefix + "stores_ID " +    
 	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "stores_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " 
+	
+var sql_select_all_search = " * "	
+	
+	
+//from table
+var sql_from_search = 	" from " + 
+	ojs_configs.db_prefix + "view_categorys "  ;	
+	
+	
+	
+//link search	
+var sql_link_search =  "" ;
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -232,22 +219,17 @@ const insert_category_general_speciality = async function (datas) {
 const get_owner_store = async function (datas) {
 	//create sql text
 	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "users_ID"  + 
-					" FROM " + ojs_configs.db_prefix + "category_general_speciality  " + 
+					" FROM " + ojs_configs.db_prefix + "stores  " + 
 							
-					" LEFT JOIN " + 
-					ojs_configs.db_prefix + "stores  ON  " + 
-					ojs_configs.db_prefix + "category_general_speciality_stores_id  = " + 
-					ojs_configs.db_prefix + "stores_ID " +    	
-
 					" LEFT JOIN " + 
 					ojs_configs.db_prefix + "users  ON  " + 
 					ojs_configs.db_prefix + "stores_user_id  = " + 
-					ojs_configs.db_prefix + "users_ID "   + 
-						
+					ojs_configs.db_prefix + "users_ID " +    	
+
 					" WHERE " +  
 							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
-							ojs_configs.db_prefix + "stores_user_id = '" + datas.datas.store_id + "' " 
+							ojs_configs.db_prefix + "stores_ID = '" + datas.datas.store_id + "' " 
 	
 	//return sql_text;
 	//@
@@ -387,18 +369,12 @@ const get_one_category_general_speciality = async function (cat_id) {
 
 
 
-
-
-
-
-
-
 //@@
 //@@
 //@@
 //@@
-//insert
-var update_category_general_speciality = async function (datas,cat_id) {
+//@ * 6. [update_category_general_speciality]
+const  update_category_general_speciality = async function (datas,cat_id) {
 	
 	let sqlSet = "";
 	
@@ -451,19 +427,23 @@ var update_category_general_speciality = async function (datas,cat_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model-category-general-speciality->update->error_number : 1", "message" : error } ;
 	}
 };
 
-//
+//@ * end of  6. [update_category_general_speciality]
+
+
+
+
+
+
 //@@
 //@@
-//@@@@@@@@@@
-//@@@@@@@@@@
 //@@
 //@@
-//insert
-var delete_category_general_speciality = async function (cat_id) {
+//@ * 7. [delete_category_general_speciality]
+const delete_category_general_speciality = async function (cat_id) {
 
 	let table_name  = ojs_configs.db_prefix + "category_general_speciality ";
 	let field_where  = ojs_configs.db_prefix + "category_general_speciality_ID ";
@@ -479,9 +459,22 @@ var delete_category_general_speciality = async function (cat_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model-category-general-speciality->delete>error_number : 1", "message" : error } ;
 	}
 };
+
+//@ end of  * 7. [delete_category_general_speciality]
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -491,10 +484,23 @@ var delete_category_general_speciality = async function (cat_id) {
 var search = async function (datas) {
 	
 	
-	let get_sql_search  = ojs_shares_sql.get_sql_search(datas.datas,sql_select_all);
-	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
-	
-	//return get_sql_search_group;
+	//@
+	//@
+	//@	
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_search);
+		
+		//return get_sql_search;
+		
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search,sql_link_search);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//////evn = "dev";;;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		return { "error" : "model_category_general_speciality->search->error_number : 1", "message": error_send } ; 
+	}	
+
 	//@
 	//@
 	//@
@@ -510,7 +516,7 @@ var search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//////evn = "dev";;;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		return { "error" : "1.model_category_general_speciality->search", "message": error_send } ; 
+		return { "error" : "model_category_general_speciality->search->error_number : 2", "message": error_send } ; 
 	}
 };
 	

@@ -8,6 +8,11 @@
 
 * -4. [update_category_general_speciality]
 
+* -5. [delete_category_general_speciality]
+
+* -6. [search]
+
+
 */
 
 
@@ -103,6 +108,7 @@ async function insert_category_general_speciality(req, res, next) {
 		res.send({ "error" : "controllers-category-general-speciality->insert-> check owner->number_error : 1 ", "message": error_send } ); 
 		return;			
 	}
+	
 	
 	//@
 	//@
@@ -321,11 +327,15 @@ async function get_one_category_general_speciality(req, res, next) {
 			res.send( {"error" : "", "datas" : results} );
 			return;
 		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";;			
 			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 			res.send( { "error": "controllers-category-general-speciality->model-run -> error_number : 1", "message" : error_send  } );	
 		});
 	}
 	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;		
 		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 		res.send( { "error": "controllers-category-general-speciality->model-run -> error_number : 2", "message" : error_send  } );
 	}	
@@ -346,89 +356,51 @@ async function get_one_category_general_speciality(req, res, next) {
 //@@
 //@@
 //@* 4. [update_category_general_speciality]
-
-
-
-
-
-
-//@* end of 4. [update_category_general_speciality]
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//@@
-//@@
-//@@
-//@@
-//@@
-//@@
-//insert
 async function update_category_general_speciality(req, res, next) {
-	let datas = req.body.datas;
-	let cat_id = req.params.cat_id;
-	let token = req.headers['token'];
-	//
-	//@@
-	//@@
-	let datas_check = {
-		"token":token,
-		"cat_id":cat_id
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var cat_id = req.params.cat_id;
+		var token = req.headers['token'];
 	}
-	
-	//res.send(datas_check );	
-	//return;		
-	let check_datas_result;
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
 	try{
+		var datas_check = {
+			"token":token,
+			"cat_id":cat_id
+		}		
+		
+		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.1.controllers-category-general-speciality->update ", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->get req -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
-	//res.send(check_datas_result );	
-	//return;	
-	
-	
 	//@
 	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.error != ""){
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_cat == "1" ){}else{
 		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "1.2.controllers-category-general-speciality->update ", "message": error_send } ); 
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->get req -> error_number : 3", "message": error_send } ); 
 		return;			
-	}
-	
-
-	//@
-	//@
-	//@
-	//kiem tra role
-	if((check_datas_result.owner_cat != "1" )  && check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "1.3.controllers-category-general-speciality->update ", "message": error_send } ); 
-		return;			
-	}	
-	
-	
+	}		
 	
 	
 	//@
@@ -436,7 +408,7 @@ async function update_category_general_speciality(req, res, next) {
 	//@
 	//nếu là admin thì update status update = 1
 	try{
-		if(check_datas_result.user_role == "admin" && datas.category_general_speciality_admin_status == 1){
+		if(check_datas_result.user_role == "admin"){
 			Object.assign(datas,  { 'category_general_speciality_update_status' : 1 } );
 		}
 	}
@@ -444,12 +416,10 @@ async function update_category_general_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "6.3_controller_brands>update", "message": error_send } ); 
+			res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->xac minh update -> error_number : 1", "message": error_send } ); 
 			return;
 	}		
 	
-		
-		
 	
 	//@
 	//@
@@ -458,163 +428,168 @@ async function update_category_general_speciality(req, res, next) {
 	try{
 		if(check_datas_result.user_role != "admin" && datas.category_general_speciality_admin_status == 3){
 			Object.assign(datas,  { 'category_general_speciality_admin_status' : 2 } );
-		} else if(check_datas_result.user_role != "admin" && datas.category_general_speciality_admin_status != 3){
+		}
+		//@
+		//@
+		if(check_datas_result.user_role != "admin" && datas.category_general_speciality_admin_status != 3){
 			delete datas.category_general_speciality_admin_status;
 		}
+		
+		//@
+		//@
+		if(check_datas_result.user_role != "admin"){
+			delete datas.category_general_speciality_update_status;
+		}		
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
 			//////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "6.4_controller_brands>update", "message": error_send } ); 
+			res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->xac minh update -> error_number : 2", "message": error_send } ); 
 			return;
 	}		
 	
-			
-	
+
 	
 	
 	//@
 	try {
 		models_category_gemeral_speciality.update_category_general_speciality(datas,cat_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
+			return;
 		}, error => {
 			
 			let message_error = default_field.get_message_error(error);
 			
-			
 			var evn = ojs_configs.evn;
-			//////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-category-general-speciality->update ", "message": error_send } ); 
+			res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->model-run -> error_number : 1 ", "message": error_send } ); 
 			return;	
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lưu data, vui lòng thao tác lại. hoặc liên hệ bộ phận cskh " );
-			res.send({ "error" : "1.5.controllers-category-general-speciality->update ", "message": error_send } ); 
+			res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->model-run -> error_number : 2 ", "message": error_send } ); 
 			return;	
 	}	
 }
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-async function delete_category_general_speciality(req, res, next) {
-	let cat_id = req.params.cat_id;
-	let token = req.headers['token'];
+//@* end of 4. [update_category_general_speciality]
 
-	//
-	//@@
-	//@@
-	let datas_check = {
-		"token":token,
-		'cat_id':cat_id
+
+
+
+
+
+//@@
+//@@
+//@@
+//@@
+//@ * -5. [delete_category_general_speciality]
+async function delete_category_general_speciality(req, res, next) {
+
+
+	//@
+	//@	get datas req
+	try {
+		var cat_id = req.params.cat_id;
+		var token = req.headers['token'];
 	}
-	
-	//res.send(datas_check );	
-	//return;		
-	let check_datas_result;
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-category-general-speciality->delete->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
 	try{
+		var datas_check = {
+			"token":token,
+			"cat_id":cat_id
+		}		
+		
+		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "1.1.controllers-category-general-speciality->delete ", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-category-general-speciality->delete_category_general_speciality->get req -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
-	//res.send(check_datas_result );	
-	//return;	
 	
 	
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.error != ""){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, check_datas_result.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "1.2.controllers-category-general-speciality->delete ", "message": error_send } ); 
-		return;			
-	}
 	
-
 	//@
 	//@
 	//@
-	//kiem tra role
-	if(check_datas_result.owner_cat != "1" && check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "1.3.controllers-category-general-speciality->delete ", "message": error_send } ); 
-		return;			
-	}	
-
-
-
-
-	//@
-	//@
-	//@
-	//kiem tra nếu có danh mục con thì không xoá
-	let check_child_cat;
+	// kiểm tra danh mục đã pushlish chưa
 	try {
-		let data_check_child = ojs_datas_category.get_data_check_child(cat_id); 
+		var push_check = await models_category_gemeral_speciality.get_one_category_general_speciality(cat_id);
+		
 		//@
 		//@
-		check_child_cat = await  models_category_gemeral_speciality.search(data_check_child).then( results => {
-			if(typeof results.error == 'string' && results.error ){ 
-				return  { "error" : "1_store_check", "message" : results } ;
-			}else{
-				if(Object.entries(results).length  > 0){
-					return {"error":"2_store_check","message":" danh mục đã có danh mục con không thể xoá"} 
-				}else{
-					return {"error":"","message":"ok"} 
-				}
-			}
-		}, error => {
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "55->controllers-category-general-speciality->delete", "message": error_send } ); 
-			return;	
-		});
+		//nếu có lỗi thì tra về lỗi
+		if(push_check.error){
+			var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
+		}
+		//@
+		//@
+		//@ nếu không có danh mục thì báo lỗi
+		if(push_check.length <= 0){
+			var error_send = ojs_shares_show_errors.show_error( "Không có danh mục để xoá", "Không có danh mục để xoá" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );			
+		}		
+	
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "56->controllers-category-general-speciality->delete", "message": error_send } ); 
-			return;	
-	}	
-
-	if(check_child_cat.error.length > 0) { res.send(check_child_cat); return ;}
-
-
+		var evn = ojs_configs.evn;
+		//evn = "dev";		
+		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database danh mục" );
+		res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );
+	}		
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"  || (check_datas_result.owner_cat == "1" &&  push_check[0].category_general_speciality_admin_status == 0 ) ){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers-category-general-speciality->delete_category_general_speciality->get req -> error_number : 3", "message": error_send } ); 
+		return;			
+	}		
+	
+	
+	
 	//@
 	//@xoa'
 	try {
 		models_category_gemeral_speciality.delete_category_general_speciality(cat_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
+			return;
+			
 		}, error => {
 			let message_error = default_field.get_message_error(error);
 			
 			
 			var evn = ojs_configs.evn;
-			//////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-category-general-speciality->delete ", "message": error_send } ); 
+			res.send({ "error" : "controllers-category-general-speciality->delete_category_general_speciality->run-model -> error_number : 1 ", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -622,50 +597,156 @@ async function delete_category_general_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại");
-		res.send({ "error" : "1.5.controllers-category-general-speciality->delete ", "message": error_send } ); 
+		res.send({ "error" : "controllers-category-general-speciality->delete_category_general_speciality->run-model -> error_number : 2", "message": error_send } ); 
 		return;	
 	}	
 }
+//@ * end of -5. [delete_category_general_speciality]
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
+
+
+
 
 //@@
 //@@
-//@@@@@@@@@@
-//@@@@@@@@@@
 //@@
 //@@
-//search
+//@ * end of -6. [search]
 async  function search(req, res, next) {
-	let datas = req.body;
 	
-	//res.send( { "error" : datas, "datas" :datas } );
-	//return;
+	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
 
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_category-general-speciality->search->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@ kiểm tra xem có phải search cat theo id
+	//@ nếu search theo id thì phải chủ sở hữu id mới dc searhc
+	//@ nếu không pahỉ search theo id thì phải là admin mới dc search
+	try{
+		var check_condition_id = 0;
+		var cat_id = 0;
+		if ( datas.condition  && typeof datas.condition !== 'undefined' ){
+			
+			for ( x in datas.condition){
+				if(datas.condition[x].hasOwnProperty('where') && datas.condition[x].where.length > 0){
+					
+					for ( z in datas.condition[x].where){
+						if( datas.condition[x].where[z].hasOwnProperty('field')  
+							&& datas.condition[x].where[z].field == "category_general_speciality_ID"  
+							&& datas.condition[x].where[z].hasOwnProperty('compare')    
+							&& datas.condition[x].where[z].compare == "="  
+						){
+							check_condition_id = 1;
+							cat_id = datas.condition[x].where[z].value;
+						}
+					}	
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_category-general-speciality->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		return;			
+	}		
+	
+
+
+	//@
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"cat_id":cat_id
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-category-general-speciality->search->check-role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+
+
+
+	//@
+	//@
+	//@ nếu không có lộc theo cat id thì phải là admin
+	if(check_condition_id == 0){
+		if(check_datas_result.user_role != "admin"){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
+			res.send({ "error" : "controllers-category-general-speciality->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			return;	
+		}		
+	}else if (check_condition_id == 1){
+		if( check_datas_result.owner_cat == "1" ||  check_datas_result.user_role == "admin"){ }else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "controllers-category-general-speciality->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;			
+		}			
+	}
+
+
+	//@
+	//@
+	//@ run
 	try {
 		models_category_gemeral_speciality.search(datas).then( results => {
+			
 			res.send( { "error" : "", "datas" : results } );
+			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
-			res.send({ "error" : "51->controllers-category-general-speciality->search", "message": error_send } ); 
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
+			res.send({ "error" : "controller_category-general-speciality->search-model-run -> error_number : 1", "message": error_send } ); 
 			return;	
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev"
+			//evn = "dev"
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
-			res.send({ "error" : "52->controllers-category-general-speciality->search", "message": error_send } ); 
+			res.send({ "error" : "controller_category-general-speciality->search->model->run -> error_number : 3", "message": error_send } ); 
 			return;	
 	}
 
 }
+//@ * end of -6. [search]
+
+
 
 
 /*

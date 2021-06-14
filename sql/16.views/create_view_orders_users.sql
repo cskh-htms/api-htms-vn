@@ -5,7 +5,7 @@
 -- 
 -- 
 
-CREATE VIEW view_orders_users AS 
+CREATE VIEW dala_view_orders_users AS 
 SELECT 
 dala_orders_speciality.* , 
 dala_orders_details_speciality.* , 

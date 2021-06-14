@@ -4,7 +4,7 @@
 -- 
 -- 
 
-CREATE VIEW view_products AS 
+CREATE VIEW dala_view_products AS 
 SELECT 
 dala_products_speciality.* , 
 dala_options_product_speciality_link.* , 

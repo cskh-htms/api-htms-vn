@@ -458,135 +458,17 @@ const update_users_email = async function (datas,user_id) {
 // * 8. [search]
 const search = async function (datas) {
 	
-	
-	
-	//@
-	//@
-	//@
-	//@ select field
-	try {
-		var sql_field;
-		if(datas.select_field){
-			sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
-		}else{
-			sql_field = "";
-		}	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file select, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->sql_field->error_number : 1", "message": error_send } ); 
-		return;	
-	}		
-			
-			
-			
-	//@
-	//@
-	//@
-	//@ get_order_text	
-	
-	try {
-		var sql_order;
-		if(datas.order){
-			sql_order = ojs_shares_sql.get_order_text(datas.order)
-		}else{
-			sql_order = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql_order, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" :"model_users->search->error_number : 2", "message": error_send } ); 
-		return;	
-	}		
-		
-	
-	//@
-	//@
-	//@
-	//@ get_condition	
-	
-	try {
-		var sql_condition;
-		if(datas.condition){
-			sql_condition = ojs_shares_sql.get_condition(datas.condition)
-		}else{
-			sql_condition = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->error_number : 3", "message": error_send } ); 
-		return;	
-	}		
-
 
 	//@
 	//@
 	//@
-	//@ get_having	
-	var sql_having;
-	try {
-		if(datas.having){
-			sql_having = ojs_shares_sql.get_having(datas.having)
-		}else{
-			sql_having = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->error_number : 4", "message": error_send } ); 
-		return;	
-	}		
-			
-	
-
-			
+	//@ lấy oject search	
+	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);	
+	//return  get_sql_search;
 	//@
 	//@
 	//@
-	//@ghep data	
-	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-
-	//@
-	//@
-	var get_sql_search_1 = {...get_sql_search};
-	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
-	//return get_sql_search_1;
-	//@
-	//@	
-	let get_sql_search_2 = {...get_sql_search_1};
-	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
-	
-	
-
-	//@
-	//@	
-	let get_sql_search_3 = {...get_sql_search_2};
-	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });	
-
-	//return get_sql_search_3;
-	//@
-	//@	
-	let get_sql_search_4 = {...get_sql_search_3};
-	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });	
-
-
-
-
-	//@
-	//@
-	//@
-	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
-	
-
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);	
 	
 
 	
@@ -603,6 +485,7 @@ const search = async function (datas) {
 	catch(error){
 		return  { "error" : "model_users->search->error_number: 1", "message" : error } ;
 	}
+
 };
 
 // * end of 8. [search]	
@@ -781,6 +664,122 @@ module.exports = {
 	get_owner_user
 };
 
+/*
+	//@
+	//@
+	//@
+	//@ select field
 
+	try {
+		var sql_field;
+		if(datas.select_field){
+			sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
+		}else{
+			sql_field = "";
+		}	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file select, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->sql_field->error_number : 1", "message": error_send } ); 
+		return;	
+	}		
+			
+			
+			
+	//@
+	//@
+	//@
+	//@ get_order_text	
+	
+	try {
+		var sql_order;
+		if(datas.order){
+			sql_order = ojs_shares_sql.get_order_text(datas.order)
+		}else{
+			sql_order = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql_order, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" :"model_users->search->error_number : 2", "message": error_send } ); 
+		return;	
+	}		
+		
+	
+	//@
+	//@
+	//@
+	//@ get_condition	
+	
+	try {
+		var sql_condition;
+		if(datas.condition){
+			sql_condition = ojs_shares_sql.get_condition(datas.condition)
+		}else{
+			sql_condition = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->error_number : 3", "message": error_send } ); 
+		return;	
+	}		
+
+
+	//@
+	//@
+	//@
+	//@ get_having	
+	var sql_having;
+	try {
+		if(datas.having){
+			sql_having = ojs_shares_sql.get_having(datas.having)
+		}else{
+			sql_having = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "model_users->search->error_number : 4", "message": error_send } ); 
+		return;	
+	}		
+	*/		
+	
+
+			
+
+	
+	/*
+	//@
+	//@  nếu có fileds đặt biệt thì dùng cái này
+	var get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//return get_sql_search_1;
+	//@
+	//@	
+	let get_sql_search_2 = {...get_sql_search_1};
+	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
+	
+	
+
+	//@
+	//@	
+	let get_sql_search_3 = {...get_sql_search_2};
+	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });	
+
+	//return get_sql_search_3;
+	//@
+	//@	
+	let get_sql_search_4 = {...get_sql_search_3};
+	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });	
+	*/
 
 
