@@ -401,25 +401,7 @@ async function get_all_users(req, res, next) {
 		res.send({ "error" : "controller_users->get_all_users->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
-	//
-	
-	//@
-	//@
-	//neu không có token thì return
-	if(token == "" || token == null || token == undefined){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		return { "error" : "ojs_shares->get_all_users->check_token_empty->error_number : 2", "message": error_send } ; 			
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//@
 	//@
 	//@ kiểm tra phân quyền 

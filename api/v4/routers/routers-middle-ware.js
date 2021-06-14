@@ -27,6 +27,7 @@ async function routers_middle_ware(req, res, next){
 		//@ nếu không có token thì đá ra
 		if( req.headers['token'] == null || req.headers['token'] == "" || req.headers['token'] == undefined ){
 			res.send( {"error": "routers_middle_ware->error_number-> 1", "message":"Bạn không có quyền truy cập API"} );
+			return;
 		}
 	
 		//@

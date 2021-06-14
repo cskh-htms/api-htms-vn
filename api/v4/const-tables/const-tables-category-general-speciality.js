@@ -11,16 +11,41 @@
 		"category_general_speciality_infomation"			: "",	
 		"category_general_speciality_featured_image"		: "",	
 		"category_general_speciality_sort_order"			: 0,	
-		"category_general_speciality_show"					: 0
+		"category_general_speciality_show"					: 0,
+		
+		"category_general_speciality_stores_status"			: 0,		
+		"category_general_speciality_stores_id"				: "",
+		"category_general_speciality_update_status"			: 0,
+		"category_general_speciality_admin_status"			: 0,		
+		"category_general_speciality_qoute"					: 0,		
+		
+		
 	}
 	function check_datas (datas){
+		
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
+			
+			//@
+			//@
+			// check name empty
+			//check name data type
 			if(item == "category_general_speciality_name"){
 				if(check_data_fields.check_datas.check_empty(datas.category_general_speciality_name) == false){check_errer =  "Tên danh mục  là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
 				if(check_data_fields.check_datas.check_name(datas.category_general_speciality_name) == false){check_errer =  "Dữ liệu tên danh mục không hợp lệ";return;}	
 			}
+			
+			//@
+			//@
+			// check is cửa hàng empty
+			if(item == "category_general_speciality_stores_id"){
+				if(check_data_fields.check_datas.check_empty(datas.category_general_speciality_stores_id) == false){check_errer =  " Chưa nhập ID cửa hàng";	return;}	
+				if(datas.category_general_speciality_stores_id == "0"){check_errer =  " ID cửa hàng không hợp lệ ";	return;}				
+			}			
+			
+			
+			
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer;
@@ -35,18 +60,46 @@
 	//phan tich loi~
 	
 	function get_message_error(error){
-		if(error.sqlMessage.search("general_speciality_name_empty") >= 0 ){
+		
+		
+		//@
+		//@		
+		//@ category-name			
+		if(error.sqlMessage.search("trig_category_general_speciality_name_name_empty") >= 0 ){
 			return "Tên Danh mục không được để trống";
-		}else if(error.sqlMessage.search("delete or update") >= 0){
-			return " danh mục đã có sản phẩm không thể xoá ";			
+		}else if(error.sqlMessage.search("trig_category_general_speciality_name_data_type") >= 0){
+			return " Tên category không hợp lệ ";		
+
+		//@
+		//@		
+		//@ store id			
+		}else if(error.sqlMessage.search("trig_category_general_speciality_stores_id_empty") >= 0){
+			return " chưa nhập  id cửa hàng ";		
+
+
+		//@
+		//@		
+		//@ danh muc cha
+		}else if(error.sqlMessage.search("trig_check_category_general_speciality_category_parent_id_no_parent") >= 0){
+			return " Không tìm thấy danh mục cha ";			
+
+
+
+		//@
+		//@
+		//@ constraint
+		}else if(error.sqlMessage.search("category_general_speciality_stores_id") >= 0){
+			return " id cửa hàng chưa có  trong hệ thống ";		
+
+
+
+
+
+			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
 		}
-		
-		
-		
-		
-		
+
 	}//
 	//
 	module.exports = { 
