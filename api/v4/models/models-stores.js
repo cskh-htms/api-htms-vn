@@ -1,43 +1,102 @@
 
+/*
+
+* 1. [insert_store]
+
+* 2. [get_all_stores]
+
+* 3. [get_one_stores]
 
 
+
+*/
+
+
+//@
+//@
+//@
 //connect 
 const connection = require('./models-connection');
-var mysql = require('mysql');
+
+
+
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
 
+
+//@
+//@
+//@
+//npm exstands
+const mysql = require('mysql');
+
+
+
+
+//@
+//@
+//function share
+const ojs_shares_others = require('../../../models/ojs-shares-others');
+const ojs_shares_sql = require('../../../models/ojs-shares-sql');
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
+
+
+//@
+//@
+//@
+//@
+//@
+//@
 //select default
-let sql_select_all = 	"" + 	
+var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
 	ojs_configs.db_prefix  + "stores_user_id as stores_user_id, " + 
-	ojs_configs.db_prefix  + "stores_date_created as stores_date_created, " +  
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "stores_date_created,'%Y/%m/%d %H:%i:%s') as stores_date_created, " +	
 	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
+	
+	ojs_configs.db_prefix  + "stores_payment_limit as stores_payment_limit, " + 
 	ojs_configs.db_prefix  + "stores_service_type_id as stores_service_type_id, " + 
+	ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 	
+	
 	ojs_configs.db_prefix  + "stores_province as stores_province, " + 
 	ojs_configs.db_prefix  + "stores_district as stores_district, " + 
 	ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
-	ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 
+	
+	ojs_configs.db_prefix  + "stores_status_admin as stores_status_admin, " + 	
+	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
+	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
+
+
+
 	ojs_configs.db_prefix  + "stores_local_x as stores_local_x, " + 
 	ojs_configs.db_prefix  + "stores_local_y as stores_local_y, " + 
 	ojs_configs.db_prefix  + "stores_local_adress as stores_local_adress, " + 
-	ojs_configs.db_prefix  + "stores_payment_limit as stores_payment_limit, " + 
-	ojs_configs.db_prefix  + "stores_status as stores_status, " + 	
-	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
-	ojs_configs.db_prefix  + "stores_phone as stores_phone, " + 
-	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
-	ojs_configs.db_prefix  + "stores_status_update as stores_status_update, " + 
+	
 	ojs_configs.db_prefix  + "stores_qoute as stores_qoute, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month "  
+	ojs_configs.db_prefix  + "stores_status_update as stores_status_update, " + 
+	ojs_configs.db_prefix  + "stores_payment_methods as stores_payment_methods, "  + 
+	ojs_configs.db_prefix  + "stores_payment_time as stores_payment_time, " + 	
+	
 	
 
+	ojs_configs.db_prefix  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
+	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month, "  + 
+	
+
+
+	ojs_configs.db_prefix  + "users_ID as users_ID, "  + 
+	ojs_configs.db_prefix  + "users_full_name as users_full_name, "  + 
+
+
+	ojs_configs.db_prefix  + "service_type_ID  as service_type_ID , "  + 
+	ojs_configs.db_prefix  + "service_type_name as service_type_name "   
+
+
+
 //from table
-let sql_from_default = 	" from " + 
+var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "stores "  
 	
 	
@@ -46,7 +105,7 @@ let sql_from_default = 	" from " +
 	
 	
 //link table	
-let sql_link_default = 	"" + 
+var sql_link_default = 	"" + 
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
@@ -61,14 +120,14 @@ let sql_link_default = 	"" +
 	
 
 //order	
-let sql_order_default = " order by " + 
+var sql_order_default = " order by " + 
 	ojs_configs.db_prefix + "stores_name ASC "
 	
 	
 	
 	
 //link search	
-let sql_link_search =  "" +
+var sql_link_search =  "" +
 
 
 	" LEFT JOIN " + 
@@ -94,17 +153,164 @@ let sql_link_search =  "" +
 
 
 //from table
-let sql_from_default_payment = 	" from " + 
+var sql_from_default_payment = 	" from " + 
 	ojs_configs.db_prefix + "stores "  
 	
 	
 	
-let sql_link_search_payment = 	"" + 
+var sql_link_search_payment = 	"" + 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "view_payment_period  ON  " + 
 	ojs_configs.db_prefix + "stores_ID  = " + 
 	ojs_configs.db_prefix + "payment_period_ID "  
 	
+
+
+//@
+//@
+//@
+//@
+//@ * 1. [insert_stores]
+var insert_stores = async function (datas) {
+	
+	//@
+	//@
+	//@
+	//@
+	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "stores  SET ?";
+	var dataGo = {
+			"stores_user_id"					: datas.stores_user_id,
+			"stores_name"						: mysql.escape(datas.stores_name).replace(/^'|'$/gi, ""),		
+			"stores_payment_limit"				: datas.stores_payment_limit,
+			"stores_service_type_id"			: datas.stores_service_type_id,	
+
+			"stores_adress"						: mysql.escape(datas.stores_adress).replace(/^'|'$/gi, ""),
+			"stores_province"					: mysql.escape(datas.stores_province).replace(/^'|'$/gi, ""),
+			"stores_district"					: mysql.escape(datas.stores_district).replace(/^'|'$/gi, ""),
+			"stores_wards"						: mysql.escape(datas.stores_wards).replace(/^'|'$/gi, ""),
+
+			"stores_status_admin"				: datas.stores_status_admin,	
+			"stores_status_stores"				: datas.stores_status_stores,	
+			"stores_info_banking" 				: mysql.escape(datas.stores_info_banking).replace(/^'|'$/gi, ""),			
+			
+			"stores_local_x"					: mysql.escape(datas.stores_local_x).replace(/^'|'$/gi, ""),
+			"stores_local_y"					: mysql.escape(datas.stores_local_y).replace(/^'|'$/gi, ""),
+			"stores_local_adress"				: mysql.escape(datas.stores_local_adress).replace(/^'|'$/gi, ""),			
+			
+			"stores_qoute" 						: mysql.escape(datas.stores_qoute).replace(/^'|'$/gi, ""),			
+			"stores_status_update"				: datas.stores_status_update,			
+			"stores_payment_methods"			: datas.stores_payment_methods,	
+			"stores_payment_time"				: datas.stores_payment_time,				
+
+			"stores_upload_limit_day"			: datas.stores_upload_limit_day,
+			"stores_upload_limit_month"			: datas.stores_upload_limit_month
+	}
+	
+	//@
+	//@
+	//@
+	var kes = Object.keys(dataGo);
+	for(var x in kes){
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+	}
+
+
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_stores_insert-> error_nymber : 1", "message" : error } ;
+	}
+
+};
+
+//@ end of * 1. [insert_stores]
+
+
+
+
+
+//@@
+//@@
+//@@
+//@@
+//@ * 2. [get_all_stores]
+var get_all_stores = async function () {
+	
+	
+	
+	//create sql text
+	var sql_text = 	"SELECT " +  sql_select_all + 
+					sql_from_default + 
+					sql_link_default + 
+					sql_order_default
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_stores_insert->get_all-> error_nymber : 1", "message" : error } ;
+	}
+};
+
+
+
+//@ end of * 2. [get_all_stores]
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 3. [get_one_stores]
+const get_one_stores = async function (stores_id) {
+	//create sql text
+	var sql_text = 	"SELECT " +  sql_select_all + 
+					sql_from_default + 
+					sql_link_default + 
+					" where " +  
+					ojs_configs.db_prefix + "stores_ID = '" + stores_id + "' "				
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_stores->get_one_stores->error-number : 1", "message" : error } ;
+	}
+};
+
+
+
+
+
+//@ * end of  3. [get_one_stores]
+
+
+
+
 
 
 
@@ -123,7 +329,7 @@ var search_payment = async function (datas) {
 		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'select_type');
 
 		if(ojs_check != undefined){
-			var sql_select_type = ojs_shares.get_select_type(datas.select_type);
+			var sql_select_type = ojs_shares_sql.get_select_type(datas.select_type);
 		}		
 	}
 	catch(error){
@@ -138,7 +344,7 @@ var search_payment = async function (datas) {
 		//return [datas.select_field];
 
 		if(ojs_check != undefined){
-			var sql_field = ojs_shares.get_select_field(datas.select_field, sql_select_all);
+			var sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
 		}		
 	}
 	catch(error){
@@ -155,7 +361,7 @@ var search_payment = async function (datas) {
 		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'condition');
 
 		if(ojs_check != undefined){
-			var sql_conditions = ojs_shares.get_condition(datas.condition);
+			var sql_conditions = ojs_shares_sql.get_condition(datas.condition);
 		}			
 	}
 	catch(error){
@@ -169,7 +375,7 @@ var search_payment = async function (datas) {
 		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'order');
 
 		if(ojs_check != undefined){
-			var sql_order = ojs_shares.get_order_text(datas.order);
+			var sql_order = ojs_shares_sql.get_order_text(datas.order);
 		}			
 		
 	}
@@ -182,7 +388,7 @@ var search_payment = async function (datas) {
 		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'group_by');
 
 		if(ojs_check != undefined){
-			var sql_group_by = ojs_shares.get_group_by(datas.group_by);
+			var sql_group_by = ojs_shares_sql.get_group_by(datas.group_by);
 		}
 		
 	}
@@ -196,7 +402,7 @@ var search_payment = async function (datas) {
 		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'limit');
 
 		if(ojs_check != undefined){
-			var sql_limit = ojs_shares.get_limit(datas.limit);
+			var sql_limit = ojs_shares_sql.get_limit(datas.limit);
 		}		
 	}
 	catch(error){
@@ -242,8 +448,8 @@ var search_payment = async function (datas) {
 var search = async function (datas) {
 	
 	
-	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
-	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	
 	//return get_sql_search;
 	//@
@@ -261,7 +467,7 @@ var search = async function (datas) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		res.send({ "error" : "1.model_stores->search", "message": error_send } ); 
 		return;	
 	}
@@ -274,41 +480,6 @@ var search = async function (datas) {
 //@@@@@@@@@@
 //@@
 //@@
-//insert
-var insert_stores = async function (datas) {
-	//return datas;
-	//@
-	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "stores  SET ?";
-	let dataGo = {
-			"stores_user_id"					: datas.stores_users_id,
-			"stores_name"						: mysql.escape(datas.stores_name).replace(/^'|'$/gi, ""),		
-			"stores_service_type_id"			: datas.stores_service_type_id,	
-			"stores_payment_limit"				: datas.stores_payment_limit,				
-			"stores_status"						: datas.stores_status,	
-			"stores_status_stores"				: datas.stores_status_stores,	
-			"stores_status_update"				: datas.stores_status_update,			
-			"stores_province"					: mysql.escape(datas.stores_province).replace(/^'|'$/gi, ""),
-			"stores_district"					: mysql.escape(datas.stores_district).replace(/^'|'$/gi, ""),
-			"stores_wards"						: mysql.escape(datas.stores_wards).replace(/^'|'$/gi, ""),
-			"stores_adress"						: mysql.escape(datas.stores_adress).replace(/^'|'$/gi, ""),
-			"stores_local_x"					: mysql.escape(datas.stores_local_x).replace(/^'|'$/gi, ""),
-			"stores_local_y"					: mysql.escape(datas.stores_local_y).replace(/^'|'$/gi, ""),
-			"stores_local_adress"				: mysql.escape(datas.stores_local_adress).replace(/^'|'$/gi, ""),
-			"stores_phone"						: mysql.escape(datas.stores_phone).replace(/^'|'$/gi, ""),
-			"stores_info_banking" 				: mysql.escape(datas.stores_info_banking).replace(/^'|'$/gi, ""),
-			"stores_qoute" 						: mysql.escape(datas.stores_qoute).replace(/^'|'$/gi, ""),
-			"stores_upload_limit_day"			: datas.stores_upload_limit_day,
-			"stores_upload_limit_month"			: datas.stores_upload_limit_month
-			
-	}
-	
-	
-
-	let kes = Object.keys(dataGo);
-	for(let x in kes){
-		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
-	}
-	//@
 
 
 
@@ -316,63 +487,6 @@ var insert_stores = async function (datas) {
 
 
 
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "3.1->model_users", "message" : error } ;
-	}
-
-};
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get one;
-var get_one_stores = async function (stores_id) {
-	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					sql_link_default + 
-					" where " +  
-					ojs_configs.db_prefix + "stores_ID = '" + stores_id + "' "				
-	
-	//return sql_text;
-	
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "1.1 model_stores->get_one_stores", "message" : error } ;
-	}
-};
-
-
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
 //@@
 //@@
 //kiểm tra user da co cua hang hay chua
@@ -380,7 +494,7 @@ var get_one_stores = async function (stores_id) {
 //@ neu user co cua hang thi ko cho xoa 
 var check_users_link = async function (user_id) {
 	//create sql text
-	let sql_text = 	"SELECT " + ojs_configs.db_prefix +  "stores_ID " + 
+	var sql_text = 	"SELECT " + ojs_configs.db_prefix +  "stores_ID " + 
 					sql_from_default + 
 					sql_link_default  + 
 					" where " +  
@@ -417,14 +531,14 @@ var check_users_link = async function (user_id) {
 //insert
 var update_stores = async function (datas,stores_id) {
 	
-	let sqlSet = "";
+	var sqlSet = "";
 	
 	//tao arr key
-	let arrDatas = Object.keys(datas);
+	var arrDatas = Object.keys(datas);
 	
 	//tao arr value 
-	let arrValueDatas = [];
-	let x;
+	var arrValueDatas = [];
+	var x;
 	for (x in datas){
 		arrValueDatas.push(datas[x]);
 	}	
@@ -434,7 +548,7 @@ var update_stores = async function (datas,stores_id) {
 	//return  arrValueDatas;
 	
 	//tao sqlset 
-	let i = 0;
+	var i = 0;
 	arrDatas.forEach(function(item) {
 		//
 		if(arrValueDatas[i]== null){
@@ -455,10 +569,10 @@ var update_stores = async function (datas,stores_id) {
 	});		
 
 
-	let table_name  = ojs_configs.db_prefix + "stores ";
-	let field_where  = ojs_configs.db_prefix + "stores_ID ";
+	var table_name  = ojs_configs.db_prefix + "stores ";
+	var field_where  = ojs_configs.db_prefix + "stores_ID ";
 	//create sql text
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ stores_id + '"';
+	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ stores_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -482,13 +596,13 @@ var update_stores = async function (datas,stores_id) {
 //@@@@@@@@@@
 //@@
 //@@
-//delete
-var delete_stores = async function (stores_id) {
+//devare
+var devare_stores = async function (stores_id) {
 
-	let table_name  = ojs_configs.db_prefix + "stores ";
-	let field_where  = ojs_configs.db_prefix + "stores_ID ";
+	var table_name  = ojs_configs.db_prefix + "stores ";
+	var field_where  = ojs_configs.db_prefix + "stores_ID ";
 	//create sql text
-	let sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ stores_id + '"';
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ stores_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -501,8 +615,8 @@ var delete_stores = async function (stores_id) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "5.1.model_storesdelete ", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi devare cử hàng, liên hệ admin" );
+		res.send({ "error" : "5.1.model_storesdevare ", "message": error_send } ); 
 		return;	
 	}
 };
@@ -514,32 +628,6 @@ var delete_stores = async function (stores_id) {
 
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_all_stores = async function () {
-	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
-					sql_from_default + 
-					sql_link_default + 
-					sql_order_default
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
 
 
 
@@ -552,7 +640,7 @@ module.exports = {
 			insert_stores,
 			get_one_stores,
 			update_stores,
-			delete_stores,
+			devare_stores,
 			get_all_stores,
 			check_users_link
 };

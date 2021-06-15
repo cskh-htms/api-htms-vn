@@ -403,6 +403,48 @@ async function update_category_general_speciality(req, res, next) {
 	}		
 	
 	
+	
+	
+	
+	//@
+	//@
+	//@
+	// lấy thông tin danh mục
+	try {
+		var push_check = await models_category_gemeral_speciality.get_one_category_general_speciality(cat_id);
+		
+		//@
+		//@
+		//nếu có lỗi thì tra về lỗi
+		if(push_check.error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			return;			
+		}
+		//@
+		//@
+		//@ nếu không có danh mục thì báo lỗi
+		if(push_check.length <= 0){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Không có danh mục " ,"Không có danh mục" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;
+		}		
+	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";		
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
+		res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );
+		return;
+	}		
+	
+	
+	
 	//@
 	//@
 	//@
@@ -426,12 +468,12 @@ async function update_category_general_speciality(req, res, next) {
 	//@
 	//nếu khong phai admin và status =  3 (tu choi thì sữa thanh chờ phê duyệt)
 	try{
-		if(check_datas_result.user_role != "admin" && datas.category_general_speciality_admin_status == 3){
+		if(check_datas_result.user_role != "admin" && push_check[0].category_general_speciality_admin_status == 3){
 			Object.assign(datas,  { 'category_general_speciality_admin_status' : 2 } );
 		}
 		//@
 		//@
-		if(check_datas_result.user_role != "admin" && datas.category_general_speciality_admin_status != 3){
+		if(check_datas_result.user_role != "admin" && push_check[0].category_general_speciality_admin_status != 3){
 			delete datas.category_general_speciality_admin_status;
 		}
 		
@@ -526,11 +568,10 @@ async function delete_category_general_speciality(req, res, next) {
 	
 	
 	
-	
 	//@
 	//@
 	//@
-	// kiểm tra danh mục đã pushlish chưa
+	// lấy thông tin danh mục
 	try {
 		var push_check = await models_category_gemeral_speciality.get_one_category_general_speciality(cat_id);
 		
@@ -538,25 +579,31 @@ async function delete_category_general_speciality(req, res, next) {
 		//@
 		//nếu có lỗi thì tra về lỗi
 		if(push_check.error){
-			var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
-			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			return;			
 		}
 		//@
 		//@
 		//@ nếu không có danh mục thì báo lỗi
 		if(push_check.length <= 0){
-			var error_send = ojs_shares_show_errors.show_error( "Không có danh mục để xoá", "Không có danh mục để xoá" );
-			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Không có danh mục " ,"Không có danh mục" );
+			res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;
 		}		
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
-		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database danh mục" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
 		res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );
-	}		
-	
+		return;
+	}	
 	
 	
 	
