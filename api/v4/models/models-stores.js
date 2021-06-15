@@ -7,6 +7,10 @@
 
 * 3. [get_one_stores]
 
+* 4. [update_stores]
+
+* 5. [delete_stores]
+
 
 
 */
@@ -148,24 +152,6 @@ var sql_link_search =  "" +
 
 
 
-
-//view search
-
-
-//from table
-var sql_from_default_payment = 	" from " + 
-	ojs_configs.db_prefix + "stores "  
-	
-	
-	
-var sql_link_search_payment = 	"" + 
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "view_payment_period  ON  " + 
-	ojs_configs.db_prefix + "stores_ID  = " + 
-	ojs_configs.db_prefix + "payment_period_ID "  
-	
-
-
 //@
 //@
 //@
@@ -302,234 +288,16 @@ const get_one_stores = async function (stores_id) {
 	}
 };
 
-
-
-
-
 //@ * end of  3. [get_one_stores]
 
 
 
-
-
-
-
-
-
-
-
-//search
-var search_payment = async function (datas) {
-	
-	//return [datas.select_field];
-	
-	//@ select type
-	try {
-		var sql_select_type = "";
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'select_type');
-
-		if(ojs_check != undefined){
-			var sql_select_type = ojs_shares_sql.get_select_type(datas.select_type);
-		}		
-	}
-	catch(error){
-		return  { "error" : "m_09_sql_select_type", "message" : error } ;
-	}	
-	//@select field
-	try {
-		var sql_select_all = "";
-		var sql_field = sql_select_all;
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'select_field');
-		
-		//return [datas.select_field];
-
-		if(ojs_check != undefined){
-			var sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
-		}		
-	}
-	catch(error){
-		return  { "error" : "m_10_sql_field_search_payment", "message" : error } ;
-	}
-	
-	//return sql_field;
-		
-
-	//@ condition
-	try {
-		
-		var sql_conditions = "";
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'condition');
-
-		if(ojs_check != undefined){
-			var sql_conditions = ojs_shares_sql.get_condition(datas.condition);
-		}			
-	}
-	catch(error){
-		return  { "error" : "m_11_sql_conditions", "message" : error } ;
-	}
-	//@
-	try {
-		
-		
-		var sql_order = "";
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'order');
-
-		if(ojs_check != undefined){
-			var sql_order = ojs_shares_sql.get_order_text(datas.order);
-		}			
-		
-	}
-	catch(error){
-		return  { "error" : "m_12_sql_order ", "message" : error } ;
-	}
-	//@group by
-	try {
-		var sql_group_by = "";
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'group_by');
-
-		if(ojs_check != undefined){
-			var sql_group_by = ojs_shares_sql.get_group_by(datas.group_by);
-		}
-		
-	}
-	catch(error){
-		return  { "error" : "m_13_sql_group_by", "message" : error } ;
-	}
-
-	//@limit
-	try {
-		var sql_limit = "";
-		const ojs_check = Object.getOwnPropertyDescriptor(datas, 'limit');
-
-		if(ojs_check != undefined){
-			var sql_limit = ojs_shares_sql.get_limit(datas.limit);
-		}		
-	}
-	catch(error){
-		return  { "error" : "m_09_sql_limit", "message" : error } ;
-	}
-
-
-	var sql_text = 	"SELECT  " + 
-					sql_select_type + 
-					sql_field +
-					sql_from_default_payment + 
-					sql_link_search_payment + 
-					sql_conditions + 
-					sql_group_by + 
-					sql_order + 
-					sql_limit
-					
-	//return sql_text	;	
-		
-	//@
-	try {	
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13_search_payment", "message" : error } ;
-	}
-};
-
-
-
-
-
-
-
-
-
-//search
-var search = async function (datas) {
-	
-	
-	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
-	
-	//return get_sql_search;
-	//@
-	//@
-	//@
-	//@
-	try {	
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "1.model_stores->search", "message": error_send } ); 
-		return;	
-	}
-};
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-
-
-
-
-
-
-
-//@@
-//@@
-//kiểm tra user da co cua hang hay chua
-//@ de check xoa user
-//@ neu user co cua hang thi ko cho xoa 
-var check_users_link = async function (user_id) {
-	//create sql text
-	var sql_text = 	"SELECT " + ojs_configs.db_prefix +  "stores_ID " + 
-					sql_from_default + 
-					sql_link_default  + 
-					" where " +  
-					ojs_configs.db_prefix + "stores_user_id = '" + user_id + "' " 
-					
-	
-	//return {"error" : "dasd" , "message":sql_text};
-	
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "1_model_check_users_link", "message" : error } ;
-	}
-};
-
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var update_stores = async function (datas,stores_id) {
+//@
+//@
+//@
+//@
+//@* 4. [update_stores]
+const update_stores = async function (datas,stores_id) {
 	
 	var sqlSet = "";
 	
@@ -583,21 +351,21 @@ var update_stores = async function (datas,stores_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->stores->update->error_number : 1", "message" : error } ;
 	}
 };
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//devare
-var devare_stores = async function (stores_id) {
+//@* end of 4. [update_stores]
+
+
+//@
+//@
+//@
+//@
+//@* 5. [delete_stores]
+const delete_stores = async function (stores_id) {
 
 	var table_name  = ojs_configs.db_prefix + "stores ";
 	var field_where  = ojs_configs.db_prefix + "stores_ID ";
@@ -614,21 +382,64 @@ var devare_stores = async function (stores_id) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi devare cử hàng, liên hệ admin" );
-		res.send({ "error" : "5.1.model_storesdevare ", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
+		res.send({ "error" : "model_stores->delete->error_numbaer : 1 ", "message": error_send } ); 
 		return;	
 	}
 };
 
 
+//@* end of 5. [delete_stores]
 
 
 
 
+//@
+//@
+//@
+//@
+//@* 6. [delete_stores]
+const search = async function (datas) {
+	
+	//@
+	//@
+	//@
+	// sql 
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		res.send({ "error" : "model_stores->search->error_number : 2", "message": error_send } ); 
+		return;	
+	}	
+	//return get_sql_search;
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		res.send({ "error" : "model_stores->search->error_number : 1", "message": error_send } ); 
+		return;	
+	}
+};
 
-
-
+//@* end of 6. [search]
 
 
 
@@ -636,13 +447,11 @@ var devare_stores = async function (stores_id) {
 //export module
 module.exports = {
 			search,
-			search_payment,
 			insert_stores,
 			get_one_stores,
 			update_stores,
-			devare_stores,
-			get_all_stores,
-			check_users_link
+			delete_stores,
+			get_all_stores
 };
 
 

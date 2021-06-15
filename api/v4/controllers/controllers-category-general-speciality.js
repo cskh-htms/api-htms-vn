@@ -331,6 +331,7 @@ async function get_one_category_general_speciality(req, res, next) {
 			//evn = "dev";;			
 			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 			res.send( { "error": "controllers-category-general-speciality->model-run -> error_number : 1", "message" : error_send  } );	
+			return;
 		});
 	}
 	catch(error){
@@ -338,6 +339,7 @@ async function get_one_category_general_speciality(req, res, next) {
 		//evn = "dev";;		
 		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
 		res.send( { "error": "controllers-category-general-speciality->model-run -> error_number : 2", "message" : error_send  } );
+		return;
 	}	
 }
 
@@ -462,26 +464,28 @@ async function update_category_general_speciality(req, res, next) {
 			return;
 	}		
 	
-	
 	//@
 	//@
 	//@
 	//nếu khong phai admin và status =  3 (tu choi thì sữa thanh chờ phê duyệt)
 	try{
-		if(check_datas_result.user_role != "admin" && push_check[0].category_general_speciality_admin_status == 3){
-			Object.assign(datas,  { 'category_general_speciality_admin_status' : 2 } );
-		}
-		//@
-		//@
-		if(check_datas_result.user_role != "admin" && push_check[0].category_general_speciality_admin_status != 3){
-			delete datas.category_general_speciality_admin_status;
-		}
-		
 		//@
 		//@
 		if(check_datas_result.user_role != "admin"){
+			delete datas.category_general_speciality_admin_status;
 			delete datas.category_general_speciality_update_status;
 		}		
+		
+		//@
+		//@
+		if(check_datas_result.user_role != "admin" && push_check[0].category_general_speciality_update_status == "1"){
+			Object.assign(datas,  { 'category_general_speciality_admin_status' : 2 } );
+		}
+
+		if(check_datas_result.user_role == "admin"){
+			Object.assign(datas, { 'category_general_speciality_update_status' : 1 });
+		}		
+	
 	}
 	catch(error){
 			var evn = ojs_configs.evn;

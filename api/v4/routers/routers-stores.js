@@ -9,7 +9,7 @@
 
 * 4. [update_stores]
 
-
+* 5. [delete_stores]
 
 
 
@@ -73,24 +73,44 @@ router.get('/:store_id', middle_ware, controllers_stores.get_one_stores);
 //@
 //@
 //@
-//@* 3. [update_stores]
+//@* 4. [update_stores]
 router.put('/:store_id', middle_ware, controllers_stores.update_stores);
 
 
 
+//@
+//@
+//@
+//@
+//@* 5. [delete_stores]
+router.delete('/:store_id', middle_ware ,controllers_stores.delete_stores);
 
-//search
-router.post('/search-payment', middle_ware, controllers_stores.search_payment);
-//search
+
+
+
+//@@
+//@@
+//@@
+//6. [search] 
 router.post('/search', middle_ware, controllers_stores.search);
 
 
 
-//update
 
 
-//delete
-router.delete('/:store_id', middle_ware ,controllers_stores.delete_stores);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;

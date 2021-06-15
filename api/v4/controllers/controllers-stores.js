@@ -7,7 +7,11 @@
 
 * 3. [get_one_stores]
 
+* 4. [update_stores]
 
+* 5. [delete_stores]
+
+* 6. [search]
 
 
 
@@ -411,8 +415,160 @@ async  function update_stores(req, res, next) {
 	
 	
 	
+	//@
+	//@
+	//@
+	// lấy thông tin cua hàng 
+	try {
+		var stores_check = await models_stores.get_one_stores(store_id);
+		
+		//@
+		//@
+		//nếu có lỗi thì tra về lỗi
+		if(stores_check.error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";				
+			var error_send = ojs_shares_show_errors.show_error( evn, stores_check.error, "lỗi truy xuất database stores, liên hệ admin dala" );
+			res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			return;			
+		}
+		//@
+		//@
+		//@ nếu không có cửa hàng thì báo lỗi
+		if(stores_check.length <= 0){
+			var evn = ojs_configs.evn;
+			//evn = "dev";			
+			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có cửa hàng" );
+			res.send( { "error": "controllers-stores>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;			
+		}		
+	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";		
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database stores" );
+		res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		return;
+	}			
 	
 	
+	
+	//@
+	//@
+	//@
+	//nếu không phải admin thì xoá status admin
+	try{
+		//neu khong phai admin thi remove admin status
+		//remove status update
+		if(check_datas_result.user_role != "admin"){
+			delete datas.stores_status_admin;
+			delete datas.stores_status_update;
+		}		
+		
+		
+		
+		if(check_datas_result.user_role != "admin" && stores_check[0].stores_status_update == "1"){
+			Object.assign(datas, { 'stores_status_admin' : 2 });
+		}
+		
+		
+		if(check_datas_result.user_role == "admin"){
+			Object.assign(datas, { 'stores_status_update' : 1 });
+		}
+	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi xoá status, liên hệ admin","Lỗi xoá status, liên hệ admin" );
+		res.send({ "error" : "controllers-stores->update->loc datas -> error_number : 4", "message": error_send } ); 
+		return;
+	}
+
+
+
+	//@
+	try {
+		models_stores.update_stores(datas,store_id).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			//@trích thông tin lỗi hiễn thị cho khách hàng
+			var message_error = default_field.get_message_error(error);
+
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
+			res.send({ "error" : "controller_store->models_stores.update_stores->error_number : 1", "message": error_send } ); 
+			return;
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+			res.send({ "error" : "controller_store->models_stores.update_stores->error_number : 2", "message": error_send } ); 
+			return;
+	}	
+}
+
+//@@ * end of  4. [update_stores]
+
+
+//@@
+//@@
+//@@
+//@@
+//@@
+//@* 5. [delete_stores]
+async  function delete_stores(req, res, next) {
+	//@
+	//@
+	//@	get datas req
+	try {
+		var store_id = req.params.store_id;
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"store_id":store_id
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+
+
+
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 3", "message": error_send } ); 
+		return;			
+	}		
 	
 	
 	
@@ -427,15 +583,20 @@ async  function update_stores(req, res, next) {
 		//@
 		//nếu có lỗi thì tra về lỗi
 		if(stores_check.error){
-			var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, stores_check.error, "lỗi truy xuất database stores, liên hệ admin dala" );
-			res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
+			var evn = ojs_configs.evn;
+			//evn = "dev";			
+			var error_send = ojs_shares_show_errors.show_error( evn, stores_check.error, "lỗi truy xuất database stores, liên hệ admin dala" );
+			res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
 		}
 		//@
 		//@
 		//@ nếu không có cửa hàng thì báo lỗi
 		if(stores_check.length <= 0){
-			var error_send = ojs_shares_show_errors.show_error( "Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-stores>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );			
+			var evn = ojs_configs.evn;
+			//evn = "dev";				
+			var error_send = ojs_shares_show_errors.show_error( evn, "Không có cửa hàng", "Không có cửa hàng" );
+			res.send( { "error": "controllers-stores>delete->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;			
 		}		
 	
 	}
@@ -443,91 +604,68 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database stores" );
-		res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		return;
 	}			
 	
-	
-	
+
+
+
 	//@
 	//@
-	//@
-	//nếu không phải admin thì xoá status admin
-	try{
-		if(check_datas_result.user_role != "admin" && stores_check[0].stores_status_update != "1"){
-			delete datas.stores_status_admin;
-		}else if(check_datas_result.user_role != "admin" && stores_check[0].stores_status_update == "1"){
-			Object.assign(datas, { 'stores_status_admin' : 2 });
+	// nếu không pahỉ admin - và cửa hàng đã pushlic thì ko  cho xoa
+	if(check_datas_result.user_role != "admin"){
+		if(stores_check[0].stores_status_update == "1"){
+			var evn = ojs_configs.evn;
+			//evn = "dev";		
+			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
+			res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
+			return;
 		}
-		if(check_datas_result.user_role == "admin"){
-			Object.assign(datas, { 'stores_status_update' : 1 });
-		}
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi xoá status, liên hệ admin","Lỗi xoá status, liên hệ admin" );
-		res.send({ "error" : "controllers-stores->update->loc datas -> error_number : 4", "message": error_send } ); 
-		return;
-	}
+	}		
+	
 
-
-
-	res.send(datas);
-	return;
-
-
-
+	//##
+	//##
+	//#end of check chủ sỡ hữu 
 	//@
 	try {
-		models_stores.update_stores(datas,store_id).then( results => {
+		models_stores.delete_stores(store_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
-		}, error => {
-			//@trích thông tin lỗi hiễn thị cho khách hàng
-			var message_error = default_field.get_message_error(error);
-
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "3.1_controller_store->odels_stores.update_stores", "message": error_send } ); 
 			return;
+		}, error => {
+			let message_error = default_field.get_message_error(error);
+			
+			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
+			res.send({ "error" : "1.4.controllers-stores->delete ", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "3.2_controller_store->odels_stores.update_stores", "message": error_send } ); 
-			return;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+			res.send({ "error" : "2.6.model_sotres->stores/delete ", "message": error_send } ); 
+			return;	
 	}	
 }
-
-
-
-
-
-//@@ * end of  4. [update_stores]
-
+//@* end of  5. [delete_stores]
 
 
 
 
 
 
-
-//
 //@@
 //@@
 //@@
-//@@
-//@@
-//@@
+//6. [search] 
 async  function search(req, res, next) {
 	let datas = req.body.datas;
 	
-	//res.send( { "error" : "weqweqwe", "datas" : datas} );
-	//return;
-
-
 	try {
 		models_stores.search(datas).then( results => {
 			res.send( { "error" : "", "datas" : results } );
@@ -549,143 +687,10 @@ async  function search(req, res, next) {
 
 }
 
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//search
-async  function search_payment(req, res, next) {
-	let datas = req.body.datas;
-	
-	try {
-		models_stores.search_payment(datas).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-		}, error => {
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl__api2_search_payment", "message" : error_send  } );	
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_3_search_payment", "message" : error_send  } );
-	}
-
-}
+//end of 6. [search] 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//delete
-async  function delete_stores(req, res, next) {
-	let store_id = req.params.store_id;
-	let token = req.headers['token'];
-
-	
-	//
-	//@@
-	//@@
-	let datas_check = {
-		"token":token,
-		"store_id": store_id
-	}
-	
-	//res.send(datas_check );	
-	//return;		
-	let check_datas_result;
-	try{
-		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.1.controller_users->insert_stores ", "message": error_send } ); 
-		return;			
-	}
-	
-
-	
-	
-	
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.error != ""){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "1.2.controller_store->insert_stores ", "message": error_send } ); 
-		return;			
-	}
-	
-	
-	
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.owner_store != "1"   && check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.4.model_sotres->stores/delete ", "message": error_send } ); 
-		return;			
-	}
-
-
-
-	//res.send(check_datas_result );	
-	//return;	
-
-
-	//##
-	//##
-	//#end of check chủ sỡ hữu 
-	//@
-	try {
-		models_stores.delete_stores(store_id).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-		}, error => {
-			let message_error = default_field.get_message_error(error);
-			
-			
-			var evn = ojs_configs.evn;
-			//////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-stores->delete ", "message": error_send } ); 
-			return;	
-		});
-	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->stores/delete ", "message": error_send } ); 
-			return;	
-	}	
-}
 
 
 
@@ -694,7 +699,6 @@ async  function delete_stores(req, res, next) {
 
 module.exports = { 
 		search,
-		search_payment,
 		insert_stores,
 		get_one_stores,
 		update_stores,
