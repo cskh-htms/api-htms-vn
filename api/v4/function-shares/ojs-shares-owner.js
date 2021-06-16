@@ -25,7 +25,7 @@ mục đích : check quyền user
 const models_token = require('../models/models-token');
 const models_users = require('../models/models-users');
 const models_category_gemeral_speciality = require('../models/models-category-gemeral-speciality');
-
+const models_option_speciality = require('../models/models-option-speciality');
 
 const ojs_configs = require('../../../configs/config');
 const jwt = require('jsonwebtoken');
@@ -204,6 +204,48 @@ const check_owner = async function(datas_check){
 
 		//@
 		//@
+		//@
+		//@
+		//@ 1.4 owner options
+		if(datas_check.option_id){
+			var owner_option = 0;
+			var owner_option_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var option_id = datas_check.option_id;
+				
+				//return {"datas": [user_id,option_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_option = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"option_id"	: option_id
+					}
+				}				
+				owner_option_get = await models_option_speciality.get_owner_option(send_datas_check_owner_option);	
+				//return owner_option_get;
+				//@
+				//@
+				if(owner_option_get.error) { return {"error":owner_option_get.error,"message":owner_option_get.error} }	
+				if(owner_option_get.length > 0) { owner_option = 1 }
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_option->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.4. [owner_option] 
+
+		//@
+		//@
 		//get owner
 		var owner_user = 0;
 		if(typeof check_owner_user == 'object' && check_owner_user && check_owner_user.datas){
@@ -219,7 +261,7 @@ const check_owner = async function(datas_check){
 			"owner_user" : owner_user,
 			"owner_store":owner_store,
 			"owner_cat":owner_cat,
-			"owner_option":0,
+			"owner_option":owner_option,
 			"owner_brand":0,
 			"owner_product":0
 	

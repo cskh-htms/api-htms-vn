@@ -416,10 +416,11 @@ const ojs_shares_sql = {
 	//
 	//@@
 	//@@get limit
-	get_sql_search_group : function(data_assigns,sql_from_default,sql_link_search){
+	get_sql_search_group : function(data_assigns,sql_from_default,sql_link_default){
 		//@
 		//@
 		//@
+		/*
 		if(data_assigns.sql_conditions == "" && sql_link_search.length > 0){
 			sql_link_search = " where " + sql_link_search;
 		}else{
@@ -427,13 +428,14 @@ const ojs_shares_sql = {
 				sql_link_search = " and " + sql_link_search;
 			}
 		}
+		*/
 		//@
 		var sql_text = 	"SELECT  " + 
 						data_assigns.sql_select_type + 
 						data_assigns.sql_select_fields +
 						sql_from_default + 
+						sql_link_default + 
 						data_assigns.sql_conditions + 
-						sql_link_search + 
 						data_assigns.sql_group_by + 
 						data_assigns.sql_having + 
 						data_assigns.sql_order + 

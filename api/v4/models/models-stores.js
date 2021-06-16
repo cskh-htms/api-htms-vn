@@ -53,7 +53,7 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@
 //@
 //@
-//select default
+//@ fields select
 var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
 	ojs_configs.db_prefix  + "stores_user_id as stores_user_id, " + 
@@ -99,7 +99,10 @@ var sql_select_all = 	"" +
 
 
 
-//from table
+//@
+//@
+//@
+//@from
 var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "stores "  
 	
@@ -107,8 +110,10 @@ var sql_from_default = 	" from " +
 	
 	
 	
-	
-//link table	
+//@
+//@
+//@
+//@link	
 var sql_link_default = 	"" + 
 
 	" LEFT JOIN " + 
@@ -123,34 +128,16 @@ var sql_link_default = 	"" +
 	
 	
 
-//order	
+//@
+//@
+//@
+//@order	
 var sql_order_default = " order by " + 
+	ojs_configs.db_prefix + "stores_date_created ASC, " + 
 	ojs_configs.db_prefix + "stores_name ASC "
 	
 	
 	
-	
-//link search	
-var sql_link_search =  "" +
-
-
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "stores_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " +    
-	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "users_type  ON  " + 
-	ojs_configs.db_prefix + "users_users_type_id  = " + 
-	ojs_configs.db_prefix + "users_type_ID " +  	
-	
-	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "service_type  ON  " + 
-	ojs_configs.db_prefix + "stores_service_type_id  = " + 
-	ojs_configs.db_prefix + "service_type_ID " 	
-
-
 
 //@
 //@
@@ -408,11 +395,11 @@ const search = async function (datas) {
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		res.send({ "error" : "model_stores->search->error_number : 2", "message": error_send } ); 
 		return;	
@@ -432,7 +419,7 @@ const search = async function (datas) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		res.send({ "error" : "model_stores->search->error_number : 1", "message": error_send } ); 
 		return;	

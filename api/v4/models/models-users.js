@@ -54,10 +54,16 @@ const ojs_shares_sql = require('../../../models/ojs-shares-sql');
 const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
 
 
-//tao data filed chung cho select
-let sql_select_all = 	"" + 
+
+
+//@
+//@
+//@
+//@fields select
+var  sql_select_all = 	"" + 
 	ojs_configs.db_prefix + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix + "users_date_created as users_date_created, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "users_date_created,'%Y/%m/%d %H:%i:%s') as users_date_created, " + 	
+	
 	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
 	ojs_configs.db_prefix + "users_password as users_password, " + 
 	ojs_configs.db_prefix + "users_first_name as users_first_name, " + 
@@ -83,23 +89,45 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix + "users_type_name as users_type_name, " +
 	ojs_configs.db_prefix + "users_type_infomation as users_type_infomation " 
 
-//from table
-let sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "users, " + 
-	ojs_configs.db_prefix + "users_type " 
-	
-//link table	
-let sql_link_default = 	" " + 
-	ojs_configs.db_prefix + "users." + ojs_configs.db_prefix + "users_users_type_id = " + 
-	ojs_configs.db_prefix + "users_type." + ojs_configs.db_prefix + "users_type_ID " 
-	
+
+
+//@
+//@
+//@
+//@from
+var sql_from_default = 	" from " + 
+	ojs_configs.db_prefix + "users " ;
 	
 	
-//link search	
-let sql_link_search = 	" " + 
-	ojs_configs.db_prefix + "users." + ojs_configs.db_prefix + "users_users_type_id = " + 
-	ojs_configs.db_prefix + "users_type." + ojs_configs.db_prefix + "users_type_ID " 
+//@
+//@
+//@
+//@link	
+var sql_link_default = 	" " + 
+
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "users_type  ON  " + 
+		ojs_configs.db_prefix +  "users_users_type_id = " + 
+		ojs_configs.db_prefix +  "users_type_ID  " ;
+		
 	
+//@
+//@
+//@
+//@order
+var sql_order_default = " order by " + 
+	
+	ojs_configs.db_prefix + "users_date_created DESC " ;
+	
+	
+
+
+
+
+
+
+
+
 	
 		
 //@@
@@ -180,9 +208,8 @@ const login = async function (datas) {
 		//if data type là email
 		var sql_text = 	"SELECT " + sql_select_all +
 			sql_from_default + 
-			"where " + 
 			sql_link_default +
-			"and " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
+			"where " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
 			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
 
 
@@ -191,9 +218,8 @@ const login = async function (datas) {
 		//if data type là phone
 		var sql_text = 	"SELECT " + sql_select_all +
 			sql_from_default + 
-			"where " + 
 			sql_link_default +
-			"and " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
+			"where " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
 			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
 	}
 	
@@ -226,8 +252,8 @@ var get_all_users = async function () {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all +
 					sql_from_default  + 
-					" where " + 
-					sql_link_default 
+					sql_link_default + 
+					sql_order_default 
 					
 	//return sql_text;
 	//@
@@ -258,9 +284,8 @@ const get_one_users = async function (user_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
-					" where " +  
 					sql_link_default + 
-					" and " + 
+					" where " + 
 					ojs_configs.db_prefix + "users_ID = '" + user_id + "' " 
 	
 	//@
@@ -468,7 +493,7 @@ const search = async function (datas) {
 	//@
 	//@
 	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);	
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);	
 	
 
 	
@@ -663,123 +688,3 @@ module.exports = {
 	get_role,
 	get_owner_user
 };
-
-/*
-	//@
-	//@
-	//@
-	//@ select field
-
-	try {
-		var sql_field;
-		if(datas.select_field){
-			sql_field = ojs_shares_sql.get_select_field(datas.select_field, sql_select_all);
-		}else{
-			sql_field = "";
-		}	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file select, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->sql_field->error_number : 1", "message": error_send } ); 
-		return;	
-	}		
-			
-			
-			
-	//@
-	//@
-	//@
-	//@ get_order_text	
-	
-	try {
-		var sql_order;
-		if(datas.order){
-			sql_order = ojs_shares_sql.get_order_text(datas.order)
-		}else{
-			sql_order = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql_order, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" :"model_users->search->error_number : 2", "message": error_send } ); 
-		return;	
-	}		
-		
-	
-	//@
-	//@
-	//@
-	//@ get_condition	
-	
-	try {
-		var sql_condition;
-		if(datas.condition){
-			sql_condition = ojs_shares_sql.get_condition(datas.condition)
-		}else{
-			sql_condition = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->error_number : 3", "message": error_send } ); 
-		return;	
-	}		
-
-
-	//@
-	//@
-	//@
-	//@ get_having	
-	var sql_having;
-	try {
-		if(datas.having){
-			sql_having = ojs_shares_sql.get_having(datas.having)
-		}else{
-			sql_having = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code get file sql, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "model_users->search->error_number : 4", "message": error_send } ); 
-		return;	
-	}		
-	*/		
-	
-
-			
-
-	
-	/*
-	//@
-	//@  nếu có fileds đặt biệt thì dùng cái này
-	var get_sql_search_1 = {...get_sql_search};
-	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
-	//return get_sql_search_1;
-	//@
-	//@	
-	let get_sql_search_2 = {...get_sql_search_1};
-	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
-	
-	
-
-	//@
-	//@	
-	let get_sql_search_3 = {...get_sql_search_2};
-	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });	
-
-	//return get_sql_search_3;
-	//@
-	//@	
-	let get_sql_search_4 = {...get_sql_search_3};
-	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });	
-	*/
-
-

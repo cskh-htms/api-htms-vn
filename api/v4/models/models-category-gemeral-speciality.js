@@ -55,8 +55,11 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 
 
 
-//from table
-let sql_select_all = 	"" + 	
+//@
+//@
+//@
+//@fileds select
+var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "category_general_speciality_ID as category_general_speciality_ID, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "category_general_speciality_date_created,'%Y/%m/%d %H:%i:%s') as category_general_speciality_date_created, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_name as category_general_speciality_name, " + 
@@ -71,76 +74,60 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "category_general_speciality_stores_id as category_general_speciality_stores_id, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_update_status as category_general_speciality_update_status, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_admin_status as category_general_speciality_admin_status, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_qoute as category_general_speciality_qoute " 
-
-
-//from table
-var sql_search = 	"" + 	
-	ojs_configs.db_prefix  + "category_general_speciality_ID as category_general_speciality_ID, " + 
-	"DATE_FORMAT(" + ojs_configs.db_prefix  + "category_general_speciality_date_created,'%Y/%m/%d %H:%i:%s') as category_general_speciality_date_created, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_name as category_general_speciality_name, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_category_parent_id as category_general_speciality_category_parent_id, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_infomation as category_general_speciality_infomation, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_featured_image as category_general_speciality_featured_image, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_sort_order as category_general_speciality_sort_order, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_show as category_general_speciality_show, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_stores_status as category_general_speciality_stores_status, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_stores_id as category_general_speciality_stores_id, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_update_status as category_general_speciality_update_status, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_admin_status as category_general_speciality_admin_status, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_qoute as category_general_speciality_qoute, " +  
+	ojs_configs.db_prefix  + "category_general_speciality_qoute as category_general_speciality_qoute, " + 
 
 	//stores
 	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
 	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
 
+	//service type
+	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
+	ojs_configs.db_prefix  + "service_type_name as service_type_name, " + 
+
 	//users
 	ojs_configs.db_prefix + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
-	ojs_configs.db_prefix + "products_count as products_count "
-	
-	
+	ojs_configs.db_prefix + "users_full_name as users_full_name " ;
 	
 
-//from table
-let sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "category_general_speciality "  ;
+//@
+//@
+//@
+//@from	
+var sql_from_default = 	" from " + 
+	ojs_configs.db_prefix + "category_general_speciality " ;
 	
 	
-//link table	
-let sql_link_default = 	"" ;
+//@
+//@
+//@
+//@link	
+var sql_link_default = 	""  + 
+
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "stores  ON  " + 
+		ojs_configs.db_prefix +  "category_general_speciality_stores_id = " + 
+		ojs_configs.db_prefix +  "stores_ID  " + 
+		
+	
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix + "service_type  ON  " + 
+		ojs_configs.db_prefix + "stores_service_type_id  = " + 
+		ojs_configs.db_prefix + "service_type_ID  " +    			
+		
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "users  ON  " + 
+		ojs_configs.db_prefix +  "stores_user_id = " + 
+		ojs_configs.db_prefix +  "users_ID  " ; 	
 
 
-//link table	
-let sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "category_general_speciality_name" ;
+//@
+//@
+//@
+//@order
+var sql_order_default = " order by " + 
 	
-	
-	
-
-	
-//--------------------------------
-//sql search
-//--------------------------------	
-	
-	
-	
-var sql_select_all_search = " * "	
-	
-	
-//from table
-var sql_from_search = 	" from " + 
-	ojs_configs.db_prefix + "view_categorys "  ;	
-	
-	
-	
-//link search	
-var sql_link_search =  "" ;
-	
-	
-	
-	
-	
+	ojs_configs.db_prefix + "category_general_speciality_date_created DESC, " + 
+	ojs_configs.db_prefix + "category_general_speciality_name " ;
 	
 	
 	
@@ -260,7 +247,7 @@ const get_owner_store = async function (datas) {
 // @ * 3. [get_all_category_general_speciality]
 const get_all_category_general_speciality = async function () {
 	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
+	var sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					sql_order_default
@@ -488,15 +475,12 @@ var search = async function (datas) {
 	//@
 	//@	
 	try {
-		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_search);
-		
-		//return get_sql_search;
-		
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search,sql_link_search);
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		return { "error" : "model_category_general_speciality->search->error_number : 1", "message": error_send } ; 
 	}	
@@ -514,7 +498,7 @@ var search = async function (datas) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		return { "error" : "model_category_general_speciality->search->error_number : 2", "message": error_send } ; 
 	}

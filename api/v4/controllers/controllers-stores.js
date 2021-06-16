@@ -318,7 +318,7 @@ async  function get_one_stores(req, res, next) {
 	//@
 	//@
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" || check_datas_result.user_role == "supper-job"){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -664,15 +664,124 @@ async  function delete_stores(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	let datas = req.body.datas;
 	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_stores>search->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@ kiểm tra xem có phải search store theo id
+	//@ nếu search theo id thì phải chủ sở hữu id mới dc searhc
+	//@ nếu không pahỉ search theo id thì phải là admin mới dc search
+	try{
+		var check_condition_id = 0;
+		var store_id = 0;
+		if ( datas.condition  && typeof datas.condition !== 'undefined' ){
+			
+			for ( x in datas.condition){
+				if(datas.condition[x].hasOwnProperty('where') && datas.condition[x].where.length > 0){
+					
+					for ( z in datas.condition[x].where){
+						if( datas.condition[x].where[z].hasOwnProperty('field')  
+							&& datas.condition[x].where[z].field == "stores_ID"  
+							&& datas.condition[x].where[z].hasOwnProperty('compare')    
+							&& datas.condition[x].where[z].compare == "="  
+						){
+							check_condition_id = 1;
+							cat_id = datas.condition[x].where[z].value;
+						}
+					}	
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_stores>search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		return;			
+	}		
+	
+
+
+	//@
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"store_id":store_id
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-stores->search->check-role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+
+
+
+	//@
+	//@
+	//@ nếu không có lộc theo cat id thì phải là admin
+	if(check_condition_id == 0){
+		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"){}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
+			res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			return;	
+		}		
+	}else if (check_condition_id == 1){
+		if( check_datas_result.owner_store == "1" ||  check_datas_result.user_role == "admin" ||  check_datas_result.user_role == "supper-job"){ }else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "controllers-stores->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;			
+		}			
+	}	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ run
 	try {
 		models_stores.search(datas).then( results => {
 			res.send( { "error" : "", "datas" : results } );
+			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
 			res.send({ "error" : error, "message": error_send } ); 
 			return;	
 		});
@@ -680,7 +789,7 @@ async  function search(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
 			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
 			return;	
 	}

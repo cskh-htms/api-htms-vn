@@ -27,7 +27,7 @@ IF(NEW.dala_options_product_speciality_name  is null or NEW.dala_options_product
 	SIGNAL SQLSTATE '12345' 
 	SET MESSAGE_TEXT = 'trig_options_product_speciality_name_name_empty';   
 ELSE 
-	IF (NEW.dala_options_product_speciality_name REGEXP '^[A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
+	IF (NEW.dala_options_product_speciality_name REGEXP '^[\-_ A-Za-z0-9 áàảãạaăâáàảãắặằẳẵấầẩẫậeêéèẻẽẹếềểễệiíìỉĩịoôơóòỏõọốồổỗộớờởỡợuưúùủũụứừửữựAĂÂÁÀẢÃẠẮẰẲẴẶẤẦẨẪẬEÊÉÈẺẼẸẾỀỂỄỆIÍÌỈĨỊOÔƠÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢUƯÚÙỦŨỤỨỪỬỮỰđĐ]+$' ) = 0 THEN 
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_options_product_speciality_name_data_type';   
 	END IF; 
