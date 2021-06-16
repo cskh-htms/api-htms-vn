@@ -10,6 +10,8 @@
 
 * 3. [get_one_option_speciality]
 
+* 4. [update_option_speciality]
+
 
 */
 
@@ -58,39 +60,37 @@ router.get('/:option_id', middle_ware, controllers_options_speciality.get_one_op
 
 
 
-//@@
-//@@
-//@@
-//update
-try {
-	router.put('/:option_id', middle_ware, controllers_options_speciality.update_option_speciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_options_speciality" , "mesage" : error } );
-}
+
+//@
+//@
+//@
+//@
+//@* 4. [update_option_speciality]
+router.put('/:option_id', middle_ware, controllers_options_speciality.update_option_speciality);
 
 
-//@@
-//@@
-//@@
-//update
-try {
-	router.delete('/:option_id', middle_ware, controllers_options_speciality.delete_option_speciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_options_speciality" , "mesage" : error } );
-}
 
-//@@
-//@@
-//@@
-//update
-try {
-	router.post('/search', middle_ware, controllers_options_speciality.search);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_options_speciality" , "mesage" : error } );
-}
+
+//@
+//@
+//@
+//@
+//@* 5. [delete_option_speciality]
+router.delete('/:option_id', middle_ware, controllers_options_speciality.delete_option_speciality);
+
+
+
+//@
+//@
+//@
+//@
+//@* 6. [search]
+router.post('/search', middle_ware, controllers_options_speciality.search);
+
+
+
+
+
 
 
 

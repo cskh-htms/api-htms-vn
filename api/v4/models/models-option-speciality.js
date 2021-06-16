@@ -9,6 +9,16 @@
 
 * 3. [get_owner_option]
 
+* 4. [get_one_option]
+
+* 5. [update_option_speciality]
+
+* 6. [delete_option_speciality]
+
+* 7. [search]
+
+
+
 
 
 
@@ -79,7 +89,9 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "options_product_speciality_information as options_product_speciality_information, " + 
 	ojs_configs.db_prefix  + "options_product_speciality_qoute as options_product_speciality_qoute, " +	
 		
-
+	//stores
+	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
+	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
 
 	//service type
 	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
@@ -255,36 +267,11 @@ const get_owner_option = async function (datas) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_one_option_speciality = async function (option_id) {
+//@
+//@
+//@
+//@ 4. [get_one_option]
+const get_one_option_speciality = async function (option_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -302,22 +289,23 @@ var get_one_option_speciality = async function (option_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->options_product_speciality->get-one->error_number : 1", "message" : error } ;
 	}
 };
 
+//@ end of  4. [get_one_option]
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var update_option_speciality = async function (datas,option_id) {
+
+
+
+
+//@
+//@
+//@
+//@ 5. [update_option_speciality]
+const update_option_speciality = async function (datas,option_id) {
 	
 	let sqlSet = "";
 	
@@ -331,8 +319,6 @@ var update_option_speciality = async function (datas,option_id) {
 		arrValueDatas.push(datas[x]);
 	}	
 	
-	
-	//return  arrValueDatas;
 	
 	//tao sqlset 
 	let i = 0;
@@ -370,20 +356,22 @@ var update_option_speciality = async function (datas,option_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->options->update->error_number: 1 ", "message" : error } ;
 	}
 };
+//@ end of 5. [update_option_speciality]
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var delete_option_speciality = async function (option_id) {
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 6. [delete_option_speciality]
+const delete_option_speciality = async function (option_id) {
 
 	let table_name  = ojs_configs.db_prefix + "options_product_speciality ";
 	let field_where  = ojs_configs.db_prefix + "options_product_speciality_ID ";
@@ -399,26 +387,39 @@ var delete_option_speciality = async function (option_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->option-speciality -> error_number : 1", "message" : error } ;
 	}
 };
 
+//@ end of 6. [delete_option_speciality]
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//search
-var search = async function (datas) {
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 7. [search]
+const search = async function (datas) {
 	//@
 	//@
 	//@
-	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
-	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
-					
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		//return get_sql_search_group;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		return { "error" : "model_option_speciality->search->error_number : 1", "message": error_send } ; 
+	}					
 	//@
 	//return sql_text;
 	try {	
@@ -431,13 +432,15 @@ var search = async function (datas) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		return { "error" : "1.model_option_speciality->search", "message": error_send } ; 
+		return { "error" : "model_option_speciality->search->error_number : 2", "message": error_send } ; 
 	}
 
 };
 
+//@
+//@end of  7. [search]
 
 
 /*

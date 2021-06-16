@@ -95,6 +95,7 @@ const check_owner = async function(datas_check){
 		//so sánh user_ID của token và User_ID của reouter
 		//nếu đúng trả về datas 1; nếu khong dứng trả về datas 0
 		//@ 1.2. [check_owner_user]
+		owner_user = 0;
 		if(datas_check.user_id){
 			try {
 				var send_datas_check_owner_user = { 
@@ -106,6 +107,9 @@ const check_owner = async function(datas_check){
 				var check_owner_user;				
 				check_owner_user = await models_users.get_owner_user(send_datas_check_owner_user);
 				if(check_owner_user.error != "") { return {"error":"ojs_shares_owner->check_owner_user->error_number : 1","message":check_owner_user} }
+			
+				if(check_owner_user.error) { return {"error":check_owner_user.error,"message":check_owner_user.error} }	
+				if(check_owner_user.length > 0) { owner_user = 1 }			
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
@@ -122,8 +126,9 @@ const check_owner = async function(datas_check){
 		//so sánh user_ID của token và có phải là chủ cữa hàng dtore_id không
 		//nếu đúng trả về datas 1; nếu khong dứng trả về datas 0
 		//@ 1.3. [owner_store] 
+		var owner_store = 0;
 		if(datas_check.store_id){
-			var owner_store = 0;
+			
 			var owner_store_get;
 			//@
 			//@
@@ -165,9 +170,9 @@ const check_owner = async function(datas_check){
 		//nếu đúng trả về datas 1; nếu khong dứng trả về datas 0
 		//@ 1.4. [owner_cat] 
 		
-		
+		var owner_cat = 0;
 		if(datas_check.cat_id){
-			var owner_cat = 0;
+			
 			var owner_cat_get;
 			//@
 			//@
@@ -207,8 +212,9 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@ 1.4 owner options
+		var owner_option = 0;
 		if(datas_check.option_id){
-			var owner_option = 0;
+			
 			var owner_option_get;
 			//@
 			//@
@@ -244,14 +250,6 @@ const check_owner = async function(datas_check){
 		}		
 		//@ end of 1.4. [owner_option] 
 
-		//@
-		//@
-		//get owner
-		var owner_user = 0;
-		if(typeof check_owner_user == 'object' && check_owner_user && check_owner_user.datas){
-			owner_user = check_owner_user.datas;
-		}
-		
 		//@
 		//@
 		//@
