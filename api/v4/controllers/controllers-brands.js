@@ -256,8 +256,8 @@ async function get_all_brands(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Bạn không đủ quyền thao tác" );
 			res.send({ "error" : "controllers-brands->get_all->run-model -> error_number : 3", "message": error_send } ); 
 			return;		
 		});
@@ -265,7 +265,7 @@ async function get_all_brands(req, res, next) {
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Bạn không đủ quyền thao tác" );
 			res.send({ "error" : "controllers-brands->get_all->run-model -> error_number : 4", "message": error_send } ); 
 			return;	
 	}	

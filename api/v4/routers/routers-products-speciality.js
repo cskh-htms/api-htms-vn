@@ -1,93 +1,102 @@
 
 /*
-@@@@
-@@@@@
-@@@@@
-@@@@@
+
+
+
+
+* 1. [insert_products]
+
+* 2. [get_all_products]
+
+* 3. [get_one_products]
+
+* 4. [update_products]
+
+* 5. [delete_products]
+
+* 6. [search]
+
+
 */
 
-var express = require('express');
-var router = express.Router();
-var middle_ware =  require('./routers-middle-ware');
 
-//chuyen huong controller 
-var controllers_products_spaciality = require('../controllers/controllers-products-spaciality');
+const express = require('express');
+const router = express.Router();
+const middle_ware =  require('./routers-middle-ware');
 
 
 
-
+const controllers_products_spaciality = require('../controllers/controllers-products-spaciality');
 
 
 
 
-//@@
-//@@
-//@@
-//insert
-try {
-	router.post('/', middle_ware, controllers_products_spaciality.insert_products_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_products_spaciality" , "mesage" : error } );
-}
+
+
+//@
+//@
+//@
+//@
+//@ 1. [insert_products]
+router.post('/', middle_ware, controllers_products_spaciality.insert_products_spaciality);
 
 
 
-//@@
-//@@
-//@@
-//search
-try {
-	router.post('/search', middle_ware, controllers_products_spaciality.search);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_products_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//get all 
-try {
-	router.get('/', middle_ware, controllers_products_spaciality.get_all_products_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_11_products_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//get one 
-try {
-	router.get('/:product_id', middle_ware, controllers_products_spaciality.get_one_products_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_12_products_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//update
-try {
-	router.put('/:product_id', middle_ware, controllers_products_spaciality.update_products_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_products_spaciality" , "mesage" : error } );
-}
+//@
+//@
+//@
+//@
+//@ 2. [insert_products]
 
 
-//@@
-//@@
-//@@
-//update
-try {
-	router.delete('/:product_id', middle_ware, controllers_products_spaciality.delete_products_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_products_spaciality" , "mesage" : error } );
-}
+
+//@
+//@
+//@
+//@
+//@ 3. [get_all_products]
+router.get('/', middle_ware, controllers_products_spaciality.get_all_products_spaciality);
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 4. [get_one_products]
+router.get('/:product_id', middle_ware, controllers_products_spaciality.get_one_products_spaciality);
+
+
+//@
+//@
+//@
+//@
+//@ 5. [update_products]
+router.put('/:product_id', middle_ware, controllers_products_spaciality.update_products_spaciality);
+
+
+
+//@
+//@
+//@
+//@
+//@ 6. [delete_products]
+router.delete('/:product_id', middle_ware, controllers_products_spaciality.delete_products_spaciality);
+
+
+
+//@
+//@
+//@
+//@
+//@ 7. [search]
+router.post('/search', middle_ware, controllers_products_spaciality.search);
+
+
+
+
+
 
 
 

@@ -1,26 +1,65 @@
-
 /*
-@@@@
-@@@@@
-@@@@@
-@@@@@
+
+
+
+* 1. [insert_products]
+
+* 2. [get_all_products]
+
+* 3. [get_one_products]
+
+* 4. [update_products]
+
+* 5. [delete_products]
+
+* 6. [search]
+
+
+
+
 */
 
+
+//@
+//@
+//@
 //connect 
 const connection = require('./models-connection');
-var mysql = require('mysql');
 const default_field = require('../const-tables/const-tables-products-spaciality');
+
 
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
+
+
+//@
+//@
+//@
+//npm exstands
+const mysql = require('mysql');
+
+
+
+
+//@
+//@
+//function share
+const ojs_shares_others = require('../../../models/ojs-shares-others');
+const ojs_shares_sql = require('../../../models/ojs-shares-sql');
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 //select default
-let sql_select_all = 	"" + 	
+var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "products_speciality_ID as products_speciality_ID, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "products_speciality_date_created,'%Y/%m/%d %H:%i:%s') as products_speciality_date_created, " + 
 	
@@ -60,15 +99,15 @@ let sql_select_all = 	"" +
 	
 
 //from table
-let sql_from_default = 	" from " + 
+var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "products_speciality "
 	
 
 //link table	
-let sql_link_default = 	"" 
+var sql_link_default = 	"" 
 
 //link table	
-let sql_order_default = " order by " + 
+var sql_order_default = " order by " + 
 	ojs_configs.db_prefix + "products_speciality_name " ;
 	
 	
@@ -78,7 +117,7 @@ let sql_order_default = " order by " +
 //--------------------------------	
 	
 //from table
-let sql_link_search = 	""  + 
+var  sql_link_search = 	""  + 
 
 	" LEFT JOIN dala_options_product_speciality_link  ON  dala_products_speciality_ID = dala_options_product_speciality_link_product_id  " +   
 	" LEFT JOIN dala_options_product_speciality  ON  dala_options_product_speciality_link_option_id = dala_options_product_speciality_ID  " + 
@@ -86,7 +125,7 @@ let sql_link_search = 	""  +
 	" LEFT JOIN dala_category_general_speciality_link  ON  dala_products_speciality_ID = dala_category_general_speciality_link_product_id " +   
 	" LEFT JOIN dala_category_general_speciality  ON  dala_category_general_speciality_link_category_general_id = dala_category_general_speciality_ID " +	
 	
-	" LEFT JOIN dala_brands  ON  dala_products_speciality_brand  = dala_brands_ID " +    
+	" LEFT JOIN dala_products  ON  dala_products_speciality_brand  = dala_products_ID " +    
 	
 	" LEFT JOIN dala_stores  ON  dala_products_speciality_store_id = dala_stores_ID  " + 
 	
@@ -95,21 +134,141 @@ let sql_link_search = 	""  +
 
 
 	
-//--------------------------------
-//sql search
-//--------------------------------	
-	
+//@@
+//@@
+//@ *  1. [insert_products_spaciality]
+const insert_products_spaciality = async function (datas,cat_string,option_string) {
+	//@
+	//let cat_arr = JSON.parse(cat_string);
+	var cat_arr = cat_string;
+	var option_arr = option_string;
+	// sql product
+	//
+	var sql_text;
+	var dataGo;
+	try {
 		
+		dataGo = {
+			"products_speciality_name" : mysql.escape(datas.products_speciality_name).replace(/^'|'$/gi, ""),
+			"products_speciality_type" :  datas.products_speciality_type,
+			"products_speciality_sku" : mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
+			"products_speciality_store_id" : datas.products_speciality_store_id,
+			"products_speciality_featured_image" : mysql.escape(datas.products_speciality_featured_image).replace(/^'|'$/gi, ""),
+			"products_speciality_image_slider" : mysql.escape(datas.products_speciality_image_slider).replace(/^'|'$/gi, ""),
+			"products_speciality_contents" : mysql.escape(datas.products_speciality_contents).replace(/^'|'$/gi, ""),
+			"products_speciality_excerpt" : mysql.escape(datas.products_speciality_excerpt).replace(/^'|'$/gi, ""),
+			"products_speciality_price" : datas.products_speciality_price,
+			"products_speciality_sale_of_price" : datas.products_speciality_sale_of_price,
+			"products_speciality_date_start" : datas.products_speciality_date_start,
+			"products_speciality_date_end" : datas.products_speciality_date_end,
+			"products_speciality_stock" : datas.products_speciality_stock,
+			"products_speciality_brand" : datas.products_speciality_brand,
+			"products_speciality_status_admin" : datas.products_speciality_status_admin,
+			"products_speciality_status_store" : datas.products_speciality_status_store,
+			"products_speciality_variation_option" : mysql.escape(datas.products_speciality_variation_option).replace(/^'|'$/gi, ""),
+			"products_speciality_height" : datas.products_speciality_height,
+			"products_speciality_width" : datas.products_speciality_width,
+			"products_speciality_length" : datas.products_speciality_length,
+			"products_speciality_weight" : datas.products_speciality_weight,
+			"products_speciality_discount" : datas.products_speciality_discount,	
+			"products_speciality_unit_discount" : datas.products_speciality_unit_discount,
+			"products_speciality_qoute" : 	mysql.escape(datas.products_speciality_qoute).replace(/^'|'$/gi, "")		
+		}
+
+		let kes = Object.keys(dataGo);
+		for(let x in kes){
+			dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+		}		
+		
+		sql_text = "START TRANSACTION ;"
+		sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "products_speciality  SET ? ;";
+		sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";
+
+		//
+		// end of sql product
+		//	------------------------------
+		
+		
+		
+		//
+		// sql options
+		//
+		if(option_arr.length > 0){
+			let sql_option_all = "";
+			for(let i = 0; i < option_arr.length; i ++){
+				
+				///ex
+				sql_option = "INSERT INTO " + ojs_configs.db_prefix + "options_product_speciality_link  ";
+				sql_option = sql_option + "(" +
+								ojs_configs.db_prefix + "options_product_speciality_link_product_id" + "," + 
+								ojs_configs.db_prefix + "options_product_speciality_link_option_id" + 
+							") " + 
+							"values(" + 
+							"@aa, " + 
+							option_arr[i] + 
+							") ; ";		
+				sql_option_all	= sql_option_all + 	sql_option		
+			}//end of for option_arr	
+			
+			
+			sql_text = sql_text + sql_option_all;
+		}
+		//
+		// end of sql options
+		//-----------------------------	
+
+		//
+		// sql category
+		if(cat_arr.length > 0){
+			let sql_cat_all = "";
+			for(let i = 0; i < cat_arr.length; i ++){
+				///ex
+				sql_cat = "INSERT INTO " + ojs_configs.db_prefix + "category_general_speciality_link  ";
+				sql_cat = sql_cat + "(" +
+								ojs_configs.db_prefix + "category_general_speciality_link_product_id" + "," + 
+								ojs_configs.db_prefix + "category_general_speciality_link_category_general_id" + 
+							") " + 
+							"values(" + 
+							"@aa, " + 
+							cat_arr[i] + 
+							") ; ";		
+				sql_cat_all	= sql_cat_all  + sql_cat		
+			}//end of for option_arr	
+			sql_text = sql_text + sql_cat_all;
+		}
+		//
+		// end of sql category
+		//-----------------------------	
+		
+
+		
+		//commit
+		sql_text = sql_text + " COMMIT;"
+		
+		
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+		
+		
+	}
+	catch(error){
+		return  { "error" : "m_api_12", "message" : error } ;
+	}	
+	
+};
+//@
+//@ * 1. [insert_products_spaciality]
 	
 	
 	
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@	
+	
+
+//@
+//@
 //search
 var search = async function (datas) {
 	
@@ -127,8 +286,8 @@ var search = async function (datas) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
 		res.send({ "error" : "0.1.model_product_speciality->search", "message": error_send } ); 
 		return;	
 	}		
@@ -148,7 +307,7 @@ var search = async function (datas) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
 		res.send({ "error" : "0.2.model_product_speciality->search", "message": error_send } ); 
 		return;	
 	}		
@@ -170,7 +329,7 @@ var search = async function (datas) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
 		res.send({ "error" : "0.3.model_product_speciality->search", "message": error_send } ); 
 		return;	
 	}		
@@ -193,7 +352,7 @@ var search = async function (datas) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
 		res.send({ "error" : "0.4.model_product_speciality->search", "message": error_send } ); 
 		return;	
 	}		
@@ -206,7 +365,7 @@ var search = async function (datas) {
 	//@
 	//@
 	//@ghep data	
-	let get_sql_search  = ojs_shares.get_sql_search(datas,sql_select_all);
+	let get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
 	//@
 	//@
 	let get_sql_search_1 = {...get_sql_search};
@@ -250,7 +409,7 @@ var search = async function (datas) {
 	
 		
 	
-	let get_sql_search_group  = ojs_shares.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
+	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
 
 	//return get_sql_search_group;
 
@@ -274,160 +433,7 @@ var search = async function (datas) {
 	
 	
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var insert_products_spaciality = async function (datas,cat_string,option_string) {
-	//@
-	//let cat_arr = JSON.parse(cat_string);
-	let cat_arr = cat_string;
-	
-	
-	let option_arr = option_string;
-	
-	//return  { "error" : "1", "message" : [cat_arr,option_arr,datas] } ;
-	//
-	// sql product
-	//
-	let sql_text;
-	let dataGo;
-	try {
-		
-		dataGo = {
-			"products_speciality_name" : mysql.escape(datas.products_speciality_name).replace(/^'|'$/gi, ""),
-			"products_speciality_type" :  datas.products_speciality_type,
-			"products_speciality_sku" : mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
-			"products_speciality_store_id" : datas.products_speciality_store_id,
-			"products_speciality_featured_image" : mysql.escape(datas.products_speciality_featured_image).replace(/^'|'$/gi, ""),
-			"products_speciality_image_slider" : mysql.escape(datas.products_speciality_image_slider).replace(/^'|'$/gi, ""),
-			"products_speciality_contents" : mysql.escape(datas.products_speciality_contents).replace(/^'|'$/gi, ""),
-			"products_speciality_excerpt" : mysql.escape(datas.products_speciality_excerpt).replace(/^'|'$/gi, ""),
-			"products_speciality_price" : datas.products_speciality_price,
-			"products_speciality_sale_of_price" : datas.products_speciality_sale_of_price,
-			"products_speciality_date_start" : datas.products_speciality_date_start,
-			"products_speciality_date_end" : datas.products_speciality_date_end,
-			"products_speciality_stock" : datas.products_speciality_stock,
-			"products_speciality_brand" : datas.products_speciality_brand,
-			"products_speciality_status_admin" : datas.products_speciality_status_admin,
-			"products_speciality_status_store" : datas.products_speciality_status_store,
-			"products_speciality_variation_option" : mysql.escape(datas.products_speciality_variation_option).replace(/^'|'$/gi, ""),
-			"products_speciality_height" : datas.products_speciality_height,
-			"products_speciality_width" : datas.products_speciality_width,
-			"products_speciality_length" : datas.products_speciality_length,
-			"products_speciality_weight" : datas.products_speciality_weight,
-			"products_speciality_discount" : datas.products_speciality_discount,	
-			"products_speciality_unit_discount" : datas.products_speciality_unit_discount,
-			"products_speciality_qoute" : 	mysql.escape(datas.products_speciality_qoute).replace(/^'|'$/gi, "")		
-		}
 
-		let kes = Object.keys(dataGo);
-		for(let x in kes){
-			dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
-		}		
-		
-		sql_text = "START TRANSACTION ;"
-		sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "products_speciality  SET ? ;";
-		sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";
-
-		//
-		// end of sql product
-		//	------------------------------
-		
-		
-		
-		//
-		// sql options
-		//
-		if(option_arr.length > 0){
-			let sql_option_all = "";
-			for(let i = 0; i < option_arr.length; i ++){
-				
-				///ex
-				sql_option = "INSERT INTO " + ojs_configs.db_prefix + "options_product_speciality_link  ";
-				sql_option = sql_option + "(" +
-								ojs_configs.db_prefix + "options_product_speciality_link_product_id" + "," + 
-								ojs_configs.db_prefix + "options_product_speciality_link_option_id" + 
-							") " + 
-							"values(" + 
-							"@aa, " + 
-							option_arr[i] + 
-							") ; ";		
-				sql_option_all	= sql_option_all + 	sql_option		
-			}//end of for option_arr	
-			
-			
-			sql_text = sql_text + sql_option_all;
-		}
-		//
-		// end of sql options
-		//-----------------------------	
-
-		//
-		// sql category
-		//
-		//return  { "error" : "m_api_12", "message" : cat_arr.length } ;
-		
-		
-		if(cat_arr.length > 0){
-			let sql_cat_all = "";
-			for(let i = 0; i < cat_arr.length; i ++){
-				///ex
-				sql_cat = "INSERT INTO " + ojs_configs.db_prefix + "category_general_speciality_link  ";
-				sql_cat = sql_cat + "(" +
-								ojs_configs.db_prefix + "category_general_speciality_link_product_id" + "," + 
-								ojs_configs.db_prefix + "category_general_speciality_link_category_general_id" + 
-							") " + 
-							"values(" + 
-							"@aa, " + 
-							cat_arr[i] + 
-							") ; ";		
-				sql_cat_all	= sql_cat_all  + sql_cat		
-			}//end of for option_arr	
-			sql_text = sql_text + sql_cat_all;
-		}
-		//
-		// end of sql category
-		//-----------------------------	
-		
-
-		
-		//commit
-		sql_text = sql_text + " COMMIT;"
-		
-		
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-		
-		
-	}
-	catch(error){
-		return  { "error" : "m_api_12", "message" : error } ;
-	}	
-	
-};
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
 //@@
 //@@
 //get ALL category chung;
