@@ -7,15 +7,18 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"brands_name"					: "",
+		"brands_featured_image"			: "",		
+		"brands_information"			: "",			
 		"brands_excerpt"				: "",	
-		"brands_information"			: "",	
-		"brands_featured_image"			: "",
+
 		"brands_status_stores"			: 0,
 		"brands_status_admin"			: 0,
 		"brands_status_update"			: 0,
+		
 		"brands_stores_id"				: "",
 		"brands_qoute"					: ""
 	}
+	
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
@@ -37,11 +40,18 @@
 	//phan tich loi~
 	
 	function get_message_error(error){
-		if(error.sqlMessage.search("brands_name_empty") >= 0 ){
+		if(error.sqlMessage.search("trig_brands_name_data_type") >= 0 ){
 			return "Tên brands không được để trống";
 			
-		}else if(error.sqlMessage.search("delete or update") >= 0){
-			return " thương hiệu đã có datas không thể xoá ";				
+		}else if(error.sqlMessage.search("trig_brands_name_data_type") >= 0){
+			return " Tên brands không hợp lệ ";		
+
+		}else if(error.sqlMessage.search("trig_brands_stores_id_empty") >= 0){
+			return " Chưa nhập id cửa hàng ";	
+
+		}else if(error.sqlMessage.search("brands_stores_id") >= 0){
+			return " Không tìm thấy id cửa hàng ";	
+			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
 		}

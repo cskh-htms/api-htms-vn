@@ -26,6 +26,7 @@ SET time_zone = "+07:00";
 DROP TABLE IF EXISTS `dala_brands`;
 CREATE TABLE IF NOT EXISTS `dala_brands` (
   `dala_brands_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_brands_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_brands_name` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_brands_featured_image` varchar(2000) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
   `dala_brands_information` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

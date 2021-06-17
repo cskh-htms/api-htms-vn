@@ -95,7 +95,11 @@ let sql_select_all = 	"" +
 
 	//service type
 	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name " 
+	ojs_configs.db_prefix  + "service_type_name as service_type_name, "  + 
+
+	//service type
+	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
+	ojs_configs.db_prefix  + "users_full_name as users_full_name " 
 
 
 //@

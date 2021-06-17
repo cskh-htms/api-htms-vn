@@ -26,6 +26,13 @@ const models_token = require('../models/models-token');
 const models_users = require('../models/models-users');
 const models_category_gemeral_speciality = require('../models/models-category-gemeral-speciality');
 const models_option_speciality = require('../models/models-option-speciality');
+const models_brands = require('../models/models-brands');
+
+
+
+
+
+
 
 const ojs_configs = require('../../../configs/config');
 const jwt = require('jsonwebtoken');
@@ -253,6 +260,50 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
+		//@
+		//@ 1.5 owner brand
+		var owner_brand = 0;
+		if(datas_check.brand_id){
+			
+			var owner_brand_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var brand_id = datas_check.brand_id;
+				
+				//return {"datas": [user_id,option_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_brand = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"brand_id"	: brand_id
+					}
+				}				
+				owner_brand_get = await models_brands.get_owner_brand(send_datas_check_owner_brand);	
+				//return owner_brand_get;
+				//@
+				//@
+				if(owner_brand_get.error) { return {"error":owner_brand_get.error,"message":owner_brand_get.error} }	
+				if(owner_brand_get.length > 0) { owner_brand = 1 }
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_brand->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.5. [owner_option] 
+
+
+		//@
+		//@
+		//@
 		let data_return = {
 			"error":"",
 			"user_role": check_role.message,
@@ -260,7 +311,7 @@ const check_owner = async function(datas_check){
 			"owner_store":owner_store,
 			"owner_cat":owner_cat,
 			"owner_option":owner_option,
-			"owner_brand":0,
+			"owner_brand":owner_brand,
 			"owner_product":0
 	
 		}
