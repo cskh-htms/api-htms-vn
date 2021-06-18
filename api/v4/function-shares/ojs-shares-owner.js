@@ -27,7 +27,7 @@ const models_users = require('../models/models-users');
 const models_category_gemeral_speciality = require('../models/models-category-gemeral-speciality');
 const models_option_speciality = require('../models/models-option-speciality');
 const models_brands = require('../models/models-brands');
-
+const models_products_spaciality = require('../models/models-products-spaciality');
 
 
 
@@ -111,12 +111,19 @@ const check_owner = async function(datas_check){
 						"user_id"	: datas_check.user_id
 					}
 				}
+				
 				var check_owner_user;				
 				check_owner_user = await models_users.get_owner_user(send_datas_check_owner_user);
-				if(check_owner_user.error != "") { return {"error":"ojs_shares_owner->check_owner_user->error_number : 1","message":check_owner_user} }
+				
+				return [check_owner_user];
+				
+				
+				
+				if(check_owner_user.error) { return {"error":check_owner_user.error,"message":check_owner_user.error} };
+
 			
-				if(check_owner_user.error) { return {"error":check_owner_user.error,"message":check_owner_user.error} }	
-				if(check_owner_user.length > 0) { owner_user = 1 }			
+			
+			
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
@@ -153,7 +160,7 @@ const check_owner = async function(datas_check){
 					}
 				}				
 				owner_store_get = await await models_category_gemeral_speciality.get_owner_store(send_datas_check_owner_store);	
-				//return owner_store_get;
+				
 				//@
 				//@
 				if(owner_store_get.error) { return {"error":owner_store_get.error,"message":owner_store_get.error} }	
@@ -298,7 +305,58 @@ const check_owner = async function(datas_check){
 				return { "error":"ojs_shares_owner->owner_brand->error_number : 1", "message": error_send };	
 			}			
 		}		
-		//@ end of 1.5. [owner_option] 
+		//@ end of 1.5. [owner_product] 
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 1.5 owner product
+		var owner_product = 0;
+		if(datas_check.product_id){
+			
+			var owner_product_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var product_id = datas_check.product_id;
+				
+				//return {"datas": [user_id,product_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_product = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"product_id"	: product_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_product;
+
+				
+				owner_product_get = await models_products_spaciality.get_owner_product(send_datas_check_owner_product);	
+				
+				//@
+				//@
+				if(owner_product_get.error) { return {"error":owner_product_get.error,"message":owner_product_get.error} }	
+				if(owner_product_get.length > 0) { owner_product = 1 }
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_product->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.5. [owner_product] 
+
 
 
 		//@
@@ -312,7 +370,7 @@ const check_owner = async function(datas_check){
 			"owner_cat":owner_cat,
 			"owner_option":owner_option,
 			"owner_brand":owner_brand,
-			"owner_product":0
+			"owner_product":owner_product
 	
 		}
 		return data_return;

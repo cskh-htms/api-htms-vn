@@ -536,9 +536,7 @@ CREATE TABLE IF NOT EXISTS `dala_products_speciality` (
   `dala_products_speciality_height` int DEFAULT NULL,
   `dala_products_speciality_width` int DEFAULT NULL,
   `dala_products_speciality_length` int DEFAULT NULL,
-  `dala_products_speciality_weight` int DEFAULT NULL,
-  `dala_products_speciality_discount` double NOT NULL,
-  `dala_products_speciality_unit_discount` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_products_speciality_weight` int DEFAULT NULL
   PRIMARY KEY (`dala_products_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

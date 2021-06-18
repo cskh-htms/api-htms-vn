@@ -71,8 +71,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "products_speciality_featured_image as products_speciality_featured_image, " + 
 	ojs_configs.db_prefix  + "products_speciality_image_slider as products_speciality_image_slider, " + 
 	ojs_configs.db_prefix  + "products_speciality_contents as products_speciality_contents, " + 
-	ojs_configs.db_prefix  + "products_speciality_excerpt as products_speciality_excerpt, " + 
-
+	
 	ojs_configs.db_prefix  + "products_speciality_price as products_speciality_price, " + 
 	ojs_configs.db_prefix  + "products_speciality_sale_of_price as products_speciality_sale_of_price, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "products_speciality_date_start,'%Y/%m/%d %H:%i:%s') as products_speciality_date_start, " + 
@@ -87,15 +86,28 @@ var sql_select_all = 	"" +
 	
 
 	ojs_configs.db_prefix  + "products_speciality_variation_option as products_speciality_variation_option, " + 
+	ojs_configs.db_prefix  + "products_speciality_excerpt as products_speciality_excerpt, " + 	
+	ojs_configs.db_prefix  + "products_speciality_qoute as products_speciality_qoute, " +	
 	ojs_configs.db_prefix  + "products_speciality_height as products_speciality_height, " + 
 	ojs_configs.db_prefix  + "products_speciality_width as products_speciality_width, " + 
 	ojs_configs.db_prefix  + "products_speciality_length as products_speciality_length, " + 
+	ojs_configs.db_prefix  + "products_speciality_weight as products_speciality_weight, "  + 
+	
+	
+	//stores
+	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
+	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
 
-	ojs_configs.db_prefix  + "products_speciality_weight as products_speciality_weight, " + 
-	ojs_configs.db_prefix  + "products_speciality_discount as products_speciality_discount, " + 
-	ojs_configs.db_prefix  + "products_speciality_width as products_speciality_width, " + 
-	ojs_configs.db_prefix  + "products_speciality_qoute as products_speciality_qoute, " +
-	ojs_configs.db_prefix  + "products_speciality_unit_discount as products_speciality_unit_discount " 
+	//service type
+	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
+	ojs_configs.db_prefix  + "service_type_name as service_type_name,  " + 	
+	
+	//service type
+	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
+	ojs_configs.db_prefix  + "users_full_name as users_full_name " 		
+	
+	
+	
 	
 
 //from table
@@ -104,10 +116,30 @@ var sql_from_default = 	" from " +
 	
 
 //link table	
-var sql_link_default = 	"" 
+var sql_link_default = 	""  + 
+
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "stores  ON  " + 
+	ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+	ojs_configs.db_prefix + "stores_ID " +    
+	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "service_type  ON  " + 
+	ojs_configs.db_prefix + "stores_service_type_id  = " + 
+	ojs_configs.db_prefix + "service_type_ID  " +    	
+	
+	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "users  ON  " + 
+	ojs_configs.db_prefix + "stores_user_id  = " + 
+	ojs_configs.db_prefix + "users_ID " 
+	
+	
+	
 
 //link table	
 var sql_order_default = " order by " + 
+	ojs_configs.db_prefix + "products_speciality_date_created DESC, " + 
 	ojs_configs.db_prefix + "products_speciality_name " ;
 	
 	
@@ -116,34 +148,50 @@ var sql_order_default = " order by " +
 //sql search
 //--------------------------------	
 	
-//from table
-var  sql_link_search = 	""  + 
-
-	" LEFT JOIN dala_options_product_speciality_link  ON  dala_products_speciality_ID = dala_options_product_speciality_link_product_id  " +   
-	" LEFT JOIN dala_options_product_speciality  ON  dala_options_product_speciality_link_option_id = dala_options_product_speciality_ID  " + 
-	
-	" LEFT JOIN dala_category_general_speciality_link  ON  dala_products_speciality_ID = dala_category_general_speciality_link_product_id " +   
-	" LEFT JOIN dala_category_general_speciality  ON  dala_category_general_speciality_link_category_general_id = dala_category_general_speciality_ID " +	
-	
-	" LEFT JOIN dala_products  ON  dala_products_speciality_brand  = dala_products_ID " +    
-	
-	" LEFT JOIN dala_stores  ON  dala_products_speciality_store_id = dala_stores_ID  " + 
-	
-	" LEFT JOIN dala_users   ON  dala_stores_user_id  =  dala_users_ID " 	
+//@
+//@
+//@link search
+var  sql_link_search = 	"" ;
 
 
+//@
+//@
+//@from search
+var  sql_from_search =" from "  + 
+	 ojs_configs.db_prefix +  "view_products " ;
 
-	
-//@@
-//@@
+//@
+//@
+//@	
+//@
+//@
 //@ *  1. [insert_products_spaciality]
 const insert_products_spaciality = async function (datas,cat_string,option_string) {
 	//@
-	//let cat_arr = JSON.parse(cat_string);
-	var cat_arr = cat_string;
-	var option_arr = option_string;
-	// sql product
-	//
+	//@
+	//@
+	//return [datas,cat_string,option_string];	
+	
+	
+	//@
+	//@
+	try{
+		if(cat_string){
+			var cat_arr = JSON.parse(cat_string);
+		}
+		if(option_string){
+			var option_arr = JSON.parse(option_string);
+		}	
+	}
+	catch(error){
+		return  { "error" : "model->products-spaciality->insert->error : 0", "message" : "dữ liệu option hoặc category không hợp lệ ví dụ : '[2,3,4]' là hợp lệ" } ;
+	}
+
+	//@
+	//@
+	//@
+	//return [datas,cat_arr,option_arr];
+	
 	var sql_text;
 	var dataGo;
 	try {
@@ -156,7 +204,8 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_featured_image" : mysql.escape(datas.products_speciality_featured_image).replace(/^'|'$/gi, ""),
 			"products_speciality_image_slider" : mysql.escape(datas.products_speciality_image_slider).replace(/^'|'$/gi, ""),
 			"products_speciality_contents" : mysql.escape(datas.products_speciality_contents).replace(/^'|'$/gi, ""),
-			"products_speciality_excerpt" : mysql.escape(datas.products_speciality_excerpt).replace(/^'|'$/gi, ""),
+			
+
 			"products_speciality_price" : datas.products_speciality_price,
 			"products_speciality_sale_of_price" : datas.products_speciality_sale_of_price,
 			"products_speciality_date_start" : datas.products_speciality_date_start,
@@ -165,14 +214,18 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_brand" : datas.products_speciality_brand,
 			"products_speciality_status_admin" : datas.products_speciality_status_admin,
 			"products_speciality_status_store" : datas.products_speciality_status_store,
+			"products_speciality_status_update" : datas.products_speciality_status_update,
 			"products_speciality_variation_option" : mysql.escape(datas.products_speciality_variation_option).replace(/^'|'$/gi, ""),
+			
+			
+			"products_speciality_excerpt" : mysql.escape(datas.products_speciality_excerpt).replace(/^'|'$/gi, ""),	
+			"products_speciality_qoute" : 	mysql.escape(datas.products_speciality_qoute).replace(/^'|'$/gi, ""),
+			
 			"products_speciality_height" : datas.products_speciality_height,
 			"products_speciality_width" : datas.products_speciality_width,
 			"products_speciality_length" : datas.products_speciality_length,
-			"products_speciality_weight" : datas.products_speciality_weight,
-			"products_speciality_discount" : datas.products_speciality_discount,	
-			"products_speciality_unit_discount" : datas.products_speciality_unit_discount,
-			"products_speciality_qoute" : 	mysql.escape(datas.products_speciality_qoute).replace(/^'|'$/gi, "")		
+			"products_speciality_weight" : datas.products_speciality_weight
+		
 		}
 
 		let kes = Object.keys(dataGo);
@@ -188,12 +241,12 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 		// end of sql product
 		//	------------------------------
 		
-		
+		//return [dataGo,sql_text];
 		
 		//
 		// sql options
 		//
-		if(option_arr.length > 0){
+		if(option_string && option_arr.length > 0){
 			let sql_option_all = "";
 			for(let i = 0; i < option_arr.length; i ++){
 				
@@ -219,7 +272,7 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 
 		//
 		// sql category
-		if(cat_arr.length > 0){
+		if(cat_string && cat_arr.length > 0){
 			let sql_cat_all = "";
 			for(let i = 0; i < cat_arr.length; i ++){
 				///ex
@@ -246,6 +299,9 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 		sql_text = sql_text + " COMMIT;"
 		
 		
+		//return [sql_text];
+		
+		
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
 				if( err ) reject(err);
@@ -256,7 +312,7 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 		
 	}
 	catch(error){
-		return  { "error" : "m_api_12", "message" : error } ;
+		return  { "error" : "model->products-spaciality->insert->error : 1", "message" : error } ;
 	}	
 	
 };
@@ -266,178 +322,11 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 	
 	
 	
-
-//@
-//@
-//search
-var search = async function (datas) {
 	
-	//@
-	//@
-	//@
-	//@ select field
-	var sql_field;
-	try {
-		if(datas.select_field){
-			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
-		}else{
-			sql_field = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "0.1.model_product_speciality->search", "message": error_send } ); 
-		return;	
-	}		
-			
-	//@
-	//@
-	//@
-	//@ get_order_text	
-	var sql_order;
-	try {
-		if(datas.order){
-			sql_order = default_field.get_order_text(datas.order)
-		}else{
-			sql_order = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "0.2.model_product_speciality->search", "message": error_send } ); 
-		return;	
-	}		
-		
-		
-	
-	//@
-	//@
-	//@
-	//@ get_condition	
-	var sql_condition;
-	try {
-		if(datas.condition){
-			sql_condition = default_field.get_condition(datas.condition)
-		}else{
-			sql_condition = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "0.3.model_product_speciality->search", "message": error_send } ); 
-		return;	
-	}		
-		
-			
-		
-	
-	//@
-	//@
-	//@
-	//@ get_having	
-	var sql_having;
-	try {
-		if(datas.having){
-			sql_having = default_field.get_having(datas.having)
-		}else{
-			sql_having = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "0.4.model_product_speciality->search", "message": error_send } ); 
-		return;	
-	}		
-				
-		
-		
-	
-		
-	//@
-	//@
-	//@
-	//@ghep data	
-	let get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-	//@
-	//@
-	let get_sql_search_1 = {...get_sql_search};
-	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
-	//@
-	
-
-	
-	
-	//@	
-	let get_sql_search_2 = {...get_sql_search_1};
-		
-	
-	
-	
-	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
-	//@
-	
-	
-	
-	
-	
-	//@	
-	let get_sql_search_3 = {...get_sql_search_2};
-	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });		
-	//@
-	
-
-	
-	
-	
-	
-	//@	
-	let get_sql_search_4 = {...get_sql_search_3};
-	
-	
-	
-	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });		
-				
-		
-	
-		
-	
-	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
-
-	//return get_sql_search_group;
-
-
-	//@
-	try {	
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
-	
-	
-		
-	
-	
-
-
 //@@
 //@@
-//get ALL category chung;
-var get_all_products_spaciality = async function () {
+//@ *  3. [get_all_products_spaciality]
+const get_all_products_spaciality = async function () {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -455,19 +344,19 @@ var get_all_products_spaciality = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->products-spaciality->get_all->error : 1", "message" : error } ;
 	}
 };
+//@
+//@ * end of  3. [get_all_products_spaciality]
+
+
 
 
 //@@
 //@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_one_products_spaciality = async function (product_id) {
+//@ *  4. [get_one_products_spaciality]
+const get_one_products_spaciality = async function (product_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -485,29 +374,34 @@ var get_one_products_spaciality = async function (product_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->products-spaciality->get_one->error : 2", "message" : error } ;
 	}
 };
+//@
+//@ * end of  4. [get_one_products_spaciality]
 
 
 
 
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var check_store_link = async function (store_id) {
+//@
+//@
+//@
+// 4. [get_owner_product]
+const get_owner_product = async function (datas) {
+	//return datas;
 	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "products_speciality_ID  "  + 
 					sql_from_default + 
 					sql_link_default + 
-					" where " + 
- 					ojs_configs.db_prefix + "products_speciality_store_id = '" + store_id + "' " + 
-					sql_order_default
+						
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "products_speciality_ID  = '" + datas.datas.product_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
 	//@
 	try {
 		return new Promise( (resolve,reject) => {
@@ -518,41 +412,52 @@ var check_store_link = async function (store_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "models_products->get_owner_option->error_number : 1", "message" : error } ;
 	}
 };
 
+// 4. [get_owner_product]
 
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//
-var update_products_spaciality = async function (datas,product_id,cat_string,option_string) {
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 5. [update_products_spaciality]
+const update_products_spaciality = async function (datas,product_id,cat_string,option_string) {
+	
+	//@
+	//@
+	try{
+		if(cat_string){
+			var cat_arr = JSON.parse(cat_string);
+		}
+		if(option_string){
+			var option_arr = JSON.parse(option_string);
+		}	
+	}
+	catch(error){
+		return  { "error" : "model->products-spaciality->update->error : 0", "message" : "dữ liệu option hoặc category không hợp lệ ví dụ : '[2,3,4]' là hợp lệ" } ;
+	}
 	
 	
 	
 	
-	let cat_arr = cat_string;
-	let option_arr = option_string;
 	
 	
 	//return [cat_arr,option_arr];
 	
 	
-	
-	
-	
-	let sqlSet = "";
+	var sqlSet = "";
 	
 	//tao arr key
-	let arrDatas = Object.keys(datas);
+	var arrDatas = Object.keys(datas);
 	
 	//tao arr value 
 	let arrValueDatas = [];
@@ -603,12 +508,15 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 	// sql options
 	//
 	
-	let sql_option_all = "";
-	let table_name_option  = ojs_configs.db_prefix + "options_product_speciality_link ";
-	let field_where_option  = ojs_configs.db_prefix + "options_product_speciality_link_product_id ";
-	let sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
+
+	
 		
-	if(option_arr.length > 0){	
+	if(option_string && option_arr.length > 0){	
+		var sql_option_all = "";
+		var table_name_option  = ojs_configs.db_prefix + "options_product_speciality_link ";
+		var field_where_option  = ojs_configs.db_prefix + "options_product_speciality_link_product_id ";	
+		var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
+	
 		for(let i = 0; i < option_arr.length; i ++){
 			
 			///ex
@@ -626,8 +534,9 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 		
 		
 		//sql_text = sql_text + sql_option_delete + sql_option_all;
+		sql_text = sql_text + sql_option_delete + sql_option_all;
 	}
-	sql_text = sql_text + sql_option_delete + sql_option_all;
+	
 	//
 	// end of sql options
 	//-----------------------------	
@@ -636,12 +545,15 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 	// sql category
 	//
 	
-	let sql_cat_all = "";
-	let table_name_cat  = ojs_configs.db_prefix + "category_general_speciality_link ";
-	let field_where_cat  = ojs_configs.db_prefix + "category_general_speciality_link_product_id ";
-	let sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';			
+			
 		
-	if(cat_arr.length > 0){	
+	if(cat_string && cat_arr.length > 0){	
+		var sql_cat_all = "";
+		var table_name_cat  = ojs_configs.db_prefix + "category_general_speciality_link ";
+		var field_where_cat  = ojs_configs.db_prefix + "category_general_speciality_link_product_id ";
+		var sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';	
+	
+	
 		for(let i = 0; i < cat_arr.length; i ++){
 			///ex
 			sql_cat = "INSERT INTO " + ojs_configs.db_prefix + "category_general_speciality_link  ";
@@ -656,15 +568,16 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 			sql_cat_all	= sql_cat_all  + sql_cat		
 		}//end of for option_arr	
 		//sql_text = sql_text + sql_cat_delete +  sql_cat_all;
+		sql_text = sql_text + sql_cat_delete +  sql_cat_all;
 	}
-	sql_text = sql_text + sql_cat_delete +  sql_cat_all;	
+		
 	//
 	// end of sql category
 	//-----------------------------	
 		
 	//commit
 	sql_text = sql_text + " COMMIT;"
-	//return  { "error" : "1", "message" :sql_text } ;
+	//return sql_text  ;
 
 	
 	try {
@@ -676,21 +589,21 @@ var update_products_spaciality = async function (datas,product_id,cat_string,opt
 		} );		
 	}
 	catch(error){
-		return  { "error" : "modem product speciality, -> update products speciality", "message" : error } ;
+		return  { "error" : "modem product speciality, -> update -> products speciality", "message" : error } ;
 	}
 	
 };
+//@
+//@ * 5. [update_products_spaciality]
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//
+//@
+//@
+//@
+//@
+//@ * 6. [delete_products_spaciality]
+
 var delete_products_spaciality = async function (product_id) {
 
 	let table_name  = ojs_configs.db_prefix + "products_speciality ";
@@ -707,9 +620,205 @@ var delete_products_spaciality = async function (product_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model product speciality, -> update -> products speciality->error : 1", "message" : error } ;
 	}
 };
+//@
+//@ * 6. [delete_products_spaciality]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+// * 7. [search]
+const search = async function (datas) {
+	
+	//@
+	//@
+	//@
+	//@ select field
+	var sql_field;
+	try {
+		if(datas.select_field){
+			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
+		}else{
+			sql_field = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
+		return;	
+	}		
+			
+	//@
+	//@
+	//@
+	//@ get_order_text	
+	var sql_order;
+	try {
+		if(datas.order){
+			sql_order = default_field.get_order_text(datas.order)
+		}else{
+			sql_order = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 2", "message": error_send } ); 
+		return;	
+	}		
+		
+		
+	
+	//@
+	//@
+	//@
+	//@ get_condition	
+	var sql_condition;
+	try {
+		if(datas.condition){
+			sql_condition = default_field.get_condition(datas.condition)
+		}else{
+			sql_condition = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 3", "message": error_send } ); 
+		return;	
+	}		
+		
+			
+		
+	
+	//@
+	//@
+	//@
+	//@ get_having	
+	var sql_having;
+	try {
+		if(datas.having){
+			sql_having = default_field.get_having(datas.having)
+		}else{
+			sql_having = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 4", "message": error_send } ); 
+		return;	
+	}		
+				
+		
+		
+	
+		
+	//@
+	//@
+	//@
+	//@ghep data	
+	let get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+	//return get_sql_search;
+	
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//@
+	
+
+	
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_2 = {...get_sql_search_1};
+	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
+
+
+
+
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_3 = {...get_sql_search_2};
+	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });		
+	//@
+	
+
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_4 = {...get_sql_search_3};
+	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });		
+				
+		
+	
+		
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_search,sql_link_search);	
+
+	//return get_sql_search_group;
+
+
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model product speciality, -> search -> products speciality->error : 5", "message" : error } ;
+	}
+};
+	
+	
+//@
+//@ * end of 6. [search] 		
+	
+	
+
+
 
 
 
@@ -728,7 +837,7 @@ module.exports = {
 	insert_products_spaciality,
 	delete_products_spaciality,
 	search,
-	check_store_link
+	get_owner_product
 };
 
 

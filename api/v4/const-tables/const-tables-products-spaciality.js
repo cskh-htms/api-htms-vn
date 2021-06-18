@@ -9,7 +9,7 @@
 	//configs/config
 	//function share
 	const ojs_configs = require('../../../configs/config');
-	const ojs_shares = require('../../../models/ojs-shares');	
+	const ojs_shares_date = require('../../../models/ojs-shares-date');	
 	
 
 	//create default data frome mysql tblUsers
@@ -21,7 +21,8 @@
 				products_speciality_featured_image : '',
 				products_speciality_image_slider : '',
 				products_speciality_contents : '',
-				products_speciality_excerpt : '',
+				
+				
 				products_speciality_price : '',
 				products_speciality_sale_of_price : null,
 				products_speciality_date_start : null,
@@ -29,14 +30,18 @@
 				products_speciality_stock : null,
 				products_speciality_brand : null,
 				products_speciality_status_admin : 0,
+				products_speciality_status_update : 0,
 				products_speciality_status_store : 0,
+				
+				
 				products_speciality_variation_option : '',
+				products_speciality_excerpt : '',	
+				products_speciality_qoute : '',
+				
 				products_speciality_height : null,
 				products_speciality_width : null,
 				products_speciality_length : null,
-				products_speciality_weight : null,
-				products_speciality_discount : 0,	
-				products_speciality_unit_discount : 0	
+				products_speciality_weight : null
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
@@ -332,9 +337,9 @@ const get_condition = function(condition_arr){
 				//
 				//@@ edit date 
 				if(
-				ojs_shares.check_date_full(condition_arr[x].where[s].value) == true 
+				ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true 
 				|| 
-				ojs_shares.check_date(condition_arr[x].where[s].value) == true 
+				ojs_shares_date.check_date(condition_arr[x].where[s].value) == true 
 				){
 					consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
 					consition_field = " UNIX_TIMESTAMP(" + ojs_configs.db_prefix + condition_arr[x].where[s].field + ") ";
@@ -415,9 +420,9 @@ const get_having = function(condition_arr){
 				//
 				//@@ edit date order
 				if(
-				ojs_shares.check_date_full(condition_arr[x].where[s].value) == true  
+				ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true  
 				|| 
-				ojs_shares.check_date(condition_arr[x].where[s].value) == true 
+				ojs_shares_date.check_date(condition_arr[x].where[s].value) == true 
 				){
 					consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
 					consition_field = " UNIX_TIMESTAMP(" + ojs_configs.db_prefix + condition_arr[x].where[s].field + ") ";
@@ -483,8 +488,33 @@ const get_having = function(condition_arr){
 //@
 //phan tich loi~
 function get_message_error(error){
-	if(error.sqlMessage.search("products_speciality_name_empty") >= 0 ){
+	if(error.sqlMessage.search("trig_products_speciality_name_empty") >= 0 ){
 		return "Tên sản phẩm không được để trống";
+	}else if(error.sqlMessage.search("trig_products_speciality_price_empty") >= 0 ){
+		return "Bạn chưa nhập giá sản phẩm";		
+	}else if(error.sqlMessage.search("trig_products_speciality_store_id_empty") >= 0 ){
+		return "Bạn chưa chọn cửa hàng";			
+		
+		
+
+	}else if(error.sqlMessage.search("trig_products_speciality_brand_no_refe") >= 0 ){
+		return " Thương hiệu chưa có trong hệ thống ";		
+	}else if(error.sqlMessage.search("products_speciality_store_id") >= 0 ){
+		return "Cửa hàng không có trong hệ thống";	
+
+
+	}else if(error.sqlMessage.search("options_product_speciality_link_option_id") >= 0 ){
+		return " một số option chưa có trong hệ thống ";		
+	}else if(error.sqlMessage.search("category_general_speciality_link_category_general_id") >= 0 ){
+		return " Một số danh mục chưa được tạo sãn ";			
+		
+		
+		
+		
+		
+		
+		
+		
 	}else{
 		return "Lỗi máy chủ vui lòng thao tác lại hoặc liên hệ admin";
 	}

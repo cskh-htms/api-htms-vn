@@ -31,7 +31,7 @@ localServer.listen(2021,'localhost');
 
 //router
 app.use('/',ojs_shares.check_meaintenance,  require('./routes/' + app_config.router_version + '/index'));
-app.use('/api/v0/', require('./api/v0/routers/routers-index'));
+//app.use('/api/v0/', require('./api/v0/routers/routers-index'));
 //app.use('/api/v1/', require('./api/v1/routers/routers-index'));
 //app.use('/api/v2/', require('./api/v2/routers/routers-index'));
 app.use('/api/v4/', require('./api/v4/routers/routers-index'));
