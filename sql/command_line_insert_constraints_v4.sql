@@ -88,6 +88,9 @@ source ./sql/14.table_dala_orders_speciality/03.table_orders_speciality_constrai
 
 
 
+-- 14.1.table_dala_orders_details_speciality
+source ./sql/14.1.table_orders_details_speciality/01.table_orders_details_speciality_constraint.sql;
+
 
 
 

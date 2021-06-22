@@ -226,7 +226,7 @@ async function register_app(req, res, next) {
 //@
 //2. [login-app] 
 //@
-const login_app = function (req, res, next) {
+const login_app = async function (req, res, next) {
 	
 	//@
 	//@
@@ -244,124 +244,195 @@ const login_app = function (req, res, next) {
 		res.send({ "error" : "controller_users->login_app->error_number : 1", "message": error_send } ); 
 		return;	
 	}	
+	
 	//@
 	//@
 	//@
-	//login
-	models_users.login(datas).then( results => {
-		//res.send(results);
-		//return;
-		//@//nếu login thành công
-		if(results.length  > 0) {
-			try {	
-				//@
-				//@
-				// lấy role text
-				var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
-				
-				//res.send(role_text);
-				//return;
-				
-				if(role_text =="admin"){
-					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
-					return;
-				}
-				if(role_text =="default"){
-					res.send("Lỗi phân quyền -> guest users không cần  login ");
-					return;
-				}
-				if(role_text =="supper-job"){
-					res.send("Lỗi phân quyền -> supper-job users không cần  login ");
-					return;
-				}				
-				//@
-				//@
-				//tạo token send data
-				var payload = { 
-					"users_ID": results[0].users_ID, 
-					"users_full_name" :  results[0].users_full_name, 
-					"user_role":role_text
-				};
-				var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
-		
-			}
-			catch (error){
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
-				res.send({ "error" : "controller_users->login_app->error_number : 6", "message": error_send } ); 
-				return;	
-			}
-
-			try {
-		
-				//@
-				//@
-				//tạo token database data				
-				var payload_database = { 
-					"users_ID": results[0].users_ID, 
-					"users_full_name": results[0].users_full_name,
-					"users_phone": results[0].users_phone,
-					"users_email": results[0].users_email,
-					"users_password":results[0].users_password,
-					"user_role":role_text
-				};
-				
-				var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});				
-				
-				
-				var data_insert = {
-					"datas": {
-						"token_key": token,
-						"token_value": token_database
-					}
-				}
-			}
-			catch (error){
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
-				res.send({ "error" : "controller_users->login_app->error_number : 7", "message": error_send } ); 
-				return;	
-			}
-
-
-
-			try {
-				models_token.insert_token(data_insert).then( results => {
-					let datas_return = { "error" : "","token" : token,"datas" : payload };
-					res.send( datas_return );
-					return;
-				}, error => {
-					var evn = ojs_configs.evn;
-					//evn = "dev";
-					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
-					res.send({ "error" : "controller_users->login_app->error_number : 3", "message": error_send } ); 
-					return;
-				});
-			}
-			catch (error){
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
-				res.send({ "error" : "controller_users->login_app->error_number : 8", "message": error_send } ); 
-				return;	
-			}	
-			
+	//@
+	try{
+		var login_one = await models_users.login(datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "controller_users->login_app->error_number : 1", "message": error_send } ); 
+		return;	
+	}	
+	
+	
+	//@
+	//@
+	//@
+	try{
+		var login_one_lost = await models_users.login_lost(datas);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "controller_users->login_app->error_number : 1", "message": error_send } ); 
+		return;	
+	}		
+	
+	
+	//@
+	//@
+	//@
+	//nếu pass word đúng
+	if(login_one.length > 0 || login_one_lost.length > 0){
+		//@
+		//@
+		//@
+		var results;
+		if(login_one.length > 0){
+			results = login_one;
 		}else{
+			results = login_one_lost;
+		}
+		
+
+		
+
+		try {	
+			//@
+			//@
+			// lấy role text
+			var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
+			
+			//res.send(role_text);
+			//return;
+			
+			if(role_text =="admin"){
+				res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
+				return;
+			}
+			if(role_text =="default"){
+				res.send("Lỗi phân quyền -> guest users không cần  login ");
+				return;
+			}
+			if(role_text =="supper-job"){
+				res.send("Lỗi phân quyền -> supper-job users không cần  login ");
+				return;
+			}				
+			//@
+			//@
+			//tạo token send data
+			var payload = { 
+				"users_ID": results[0].users_ID, 
+				"users_full_name" :  results[0].users_full_name, 
+				"user_role":role_text
+			};
+			var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
+	
+		}
+		catch (error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
-			res.send({ "error" : "controller_users->login_app->error_number : 4", "message": error_send } ); 
-			return;
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
+			res.send({ "error" : "controller_users->login_app->error_number : 6", "message": error_send } ); 
+			return;	
 		}
-	}, error => {
+		
+		//res.send(token);
+		//return;
+		
+
+		
+		//@
+		//@
+		//@
+		//@
+		try {
+	
+			//@
+			//@
+			//tạo token database data				
+			var payload_database = { 
+				"users_ID": results[0].users_ID, 
+				"users_full_name": results[0].users_full_name,
+				"users_phone": results[0].users_phone,
+				"users_email": results[0].users_email,
+				"users_password":results[0].users_password,
+				"user_role":role_text
+			};
+			
+			var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});				
+			
+			
+			var data_insert = {
+				"datas": {
+					"token_key": token,
+					"token_value": token_database
+				}
+			}
+		}
+		catch (error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
+			res.send({ "error" : "controller_users->login_app->error_number : 7", "message": error_send } ); 
+			return;	
+		}
+
+
+		//res.send(token);
+		//return;
+		
+		//@
+		//@
+		//@
+		//update lost qua password
+		try{
+			if(login_one_lost.length > 0){
+				var update_lost = await models_users.update_lost_password(datas);		
+			}
+		}
+		catch (error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
+			res.send({ "error" : "controller_users->login_app->error_number : 7", "message": error_send } ); 
+			return;	
+		}
+
+		//res.send({ "error" : "", "datas": update_lost } ); 
+		//return;	
+
+
+		try {
+			models_token.insert_token(data_insert).then( results => {
+				let datas_return = { "error" : "","token" : token,"datas" : payload };
+				res.send( datas_return );
+				return;
+			}, error => {
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
+				res.send({ "error" : "controller_users->login_app->error_number : 3", "message": error_send } ); 
+				return;
+			});
+		}
+		catch (error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
+			res.send({ "error" : "controller_users->login_app->error_number : 8", "message": error_send } ); 
+			return;	
+		}	
+		
+	//@
+	//@
+	//@
+	//@ nếu mật khẩu không đúng
+	}else{
 		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
-		res.send({ "error" : "controller_users->login_app->error_number : 2", "message": error_send } ); 
-		return;
-	});	
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+		res.send({ "error" : "controller_users->login_app->error_number : 4", "message": error_send } ); 
+		return;		
+	}
+	
+	//@
+	//@
 
 }//end of functions login;
 
@@ -803,13 +874,7 @@ async function get_verification_code(req, res, next) {
 							
 							//res.send( {"error" : "", "code" : verification_code} );
 							//return;
-							
-							
-							
-							
-							
-							
-							
+								
 						}, error => {
 							
 							let message_error = default_field.get_message_error(error);
@@ -1100,90 +1165,112 @@ async function lost_password(req, res, next) {
 	}	
 	
 	
-	//@
-	//@
-	//@
-	//get user data
-	try {
-		models_users.search_email( datas.users_email ).then( results => {
-			if(results.length  > 0) {
-				
-				
-				var users_role = ojs_shares_others.check_role(results[0].users_type_infomation);
-				//@
-				//@
-				// chỉ có khách hàng với chủ cửa hàng mới dc thay đổi mật khẩu
-				if(users_role == "customer" || users_role == "bussiness"){
-				}else{
-					res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 10", "message": "chỉ có customer hoặc bussiness mới dc lost password" } ); 
-					return;					
-				}
-				
-				//@
-				//@
-				//@ 
-				let txt_md5 = md5(results[0].users_ID + Math.random());
-				var txt_code = txt_md5.substring(1, 9);				
-				
-				//@
-				//@
-				// update verification status
-				try {
-					
-					var datas_verification = {
-						"users_password" : txt_code
-					}
-					//@
-					//@
-					//@ lưu verification code
-					models_users.update_users_email(datas_verification,results[0].users_ID).then( results2 => {
-						//@
-						//@
-						//send data
-						
-						var email_to = datas.users_email;
-						var email_title = "test email";
-						var email_content = '<p> mật khẩu mới tại dala app : [' + txt_code + ']</p>';
-						//@
-						//@
-						ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);
+	
+	
+	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+	var name_check = datas.email_or_phone;
 
-					}, error => {
+	if (regex.test(name_check)) {
+		//@
+		//@
+		//@ nếu là email
+		//get user data
+		try {
+			models_users.search_email( datas.email_or_phone ).then( results => {
+				if(results.length  > 0) {
+					
+					
+					var users_role = ojs_shares_others.check_role(results[0].users_type_infomation);
+					//@
+					//@
+					// chỉ có khách hàng với chủ cửa hàng mới dc thay đổi mật khẩu
+					if(users_role == "customer" || users_role == "bussiness"){
+					}else{
+						res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 10", "message": "chỉ có customer hoặc bussiness mới dc lost password" } ); 
+						return;					
+					}
+					
+					//@
+					//@
+					//@ 
+					let txt_md5 = md5(results[0].users_ID + Math.random());
+					var txt_code = txt_md5.substring(1, 9);				
+					
+					//@
+					//@
+					// update verification status
+					try {
 						
-						let message_error = default_field.get_message_error(error);
-						
+						var datas_verification = {
+							"users_password" : txt_code
+						}
+						//@
+						//@
+						//@ lưu verification code
+						models_users.update_users_email(datas_verification,results[0].users_ID).then( results2 => {
+							//@
+							//@
+							//send data
+							
+							var email_to = datas.email_or_phone;
+							var email_title = "test email";
+							var email_content = '<p> mật khẩu mới tại dala app : [' + txt_code + ']</p>';
+							//@
+							//@
+							ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);
+
+						}, error => {
+							
+							let message_error = default_field.get_message_error(error);
+							
+							var evn = ojs_configs.evn;
+							//evn = "dev";
+							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
+							res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 4", "message": error_send } ); 
+							return;	
+						});
+					}
+					catch(error){
 						var evn = ojs_configs.evn;
 						//evn = "dev";
-						var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
-						res.send({ "error" : "controller_users->verification_code->update_users-> error_number : 4", "message": error_send } ); 
+						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+						res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 5", "message": error_send } ); 
 						return;	
-					});
-				}
-				catch(error){
+					}					
+				}else{
 					var evn = ojs_configs.evn;
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-					res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 5", "message": error_send } ); 
+					res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 6", "message": error_send } ); 
 					return;	
-				}					
-			}else{
+				}		
+			}, error => {
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-				res.send({ "error" : "controller_users->lost_password->update_users_email->error_number : 6", "message": error_send } ); 
-				return;	
-			}		
-		}, error => {
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
-	}
+				res.send({ "error" : "controller_users->lost_password->search_email->error_number : 7", "message": error_send } ); 
+				return;		
+			});
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
+			res.send({ "error" : "controller_users->lost_password->search_email->error_number : 8", "message": error_send } ); 
+			return;		
+		}
 
 
+
+	//@
+	//@
+	//@
+	//@nếu data là số điện thoại
+	} else {
+
+
+	}	
+	
 }
 //* end of  8. [lost_password]
 

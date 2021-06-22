@@ -18,7 +18,8 @@
 		"orders_speciality_adress"			    : "",
 		"orders_speciality_notes"				: "",
 		"orders_speciality_phone"				: "",
-		"orders_speciality_email"				: ""
+		"orders_speciality_email"				: "",
+		"orders_speciality_shipping_code"		:""
 	}
 	
 	
@@ -48,11 +49,73 @@
 
 
 
+	//@
+	//@
+	//@
+	//phan tich loi~
+	function get_message_error(error){
+		if(error.sqlMessage.search("trig_orders_speciality_phone_empty") >= 0 ){
+			return "Chưa nhập số điện thoại";
+			
+		}else if(error.sqlMessage.search("trig_orders_speciality_phone_data_type") >= 0){
+			return " Số điện thoại không hợp lệ ";		
+
+		}else if(error.sqlMessage.search("trig_dala_orders_speciality_email_data_type") >= 0){
+			return " Email không hợp lệ ";	
+
+		}else if(error.sqlMessage.search("trig_orders_speciality_user_id_empty") >= 0){
+			return " Chưa nhập user_ID  ";	
+			
+		}else if(error.sqlMessage.search("orders_speciality_user_id") >= 0){
+			return " Không tìm thấy khách hàng ";				
+			
+		}else if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0){
+			return " Không tìm thấy đơn hàng ";	
+			
+		}else{
+			return "Lỗi nhập liệu vui lòng liên hệ bộ phận cskh," + 
+			"hoặc thao tác lại," + 
+			"Kiểm tra fields ," + 
+			"Kiểm tra kiểu dữ liệu" 
+		}
+	}
+
+
+
+	//@
+	//@
+	//@
+	//@
+	//@
+	module.exports = { 
+		default_fields,
+		check_datas,
+		get_message_error
+	};
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//
 	//
 	//
 	//@@
 	//@@
+	/*
 	function get_select_fields_view(field_arr,sql_select_all){
 		var sql_field = "";
 		//@
@@ -92,18 +155,38 @@
 		sql_field = sql_field + " ";
 		return sql_field;
 	}
-
-
-
-
-
-
-
-
-
-	//
-	module.exports = { 
-			default_fields,
-			check_datas,
-			get_select_fields_view
-	};
+	*/	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

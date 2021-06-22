@@ -70,13 +70,32 @@
 	//@@
 	function get_select_fields(field_arr,sql_select_all){
 		var sql_field = "";
+		
 		//@
 		if(Object.keys(field_arr).length == 0){
 			sql_field = sql_select_all ;
 		}else{
 			for (var x in field_arr){
 				
-				let sql_field_check = "";
+				//@
+				//@
+				//@
+				//@ check match fileds
+				var regex = /^[a-zA-Z]+\([a-zA-Z0-9_]+\)$/;
+				var split_arr;
+				var split_arr2;
+				
+				if(regex.test(field_arr[x])){
+					split_arr = field_arr[x].split("(");
+					split_arr2 = split_arr[1].split(")");
+				}
+				
+				
+				//@
+				//@
+				//@
+				//@ nếu là ngày tháng
+				var sql_field_check = "";
 				if(	field_arr[x] == "products_speciality_date_start"  
 				|| 
 					field_arr[x] == "products_speciality_date_end"  
@@ -95,10 +114,16 @@
 				//@
 					sql_field_check  = "DATE_FORMAT(" + ojs_configs.db_prefix  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
 				
-				
-				}else if(field_arr[x] == "products_speciality_price_sum" ){	
-					sql_field_check  = "sum(" + ojs_configs.db_prefix  + "products_speciality_price" + ")";				
-				
+				//@
+				//@
+				//@ nếu là biểu thức
+				}else if(regex.test(field_arr[x]) ){
+					sql_field_check  = " " + split_arr[0].trim() + "(" + ojs_configs.db_prefix  + split_arr[1].trim();	
+
+				//@
+				//@
+				//@
+				//@	lấy giá 			
 				}else if(field_arr[x] == "products_speciality_price_caution" ){	
 					sql_field_check  = " " + 			
 								
@@ -167,7 +192,7 @@
 							"WHEN " +  
 								ojs_configs.db_prefix  + "products_speciality_sale_of_price IS NULL " + 
 							"THEN " + 
-								" 'khôngcókhuyếnmãi' " + 
+								" '0' " + 
 								
 								
 							// date_star = null 	
@@ -176,7 +201,7 @@
 								ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
 								ojs_configs.db_prefix  + "products_speciality_date_end IS NULL " + 
 							"THEN " + 
-								" 'khuyếnmãivôthờihạn' " +  			
+								" '1' " +  			
 								
 								
 							// date_star = yes 	
@@ -188,7 +213,7 @@
 								"UNIX_TIMESTAMP(NOW()) - " + 
 								"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0 " + 
 							"THEN " + 
-								" 'khuyếnmãivôthờihạn' " +  		
+								" '1' " +  		
 
 							// date_star = yes 	
 							// date_end = null 
@@ -199,7 +224,7 @@
 								"UNIX_TIMESTAMP(NOW()) - " + 
 								"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0 " + 
 							"THEN " + 
-								" 'Chưatớihạn' " +  
+								" '2' " +  
 
 								
 							// date_star = null 	
@@ -211,7 +236,7 @@
 								"UNIX_TIMESTAMP(NOW()) - " + 
 								"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0 " + 
 							"THEN " + 
-								" 'đãhếthạn' " + 																	
+								" '3' " + 																	
 								
 								
 							// date_star = yes 	
@@ -226,7 +251,7 @@
 								"UNIX_TIMESTAMP(NOW()) - " + 
 								"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0  " + 								
 							"THEN " + 
-								" 'đãhếthạn' " + 		
+								" '3' " + 		
 
 							// date_star = yes 	
 							// date_end = yes 
@@ -238,12 +263,12 @@
 								"UNIX_TIMESTAMP(NOW()) - " + 
 								"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0  " + 								
 							"THEN " + 
-								" 'Chưatớihạn' " + 	
+								" '2' " + 	
 
 								
 
 							"ELSE " +  
-								" 'đangkhuyếnmãi' " + 
+								" '4' " + 
 						"END ) "				
 				
 				}else{
@@ -252,11 +277,25 @@
 
 				//@@
 				//@@
-				//@@
+				//@@ kết quả sql
 				if(sql_field == ""){
-					sql_field =  sql_field_check  + " as " +  field_arr[x];
+					//@
+					//@
+					//@nếu là biểu thức
+					if(regex.test(field_arr[x]) ){
+						sql_field = sql_field_check  + " as " + split_arr[0] + "_" + split_arr2[0].trim();
+					}else{
+						sql_field =  sql_field_check  + " as " +  field_arr[x];
+					}
 				}else{
-					sql_field =  sql_field  + ", " + sql_field_check  + " as " +  field_arr[x];
+					//@
+					//@
+					//@nếu là biểu thức
+					if(regex.test(field_arr[x]) ){
+						sql_field =  sql_field  + ", " +  sql_field_check  + " as "  + split_arr[0] + "_" + split_arr2[0].trim();
+					}else{
+						sql_field =  sql_field  + ", " + sql_field_check  + " as " +  field_arr[x];
+					}					
 				}
 			}
 		}
@@ -350,7 +389,12 @@ const get_condition = function(condition_arr){
 				
 				//
 				//@in condition
-				if(condition_arr[x].where[s].compare == "in"){
+				if(
+					condition_arr[x].where[s].compare == "in" 
+					|| condition_arr[x].where[s].compare == "IN" 
+					|| condition_arr[x].where[s].compare == "not in" 
+					|| condition_arr[x].where[s].compare == "NOT IN" 
+				){
 					consition_value = "(" + condition_arr[x].where[s].value + ")";
 					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
 				}

@@ -16,6 +16,7 @@
 
 * 6. [search]
 
+* 7. [search2]
 
 */
 
@@ -42,6 +43,8 @@ const controllers_orders_spaciality = require('../controllers/controllers-orders
 //@
 //@* 1. [insert_ordres_spaciality]
 router.post('/', middle_ware, controllers_orders_spaciality.insert_orders_spaciality);
+
+
 
 
 
@@ -73,18 +76,28 @@ router.put('/:order_id', middle_ware, controllers_orders_spaciality.update_order
 
 
 
-
+//@
+//@
+//@
+//@
 //@* 5. [delete_ordres_spaciality]
 router.delete('/:order_id', middle_ware, controllers_orders_spaciality.delete_orders_spaciality);
 
 
 
-
+//@
+//@
+//@
+//@
 //@* 6. [search]
 router.post('/search', middle_ware, controllers_orders_spaciality.search);
 
-
-
+//@
+//@
+//@
+//@
+//@* 7. [search2]
+router.post('/search2', middle_ware, controllers_orders_spaciality.search2);
 
 
 /*

@@ -17,14 +17,15 @@
 		"orders_details_speciality_product_id"		: 0,	
 		"orders_details_speciality_qty"			    : 0,
 		"orders_details_speciality_price"			: 0,
-		"orders_details_speciality_discount"		: 0,
-		"orders_details_speciality_unit_discount"	: 0,
 		"orders_details_medium_text" 				: ""
 	}
 	
 	
 	
-	
+	//@
+	//@
+	//@
+	//@
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
@@ -40,7 +41,6 @@
 
 			if(item == "orders_details_speciality_price"){
 				if(check_data_fields.check_datas.check_empty(datas.orders_details_speciality_price) == false){check_errer =  "line order là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_number(datas.orders_details_speciality_price) == false){check_errer =  "giá bán Kiểu dữ liệu là số, bạn chưa nhập dữ liệu";	return;}			
 			}				
 
 		});
@@ -48,11 +48,47 @@
 		if(check_errer.length > 0) return check_errer ;
 		return 0;
 	}
+	
 	//
-	//
-	//
+	//@
+	//@
+	//@
+	//phan tich loi~
+	function get_message_error(error){
+		if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0 ){
+			return "Không tìm thấy đơn hàng trong chi tiết đơn hàng";
+		}else{
+			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
+		}
+	}	
+			
+	
+	//@
+	//@
+	//@
+	//@
+	module.exports = { 
+		default_fields,
+		check_datas,
+		get_message_error
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	//@@
 	//@@
+	/*
 	function get_select_fields(field_arr,sql_select_all){
 		var sql_field = "";
 		//@
@@ -114,11 +150,25 @@
 		sql_field = sql_field + " ";
 		return sql_field;
 	}
-
+	*/	
 	
-	//
-	module.exports = { 
-			default_fields,
-			check_datas,
-			get_select_fields
-	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

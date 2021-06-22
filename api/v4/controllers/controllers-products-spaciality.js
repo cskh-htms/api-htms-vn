@@ -875,7 +875,11 @@ async function search(req, res, next) {
 			return;	
 		}		
 	}else if (check_condition_id == 1){
-		if( check_datas_result.owner_product == "1" ||  check_datas_result.user_role == "admin"   || check_datas_result.user_role == "default"){ }else{
+		if( check_datas_result.owner_product == "1" 
+		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "supper-job"
+		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
@@ -942,6 +946,8 @@ module.exports = {
 @@@@@
 @@@@@
 */
+
+
 
 
 

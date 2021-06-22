@@ -28,7 +28,7 @@ const models_category_gemeral_speciality = require('../models/models-category-ge
 const models_option_speciality = require('../models/models-option-speciality');
 const models_brands = require('../models/models-brands');
 const models_products_spaciality = require('../models/models-products-spaciality');
-
+const models_orders_spaciality = require('../models/models-orders-spaciality');
 
 
 
@@ -112,18 +112,18 @@ const check_owner = async function(datas_check){
 					}
 				}
 				
+				//return send_datas_check_owner_user;
 				var check_owner_user;				
 				check_owner_user = await models_users.get_owner_user(send_datas_check_owner_user);
 				
-				return [check_owner_user];
+				//return [check_owner_user];
 				
 				
-				
-				if(check_owner_user.error) { return {"error":check_owner_user.error,"message":check_owner_user.error} };
-
-			
-			
-			
+				if(check_owner_user.error && check_owner_user.error != "") { 
+					return {"error":"ojs_shares_owner-->user_owner : 1","message":check_owner_user.error} ;
+				}else{
+					owner_user = check_owner_user.datas;
+				}
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
@@ -313,7 +313,7 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
-		//@ 1.5 owner product
+		//@ 1. owner product
 		var owner_product = 0;
 		if(datas_check.product_id){
 			
@@ -359,6 +359,62 @@ const check_owner = async function(datas_check){
 
 
 
+
+		//@
+		//@
+		//@
+		//@
+		//@ 1.7 owner product
+		var owner_order = 0;
+		if(datas_check.order_id){
+			
+			var owner_order_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var order_id = datas_check.order_id;
+				
+				//return {"datas": [user_id,order_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_order = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"order_id"	: order_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_order;
+
+				owner_order_get = await models_orders_spaciality.get_owner_order(send_datas_check_owner_order);	
+				//return [owner_order_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_order_get.error) { return {"error":owner_order_get.error,"message":owner_order_get.error} }	
+				if(owner_order_get.length > 0) { owner_order = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_order_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.7. [owner_order] 
+
+
+
+
+
+
+
 		//@
 		//@
 		//@
@@ -370,7 +426,8 @@ const check_owner = async function(datas_check){
 			"owner_cat":owner_cat,
 			"owner_option":owner_option,
 			"owner_brand":owner_brand,
-			"owner_product":owner_product
+			"owner_product":owner_product,
+			"owner_order":owner_order
 	
 		}
 		return data_return;

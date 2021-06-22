@@ -37,27 +37,67 @@ const ojs_shares_sql = {
 		}else{
 			for (var x in field_arr){
 				
-				let sql_field_date = "";
+				var sql_field_check = "";
+				//@
+				//@
+				//@
+				//@ check match fileds
+				var regex = /^[a-zA-Z]+\([a-zA-Z0-9_]+\)$/;
+				var split_arr;
+				var split_arr2;
 				
+				if(regex.test(field_arr[x])){
+					split_arr = field_arr[x].split("(");
+					split_arr2 = split_arr[1].split(")");
+				}				
+				
+				
+				
+				
+				//@
+				//@
+				//@
+				// nếu là kiểu ngày tháng
 				if
 				(	
 				field_arr[x] == "products_speciality_date_start" 
 				|| field_arr[x] == "products_speciality_date_end" 
 				|| field_arr[x] == "stores_date_created" 
 				|| field_arr[x] == "orders_speciality_date_orders" 
-				
-					
 				)
 				{
-					sql_field_date  = "DATE_FORMAT(" + ojs_configs.db_prefix  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
+					sql_field_check  = "DATE_FORMAT(" + ojs_configs.db_prefix  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
+				//@
+				//@
+				//@ nếu là biểu thức
+				}else if(regex.test(field_arr[x]) ){
+					sql_field_check  = " " + split_arr[0].trim() + "(" + ojs_configs.db_prefix  + split_arr[1].trim();	
+					
 				}else{
-					sql_field_date  = ojs_configs.db_prefix + field_arr[x];
+					sql_field_check  = ojs_configs.db_prefix + field_arr[x];
 				}
 				
+				//@@
+				//@@
+				//@@ kết quả sql
 				if(sql_field == ""){
-					sql_field =  sql_field_date  + " as " +  field_arr[x];
+					//@
+					//@
+					//@nếu là biểu thức
+					if(regex.test(field_arr[x]) ){
+						sql_field = sql_field_check  + " as " + split_arr[0] + "_" + split_arr2[0].trim();
+					}else{
+						sql_field =  sql_field_check  + " as " +  field_arr[x];
+					}
 				}else{
-					sql_field =  sql_field  + ", " + sql_field_date  + " as " +  field_arr[x];
+					//@
+					//@
+					//@nếu là biểu thức
+					if(regex.test(field_arr[x]) ){
+						sql_field =  sql_field  + ", " +  sql_field_check  + " as "  + split_arr[0] + "_" + split_arr2[0].trim();
+					}else{
+						sql_field =  sql_field  + ", " + sql_field_check  + " as " +  field_arr[x];
+					}					
 				}
 			}
 		}
@@ -112,14 +152,21 @@ const ojs_shares_sql = {
 					
 					
 					
-					//
+					//@
+					//@
+					//@
 					//@in condition
-					if(condition_arr[x].where[s].compare == "in"){
+					if(
+						condition_arr[x].where[s].compare == "in" 
+						|| condition_arr[x].where[s].compare == "IN" 
+						|| condition_arr[x].where[s].compare == "not in" 
+						|| condition_arr[x].where[s].compare == "NOT IN" 
+					){
 						consition_value = "(" + condition_arr[x].where[s].value + ")";
 						consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
 					}
-					
-					
+
+
 		
 					var relation = condition_arr[x].relation;
 					

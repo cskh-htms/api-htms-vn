@@ -7,11 +7,15 @@
 
 2.  [login]
 
+2.1  [login_lost]
+
 3.  [get_all_users]
 
 4.  [get_one_user]
 
 5.  [update_users]
+
+5.1  [update_lost_password]
 
 6.  [search_email]
 
@@ -66,6 +70,7 @@ var  sql_select_all = 	"" +
 	
 	ojs_configs.db_prefix + "users_full_name as users_full_name, " + 
 	ojs_configs.db_prefix + "users_password as users_password, " + 
+	ojs_configs.db_prefix + "users_password_lost as users_password_lost, " + 
 	ojs_configs.db_prefix + "users_first_name as users_first_name, " + 
 	ojs_configs.db_prefix + "users_last_name as users_last_name, " + 
 	ojs_configs.db_prefix + "users_adress as users_adress, " + 
@@ -143,7 +148,8 @@ const insert_users = async function (datas) {
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "users  SET ?";
 	let dataGo = {
 		"users_full_name"					: mysql.escape(datas.users_full_name).replace(/^'|'$/gi, ""),
-		"users_password"					: md5(datas.users_password),	
+		"users_password"					: md5(datas.users_password),
+		"users_password_lost"				: md5(datas.users_password_lost),		
 		"users_first_name"					: mysql.escape(datas.users_first_name).replace(/^'|'$/gi, ""),	
 		"users_last_name"					: mysql.escape(datas.users_last_name).replace(/^'|'$/gi, ""),
 		"users_adress"						: mysql.escape(datas.users_adress).replace(/^'|'$/gi, ""),
@@ -223,6 +229,7 @@ const login = async function (datas) {
 			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
 	}
 	
+	//return sql_text;
 	//@
 	//@
 	//run sql
@@ -237,7 +244,55 @@ const login = async function (datas) {
 
 //2. end of [login]
 
+//@@
+//@@
+//2.1 [login_lost]
+//@
+const login_lost = async function (datas) {
 
+	//@
+	//@
+	// check data user login type
+	//@
+	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+	var name_check = datas.users_login_name;
+
+	if (regex.test(name_check)) {
+		//@
+		//if data type là email
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			sql_link_default +
+			"where " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
+			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'";
+
+
+	} else {
+		//@
+		//if data type là phone
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			sql_link_default +
+			"where " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
+			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'";
+	}
+	
+	
+	//return sql_text;
+	
+	//@
+	//@
+	//run sql
+	return new Promise( (resolve,reject) => {
+		connection.query( { sql:sql_text, timeout: 20000 } , ( err , results , fields ) => {
+			if( err ) reject(err);
+			resolve(results);
+		} );
+	} );
+
+};//end of function login
+
+//2.1 end of [login]
 
 
 
@@ -384,10 +439,74 @@ const update_users = async function (datas,user_id) {
 		return  { "error" : "models_users->update_users->error_number : 1", "message" : error } ;
 	}
 };
-
-
-
+//@
 //5. end of  [update_users ]
+
+
+
+
+//@
+//@
+//@
+//@
+//5.1 [update_lost_password]
+const update_lost_password = async function (datas) {
+	
+	//@
+	//@
+	// check data user login type
+	//@
+	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+	var name_check = datas.users_login_name;
+
+	if (regex.test(name_check)) {
+		//@
+		//if data type là email
+		var sql_text = 	"UPDATE " + 
+			ojs_configs.db_prefix + "users set " + 
+			ojs_configs.db_prefix + "users_password_lost = '" + 
+			md5(datas.users_password) + "' " + 
+			"where " + ojs_configs.db_prefix + "users_email = '" + datas.users_login_name + "' " ;
+
+
+	} else {
+		//@
+		//if data type là phone
+		var sql_text = 	"UPDATE " + 
+			ojs_configs.db_prefix + "users set " + 
+			ojs_configs.db_prefix + "users_password_lost = ' " + 
+			md5(datas.users_password) + "' " + 
+			"where " + ojs_configs.db_prefix + "users_phone = '" + datas.users_login_name + "' " ;
+	}
+	
+	
+	//return [sql_text];
+	
+	//@
+	//@
+	//run sql
+	return new Promise( (resolve,reject) => {
+		connection.query( { sql:sql_text, timeout: 20000 } , ( err , results , fields ) => {
+			if( err ) reject(err);
+			resolve(results);
+		} );
+	} );
+
+};
+//@
+//5.1 end of  [update_lost_password]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -404,9 +523,8 @@ const search_email = async function (email) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
-					" where " +  
 					sql_link_default + 
-					" and " + 
+					" where " + 
 					ojs_configs.db_prefix + "users_email = '" + email + "' " 
 	
 	//@
@@ -677,6 +795,7 @@ var delete_users = async function (user_id) {
 //export module
 module.exports = { 
 	login ,
+	login_lost,
 	search,
 	get_all_users,
 	get_one_users,
@@ -686,5 +805,6 @@ module.exports = {
 	search_email,
 	update_users_email,
 	get_role,
-	get_owner_user
+	get_owner_user,
+	update_lost_password
 };

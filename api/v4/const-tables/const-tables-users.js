@@ -6,24 +6,25 @@
 
 	//create default data frome mysql tblUsers
 	const  default_fields = {
-		"users_full_name"	: "",
-		"users_password"	: "",	
-		"users_first_name"	: "",	
-		"users_last_name"	: "",	
-		"users_adress"		: "",	
-		"users_phone"		: "",
-		"users_email"		: "",
+		"users_full_name"		: "",
+		"users_password"		: "",
+		"users_password_lost"	: "",		
+		"users_first_name"		: "",	
+		"users_last_name"		: "",	
+		"users_adress"			: "",	
+		"users_phone"			: "",
+		"users_email"			: "",
 				
-		"users_router_version" : "v4",
-		"users_view_version" : "v4",
-		"users_js_css_version" : "v4",
-		"users_api_version" : "v4",
-		"users_users_type_id" : "",		
+		"users_router_version" 	: "v4",
+		"users_view_version" 	: "v4",
+		"users_js_css_version" 	: "v4",
+		"users_api_version" 	: "v4",
+		"users_users_type_id" 	: "",		
 		
-		"users_shipping_status" : 0,
+		"users_shipping_status" 	: 0,
 		"users_verification_status" : 0,
-		"users_verification_code" : "",
-		"users_verification_time" : ""
+		"users_verification_code" 	: "",
+		"users_verification_time" 	: ""
 		
 	}
 	function check_datas (datas){
