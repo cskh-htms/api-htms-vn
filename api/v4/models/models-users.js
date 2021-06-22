@@ -546,6 +546,39 @@ const search_email = async function (email) {
 //6. end of  [search_email]
 
 
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+//6.  [search_phone]
+const search_phone = async function (phone) {
+	//create sql text
+	let sql_text = 	"SELECT " +  sql_select_all + 
+					sql_from_default + 
+					sql_link_default + 
+					" where " + 
+					ojs_configs.db_prefix + "users_phone = '" + phone + "' " 
+	
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->search_phone->error_number : 1", "message" : error } ;
+	}
+};
+
+//6. end of  [search_phone]
+
 
 
 
@@ -583,10 +616,50 @@ const update_users_email = async function (datas,user_id) {
 		return  { "error" : "models_users->update_users_email->error_number : 1", "message" : error } ;
 	}
 };
-
-
-
+//@
 //7. end of  [update_users_email ]
+
+
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+//7.1  [update_users_phone]
+const update_users_phone = async function (n_password,phone) {
+	//@
+	//@
+
+	var table_name  = ojs_configs.db_prefix + "users ";
+	var field_where  = ojs_configs.db_prefix + "users_phone ";
+	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(n_password) + "'" ;
+	//create sql text
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ phone + '"';
+	
+	//@
+	//return [sql_text];
+	
+	
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_users->update_users_phone->error_number : 1", "message" : error } ;
+	}
+};
+//@
+//@
+//7.1 end of [update_users_phone]
+
+
 
 
 
@@ -789,9 +862,6 @@ var delete_users = async function (user_id) {
 
 
 
-
-
-
 //export module
 module.exports = { 
 	login ,
@@ -803,8 +873,10 @@ module.exports = {
 	insert_users,
 	delete_users,
 	search_email,
+	search_phone,
 	update_users_email,
 	get_role,
 	get_owner_user,
-	update_lost_password
+	update_lost_password,
+	update_users_phone
 };

@@ -1246,7 +1246,7 @@ async function lost_password(req, res, next) {
 				}		
 			}, error => {
 				var evn = ojs_configs.evn;
-				evn = "dev";
+				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 				res.send({ "error" : "controller_users->lost_password->search_email->error_number : 7", "message": error_send } ); 
 				return;		
@@ -1266,13 +1266,74 @@ async function lost_password(req, res, next) {
 	//@
 	//@
 	//@nếu data là số điện thoại
+	//*
+	//* 1. get all user theo phone
+	//* 2. nếu có user thì update user password lost -> gữi tin nhắn về số DT
+	//* 3. nếu ko có thì bào  user không tồn tại	
 	} else {
+		try{
+			var datas_users =  await models_users.search_phone(datas.email_or_phone);
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search user phone, Liên hệ bộ phan HTKT dala" );
+			res.send({ "error" : "controller_users->lost_password->search_phone->error_number : 1", "message": error_send } ); 
+			return;				
+		}
+		
+		//res.send(datas_users);
+		//return;
+		
+		//@
+		//nếu có users		
+		if(datas_users.length > 0){
+			
+			//@
+			//@
+			//@tạo mật khẩu mới
+			try{
+				var n_password = Math.floor(1000 + Math.random() * 9000);
+				var datas_users_update =  await models_users.update_users_phone(n_password,datas.email_or_phone);
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search user phone, Liên hệ bộ phan HTKT dala" );
+				res.send({ "error" : "controller_users->lost_password->update_users_phone->error_number : 1", "message": error_send } ); 
+				return;				
+			}		
 
-
-	}	
+			//res.send( datas_users_update ); 
+			//return;					
+			
+			//@
+			//@
+			//@gữi đến số điện thoại	
+			try{
+				ojs_shares_send_code_to_phone.send_code_to_phone(res,n_password,datas.email_or_phone);
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi gữi tin nhắn, Liên hệ bộ phan HTKT dala" );
+				res.send({ "error" : "controller_users->lost_password->send_phone->error_number : 1", "message": error_send } ); 
+				return;				
+			}				
 	
+		}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "số Điện thoại không có trong hệ thống", "số Điện thoại không có trong hệ thống" );
+			res.send({ "error" : "controller_users->lost_password->lost_password->check->error_number : 1", "message": error_send } ); 
+			return;					
+		}
+		//res.send([datas_users_update]);
+		//return;		
+	}
 }
 //* end of  8. [lost_password]
+
 
 
 

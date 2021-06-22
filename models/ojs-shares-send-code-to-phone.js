@@ -31,11 +31,18 @@ const ojs_shares_send_code_to_phone = {
 		
 		//@
 		//@
-		var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_post(
+		try{
+			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_post(
 			'http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json/',
 			datas );
-		res.send(get_code_verification);
-		return;
+			res.send(get_code_verification);
+			return;
+		}
+		catch(error){
+			res.send({"message": "chưa gữi dc tin nhắn"});
+			return;			
+		}
+
 	}	
 	
 }//end of oj_loader
