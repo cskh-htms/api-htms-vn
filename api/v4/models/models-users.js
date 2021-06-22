@@ -164,8 +164,7 @@ const insert_users = async function (datas) {
 		
 		"users_shipping_status"				: mysql.escape(datas.users_shipping_status).replace(/^'|'$/gi, ""),			
 		"users_verification_status"			: mysql.escape(datas.users_verification_status).replace(/^'|'$/gi, ""),
-		"users_verification_code"			: mysql.escape(datas.users_verification_code).replace(/^'|'$/gi, ""),			
-		"users_verification_time"			: mysql.escape(datas.users_verification_time).replace(/^'|'$/gi, "")			
+		"users_verification_code"			: mysql.escape(datas.users_verification_code).replace(/^'|'$/gi, "")		
 	}
 
 	let kes = Object.keys(dataGo);

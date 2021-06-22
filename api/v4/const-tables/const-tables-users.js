@@ -23,8 +23,7 @@
 		
 		"users_shipping_status" 	: 0,
 		"users_verification_status" : 0,
-		"users_verification_code" 	: "",
-		"users_verification_time" 	: ""
+		"users_verification_code" 	: ""
 		
 	}
 	function check_datas (datas){
