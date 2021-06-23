@@ -155,7 +155,7 @@ const ojs_shares_sql = {
 					//@
 					//@
 					//@
-					//@in condition
+					//@[in] and [not in] condition
 					if(
 						condition_arr[x].where[s].compare == "in" 
 						|| condition_arr[x].where[s].compare == "IN" 
@@ -164,6 +164,21 @@ const ojs_shares_sql = {
 					){
 						consition_value = "(" + condition_arr[x].where[s].value + ")";
 						consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
+					}
+
+
+					//@
+					//@
+					//@
+					//@[null] and [not null] condition
+					if(
+						condition_arr[x].where[s].compare == "null" 
+						|| condition_arr[x].where[s].compare == "not null" 
+						|| condition_arr[x].where[s].compare == "NULL" 
+						|| condition_arr[x].where[s].compare == "NOT NULL" 
+					){
+						consition_value = " ";
+						consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field + " IS ";
 					}
 
 

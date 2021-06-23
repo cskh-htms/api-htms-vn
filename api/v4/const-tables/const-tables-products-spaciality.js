@@ -388,7 +388,7 @@ const get_condition = function(condition_arr){
 				
 				
 				//
-				//@in condition
+				//@[in] and [not in] condition
 				if(
 					condition_arr[x].where[s].compare == "in" 
 					|| condition_arr[x].where[s].compare == "IN" 
@@ -398,6 +398,24 @@ const get_condition = function(condition_arr){
 					consition_value = "(" + condition_arr[x].where[s].value + ")";
 					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field;
 				}
+				
+				
+				//@
+				//@
+				//@
+				//@[null] and [not null] condition
+				if(
+					condition_arr[x].where[s].compare == "null" 
+					|| condition_arr[x].where[s].compare == "not null" 
+					|| condition_arr[x].where[s].compare == "NULL" 
+					|| condition_arr[x].where[s].compare == "NOT NULL" 
+				){
+					consition_value = " ";
+					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field + " IS ";
+				}				
+				
+				
+				
 				
 				//
 				//neu file dat biet
@@ -551,7 +569,8 @@ function get_message_error(error){
 		return " một số option chưa có trong hệ thống ";		
 	}else if(error.sqlMessage.search("category_general_speciality_link_category_general_id") >= 0 ){
 		return " Một số danh mục chưa được tạo sãn ";			
-		
+	}else if(error.sqlMessage.search("a foreign key constraint fails") >= 0 ){
+		return " Danh mục hoặc option id không tìm thấy ";		
 		
 		
 		

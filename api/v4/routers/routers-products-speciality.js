@@ -97,7 +97,12 @@ router.post('/search', middle_ware, controllers_products_spaciality.search);
 
 
 
-
+//@
+//@
+//@
+//@
+//@ 7. [search]
+router.post('/search_all', middle_ware, controllers_products_spaciality.search_all);
 
 
 /*

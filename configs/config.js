@@ -20,7 +20,7 @@ const ojs_config_app = {
 	//@
 	//@
 	//@
-	domain : "http://localhost:2021",
+	domain : "https://appdala.com",
 	
 	//@
 	//@

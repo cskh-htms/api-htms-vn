@@ -14,7 +14,7 @@
 
 * 6. [search]
 
-
+* 7. [search_all]
 
 
 */
@@ -823,7 +823,182 @@ const search = async function (datas) {
 	
 	
 
+//@
+//@
+//@
+//@
+// * 7. [search]
+const search_all = async function (datas) {
+	
+	//@
+	//@
+	//@
+	//@ select field
+	var sql_field;
+	try {
+		if(datas.select_field){
+			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
+		}else{
+			sql_field = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
+		return;	
+	}		
+			
+			
+	//return 	sql_field;
+			
+			
+			
+	//@
+	//@
+	//@
+	//@ get_order_text	
+	var sql_order;
+	try {
+		if(datas.order){
+			sql_order = default_field.get_order_text(datas.order)
+		}else{
+			sql_order = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 2", "message": error_send } ); 
+		return;	
+	}		
+		
+		
+	
+	//@
+	//@
+	//@
+	//@ get_condition	
+	var sql_condition;
+	try {
+		if(datas.condition){
+			sql_condition = default_field.get_condition(datas.condition)
+		}else{
+			sql_condition = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 3", "message": error_send } ); 
+		return;	
+	}		
+		
+			
+		
+	
+	//@
+	//@
+	//@
+	//@ get_having	
+	var sql_having;
+	try {
+		if(datas.having){
+			sql_having = default_field.get_having(datas.having)
+		}else{
+			sql_having = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 4", "message": error_send } ); 
+		return;	
+	}		
+				
+		
+		
+	
+		
+	//@
+	//@
+	//@
+	//@ghep data	
+	let get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+	//return get_sql_search;
+	
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_1 = {...get_sql_search};
+	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+	//@
+	
 
+	
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_2 = {...get_sql_search_1};
+	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
+
+
+
+
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_3 = {...get_sql_search_2};
+	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });		
+	//@
+	
+
+	
+	//@
+	//@
+	//@	
+	//@
+	let get_sql_search_4 = {...get_sql_search_3};
+	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });		
+				
+		
+	
+		
+	//@
+	//@
+	//@	
+	//@
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_search,sql_link_search);	
+
+	//return get_sql_search_group;
+
+
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model product speciality, -> search -> products speciality->error : 5", "message" : error } ;
+	}
+};
+	
+	
+//@
+//@ * end of 6. [search] 	
 
 
 
@@ -842,6 +1017,7 @@ module.exports = {
 	insert_products_spaciality,
 	delete_products_spaciality,
 	search,
+	search_all,
 	get_owner_product
 };
 

@@ -16,7 +16,7 @@
 
 * 6. [search]
 
-
+* 7. [search_all]
 
 */
 
@@ -901,7 +901,7 @@ async function search(req, res, next) {
 				var evn = ojs_configs.evn;
 				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-				res.send({ "error" : "1.2.controller_product_speciality", "message": error_send } ); 
+				res.send({ "error" : "controllers-products-speciality->search->run model -> error_number : 1", "message": error_send } ); 
 				return;	
 		});
 	}
@@ -909,13 +909,186 @@ async function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : "1.3.controller_product_speciality", "message": error_send } ); 
+		res.send({ "error" : "controllers-products-speciality->search->run model -> error_number : 2", "message": error_send } ); 
 		return;	
 	}
 
 }
 //@
 //@ * end of 6. [search]
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ * 7. [search_all]
+async function search_all(req, res, next) {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		
+		if(!datas.select_field || datas.select_field.length <= 0){
+			res.send({ "error" : "controllers-products-speciality>search_all->get req -> error_number : 1", "message": "Vui lòng chọn fields" } ); 
+			return;			
+		}
+		
+		
+		//@
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-products-speciality>search_all->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@ kiểm tra xem có phải search_all option theo id
+	//@ nếu search_all theo id thì phải chủ sở hữu id mới dc searhc
+	//@ nếu không pahỉ search_all theo id thì phải là admin mới dc search_all
+	try{
+		var check_condition_id = 0;
+		var product_id = 0;
+		
+		if ( datas.condition  && typeof datas.condition !== 'undefined' ){
+			
+			for ( x in datas.condition){
+				if(datas.condition[x].hasOwnProperty('where') && datas.condition[x].where.length > 0){
+					
+					for ( z in datas.condition[x].where){
+						if( datas.condition[x].where[z].hasOwnProperty('field')  
+							&& datas.condition[x].where[z].field == "products_speciality_ID"  
+							&& datas.condition[x].where[z].hasOwnProperty('compare')    
+							&& datas.condition[x].where[z].compare == "="  
+						){
+							check_condition_id = 1;
+							product_id = datas.condition[x].where[z].value;
+						}
+					}	
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-products-speciality->search_all->check_condition_id -> error_number : 2", "message": error_send } ); 
+		return;			
+	}		
+	
+
+
+
+
+	//@
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	
+	try{
+		
+		if(check_condition_id == 1){
+			var datas_check = {
+				"token":token,
+				"product_id":product_id
+			}	
+		}else{
+			var datas_check = {
+				"token":token
+			}
+		}			
+		
+		//res.send(datas_check);
+		//return;		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-products-speciality->search_all->check-role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+
+
+	//res.send(check_datas_result);
+	//return;
+
+
+
+	//@
+	//@
+	//@ nếu không có lộc theo cat id thì phải là admin
+	if(check_condition_id == 0){
+		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" || check_datas_result.user_role == "default"){}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search_all all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search_all all" );
+			res.send({ "error" : "controllers-products-speciality->search_all->check_condition_id -> error_number : 1", "message": error_send } ); 
+			return;	
+		}		
+	}else if (check_condition_id == 1){
+		if( check_datas_result.owner_product == "1" 
+		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "supper-job"
+		){ }else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "controllers-products-speciality->search_all->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;			
+		}			
+	}	
+		
+	
+
+	//@
+	//@
+	//@
+	// run model
+	try {
+		models_products_spaciality.search_all(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+		}, error => {
+				var evn = ojs_configs.evn;
+				evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+				res.send({ "error" : "controllers-products-speciality->search_all->run model -> error_number : 1", "message": error_send } ); 
+				return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "controllers-products-speciality->search_all->run model -> error_number : 2", "message": error_send } ); 
+		return;	
+	}
+
+}
+//@
+//@ * end of 7. [search_all]
+
 
 
 
@@ -937,7 +1110,8 @@ module.exports = {
 	update_products_spaciality,
 	insert_products_spaciality,
 	delete_products_spaciality,
-	search
+	search,
+	search_all
 };
 
 /*

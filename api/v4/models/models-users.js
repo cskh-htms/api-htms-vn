@@ -596,7 +596,7 @@ const update_users_email = async function (datas,user_id) {
 	//@
 	var table_name  = ojs_configs.db_prefix + "users ";
 	var field_where  = ojs_configs.db_prefix + "users_ID ";
-	var sqlSet = " " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'" ;
+	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'" ;
 	//create sql text
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
 	

@@ -9,7 +9,7 @@ const HOST_NAME2 = "103.110.86.240"; //server remote
 const HOST_IP2 = "localhost"; // server user remote
 const DATABASE_USER2 = "remote1";
 const DATABASE_PASS2 = "Vanluc@2003";
-const DATABASE_NAME2 = "dalacenter";
+const DATABASE_NAME2 = "dalacenter4";
 
 
 
