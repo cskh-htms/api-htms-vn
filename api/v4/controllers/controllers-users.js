@@ -493,6 +493,10 @@ async function get_all_users(req, res, next) {
 	}
 	
 	
+	//res.send(check_datas_result);
+	//return;
+	
+	
 	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" ){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;

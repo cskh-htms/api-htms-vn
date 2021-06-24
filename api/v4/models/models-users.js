@@ -86,9 +86,17 @@ var  sql_select_all = 	"" +
 	ojs_configs.db_prefix + "users_shipping_status as users_shipping_status, " + 
 	ojs_configs.db_prefix + "users_verification_status as users_verification_status, " + 
 	ojs_configs.db_prefix + "users_verification_code as users_verification_code, " + 
-	ojs_configs.db_prefix + "users_verification_time as users_verification_time ";
+	ojs_configs.db_prefix + "users_verification_time as users_verification_time, " +
+
+	ojs_configs.db_prefix + "users_type_ID as users_type_ID, " + 
+	ojs_configs.db_prefix + "users_type_name as users_type_name, " + 
+	ojs_configs.db_prefix + "users_type_infomation as users_type_infomation ";
 
 
+
+	
+
+	
 
 //@
 //@
@@ -104,8 +112,11 @@ var sql_from_default = 	" from " +
 //@
 //@
 //@link	
-var sql_link_default = 	" ";
-		
+var sql_link_default = 	" " +
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "users_type  ON  " + 
+		ojs_configs.db_prefix +  "users_users_type_id = " + 
+		ojs_configs.db_prefix +  "users_type_ID  " ;		
 		
 		
 //@
@@ -746,6 +757,8 @@ async function get_role(datas_check) {
 	//lấy role
 	try {
 		var users_data = await get_one_users(users_decode.users_ID);
+		
+		//return{ "error" : "", "message": users_data} ; 
 		
 		var users_role = ojs_shares_others.check_role(users_data[0].users_type_infomation);
 		return { "error": "", "message": users_role };

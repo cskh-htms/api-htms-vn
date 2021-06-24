@@ -69,7 +69,8 @@ const ojs_config_app = {
 		"bussiness",
 		"customer",
 		"default",
-		"supper-job"
+		"supper-job",
+		"shipping"
 	],
 	//@
 	//giá trịnh trong database user infomation(md5)
@@ -78,7 +79,8 @@ const ojs_config_app = {
 		"1" : "bussiness-ne",
 		"2" : "customer-ne",
 		"3" : "default-ne",
-		"4" : "supper-job-ne"
+		"4" : "supper-job-ne",
+		"5" : "shipping-ne"
 	},
 	//@
 	// biến cấu hình cho search 
