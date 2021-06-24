@@ -12,8 +12,11 @@
 
 * 5. [delete_ordres_spaciality]
 
-* 6. [search]
+* 7. [search]
 
+* 8. [search_customer]
+
+* 9. [search_user]
 
 
 
@@ -75,12 +78,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " + 
 	ojs_configs.db_prefix  + "orders_speciality_notes as orders_speciality_notes, " + 
 	ojs_configs.db_prefix  + "orders_speciality_email as orders_speciality_email, " +	
-	ojs_configs.db_prefix  + "orders_speciality_shipping_code as orders_speciality_shipping_code, " + 	
-	
-	
-	//service type
-	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix  + "users_full_name as users_full_name " 		
+	ojs_configs.db_prefix  + "orders_speciality_shipping_code as orders_speciality_shipping_code ";
 	
 	
 
@@ -90,7 +88,8 @@ var sql_from_default = 	" from " +
 
 	
 //link table	
-var sql_link_default = 	""  + 
+var sql_link_default = 	""  ; 
+var sql_link_search = 	""  + 
 
 	" INNER JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
@@ -109,10 +108,12 @@ var sql_order_default = " order by " +
 //--------------------------------	
 	
 //from table
-var sql_from_search = 	" from " + ojs_configs.db_prefix + "view_orders_customer " ;
-var sql_from_search2 = " from " + ojs_configs.db_prefix + "view_orders_users " ;
+var sql_from_search_customer = 	" from " + ojs_configs.db_prefix + "view_orders_customer " ;
+var sql_from_search_user = " from " + ojs_configs.db_prefix + "view_orders_users " ;
 
-var sql_link_search = 	" " ;	
+var sql_link_search_view = 	" " ;	
+
+
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,7 +444,7 @@ const search = async function (datas) {
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 					
 	}
 	catch(error){
@@ -478,18 +479,18 @@ const search = async function (datas) {
 //@	
 //@	
 //@	
-//@ * 7. [search2]
-const search2 = async function (datas) {
+//@ * 8. [search_customer]
+const search_customer = async function (datas) {
 	//@
 	//@
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search2,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_customer,sql_link_search_view);
 					
 	}
 	catch(error){
-		return  { "error" : "model-orders-spaciality->search2->error-nymber : 1", "message" : error } ;
+		return  { "error" : "model-orders-spaciality->search_customer->error-nymber : 1", "message" : error } ;
 	}
 	
 	
@@ -506,13 +507,51 @@ const search2 = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "01.model_orders_speciality->search : 2", "message" : error } ;
+		return  { "error" : "01.model_orders_speciality->search_customer : 2", "message" : error } ;
 	}
 };
 //@	
-//@ end of * 7. [search2]	
+//@ end of * 8. [search_customer]	
 
 
+//@	
+//@	
+//@	
+//@	
+//@	
+//@ * 9. [search_user]
+const search_user = async function (datas) {
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_user,sql_link_search_view);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_user->error-nymber : 1", "message" : error } ;
+	}
+	
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_user : 2", "message" : error } ;
+	}
+};
+//@	
+//@ end of * 8. [search_user]	
 
 
 /*
@@ -529,7 +568,8 @@ module.exports = {
 	insert_orders_spaciality,
 	delete_orders_spaciality,
 	search,
-	search2,
+	search_customer,
+	search_user,
 	get_owner_order
 };
 

@@ -87,19 +87,7 @@ let sql_select_all = 	"" +
 	
 	
 	ojs_configs.db_prefix  + "options_product_speciality_information as options_product_speciality_information, " + 
-	ojs_configs.db_prefix  + "options_product_speciality_qoute as options_product_speciality_qoute, " +	
-		
-	//stores
-	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
-
-	//service type
-	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name, "  + 
-
-	//service type
-	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix  + "users_full_name as users_full_name " 
+	ojs_configs.db_prefix  + "options_product_speciality_qoute as options_product_speciality_qoute "; 
 
 
 //@
@@ -115,7 +103,8 @@ var sql_from_default = 	" from " +
 //@
 //@
 //@link	
-var sql_link_default = 	""  + 
+var sql_link_default = 	""  ;
+var sql_link_search = 	""  + 
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "stores  ON  " + 
@@ -415,7 +404,7 @@ const search = async function (datas) {
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 		//return get_sql_search_group;
 	}
 	catch(error){

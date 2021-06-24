@@ -91,20 +91,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "products_speciality_height as products_speciality_height, " + 
 	ojs_configs.db_prefix  + "products_speciality_width as products_speciality_width, " + 
 	ojs_configs.db_prefix  + "products_speciality_length as products_speciality_length, " + 
-	ojs_configs.db_prefix  + "products_speciality_weight as products_speciality_weight, "  + 
-	
-	
-	//stores
-	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
-
-	//service type
-	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name,  " + 	
-	
-	//service type
-	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix  + "users_full_name as users_full_name " 		
+	ojs_configs.db_prefix  + "products_speciality_weight as products_speciality_weight " ;
 	
 	
 	
@@ -116,7 +103,8 @@ var sql_from_default = 	" from " +
 	
 
 //link table	
-var sql_link_default = 	""  + 
+var sql_link_default = 	"" ;
+var sql_link_search = 	""  + 
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "stores  ON  " + 
@@ -151,7 +139,7 @@ var sql_order_default = " order by " +
 //@
 //@
 //@link search
-var  sql_link_search = 	"" ;
+var  sql_link_search_all = 	"" ;
 
 
 //@
@@ -294,12 +282,32 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 		//-----------------------------	
 		
 
-		
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//update sku
+		var ram = Math.random().toString(36).substring(11).toUpperCase();
+		var sql_sku = 	" " + 
+						" UPDATE " +  
+						ojs_configs.db_prefix + "products_speciality SET " + 
+						ojs_configs.db_prefix + "products_speciality_sku = CONCAT('" + 
+						mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, "") + "',@aa,'" + ram + "')  " + 
+						"WHERE " + 
+						ojs_configs.db_prefix + "products_speciality_ID = @aa; ";
+
+
+		sql_text = sql_text + sql_sku ;
 		//commit
 		sql_text = sql_text + " COMMIT;"
 		
 		
 		//return [sql_text];
+		
 		
 		
 		return new Promise( (resolve,reject) => {
@@ -798,7 +806,7 @@ const search = async function (datas) {
 	//@
 	//@	
 	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_default);	
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_default,sql_link_search);	
 
 	//return get_sql_search_group;
 
@@ -827,7 +835,7 @@ const search = async function (datas) {
 //@
 //@
 //@
-// * 7. [search]
+// * 7. [search_all]
 const search_all = async function (datas) {
 	
 	//@
@@ -977,7 +985,7 @@ const search_all = async function (datas) {
 	//@
 	//@	
 	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_search,sql_link_search);	
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_search,sql_link_search_all);	
 
 	//return get_sql_search_group;
 
@@ -998,7 +1006,7 @@ const search_all = async function (datas) {
 	
 	
 //@
-//@ * end of 6. [search] 	
+//@ * end of 7. [search_all] 	
 
 
 

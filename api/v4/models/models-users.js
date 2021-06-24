@@ -86,13 +86,7 @@ var  sql_select_all = 	"" +
 	ojs_configs.db_prefix + "users_shipping_status as users_shipping_status, " + 
 	ojs_configs.db_prefix + "users_verification_status as users_verification_status, " + 
 	ojs_configs.db_prefix + "users_verification_code as users_verification_code, " + 
-	ojs_configs.db_prefix + "users_verification_time as users_verification_time, " + 
-
-
-
-	ojs_configs.db_prefix + "users_type_ID as users_type_ID, " + 
-	ojs_configs.db_prefix + "users_type_name as users_type_name, " +
-	ojs_configs.db_prefix + "users_type_infomation as users_type_infomation " 
+	ojs_configs.db_prefix + "users_verification_time as users_verification_time ";
 
 
 
@@ -104,18 +98,16 @@ var sql_from_default = 	" from " +
 	ojs_configs.db_prefix + "users " ;
 	
 	
+	
+	
 //@
 //@
 //@
 //@link	
-var sql_link_default = 	" " + 
-
-	" LEFT JOIN " + 
-		ojs_configs.db_prefix +  "users_type  ON  " + 
-		ojs_configs.db_prefix +  "users_users_type_id = " + 
-		ojs_configs.db_prefix +  "users_type_ID  " ;
+var sql_link_default = 	" ";
 		
-	
+		
+		
 //@
 //@
 //@
@@ -127,7 +119,16 @@ var sql_order_default = " order by " +
 	
 
 
+//@
+//@
+//@
+//@link	 search
+var sql_link_search = 	" " + 
 
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "users_type  ON  " + 
+		ojs_configs.db_prefix +  "users_users_type_id = " + 
+		ojs_configs.db_prefix +  "users_type_ID  " ;
 
 
 
@@ -683,7 +684,7 @@ const search = async function (datas) {
 	//@
 	//@
 	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);	
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);	
 	
 
 	

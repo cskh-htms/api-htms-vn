@@ -188,7 +188,7 @@ async function insert_products_spaciality(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "controllers-product-speciality->insert-> run model->number_error : 2", "message": error_send } ); 
 			return;
@@ -196,7 +196,7 @@ async function insert_products_spaciality(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "controllers-product-speciality->insert-> run model->number_error : 3", "message": error_send } ); 
 		return;	

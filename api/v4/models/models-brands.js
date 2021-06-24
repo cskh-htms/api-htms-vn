@@ -76,19 +76,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "brands_status_update as brands_status_update, " + 
 	
 	ojs_configs.db_prefix  + "brands_stores_id as brands_stores_id, " + 
-	ojs_configs.db_prefix  + "brands_qoute as brands_qoute, " + 
-
-	//stores
-	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
-
-	//service type
-	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name,  " + 	
-	
-	//service type
-	ojs_configs.db_prefix  + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix  + "users_full_name as users_full_name " 	
+	ojs_configs.db_prefix  + "brands_qoute as brands_qoute ";
 	
 	
 	
@@ -98,7 +86,8 @@ var sql_from_default = 	" from " +
 	ojs_configs.db_prefix + "brands "  ;
 	
 //link table	
-var sql_link_default = 	"" + 
+var sql_link_default = 	"";
+var sql_link_search = 	"" + 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "stores  ON  " + 
 	ojs_configs.db_prefix + "brands_stores_id  = " + 
@@ -406,7 +395,7 @@ const search = async function (datas) {
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 					
 	}
 	catch(error){

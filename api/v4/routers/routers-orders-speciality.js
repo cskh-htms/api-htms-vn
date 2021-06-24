@@ -16,7 +16,9 @@
 
 * 6. [search]
 
-* 7. [search2]
+* 7. [search_customer]
+
+* 7. [search_user]
 
 */
 
@@ -92,12 +94,31 @@ router.delete('/:order_id', middle_ware, controllers_orders_spaciality.delete_or
 //@* 6. [search]
 router.post('/search', middle_ware, controllers_orders_spaciality.search);
 
+
+
+
+
+//@
+//@
+//@
+//@
+//@* 7. [search_user]
+router.post('/search_customer', middle_ware, controllers_orders_spaciality.search_customer);
+
+
+
+
+
 //@
 //@
 //@
 //@
 //@* 7. [search2]
-router.post('/search2', middle_ware, controllers_orders_spaciality.search2);
+router.post('/search_user', middle_ware, controllers_orders_spaciality.search_user);
+
+
+
+
 
 
 /*

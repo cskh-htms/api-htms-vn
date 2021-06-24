@@ -74,20 +74,11 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "category_general_speciality_stores_id as category_general_speciality_stores_id, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_update_status as category_general_speciality_update_status, " + 
 	ojs_configs.db_prefix  + "category_general_speciality_admin_status as category_general_speciality_admin_status, " + 
-	ojs_configs.db_prefix  + "category_general_speciality_qoute as category_general_speciality_qoute, " + 
-
-	//stores
-	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
-
-	//service type
-	ojs_configs.db_prefix  + "service_type_ID as service_type_ID, " + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name, " + 
-
-	//users
-	ojs_configs.db_prefix + "users_ID as users_ID, " + 
-	ojs_configs.db_prefix + "users_full_name as users_full_name " ;
+	ojs_configs.db_prefix  + "category_general_speciality_qoute as category_general_speciality_qoute " ;
 	
+
+
+
 
 //@
 //@
@@ -101,7 +92,44 @@ var sql_from_default = 	" from " +
 //@
 //@
 //@link	
-var sql_link_default = 	""  + 
+var sql_link_default = 	"";
+
+
+//@
+//@
+//@
+//@order
+var sql_order_default = " order by " + 
+	
+	ojs_configs.db_prefix + "category_general_speciality_date_created DESC, " + 
+	ojs_configs.db_prefix + "category_general_speciality_name " ;
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// search ========================================================
+//@
+//@
+//@
+//@from	
+
+//@
+//@
+//@
+//@link	
+var sql_link_search = 	""  + 
 
 	" LEFT JOIN " + 
 		ojs_configs.db_prefix +  "stores  ON  " + 
@@ -120,16 +148,6 @@ var sql_link_default = 	""  +
 		ojs_configs.db_prefix +  "users_ID  " ; 	
 
 
-//@
-//@
-//@
-//@order
-var sql_order_default = " order by " + 
-	
-	ojs_configs.db_prefix + "category_general_speciality_date_created DESC, " + 
-	ojs_configs.db_prefix + "category_general_speciality_name " ;
-	
-	
 	
 	
 //
@@ -476,7 +494,7 @@ var search = async function (datas) {
 	//@	
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -484,6 +502,9 @@ var search = async function (datas) {
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
 		return { "error" : "model_category_general_speciality->search->error_number : 1", "message": error_send } ; 
 	}	
+
+	//return get_sql_search_group;
+
 
 	//@
 	//@

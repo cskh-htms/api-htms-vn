@@ -249,7 +249,7 @@ async function get_all_category_general_speciality(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "controllers-category-general-speciality->get_all->run-model -> error_number : 3", "message": error_send } ); 
 			return;	
@@ -257,7 +257,7 @@ async function get_all_category_general_speciality(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "controllers-category-general-speciality->get_all->run-model -> error_number : 3", "message": error_send } ); 
 			return;	
@@ -780,7 +780,7 @@ async  function search(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
 			res.send({ "error" : "controller_category-general-speciality->search-model-run -> error_number : 1", "message": error_send } ); 
 			return;	
@@ -788,7 +788,7 @@ async  function search(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev"
+			//evn = "dev"
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "controller_category-general-speciality->search->model->run -> error_number : 3", "message": error_send } ); 
 			return;	

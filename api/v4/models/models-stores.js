@@ -86,16 +86,7 @@ var sql_select_all = 	"" +
 	
 
 	ojs_configs.db_prefix  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month, "  + 
-	
-
-
-	ojs_configs.db_prefix  + "users_ID as users_ID, "  + 
-	ojs_configs.db_prefix  + "users_full_name as users_full_name, "  + 
-
-
-	ojs_configs.db_prefix  + "service_type_ID  as service_type_ID , "  + 
-	ojs_configs.db_prefix  + "service_type_name as service_type_name "   
+	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month ";
 
 
 
@@ -107,14 +98,14 @@ var sql_from_default = 	" from " +
 	ojs_configs.db_prefix + "stores "  
 	
 	
-	
+var sql_link_default = 	"";	
 	
 	
 //@
 //@
 //@
 //@link	
-var sql_link_default = 	"" + 
+var sql_link_search = 	"" + 
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
@@ -395,7 +386,7 @@ const search = async function (datas) {
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_default);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

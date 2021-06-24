@@ -15,6 +15,10 @@
 
 * 6. [search]
 
+* 7. [search_customer]
+
+* 8. [search_user]
+
 
 
 */
@@ -742,8 +746,8 @@ async  function search(req, res, next) {
 //@
 //@
 //@
-//@ * 7. [search]
-async  function search2(req, res, next) {
+//@ * 7. [search_customer]
+async  function search_customer(req, res, next) {
 	//@
 	//@
 	//@
@@ -760,7 +764,7 @@ async  function search2(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-orders-speciality->search2->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "controllers-orders-speciality->search_customer->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
 
@@ -798,7 +802,7 @@ async  function search2(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-orders-speciality->search2->check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "controllers-orders-speciality->search_customer->check_condition_id -> error_number : 2", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -828,7 +832,7 @@ async  function search2(req, res, next) {
 		var evn = ojs_configs.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-orders-speciality->search2->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "controllers-orders-speciality->search_customer->check-role -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 
@@ -844,7 +848,7 @@ async  function search2(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
-			res.send({ "error" : "controllers-orders-specialitys->search2->check_condition_id -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "controllers-orders-specialitys->search_customer->check_condition_id -> error_number : 1", "message": error_send } ); 
 			return;	
 		}		
 	}else if (check_condition_id == 1){
@@ -855,7 +859,7 @@ async  function search2(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-orders-specialitys->search2->check_condition_id -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "controllers-orders-specialitys->search_customer->check_condition_id -> error_number : 2", "message": error_send } ); 
 			return;			
 		}			
 	}	
@@ -868,14 +872,14 @@ async  function search2(req, res, next) {
 	//@
 	//@
 	try {
-		models_orders_spaciality.search2(datas).then( results => {
+		models_orders_spaciality.search_customer(datas).then( results => {
 			res.send( { "error" : "", "datas" : results } );
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
-			res.send({ "error" : "controllers-orders-speciality->search2->run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "controllers-orders-speciality->search_customer->run -> error_number : 1", "message": error_send } ); 
 			return;				
 		});
 	}
@@ -883,13 +887,187 @@ async  function search2(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
-		res.send({ "error" : "controllers-orders-speciality->search2->run -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "controllers-orders-speciality->search_customer->run -> error_number : 2", "message": error_send } ); 
 		return;	
 	}
 
 }
 //@
-//@ * end of 7. [search2]
+//@ * end of 7. [search_customer]
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 8. [search_user]
+async  function search_user(req, res, next) {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-orders-speciality->search_user->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@ kiểm tra xem có phải search option theo id
+	//@ nếu search theo id thì phải chủ sở hữu id mới dc searhc
+	//@ nếu không pahỉ search theo id thì phải là admin mới dc search
+	try{
+		var check_condition_id = 0;
+		var order_id = 0;
+		
+		if ( datas.condition  && typeof datas.condition !== 'undefined' ){
+			
+			for ( x in datas.condition){
+				if(datas.condition[x].hasOwnProperty('where') && datas.condition[x].where.length > 0){
+					
+					for ( z in datas.condition[x].where){
+						if( datas.condition[x].where[z].hasOwnProperty('field')  
+							&& datas.condition[x].where[z].field == "orders_speciality_ID"  
+							&& datas.condition[x].where[z].hasOwnProperty('compare')    
+							&& datas.condition[x].where[z].compare == "="  
+						){
+							check_condition_id = 1;
+							order_id = datas.condition[x].where[z].value;
+						}
+					}	
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-orders-speciality->search_user->check_condition_id -> error_number : 2", "message": error_send } ); 
+		return;			
+	}		
+	
+
+	//@
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		if(check_condition_id == 1){
+			var datas_check = {
+				"token":token,
+				"order_id":order_id
+			}	
+		}else{
+			var datas_check = {
+				"token":token
+			}
+		}			
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-orders-speciality->search_user->check-role -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+
+
+	//@
+	//@
+	//@ nếu không có lộc theo cat id thì phải là admin
+	if(check_condition_id == 0){
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "default"
+		){}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
+			res.send({ "error" : "controllers-orders-specialitys->search_user->check_condition_id -> error_number : 1", "message": error_send } ); 
+			return;	
+		}		
+	}else if (check_condition_id == 1){
+		if( check_datas_result.owner_order == "1" 
+		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "default"
+		){ }else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "controllers-orders-specialitys->search_user->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;			
+		}			
+	}	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_orders_spaciality.search_user(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
+			res.send({ "error" : "controllers-orders-speciality->search_user->run -> error_number : 1", "message": error_send } ); 
+			return;				
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "controllers-orders-speciality->search_user->run -> error_number : 2", "message": error_send } ); 
+		return;	
+	}
+
+}
+//@
+//@ * end of 7. [search_customer]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -911,7 +1089,8 @@ module.exports = {
 	insert_orders_spaciality,
 	delete_orders_spaciality,
 	search,
-	search2
+	search_customer,
+	search_user,
 };
 
 /*
