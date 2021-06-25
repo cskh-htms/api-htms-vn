@@ -555,6 +555,33 @@ VALUES
 	( 2, 'Giao hàng tiết kiệm ','Số 11 quận 8, TP hồ chí minh');
 
 
+-- ----------------------------------------------------------------------
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_adress_meta
+--
+INSERT INTO `dala_adress_meta`(
+    `dala_adress_meta_ID`,
+    `dala_adress_meta_date_created`,
+    `dala_adress_meta_user_id`,
+    `dala_adress_meta_province`,
+    `dala_adress_meta_district`,
+    `dala_adress_meta_wards`,
+    `dala_adress_meta_street`,
+    `dala_adress_meta_full_adress`,
+    `dala_adress_meta_status`
+)
+VALUES 
+	(1,CURRENT_TIMESTAMP, '56', 'TP đà lạt', 'Quận 1', 'Phường 5', 'số 27, hẻm 14/3', 'TP đà lạt, Quận 1, Phường 5, số 27, hẻm 14/3',  '1'),
+	(2,CURRENT_TIMESTAMP, '56', 'TP đà lạt', 'Quận 3', 'Phường 7', 'số 33, hẻm 55', 'TP đà lạt, Quận 3, Phường 7, số 33, hẻm 55',  '0'),
+	(3,CURRENT_TIMESTAMP, '56', 'TP đà lạt', 'Quận 5', 'Phường 4', 'số 2, hẻm 77', 'TP đà lạt, Quận 5, Phường 4, số 2, hẻm 77',  '0');
+
+
+-- ----------------------------------------------------------------------
+
+
 
 
 

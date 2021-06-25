@@ -420,7 +420,7 @@ const get_owner_product = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_products->get_owner_option->error_number : 1", "message" : error } ;
+		return  { "error" : "models_products->get_owner_product->error_number : 1", "message" : error } ;
 	}
 };
 

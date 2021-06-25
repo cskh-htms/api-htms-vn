@@ -29,7 +29,7 @@ const models_option_speciality = require('../models/models-option-speciality');
 const models_brands = require('../models/models-brands');
 const models_products_spaciality = require('../models/models-products-spaciality');
 const models_orders_spaciality = require('../models/models-orders-spaciality');
-
+const models_adress_meta = require('../models/models-adress-meta');
 
 
 
@@ -418,6 +418,57 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
+		//@
+		//@ 1.8 owner adress
+		var owner_adress = 0;
+		if(datas_check.adress_id){
+			
+			var owner_adress_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var adress_id = datas_check.adress_id;
+				
+				//return {"datas": [user_id,adress_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_adress = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"adress_id"	: adress_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_adress;
+
+				owner_adress_get = await models_adress_meta.get_owner_adress(send_datas_check_owner_adress);	
+				//return [owner_adress_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_adress_get.error) { return {"error":owner_adress_get.error,"message":owner_adress_get.error} }	
+				if(owner_adress_get.length > 0) { owner_adress = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_adress_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.8. [owner_adress] 
+
+
+
+		//@
+		//@
+		//@
 		let data_return = {
 			"error":"",
 			"user_role": check_role.message,
@@ -427,7 +478,8 @@ const check_owner = async function(datas_check){
 			"owner_option":owner_option,
 			"owner_brand":owner_brand,
 			"owner_product":owner_product,
-			"owner_order":owner_order
+			"owner_order":owner_order,
+			"owner_adress":owner_adress
 	
 		}
 		return data_return;

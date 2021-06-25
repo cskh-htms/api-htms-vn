@@ -809,12 +809,13 @@ CREATE TABLE IF NOT EXISTS `dala_users_type` (
 DROP TABLE IF EXISTS `dala_adress_meta`;
 CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
   `dala_adress_meta_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_adress_meta_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_adress_meta_user_id` int NOT NULL,
   `dala_adress_meta_province` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_district` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_wards` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_street` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_adress_meta_full_adress` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_status` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_adress_meta_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AUTO_INCREMENT=1;
 
