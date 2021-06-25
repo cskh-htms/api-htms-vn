@@ -1,0 +1,98 @@
+
+-- 
+-- 
+-- 
+-- 
+-- 
+--
+--   
+-- 
+START TRANSACTION;
+
+
+-- 
+
+
+-- 
+-- 
+-- check stores_name insert
+DROP TRIGGER  IF EXISTS  trig_stores_name_insert;
+-- 
+
+DELIMITER $$ 
+CREATE TRIGGER trig_stores_name_insert BEFORE INSERT ON dala_stores 
+FOR EACH ROW  
+BEGIN  
+IF(NEW.dala_stores_name  is null or NEW.dala_stores_name = '') THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_stores_name_empty';   
+END IF;
+END $$ 
+DELIMITER ;
+
+
+
+
+
+-- 
+-- 
+-- check stores_user_id
+DROP TRIGGER  IF EXISTS  trig_stores_user_id_insert;
+-- 
+
+DELIMITER $$ 
+CREATE TRIGGER trig_stores_user_id_insert BEFORE INSERT ON dala_stores 
+FOR EACH ROW  
+BEGIN  
+IF(LENGTH(NEW.dala_stores_user_id) <= 0) THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_stores_user_id_empty';   
+END IF;
+END $$ 
+DELIMITER ;
+
+
+
+--
+--
+--
+-- 
+--       
+-- stores_service_type_id
+-- 
+DROP TRIGGER  IF EXISTS  trig_stores_service_type_id_insert;
+-- 
+
+DELIMITER $$ 
+CREATE TRIGGER trig_stores_service_type_id_insert BEFORE INSERT ON dala_stores 
+FOR EACH ROW  
+BEGIN  
+IF(LENGTH(NEW.dala_stores_service_type_id) <= 0) THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_stores_service_type_id_empty';   
+END IF;
+END $$ 
+DELIMITER ;
+
+
+
+--
+--
+--
+-- commit 
+COMMIT ;
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 

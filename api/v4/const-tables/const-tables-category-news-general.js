@@ -12,7 +12,7 @@
 		"category_news_infomation"			: "",	
 		"category_news_sort_order"			: 0,
 		"category_news_show"				: 0,
-		"category_news_stores_id"			:17
+		"category_news_status_admin"		: 0
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
@@ -20,7 +20,6 @@
 		arr_check_name.forEach(function(item) {
 			if(item == "category_news_name"){
 				if(check_data_fields.check_datas.check_empty(datas.category_news_name) == false){check_errer =  "Tên danh mục  là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_name(datas.category_news_name) == false){check_errer =  "Dữ liệu tên danh mục không hợp lệ";return;}	
 			}
 		});
 		//data ok cho phép insert
@@ -30,7 +29,30 @@
 	//
 	//
 	//
+	//@
+	//@
+	//@
+	//phan tich loi~
+	function get_message_error(error){
+		//@
+		//@		
+		//@ category-name			
+		if(error.sqlMessage.search("trig_news_title_name_empty") >= 0 ){
+			return "Tên Danh mục không được để trống";
+			
+		}else{
+			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
+		}
+
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	//@
 	module.exports = { 
 			default_fields,
-			check_datas
+			check_datas,
+			get_message_error
 	};

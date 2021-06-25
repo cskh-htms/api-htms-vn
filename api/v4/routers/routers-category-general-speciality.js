@@ -6,7 +6,6 @@
 
 * -1. [insert_category_general_speciality] ( tạo category)
 
-
 * 2. [get_all_category_general_speciality]
 
 * 3. [get_one_category_general_speciality]
@@ -29,6 +28,19 @@
 var express = require('express');
 var router = express.Router();
 var middle_ware =  require('./routers-middle-ware');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //chuyen huong controller 
 var controllers_category_general_speciality = require('../controllers/controllers-category-general-speciality');

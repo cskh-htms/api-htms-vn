@@ -1,26 +1,61 @@
 
 /*
-@@@@
-@@@@@
-@@@@@
-@@@@@
+
+/*
+
+* -1. [insert_category_news_general] 
+
+* 2. [get_all__category_news_general]
+
+* 3. [get_one__category_news_general]
+
+* 4. [update__category_news_general]
+
+* 5. [delete__category_news_general]
+
+* 6. [search]
+
 */
 
+//@
+//@
+//@
 //connect 
 const connection = require('./models-connection');
-var mysql = require('mysql');
+
+
 
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
+
+
+//@
+//@
+//@
+//npm exstands
+const mysql = require('mysql');
+
+
+
+
+//@
+//@
+//function share
+const ojs_shares_others = require('../../../models/ojs-shares-others');
+const ojs_shares_sql = require('../../../models/ojs-shares-sql');
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 //from table
-let sql_select_all = 	"" + 	
-
-	
+var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "category_news_ID as category_news_ID, " + 	
 	ojs_configs.db_prefix  + "category_news_name as category_news_name, " + 	
 	ojs_configs.db_prefix  + "category_news_parent_id as category_news_parent_id, " + 	
@@ -29,29 +64,31 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "category_news_featured_image as category_news_featured_image, " + 
 	ojs_configs.db_prefix  + "category_news_infomation as category_news_infomation, " + 
 	ojs_configs.db_prefix  + "category_news_sort_order as category_news_sort_order, " + 
-	ojs_configs.db_prefix  + "category_news_show as category_news_show "
+	ojs_configs.db_prefix  + "category_news_show as category_news_show, " + 
+	ojs_configs.db_prefix  + "category_news_status_admin as category_news_status_admin ";
 
 //from table
-let sql_from_default = 	" from " + 
+var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "category_news "  ;
 //link table	
-let sql_link_default = 	"" ;
+var sql_link_default = 	"" ;
 //link table	
-let sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "category_news_sort_order" ;
+var sql_order_default = " order by " + 
+	ojs_configs.db_prefix + "category_news_date_created DESC " ;
 	
 //link table	
-let sql_link_search = 	"" ;
+var sql_link_search = 	"" ;
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var insert_category_news_general = async function (datas) {
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 1. [insert_category_news_general] 
+const insert_category_news_general = async function (datas) {
 	//@
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "category_news  SET ?";
 	let dataGo = {
@@ -61,12 +98,12 @@ var insert_category_news_general = async function (datas) {
 			"category_news_sort_order"					: datas.category_news_sort_order,
 			"category_news_infomation"					: mysql.escape(datas.category_news_infomation).replace(/^'|'$/gi, ""),	
 			"category_news_show"						: datas.category_news_show,
-			"category_news_stores_id"					: datas.category_news_stores_id
+			"category_news_status_admin"				: datas.category_news_status_admin
 	}
 
-	let kes = Object.keys(dataGo);
+	var kes = Object.keys(dataGo);
 	for(let x in kes){
-		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
 	}
 	//@
 
@@ -79,20 +116,26 @@ var insert_category_news_general = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->category_news->insert->number: 1", "message" : error } ;
 	}
 
 };
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_all_category_news_general = async function () {
+//@
+//@ * end of 1. [insert_category_news_general] 
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 2 [get_all_category_news_general] 
+const get_all_category_news_general = async function () {
 	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
+	var sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					sql_order_default
@@ -106,22 +149,25 @@ var get_all_category_news_general = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->category_news->get all>number: 1", "message" : error } ;
 	}
 };
+//@
+//@ * 2 [get_all_category_news_general] 
 
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 3 [get_one_category_news_general] 
 var get_one_category_news_general = async function (category_news_id) {
 	//create sql text
-	let sql_text = 	"SELECT " +  sql_select_all + 
+	var sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					"where " + 
@@ -137,22 +183,24 @@ var get_one_category_news_general = async function (category_news_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->category_news->get one>number: 1", "message" : error } ;
 	}
 };
+//@
+//@ end of  * 3 [get_one_category_news_general] 
 
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var update_category_news_general = async function (datas,category_news_id) {
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 4 [update_category_news_general] 
+const update_category_news_general = async function (datas,category_news_id) {
 	
 	let sqlSet = "";
 	
@@ -205,20 +253,27 @@ var update_category_news_general = async function (datas,category_news_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->category_news->update->number: 1", "message" : error } ;
 	}
 };
+//@
+//@ * end of 4 [update_category_news_general] 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var delete_category_news_general = async function (category_news_id) {
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 5 [delete_category_news_general] 
+const delete_category_news_general = async function (category_news_id) {
 
 	let table_name  = ojs_configs.db_prefix + "category_news ";
 	let field_where  = ojs_configs.db_prefix + "category_news_ID ";
@@ -237,62 +292,76 @@ var delete_category_news_general = async function (category_news_id) {
 		return  { "error" : "m_13", "message" : error } ;
 	}
 };
+//@
+//@ end of * 5 [delete_category_news_general] 
 
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//search
-var search = async function (datas) {
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 6 [search] 
+
+const search = async function (datas) {
 	//@
+	//@
+	//@	
 	try {
-		var sql_field = ojs_shares.get_select_field(datas.select_field,sql_select_all);
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
-		return  { "error" : "m_10", "message" : error } ;
-	}
-
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		return { "error" : "model_category_news_general->search->error_number : 1", "message": error_send } ; 
+	}	
+	
+	
+	
 	//@
-	try {
-		var sql_conditions = ojs_shares.get_condition(datas.condition);
-	}
-	catch(error){
-		return  { "error" : "m_11", "message" : error } ;
-	}
 	//@
-	try {
-		var sql_order = ojs_shares.get_order_text(datas.order);
-	}
-	catch(error){
-		return  { "error" : "m_12", "message" : error } ;
-	}
-
-
-	var sql_text = 	"SELECT " + sql_field +
-					sql_from_default + 
-					sql_link_search + 
-					sql_conditions + 
-					sql_order 
-					
 	//@
-	//return sql_text;
+	//@
 	try {	
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model_category_news_general->search->error_number : 2", "message" : error } ;
 	}
 
 };
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 6 [search] 
+
+
+
+
+
 
 
 
