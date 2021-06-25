@@ -100,7 +100,8 @@ source ./sql/15.table_shipping_tracking/03.table_shipping_tracking_constraint.sq
 
 
 
-
+-- 15.2.table_dala_adress_meta
+source ./sql/15.2.table_dala_adress_meta/03.table_adress_meta_constraint.sql;
 
 
 

@@ -420,11 +420,154 @@ VALUES
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_news
+--
+INSERT INTO `dala_news`(
+    `dala_news_ID`,
+    `dala_news_title`,
+    `dala_news_date_created`,
+    `dala_news_featured_image`,
+    `dala_news_excerpt`,
+    `dala_news_contents`,
+    `dala_news_status_admin`
+)
+VALUES 
+	(
+	1,'Dala hoàn thành app vào cuối tháng 7', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành app vào cuối tháng 7',
+    '
+	
+	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n
+	dala hoàn thành app vào cuối tháng 7, Đội ngủ thiết kế đã hoàn thiện giao diện suất sắc
+	
+	
+	','1'
+	),
+	(
+	2,'Dala hoàn thành API', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành API chờ kết nối app',
+    '
+	
+	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n
+	Dala hoàn thành API chờ kết nối app. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng
+	
+	
+	','1'
+	),
+	(
+	3,'Dala hoàn thành kết nối API với APP', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành kết nối API với APP',
+    '
+	
+	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n
+	Dala hoàn thành kết nối API với APP. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng, Cam kết hoàn thành trong tháng 7
+	
+	
+	','1'
+	),
+	(
+	4,'Dala hoàn thành app vào cuối tháng 7', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành app vào cuối tháng 7',
+    'Dala hoàn thành app vào cuối tháng 7','1'
+	),
+	(
+	5,'Dala hoàn thành API', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành API chờ kết nối app',
+    'Dala hoàn thành API chờ kết nối app.','1'
+	),
+	(
+	6,'Dala hoàn thành kết nối API với APP', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
+    'Dala hoàn thành kết nối API với APP',
+    'Dala hoàn thành kết nối API với APP','1'
+	);
+	
+	
+	
+-- -------------------------------------------------------------------------------------
+-- 
+-- 
 
 
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_category_news
+--
+INSERT INTO `dala_category_news`(
+    `dala_category_news_ID`,
+    `dala_category_news_date_created`,
+    `dala_category_news_name`,
+    `dala_category_news_parent_id`,
+    `dala_category_news_featured_image`,
+    `dala_category_news_infomation`,
+    `dala_category_news_sort_order`,
+    `dala_category_news_show`,
+    `dala_category_news_status_admin`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, 'Tin Tức', '0', 'https://appdala.com/images/dala-logo.png', 'Tin Tức', '1', '1', '1'),
+	(2, CURRENT_TIMESTAMP, 'Tin khuyến mãi', '0', 'https://appdala.com/images/dala-logo.png', 'Tin khuyến mãi', '1', '1', '1'),
+	(3, CURRENT_TIMESTAMP, 'Tin Tức App', '0', 'https://appdala.com/images/dala-logo.png', 'Tin Tức App', '1', '1', '1');
+
+-- ------------
+-- ----------------------------------------------------------
+
+
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_category_news_link
+--
+INSERT INTO `dala_category_news_link`(
+    `dala_category_news_link_ID`,
+    `dala_category_news_link_news_id`,
+    `dala_category_news_link_category_news_id`
+)
+VALUES 
+(NULL, '1', '1'),
+(NULL, '2', '1'),
+(NULL, '3', '1'),
+(NULL, '4', '3'),
+(NULL, '5', '3'),
+(NULL, '6', '3');
+
+
+-- ------------------------------------------------
+
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_shipping_company
+--
+INSERT INTO `dala_shipping_company`(
+    `dala_shipping_company_ID`,
+    `dala_shipping_company_name`,
+    `dala_shipping_company_information`
+)
+VALUES 
+	( 1, 'DALA company ','Số 11 trương định, Dà lạt'),
+	( 2, 'Giao hàng tiết kiệm ','Số 11 quận 8, TP hồ chí minh');
+
+
+
+
+
+
+
+
+
+
+-- 
+-- 
+-- 
+-- 
+-- 
 COMMIT;
 
 

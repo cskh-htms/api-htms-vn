@@ -167,21 +167,23 @@ async function insert_news_general(req, res, next) {
 	
 	//@
 	try {
-		models_news_general.insert_news_general(datas_assign).then( results => {
+		models_news_general.insert_news_general(datas_assign,cat_string).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 			return;
 			
 		}, error => {
+			var message_error = default_field.get_message_error(error);
+
 			var evn = ojs_configs.evn;
 			evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert datas" );
-			res.send({ "error" : "controllers-news-general->insert-> run model ->number_error : 1 ", "message": error_send } ); 
-			return;		
+			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
+			res.send({ "error" : "controllers-news-general->insert-> run model->number_error : 2", "message": error_send } ); 
+			return;
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert datas" );
 			res.send({ "error" : "controllers-news-general->insert-> run model ->number_error : 2", "message": error_send } ); 
 			return;		
@@ -199,257 +201,531 @@ async function insert_news_general(req, res, next) {
 
 
 
-
-//@@
-//get all category chung
-function get_all_news_general(req, res, next) {
-	//res.send({ "title" : "welcome" });
-	//return;
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 2. [get_all_news_general]
+async function get_all_news_general(req, res, next) {
 	//@
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers_news_general->get_all->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers_news_general->check-role->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	if(
+	check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "supper-job"  
+	|| check_datas_result.user_role == "default" 
+	){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers_news_general->get_all->check-role -> error_number : 3", "message": error_send } ); 
+		return;				
+	}
+	
+
+
+	//@
+	//@
+	//@
+	//@ run
 	try {
 		models_news_general.get_all_news_general().then( results => {
-			
 			res.send( {"error" : "", "datas" : results} );
-			
-		}, error => {
-
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_2", "message" : error_send  } );	
-
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_3", "message" : error_send  } );
-	}	
-}
-
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get all category chung
-function get_one_news_general(req, res, next) {
-	let news_id = req.params.news_id;
-	//res.send({ "title" : "welcome" });
-	//return;
-	//@
-	try {
-		models_news_general.get_one_news_general(news_id).then( results => {
-			
-			res.send( {"error" : "", "datas" : results} );
-			
-		}, error => {
-
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl_api_2", "message" : error_send  } );	
-
-		});
-	}
-	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_3", "message" : error_send  } );
-	}	
-}
-
-
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-async function update_news_general(req, res, next) {
-	let datas = req.body.datas;
-	let news_id = req.params.news_id;
-	let token = req.headers['token'];
-	//@@
-	//@@lấy version
-	let datas_check = {
-		"token":token
-	}
-	//@
-	//@
-	let check_datas_result;	
-	try{
-		check_datas_result = await ojs_shares_owner.get_check_data(datas_check);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.controllers_news_general->update", "message": error_send } ); 
-		return;			
-	}
-	
-	//@
-	//@
-	//@neu phan quyen khong du thi tro ra login
-	if(check_datas_result.error != ""){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.controllers_news_general->update", "message": error_send } ); 
-		return;			
-	}	
-	
-	//@
-	//@
-	//@neu phan quyen khong du thi tro ra login
-	if(check_datas_result.user_role != "admin"){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "22.controllers_news_general->update", "message": error_send } ); 
-		return;			
-	}	
-
-
-	try {
-		let data_check = default_field.check_datas(datas);
-		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
 			return;
-		}
-	}
-	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_1", "message" : error_send  } );
-	}			
-
-	//@
-	try {
-		models_news_general.update_news_general(datas,news_id).then( results => {
-			res.send( {"error" : "", "datas" : results} );
 		}, error => {
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update datas" );
-			res.send({ "error" : "122.controllers_news_general->update", "message": error_send } ); 
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data" );
+			res.send({ "error" : "controllers_news_general->get_all->run -> error_number : 1", "message": error_send } ); 
 			return;		
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update datas" );
-		res.send({ "error" : "322.controllers_news_general->update", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data" );
+		res.send({ "error" : "controllers_news_general->get_all->run -> error_number : 2", "message": error_send } ); 
 		return;		
 	}	
 }
+//@
+//@ end of * 2. [get_all_news_general]
 
 
 
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-async function delete_news_general(req, res, next) {
-	let news_id = req.params.news_id;
-	let token = req.headers['token'];
-	//
-	//@@
-	//@@lấy version
-	let datas_check = {
-		"token":token
-	}
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@  3. [get_one_news_general]
+async function get_one_news_general(req, res, next) {
 	//@
 	//@
-	let check_datas_result;	
-	try{
-		check_datas_result = await ojs_shares_owner.get_check_data(datas_check);
+	//@
+	//@
+	//@	get datas req
+	try {
+		var token = req.headers['token'];
+		var news_id = req.params.news_id;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1.controllers_news_general->delete", "message": error_send } ); 
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers_news_general->get_one->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}		
+	
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers_news_general->get_one->get req -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
 	//@
 	//@
-	//@neu phan quyen khong du thi tro ra login
-	if(check_datas_result.error != ""){
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "default" 	
+	){}else{
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.controllers_news_general->delete", "message": error_send } ); 
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers_news_general->get_one->get req -> error_number : 3", "message": error_send } ); 
 		return;			
-	}	
+	}			
+	
 	
 	//@
 	//@
-	//@neu phan quyen khong du thi tro ra login
-	if(check_datas_result.user_role != "admin"){
+	//@
+	//@
+	//@
+	//@ run	
+	try {
+		models_news_general.get_one_news_general(news_id).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get");
+			res.send({ "error" : "controllers_news_general->get_one->run -> error_number : 1", "message": error_send } ); 
+		});
+	}
+	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "22.controllers_news_general->delete", "message": error_send } ); 
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get");
+		res.send({ "error" : "controllers_news_general->get_one->run -> error_number : 2", "message": error_send } ); 
+	}	
+}
+//@
+//@ end of  3. [get_one_news_general]
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@  3. [update_news_general]
+async function update_news_general(req, res, next) {
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var news_id = req.params.news_id;
+		var token = req.headers['token'];		
+		var cat_string = req.body.cat_string;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers_news_general->update->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers_news_general->update->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(check_datas_result.user_role == "admin"){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers_news_general->update->get req -> error_number : 3", "message": error_send } ); 
+		return;			
+	}		
+	
 
+	
+		
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ check datas
+	try {
+		let data_check = default_field.check_datas(datas);
+		if(data_check != 0){
+			res.send({"error" : "ontrollers_news_general->update->check data -> error_number : 1", "message" : data_check } );
+			return;
+		}
+	}
+	catch(error){
+		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi check datas" );
+		res.send( { "error": "controllers_news_general->update->check data -> error_number : 2", "message" : error_send  } );
+	}			
+
+
+
+	//@
+	//@
+	//@
+	//@
+	//@ run
+	try {
+		models_news_general.update_news_general(datas,news_id,cat_string).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			let message_error = default_field.get_message_error(error);
+			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
+			res.send({ "error" : "controllers_news_general->update->model-run -> error_number : 1", "message": error_send } ); 
+			return;		
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "controllers_news_general->update->model-run -> error_number : 2", "message": error_send } ); 
+		return;		
+	}	
+}
+//@ end of
+//@  3. [update_news_general]
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@  4. [delete_news_general]
+async function delete_news_general(req, res, next) {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var news_id = req.params.news_id;
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers_news_general->delete->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers_news_general->delete->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+
+	
+	
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữu và option chưa pusplish
+	if(check_datas_result.user_role == "admin" ){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( 
+			evn, "Bạn không đủ quyền thao tác, hoặc products đã puplish", 
+			"Bạn không đủ quyền thao tác,hoặc option đã puplish" );
+			
+		res.send({ 
+			"error" : "controllers_news_general-speciality->delete->get req -> error_number : 3", 
+			"message": error_send 
+			}); 
+		return;			
+	}			
+	
+	//@
+	//@
+	//@
+	//@
+	//@ run
 	try {
 		models_news_general.delete_news_general(news_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
+			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete datas" );
-			res.send({ "error" : "12.controllers_news_general->delete", "message": error_send } ); 
+			res.send({ "error" : "controllers_news_general-speciality->delete->run -> error_number : 1", "message": error_send } ); 
 			return;	
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete datas" );
-		res.send({ "error" : "32.controllers_news_general->delete", "message": error_send } ); 
+		res.send({ "error" : "controllers_news_general-speciality->delete->run -> error_number : 2", "message": error_send } ); 
 		return;	
 	}	
 }
+//@ end of 
+//@  4. [delete_news_general]
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//search
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@  4. [search]
 async  function search(req, res, next) {
-	let datas = req.body.datas;
-	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers_news_general>search->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
 	//res.send(datas);
 	//return;
 
+
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers_news_general->search->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//@
+	//@
+	//@ nếu không phải là admin thì out
+	if(check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "default"
+	){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
+		res.send({ "error" : "controllers_news_general->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+		return;	
+	}		
+	
+	
+	//res.send([check_datas_result]);
+	//return;
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ run
 	try {
 		models_news_general.search(datas).then( results => {
 			res.send( { "error" : "", "datas" : results } );
+			return;
 		}, error => {
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "ctl__api2", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "controllers_news_general->search->run model -> error_number : 1", "message": error_send } ); 
+			return;	
 		});
 	}
 	catch(error){
-		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-		res.send( { "error": "c_ctl_api_3", "message" : error_send  } );
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "controllers_news_general->search->run model -> error_number : 2", "message": error_send } ); 
+		return;	
 	}
 
 }
+//@ end of 
+//@  4. [search]
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*

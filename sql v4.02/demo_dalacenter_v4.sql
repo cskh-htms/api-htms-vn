@@ -41,6 +41,28 @@ CREATE TABLE IF NOT EXISTS `dala_brands` (
 
 -- --------------------------------------------------------
 
+
+
+
+
+
+
+--
+-- Table structure for table `dala_shipping_company`
+--
+
+DROP TABLE IF EXISTS `dala_shipping_company`;
+CREATE TABLE IF NOT EXISTS `dala_shipping_company` (
+  `dala_shipping_company_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_shipping_company_name` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_shipping_company_information` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dala_shipping_company_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AUTO_INCREMENT=1;
+
+
+
+
+
 --
 -- Table structure for table `dala_category_general_food_drink`
 --
@@ -125,8 +147,8 @@ CREATE TABLE IF NOT EXISTS `dala_category_news` (
   `dala_category_news_parent_id` int NOT NULL DEFAULT '0',
   `dala_category_news_featured_image` varchar(1000) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `dala_category_news_infomation` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_category_news_sort_order` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_category_news_show` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_category_news_sort_order` tinyint(1) NOT NULL DEFAULT '1',
+  `dala_category_news_show` tinyint(1) NOT NULL DEFAULT '1',
   `dala_category_news_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_category_news_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
@@ -284,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `dala_news` (
   `dala_news_featured_image` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_news_excerpt` varchar(6000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_news_contents` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_news_statue_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_news_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_news_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
@@ -755,6 +777,12 @@ CREATE TABLE IF NOT EXISTS `dala_users` (
 
 -- --------------------------------------------------------
 
+
+
+
+
+
+
 --
 -- Table structure for table `dala_users_type`
 --
@@ -766,6 +794,99 @@ CREATE TABLE IF NOT EXISTS `dala_users_type` (
   `dala_users_type_infomation` varchar(4000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_users_type_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+
+-- ---------------------------------------------------------------------------
+
+
+
+
+
+--
+-- Table structure for table `dala_adress_meta`
+--
+
+DROP TABLE IF EXISTS `dala_adress_meta`;
+CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
+  `dala_adress_meta_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_adress_meta_user_id` int NOT NULL,
+  `dala_adress_meta_province` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_district` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_wards` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_street` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_full_adress` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dala_adress_meta_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AUTO_INCREMENT=1;
+
+
+-- ------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--
+-- Table structure for table `dala_category_news`
+--
+INSERT INTO `dala_category_news`(
+    `dala_category_news_ID`,
+    `dala_category_news_date_created`,
+    `dala_category_news_name`,
+    `dala_category_news_parent_id`,
+    `dala_category_news_featured_image`,
+    `dala_category_news_infomation`,
+    `dala_category_news_sort_order`,
+    `dala_category_news_show`,
+    `dala_category_news_status_admin`
+)
+VALUES 
+	(1,CURRENT_TIMESTAMP,'Tin Tức','0','https://appdala.com/images/dala-logo.png','Tin Tức', '1','1','1'),
+	(2,CURRENT_TIMESTAMP,'Tin khuyến mãi','0','https://appdala.com/images/dala-logo.png','Tin khuyến mãi', '1','1','1'),
+
+	(3,CURRENT_TIMESTAMP,'Tin Tức App','0','https://appdala.com/images/dala-logo.png','Tin Tức app', '1','1','1');
+
+-- -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

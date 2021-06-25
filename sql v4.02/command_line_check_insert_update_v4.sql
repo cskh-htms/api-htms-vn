@@ -100,6 +100,28 @@ source ./sql/14.1.table_orders_details_speciality/02.table_orders_details_specia
 
 
 
+
+-- 15.1.table_dala_shipping_company
+source ./sql/15.1.table_shipping_company/01.table_shipping_company_insert.sql;
+source ./sql/15.1.table_shipping_company/02.table_shipping_company_update.sql;
+
+
+
+
+-- 15.2.table_dala_shipping_company
+-- source ./sql/15.2.table_dala_adress_meta/01.table_adress_meta_insert.sql;
+
+
+
+
+
+
+
+
+
+
+
+
 -- 15.table_shipping_tracking
 -- source ./sql/15.table_shipping_tracking/01.table_shipping_tracking_insert.sql;
 -- source ./sql/15.table_shipping_tracking/02.table_shipping_tracking_update.sql;
