@@ -30,7 +30,7 @@ const models_brands = require('../models/models-brands');
 const models_products_spaciality = require('../models/models-products-spaciality');
 const models_orders_spaciality = require('../models/models-orders-spaciality');
 const models_adress_meta = require('../models/models-adress-meta');
-
+const models_shipping_tracking = require('../models/models-shipping-tracking');
 
 
 
@@ -466,6 +466,125 @@ const check_owner = async function(datas_check){
 
 
 
+
+		//@
+		//@
+		//@
+		//@
+		//@ 1.9 owner tracking
+		var owner_order_tracking = 0;
+		if(datas_check.order_tracking_id){
+			
+			var owner_order_tracking_get;
+			//@
+			//@
+			try {
+				var user_id = datas_check.user_id;
+				var order_tracking_id = datas_check.order_tracking_id;
+				
+				//return {"datas": [user_id,order_tracking_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_order_tracking = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"order_tracking_id"	: order_tracking_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_order_tracking;
+
+				owner_order_tracking_get = await models_shipping_tracking.get_owner_order_tracking(send_datas_check_owner_order_tracking);	
+				//return [owner_order_tracking_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_order_tracking_get.error) { return {"error":owner_order_tracking_get.error,"message":owner_order_tracking_get.error} }	
+				if(owner_order_tracking_get.length > 0) { owner_order_tracking = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_order_tracking_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 1.9. [owner_order_tracking] 
+
+
+
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 2.0 owner tracking
+		var owner_tracking = 0;
+		if(datas_check.tracking_id){
+			
+			var owner_tracking_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var tracking_id = datas_check.tracking_id;
+				
+				//return {"datas": [user_id,tracking_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_tracking = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"tracking_id"	: tracking_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_tracking;
+
+				owner_tracking_get = await models_shipping_tracking.get_owner_tracking(send_datas_check_owner_tracking);	
+				//return [owner_tracking_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_tracking_get.error) { return {"error":owner_tracking_get.error,"message":owner_tracking_get.error} }	
+				if(owner_tracking_get.length > 0) { owner_tracking = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_tracking_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.0 [owner_tracking] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//@
 		//@
 		//@
@@ -479,9 +598,10 @@ const check_owner = async function(datas_check){
 			"owner_brand":owner_brand,
 			"owner_product":owner_product,
 			"owner_order":owner_order,
-			"owner_adress":owner_adress
-	
-		}
+			"owner_adress":owner_adress,
+			"owner_order_tracking" : owner_order_tracking,
+			"owner_tracking" : owner_tracking 
+			}
 		return data_return;
 		//@
 		//@

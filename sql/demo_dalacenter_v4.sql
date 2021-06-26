@@ -815,6 +815,7 @@ CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
   `dala_adress_meta_district` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_wards` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_street` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_full_adress` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,   
   `dala_adress_meta_status` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dala_adress_meta_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AUTO_INCREMENT=1;
@@ -834,27 +835,6 @@ CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
 
 
 
---
--- Table structure for table `dala_category_news`
---
-INSERT INTO `dala_category_news`(
-    `dala_category_news_ID`,
-    `dala_category_news_date_created`,
-    `dala_category_news_name`,
-    `dala_category_news_parent_id`,
-    `dala_category_news_featured_image`,
-    `dala_category_news_infomation`,
-    `dala_category_news_sort_order`,
-    `dala_category_news_show`,
-    `dala_category_news_status_admin`
-)
-VALUES 
-	(1,CURRENT_TIMESTAMP,'Tin Tức','0','https://appdala.com/images/dala-logo.png','Tin Tức', '1','1','1'),
-	(2,CURRENT_TIMESTAMP,'Tin khuyến mãi','0','https://appdala.com/images/dala-logo.png','Tin khuyến mãi', '1','1','1'),
-
-	(3,CURRENT_TIMESTAMP,'Tin Tức App','0','https://appdala.com/images/dala-logo.png','Tin Tức app', '1','1','1');
-
--- -----------------------------------------------------
 
 
 
@@ -862,32 +842,14 @@ VALUES
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

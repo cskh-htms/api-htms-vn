@@ -586,6 +586,35 @@ VALUES
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_shipping_tracking
+--
+INSERT INTO `dala_shipping_tracking`(
+    `dala_shipping_tracking_ID`,
+    `dala_shipping_tracking_date_created`,
+    `dala_shipping_tracking_users_id`,
+    `dala_shipping_tracking_orders_id`,
+    `dala_shipping_tracking_infomation`,
+    `dala_shipping_tracking_orders_status`,
+    `dala_shipping_tracking_qoute`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '0','giao hàng trong ngày'),
+	(2, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '1','giao hàng trong ngày'),
+	(3, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '2','giao hàng trong ngày'),
+	(4, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '3','giao hàng trong ngày'),
+
+	(5, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '0','giao hàng trong ngày'),
+	(6, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '1','giao hàng trong ngày'),
+	(7, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '2','giao hàng trong ngày');
+
+
+
+-- ----------------------------------------------------------------------
+
+
+
+
 
 
 

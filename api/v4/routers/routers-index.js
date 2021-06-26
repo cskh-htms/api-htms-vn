@@ -135,6 +135,25 @@ router.use('/adress-meta', require('./routers-adress-meta'));
 
 
 
+/*------------------------------------------------
+		shipping-company
+---------------------------------------------- */
+router.use('/shipping-company', require('./routers-shipping-company'));
+
+
+
+
+
+/*------------------------------------------------
+		shipping-tracking
+---------------------------------------------- */
+router.use('/shipping-tracking', require('./routers-shipping-tracking'));
+
+
+
+
+
+
 
 
 /*------------------------------------------------
