@@ -31,6 +31,15 @@ const models_products_spaciality = require('../models/models-products-spaciality
 const models_orders_spaciality = require('../models/models-orders-spaciality');
 const models_adress_meta = require('../models/models-adress-meta');
 const models_shipping_tracking = require('../models/models-shipping-tracking');
+const models_reviews_spaciality = require('../models/models-reviews-spaciality');
+const models_comments_spaciality = require('../models/models-comments-spaciality');
+
+
+
+
+
+
+
 
 
 
@@ -528,16 +537,16 @@ const check_owner = async function(datas_check){
 		//@
 		//@ 2.0 owner tracking
 		var owner_tracking = 0;
-		if(datas_check.tracking_id){
+		if(datas_check.review_id){
 			
-			var owner_tracking_get;
+			var owner_review_get;
 			//@
 			//@
 			try {
 				var user_id = jwt.decode(datas_check.token).users_ID;
-				var tracking_id = datas_check.tracking_id;
+				var review_id = datas_check.review_id;
 				
-				//return {"datas": [user_id,tracking_id]};
+				//return {"datas": [user_id,review_id]};
 				
 				//@
 				//@
@@ -545,7 +554,7 @@ const check_owner = async function(datas_check){
 				var send_datas_check_owner_tracking = { 
 					"datas" : {
 						"user_id" 	: user_id,
-						"tracking_id"	: tracking_id
+						"review_id"	: review_id
 					}
 				}			
 
@@ -574,11 +583,105 @@ const check_owner = async function(datas_check){
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.1 owner tracking
+		var owner_review = 0;
+		if(datas_check.review_id){
+			
+			var owner_review_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var review_id = datas_check.review_id;
+				
+				//return {"datas": [user_id,review_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"review_id"	: review_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_review_get = await models_reviews_spaciality.get_owner_review(send_datas_check_owner_review);	
+				//return [owner_review_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_review_get.error) { return {"error":owner_review_get.error,"message":owner_review_get.error} }	
+				if(owner_review_get.length > 0) { owner_review = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_review_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.1 [owner_review] 
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.2 owner tracking
+		var owner_comment = 0;
+		if(datas_check.comment_id){
+			
+			var owner_comment_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var comment_id = datas_check.comment_id;
+				
+				//return {"datas": [user_id,review_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_comment = { 
+					"datas" : {
+						"user_id" 		: user_id,
+						"comment_id"	: comment_id
+					}
+				}			
 
 
+				//return send_datas_check_owner_review;
+
+				owner_comment_get = await models_comments_spaciality.get_owner_comment(send_datas_check_owner_comment);	
+				//return [owner_comment_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_comment_get.error) { return {"error":owner_comment_get.error,"message":owner_comment_get.error} }	
+				if(owner_comment_get.length > 0) { owner_comment = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_comment_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.2 [owner_comment] 
 
 
 
@@ -600,7 +703,9 @@ const check_owner = async function(datas_check){
 			"owner_order":owner_order,
 			"owner_adress":owner_adress,
 			"owner_order_tracking" : owner_order_tracking,
-			"owner_tracking" : owner_tracking 
+			"owner_tracking" : owner_tracking,
+			"owner_review" : owner_review,
+			"owner_comment" : owner_comment  			
 			}
 		return data_return;
 		//@

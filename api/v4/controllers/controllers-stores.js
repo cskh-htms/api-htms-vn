@@ -179,11 +179,11 @@ async function insert_stores(req, res, next) {
 		});
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert stores , Liên hệ admin" );
-			res.send({ "error" : "controllers-stores->insert->model-run->number_error : 2 ", "message": error_send } ); 
-			return;
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert stores , Liên hệ admin" );
+		res.send({ "error" : "controllers-stores->insert->model-run->number_error : 2 ", "message": error_send } ); 
+		return;
 	}		
 }
 

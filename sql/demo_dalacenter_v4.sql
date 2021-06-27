@@ -587,11 +587,8 @@ CREATE TABLE IF NOT EXISTS `dala_reviews_speciality` (
   `dala_reviews_speciality_user_id` int NOT NULL,
   `dala_reviews_speciality_product_id` int NOT NULL,
   `dala_reviews_speciality_contents` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_reviews_speciality_status_store` tinyint(1) NOT NULL DEFAULT '0',
   `dala_reviews_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_reviews_speciality_number_star` int NOT NULL DEFAULT '5',
-  `dala_reviews_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_reviews_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_reviews_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 

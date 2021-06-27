@@ -617,6 +617,58 @@ VALUES
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_reviews_speciality
+--
+INSERT INTO `dala_reviews_speciality`(
+    `dala_reviews_speciality_ID`,
+    `dala_reviews_speciality_date_created`,
+    `dala_reviews_speciality_user_id`,
+    `dala_reviews_speciality_product_id`,
+    `dala_reviews_speciality_contents`,
+    `dala_reviews_speciality_status_admin`,
+    `dala_reviews_speciality_number_star`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP,'56', '1','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '5'),
+	(2, CURRENT_TIMESTAMP,'56', '2','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '4'),
+	(3, CURRENT_TIMESTAMP,'56', '3','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '3'),
+	(4, CURRENT_TIMESTAMP,'56', '4','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '2');
+
+
+-- ----------------------------------------------------------------------
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_comments_speciality
+--
+INSERT INTO `dala_comments_speciality`(
+    `dala_comments_speciality_ID`,
+    `dala_comments_speciality_date_created`,
+    `dala_comments_speciality_user_id`,
+    `dala_comments_speciality_comment_parent_id`,
+    `dala_comments_speciality_product_id`,
+    `dala_comments_speciality_contents`,
+    `dala_comments_speciality_status_admin`
+)
+VALUES 
+	(1 ,  CURRENT_TIMESTAMP, '56', '0', '1','sản phẩm tốt , rất hài lòng', '1'),
+	(2 ,  CURRENT_TIMESTAMP, '56', '0', '2','sản phẩm tốt , rất hài lòng', '1'),
+	(3 ,  CURRENT_TIMESTAMP, '56', '1', '1','sản phẩm tốt , rất hài lòng', '1'),
+	(4 ,  CURRENT_TIMESTAMP, '56', '2', '2','sản phẩm tốt , rất hài lòng', '1'),
+	(5 ,  CURRENT_TIMESTAMP, '56', '0', '3','sản phẩm tốt , rất hài lòng', '1');
+
+
+
+
+
+
+
+
+
+
 
 
 -- 

@@ -1,54 +1,87 @@
 
 /*
-@@@@
-@@@@@
-@@@@@
-@@@@@
+
+
+
+
+* 1. [insert_comments_spaciality]
+
+* 2. [get_all_comments_spaciality]
+
+* 3. [get_one_comments_spaciality]
+
+* 4. [update_comments_spaciality]
+
+* 5. [delete_comments_spaciality]
+
+* 6. [search]
+
+
+
 */
 
+
+
+//@
+//@
+//@
 //connect 
 const connection = require('./models-connection');
-var mysql = require('mysql');
+
+
 
 //@
 //@
 //configs/config
-//function share
 const ojs_configs = require('../../../configs/config');
-const ojs_shares = require('../../../models/ojs-shares');
+
+
+//@
+//@
+//@
+//npm exstands
+const mysql = require('mysql');
+
+
+
+
+//@
+//@
+//function share
+const ojs_shares_others = require('../../../models/ojs-shares-others');
+const ojs_shares_sql = require('../../../models/ojs-shares-sql');
+const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
 //sql select default
-let sql_select_all = 	"" + 	
+var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "comments_speciality_ID as comments_speciality_ID, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "comments_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as comments_speciality_date_created, " + 	
 	ojs_configs.db_prefix  + "comments_speciality_user_id as comments_speciality_user_id, " + 
 	ojs_configs.db_prefix  + "comments_speciality_comment_parent_id as comments_speciality_comment_parent_id, " + 
 	ojs_configs.db_prefix  + "comments_speciality_product_id as comments_speciality_product_id, " + 
 	ojs_configs.db_prefix  + "comments_speciality_contents as comments_speciality_contents, " + 
-	ojs_configs.db_prefix  + "comments_speciality_status_store as comments_speciality_status_store, " + 
-	ojs_configs.db_prefix  + "comments_speciality_status_admin as comments_speciality_status_admin, "  + 
+	ojs_configs.db_prefix  + "comments_speciality_status_admin as comments_speciality_status_admin "; 
 	
-
-	//users
-	ojs_configs.db_prefix  + "users_first_name as users_first_name, " + 
-	ojs_configs.db_prefix  + "users_last_name as users_last_name, " + 
-	ojs_configs.db_prefix  + "users_ID as users_ID, "  + 
-	
-
-	//products
-	ojs_configs.db_prefix  + "products_speciality_name as products_speciality_name, " + 
-	ojs_configs.db_prefix  + "products_speciality_ID as products_speciality_ID "
-
-
-
 
 //from table
-let sql_from_default = 	" from " + 
+var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "comments_speciality "  ;
 	
 //link table	
-let sql_link_default = 	"" + 
+var sql_link_default = 	""; 
+var sql_link_search = 	"" + 
 
 	" INNER JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
@@ -62,106 +95,20 @@ let sql_link_default = 	"" +
 
 
 //link table	
-let sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "comments_speciality_date_created " ;
+var sql_order_default = " order by " + 
+	ojs_configs.db_prefix + "comments_speciality_date_created DESC " ;
 	
 	
-//--------------------------------
-//sql search
-//--------------------------------	
-	
-//from table
-let sql_link_search = 	""  + 
 
-	" INNER JOIN " + 
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "comments_speciality_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " +    
-	
-	" INNER JOIN " + 
-	ojs_configs.db_prefix + "products_speciality  ON  " + 
-	ojs_configs.db_prefix + "comments_speciality_product_id  = " + 
-	ojs_configs.db_prefix + "products_speciality_ID " 	
-
-
-	
-//--------------------------------
-//sql search
-//--------------------------------	
-	
 		
 	
-	
-	
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@	
-//search
-var search = async function (datas) {
-	
-	//return [datas.datas.select_field,sql_select_all];
-	//@
-	try {
-		var sql_field = ojs_shares.get_select_field(datas.select_field, sql_select_all);
-	}
-	catch(error){
-		return  { "error" : "m_10", "message" : error } ;
-	}
-
-	//@
-	try {
-		var sql_conditions = ojs_shares.get_condition(datas.condition);
-	}
-	catch(error){
-		return  { "error" : "m_11", "message" : error } ;
-	}
-	//@
-	try {
-		var sql_order = ojs_shares.get_order_text(datas.order);
-	}
-	catch(error){
-		return  { "error" : "m_12", "message" : error } ;
-	}
-
-
-	var sql_text = 	"SELECT DISTINCT " + sql_field +
-					sql_from_default + 
-					sql_link_search + 
-					sql_conditions + 
-					sql_order 
-	//return sql_text		;		
-
-	//@
-	try {	
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
-	
-	
-		
-	
-	
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var insert_comments_spaciality = async function (datas) {
+//@
+//@
+//@
+//@
+//@
+//@ 1. [insert_comments_spaciality]	
+const insert_comments_spaciality = async function (datas) {
 	//@
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "comments_speciality  SET ?";
 	let dataGo = {
@@ -169,13 +116,12 @@ var insert_comments_spaciality = async function (datas) {
 			"comments_speciality_comment_parent_id"			: datas.comments_speciality_comment_parent_id,		
 			"comments_speciality_product_id"				: datas.comments_speciality_product_id,	
 			"comments_speciality_contents"					: mysql.escape(datas.comments_speciality_contents).replace(/^'|'$/gi, ""),
-			"comments_speciality_status_store"				: datas.comments_speciality_status_store,
 			"comments_speciality_status_admin"				: datas.comments_speciality_status_admin		
 	}
 
-	let kes = Object.keys(dataGo);
+	var kes = Object.keys(dataGo);
 	for(let x in kes){
-		dataGo = ojs_shares.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
 	}
 	//@
 
@@ -188,18 +134,25 @@ var insert_comments_spaciality = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->comments_speciality->insert->error_number : 1", "message" : error } ;
 	}
 
-};
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_all_comments_spaciality = async function () {
+};	
+//@ end of
+//@ 1. [insert_comments_spaciality]		
+	
+	
+	
+	
+
+
+//@ 
+//@ 
+//@ 
+//@ 
+//@ 
+//@ 2. [get_all_comments_spaciality]
+const get_all_comments_spaciality = async function () {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -217,21 +170,25 @@ var get_all_comments_spaciality = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model->comments_speciality->get all->error_number : 1", "message" : error } ;
 	}
 };
+//@ end of 
+//@ 2. [get_all_comments_spaciality]
 
 
 
 
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//get ALL category chung;
-var get_one_comments_spaciality = async function (comment_id) {
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+// 3. [get_one_comments_spaciality]
+const get_one_comments_spaciality = async function (comment_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -253,69 +210,8 @@ var get_one_comments_spaciality = async function (comment_id) {
 	}
 };
 
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//check san pham da co binh luan chua;
-var check_comment_link = async function (product_id) {
-	//create sql text
-	let sql_text = 	"SELECT " + ojs_configs.db_prefix +  "comments_speciality_ID " + 
-					sql_from_default + 
-					sql_link_default + 
-					" where " + 
- 					ojs_configs.db_prefix + "comments_speciality_product_id = '" + product_id + "' " + 
-					sql_order_default
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
-
-
-
-
-
-
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//check user da co binh luan chua;
-var check_comment_link_user = async function (user_id) {
-	//create sql text
-	let sql_text = 	"SELECT " + ojs_configs.db_prefix +  "comments_speciality_ID " + 
-					sql_from_default + 
-					sql_link_default + 
-					" where " + 
- 					ojs_configs.db_prefix + "comments_speciality_user_id = '" + user_id + "' " + 
-					sql_order_default
-	//@
-	try {
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
-	}
-};
+//@ end of
+// 3. [get_one_comments_spaciality]
 
 
 
@@ -325,15 +221,15 @@ var check_comment_link_user = async function (user_id) {
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var update_comments_spaciality = async function (datas,comment_id) {
+
+//@ 
+//@ 
+//@ 
+//@ 
+//@ 
+//@ 
+//@ 4. [update_comments_spaciality]
+const update_comments_spaciality = async function (datas,comment_id) {
 	
 	let sqlSet = "";
 	
@@ -389,18 +285,24 @@ var update_comments_spaciality = async function (datas,comment_id) {
 		return  { "error" : "m_13", "message" : error } ;
 	}
 };
+//@ end of 
+//@ 4. [update_comments_spaciality]
 
 
 
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//insert
-var delete_comments_spaciality = async function (comment_id) {
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+// 5. [delete_comments_spaciality]
+const delete_comments_spaciality = async function (comment_id) {
 
 	let table_name  = ojs_configs.db_prefix + "comments_speciality ";
 	let field_where  = ojs_configs.db_prefix + "comments_speciality_ID ";
@@ -416,9 +318,123 @@ var delete_comments_spaciality = async function (comment_id) {
 		} );
 	}
 	catch(error){
+		return  { "error" : "model-comment -> delete -> error_number : 1", "message" : error } ;
+	}
+};
+//@ end of
+// 5. [delete_comments_spaciality]	
+
+
+
+
+
+
+
+
+	
+	
+	
+//@
+//@
+//@
+//@
+//@
+//@
+// 6. [search]
+const search = async function (datas) {
+	
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+					
+	}
+	catch(error){
+		return  { "error" : "model-comment-speciality->search->error-nymber : 3", "message" : error } ;
+	}		
+
+
+
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
 		return  { "error" : "m_13", "message" : error } ;
 	}
 };
+//@ end of
+// 6. [search]	
+	
+		
+	
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+// 8. [get_owner_comment]
+const get_owner_comment = async function (datas) {
+	//return datas;
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "comments_speciality_ID  "  + 
+					sql_from_default + 
+					sql_link_default + 
+						
+					" WHERE " +  
+							ojs_configs.db_prefix + "comments_speciality_user_id = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "comments_speciality_product_id  = '" + datas.datas.comment_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_comment->get_owner_comment->error_number : 1", "message" : error } ;
+	}
+};
+
+// 8. [get_owner_review]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -437,8 +453,7 @@ module.exports = {
 	insert_comments_spaciality,
 	delete_comments_spaciality,
 	search,
-	check_comment_link,
-	check_comment_link_user
+	get_owner_comment
 };
 
 
