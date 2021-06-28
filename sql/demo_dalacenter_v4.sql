@@ -865,6 +865,37 @@ CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
 
 
 
+--
+-- Table structure for table `dala_like_store`
+--
+DROP TABLE IF EXISTS `dala_like_store`;
+CREATE TABLE IF NOT EXISTS `dala_like_store` (
+  `dala_like_store_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_like_store_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_like_store_user_id` int NOT NULL,
+  `dala_like_store_store_id` int NOT NULL,
+  PRIMARY KEY (`dala_like_store_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+
+
+
+
+--
+-- Table structure for table `dala_like_product`
+--
+DROP TABLE IF EXISTS `dala_like_product`;
+CREATE TABLE IF NOT EXISTS `dala_like_product` (
+  `dala_like_product_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_like_product_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_like_product_user_id` int NOT NULL,
+  `dala_like_product_product_id` int NOT NULL,
+  PRIMARY KEY (`dala_like_product_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
 
 
 

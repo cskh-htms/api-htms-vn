@@ -133,6 +133,16 @@ source ./sql/16.2.table_comments/03.table_comments_constraint.sql;
 
 
 
+-- 16.3.table_like_product
+source ./sql/16.3.table_like_product/03.table_like_product_constraint.sql;
+
+
+
+
+
+-- 16.4.table_store
+source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
+
 
 
 
