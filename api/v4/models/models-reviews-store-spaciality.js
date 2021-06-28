@@ -3,19 +3,21 @@
 
 /*
 
-* 1. [insert_reviews_speciality]
 
-* 2. [get_all_reviews_speciality]
 
-* 3. [get_one_reviews_speciality]
+* 1. [insert_reviews_store_spaciality]
 
-* 4. [update_reviews_speciality]
+* 2. [get_all_reviews_store_spaciality]
 
-* 5. [delete_reviews_speciality]
+* 3. [get_one_reviews_store_spaciality]
+
+* 4. [update_reviews_store_spaciality]
+
+* 5. [delete_reviews_store_spaciality]
 
 * 5. [search]
 
-
+* 7. [get_check_reviews_store_insert]
 
 */
 
@@ -62,20 +64,20 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 
 //sql select default
 var sql_select_all = 	"" + 	
-	ojs_configs.db_prefix  + "reviews_speciality_ID as reviews_speciality_ID, " + 
-	"DATE_FORMAT(" + ojs_configs.db_prefix  + "reviews_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as reviews_speciality_date_created, " + 	
-	ojs_configs.db_prefix  + "reviews_speciality_user_id as reviews_speciality_user_id, " + 
-	ojs_configs.db_prefix  + "reviews_speciality_product_id as reviews_speciality_product_id, " + 
-	ojs_configs.db_prefix  + "reviews_speciality_contents as reviews_speciality_contents, " + 
-	ojs_configs.db_prefix  + "reviews_speciality_status_admin as reviews_speciality_status_admin, " +  
-	ojs_configs.db_prefix  + "reviews_speciality_number_star as reviews_speciality_number_star " ;
+	ojs_configs.db_prefix  + "reviews_store_speciality_ID as reviews_store_speciality_ID, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "reviews_store_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as reviews_store_speciality_date_created, " + 	
+	ojs_configs.db_prefix  + "reviews_store_speciality_user_id as reviews_store_speciality_user_id, " + 
+	ojs_configs.db_prefix  + "reviews_store_speciality_store_id as reviews_store_speciality_store_id, " + 
+	ojs_configs.db_prefix  + "reviews_store_speciality_contents as reviews_store_speciality_contents, " + 
+	ojs_configs.db_prefix  + "reviews_store_speciality_status_admin as reviews_store_speciality_status_admin, " +  
+	ojs_configs.db_prefix  + "reviews_store_speciality_number_star as reviews_store_speciality_number_star " ;
 
 
 
 
 //from table
 var sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "reviews_speciality "  ;
+	ojs_configs.db_prefix + "reviews_store_speciality ";
 	
 	
 	
@@ -87,13 +89,13 @@ var sql_link_search = 	""  +
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "reviews_speciality_user_id  = " + 
+	ojs_configs.db_prefix + "reviews_store_speciality_user_id  = " + 
 	ojs_configs.db_prefix + "users_ID " +    
 	
 	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "products_speciality  ON  " + 
-	ojs_configs.db_prefix + "reviews_speciality_product_id  = " + 
-	ojs_configs.db_prefix + "products_speciality_ID " ;	
+	ojs_configs.db_prefix + "stores  ON  " + 
+	ojs_configs.db_prefix + "reviews_store_speciality_store_id  = " + 
+	ojs_configs.db_prefix + "stores_ID " ;	
 
 
 
@@ -101,7 +103,7 @@ var sql_link_search = 	""  +
 
 //link table	
 var sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "reviews_speciality_date_created " ;
+	ojs_configs.db_prefix + "reviews_store_speciality_date_created DESC " ;
 	
 	
 
@@ -116,16 +118,16 @@ var sql_order_default = " order by " +
 //@
 //@
 //@
-//@ 1. [insert_reviews_spaciality]	
-const insert_reviews_spaciality = async function (datas) {
+//@ 1. [insert_reviews_store_spaciality]	
+const insert_reviews_store_spaciality = async function (datas) {
 	//@
-	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "reviews_speciality  SET ?";
+	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "reviews_store_speciality  SET ?";
 	let dataGo = {
-			"reviews_speciality_user_id"					: datas.reviews_speciality_user_id,	
-			"reviews_speciality_product_id"					: datas.reviews_speciality_product_id,	
-			"reviews_speciality_contents"					: mysql.escape(datas.reviews_speciality_contents).replace(/^'|'$/gi, ""),
-			"reviews_speciality_status_admin"				: datas.reviews_speciality_status_admin,
-			"reviews_speciality_number_star"				: datas.reviews_speciality_number_star					
+			"reviews_store_speciality_user_id"					: datas.reviews_store_speciality_user_id,	
+			"reviews_store_speciality_store_id"					: datas.reviews_store_speciality_store_id,	
+			"reviews_store_speciality_contents"					: mysql.escape(datas.reviews_store_speciality_contents).replace(/^'|'$/gi, ""),
+			"reviews_store_speciality_status_admin"				: datas.reviews_store_speciality_status_admin,
+			"reviews_store_speciality_number_star"				: datas.reviews_store_speciality_number_star					
 	}
 
 	var kes = Object.keys(dataGo);
@@ -143,12 +145,12 @@ const insert_reviews_spaciality = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : " moedel reviews -> insert -> error : 1", "message" : error } ;
+		return  { "error" : " moedel reviews -> store -> insert -> error : 1", "message" : error } ;
 	}
 
 };	
 //@ end of
-//@ 1. [insert_reviews_spaciality]		
+//@ 1. [insert_reviews_store_spaciality]		
 	
 	
 	
@@ -161,8 +163,8 @@ const insert_reviews_spaciality = async function (datas) {
 //@
 //@
 //@
-//@ 2. [get_all_reviews_spaciality]
-const get_all_reviews_spaciality = async function () {
+//@ 2. [get_all_reviews_store_spaciality]
+const get_all_reviews_store_spaciality = async function () {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
@@ -180,11 +182,11 @@ const get_all_reviews_spaciality = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : " moedel reviews -> get_all -> error : 1 ", "message" : error } ;
+		return  { "error" : " moedel reviews store -> store -> get_all -> error : 1 ", "message" : error } ;
 	}
 };
 //@ end of
-//@ 2. [get_all_reviews_spaciality]
+//@ 2. [get_all_reviews_store_spaciality]
 	
 	
 	
@@ -196,14 +198,14 @@ const get_all_reviews_spaciality = async function () {
 //@
 //@
 //@
-//@ 3. [get_one_reviews_spaciality]
-const get_one_reviews_spaciality = async function (review_id) {
+//@ 3. [get_one_reviews_store_spaciality]
+const get_one_reviews_store_spaciality = async function (review_store_id) {
 	//create sql text
 	let sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					" where " + 
- 					ojs_configs.db_prefix + "reviews_speciality_ID = '" + review_id + "' " + 
+ 					ojs_configs.db_prefix + "reviews_store_speciality_ID = '" + review_store_id + "' " + 
 					sql_order_default
 	//@
 	try {
@@ -215,11 +217,11 @@ const get_one_reviews_spaciality = async function (review_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : " moedel reviews -> store -> get_all -> error : 2 ", "message" : error } ;
 	}
 };
 //@ end of
-//@ 3. [get_one_reviews_spaciality]	
+//@ 3. [get_one_reviews_store_spaciality]	
 	
 	
 	
@@ -230,8 +232,8 @@ const get_one_reviews_spaciality = async function (review_id) {
 //@
 //@
 //@
-//@ 4. [get_one_reviews_spaciality]
-const update_reviews_spaciality = async function (datas,review_id) {
+//@ 4. [get_one_reviews_store_spaciality]
+const update_reviews_store_spaciality = async function (datas,review_store_id) {
 	
 	let sqlSet = "";
 	
@@ -270,10 +272,10 @@ const update_reviews_spaciality = async function (datas,review_id) {
 	});		
 
 
-	let table_name  = ojs_configs.db_prefix + "reviews_speciality ";
-	let field_where  = ojs_configs.db_prefix + "reviews_speciality_ID ";
+	let table_name  = ojs_configs.db_prefix + "reviews_store_speciality ";
+	let field_where  = ojs_configs.db_prefix + "reviews_store_speciality_ID ";
 	//create sql text
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ review_id + '"';
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ review_store_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -284,11 +286,11 @@ const update_reviews_spaciality = async function (datas,review_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : " moedel reviews -> store -> store -> update -> error : 1 ", "message" : error } ;
 	}
 };
 //@ end of
-//@ 4. [get_one_reviews_spaciality]	
+//@ 4. [get_one_reviews_store_spaciality]	
 	
 	
 	
@@ -316,7 +318,7 @@ const search = async function (datas) {
 					
 	}
 	catch(error){
-		return  { "error" : "model-review-speciality->search->error-nymber : 3", "message" : error } ;
+		return  { "error" : "model-review-storespeciality->search->error-nymber : 3", "message" : error } ;
 	}	
 
 
@@ -336,7 +338,7 @@ const search = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-review-speciality->search->error_number:1", "message" : error } ;
+		return  { "error" : "model-review-store-speciality->search->error_number:1", "message" : error } ;
 	}
 };
 
@@ -355,12 +357,12 @@ const search = async function (datas) {
 //@
 //@
 // 6. [delet_reviews_insert]
-const delete_reviews_spaciality = async function (review_id) {
+const delete_reviews_store_spaciality = async function (review_store_id) {
 
-	let table_name  = ojs_configs.db_prefix + "reviews_speciality ";
-	let field_where  = ojs_configs.db_prefix + "reviews_speciality_ID ";
+	let table_name  = ojs_configs.db_prefix + "reviews_store_speciality ";
+	let field_where  = ojs_configs.db_prefix + "reviews_store_speciality_ID ";
 	//create sql text
-	let sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ review_id + '"';
+	let sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ review_store_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -371,7 +373,7 @@ const delete_reviews_spaciality = async function (review_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "model-review-store-speciality->delete->error_number:1", "message" : error } ;
 	}
 };
 //@ end of
@@ -384,18 +386,18 @@ const delete_reviews_spaciality = async function (review_id) {
 //@
 //@
 //@
-// 7. [get_check_reviews_insert]
-const get_check_reviews_insert = async function (datas) {
+// 7. [get_check_reviews_store_insert]
+const get_check_reviews_store_insert = async function (datas) {
 	//return datas;
 	//create sql text
-	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "reviews_speciality_ID  "  + 
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "reviews_store_speciality_ID  "  + 
 					sql_from_default + 
 					sql_link_default + 
 						
 					" WHERE " +  
-							ojs_configs.db_prefix + "reviews_speciality_user_id = '" + datas.datas.user_id + "' "  + 
+							ojs_configs.db_prefix + "reviews_store_speciality_user_id = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
-							ojs_configs.db_prefix + "reviews_speciality_product_id  = '" + datas.datas.product_id + "' " 
+							ojs_configs.db_prefix + "reviews_store_speciality_store_id  = '" + datas.datas.store_id + "' " 
 	
 	//return sql_text;
 	//@
@@ -410,11 +412,11 @@ const get_check_reviews_insert = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_reviews->get_check_reviews_insert->error_number : 1", "message" : error } ;
+		return  { "error" : "models_reviews->get_check_store-reviews_insert->error_number : 1", "message" : error } ;
 	}
 };
 
-// 7. [get_check_reviews_insert]
+// 7. [get_check_reviews_store_insert]
 
 
 
@@ -425,18 +427,18 @@ const get_check_reviews_insert = async function (datas) {
 //@
 //@
 //@
-// 8. [get_owner_review]
-const get_owner_review = async function (datas) {
+// 8. [get_owner_review_sote]
+const get_owner_review_store = async function (datas) {
 	//return datas;
 	//create sql text
-	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "reviews_speciality_ID  "  + 
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "reviews_store_speciality_ID  "  + 
 					sql_from_default + 
 					sql_link_default + 
 						
 					" WHERE " +  
-							ojs_configs.db_prefix + "reviews_speciality_user_id = '" + datas.datas.user_id + "' "  + 
+							ojs_configs.db_prefix + "reviews_store_speciality_user_id = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
-							ojs_configs.db_prefix + "reviews_speciality_ID  = '" + datas.datas.review_id + "' " 
+							ojs_configs.db_prefix + "reviews_store_speciality_ID  = '" + datas.datas.review_store_id + "' " 
 	
 	//return sql_text;
 	//@
@@ -451,11 +453,11 @@ const get_owner_review = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_reviews->get_owner_review->error_number : 1", "message" : error } ;
+		return  { "error" : "models_reviews-store>get_owner_review->error_number : 1", "message" : error } ;
 	}
 };
 
-// 8. [get_owner_review]
+// 8. [get_owner_review_store]
 
 
 
@@ -465,7 +467,7 @@ const get_owner_review = async function (datas) {
 //@
 //@
 // 9. [get_check_reviews_buy]
-const get_check_reviews_buy = async function (datas) {
+const get_check_reviews_store_buy = async function (datas) {
 	//return datas;
 	//create sql text
 	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "orders_details_speciality_ID  "  + 
@@ -477,10 +479,15 @@ const get_check_reviews_buy = async function (datas) {
 					ojs_configs.db_prefix + "orders_details_speciality_order_id  = " + 
 					ojs_configs.db_prefix + "orders_speciality_ID " + 
 
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "products_speciality  ON  " + 
+					ojs_configs.db_prefix + "orders_details_speciality_product_id  = " + 
+					ojs_configs.db_prefix + "products_speciality_ID " + 
+
 					" WHERE " +  
 							ojs_configs.db_prefix + "orders_speciality_user_id = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
-							ojs_configs.db_prefix + "orders_details_speciality_product_id  = '" + datas.datas.product_id + "' " 
+							ojs_configs.db_prefix + "products_speciality_store_id  = '" + datas.datas.store_id + "' " 
 	
 	//return sql_text;
 	//@
@@ -495,7 +502,7 @@ const get_check_reviews_buy = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_reviews->get_check_reviews_buy->error_number : 1", "message" : error } ;
+		return  { "error" : "models_store-reviews->get_check_reviews_buy->error_number : 1", "message" : error } ;
 	}
 };
 
@@ -511,15 +518,15 @@ const get_check_reviews_buy = async function (datas) {
 */
 
 module.exports = {
-	get_all_reviews_spaciality,
-	get_one_reviews_spaciality,
-	update_reviews_spaciality,
-	insert_reviews_spaciality,
-	delete_reviews_spaciality,
+	get_all_reviews_store_spaciality,
+	get_one_reviews_store_spaciality,
+	update_reviews_store_spaciality,
+	insert_reviews_store_spaciality,
+	delete_reviews_store_spaciality,
 	search,
-	get_check_reviews_insert,
-	get_owner_review,
-	get_check_reviews_buy
+	get_check_reviews_store_insert,
+	get_owner_review_store,
+	get_check_reviews_store_buy
 };
 
 

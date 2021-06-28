@@ -33,7 +33,7 @@ const models_adress_meta = require('../models/models-adress-meta');
 const models_shipping_tracking = require('../models/models-shipping-tracking');
 const models_reviews_spaciality = require('../models/models-reviews-spaciality');
 const models_comments_spaciality = require('../models/models-comments-spaciality');
-
+const models_reviews_store_spaciality = require('../models/models-reviews-store-spaciality');
 
 
 
@@ -351,6 +351,9 @@ const check_owner = async function(datas_check){
 				
 				owner_product_get = await models_products_spaciality.get_owner_product(send_datas_check_owner_product);	
 				
+				//return owner_product_get;
+				
+				
 				//@
 				//@
 				if(owner_product_get.error) { return {"error":owner_product_get.error,"message":owner_product_get.error} }	
@@ -587,7 +590,7 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
-		//@ 2.1 owner tracking
+		//@ 2.1 owner review
 		var owner_review = 0;
 		if(datas_check.review_id){
 			
@@ -691,6 +694,64 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
+		//@
+		//@ 2.3 owner review store
+		var owner_review_store = 0;
+		if(datas_check.review_store_id){
+			
+			var owner_review_store_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var review_store_id = datas_check.review_store_id;
+				
+				//return {"datas": [user_id,review_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"review_store_id"	: review_store_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_review_store_get = await models_reviews_store_spaciality.get_owner_review_store(send_datas_check_owner_review);	
+				//return [owner_review_store_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_review_store_get.error) { return {"error":owner_review_store_get.error,"message":owner_review_store_get.error} }	
+				if(owner_review_store_get.length > 0) { owner_review_store = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_review_store_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.3 [owner_review_store] 
+
+
+
+
+
+
+
+
+
+
+		//@
+		//@
+		//@
 		let data_return = {
 			"error":"",
 			"user_role": check_role.message,
@@ -705,7 +766,8 @@ const check_owner = async function(datas_check){
 			"owner_order_tracking" : owner_order_tracking,
 			"owner_tracking" : owner_tracking,
 			"owner_review" : owner_review,
-			"owner_comment" : owner_comment  			
+			"owner_comment" : owner_comment ,
+			"owner_review_store" : owner_review_store 			
 			}
 		return data_return;
 		//@

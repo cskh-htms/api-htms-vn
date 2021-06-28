@@ -101,9 +101,52 @@ source ./sql/14.1.table_orders_details_speciality/02.table_orders_details_specia
 
 
 
+-- 15.0.table_dala_shipping_tracking
+source ./sql/15.0table_shipping_tracking/01.table_shipping_tracking_insert.sql;
+source ./sql/15.0table_shipping_tracking/02.table_shipping_tracking_update.sql;
+
+
+
+
+
 -- 15.1.table_dala_shipping_company
 source ./sql/15.1.table_shipping_company/01.table_shipping_company_insert.sql;
 source ./sql/15.1.table_shipping_company/02.table_shipping_company_update.sql;
+
+
+
+
+
+-- 15.2.table_dala_adress_meta
+source ./sql/15.2.table_dala_adress_meta/01.table_adress_meta_insert.sql;
+source ./sql/15.2.table_dala_adress_meta/02.table_adress_meta_update.sql;
+
+
+
+
+
+
+-- 16.0.table_reviews_store
+source ./sql/16.0.table_reviews_store/01.table_reviews_store_insert.sql;
+source ./sql/16.0.table_reviews_store/02.table_reviews_store_update.sql;
+
+
+
+
+
+-- 16.1.table_reviews
+source ./sql/16.1.table_reviews/01.table_reviews_insert.sql;
+source ./sql/16.1.table_reviews/02.table_reviews_update.sql;
+
+
+
+
+
+-- 16.2.table_comments
+source ./sql/16.2.table_comments/01.table_comments_insert.sql;
+source ./sql/16.2.table_comments/02.table_comments_update.sql;
+
+
 
 
 

@@ -169,7 +169,8 @@ async  function insert_reviews_spaciality(req, res, next) {
 	//@
 	//@
 	//@
-	// lấy thông tin optiton để kiểm tranh option đã pushlish chưa
+	//@  check xem bạn đã đánh giá sản phẩm này chưa
+	//@ nếu đã đánh giá rồi thì không cho đánh giá nữa
 	try {
 		//@
 		//@
@@ -221,19 +222,80 @@ async  function insert_reviews_spaciality(req, res, next) {
 		res.send( { "error": "controllers-reviews-speciality->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
 		return;
 	}		
-	
-	
-	
-	
 	//res.send(push_check);
 	//return;	
 	
 	
 	
 	
+	//@
+	//@
+	//@
+	//@  check xem người đánh giá đã mua sản phẩm chưa
+	//@ nếu chưa mua sản phẩm thì không được đánh giá
+	try {
+		//@
+		//@
+		//@
+		var datas_check_reviews_buy = {
+			"datas" : {
+				"user_id" 	: datas.reviews_speciality_user_id,
+				"product_id" : datas.reviews_speciality_product_id
+			}
+		}
+		//res.send(datas_check_reviews);
+		//return;
+		//@
+		//@
+		//@
+		//@
+		var push_check_buy = await models_reviews_spaciality.get_check_reviews_buy(datas_check_reviews_buy);
+		//res.send(push_check);
+		//return;		
+		//@
+		//@
+		//nếu có lỗi thì tra về lỗi
+		if(push_check_buy.error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, push_check_buy.error, "lỗi truy xuất database reviews, liên hệ admin dala" );
+			res.send( { "error": "controllers-reviews-speciality->check-pushplic -> buy -> model-run -> error_number : 1", "message" : error_send  } );
+			return;			
+		}
+		
+		//res.send(push_check_buy);
+		//return;				
+		
+		//@
+		//@
+		//@ nếu không có danh mục thì báo lỗi
+		if(push_check_buy.length > 0){}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, " Bạn chưa mua sản phẩm, không thể đánh giá " ," Bạn chưa mua sản phẩm, không thể đánh giá " );
+			res.send( { "error": "controllers-reviews-speciality->check-pushplic->buy -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;
+		}	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";		
+		var error_send = ojs_shares_show_errors.show_error( evn, error, " lỗi truy xuất database reviews " );
+		res.send( { "error": "controllers-reviews-speciality->check-pushplic-> buy -> model-run -> error_number : 3", "message" : error_send  } );
+		return;
+	}		
+	
+	//res.send(push_check_buy);
+	//return;		
+	
+	
+
+	
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
 	
+
+
 
 	//@
 	//@
@@ -572,7 +634,7 @@ async function update_reviews_spaciality(req, res, next) {
 		//@
 		//@
 		//@ nếu không có danh mục thì báo lỗi
-		if(push_check.length > 0  && push_check[0].reviews_speciality_status_admin  == "1"){
+		if(push_check.length > 0  && push_check[0].reviews_speciality_status_admin  == "1"  && check_datas_result.user_role != "admin"){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, " Đánh giá đã push không chỉnh sữa " ," Đánh giá đã push không chỉnh sữa " );

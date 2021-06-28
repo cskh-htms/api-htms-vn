@@ -511,6 +511,7 @@ CREATE TABLE IF NOT EXISTS `dala_products_food_drink` (
   `dala_products_food_drink_date_end` datetime DEFAULT NULL,
   `dala_products_food_drink_stock` int DEFAULT NULL,
   `dala_products_food_drink_brand` int NOT NULL DEFAULT '0',
+  `dala_products_food_drink_origin` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_food_drink_status_store` int NOT NULL DEFAULT '0',
   `dala_products_food_drink_status_admin` int NOT NULL DEFAULT '0',
   `dala_products_food_drink_excerpt` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -593,6 +594,46 @@ CREATE TABLE IF NOT EXISTS `dala_reviews_speciality` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
+
+
+
+
+
+
+
+--
+-- Table structure for table `dala_reviews_store_speciality`
+--
+
+DROP TABLE IF EXISTS `dala_reviews_store_speciality`;
+CREATE TABLE IF NOT EXISTS `dala_reviews_store_speciality` (
+  `dala_reviews_store_speciality_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_reviews_store_speciality_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_reviews_store_speciality_user_id` int NOT NULL,
+  `dala_reviews_store_speciality_store_id` int NOT NULL,
+  `dala_reviews_store_speciality_contents` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_reviews_store_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_reviews_store_speciality_number_star` int NOT NULL DEFAULT '5',
+  PRIMARY KEY (`dala_reviews_store_speciality_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --
 -- Table structure for table `dala_service_type`

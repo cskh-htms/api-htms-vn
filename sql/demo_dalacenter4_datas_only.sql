@@ -210,6 +210,7 @@ INSERT INTO `dala_products_speciality`(
     `dala_products_speciality_date_end`,
     `dala_products_speciality_stock`,
     `dala_products_speciality_brand`,
+	`dala_products_speciality_origin`,
     `dala_products_speciality_status_admin`,
     `dala_products_speciality_status_store`,
     `dala_products_speciality_status_update`,
@@ -226,7 +227,7 @@ VALUES
     'https://appdala.com/images/dala-logo.png',
     'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
     ' Kẹo dẻo phủ socola có vị ngọt nhẹ và dai, phủ một lớp socola mỏng, cho ta vị hậu đắng nhẹ tăng thêm độ hoàn hảo và một hương vị đặc trưng của vùng cao nguyên Đà Lạt.\r\n\r\nMàu sắc: Kẹo có màu sắc tự nhiên, phủ bên trên là lớp socola mỏng tạo cái nhìn thiện cảm cho người dùng.\r\nMùi vị: mỗi màu sắc là một vị khác nhau, chua,ngọt trộn với vị hậu đắng nhẹ gây kích thích vị giác.\r\nĂn trực tiếp.\r\nChỉ sử dụng acid citrid để bảo quản và duy trì màu sắc cho sản phẩm. Trẻ em, phụ nữ mang thai có thể sử dụng được.\r\n – Thành phần: Kẹo dẻo trái cây (70%), chocolate đen.\r\n\r\n – KLT: 220g\r\n\r\n – Hướng dẫn sử dụng: Mở bao bì và dùng trực tiếp. Làm kín miệng sau mỗi lần sử dụng.\r\n\r\n – Bảo quản: Bảo quản nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp.\r\n\r\n                      Không sử dụng sản phẩm khi có dấu hiệu ẩm mốc, xuất hiện mùi lạ.\r\n\r\nSản phẩm được phân phối bởi Dala.vn.',
-    '70000','65000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '70000','65000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
@@ -236,7 +237,7 @@ VALUES
     '	⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng ⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
 		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
 	',
-    '70000','65000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '70000','65000',  NULL, NULL, NULL,'2', 'Việt Nam', '1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
@@ -247,7 +248,7 @@ VALUES
 		KHOAI LANG NHẬT SỢI SẤY GIÒN
 		Ai trong chúng ta cũng đều biết đến khoai lang, một loại thực phẩm tuy giản dị, thô sơ nhưng lại mang trong mình hàm lượng dinh dưỡng và chất xơ cao đến không ngờ. Nhưng, có chắc rằng bạn biết đến khoai lang ở dạng sợi chưa? Trong hình dáng mới, cọng thuôn dài, độ dài khoảng tầm 7cm, sản phẩm mang lại cho người dùng. một cảm giác ăn thật ngon miệng.
 	',
-    '35000','29000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '35000','29000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
@@ -261,7 +262,7 @@ VALUES
 	Trà túi lọc Actiso rất tốt. Với công dụng mát gan, lợi tiểu, thông mật, rất thích hợp cho người bị yếu gan, nổi mề đay, vàng da. Có thể dùng hằng ngày thay nước lọc. 
 	
    ',
-    '35000','29000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '35000','29000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
@@ -274,7 +275,7 @@ VALUES
 		Hiểu được được tầm quan trọng của dâu tây đối với sức khỏe, BerryLand đã sử dụng dây chuyền sản xuất hiện đại của mình để mang đến những quả dâu cô đặc đầy dinh dưỡng trong món Dâu Sấy Dẻo nổi tiếng của mình. Được sấy bằng công nghệ cao trong dây chuyền khép kín, Dâu sấy dẻo BerryLand không chỉ giữ được hàm lượng dinh dưỡng của trái cây tươi, mà còn làm giảm độ chua giúp tăng vị ngọt dịu cho những quả dâu thêm phần thơm ngon. Chính vì vậy, món ăn vặt dinh dưỡng này sẽ là lựa chọn phù hợp cho tất cả các đối tượng từ trẻ em, người lớn cho tới các mẹ bầu. Ngoài ra, sản phẩm được đóng gói nhỏ gọn, đẹp mắt phù hợp cho việc đãi khách, mang theo tới văn phòng, hay những chuyến du lịch xa.	
    
    ',
-    '140000','120000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '140000','120000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
@@ -287,7 +288,7 @@ VALUES
 		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
 		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
    ',
-    '20000','17000',  NULL, NULL, NULL,'2', '1', '1', '1','',
+    '20000','17000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 );
@@ -661,9 +662,26 @@ VALUES
 	(5 ,  CURRENT_TIMESTAMP, '56', '0', '3','sản phẩm tốt , rất hài lòng', '1');
 
 
+-- -----------------------------------------------------------------------------
 
 
 
+
+--
+-- Đang đổ dữ liệu cho bảng dala_reviews_store_speciality
+--
+INSERT INTO `dala_reviews_store_speciality`(
+    `dala_reviews_store_speciality_ID`,
+    `dala_reviews_store_speciality_date_created`,
+    `dala_reviews_store_speciality_user_id`,
+    `dala_reviews_store_speciality_store_id`,
+    `dala_reviews_store_speciality_contents`,
+    `dala_reviews_store_speciality_status_admin`,
+    `dala_reviews_store_speciality_number_star`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '56', '17', 'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo', '1', '5'),
+	(2, CURRENT_TIMESTAMP, '56', '18', 'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo', '1', '4');
 
 
 

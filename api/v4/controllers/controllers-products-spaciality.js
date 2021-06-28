@@ -1019,6 +1019,8 @@ async function search_all(req, res, next) {
 		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 		
+		//res.send(check_datas_result);
+		//return;			
 
 	}
 	catch(error){
