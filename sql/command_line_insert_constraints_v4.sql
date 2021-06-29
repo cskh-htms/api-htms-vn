@@ -148,6 +148,18 @@ source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
 
 
 
+-- 16.6.table_discount_program
+source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
+
+
+
+
+
+
+
+-- 16.4.table_store
+source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
+
 
 
 
