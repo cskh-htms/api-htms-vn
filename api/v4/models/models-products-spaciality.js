@@ -17,6 +17,10 @@
 * 7. [search_all]
 
 
+
+
+
+
 */
 
 
@@ -67,6 +71,11 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "products_speciality_type as products_speciality_type, " + 
 	ojs_configs.db_prefix  + "products_speciality_sku as products_speciality_sku, " + 
 	ojs_configs.db_prefix  + "products_speciality_store_id as products_speciality_store_id, " + 
+	ojs_configs.db_prefix  + "products_speciality_parent_id as products_speciality_parent_id, " + 	
+	
+	
+	
+	
 
 	ojs_configs.db_prefix  + "products_speciality_featured_image as products_speciality_featured_image, " + 
 	ojs_configs.db_prefix  + "products_speciality_image_slider as products_speciality_image_slider, " + 
@@ -189,6 +198,9 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_type" :  datas.products_speciality_type,
 			"products_speciality_sku" : mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
 			"products_speciality_store_id" : datas.products_speciality_store_id,
+			"products_speciality_parent_id" : datas.products_speciality_parent_id,
+			
+			
 			"products_speciality_featured_image" : mysql.escape(datas.products_speciality_featured_image).replace(/^'|'$/gi, ""),
 			"products_speciality_image_slider" : mysql.escape(datas.products_speciality_image_slider).replace(/^'|'$/gi, ""),
 			"products_speciality_contents" : mysql.escape(datas.products_speciality_contents).replace(/^'|'$/gi, ""),

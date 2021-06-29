@@ -56,16 +56,27 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@ fields select
 var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "discount_program_ID as discount_program_ID, " + 
-	ojs_configs.db_prefix  + "discount_program_price_created as discount_program_price_created, " + 
-	ojs_configs.db_prefix  + "discount_program_price_sale as discount_program_price_sale, " + 	
-	ojs_configs.db_prefix  + "discount_program_name as discount_program_name, " +
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_date_created,'%Y/%m/%d %H:%i:%s') as discount_program_date_created, " + 	
 	ojs_configs.db_prefix  + "discount_program_featured_image as discount_program_featured_image, " +	
-	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_date_created,'%Y/%m/%d %H:%i:%s') as discount_program_date_created, " +	
+	ojs_configs.db_prefix  + "discount_program_name as discount_program_name, " +	
+	ojs_configs.db_prefix  + "discount_program_position as discount_program_position, " +		
+	
+	
+	
+	
+	ojs_configs.db_prefix  + "discount_program_price_created as discount_program_price_created, " + 	
+	ojs_configs.db_prefix  + "discount_program_price_sale as discount_program_price_sale, " + 
+
+	
+	ojs_configs.db_prefix  + "discount_program_price_one_day as discount_program_price_one_day, " + 	
+	ojs_configs.db_prefix  + "discount_program_price_one_product as discount_program_price_one_product, " + 	
+	
+	ojs_configs.db_prefix  + "discount_program_limit_day as discount_program_limit_day, " + 	
+	ojs_configs.db_prefix  + "discount_program_limit_product as discount_program_limit_product, " + 	
+	
+	
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_date_star,'%Y/%m/%d %H:%i:%s') as discount_program_date_star, " +		
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_date_end,'%Y/%m/%d %H:%i:%s') as discount_program_date_end, " +		
-	
-	
-	ojs_configs.db_prefix  + "discount_program_limit_store as discount_program_limit_store, " + 
 	
 	ojs_configs.db_prefix  + "discount_program_information as discount_program_information " ;
 
@@ -113,15 +124,24 @@ var insert_discount_program = async function (datas) {
 	//@
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "discount_program  SET ?";
 	var dataGo = {
-			"discount_program_price_created"				: datas.discount_program_price_created,
-			"discount_program_price_sale"				: datas.discount_program_price_sale,
-			"discount_program_name"					: mysql.escape(datas.discount_program_name).replace(/^'|'$/gi, ""),
-			"discount_program_date_star"			: mysql.escape(datas.discount_program_date_star).replace(/^'|'$/gi, ""),
-			"discount_program_date_end"				: mysql.escape(datas.discount_program_date_end).replace(/^'|'$/gi, ""),
-			"discount_program_limit_store"			: datas.discount_program_limit_store,
-			"discount_program_information"			: mysql.escape(datas.discount_program_information).replace(/^'|'$/gi, ""),
-			"discount_program_featured_image"			: mysql.escape(datas.discount_program_featured_image).replace(/^'|'$/gi, "")
+			"discount_program_name"					: mysql.escape(datas.discount_program_name).replace(/^'|'$/gi, ""),	
+			"discount_program_position"				: datas.discount_program_position,
 			
+			"discount_program_featured_image"		: mysql.escape(datas.discount_program_featured_image).replace(/^'|'$/gi, ""),
+			
+			"discount_program_price_created"		: datas.discount_program_price_created,
+			"discount_program_price_sale"			: datas.discount_program_price_sale,
+
+			"discount_program_price_one_day"		: datas.discount_program_price_one_day,
+			"discount_program_price_one_product"	: datas.discount_program_price_one_product,
+
+			"discount_program_limit_product"		: datas.discount_program_limit_product,
+			"discount_program_limit_day"			: datas.discount_program_limit_day,
+
+			"discount_program_date_star"			: mysql.escape(datas.discount_program_date_star).replace(/^'|'$/gi, ""),
+			"discount_program_date_end"				: mysql.escape(datas.discount_program_date_end).replace(/^'|'$/gi, ""),			
+			
+			"discount_program_information"			: mysql.escape(datas.discount_program_information).replace(/^'|'$/gi, "")			
 	}
 	
 	//@

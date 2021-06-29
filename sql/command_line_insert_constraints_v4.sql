@@ -98,7 +98,7 @@ source ./sql/14.1.table_orders_details_speciality/03.table_orders_details_specia
 
 
 -- 15.table_shipping_tracking
-source ./sql/15.0table_shipping_tracking/03.table_shipping_tracking_constraint.sql;
+source ./sql/15.0.table_shipping_tracking/03.table_shipping_tracking_constraint.sql;
 
 
 
@@ -149,7 +149,7 @@ source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
 
 
 -- 16.6.table_discount_program
-source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
+source ./sql/16.6.table_discount_program/03.table_discount_program_constraint.sql;
 
 
 
@@ -157,12 +157,14 @@ source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
 
 
 
--- 16.4.table_store
-source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
+-- 16.7.table_discount_program_details
+source ./sql/16.7.table_discount_program_details/03.table_discount_program_details_constraint.sql;
 
 
 
 
+-- 16.8.table_discount_program_product_link
+source ./sql/16.8.table_discount_program_product_link/03.table_discount_program_product_link_constraint.sql;
 
 
 

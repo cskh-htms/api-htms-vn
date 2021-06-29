@@ -119,6 +119,57 @@ DELIMITER ;
 
 
 
+
+
+
+
+
+-- 
+-- 
+-- products_speciality_parent_id
+--
+
+DROP TRIGGER  IF EXISTS  trig_products_speciality_parent_id_update;
+--
+
+DELIMITER $$ 
+CREATE TRIGGER trig_products_speciality_parent_id_update BEFORE UPDATE ON dala_products_speciality 
+FOR EACH ROW  
+BEGIN  
+
+IF(LENGTH( NEW.dala_products_speciality_parent_id ) > 0 ) THEN 
+	
+	SET @checkID = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_parent_id );
+	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
+		SIGNAL SQLSTATE '12345' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_parent_id_no_refe'; 
+	END IF;	
+END IF;
+
+
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --
 --
 --

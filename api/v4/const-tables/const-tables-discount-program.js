@@ -5,15 +5,19 @@
 
 
 	//create default data frome mysql tblUsers
-	const  default_fields = {
-		"discount_program_price_created"	: 0,
-		"discount_program_price_sale"		: 0,
-		"discount_program_name"				: "",		
-		"discount_program_date_star"		: "",	
-		"discount_program_date_end"			: "",
-		"discount_program_limit_store"		: 3,
-		"discount_program_information"		: "",
-		"discount_program_featured_image" 	: ""		
+	const  default_fields = {		
+		"discount_program_name" : "",
+		"discount_program_position" : 1,
+		"discount_program_featured_image" : "",
+		"discount_program_price_created" : 0,
+		"discount_program_price_sale" : 0,
+		"discount_program_price_one_day" : 0,
+		"discount_program_price_one_product" : 0,
+		"discount_program_limit_product" : 0,
+		"discount_program_limit_day" : 0,
+		"discount_program_date_star" :  "",
+		"discount_program_date_end" : "",
+		"discount_program_information" : ""	
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);

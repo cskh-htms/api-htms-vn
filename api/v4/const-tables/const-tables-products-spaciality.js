@@ -18,6 +18,7 @@
 				products_speciality_type :  0,
 				products_speciality_sku : '',
 				products_speciality_store_id : '',
+				products_speciality_parent_id : '0',
 				products_speciality_featured_image : '',
 				products_speciality_image_slider : '',
 				products_speciality_contents : '',

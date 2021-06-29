@@ -171,6 +171,11 @@ router.use('/discount-program', require('./routers-discount-program'));
 
 
 
+/*------------------------------------------------
+		discount program
+---------------------------------------------- */
+router.use('/discount-program-details', require('./routers-discount-program-details'));
+
 
 
 

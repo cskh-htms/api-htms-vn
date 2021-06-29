@@ -534,8 +534,10 @@ CREATE TABLE IF NOT EXISTS `dala_products_speciality` (
   `dala_products_speciality_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dala_products_speciality_sku` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_store_id` int NOT NULL,
+  `dala_products_speciality_parent_id` int NOT NULL DEFAULT '0',  
   `dala_products_speciality_featured_image` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_image_slider` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_products_speciality_origin` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,  
   `dala_products_speciality_contents` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_price` float NOT NULL,
   `dala_products_speciality_sale_of_price` float DEFAULT NULL,
@@ -938,10 +940,20 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program` (
   `dala_discount_program_name` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, 
   `dala_discount_program_featured_image` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,  
   `dala_discount_program_price_created` double NOT NULL DEFAULT '0',
-  `dala_discount_program_price_sale` double NOT NULL DEFAULT '0',  
+  `dala_discount_program_price_sale` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_discount_program_position` tinyint(1) NOT NULL DEFAULT '1',  
+  
+  
+  `dala_discount_program_price_one_day` double NOT NULL DEFAULT '0',
+  `dala_discount_program_price_one_product` double NOT NULL DEFAULT '0',
+ 
+  `dala_discount_program_limit_product` tinyint(1) NOT NULL DEFAULT '0',  
+  `dala_discount_program_limit_day` tinyint(1) NOT NULL DEFAULT '0',   
+  
+  
+  
   `dala_discount_program_date_star` datetime DEFAULT NULL,
-  `dala_discount_program_date_end` datetime DEFAULT NULL,  
-  `dala_discount_program_limit_store` tinyint(1) NOT NULL DEFAULT '3',  
+  `dala_discount_program_date_end` datetime DEFAULT NULL, 
   `dala_discount_program_information`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,  
   PRIMARY KEY (`dala_discount_program_ID`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

@@ -312,14 +312,14 @@ INSERT INTO `dala_category_general_speciality_link`(
     `dala_category_general_speciality_link_category_general_id`
 )
 VALUES 
-(NULL, '1', '5'),
-(NULL, '2', '8'),
+(1, '1', '5'),
+(2, '2', '8'),
 
-(NULL, '3', '12'),
-(NULL, '4', '14'),
+(3, '3', '12'),
+(4, '4', '14'),
 
-(NULL, '5', '17'),
-(NULL, '6', '14');
+(5, '5', '17'),
+(6, '6', '14');
 
 
 
@@ -336,17 +336,17 @@ INSERT INTO `dala_options_product_speciality_link`(
     `dala_options_product_speciality_link_variation_type`
 )
 VALUES 
-(NULL, '1', '2', '0'),
-(NULL, '1', '3', '0'),
+(1, '1', '2', '0'),
+(2, '1', '3', '0'),
 
-(NULL, '2', '5', '0'),
-(NULL, '2', '6', '0'),
+(3, '2', '5', '0'),
+(4, '2', '6', '0'),
 
-(NULL, '3', '2', '0'),
-(NULL, '3', '3', '0'),
+(5, '3', '2', '0'),
+(6, '3', '3', '0'),
 
-(NULL, '4', '5', '0'),
-(NULL, '4', '6', '0');
+(7, '4', '5', '0'),
+(8, '4', '6', '0');
 
 
 
@@ -721,7 +721,7 @@ INSERT INTO `dala_like_store`(
     `dala_like_store_store_id`
 )
 VALUES 
-	(1, CURRENT_TIMESTAMP, '1', '17');
+	(1, CURRENT_TIMESTAMP, '56', '17');
 
 
 
@@ -754,28 +754,35 @@ VALUES
 INSERT INTO `dala_discount_program`(
     `dala_discount_program_ID`,
     `dala_discount_program_date_created`,
+    `dala_discount_program_name`,
+	`dala_discount_program_position`,
+    `dala_discount_program_featured_image`,
     `dala_discount_program_price_created`,
+    `dala_discount_program_price_sale`,
+    `dala_discount_program_price_one_day`,
+    `dala_discount_program_price_one_product`,
+    `dala_discount_program_limit_product`,
+    `dala_discount_program_limit_day`,
     `dala_discount_program_date_star`,
     `dala_discount_program_date_end`,
-    `dala_discount_program_limit_store`,
-    `dala_discount_program_information`,
-    `dala_discount_program_name`,
-    `dala_discount_program_featured_image`,
-    `dala_discount_program_price_sale`
+    `dala_discount_program_information`
 )
 VALUES 
-	(1, CURRENT_TIMESTAMP, '30000', NULL, NULL, '3',
-	'Chương trình flash sale,\r\nSản phẩm tham gia flash sale', 'flash sale',
-	'https://appdala.com/images/dala-logo.png', '3'),
-	(2, CURRENT_TIMESTAMP, '20000', NULL, NULL, '3',
-	'Chương trình Mứt dâu giảm giá 40%', 'Mứt dâu giảm giá 40%',
-	'https://appdala.com/images/dala-logo.png', '5'),
-	(3, CURRENT_TIMESTAMP, '10000', NULL, NULL, '3',
-	'Chương trình Đà lạt mùa này có gì hot', 'Đà lạt mùa này có gì hot',
-	'https://appdala.com/images/dala-logo.png', '3'),
-	(4, CURRENT_TIMESTAMP, '15000', NULL, NULL, '3',
-	'Chương trình mua 1 tặng 1', 'Mua 1 tặng 1',
-	'https://appdala.com/images/dala-logo.png', '5');
+	( 1, CURRENT_TIMESTAMP,
+    'Flash sale', 2,'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
+	'Chương trình khuyến mãi Flash sale'),
+	( 2, CURRENT_TIMESTAMP,
+    'Mứt dâu giảm giá 40%',1, 'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
+	'Chương trình khuyến mãi Mứt dâu giảm giá 40%'),
+	( 3, CURRENT_TIMESTAMP,
+    'Sản phẩm theo mùa',3, 'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
+	'Chương trình khuyến mãi Sản phẩm theo mùa');
+
+
+
+
+
+
 
 
 
