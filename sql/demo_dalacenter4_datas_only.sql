@@ -748,6 +748,49 @@ VALUES
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_discount_program
+--
+INSERT INTO `dala_discount_program`(
+    `dala_discount_program_ID`,
+    `dala_discount_program_date_created`,
+    `dala_discount_program_price_created`,
+    `dala_discount_program_date_star`,
+    `dala_discount_program_date_end`,
+    `dala_discount_program_limit_store`,
+    `dala_discount_program_information`,
+    `dala_discount_program_name`,
+    `dala_discount_program_featured_image`,
+    `dala_discount_program_price_sale`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '30000', NULL, NULL, '3',
+	'Chương trình flash sale,\r\nSản phẩm tham gia flash sale', 'flash sale',
+	'https://appdala.com/images/dala-logo.png', '3'),
+	(2, CURRENT_TIMESTAMP, '20000', NULL, NULL, '3',
+	'Chương trình Mứt dâu giảm giá 40%', 'Mứt dâu giảm giá 40%',
+	'https://appdala.com/images/dala-logo.png', '5'),
+	(3, CURRENT_TIMESTAMP, '10000', NULL, NULL, '3',
+	'Chương trình Đà lạt mùa này có gì hot', 'Đà lạt mùa này có gì hot',
+	'https://appdala.com/images/dala-logo.png', '3'),
+	(4, CURRENT_TIMESTAMP, '15000', NULL, NULL, '3',
+	'Chương trình mua 1 tặng 1', 'Mua 1 tặng 1',
+	'https://appdala.com/images/dala-logo.png', '5');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- 
 -- 
 -- 
