@@ -903,6 +903,37 @@ CREATE TABLE IF NOT EXISTS `dala_like_product` (
 
 
 
+--
+-- Table structure for table `dala_view_product`
+--
+DROP TABLE IF EXISTS `dala_view_product`;
+CREATE TABLE IF NOT EXISTS `dala_view_product` (
+  `dala_view_product_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_view_product_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_view_product_user_id` int NOT NULL,
+  `dala_view_product_product_id` int NOT NULL,
+  PRIMARY KEY (`dala_view_product_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

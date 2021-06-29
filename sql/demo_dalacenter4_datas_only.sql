@@ -689,6 +689,65 @@ VALUES
 
 
 
+
+--
+-- Đang đổ dữ liệu cho bảng dala_like_product
+--
+INSERT INTO `dala_like_product`(
+    `dala_like_product_ID`,
+    `dala_like_product_date_created`,
+    `dala_like_product_user_id`,
+    `dala_like_product_product_id`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '56', '1'),
+	(2, CURRENT_TIMESTAMP, '56', '2'),
+	(3, CURRENT_TIMESTAMP, '56', '3');
+
+
+
+
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_like_store
+--
+INSERT INTO `dala_like_store`(
+    `dala_like_store_ID`,
+    `dala_like_store_date_created`,
+    `dala_like_store_user_id`,
+    `dala_like_store_store_id`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '1', '17');
+
+
+
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_view_product
+--
+INSERT INTO `dala_view_product`(
+    `dala_view_product_ID`,
+    `dala_view_product_date_created`,
+    `dala_view_product_user_id`,
+    `dala_view_product_product_id`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '56', '1'),
+	(2, CURRENT_TIMESTAMP, '56', '2'),
+	(3, CURRENT_TIMESTAMP, '56', '3');
+
+
+
+
+
+
 -- 
 -- 
 -- 
