@@ -34,7 +34,7 @@ const models_shipping_tracking = require('../models/models-shipping-tracking');
 const models_reviews_spaciality = require('../models/models-reviews-spaciality');
 const models_comments_spaciality = require('../models/models-comments-spaciality');
 const models_reviews_store_spaciality = require('../models/models-reviews-store-spaciality');
-
+const models_discount_program_details = require('../models/models-discount-program-details');
 
 
 
@@ -744,7 +744,54 @@ const check_owner = async function(datas_check){
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.3 owner review store
+		var owner_discount_program_details = 0;
+		if(datas_check.discount_program_details_id){
+			
+			var owner_discount_program_details_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var discount_program_details_id = datas_check.discount_program_details_id;
+				
+				//return {"datas": [user_id,discount_program_details_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"discount_program_details_id"	: discount_program_details_id
+					}
+				}			
 
+
+				//return send_datas_check_owner_review;
+
+				owner_discount_program_details_get = await models_discount_program_details.get_owner_discount_program_details(send_datas_check_owner_review);	
+				//return [owner_discount_program_details_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_discount_program_details_get.error) { return {"error":owner_discount_program_details_get.error,"message":owner_discount_program_details_get.error} }	
+				if(owner_discount_program_details_get.length > 0) { owner_discount_program_details = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_discount_program_details_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.3 [owner_discount_program_details] 
 
 
 
@@ -767,7 +814,8 @@ const check_owner = async function(datas_check){
 			"owner_tracking" : owner_tracking,
 			"owner_review" : owner_review,
 			"owner_comment" : owner_comment ,
-			"owner_review_store" : owner_review_store 			
+			"owner_review_store" : owner_review_store,
+			"owner_discount_program_details" : owner_discount_program_details 			
 			}
 		return data_return;
 		//@

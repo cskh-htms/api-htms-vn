@@ -11,7 +11,9 @@
 
 * 5. [delete_discount_program_details]
 
+* 6. [search]
 
+* 7. [get_owner_discount_program_details]
 
 */
 
@@ -92,6 +94,12 @@ var sql_link_search = 	"" +
 	ojs_configs.db_prefix + "stores  ON  " + 
 	ojs_configs.db_prefix + "discount_program_details_store_id  = " + 
 	ojs_configs.db_prefix + "stores_ID " +    
+	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "users  ON  " + 
+	ojs_configs.db_prefix + "stores_user_id  = " + 
+	ojs_configs.db_prefix + "users_ID " +    	
+	
 	
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "discount_program  ON  " + 
@@ -386,6 +394,57 @@ const search = async function (datas) {
 
 
 
+
+
+//@
+//@
+//@
+// 7. [get_owner_discount_program_details]
+const get_owner_discount_program_details = async function (datas) {
+	//return datas;
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "discount_program_details_ID  "  + 
+					sql_from_default + 
+					sql_link_search + 
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "discount_program_details_ID  = '" + datas.datas.discount_program_details_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_products->get_owner_discount_program_details->error_number : 1", "message" : error } ;
+	}
+};
+
+// 4. [get_owner_discount_program_details]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //export module
 module.exports = {
 			search,
@@ -393,7 +452,8 @@ module.exports = {
 			get_one_discount_program_details,
 			update_discount_program_details,
 			delete_discount_program_details,
-			get_all_discount_program_details
+			get_all_discount_program_details,
+			get_owner_discount_program_details
 };
 
 

@@ -164,10 +164,26 @@ router.use('/coupon', require('./routers-coupon'));
 
 
 
+
+
+
+
+
+
 /*------------------------------------------------
 		discount program
 ---------------------------------------------- */
 router.use('/discount-program', require('./routers-discount-program'));
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,10 +198,24 @@ router.use('/discount-program-details', require('./routers-discount-program-deta
 
 
 
+
+
+
+
+/*------------------------------------------------
+		discount program
+---------------------------------------------- */
+router.use('/discount-program-product-link', require('./routers-discount-program-product-link'));
+
+
+
 /*------------------------------------------------
 		chi tiet order
 ---------------------------------------------- */
 //router.use('/ChiTietOrders', require('./RouterChiTietOrders'));
+
+
+
 
 
 

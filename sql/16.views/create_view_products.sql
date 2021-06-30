@@ -4,6 +4,9 @@
 -- 
 -- 
 
+
+DROP VIEW IF EXISTS dala_view_products;
+
 CREATE VIEW dala_view_products AS 
 SELECT 
 
@@ -18,6 +21,7 @@ dala_stores_status_admin,
 
 dala_brands_ID,
 dala_brands_name,
+dala_brands_featured_image,
 
 dala_category_general_speciality_ID,
 dala_category_general_speciality_name,

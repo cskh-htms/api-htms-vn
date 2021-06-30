@@ -1,17 +1,17 @@
 
 /*
 
-* 1. [insert_store]
+* 1. [insert_discount_program_product_link]
 
-* 2. [get_all_stores]
+* 2. [get_all_discount_program_product_link]
 
-* 3. [get_one_stores]
+* 3. [get_one_discount_program_product_link]
 
-* 4. [update_stores]
+* 4. [update_discount_program_product_link]
 
-* 5. [delete_stores]
+* 5. [delete_discount_program_product_link]
 
-
+* 6. [search]
 
 */
 
@@ -55,47 +55,22 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@
 //@ fields select
 var sql_select_all = 	"" + 	
-	ojs_configs.db_prefix  + "stores_ID as stores_ID, " + 
-	ojs_configs.db_prefix  + "stores_user_id as stores_user_id, " + 
-	"DATE_FORMAT(" + ojs_configs.db_prefix  + "stores_date_created,'%Y/%m/%d %H:%i:%s') as stores_date_created, " +	
-	ojs_configs.db_prefix  + "stores_name as stores_name, " + 
+	ojs_configs.db_prefix  + "discount_program_product_link_ID as discount_program_product_link_ID, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_product_link_date_created,'%Y/%m/%d %H:%i:%s') as discount_program_product_link_date_created, " +	
+	ojs_configs.db_prefix  + "discount_program_product_link_discount_program_details_id as discount_program_product_link_discount_program_details_id, " + 
 	
-	ojs_configs.db_prefix  + "stores_payment_limit as stores_payment_limit, " + 
-	ojs_configs.db_prefix  + "stores_service_type_id as stores_service_type_id, " + 
-	ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 	
-	
-	ojs_configs.db_prefix  + "stores_province as stores_province, " + 
-	ojs_configs.db_prefix  + "stores_district as stores_district, " + 
-	ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
-	
-	ojs_configs.db_prefix  + "stores_status_admin as stores_status_admin, " + 	
-	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
-	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
-
-
-
-	ojs_configs.db_prefix  + "stores_local_x as stores_local_x, " + 
-	ojs_configs.db_prefix  + "stores_local_y as stores_local_y, " + 
-	ojs_configs.db_prefix  + "stores_local_adress as stores_local_adress, " + 
-	
-	ojs_configs.db_prefix  + "stores_qoute as stores_qoute, "  + 
-	ojs_configs.db_prefix  + "stores_status_update as stores_status_update, " + 
-	ojs_configs.db_prefix  + "stores_payment_methods as stores_payment_methods, "  + 
-	ojs_configs.db_prefix  + "stores_payment_time as stores_payment_time, " + 	
+	ojs_configs.db_prefix  + "discount_program_product_link_product_speciality_id as discount_program_product_link_product_speciality_id, " + 
+	ojs_configs.db_prefix  + "discount_program_product_link_status as discount_program_product_link_status, " + 	
 	
 	
-
-	ojs_configs.db_prefix  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
-	ojs_configs.db_prefix  + "stores_upload_limit_month as stores_upload_limit_month ";
-
-
+	ojs_configs.db_prefix  + "discount_program_product_link_qoute as discount_program_product_link_qoute ";
 
 //@
 //@
 //@
 //@from
 var sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "stores "  
+	ojs_configs.db_prefix + "discount_program_product_link ";  
 	
 	
 var sql_link_default = 	"";	
@@ -105,17 +80,38 @@ var sql_link_default = 	"";
 //@
 //@
 //@link	
-var sql_link_search = 	"" + 
+var sql_link_search = "" + 
 
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "discount_program_details  ON  " + 
+	ojs_configs.db_prefix + "discount_program_product_link_discount_program_details_id  = " + 
+	ojs_configs.db_prefix + "discount_program_details_ID " +    
+	
+	
+	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "discount_program  ON  " + 
+	ojs_configs.db_prefix + "discount_program_details_discount_program_id  = " + 
+	ojs_configs.db_prefix + "discount_program_ID " +  	
+	
+	
+	
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "stores  ON  " + 
+	ojs_configs.db_prefix + "discount_program_details_store_id  = " + 
+	ojs_configs.db_prefix + "stores_ID " +  	
+	
+	
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
 	ojs_configs.db_prefix + "stores_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " +    
+	ojs_configs.db_prefix + "users_ID " +  		
+	
 	
 	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "service_type  ON  " + 
-	ojs_configs.db_prefix + "stores_service_type_id  = " + 
-	ojs_configs.db_prefix + "service_type_ID " 	  
+	ojs_configs.db_prefix + "products_speciality  ON  " + 
+	ojs_configs.db_prefix + "discount_program_product_link_product_speciality_id  = " + 
+	ojs_configs.db_prefix + "products_speciality_ID " ;	  
 	
 	
 
@@ -124,8 +120,8 @@ var sql_link_search = 	"" +
 //@
 //@order	
 var sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "stores_date_created ASC, " + 
-	ojs_configs.db_prefix + "stores_name ASC "
+	ojs_configs.db_prefix + "discount_program_product_link_date_created ASC, " + 
+	ojs_configs.db_prefix + "discount_program_product_link_name ASC "
 	
 	
 	
@@ -134,40 +130,21 @@ var sql_order_default = " order by " +
 //@
 //@
 //@
-//@ * 1. [insert_stores]
-var insert_stores = async function (datas) {
+//@ * 1. [insert_discount_program_product_link]
+var insert_discount_program_product_link = async function (datas) {
 	
 	//@
 	//@
 	//@
 	//@
-	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "stores  SET ?";
+	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "discount_program_product_link  SET ?";
 	var dataGo = {
-			"stores_user_id"					: datas.stores_user_id,
-			"stores_name"						: mysql.escape(datas.stores_name).replace(/^'|'$/gi, ""),		
-			"stores_payment_limit"				: datas.stores_payment_limit,
-			"stores_service_type_id"			: datas.stores_service_type_id,	
+			"discount_program_product_link_discount_program_details_id"	: datas.discount_program_product_link_discount_program_details_id,
+			"discount_program_product_link_product_speciality_id"	: datas.discount_program_product_link_product_speciality_id,			
+			"discount_program_product_link_status"	: datas.discount_program_product_link_status,			
+			"discount_program_product_link_qoute"	: mysql.escape(datas.discount_program_product_link_qoute).replace(/^'|'$/gi, "")
 
-			"stores_adress"						: mysql.escape(datas.stores_adress).replace(/^'|'$/gi, ""),
-			"stores_province"					: mysql.escape(datas.stores_province).replace(/^'|'$/gi, ""),
-			"stores_district"					: mysql.escape(datas.stores_district).replace(/^'|'$/gi, ""),
-			"stores_wards"						: mysql.escape(datas.stores_wards).replace(/^'|'$/gi, ""),
 
-			"stores_status_admin"				: datas.stores_status_admin,	
-			"stores_status_stores"				: datas.stores_status_stores,	
-			"stores_info_banking" 				: mysql.escape(datas.stores_info_banking).replace(/^'|'$/gi, ""),			
-			
-			"stores_local_x"					: mysql.escape(datas.stores_local_x).replace(/^'|'$/gi, ""),
-			"stores_local_y"					: mysql.escape(datas.stores_local_y).replace(/^'|'$/gi, ""),
-			"stores_local_adress"				: mysql.escape(datas.stores_local_adress).replace(/^'|'$/gi, ""),			
-			
-			"stores_qoute" 						: mysql.escape(datas.stores_qoute).replace(/^'|'$/gi, ""),			
-			"stores_status_update"				: datas.stores_status_update,			
-			"stores_payment_methods"			: datas.stores_payment_methods,	
-			"stores_payment_time"				: datas.stores_payment_time,				
-
-			"stores_upload_limit_day"			: datas.stores_upload_limit_day,
-			"stores_upload_limit_month"			: datas.stores_upload_limit_month
 	}
 	
 	//@
@@ -191,12 +168,12 @@ var insert_stores = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_stores_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "model_discount_program_product_link_insert-> error_nymber : 1", "message" : error } ;
 	}
 
 };
 
-//@ end of * 1. [insert_stores]
+//@ end of * 1. [insert_discount_program_product_link]
 
 
 
@@ -206,8 +183,8 @@ var insert_stores = async function (datas) {
 //@@
 //@@
 //@@
-//@ * 2. [get_all_stores]
-var get_all_stores = async function () {
+//@ * 2. [get_all_discount_program_product_link]
+var get_all_discount_program_product_link = async function () {
 	
 	
 	
@@ -226,13 +203,13 @@ var get_all_stores = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_stores_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "model_discount_program_product_link_insert->get_all-> error_nymber : 1", "message" : error } ;
 	}
 };
 
 
 
-//@ end of * 2. [get_all_stores]
+//@ end of * 2. [get_all_discount_program_product_link]
 
 
 
@@ -241,14 +218,14 @@ var get_all_stores = async function () {
 //@
 //@
 //@
-//@ * 3. [get_one_stores]
-const get_one_stores = async function (stores_id) {
+//@ * 3. [get_one_discount_program_product_link]
+const get_one_discount_program_product_link = async function (discount_program_product_link_id) {
 	//create sql text
 	var sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					" where " +  
-					ojs_configs.db_prefix + "stores_ID = '" + stores_id + "' "				
+					ojs_configs.db_prefix + "discount_program_product_link_ID = '" + discount_program_product_link_id + "' "				
 	
 	//return sql_text;
 	
@@ -262,11 +239,11 @@ const get_one_stores = async function (stores_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_stores->get_one_stores->error-number : 1", "message" : error } ;
+		return  { "error" : "model_discount_program_product_link->get_one_discount_program_product_link->error-number : 1", "message" : error } ;
 	}
 };
 
-//@ * end of  3. [get_one_stores]
+//@ * end of  3. [get_one_discount_program_product_link]
 
 
 
@@ -274,8 +251,8 @@ const get_one_stores = async function (stores_id) {
 //@
 //@
 //@
-//@* 4. [update_stores]
-const update_stores = async function (datas,stores_id) {
+//@* 4. [update_discount_program_product_link]
+const update_discount_program_product_link = async function (datas,discount_program_product_link_id) {
 	
 	var sqlSet = "";
 	
@@ -315,10 +292,10 @@ const update_stores = async function (datas,stores_id) {
 	});		
 
 
-	var table_name  = ojs_configs.db_prefix + "stores ";
-	var field_where  = ojs_configs.db_prefix + "stores_ID ";
+	var table_name  = ojs_configs.db_prefix + "discount_program_product_link ";
+	var field_where  = ojs_configs.db_prefix + "discount_program_product_link_ID ";
 	//create sql text
-	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ stores_id + '"';
+	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ discount_program_product_link_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -329,26 +306,26 @@ const update_stores = async function (datas,stores_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->stores->update->error_number : 1", "message" : error } ;
+		return  { "error" : "model->discount_program_product_link->update->error_number : 1", "message" : error } ;
 	}
 };
 
 
 
-//@* end of 4. [update_stores]
+//@* end of 4. [update_discount_program_product_link]
 
 
 //@
 //@
 //@
 //@
-//@* 5. [delete_stores]
-const delete_stores = async function (stores_id) {
+//@* 5. [delete_discount_program_product_link]
+const delete_discount_program_product_link = async function (discount_program_product_link_id) {
 
-	var table_name  = ojs_configs.db_prefix + "stores ";
-	var field_where  = ojs_configs.db_prefix + "stores_ID ";
+	var table_name  = ojs_configs.db_prefix + "discount_program_product_link ";
+	var field_where  = ojs_configs.db_prefix + "discount_program_product_link_ID ";
 	//create sql text
-	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ stores_id + '"';
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ discount_program_product_link_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -362,13 +339,13 @@ const delete_stores = async function (stores_id) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_stores->delete->error_numbaer : 1 ", "message": error_send } ); 
+		res.send({ "error" : "model_discount_program_product_link->delete->error_numbaer : 1 ", "message": error_send } ); 
 		return;	
 	}
 };
 
 
-//@* end of 5. [delete_stores]
+//@* end of 5. [delete_discount_program_product_link]
 
 
 
@@ -377,7 +354,7 @@ const delete_stores = async function (stores_id) {
 //@
 //@
 //@
-//@* 6. [delete_stores]
+//@* 6. [delete_discount_program_product_link]
 const search = async function (datas) {
 	
 	//@
@@ -392,7 +369,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_stores->search->error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "model_discount_program_product_link->search->error_number : 2", "message": error_send } ); 
 		return;	
 	}	
 	//return get_sql_search;
@@ -412,7 +389,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_stores->search->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "model_discount_program_product_link->search->error_number : 1", "message": error_send } ); 
 		return;	
 	}
 };
@@ -425,11 +402,11 @@ const search = async function (datas) {
 //export module
 module.exports = {
 			search,
-			insert_stores,
-			get_one_stores,
-			update_stores,
-			delete_stores,
-			get_all_stores
+			insert_discount_program_product_link,
+			get_one_discount_program_product_link,
+			update_discount_program_product_link,
+			delete_discount_program_product_link,
+			get_all_discount_program_product_link
 };
 
 

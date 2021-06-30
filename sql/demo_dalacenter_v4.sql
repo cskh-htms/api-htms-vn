@@ -999,6 +999,7 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program_details` (
 DROP TABLE IF EXISTS `dala_discount_program_product_link`;
 CREATE TABLE IF NOT EXISTS `dala_discount_program_product_link` (
   `dala_discount_program_product_link_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_discount_program_product_link_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,    
   `dala_discount_program_product_link_discount_program_details_id` int NOT NULL,   
   `dala_discount_program_product_link_product_speciality_id` int NOT NULL, 
   `dala_discount_program_product_link_status` TINYINT(1) NOT NULL DEFAULT '0',
