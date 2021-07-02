@@ -478,6 +478,30 @@ async  function update_discount_program(req, res, next) {
 	
 	
 	
+	
+	//@
+	//@
+	//@
+	//@ nếu chương trình đang chạy thì không thể update
+	try{
+		//@
+		//@
+		if(push_check[0].discount_program_status_admin == "1" && check_datas_result.user_role != "admin" ){
+			res.send({ "error" : "controllers-discount-program->program running->-> error_number : 1", "message": "Chương trình đang chạy không thể update" } ); 
+			return;			
+		}
+
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "controllers-discount-program->program running->xac minh update -> error_number : 2", "message": error_send } ); 
+			return;
+	}			
+		
+	
+	
 
 	//@
 	//@
@@ -570,7 +594,8 @@ async  function delete_discount_program(req, res, next) {
 	//@ kiểm tra phân quyền 
 	try{
 		var datas_check = {
-			"token":token
+			"token":token,
+			"discount_program_id" : discount_program_id
 		}		
 		
 		var check_datas_result;		
@@ -589,7 +614,10 @@ async  function delete_discount_program(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin" ){}else{
+	if(
+	check_datas_result.user_role == "admin" 
+	|| check_datas_result.owner_discount_program == "1"  
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -597,6 +625,69 @@ async  function delete_discount_program(req, res, next) {
 		return;			
 	}		
 	
+	
+	
+	//@
+	//@
+	//@
+	// lấy thông tin chương trình check update status
+	try {
+		var push_check = await models_discount_program.get_one_discount_program(discount_program_id);
+		
+		//@
+		//@
+		//nếu có lỗi thì tra về lỗi
+		if(push_check.error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
+			res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 1", "message" : error_send  } );
+			return;			
+		}
+		//@
+		//@
+		//@ nếu không có danh mục thì báo lỗi
+		if(push_check.length <= 0){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Không có danh mục " ,"Không có danh mục" );
+			res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 2", "message" : error_send  } );	
+			return;
+		}		
+	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";		
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
+		res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 2", "message" : error_send  } );
+		return;
+	}			
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ nếu chương trình đang chạy thì không thể update
+	try{
+		//@
+		//@
+		if(push_check[0].discount_program_status_admin == "1" && check_datas_result.user_role != "admin" ){
+			res.send({ "error" : "controllers-discount-program->delete->-> error_number : 1", "message": "Chương trình đang chạy không thể update" } ); 
+			return;			
+		}
+
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "controllers-discount-program->delete->xac minh update -> error_number : 2", "message": error_send } ); 
+			return;
+	}			
+			
 	
 	
 

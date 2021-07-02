@@ -21,7 +21,7 @@ ON DELETE RESTRICT ON UPDATE RESTRICT;
  
  
 --
--- service id  
+-- discount_program_details_store_id
 ALTER TABLE `dala_discount_program_details` 
 ADD CONSTRAINT `discount_program_details_store_id` 
 FOREIGN KEY (`dala_discount_program_details_store_id`) 

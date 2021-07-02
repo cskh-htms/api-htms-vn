@@ -977,10 +977,10 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program_details` (
   `dala_discount_program_details_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_discount_program_details_discount_program_id` int NOT NULL,   
   `dala_discount_program_details_store_id` int NOT NULL, 
-  `dala_discount_program_details_status` TINYINT(1) NOT NULL DEFAULT '0',
-  
+  `dala_discount_program_details_status_admin` TINYINT(1) NOT NULL DEFAULT '0',
+  `dala_discount_program_details_status_update` TINYINT(1) NOT NULL DEFAULT '0',  
   `dala_discount_program_details_price` double NOT NULL NULL DEFAULT '0',
-  `dala_discount_program_details_date_number` tinyint(1) NOT NULL DEFAULT '0',  
+  `dala_discount_program_details_limit_day` tinyint(1) NOT NULL DEFAULT '0',  
   `dala_discount_program_details_limit_product` tinyint(1) NOT NULL DEFAULT '0',
   `dala_discount_program_details_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,    
   PRIMARY KEY (`dala_discount_program_details_ID`) 
