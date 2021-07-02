@@ -61,7 +61,10 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "discount_program_name as discount_program_name, " +	
 	ojs_configs.db_prefix  + "discount_program_position as discount_program_position, " +		
 	
-	
+	ojs_configs.db_prefix  + "discount_program_store_id_created as discount_program_store_id_created, " +
+	ojs_configs.db_prefix  + "discount_program_status_admin as discount_program_status_admin, " +
+	ojs_configs.db_prefix  + "discount_program_status_update as discount_program_status_update, " +	
+	ojs_configs.db_prefix  + "discount_program_qoute as discount_program_qoute, " +	
 	
 	
 	ojs_configs.db_prefix  + "discount_program_price_created as discount_program_price_created, " + 	
@@ -131,6 +134,11 @@ var insert_discount_program = async function (datas) {
 			
 			"discount_program_price_created"		: datas.discount_program_price_created,
 			"discount_program_price_sale"			: datas.discount_program_price_sale,
+			
+			"discount_program_store_id_created": datas.discount_program_store_id_created,
+			"discount_program_qoute"				: mysql.escape(datas.discount_program_qoute).replace(/^'|'$/gi, ""),			
+			"discount_program_status_admin"			: datas.discount_program_status_admin,		
+			"discount_program_status_update"		: datas.discount_program_status_update,
 
 			"discount_program_price_one_day"		: datas.discount_program_price_one_day,
 			"discount_program_price_one_product"	: datas.discount_program_price_one_product,
@@ -397,6 +405,55 @@ const search = async function (datas) {
 
 
 
+
+//@
+//@
+//@
+// 7. [get_owner_discount_program]
+const get_owner_discount_program = async function (datas) {
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "discount_program_ID"  + 
+					" FROM " + ojs_configs.db_prefix + "discount_program  " + 
+							
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "stores  ON  " + 
+					ojs_configs.db_prefix + "discount_program_store_id_created  = " + 
+					ojs_configs.db_prefix + "stores_ID " +    	
+
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "users  ON  " + 
+					ojs_configs.db_prefix + "stores_user_id  = " + 
+					ojs_configs.db_prefix + "users_ID "   + 
+						
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "discount_program_ID = '" + datas.datas.discount_program_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_discount_program->get_owner_discount_program->error_number : 1", "message" : error } ;
+	}
+};
+
+//4. end of [get_owner_discount_program]
+
+
+
+
+
+
 //export module
 module.exports = {
 			search,
@@ -404,7 +461,8 @@ module.exports = {
 			get_one_discount_program,
 			update_discount_program,
 			delete_discount_program,
-			get_all_discount_program
+			get_all_discount_program,
+			get_owner_discount_program
 };
 
 

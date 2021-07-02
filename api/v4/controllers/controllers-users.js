@@ -36,6 +36,8 @@
 * 12. [delete]
 
 
+* 13. [check_token]
+
 
 
 
@@ -1896,6 +1898,173 @@ async function delete_users(req, res, next) {
 
 
 
+
+
+
+//@
+//@
+//@
+//@
+//13. [check-token] 
+//@
+const check_token = async function (req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@
+	// lấy data request
+	try {
+		var datas = req.body.datas;
+		
+		if(!datas.token){
+			res.send({ "error" : "controller_users->check-token->error_number : 1", "message": "Không có token" });
+			return;
+		}
+		//@
+		//@
+		var token = datas.token;
+		var newPayload = jwt.decode(token);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "controller_users->check-token->error_number : 2", "message": error_send } ); 
+		return;	
+	}	
+	
+	
+	//@
+	//@		
+	//@
+	//@
+	//checktoken
+	try{	
+		//@
+		//@
+		//xac thực token
+		jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
+			//@
+			//@
+			//neu token het han
+			if (err) {
+				res.send({"error":"1","message":"Phiên làm việc đã hết hạn, hoặc token không hợp lệ"}); 
+				return;		
+			}else{
+				//@
+				//@
+				//@				
+				//kiểm tra mật khẩu lần nữa
+				models_token.search(token).then( results => {
+
+					//@
+					//@
+					//nếu có token database
+					//giai decode token database lấy user_id
+					if(Object.entries(results).length  > 0) {
+						//@
+						//@
+						//@
+						//decode token database
+						var token_value_decode = jwt.decode(results[0].token_value);
+						//res.send(token_value_decode);
+						//return;
+						//@
+						//@
+						//đăng nhập bằng user mật khẩu token database
+						//nếu đăng nhập thành cong thì so sánh user đã thay đổi mật khẩu chưa
+						models_users.get_one_users(token_value_decode.users_ID).then( results2 => {
+	
+							if(Object.entries(results2).length  > 0) {
+								//res.send({"error":"sdda","message":results2})
+								//return;
+								//@
+								//@
+								//neu user va mat khau van trung khop thì tao mới token
+								if(token_value_decode.users_phone == results2[0].users_phone   && token_value_decode.users_password == results2[0].users_password){
+									res.send({ "error" : "0", "datas": newPayload} ); 
+									return;	
+								//@
+								//@
+								//nếu user đã thay đổi mật khẩu
+								}else{
+									res.send({ "error" : "routers_users->error_number-> 3", "message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 
+									return;								
+								}
+							}else{
+								var evn = ojs_configs.evn;
+								//evn = "dev";
+								var error_send = ojs_shares.show_error( evn, "Phiên làm việc đã hết hạn", "Phiên làm việc đã hết hạn" );
+								res.send({ "error" : "routers_users->error_number-> 4", "message": error_send } ); 
+								return;	 				
+							}
+						//@
+						//@
+						//nếu đăng nhập không có user theo id token database
+						}, error => {
+							var evn = ojs_configs.evn;
+							evn = "dev";
+							var error_send = ojs_shares.show_error( evn, error, "Lỗi lấy token database, Vui lòng liên hệ CSKH dala" );
+							res.send({ "error" : "routers_users->error_number-> 5", "message": error_send } ); 
+							return;	 		
+						});		
+					//@
+					//@
+					//nếu mật khẩu đã bị thay đổi							
+					}else{
+						var evn = ojs_configs.evn;
+						//evn = "dev";
+						var error_send = ojs_shares.show_error( evn, "token đã hết hạn hoặc user đã thây đổi mật khẩu", "token đã hết hạn hoặc user đã thây đổi mật khẩu" );
+						res.send({ "error" : "routers_users->error_number-> 6", "message": error_send } ); 
+						return;			
+					}
+					
+				//@
+				//@
+				//@
+				//	kiểm tra đăng nhập lần nữa thất bại				
+				}, error => {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares.show_error( evn, "không có database token", "không có database token" );
+					res.send({ "error" : "routers_users->error_number-> 7", "message": error_send } ); 
+					return;	
+				});	
+			}//  end of token error check
+		});
+		//@
+		//@
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, "token đã hết hạn hoặc không hợp lệ", "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "routers_users->error_number-> 8", "message": error_send } ); 
+		return;	  
+	}	
+	
+	//@
+	//@	
+}//end of functions login;
+
+//2. end of [login-app] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = { 
 		login,
 		search,
@@ -1908,7 +2077,8 @@ module.exports = {
 		login_app,
 		get_verification_code,
 		verification_code,
-		lost_password
+		lost_password,
+		check_token
 };
 
 

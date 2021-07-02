@@ -755,35 +755,36 @@ INSERT INTO `dala_discount_program`(
     `dala_discount_program_ID`,
     `dala_discount_program_date_created`,
     `dala_discount_program_name`,
-	`dala_discount_program_position`,
+    `dala_discount_program_store_id_created`,
     `dala_discount_program_featured_image`,
     `dala_discount_program_price_created`,
     `dala_discount_program_price_sale`,
+    `dala_discount_program_position`,
+    `dala_discount_program_status_admin`,
+    `dala_discount_program_status_update`,
     `dala_discount_program_price_one_day`,
     `dala_discount_program_price_one_product`,
     `dala_discount_program_limit_product`,
     `dala_discount_program_limit_day`,
     `dala_discount_program_date_star`,
     `dala_discount_program_date_end`,
-    `dala_discount_program_information`
+    `dala_discount_program_information`,
+    `dala_discount_program_qoute`
 )
 VALUES 
-	( 1, CURRENT_TIMESTAMP,
-    'Flash sale', 2,'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
-	'Chương trình khuyến mãi Flash sale'),
-	( 2, CURRENT_TIMESTAMP,
-    'Mứt dâu giảm giá 40%',1, 'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
-	'Chương trình khuyến mãi Mứt dâu giảm giá 40%'),
-	( 3, CURRENT_TIMESTAMP,
-    'Sản phẩm theo mùa',3, 'https://appdala.com/images/dala-logo.png','0','0', '0', '0', '0', '0',  NULL,  NULL,
-	'Chương trình khuyến mãi Sản phẩm theo mùa');
+	(1, CURRENT_TIMESTAMP, 'flash sale', '17',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Flash sale'
+	),
 
-
-
-
-
-
-
+	(2, CURRENT_TIMESTAMP, 'Mứt dâu giảm giá 40%', '17',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Mứt dâu giảm giá 40%'
+	),
+	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '17',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Sản phẩm theo mùa'
+	);
 
 
 

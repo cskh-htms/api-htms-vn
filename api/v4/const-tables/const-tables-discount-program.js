@@ -17,7 +17,12 @@
 		"discount_program_limit_day" : 0,
 		"discount_program_date_star" :  "",
 		"discount_program_date_end" : "",
-		"discount_program_information" : ""	
+		"discount_program_information" : "",
+		"discount_program_store_id_created":"",
+		"discount_program_status_admin":0,
+		"discount_program_status_update":0,
+		"discount_program_qoute":""
+		
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
@@ -40,7 +45,9 @@
 	function get_message_error(error){
 		if(error.sqlMessage.search("trig_discount_program_name_empty") >= 0 ){
 			return "Tên chương trình chưa có dữ liệu";
-
+			
+		}else if(error.sqlMessage.search("discount_program_name_store_id_created") >= 0){
+			return "Không tìm thấy cửa hàng";
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
 		}

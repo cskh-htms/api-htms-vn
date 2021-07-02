@@ -56,7 +56,10 @@
 	* xoá users
 		
 			
-			
+13. * [check-token]
+	* 
+		
+						
 	
 */
 
@@ -171,7 +174,11 @@ router.delete('/:user_id', middle_ware, controllers_users.delete_users);
 
 
 
-
+//@@
+//@@
+//@@
+//13. [check-token] 
+router.post('/check-token', controllers_users.check_token);
 
 
 /*
