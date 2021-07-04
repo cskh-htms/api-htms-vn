@@ -37,7 +37,7 @@ const models_reviews_store_spaciality = require('../models/models-reviews-store-
 const models_discount_program_details = require('../models/models-discount-program-details');
 const models_discount_program = require('../models/models-discount-program');
 const models_discount_program_product_link = require('../models/models-discount-program-product-link');
-
+const models_coupon_speciality = require('../models/models-coupon-speciality');
 
 
 
@@ -897,6 +897,65 @@ const check_owner = async function(datas_check){
 		//@ end of 2.5 [owner_discount_program_product_link] 
 
 
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 2.6 owner_coupon_speciality
+		var owner_coupon_speciality = 0;
+		if(datas_check.coupon_speciality_id){
+			
+			var owner_coupon_speciality_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var coupon_speciality_id = datas_check.coupon_speciality_id;
+				
+				//return {"datas": [user_id,discount_program_details_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"coupon_speciality_id"	: coupon_speciality_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_coupon_speciality_get = await models_coupon_speciality.get_owner_coupon_speciality(send_datas_check_owner_review);	
+				//return [owner_discount_program_details_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_coupon_speciality_get.error) { return {"error":owner_coupon_speciality_get.error,"message":owner_coupon_speciality_get.error} }	
+				if(owner_coupon_speciality_get.length > 0) { owner_coupon_speciality = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_coupon_speciality_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.6 [owner_coupon_speciality] 
+
+
+
+
+
+
+
 		//@
 		//@
 		//@
@@ -918,7 +977,8 @@ const check_owner = async function(datas_check){
 			"owner_review_store" : owner_review_store,
 			"owner_discount_program_details" : owner_discount_program_details,
 			"owner_discount_program" : owner_discount_program,
-			"owner_discount_program_product_link" : owner_discount_program_product_link			
+			"owner_discount_program_product_link" : owner_discount_program_product_link,
+			"owner_coupon_speciality" :owner_coupon_speciality			
 			}
 		return data_return;
 		//@

@@ -15,9 +15,44 @@ dala_products_speciality.*,
 dala_discount_program_details.*,
 dala_discount_program.*,
 
+-- 
+-- check xem ngày tham gia khuyến mãi còn không
 IF(dala_discount_program_details_limit_day = 0,-1,
 	UNIX_TIMESTAMP() - (UNIX_TIMESTAMP(dala_discount_program_details_date_created) + (dala_discount_program_details_limit_day * 24 * 60 * 60) )
 ) as dala_check_date, 
+
+-- check hạn chương trình khuyến mãi còn không
+(CASE 
+	WHEN (dala_discount_program_date_star is null and dala_discount_program_date_end is null ) THEN  
+		1 
+		
+	WHEN (dala_discount_program_date_star is null and dala_discount_program_date_end is not null  ) THEN 
+		IF(
+			UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_discount_program_date_end) < 0  ,1,0
+		) 
+		
+	WHEN (dala_discount_program_date_star is not null and dala_discount_program_date_end is null ) THEN 
+		IF(
+			UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_discount_program_date_star) < 0  ,0,1
+		)		
+		
+	WHEN (dala_discount_program_date_star is not null and dala_discount_program_date_end is not null ) THEN 
+		
+		CASE 
+		WHEN (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_discount_program_date_star) < 0 ) THEN 		
+			0 
+			
+		WHEN (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_discount_program_date_star) > 0  ) THEN 		
+		
+			IF(
+				UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_discount_program_date_end) < 0  ,1,0
+			)			
+			
+		END 
+	ELSE   
+		100
+END) as dala_check_expired,
+
 
 dala_users_ID,
 dala_users_full_name,

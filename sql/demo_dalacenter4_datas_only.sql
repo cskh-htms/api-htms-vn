@@ -774,16 +774,16 @@ INSERT INTO `dala_discount_program`(
 VALUES 
 	(1, CURRENT_TIMESTAMP, 'flash sale', '17',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Flash sale'
+    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Flash sale', ''
 	),
 
 	(2, CURRENT_TIMESTAMP, 'Mứt dâu giảm giá 40%', '17',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','2','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Mứt dâu giảm giá 40%'
+    '0', '0','2','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Mứt dâu giảm giá 40%', ''
 	),
 	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '18',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','3','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Sản phẩm theo mùa'
+    '0', '0','3','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Sản phẩm theo mùa', ''
 	);
 
 
@@ -840,10 +840,39 @@ VALUES
 
 
 
+--
+-- Đang đổ dữ liệu cho bảng dala_coupon_speciality
+--
+INSERT INTO `dala_coupon_speciality`(
+    `dala_coupon_speciality_ID`,
+    `dala_coupon_speciality_date_created`,
+    `dala_coupon_speciality_code`,
+    `dala_coupon_speciality_stores_id_created`,
+    `dala_coupon_speciality_info`,
+    `dala_coupon_speciality_type`,
+    `dala_coupon_speciality_formula_price`,
+    `dala_coupon_speciality_formula_price_value`,
+    `dala_coupon_speciality_condition`,
+    `dala_coupon_speciality_condition_value`,
+    `dala_coupon_speciality_price_max`,
+    `dala_coupon_speciality_date_star`,
+    `dala_coupon_speciality_date_end`,
+    `dala_coupon_speciality_multiple`,
+    `dala_coupon_speciality_status_admin`,
+    `dala_coupon_speciality_status_update`,
+    `dala_coupon_speciality_limit_user`,
+    `dala_coupon_speciality_qoute`
+)
+VALUES 
+	( 1, CURRENT_TIMESTAMP, 'MPVC500', '17',
+    'Miễn phí vận chuyển cho đơn hàng tổng tiền lớn hơn 500.000 đ',
+    '0',  '1',  '0',  '1',  '0',  '30000',  NULL,  NULL, '0', '1', '1','0', ''
+	),
 
-
-
-
+	( 2, CURRENT_TIMESTAMP, 'DHDT', '17',
+    'Đơn hàng đầu tiên giảm giá 10%',
+    '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '1', '1','0', ''
+	);
 
 
 -- 

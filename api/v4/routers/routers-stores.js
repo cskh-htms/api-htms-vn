@@ -1,7 +1,7 @@
 
 /*
 
-* 1. [insert_store]
+* 1. [insert_stores]
 
 * 2. [get_all_stores]
 

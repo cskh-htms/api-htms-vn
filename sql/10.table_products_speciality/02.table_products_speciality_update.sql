@@ -37,6 +37,16 @@ IF(NEW.dala_products_speciality_sku  is null or NEW.dala_products_speciality_sku
 END IF;	
 
 
+IF(LENGTH(NEW.dala_products_speciality_date_start) > 0  and LENGTH(NEW.dala_products_speciality_date_end) > 0) THEN 
+	IF( (UNIX_TIMESTAMP(NEW.dala_products_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_products_speciality_date_start)) <= 0 ) THEN 
+		SIGNAL SQLSTATE '12345' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_date_end_less_star';   
+	END IF;
+END IF;	
+
+
+
+
 END $$ 
 DELIMITER ;
 

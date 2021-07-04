@@ -1,21 +1,88 @@
 
 /*
-@@@@
-@@@@@
-@@@@@
-@@@@@
+
+* 1. [insert_coupon_speciality]
+
+* 2. [get_all_coupon_speciality]
+
+* 3. [get_one_coupon_speciality]
+
+* 4. [update_coupon_speciality]
+
+* 5. [delete_coupon_speciality]
+
+
+
+
+
+
+
+
 */
 
-var express = require('express');
-var router = express.Router();
-var middle_ware =  require('./routers-middle-ware');
+
+
+
+
+
+
+
+const express = require('express');
+const router = express.Router();
+const middle_ware =  require('./routers-middle-ware');
 
 //chuyen huong controller 
-var controllers_coupon_spaciality = require('../controllers/controllers-coupon-spaciality');
+const controllers_coupon_speciality = require('../controllers/controllers-coupon-speciality');
 
 
 
 
+
+//@
+//@
+//@
+//@
+//@* 1. [insert_coupon_speciality]
+router.post('/', middle_ware, controllers_coupon_speciality.insert_coupon_speciality);
+
+
+
+//@
+//@
+//@
+//@
+//@* 2. [get_all_coupon_speciality]
+router.get('/', middle_ware, controllers_coupon_speciality.get_all_coupon_speciality);
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@* 3. [get_one_coupon_speciality]
+router.get('/:coupon_speciality_id', middle_ware, controllers_coupon_speciality.get_one_coupon_speciality);
+
+
+
+
+//@
+//@
+//@
+//@
+//@* 4. [update_coupon_speciality]
+router.put('/:coupon_speciality_id', middle_ware, controllers_coupon_speciality.update_coupon_speciality);
+
+
+
+//@
+//@
+//@
+//@
+//@* 5. [delete_coupon_speciality]
+router.delete('/:coupon_speciality_id', middle_ware ,controllers_coupon_speciality.delete_coupon_speciality);
 
 
 
@@ -23,88 +90,26 @@ var controllers_coupon_spaciality = require('../controllers/controllers-coupon-s
 //@@
 //@@
 //@@
-//insert
-try {
-	router.post('/', middle_ware, controllers_coupon_spaciality.insert_coupon_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_coupon_spaciality" , "mesage" : error } );
-}
+//6. [search] 
+router.post('/search', middle_ware, controllers_coupon_speciality.search);
 
 
 
-//@@
-//@@
-//@@
-//search
-try {
-	router.post('/search', middle_ware, controllers_coupon_spaciality.search);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_10_coupon_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//get all 
-try {
-	router.get('/', middle_ware, controllers_coupon_spaciality.get_all_coupon_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_11_coupon_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//get one 
-try {
-	router.get('/:coupon_id', middle_ware, controllers_coupon_spaciality.get_one_coupon_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_12_coupon_spaciality" , "mesage" : error } );
-}
-
-//@@
-//@@
-//@@
-//update
-try {
-	router.put('/:coupon_id', middle_ware, controllers_coupon_spaciality.update_coupon_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_coupon_spaciality" , "mesage" : error } );
-}
-
-
-//@@
-//@@
-//@@
-//update
-try {
-	router.delete('/:coupon_id', middle_ware, controllers_coupon_spaciality.delete_coupon_spaciality);
-}
-catch(error){
-	res.send( { "error" : "c_r_api_13_coupon_spaciality" , "mesage" : error } );
-}
 
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
-
-
-
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/

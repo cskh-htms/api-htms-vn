@@ -271,6 +271,7 @@ CREATE TABLE IF NOT EXISTS `dala_comments_speciality` (
 DROP TABLE IF EXISTS `dala_coupon_speciality`;
 CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_coupon_speciality_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_coupon_speciality_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_coupon_speciality_stores_id_created` int NOT NULL,  
   `dala_coupon_speciality_info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
