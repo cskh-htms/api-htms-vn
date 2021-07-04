@@ -54,6 +54,7 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@
 //@
 //@ fields select
+var sql_select_all_view = 	"" ;
 var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "discount_program_product_link_ID as discount_program_product_link_ID, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "discount_program_product_link_date_created,'%Y/%m/%d %H:%i:%s') as discount_program_product_link_date_created, " +	
@@ -115,13 +116,18 @@ var sql_link_search = "" +
 	
 	
 
+
+var sql_link_view = "" ;
+var sql_from_view = " from " + 
+	ojs_configs.db_prefix + "view_discount_program_product ";
+
+
 //@
 //@
 //@
 //@order	
 var sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "discount_program_product_link_date_created ASC, " + 
-	ojs_configs.db_prefix + "discount_program_product_link_name ASC "
+	ojs_configs.db_prefix + "discount_program_product_link_date_created ASC ";
 	
 	
 	
@@ -362,8 +368,8 @@ const search = async function (datas) {
 	//@
 	// sql 
 	try {
-		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all_view);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -398,6 +404,41 @@ const search = async function (datas) {
 
 
 
+//@
+//@
+//@
+// 7. [get_owner_discount_program_product_link]
+const get_owner_discount_program_product_link = async function (datas) {
+	//return datas;
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "discount_program_product_link_ID  "  + 
+					sql_from_default + 
+					sql_link_search + 
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "discount_program_product_link_ID  = '" + datas.datas.discount_program_product_link_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_products->get_owner_discount_program_product_link->error_number : 1", "message" : error } ;
+	}
+};
+
+// 7. [get_owner_discount_program_product_link]
+
+
 
 //export module
 module.exports = {
@@ -406,7 +447,8 @@ module.exports = {
 			get_one_discount_program_product_link,
 			update_discount_program_product_link,
 			delete_discount_program_product_link,
-			get_all_discount_program_product_link
+			get_all_discount_program_product_link,
+			get_owner_discount_program_product_link
 };
 
 

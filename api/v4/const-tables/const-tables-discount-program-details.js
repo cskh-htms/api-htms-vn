@@ -8,10 +8,11 @@
 	const  default_fields = {
 		"discount_program_details_discount_program_id"	: "",	
 		"discount_program_details_store_id"				: "",	
-		"discount_program_details_status"				: 0,
+		"discount_program_details_status_admin"			: 0,
+		"discount_program_details_status_update"		: 0,
 		"discount_program_details_price"				: 0,
 		
-		"discount_program_details_date_number"			: 0,		
+		"discount_program_details_linit_day"			: 0,		
 		"discount_program_details_limit_product"		: 0,
 		"discount_program_details_qoute"				: ""
 	}

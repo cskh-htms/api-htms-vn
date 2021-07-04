@@ -457,7 +457,7 @@ async  function update_discount_program_details(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
 			var error_send = ojs_shares_show_errors.show_error( evn, discount_program_details_check.error, "lỗi truy xuất database discount_program_details, liên hệ admin dala" );
-			res.send( { "error": "controllers-discount_program_details->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			res.send( { "error": "controllers-discount_program_details->check-pushplic -> error_number : 1", "message" : error_send  } );
 			return;			
 		}
 		//@
@@ -470,16 +470,16 @@ async  function update_discount_program_details(req, res, next) {
 			evn,"Không có cửa hàng", 
 			"Không có cửa hàng" 
 			);
-			res.send( { "error": "controllers-discount_program_details>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send( { "error": "controllers-discount_program_details>check-pushplic -> error_number : 1", "message" : error_send  } );	
 			return;			
 		}		
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";		
+		evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database discount_program_details" );
-		res.send( { "error": "controllers-discount_program_details->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send( { "error": "controllers-discount_program_details->check-pushplic ->  error_number : 2", "message" : error_send  } );
 		return;
 	}			
 	
@@ -517,7 +517,7 @@ async  function update_discount_program_details(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "controller_store->models_discount_program_details.update_discount_program_details->error_number : 1", "message": error_send } ); 
 			return;
@@ -619,20 +619,21 @@ async  function delete_discount_program_details(req, res, next) {
 			evn,"Không có cửa hàng", 
 			"Không có cửa hàng" 
 			);
-			res.send( { "error": "controllers-discount_program_details>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send( { "error": "controllers-discount_program_details>check-pushplic -> error_number : 2", "message" : error_send  } );	
 			return;			
 		}		
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";		
+		evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database discount_program_details" );
 		res.send( { "error": "controllers-discount_program_details->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
 		return;
 	}			
 	
 	
+	//res.send(discount_program_details_check);
 	//res.send(discount_program_details_check);
 	//return;
 

@@ -190,7 +190,7 @@ async function insert_discount_program_product_link(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert discount_program_product_link , Liên hệ admin" );
 		res.send({ "error" : "controllers-discount_program_product_link->insert->model-run->number_error : 2 ", "message": error_send } ); 
 		return;
@@ -219,7 +219,7 @@ async  function get_all_discount_program_product_link(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "discount_program_product-link->get_all->request->error_number : 1", "message": error_send } ); 
 		return;	
 	}	
 	
@@ -238,7 +238,7 @@ async  function get_all_discount_program_product_link(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "discount_program_product-link->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
 		return;			
 	}
 	
@@ -247,11 +247,14 @@ async  function get_all_discount_program_product_link(req, res, next) {
 	//@
 	//@
 	//kiem tra role
-	if(check_datas_result.user_role == "admin"  || check_datas_result.user_role == "supper-job" ){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.user_role == "supper-job"
+	|| check_datas_result.user_role == "default" 
+	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "discount_program_product-link->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
 		return;			
 	}			
 	
@@ -268,14 +271,14 @@ async  function get_all_discount_program_product_link(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list discount_program_product_link" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send( { "error": "discount_program_product-link->get_all-> check owner->number_error : 2", "message" : error_send  } );	
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list discount_program_product_link" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send( { "error": "discount_program_product-link->get_all-> check owner->number_error : 3", "message" : error_send  } );
 	}	
 }
 
@@ -326,10 +329,20 @@ async  function get_one_discount_program_product_link(req, res, next) {
 		return;			
 	}
 	
+	
+	
+	//res.send(check_datas_result);
+	//return;
+	
+	
 	//@
 	//@
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_discount_program_product_link == "1" 
+	|| check_datas_result.user_role == "supper-job"
+	|| check_datas_result.user_role == "default"	
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -358,7 +371,7 @@ async  function get_one_discount_program_product_link(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
 			res.send({ "error" : "controllers-discount_program_product_link->get_one->model-run -> error_number : 2", "message": error_send } ); 
 			return;	
@@ -416,7 +429,9 @@ async  function update_discount_program_product_link(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_discount_program_product_link == "1" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -472,22 +487,10 @@ async  function update_discount_program_product_link(req, res, next) {
 	try{
 		//neu khong phai admin thi remove admin status
 		//remove status update
-		if(check_datas_result.user_role != "admin"){
-			delete datas.discount_program_product_link_status_admin;
-			delete datas.discount_program_product_link_status_update;
-		}		
-		
-		
-		
-		if(check_datas_result.user_role != "admin" && discount_program_product_link_check[0].discount_program_product_link_status_update == "1"){
-			Object.assign(datas, { 'discount_program_product_link_status_admin' : 2 });
+		if(check_datas_result.user_role != "admin" && discount_program_product_link_check[0].discount_program_product_link_status == "1"){
+			res.send( { "error" : "controllers-discount_program_product_link->update->loc datas -> error_number : 6", "message": "Sản phẩm đã chạy không update" } ); 
+			return;			
 		}
-		
-		
-		if(check_datas_result.user_role == "admin"){
-			Object.assign(datas, { 'discount_program_product_link_status_update' : 1 });
-		}
-	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -498,7 +501,10 @@ async  function update_discount_program_product_link(req, res, next) {
 	}
 
 
-
+	//@
+	//@
+	//@
+	//@	
 	//@
 	try {
 		models_discount_program_product_link.update_discount_program_product_link(datas,discount_program_product_link_id).then( results => {
@@ -509,7 +515,7 @@ async  function update_discount_program_product_link(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "controller_store->models_discount_program_product_link.update_discount_program_product_link->error_number : 1", "message": error_send } ); 
 			return;
@@ -517,7 +523,7 @@ async  function update_discount_program_product_link(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
 			res.send({ "error" : "controller_store->models_discount_program_product_link.update_discount_program_product_link->error_number : 2", "message": error_send } ); 
 			return;
@@ -573,7 +579,7 @@ async  function delete_discount_program_product_link(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_discount_program_product_link == "1" ){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -582,63 +588,11 @@ async  function delete_discount_program_product_link(req, res, next) {
 	}		
 	
 	
-	
-	//@
-	//@
-	//@
-	// lấy thông tin cua hàng 
-	try {
-		var discount_program_product_link_check = await models_discount_program_product_link.get_one_discount_program_product_link(discount_program_product_link_id);
-		
-		//@
-		//@
-		//nếu có lỗi thì tra về lỗi
-		if(discount_program_product_link_check.error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";			
-			var error_send = ojs_shares_show_errors.show_error( evn, discount_program_product_link_check.error, "lỗi truy xuất database discount_program_product_link, liên hệ admin dala" );
-			res.send( { "error": "controllers-discount_program_product_link->delete->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
-		}
-		//@
-		//@
-		//@ nếu không có cửa hàng thì báo lỗi
-		if(discount_program_product_link_check.length <= 0){
-			var evn = ojs_configs.evn;
-			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, "Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-discount_program_product_link>delete->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
-			return;			
-		}		
-	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";		
-		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database discount_program_product_link" );
-		res.send( { "error": "controllers-discount_program_product_link->delete->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
-		return;
-	}			
-	
-
-
 
 	//@
 	//@
-	// nếu không pahỉ admin - và cửa hàng đã pushlic thì ko  cho xoa
-	if(check_datas_result.user_role != "admin"){
-		if(discount_program_product_link_check[0].discount_program_product_link_status_update == "1"){
-			var evn = ojs_configs.evn;
-			//evn = "dev";		
-			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
-			res.send( { "error": "controllers-discount_program_product_link->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
-			return;
-		}
-	}		
-	
-
-	//##
-	//##
-	//#end of check chủ sỡ hữu 
+	//@
+	//@	
 	//@
 	try {
 		models_discount_program_product_link.delete_discount_program_product_link(discount_program_product_link_id).then( results => {
@@ -762,15 +716,22 @@ async  function search(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "default" 	
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-			res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "discount_program_product-link->search->check_condition_id -> error_number : 1", "message": error_send } ); 
 			return;	
 		}		
 	}else if (check_condition_id == 1){
-		if( check_datas_result.owner_store == "1" ||  check_datas_result.user_role == "admin" ||  check_datas_result.user_role == "supper-job"){ }else{
+		if( check_datas_result.owner_discount_program_product_link == "1" 
+		||  check_datas_result.user_role == "admin" 
+		||  check_datas_result.user_role == "supper-job" 
+		||  check_datas_result.user_role == "default"  
+		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );

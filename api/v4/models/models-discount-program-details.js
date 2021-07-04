@@ -64,11 +64,11 @@ var sql_select_all = 	"" +
 	
 	ojs_configs.db_prefix  + "discount_program_details_discount_program_id as discount_program_details_discount_program_id, " + 
 	ojs_configs.db_prefix  + "discount_program_details_store_id as discount_program_details_store_id, " + 	
-	ojs_configs.db_prefix  + "discount_program_details_status as discount_program_details_status, " + 	
-	
+	ojs_configs.db_prefix  + "discount_program_details_status_admin as discount_program_details_status_admin, " + 	
+	ojs_configs.db_prefix  + "discount_program_details_status_update as discount_program_details_status_update, " + 	
 	
 	ojs_configs.db_prefix  + "discount_program_details_price as discount_program_details_price, " + 
-	ojs_configs.db_prefix  + "discount_program_details_date_number as discount_program_details_date_number, " + 	
+	ojs_configs.db_prefix  + "discount_program_details_limit_day as discount_program_details_limit_day, " + 	
 	ojs_configs.db_prefix  + "discount_program_details_limit_product as discount_program_details_limit_product, " + 	
 
 	ojs_configs.db_prefix  + "discount_program_details_qoute as discount_program_details_qoute "; 
@@ -133,10 +133,11 @@ const insert_discount_program_details = async function (datas) {
 	var dataGo = {
 			"discount_program_details_discount_program_id"		: datas.discount_program_details_discount_program_id,
 			"discount_program_details_store_id"					: datas.discount_program_details_store_id,
-			"discount_program_details_status"					: datas.discount_program_details_status,
+			"discount_program_details_status_admin"					: datas.discount_program_details_status_admin,
+			"discount_program_details_status_update"					: datas.discount_program_details_status_update,
 			
 			"discount_program_details_price"					: datas.discount_program_details_price,
-			"discount_program_details_date_number"				: datas.discount_program_details_date_number,
+			"discount_program_details_limit_day"				: datas.discount_program_details_limit_day,
 			"discount_program_details_limit_product"			: datas.discount_program_details_limit_product,			
 			
 			"discount_program_details_qoute"					: mysql.escape(datas.discount_program_details_qoute).replace(/^'|'$/gi, "")	

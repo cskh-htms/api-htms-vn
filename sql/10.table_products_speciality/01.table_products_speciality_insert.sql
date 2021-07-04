@@ -23,10 +23,19 @@ DELIMITER $$
 CREATE TRIGGER trig_products_speciality_name_insert BEFORE INSERT ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
+
+
 IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
 	SET MESSAGE_TEXT = 'trig_products_speciality_name_empty';   
 END IF;	
+
+IF(NEW.dala_products_speciality_sku  is null or NEW.dala_products_speciality_sku = '') THEN 
+	SIGNAL SQLSTATE '12345' 
+	SET MESSAGE_TEXT = 'trig_products_speciality_sku_empty';   
+END IF;	
+
+
 END $$ 
 DELIMITER ;
 

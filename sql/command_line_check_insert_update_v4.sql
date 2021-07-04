@@ -151,8 +151,9 @@ source ./sql/16.2.table_comments/02.table_comments_update.sql;
 
 
 
--- 15.2.table_dala_shipping_company
--- source ./sql/15.2.table_dala_adress_meta/01.table_adress_meta_insert.sql;
+-- 16.9.table_coupon_speciality
+source ./sql/16.9.table_coupon_speciality/01.table_coupon_speciality_insert.sql;
+source ./sql/16.9.table_coupon_speciality/02.table_coupon_speciality_update.sql;
 
 
 

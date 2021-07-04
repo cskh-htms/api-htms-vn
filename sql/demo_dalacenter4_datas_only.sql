@@ -231,7 +231,7 @@ VALUES
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
-('2', 'Vỏ bưởi mật ong sấy dẻo-100gram', '0', CURRENT_TIMESTAMP, 'KD1', '18',
+('2', 'Vỏ bưởi mật ong sấy dẻo-100gram', '0', CURRENT_TIMESTAMP, 'KD2', '18',
     'https://appdala.com/images/dala-logo.png',
     'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
     '	⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng ⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
@@ -279,7 +279,7 @@ VALUES
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
 ),
-('6', 'Trà Lado Linh Chi bổ gan mật – Hộp 20 Túi Lọc', '0', CURRENT_TIMESTAMP, 'DAU1', '18',
+('6', 'Trà Lado Linh Chi bổ gan mật – Hộp 20 Túi Lọc', '0', CURRENT_TIMESTAMP, 'DAU2', '18',
     'https://appdala.com/images/dala-logo.png',
     'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
     '	
@@ -779,14 +779,61 @@ VALUES
 
 	(2, CURRENT_TIMESTAMP, 'Mứt dâu giảm giá 40%', '17',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Mứt dâu giảm giá 40%'
+    '0', '0','2','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Mứt dâu giảm giá 40%'
 	),
-	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '17',
+	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '18',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Sản phẩm theo mùa'
+    '0', '0','3','1','1', '0', '0', '0', '0', NULL,  NULL, '', 'Chương trình khuyến mãi Sản phẩm theo mùa'
 	);
 
 
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_discount_program_details
+--
+INSERT INTO `dala_discount_program_details`(
+    `dala_discount_program_details_ID`,
+    `dala_discount_program_details_date_created`,
+    `dala_discount_program_details_discount_program_id`,
+    `dala_discount_program_details_store_id`,
+    `dala_discount_program_details_status_admin`,
+    `dala_discount_program_details_status_update`,
+    `dala_discount_program_details_price`,
+    `dala_discount_program_details_limit_day`,
+    `dala_discount_program_details_limit_product`,
+    `dala_discount_program_details_qoute`
+)
+VALUES  
+	(1, CURRENT_TIMESTAMP, '1', '18', '2', '1', '0', '0', '10', ''),
+	(2, CURRENT_TIMESTAMP, '2', '17', '2', '1', '0', '0', '20', ''),
+	(3, CURRENT_TIMESTAMP, '3', '18', '2', '1', '0', '0', '30', '');
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng dala_discount_program_product_link
+--
+INSERT INTO `dala_discount_program_product_link`(
+    `dala_discount_program_product_link_ID`,
+    `dala_discount_program_product_link_date_created`,
+    `dala_discount_program_product_link_discount_program_details_id`,
+    `dala_discount_program_product_link_product_speciality_id`,
+    `dala_discount_program_product_link_status`,
+    `dala_discount_program_product_link_qoute`
+)
+VALUES 
+	(1, CURRENT_TIMESTAMP, '1', '2', '1', ''),
+	(2, CURRENT_TIMESTAMP, '1', '4', '1', ''),
+	(3, CURRENT_TIMESTAMP, '1', '6', '1', ''),
+	
+	(4, CURRENT_TIMESTAMP, '3', '2', '1', ''),
+	(5, CURRENT_TIMESTAMP, '3', '4', '1', ''),
+	
+	(6, CURRENT_TIMESTAMP, '2', '1', '1', ''),
+	(7, CURRENT_TIMESTAMP, '2', '3', '1', ''),
+	(8, CURRENT_TIMESTAMP, '2', '5', '1', '');
 
 
 

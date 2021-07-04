@@ -23,7 +23,10 @@ CREATE TRIGGER trig_check_owner_discount_program_insert BEFORE INSERT ON dala_di
 FOR EACH ROW  
 BEGIN  
 
-IF(LENGTH(NEW.dala_discount_program_details_store_id) > 0 and  LENGTH(NEW.dala_discount_program_details_discount_program_id) > 0 ) THEN 	
+IF(LENGTH(NEW.dala_discount_program_details_store_id) > 0 and  LENGTH(NEW.dala_discount_program_details_discount_program_id) > 0 ) THEN 
+	-- 
+	-- kiểm tra cửa hàng này đoực phép tham gia chương trình khuyến mãi này không
+-- 	
 	SET @checkID = (select dala_discount_program_store_id_created 
 		from dala_discount_program 
 		where dala_discount_program_ID  = NEW.dala_discount_program_details_discount_program_id);
@@ -41,6 +44,7 @@ IF(LENGTH(NEW.dala_discount_program_details_store_id) > 0 and  LENGTH(NEW.dala_d
 	
 	-- 
 	-- neu cua hang da tham gia rui thi ko the add them
+	--
 	SET @checkID2 = (select dala_discount_program_details_ID 
 		from dala_discount_program_details  
 		where dala_discount_program_details_discount_program_id  = NEW.dala_discount_program_details_discount_program_id 

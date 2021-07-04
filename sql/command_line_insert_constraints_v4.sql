@@ -168,6 +168,8 @@ source ./sql/16.8.table_discount_program_product_link/03.table_discount_program_
 
 
 
+-- 16.9.table_coupon_speciality
+source ./sql/16.9.table_coupon_speciality/03.table_coupon_speciality_constraint.sql;
 
 
 

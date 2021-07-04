@@ -268,29 +268,28 @@ CREATE TABLE IF NOT EXISTS `dala_comments_speciality` (
 --
 -- Table structure for table `dala_coupon_speciality`
 --
-
 DROP TABLE IF EXISTS `dala_coupon_speciality`;
 CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_ID` int NOT NULL AUTO_INCREMENT,
-  `dala_coupon_speciality_code` varchar(100) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `dala_coupon_speciality_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_coupon_speciality_stores_id_created` int NOT NULL,  
   `dala_coupon_speciality_info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_coupon_speciality_type` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_coupon_speciality_formula` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_coupon_speciality_formula_price` tinyint(1) NOT NULL DEFAULT '0'  COMMENT 'Công thức tính giá',
+  `dala_coupon_speciality_formula_price_value` double NOT NULL DEFAULT '0' COMMENT 'Giá trị tính giá',
   `dala_coupon_speciality_condition` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_condition_value` double NOT NULL DEFAULT '0',
-  `dala_coupon_speciality_price` double NOT NULL,
-  `dala_coupon_speciality_price_max` double NOT NULL DEFAULT '0',
+  `dala_coupon_speciality_price_max` double NOT NULL DEFAULT '0'  COMMENT 'Tiền giảm giá tối đa',
   `dala_coupon_speciality_date_star` datetime DEFAULT NULL,
   `dala_coupon_speciality_date_end` datetime DEFAULT NULL,
-  `dala_coupon_speciality_qty` int NOT NULL DEFAULT '0',
-  `dala_coupon_speciality_multi` int NOT NULL DEFAULT '0',
-  `dala_coupon_speciality_status_stores` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_coupon_speciality_multiple` int NOT NULL DEFAULT '0'  COMMENT 'dùng chung với mã giảm giá khác',
   `dala_coupon_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_coupon_speciality_stores_id` int NOT NULL,
+  `dala_coupon_speciality_limit_user` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_coupon_speciality_ID`) 
+  PRIMARY KEY (`dala_coupon_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+COMMIT;
 
 -- --------------------------------------------------------
 
@@ -532,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `dala_products_speciality` (
   `dala_products_speciality_name` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_type` int NOT NULL DEFAULT '0',
   `dala_products_speciality_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dala_products_speciality_sku` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_products_speciality_sku` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL UNIQUE,
   `dala_products_speciality_store_id` int NOT NULL,
   `dala_products_speciality_parent_id` int NOT NULL DEFAULT '0',  
   `dala_products_speciality_featured_image` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
