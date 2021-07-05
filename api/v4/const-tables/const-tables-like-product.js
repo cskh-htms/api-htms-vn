@@ -7,7 +7,8 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"like_product_user_id"			: "",	
-		"like_product_product_id"		: ""
+		"like_product_product_id"		: "",
+		"like_product_status"			: 0
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
@@ -37,6 +38,11 @@
 			return " Không tìm thấy user ";
 		}else if(error.sqlMessage.search("like_product_product_id") >= 0){
 			return " Không tìm thấy sản phẩm ";
+			
+		}else if(error.sqlMessage.search("trig_like_product_double") >= 0){
+			return " Đã like sản phẩm này rồi ";
+			
+			
 			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";

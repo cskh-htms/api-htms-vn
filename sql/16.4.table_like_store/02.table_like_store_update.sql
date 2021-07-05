@@ -1,90 +1,45 @@
-
 -- 
 -- 
 -- 
 -- 
 -- 
---
---   
 -- 
+-- star
 START TRANSACTION;
 
 
--- 
 
 
--- 
--- 
--- check reviews_name insert
-DROP TRIGGER  IF EXISTS  trig_comments_speciality_user_id_update;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_comments_speciality_user_id_update BEFORE UPDATE ON dala_comments_speciality  
-FOR EACH ROW  
-BEGIN  
-IF(NEW.dala_comments_speciality_user_id  is null or NEW.dala_comments_speciality_user_id = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_comments_speciality_user_id_empty';   
-END IF;
-END $$ 
-DELIMITER ;
-
-
-
-
-
--- 
--- 
--- check reviews_user_id
-DROP TRIGGER  IF EXISTS  trig_comments_speciality_product_id_update;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_comments_speciality_product_id_update BEFORE UPDATE ON dala_comments_speciality  
-FOR EACH ROW  
-BEGIN  
-IF(NEW.dala_comments_speciality_product_id  is null or NEW.dala_comments_speciality_product_id = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_comments_speciality_product_id_empty';   
-END IF;
-END $$ 
-DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-
--- 
 --
--- category_general_speciality_category_parent_id
-DROP TRIGGER  IF EXISTS  trig_comments_speciality_comment_parent_id_update;
+-- *data type
+DROP TRIGGER  IF EXISTS  trig_like_store_update;
 --
 
 DELIMITER $$ 
-CREATE TRIGGER trig_comments_speciality_comment_parent_id_update BEFORE UPDATE ON dala_comments_speciality  
+CREATE TRIGGER trig_like_store_update BEFORE UPDATE ON dala_like_store 
 FOR EACH ROW  
 BEGIN  
 
-IF(NEW.dala_comments_speciality_comment_parent_id > 0 ) THEN 
-	
-	SET @checkID = (select dala_comments_speciality_ID 
-	from dala_comments_speciality   
-	where dala_comments_speciality_ID = NEW.dala_comments_speciality_ID);
-	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
-		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_comments_speciality_comment_parent_id_no_parent'; 
-	END IF;	
-END IF;
+	SET @user_id_old = (select dala_like_store_user_id  
+		from dala_like_store  
+		where dala_like_store_ID  =  NEW.dala_like_store_ID );
 
+	SET @store_id_old = (select dala_like_store_store_id   
+		from dala_like_store  
+		where dala_like_store_ID  =  NEW.dala_like_store_ID );
+		
+	IF (@user_id_old <> NEW.dala_like_store_user_id or @store_id_old <> NEW.dala_like_store_store_id) THEN  
+		-- 
+		-- neu cua hang da tham gia rui thi ko the update
+		SET @checkID2 = (select dala_like_store_ID  
+			from dala_like_store 
+			where dala_like_store_user_id  = NEW.dala_like_store_user_id  
+			and dala_like_store_store_id  = NEW.dala_like_store_store_id);	
+		IF (@checkID2 > 0) THEN  
+			SIGNAL SQLSTATE '12345' 
+			SET MESSAGE_TEXT = 'trig_like_store_double'; 	
+		END IF;			
+	END IF;
 
 END $$
 DELIMITER ;
@@ -93,14 +48,9 @@ DELIMITER ;
 
 
 
-
-
-
-
-
-
-
-
+-- 
+--        end of 
+-- 
 
 
 
@@ -124,3 +74,8 @@ COMMIT ;
 -- 
 -- 
 -- 
+-- 
+
+
+
+

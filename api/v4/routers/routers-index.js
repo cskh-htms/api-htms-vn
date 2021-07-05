@@ -209,10 +209,31 @@ router.use('/discount-program-product-link', require('./routers-discount-program
 
 
 
+
+
+
+
+
+
+
 /*------------------------------------------------
-		chi tiet order
+		like-product
 ---------------------------------------------- */
-//router.use('/ChiTietOrders', require('./RouterChiTietOrders'));
+router.use('/like-product', require('./routers-like-product'));
+
+
+
+
+
+
+
+/*------------------------------------------------
+		like-store
+---------------------------------------------- */
+router.use('/like-store', require('./routers-like-store'));
+
+
+
 
 
 

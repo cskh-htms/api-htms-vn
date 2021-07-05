@@ -38,8 +38,8 @@ const models_discount_program_details = require('../models/models-discount-progr
 const models_discount_program = require('../models/models-discount-program');
 const models_discount_program_product_link = require('../models/models-discount-program-product-link');
 const models_coupon_speciality = require('../models/models-coupon-speciality');
-
-
+const models_like_product = require('../models/models-like-product');
+const models_like_store = require('../models/models-like-store');
 
 
 
@@ -954,6 +954,113 @@ const check_owner = async function(datas_check){
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.7 owner_like_product
+		var owner_like_product = 0;
+		if(datas_check.like_product_id){
+			
+			var owner_like_product_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var like_product_id = datas_check.like_product_id;
+				
+				//return {"datas": [user_id,discount_program_details_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"like_product_id"	: like_product_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_like_product_get = await models_like_product.get_owner_like_product(send_datas_check_owner_review);	
+				//return [owner_discount_program_details_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_like_product_get.error) { return {"error":owner_like_product_get.error,"message":owner_like_product_get.error} }	
+				if(owner_like_product_get.length > 0) { owner_like_product = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_like_product_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.7 [owner_like_product] 
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 2.8 owner_like_store
+		var owner_like_store = 0;
+		if(datas_check.like_store_id){
+			
+			var owner_like_store_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var like_store_id = datas_check.like_store_id;
+				
+				//return {"datas": [user_id,discount_program_details_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"like_store_id"	: like_store_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_like_store_get = await models_like_store.get_owner_like_store(send_datas_check_owner_review);	
+				//return [owner_discount_program_details_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_like_store_get.error) { return {"error":owner_like_store_get.error,"message":owner_like_store_get.error} }	
+				if(owner_like_store_get.length > 0) { owner_like_store = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_like_store_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.8 [owner_like_store] 
+
+
+
+
+
+
+
+
 
 
 		//@
@@ -978,7 +1085,9 @@ const check_owner = async function(datas_check){
 			"owner_discount_program_details" : owner_discount_program_details,
 			"owner_discount_program" : owner_discount_program,
 			"owner_discount_program_product_link" : owner_discount_program_product_link,
-			"owner_coupon_speciality" :owner_coupon_speciality			
+			"owner_coupon_speciality" :owner_coupon_speciality,
+			"owner_like_product" :owner_like_product,
+			"owner_like_store" :owner_like_store			
 			}
 		return data_return;
 		//@

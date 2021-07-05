@@ -151,6 +151,23 @@ source ./sql/16.2.table_comments/02.table_comments_update.sql;
 
 
 
+
+-- 16.3.table_like_product
+source ./sql/16.3.table_like_product/01.table_like_product_insert.sql;
+source ./sql/16.3.table_like_product/02.table_like_product_update.sql;
+
+
+
+
+
+-- 16.4.table_like_store
+source ./sql/16.4.table_like_store/01.table_like_store_insert.sql;
+source ./sql/16.4.table_like_store/02.table_like_store_update.sql;
+
+
+
+
+
 -- 16.9.table_coupon_speciality
 source ./sql/16.9.table_coupon_speciality/01.table_coupon_speciality_insert.sql;
 source ./sql/16.9.table_coupon_speciality/02.table_coupon_speciality_update.sql;
@@ -158,17 +175,6 @@ source ./sql/16.9.table_coupon_speciality/02.table_coupon_speciality_update.sql;
 
 
 
-
-
-
-
-
-
-
-
--- 15.table_shipping_tracking
--- source ./sql/15.table_shipping_tracking/01.table_shipping_tracking_insert.sql;
--- source ./sql/15.table_shipping_tracking/02.table_shipping_tracking_update.sql;
 
 
 

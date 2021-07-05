@@ -11,7 +11,7 @@
 
 * 5. [delete_like_product]
 
-
+* 6. [search]
 
 */
 
@@ -56,38 +56,10 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@ fields select
 var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "like_product_ID as like_product_ID, " + 
-	ojs_configs.db_prefix  + "like_product_user_id as like_product_user_id, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "like_product_date_created,'%Y/%m/%d %H:%i:%s') as like_product_date_created, " +	
-	ojs_configs.db_prefix  + "like_product_name as like_product_name, " + 
-	
-	ojs_configs.db_prefix  + "like_product_payment_limit as like_product_payment_limit, " + 
-	ojs_configs.db_prefix  + "like_product_service_type_id as like_product_service_type_id, " + 
-	ojs_configs.db_prefix  + "like_product_adress as like_product_adress, " + 	
-	
-	ojs_configs.db_prefix  + "like_product_province as like_product_province, " + 
-	ojs_configs.db_prefix  + "like_product_district as like_product_district, " + 
-	ojs_configs.db_prefix  + "like_product_wards as like_product_wards, " + 
-	
-	ojs_configs.db_prefix  + "like_product_status_admin as like_product_status_admin, " + 	
-	ojs_configs.db_prefix  + "like_product_status_like_product as like_product_status_like_product, " + 
-	ojs_configs.db_prefix  + "like_product_info_banking as like_product_info_banking, " + 
-
-
-
-	ojs_configs.db_prefix  + "like_product_local_x as like_product_local_x, " + 
-	ojs_configs.db_prefix  + "like_product_local_y as like_product_local_y, " + 
-	ojs_configs.db_prefix  + "like_product_local_adress as like_product_local_adress, " + 
-	
-	ojs_configs.db_prefix  + "like_product_qoute as like_product_qoute, "  + 
-	ojs_configs.db_prefix  + "like_product_status_update as like_product_status_update, " + 
-	ojs_configs.db_prefix  + "like_product_payment_methods as like_product_payment_methods, "  + 
-	ojs_configs.db_prefix  + "like_product_payment_time as like_product_payment_time, " + 	
-	
-	
-
-	ojs_configs.db_prefix  + "like_product_upload_limit_day as like_product_upload_limit_day, "  + 
-	ojs_configs.db_prefix  + "like_product_upload_limit_month as like_product_upload_limit_month ";
-
+	ojs_configs.db_prefix  + "like_product_user_id as like_product_user_id, " + 
+	ojs_configs.db_prefix  + "like_product_status as like_product_status, " + 	
+	ojs_configs.db_prefix  + "like_product_product_id as like_product_product_id " ;
 
 
 //@
@@ -113,9 +85,9 @@ var sql_link_search = 	"" +
 	ojs_configs.db_prefix + "users_ID " +    
 	
 	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "service_type  ON  " + 
-	ojs_configs.db_prefix + "like_product_service_type_id  = " + 
-	ojs_configs.db_prefix + "service_type_ID " 	  
+	ojs_configs.db_prefix + "products_speciality  ON  " + 
+	ojs_configs.db_prefix + "like_product_product_id  = " + 
+	ojs_configs.db_prefix + "products_speciality_ID " 	  
 	
 	
 
@@ -124,8 +96,7 @@ var sql_link_search = 	"" +
 //@
 //@order	
 var sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "like_product_date_created ASC, " + 
-	ojs_configs.db_prefix + "like_product_name ASC "
+	ojs_configs.db_prefix + "like_product_date_created ASC ";
 	
 	
 	
@@ -144,30 +115,8 @@ var insert_like_product = async function (datas) {
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "like_product  SET ?";
 	var dataGo = {
 			"like_product_user_id"					: datas.like_product_user_id,
-			"like_product_name"						: mysql.escape(datas.like_product_name).replace(/^'|'$/gi, ""),		
-			"like_product_payment_limit"				: datas.like_product_payment_limit,
-			"like_product_service_type_id"			: datas.like_product_service_type_id,	
-
-			"like_product_adress"						: mysql.escape(datas.like_product_adress).replace(/^'|'$/gi, ""),
-			"like_product_province"					: mysql.escape(datas.like_product_province).replace(/^'|'$/gi, ""),
-			"like_product_district"					: mysql.escape(datas.like_product_district).replace(/^'|'$/gi, ""),
-			"like_product_wards"						: mysql.escape(datas.like_product_wards).replace(/^'|'$/gi, ""),
-
-			"like_product_status_admin"				: datas.like_product_status_admin,	
-			"like_product_status_like_product"				: datas.like_product_status_like_product,	
-			"like_product_info_banking" 				: mysql.escape(datas.like_product_info_banking).replace(/^'|'$/gi, ""),			
-			
-			"like_product_local_x"					: mysql.escape(datas.like_product_local_x).replace(/^'|'$/gi, ""),
-			"like_product_local_y"					: mysql.escape(datas.like_product_local_y).replace(/^'|'$/gi, ""),
-			"like_product_local_adress"				: mysql.escape(datas.like_product_local_adress).replace(/^'|'$/gi, ""),			
-			
-			"like_product_qoute" 						: mysql.escape(datas.like_product_qoute).replace(/^'|'$/gi, ""),			
-			"like_product_status_update"				: datas.like_product_status_update,			
-			"like_product_payment_methods"			: datas.like_product_payment_methods,	
-			"like_product_payment_time"				: datas.like_product_payment_time,				
-
-			"like_product_upload_limit_day"			: datas.like_product_upload_limit_day,
-			"like_product_upload_limit_month"			: datas.like_product_upload_limit_month
+			"like_product_product_id"				: datas.like_product_product_id,
+			"like_product_status"					: datas.like_product_status
 	}
 	
 	//@
@@ -422,6 +371,47 @@ const search = async function (datas) {
 
 
 
+
+
+//@
+//@
+//@
+// 7. [get_owner_like_product]
+const get_owner_like_product = async function (datas) {
+	//return datas;
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "like_product_ID  "  + 
+					sql_from_default + 
+					sql_link_search + 
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "like_product_ID  = '" + datas.datas.like_product_id + "' " 
+	
+	return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_products->get_owner_like_productt->error_number : 1", "message" : error } ;
+	}
+};
+
+// 7. [get_owner_like_product]
+
+
+
+
+
+
 //export module
 module.exports = {
 			search,
@@ -429,7 +419,8 @@ module.exports = {
 			get_one_like_product,
 			update_like_product,
 			delete_like_product,
-			get_all_like_product
+			get_all_like_product,
+			get_owner_like_product
 };
 
 

@@ -83,9 +83,15 @@ async function insert_like_product(req, res, next) {
 		//@
 		//* nếu chưa có mã cữa hàng thì out
 		if(!datas.like_product_user_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id uders bussiness (like_product_user_id) " });
+			res.send({ "error" : "1" , "message" : " Chưa nhập id uders  (like_product_user_id) " });
 			return;
 		}
+		//* nếu chưa có mã cữa hàng thì out
+		if(!datas.like_product_product_id){
+			res.send({ "error" : "1" , "message" : " Chưa nhập id sản phẩm  (like_product_product_id) " });
+			return;
+		}		
+		
 		//res.send([datas,token]);
 		//return;
 	}
@@ -121,7 +127,10 @@ async function insert_like_product(req, res, next) {
 	//@
 	//@
 	//kiem tra role
-	if(check_datas_result.user_role == "admin"){}else{
+	if(
+	check_datas_result.user_role == "admin"
+	|| check_datas_result.owner_user == "1" 
+	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
@@ -172,7 +181,7 @@ async function insert_like_product(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "controllers-like_product->insert->model-run->number_error : 1 ", "message": error_send } ); 
 			return;
@@ -180,7 +189,7 @@ async function insert_like_product(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert like_product , Liên hệ admin" );
 		res.send({ "error" : "controllers-like_product->insert->model-run->number_error : 2 ", "message": error_send } ); 
 		return;
@@ -237,7 +246,10 @@ async  function get_all_like_product(req, res, next) {
 	//@
 	//@
 	//kiem tra role
-	if(check_datas_result.user_role == "admin"  || check_datas_result.user_role == "supper-job" ){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "default" 	
+	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
@@ -319,7 +331,11 @@ async  function get_one_like_product(req, res, next) {
 	//@
 	//@
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_like_product == "1" 
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "default"	
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -406,7 +422,9 @@ async  function update_like_product(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_like_product == "1" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -415,77 +433,6 @@ async  function update_like_product(req, res, next) {
 	}		
 	
 	
-	
-	//@
-	//@
-	//@
-	// lấy thông tin cua hàng 
-	try {
-		var like_product_check = await models_like_product.get_one_like_product(like_product_id);
-		
-		//@
-		//@
-		//nếu có lỗi thì tra về lỗi
-		if(like_product_check.error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, like_product_check.error, "lỗi truy xuất database like_product, liên hệ admin dala" );
-			res.send( { "error": "controllers-like_product->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
-			return;			
-		}
-		//@
-		//@
-		//@ nếu không có cửa hàng thì báo lỗi
-		if(like_product_check.length <= 0){
-			var evn = ojs_configs.evn;
-			//evn = "dev";			
-			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-like_product>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
-			return;			
-		}		
-	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";		
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database like_product" );
-		res.send( { "error": "controllers-like_product->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
-		return;
-	}			
-	
-	
-	
-	//@
-	//@
-	//@
-	//nếu không phải admin thì xoá status admin
-	try{
-		//neu khong phai admin thi remove admin status
-		//remove status update
-		if(check_datas_result.user_role != "admin"){
-			delete datas.like_product_status_admin;
-			delete datas.like_product_status_update;
-		}		
-		
-		
-		
-		if(check_datas_result.user_role != "admin" && like_product_check[0].like_product_status_update == "1"){
-			Object.assign(datas, { 'like_product_status_admin' : 2 });
-		}
-		
-		
-		if(check_datas_result.user_role == "admin"){
-			Object.assign(datas, { 'like_product_status_update' : 1 });
-		}
-	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi xoá status, liên hệ admin","Lỗi xoá status, liên hệ admin" );
-		res.send({ "error" : "controllers-like_product->update->loc datas -> error_number : 4", "message": error_send } ); 
-		return;
-	}
 
 
 
@@ -499,7 +446,7 @@ async  function update_like_product(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "controller_store->models_like_product.update_like_product->error_number : 1", "message": error_send } ); 
 			return;
@@ -507,7 +454,7 @@ async  function update_like_product(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
 			res.send({ "error" : "controller_store->models_like_product.update_like_product->error_number : 2", "message": error_send } ); 
 			return;
@@ -563,7 +510,7 @@ async  function delete_like_product(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" ){}else{
+	if(check_datas_result.user_role == "admin"){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -571,64 +518,11 @@ async  function delete_like_product(req, res, next) {
 		return;			
 	}		
 	
-	
-	
-	//@
-	//@
-	//@
-	// lấy thông tin cua hàng 
-	try {
-		var like_product_check = await models_like_product.get_one_like_product(like_product_id);
-		
-		//@
-		//@
-		//nếu có lỗi thì tra về lỗi
-		if(like_product_check.error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";			
-			var error_send = ojs_shares_show_errors.show_error( evn, like_product_check.error, "lỗi truy xuất database like_product, liên hệ admin dala" );
-			res.send( { "error": "controllers-like_product->delete->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
-		}
-		//@
-		//@
-		//@ nếu không có cửa hàng thì báo lỗi
-		if(like_product_check.length <= 0){
-			var evn = ojs_configs.evn;
-			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, "Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-like_product>delete->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
-			return;			
-		}		
-	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";		
-		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database like_product" );
-		res.send( { "error": "controllers-like_product->delete->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
-		return;
-	}			
-	
-
-
 
 	//@
 	//@
-	// nếu không pahỉ admin - và cửa hàng đã pushlic thì ko  cho xoa
-	if(check_datas_result.user_role != "admin"){
-		if(like_product_check[0].like_product_status_update == "1"){
-			var evn = ojs_configs.evn;
-			//evn = "dev";		
-			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
-			res.send( { "error": "controllers-like_product->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
-			return;
-		}
-	}		
-	
-
-	//##
-	//##
-	//#end of check chủ sỡ hữu 
+	//@
+	//@	
 	//@
 	try {
 		models_like_product.delete_like_product(like_product_id).then( results => {
@@ -752,7 +646,10 @@ async  function search(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job"
+		|| check_datas_result.user_role == "default"			
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
@@ -760,7 +657,11 @@ async  function search(req, res, next) {
 			return;	
 		}		
 	}else if (check_condition_id == 1){
-		if( check_datas_result.owner_store == "1" ||  check_datas_result.user_role == "admin" ||  check_datas_result.user_role == "supper-job"){ }else{
+		if( check_datas_result.owner_like_product == "1" 
+		||  check_datas_result.user_role == "admin" 
+		||  check_datas_result.user_role == "supper-job"
+		||  check_datas_result.user_role == "default"		
+		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
