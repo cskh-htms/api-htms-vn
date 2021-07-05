@@ -897,7 +897,7 @@ CREATE TABLE IF NOT EXISTS `dala_like_product` (
   `dala_like_product_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dala_like_product_user_id` int NOT NULL,
   `dala_like_product_product_id` int NOT NULL,
-  `dala_view_product_status` tinyint(1) NOT NULL DEFAULT '0', 
+  `dala_like_product_status` tinyint(1) NOT NULL DEFAULT '0', 
   PRIMARY KEY (`dala_like_product_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
