@@ -6,6 +6,9 @@
 */
 
 
+const fetch = require('node-fetch');
+
+
 const ojs_shares_fetch_data = {
 
 	//
@@ -106,7 +109,6 @@ const ojs_shares_fetch_data = {
 		});
 		return response.json();
 	}
-
 
 	
 }//end of oj_loader

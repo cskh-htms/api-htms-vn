@@ -51,9 +51,14 @@ end content
 				return;
 			}
 			//tao data
-			let datas = { 
-				datas:{ users_name: users_name, users_password:users_password }
+			var datas = { 
+				datas:{ users_login_name: users_name, users_password:users_password }
 			};
+			
+			
+			//console.log(datas);
+			//return;
+			
 			//goi api
 			$.ajax({
 				type : "POST",	  
@@ -69,7 +74,11 @@ end content
 					ojs_loadding.ajax_hide_loadding();
 				},
 				success : function(result) {
-					ojs_loader.evn = "publish";
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -83,7 +92,8 @@ end content
 								ojs_message.message_ok_show("user GUEST");
 							}
 						}
-					}				
+					}	
+				
 					ojs_loadding.ajax_hide_loadding();
 				}			  
 			});
