@@ -718,7 +718,7 @@ async  function search(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
 			res.send({ "error" : "controllers-orders-speciality->search->run -> error_number : 1", "message": error_send } ); 
 			return;				

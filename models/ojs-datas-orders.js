@@ -2,15 +2,72 @@
 /*
 @user : van luc 
 @date : 21.10.2020
-* file này viết ojs dùng chung 
-* các hàm dùng chung 
-@export : Ojs_users
+
+
+[ojs_datas_orders]
+
+* 1. [orders_check_menu_data]
+	* làm datas cho [news_order]
+	* module dùng 
+		1. [ojs_shares_news_admin_menu]
+		
+		
+		
+		
+		
 */
 
 const ojs_datas_orders = {
-	//
 	//@
 	//@
+	//@
+	//@ 
+	//@ 1.[orders_check_menu_data]
+	orders_check_menu_data: function(date_star,date_end,status_number){
+		var datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"count(orders_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_star,
+								"compare" : ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : [status_number],
+								"compare" : "not in"
+							}							
+						]    
+					}         
+				]
+			}
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@
+	//@ end of 
+	//@ 1.[orders_check_menu_data]	
+	
+	
+	
+	
 	//* 
 	// * lấy dố lượng bán của sản phẩm
 	//* lấy danh sách sản phẩm và số lượng bán của mỗi sản phẩm
@@ -438,63 +495,7 @@ const ojs_datas_orders = {
 		}	
 		return datas_return;	
 	},
-	//	
-	//@
-	//@
-	//@
-	orders_check_menu_data: function(date_star,date_end,sattus_number){
-		
-		let datas_return = 	
-		{
-			"datas" :   {
-				"select_field" :
-				[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders",
-				"orders_speciality_user_id",
-				"users_first_name",
-				"users_last_name",
-				"orders_speciality_phone",
-				"orders_speciality_status_orders",
-				"orders_speciality_status_payment",
-				"orders_speciality_adress",
-				"orders_speciality_notes",
-				"orders_speciality_email"
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[  
-							{
-								"field" : "orders_speciality_date_orders" ,
-								"value" : date_star,
-								"compare" : ">="
-							},
-							{
-								"field" : "orders_speciality_date_orders" ,
-								"value" : date_end,
-								"compare" : "<="
-							},
-							{
-								"field" : "orders_speciality_status_orders" ,
-								"value" : sattus_number,
-								"compare" : "="
-							}							
-						]    
-					}         
-				],
-				"order" :
-				 [
-						{    "field"  :"orders_speciality_date_orders",
-							"compare" : "ASC"
-						}   
-				 ]
-			}
-		}	
-		return datas_return;
-	},
+
 	//
 	//ghet all data view order
 	orders_data_report_all: function(date_star,date_end){

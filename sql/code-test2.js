@@ -7,7 +7,7 @@
 	
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/uploads/files/tinymce.min.js"></script>
+	<script src="/<%= js_css_version %>/uploads/files/tinymce.min.js"></script>
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
@@ -29,10 +29,10 @@
 
 <%
 //menu-taget
-if (typeof menu_taget == 'string' && menu_taget && menu_taget.length > 0) { 
+if (typeof menu_taget == 'string' && menu_taget ) { 
 	menu_taget = menu_taget;
 } else{ 
-	menu_taget = "asd";
+	menu_taget = "abc";
 }
 
 %>

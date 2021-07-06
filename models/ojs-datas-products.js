@@ -1,13 +1,70 @@
 
 /*
-@user : van luc 
-@date : 21.10.2020
-* file này viết ojs dùng chung 
-* các hàm dùng chung 
-@export : Ojs_users
+------------------------------------------
+
+
+ 1.[get_data_news_admin_menu]
+	- lấy số lượng sản phẩm chưa phê duyệt
+	- 1. [ojs_shares_news_admin_menu]
+
+
+-------------------------------------------
 */
 
 const ojs_datas_products = {
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 1.[get_data_news_admin_menu]
+	get_data_news_admin_menu: function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"count(products_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+						"relation": "and",
+						"where" :
+						[
+							{   
+								"field"     :"products_speciality_status_store",
+								"value"     : "1",
+								"compare" : "="
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : [1],
+								"compare" : "not in"
+							}   							
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ end of
+	//@ 1.[get_data_news_admin_menu]	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//
 	//
 	//lay products all 

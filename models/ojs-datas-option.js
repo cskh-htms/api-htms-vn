@@ -1,13 +1,71 @@
 
 /*
-@user : van luc 
-@date : 21.10.2020
-* file này viết ojs dùng chung 
-* các hàm dùng chung 
-@export : Ojs_users
+------------------------------------
+
+1.[get_data_news_admin_menu]
+	- lấy số lượng option chưa phê duyệt
+	- module su dung
+		1. [ojs_shares_news_admin_menu]
+
+
+
+
+
+------------------------------------
 */
 
 const ojs_datas_option = {
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 1. [get_data_news_admin_menu]
+	get_data_news_admin_menu : function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"count(options_product_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "options_product_speciality_status_stores" ,
+								"value" : "1",
+								"compare" : "="
+							},
+							{
+								"field" : "options_product_speciality_status_admin" ,
+								"value" : [1],
+								"compare" : "not in"
+							}						
+						]    
+					}         
+				]
+			}
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@
+	//@ end of
+	//@ 1. [get_data_news_admin_menu]	
+	
+	
+	
+	
+	
+	
+	
+	
 	//
 	//
 	//data cho check owner option 
