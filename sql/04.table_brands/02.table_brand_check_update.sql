@@ -10,31 +10,45 @@
 START TRANSACTION;
 
 
+-- 
+
 
 -- 
 -- 
--- check brands_stores_id
-DROP TRIGGER  IF EXISTS  trig_brands_stores_id_update;
+-- check brands_name insert
+DROP TRIGGER  IF EXISTS  trig_brands_name_update;
 -- 
 
 DELIMITER $$ 
-CREATE TRIGGER trig_brands_stores_id_update BEFORE UPDATE ON dala_brands 
+CREATE TRIGGER trig_brands_name_update BEFORE INSERT ON dala_brands 
 FOR EACH ROW  
 BEGIN  
-IF(LENGTH(NEW.dala_brands_stores_id) <= 0 or NEW.dala_brands_stores_id is null or NEW.dala_brands_stores_id = '') THEN 
+
+
+-- 
+-- 
+-- tên brand không để trống
+IF(NEW.dala_brands_name  is null or NEW.dala_brands_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_brands_stores_id_empty';   
+	SET MESSAGE_TEXT = 'trig_brands_name_name_empty';   
 END IF;
+
+
+-- 
+-- 
+-- @ end trigger
 END $$ 
 DELIMITER ;
 
 
 
+
+
+
+
 --
 --
 --
--- 
---         end of table SERVICE_TYPE
 -- 
 
 

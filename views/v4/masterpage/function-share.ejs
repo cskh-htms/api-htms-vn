@@ -1,6 +1,96 @@
 
 <%
+
+
+/* 
+-------------------------------------------------
+
+1.[show_news_admin_menu_html]  
+2.[news_admin_menu_data_config]
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
 ojs_share = {
+	
+
+	//@
+	//@
+	//@ tạo html hiển thị new span
+	//@ 1.[show_news_admin_menu_html]	
+	show_news_admin_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_red">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	},	
+	//@
+	//@
+	//@ news_admin_menu_data
+	//@ 2.[news_admin_menu_data_config]
+	show_news_admin_menu_home_page : function(datas){
+		
+		var data_config_link = [
+			'demo',
+			'news_user',
+			'news_store',
+			'/orders/admin/0/',
+			'news_cat',
+			'news_option',
+			'news_brand',
+			'news_product',
+			'news_discount',
+			'news_discount_store_add',
+			'news_discount_product_add',
+			'news_comment',
+			'news_review',	
+			'news_review_store',
+			'news_coupon'
+		]	
+
+		var data_config_text = [
+			'demo',
+			'User cần sử lý',
+			'Cửa hàng cần sử lý',
+			'Đơn hàng cần sử ký',
+			'Danh mục cần sử lý',
+			'Thuộc tính cần sử lý',
+			'Thương hiệu cần sử lý',
+			'Sản phẩm cần sử lý',
+			'Chương trình khuyến mãi cần phê duyệt',
+			'Cửa hàng tham gia chương trình khuyến mãi mới',
+			'Sản phẩm mới tham gia khuyến mãi cần phê duyệt',
+			'Bình luận cần phê duyệt',
+			'Có đánh giá sản phẩm mới cần phê duyệt',	
+			'Có đánh giá cửa hàng mới cần phê duyệt',
+			'Có mã coupon mới cần phê duyệt'
+		]	
+
+		
+		
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(datas[i] > 0){
+				data_return = data_return  + '<div class="news_line_box">' + 
+				'<a class="news_line" href="' + 
+				data_config_link[i] + '"><span class="news_line_inner">' + data_config_text[i] + '</span><span class="news_red">' + datas[i] + 
+				'</span></a></div>';
+			}
+		}
+		return data_return;		
+		
+		
+	},
 	//Hien thi han khuyen mai san pham
 	show_han_km: function(hankm){
 		//

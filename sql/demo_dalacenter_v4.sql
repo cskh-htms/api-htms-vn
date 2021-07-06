@@ -256,10 +256,7 @@ CREATE TABLE IF NOT EXISTS `dala_comments_speciality` (
   `dala_comments_speciality_comment_parent_id` int DEFAULT '0',
   `dala_comments_speciality_product_id` int NOT NULL,
   `dala_comments_speciality_contents` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_comments_speciality_status_store` tinyint(1) NOT NULL DEFAULT '0',
   `dala_comments_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_comments_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
-  `dala_comments_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_comments_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 

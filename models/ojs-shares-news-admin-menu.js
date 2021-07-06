@@ -7,12 +7,6 @@
 
 * 1. [get_news_admin_menu]
 
-	* 1.1 [news_user]
-	
-	* 1.2 [news_store]
-	
-	* 1.3 [news_order]	
-	
 	
 */
 
@@ -59,6 +53,18 @@ const ojs_datas_stores = require('./ojs-datas-stores.js');
 const ojs_datas_products = require('./ojs-datas-products.js');
 const ojs_datas_option = require('./ojs-datas-option.js');
 const ojs_datas_brands = require('./ojs-datas-brands.js');
+
+
+const ojs_datas_comment = require('./ojs-datas-comment.js');
+const ojs_datas_review = require('./ojs-datas-review.js');
+const ojs_datas_review_store = require('./ojs-datas-review-store.js');
+const ojs_datas_discount_program = require('./ojs-datas-discount-program.js');
+const ojs_datas_discount_program_store_add = require('./ojs-datas-discount-program-store-add.js');
+const ojs_datas_discount_program_product_add = require('./ojs-datas-discount-program-product-add.js');
+const ojs_datas_coupon = require('./ojs-datas-coupon.js');
+
+
+
 
 
 
@@ -250,7 +256,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 1.8. [news_discount]
 		if(datas.news_discount){
-			var fn_news_discount = 1;
+			var fn_news_discount = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/search',
+							ojs_datas_discount_program.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_discount = 0;
 		}
@@ -264,7 +278,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 1.9. [news_discount_store_add]
 		if(datas.news_discount_store_add){
-			var fn_news_discount_store_add = 1;
+			var fn_news_discount_store_add = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-details/search',
+							ojs_datas_discount_program_store_add.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_discount_store_add = 0;
 		}
@@ -277,7 +299,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 2.0. [news_discount_product_add]
 		if(datas.news_discount_product_add){
-			var fn_news_discount_product_add = 1;
+			var fn_news_discount_product_add = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-product-link/search',
+							ojs_datas_discount_program_product_add.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_discount_product_add = 0;
 		}
@@ -291,7 +321,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 2.1. [news_comment]
 		if(datas.news_comment){
-			var fn_news_comment = 1;
+			var fn_news_comment = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/comments/speciality/search',
+							ojs_datas_comment.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_comment = 0;
 		}
@@ -305,7 +343,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 2.2. [news_review]
 		if(datas.news_review){
-			var fn_news_review = 1;
+			var fn_news_review = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/reviews/speciality/search',
+							ojs_datas_review.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_review = 0;
 		}
@@ -318,7 +364,15 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 2.3. [news_review_store]
 		if(datas.news_review_store){
-			var fn_news_review_store = 1;
+			var fn_news_review_store = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/reviews/store-speciality/search',
+							ojs_datas_review_store.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_review_store = 0;
 		}
@@ -331,17 +385,27 @@ const ojs_shares_news_admin_menu = {
 		//@	
 		//@ * 2.4. [news_coupon]
 		if(datas.news_coupon){
-			var fn_news_coupon = 1;
+			var fn_news_coupon = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/coupon/speciality/search',
+							ojs_datas_coupon.get_data_news_admin_menu(),
+							datas.token
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_news_coupon = 0;
 		}
 		promise_all.push(fn_news_coupon);				
 		
 
+
 		//@
 		//@
 		//@ note
 		var note = {
+			'0':'khong có',
 			'1': 'news_user',
 			'2': 'news_store',
 			'3': 'news_order',
@@ -357,80 +421,39 @@ const ojs_shares_news_admin_menu = {
 			'13': 'news_review_store',
 			'14': 'news_coupon'		
 		}
-		promise_all.push(note);
+		//promise_all.push(note);
 
-	
+		//@
+		//@
+		//@
+		//@ promise all
 		var result = await Promise.all(promise_all);
+		
+		
+		//@
+		//@
+		//@
+		//@ tạo data return
 		var data_return = [];
-		data_return.push(0);
-		
-		
-		for(let i = 0; i < result.length ; i ++ ){
-			if(result[i] == 0){
+		for(var i = 0; i < result.length ; i ++ ){
+			if(result[i] == "0" || result[i] == 0){
 				data_return.push(result[i])
 			}else{
-				data_return.push(result[i].datas)
+				var x = result[i].datas;
+				var x2 = x[0];
+				var x3 = Object.entries(x2);
+				var x4 = x3[0][1];
+				data_return.push(x4);
 			}
-			
 		}		
-		
-		
-		/*
-		for(let i = 0; i < result.length ; i ++ ){
-			if(result[i] == 0 ||  result[i].error == "" ){
-				if(result[i] == 0){
-					let x = Object.values(result[i].datas[0])
-					data_return.push(0);
-				}else{
-					let x = Object.values(result[i].datas[0])
-					data_return.push(x[0]);
-				}
-			}
-		}
-		*/
-		return result[3].datas[0];
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		//@
-		//@
-		//@
-		//@ data return	
-		var data_return = {
-			'news_user'	: news_user,
-			'news_store': news_store,
-			'news_order': news_order,
-			'news_cat': news_cat,			
-			'news_option': news_option,
-			
-			'news_product': news_product,
-			'news_discount': news_discount,
-			'news_coupon': news_coupon,			
-			'news_discount_store_add': news_discount_store_add,
-			
-			'news_discount_product_add': news_discount_product_add,
-			'news_comment': news_comment,
-			'news_review': news_review,			
-			'news_review_store': news_review_store,
-			
-			'news_brand': news_brand
-		}
-		
-		
-		
+		data_return.push(note);
 		
 		//@
 		//@
 		//@
 		//@ return 
 		return data_return;
-		*/
+
 	}
 };//end of oj_loader
 

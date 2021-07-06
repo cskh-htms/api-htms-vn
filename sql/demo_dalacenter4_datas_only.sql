@@ -121,6 +121,8 @@ VALUES
 (13,CURRENT_TIMESTAMP,'Mít sấy giòn','3','Mít sấy giòn','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 (17,CURRENT_TIMESTAMP,'Dâu sấy dẻo','3','Dâu sấy dẻo','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 
+(18,CURRENT_TIMESTAMP,'Nông sản khô Đà Lạt','0','Nông sản khô Đà Lạt','https://appdala.com/images/dala-logo.png','','0','1','18','1','0','0',''),
+
 (14,CURRENT_TIMESTAMP,'Trà Atiso','4','Trà Atiso','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 (15,CURRENT_TIMESTAMP,'Trà Bán chạy nhất','4','Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 (16,CURRENT_TIMESTAMP,'Trà Giảm giá Hót','4','Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0','');
@@ -151,7 +153,7 @@ VALUES
 (4,CURRENT_TIMESTAMP,'Biofresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '1', '1', '18', ''),
 (5,CURRENT_TIMESTAMP,'Dalat Natural Food','https://appdala.com/images/dala-logo.png','Nông lâm food','','1', '1', '1', '17', ''),
 (6,CURRENT_TIMESTAMP,'Quốc Lộc Coffee','https://appdala.com/images/dala-logo.png','BerryLand','','1', '1', '1', '18', ''),
-(7,CURRENT_TIMESTAMP,'LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '1', '1', '18', '');
+(7,CURRENT_TIMESTAMP,'LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '0', '1', '18', '');
 
 
 
@@ -186,7 +188,7 @@ VALUES
 
 (4,'Kích thướt','https://appdala.com/images/dala-logo.png', '0', '18', '1', '1', '1',  'Kích thướt',  CURRENT_TIMESTAMP, ''),
 (5,'Size lớn','https://appdala.com/images/dala-logo.png', '4', '18', '1', '1', '1',  'size lớn',  CURRENT_TIMESTAMP, ''),
-(6,'Size nhỏ','https://appdala.com/images/dala-logo.png', '4', '18', '1', '1', '1',  'size nhỏ',  CURRENT_TIMESTAMP, '');
+(6,'Size nhỏ','https://appdala.com/images/dala-logo.png', '4', '18', '1', '0', '1',  'size nhỏ',  CURRENT_TIMESTAMP, '');
 
 
 
@@ -291,9 +293,21 @@ VALUES
     '20000','17000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
+),
+
+('7', 'Cỏ ngọt sấy khô bịch loại 1 – 225gram', '0', CURRENT_TIMESTAMP, 'TRA5', '18',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','0', '1', '1','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
 );
-
-
 
 
 
@@ -375,6 +389,7 @@ VALUES
 	('1','56',CURRENT_TIMESTAMP,'1','1','Biên hòa','','0948036018','custommers@gmail.com',''),
     ('2','56',CURRENT_TIMESTAMP,'1','1','Đà lạt','','0948036011','custommer2@gmail.com',''),
     ('3','56',CURRENT_TIMESTAMP,'1','1','Đồng nai','','0948036012','custommer3@gmail.com',''),
+    ('5','56',CURRENT_TIMESTAMP,'0','1','Lâm đồng','','0948036012','custommer3@gmail.com',''),	
     ('4','56',CURRENT_TIMESTAMP,'1','1','TP HCM','','0948036013','custommer4@gmail.com','');
 
 
@@ -634,7 +649,7 @@ VALUES
 	(1, CURRENT_TIMESTAMP,'56', '1','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '5'),
 	(2, CURRENT_TIMESTAMP,'56', '2','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '4'),
 	(3, CURRENT_TIMESTAMP,'56', '3','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '3'),
-	(4, CURRENT_TIMESTAMP,'56', '4','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '1', '2');
+	(4, CURRENT_TIMESTAMP,'56', '4','Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ', '0', '2');
 
 
 -- ----------------------------------------------------------------------
@@ -658,8 +673,8 @@ VALUES
 	(1 ,  CURRENT_TIMESTAMP, '56', '0', '1','sản phẩm tốt , rất hài lòng', '1'),
 	(2 ,  CURRENT_TIMESTAMP, '56', '0', '2','sản phẩm tốt , rất hài lòng', '1'),
 	(3 ,  CURRENT_TIMESTAMP, '56', '1', '1','sản phẩm tốt , rất hài lòng', '1'),
-	(4 ,  CURRENT_TIMESTAMP, '56', '2', '2','sản phẩm tốt , rất hài lòng', '1'),
-	(5 ,  CURRENT_TIMESTAMP, '56', '0', '3','sản phẩm tốt , rất hài lòng', '1');
+	(4 ,  CURRENT_TIMESTAMP, '56', '2', '2','sản phẩm tốt , rất hài lòng', '0'),
+	(5 ,  CURRENT_TIMESTAMP, '56', '0', '3','sản phẩm tốt , rất hài lòng', '0');
 
 
 -- -----------------------------------------------------------------------------
@@ -681,7 +696,7 @@ INSERT INTO `dala_reviews_store_speciality`(
 )
 VALUES 
 	(1, CURRENT_TIMESTAMP, '56', '17', 'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo', '1', '5'),
-	(2, CURRENT_TIMESTAMP, '56', '18', 'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo', '1', '4');
+	(2, CURRENT_TIMESTAMP, '56', '18', 'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo', '0', '4');
 
 
 
@@ -784,8 +799,11 @@ VALUES
 	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '18',
     'https://appdala.com/images/dala-logo.png',
     '0', '0','3','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Sản phẩm theo mùa', ''
+	),
+	(4, CURRENT_TIMESTAMP, 'mua 1 tặng 1', '18',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','4','0','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi mua 1 tặng 1', ''
 	);
-
 
 
 
@@ -807,7 +825,7 @@ INSERT INTO `dala_discount_program_details`(
 VALUES  
 	(1, CURRENT_TIMESTAMP, '1', '18', '2', '1', '0', '0', '10', ''),
 	(2, CURRENT_TIMESTAMP, '2', '17', '2', '1', '0', '0', '20', ''),
-	(3, CURRENT_TIMESTAMP, '3', '18', '2', '1', '0', '0', '30', '');
+	(3, CURRENT_TIMESTAMP, '3', '18', '1', '1', '0', '0', '30', '');
 
 
 
@@ -833,7 +851,7 @@ VALUES
 	
 	(6, CURRENT_TIMESTAMP, '2', '1', '1', ''),
 	(7, CURRENT_TIMESTAMP, '2', '3', '1', ''),
-	(8, CURRENT_TIMESTAMP, '2', '5', '1', '');
+	(8, CURRENT_TIMESTAMP, '2', '5', '0', '');
 
 
 
@@ -872,8 +890,11 @@ VALUES
 	( 2, CURRENT_TIMESTAMP, 'DHDT', '17',
     'Đơn hàng đầu tiên giảm giá 10%',
     '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '1', '1','0', ''
+	),
+	( 2, CURRENT_TIMESTAMP, 'LE0209', '17',
+    'Giảm giá 5% trong ngày lễ 02-09',
+    '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '0', '1','0', ''
 	);
-
 
 -- 
 -- 
