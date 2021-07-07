@@ -17,7 +17,11 @@
 	
  3. [get_datas_orders_product_list]
 	- thống kê theo sản phẩm
-
+	
+4.[orders_check_bussiness_menu_data]
+	- news bussiness datas
+	
+	
 	
 */
 
@@ -29,7 +33,62 @@
 
 const ojs_datas_orders = {
 	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 4.[orders_check_bussiness_menu_data]		
+	orders_check_bussiness_menu_data: function(datas){
+		var datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"count(orders_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_star,
+								"compare" : ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : [datas.status_number],
+								"compare" : "not in"
+							},
+							{
+								"field" : "users_ID" ,
+								"value" : datas.user_id,
+								"compare" : "="
+							}								
+						]    
+					}         
+				]
+			}
+		}	
+		return datas_return;
+	},		
+	//@
+	//@
+	//@
+	//@ end of
+	//@ 4.[orders_check_bussiness_menu_data]		
 	
+	
+	
+	
+		
 	
 	//@
 	//@
@@ -253,6 +312,10 @@ const ojs_datas_orders = {
 	//@ end of 
 	//@ 1.[orders_check_menu_data]	
 	
+	
+		
+	
+
 	
 	
 	

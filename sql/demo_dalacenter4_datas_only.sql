@@ -891,7 +891,7 @@ VALUES
     'Đơn hàng đầu tiên giảm giá 10%',
     '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '1', '1','0', ''
 	),
-	( 2, CURRENT_TIMESTAMP, 'LE0209', '17',
+	( 3, CURRENT_TIMESTAMP, 'LE0209', '17',
     'Giảm giá 5% trong ngày lễ 02-09',
     '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '0', '1','0', ''
 	);

@@ -28,7 +28,7 @@ const ojs_configs = require('../../configs/config');
 //@ loader function shares
 const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-list-datas');
 const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
-
+const ojs_shares_news_bussiness_menu = require('../../models/ojs-shares-news-bussiness-menu');
 
 
 const ojs_shares_others = require('../../models/ojs-shares-others');
@@ -89,6 +89,54 @@ router.get('/:user_id', async  function(req, res, next) {
 	}
 
 
+
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ check new bussiness
+	var datas_check_news_bussiness_menu = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id':user_id,
+		'store_id':store_id,
+		'news_user':'news_user',
+		'news_store': 'news_store',
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_brand': 'news_brand',
+		'news_product': 'news_product',
+		'news_discount': 'news_discount',
+		'news_discount_store_add': 'news_discount_store_add',
+		'news_discount_product_add': 'news_discount_product_add'		
+
+	}
+	
+	//res.send( datas_check_news_bussiness_menu );	
+	//return;		
+	var get_datas_news_bussiness_menu;
+	try{
+		get_datas_news_bussiness_menu = await ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news bussiness menu" );
+		res.send({ "error" : "routers bussiness web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_bussiness_menu);
+	//return;
+
+
+
+
 	//@
 	//@
 	//@
@@ -127,7 +175,7 @@ router.get('/:user_id', async  function(req, res, next) {
 	//@
 	//@
 	//@
-	//@ datas_get_all_list_datas
+	//@ get_orders_datas
 	var datas_get_orders_datas = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
@@ -158,12 +206,14 @@ router.get('/:user_id', async  function(req, res, next) {
 	}	
 	
 	
-	res.send(get_orders_datas);
-	return;	
+	//res.send(get_orders_datas);
+	//return;	
 	
 	
 	
 	
+
+
 
 	//@
 	//@
@@ -172,12 +222,13 @@ router.get('/:user_id', async  function(req, res, next) {
 	//@ create data send
 	try {	
 		data_send = {
-			'title' 			: 'Quản lý tài khoản doanh nghiệp',
-			'users_type' 		: ojs_shares_others.get_users_type(token),
-			'user_id' 			: ojs_shares_others.get_users_id(token),
-			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'	: ojs_configs.js_css_version,
-			'sidebar_type' : 2,
+			'title' 				: 'Quản lý tài khoản doanh nghiệp',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu
 		}
 		
 		//res.send(data_send);

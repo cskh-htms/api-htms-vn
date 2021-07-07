@@ -36,7 +36,8 @@ source ./sql/16.views/create_view_products.sql;
 source ./sql/16.views/create_view_discount_program_product.sql;
 
 
-
+-- 06.create_view_products.sql
+source ./sql/16.views/create_view_count_order_by_user.sql;
 
 
 

@@ -7,6 +7,15 @@
 	- module su dung
 		1. [ojs_shares_news_admin_menu]
 
+2.[get_all_list_datas]		
+	- lay option list
+
+
+3. [get_data_news_bussiness_menu]
+	news bussiness menu
+
+
+
 
 
 
@@ -15,6 +24,55 @@
 */
 
 const ojs_datas_option = {
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 3. [get_data_news_bussiness_menu]
+	get_data_news_bussiness_menu : function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"count(options_product_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "options_product_speciality_status_stores" ,
+								"value" : "1",
+								"compare" : "="
+							},
+							{
+								"field" : "options_product_speciality_status_admin" ,
+								"value" : '3',
+								"compare" : "="
+							},
+							{
+								"field" : "users_ID" ,
+								"value" : datas.user_id,
+								"compare" : "="
+							}						
+						]    
+					}         
+				]
+			}
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@
+	//@ end of
+	//@ 3. [get_data_news_bussiness_menu]		
 	
 	//@
 	//@

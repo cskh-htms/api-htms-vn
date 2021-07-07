@@ -7,15 +7,66 @@
 	- module su dung
 		1. [ojs_shares_news_admin_menu]
 
+2.[get_all_list_datas]	
+	- lấy list category
 
-
-
-
+3. [get_data_news_bussiness_menu]
+	- tin tức cho bussiness
+	
+	
+	
 
 -----------------------------------
 */
 
 const ojs_datas_category = {
+	//@
+	//@
+	//@
+	//@
+	//@  * 3. get_data_news_bussiness_menu]
+	get_data_news_bussiness_menu : function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[ 
+				"count(category_general_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   "field"    :"category_general_speciality_stores_status",
+							"value"     : '1',
+							"compare" 	: "="
+						},
+						{   "field"    :"category_general_speciality_admin_status",
+							"value"     : '3',
+							"compare" 	: "="
+						},
+						{   "field"    :"users_ID",
+							"value"     : datas.user_id,
+							"compare" 	: "="
+						}							
+						]    
+					}     
+				]
+			}
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ end of
+	//@  * 3. get_category_news_bussiness_menu]	
+	
+	
+	
+	
 	//@
 	//@
 	//@

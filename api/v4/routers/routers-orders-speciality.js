@@ -113,10 +113,18 @@ router.post('/search_customer', middle_ware, controllers_orders_spaciality.searc
 //@
 //@
 //@
-//@* 7. [search2]
+//@* 7. [search_user]
 router.post('/search_user', middle_ware, controllers_orders_spaciality.search_user);
 
 
+
+//@
+//@
+//@
+//@
+//@
+//@* . [search_count_order_by_user]
+router.post('/search-count-order-by-user', middle_ware, controllers_orders_spaciality.search_count_order_by_user);
 
 
 

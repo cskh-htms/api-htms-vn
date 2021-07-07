@@ -100,7 +100,17 @@ var sql_link_default = 	"";
 //@
 //@
 //@link	
-var sql_link_search = 	"" ; 
+var sql_link_search = 	""  + 
+
+	" LEFT JOIN " + 	
+	ojs_configs.db_prefix + "stores  ON  " + 
+	ojs_configs.db_prefix + "discount_program_store_id_created  = " + 
+	ojs_configs.db_prefix + "stores_ID " +   
+
+	" LEFT JOIN " + 	
+	ojs_configs.db_prefix + "users  ON  " + 
+	ojs_configs.db_prefix + "stores_user_id  = " + 
+	ojs_configs.db_prefix + "users_ID " ;
 	
 	
 

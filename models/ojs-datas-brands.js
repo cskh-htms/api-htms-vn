@@ -10,8 +10,8 @@
 2.[get_all_list_datas]	
 	- làm data cho [get_all_list_datas]
 
-
-
+3. [get_data_news_bussiness_menu]
+	- [get_data_news_bussiness_menu]
 
 
 
@@ -19,6 +19,56 @@
 */
 
 const ojs_datas_brands = {
+	//@
+	//@
+	//@
+	//@
+	//@ 3. [get_data_news_bussiness_menu]
+	get_data_news_bussiness_menu : function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"count(brands_ID)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "brands_status_stores" ,
+								"value" : "1",
+								"compare" : "="
+							},
+							{
+								"field" : "brands_status_admin" ,
+								"value" : '3',
+								"compare" : "="
+							},
+							{
+								"field" : "users_ID" ,
+								"value" : datas.user_id,
+								"compare" : "="
+							}	
+						]    
+					}         
+				]
+			}
+		}	
+		return datas_return;
+	},	
+	//@
+	//@
+	//@
+	//@ end of
+	//@ 3. [get_data_news_bussiness_menu]		
+	
+	
+	
 	
 	//@
 	//@

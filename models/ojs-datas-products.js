@@ -11,10 +11,70 @@
 2.[get_all_list_datas]
 
 
+3.[get_data_news_bussiness_menu]
+	lấy ness bussiness
+
+
 -------------------------------------------
 */
 
 const ojs_datas_products = {
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 1.[get_data_news_bussiness_menu]
+	get_data_news_bussiness_menu: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"count(products_speciality_ID)"
+				],
+				"condition" :
+				[
+					{    
+						"relation": "and",
+						"where" :
+						[
+							{   
+								"field"     :"products_speciality_status_store",
+								"value"     : "1",
+								"compare" : "="
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : '3',
+								"compare" : "="
+							},
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" : "="
+							}  							
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ end of
+	//@ 1.[get_data_news_bussiness_menu]		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//@
 	//@
