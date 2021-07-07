@@ -213,15 +213,15 @@ const ojs_shares_date = {
 	//@ 7.
 	check_date_full : function(string_date){
 	   if(string_date == ""){
-		   return true;
+		   return 0;
 	   }		
 	   var regex = /(^\d{1,4}[\.|\\/|-]\d{1,2}[\.|\\/|-]\d{1,2})([ ])(\d{1,2}[:]\d{1,2}[:]\d{1,2})$/;
 	   var inputEmail = string_date;
 
 	   if (regex.test(inputEmail)) {
-		  return true;
+		  return 1;
 	   } else {           
-			return false;
+			return 0;
 	   }
 	},
 	// end of 7.
@@ -235,15 +235,15 @@ const ojs_shares_date = {
 	//@ 8.
 	check_date : function(string_date){
 	   if(string_date == ""){
-		   return true;
+		   return 0;
 	   }		
-	   var regex = /(^\d{1,4}[\.|\\/|-]\d{1,2}[\.|\\/|-]\d{1,2})$/;
+	   var regex = /(^\d{1,4})([\.|\\/|-])(\d{1,2})([\.|\\/|-])(\d{1,2})$/;
 	   var inputEmail = string_date;
 
 	   if (regex.test(inputEmail)) {
-			return true;
+			return 1;
 	   } else {           
-			return false;
+			return 0;
 	   }
 	}		
 	// end of 8.	

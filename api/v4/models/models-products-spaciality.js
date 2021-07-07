@@ -900,6 +900,8 @@ const search_all = async function (datas) {
 	//@
 	//@
 	//@ get_condition	
+	
+	//return datas.condition;
 	var sql_condition;
 	try {
 		if(datas.condition){
@@ -917,7 +919,7 @@ const search_all = async function (datas) {
 	}		
 		
 			
-		
+	//return sql_condition;		
 	
 	//@
 	//@

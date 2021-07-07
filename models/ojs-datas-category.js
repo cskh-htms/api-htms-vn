@@ -57,6 +57,77 @@ const ojs_datas_category = {
 	//@  * 1. get_category_news_admin_menu]
 	
 	
+	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]		
+	get_all_list_datas: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+				"category_general_speciality_ID",
+				"category_general_speciality_name",
+				"category_general_speciality_category_parent_id",
+				"category_general_speciality_stores_id",
+				"category_general_speciality_stores_status",
+				"category_general_speciality_show",
+				"category_general_speciality_admin_status",
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"category_general_speciality_admin_status",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"category_general_speciality_stores_status",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@

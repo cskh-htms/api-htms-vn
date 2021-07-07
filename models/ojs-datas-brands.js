@@ -7,8 +7,8 @@
 	- module su dung
 		1. [ojs_shares_news_admin_menu]
 
-
-
+2.[get_all_list_datas]	
+	- làm data cho [get_all_list_datas]
 
 
 
@@ -65,7 +65,64 @@ const ojs_datas_brands = {
 	
 	
 	
-	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]		
+	get_all_list_datas: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+				"brands_ID",
+				"brands_name",
+				"brands_status_stores",
+				"brands_status_admin",
+				"brands_stores_id",
+				"brands_status_update",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"brands_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"brands_status_stores",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]		
 	
 	
 	//

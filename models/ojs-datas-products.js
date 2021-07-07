@@ -3,9 +3,12 @@
 ------------------------------------------
 
 
- 1.[get_data_news_admin_menu]
+1.[get_data_news_admin_menu]
 	- lấy số lượng sản phẩm chưa phê duyệt
 	- 1. [ojs_shares_news_admin_menu]
+
+
+2.[get_all_list_datas]
 
 
 -------------------------------------------
@@ -59,9 +62,66 @@ const ojs_datas_products = {
 	
 	
 	
-	
-	
-	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]		
+	get_all_list_datas: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+					"products_speciality_ID",
+					"stores_ID",
+					"stores_name",
+					"products_speciality_name",
+					"products_speciality_price",
+					"products_speciality_sale_of_price",
+					"products_speciality_sale_of_price_time_check",
+					"products_speciality_status_store",
+					"products_speciality_status_admin",
+					"products_speciality_featured_image"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"products_speciality_status_store",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas]		
 	
 	
 	

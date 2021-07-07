@@ -11,13 +11,201 @@
 	* module dùng 
 		1. [ojs_shares_news_admin_menu]
 		
+2. [get_orders_datas]		
+	- thống kê theo cửa hàng	
 		
-		
-		
-		
+	
+ 3. [get_datas_orders_product_list]
+	- thống kê theo sản phẩm
+
+	
 */
 
+
+
+
+
+
+
 const ojs_datas_orders = {
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	thống kê theo sản phẩm
+	//@ 3. [get_datas_orders_product_list]
+	get_datas_orders_product_list : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					"products_speciality_ID",
+					"products_speciality_name",
+					"stores_name",
+					"sum(orders_details_speciality_qty)",
+					"sum(price_caution)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							},
+							{
+								"field" : "orders_speciality_status_payment" ,
+								"value" : datas.status_payment_value,
+								"compare" : datas.status_payment_compare
+							},								
+						]    
+					}          
+				],
+				"order" :[
+						{    
+							"field"  :"products_speciality_name",
+							"compare" : "ASC"
+						}      
+				],
+				"group_by" :	
+				[
+					"products_speciality_ID",
+					"products_speciality_name",
+					"stores_name"
+				]				
+			}
+		}	
+		return datas_return;			
+	},	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 3. [get_datas_orders_product_list]		
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ thống kê theo cửa hàng
+	//@ 2. [get_orders_datas]
+	get_orders_datas : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					"stores_ID",
+					"stores_name",
+					"sum(price_caution)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							},
+							{
+								"field" : "orders_speciality_status_payment" ,
+								"value" : datas.status_payment_value,
+								"compare" : datas.status_payment_compare
+							},								
+						]    
+					}          
+				],
+				"order" :[
+						{    
+							"field"  :"stores_name",
+							"compare" : "ASC"
+						}      
+				],
+				"group_by" :	
+				[
+					"stores_ID",
+					"stores_name"
+				]				
+			}
+		}	
+		return datas_return;			
+	},	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 2. [get_orders_datas]	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@

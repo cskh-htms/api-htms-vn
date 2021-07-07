@@ -376,16 +376,16 @@ const get_condition = function(condition_arr){
 				//
 				//
 				//@@ edit date 
+
 				if(
-				ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true 
-				|| 
-				ojs_shares_date.check_date(condition_arr[x].where[s].value) == true 
+				ojs_shares_date.check_date(condition_arr[x].where[s].value) == 1  
+				|| ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == 1  
 				){
 					consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
 					consition_field = " UNIX_TIMESTAMP(" + ojs_configs.db_prefix + condition_arr[x].where[s].field + ") ";
 				
 				}
-				
+
 				
 				
 				//
