@@ -12,6 +12,18 @@
 3.[show_news_bussiness_menu_html]  
 4.[news_bussiness_menu_data_config]
 
+5.[show_count_status_order_by_store]
+	- hiển thị số đơn hàng theo status	
+
+
+6.[show_price_sale_by_store]
+	- hiển thị doanh thu theo cửa hàng	
+
+
+
+
+
+
 
 
 --------------------------------------------------
@@ -24,6 +36,82 @@
 
 
 ojs_share = {
+
+
+	//@
+	//@
+	//@ 
+	//@ 7.[show_qty_sale_by_store]
+	//@ - hiển thị doanh thu theo cửa hàng	
+	show_qty_sale_by_store : function (datas,store_id){
+		var data_return = 0;
+		datas.map(value => {
+			if(value.stores_ID == store_id){
+				data_return = data_return + value.sum_orders_details_speciality_qty;
+			}
+		})
+		return data_return;	
+	},
+	//@
+	//@
+	//@ 
+	//@ 7.[show_qty_sale_by_store]
+	//@ - end of
+
+
+
+
+	//@
+	//@
+	//@ 
+	//@ 6.[show_price_sale_by_store]
+	//@ - hiển thị doanh thu theo cửa hàng	
+	show_price_sale_by_store : function (datas,store_id){
+		var data_return = 0;
+		datas.map(value => {
+			if(value.stores_ID == store_id){
+				data_return = data_return + value.sum_price_caution;
+			}
+		})
+		return data_return;	
+	},
+	//@
+	//@
+	//@ 
+	//@ 6.[show_price_sale_by_store]
+	//@ - end of
+
+
+	//@
+	//@
+	//@ 
+	//@ 5.[show_count_status_order_by_store]
+	//@ - hiển thị số đơn hàng theo status	
+	show_count_status_order_by_store : function (datas,store_id,status_numbet){
+		
+		var data_return = 0;
+		datas.map(value => {
+			if(value.stores_ID == store_id && value.orders_speciality_status_orders == status_numbet){
+				data_return ++;
+			}
+		})
+		
+		
+		return data_return;		
+	},
+	//@
+	//@
+	//@ 
+	//@ 5.[show_count_status_order_by_store]
+	//@ - end of
+
+
+
+
+
+
+
+
 	
 	//@
 	//@

@@ -56,7 +56,7 @@ const ojs_config_app = {
 	//@
 	//@
 	//@
-	domain : "https://appdala.com",
+	domain : "http://localhost:2021",
 	token_supper_job : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ",	
 	//@
 	//@

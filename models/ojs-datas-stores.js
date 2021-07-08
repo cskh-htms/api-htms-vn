@@ -44,7 +44,10 @@ const ojs_datas_stores = {
 					"stores_payment_limit",
 					"stores_status_update",
 					"stores_status_admin",
-					"stores_status_stores"
+					"stores_status_stores",
+					"stores_wards",
+					"stores_district",
+					"stores_province"
 				],
 				"condition" :
 				[				

@@ -28,7 +28,7 @@ const connection = require('./models-connection');
 //@
 //configs/config
 const ojs_configs = require('../../../configs/config');
-
+const default_field = require('../const-tables/const-tables-discount-program-product-link');
 
 //@
 //@
@@ -363,13 +363,50 @@ const delete_discount_program_product_link = async function (discount_program_pr
 //@* 6. [delete_discount_program_product_link]
 const search = async function (datas) {
 	
+	//return 	datas;
+	//@
+	//@
+	//@
+	//@ select field
+	var sql_field;
+	try {
+		if(datas.select_field){
+			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
+			//return 	sql_field;
+		}else{
+			sql_field = "";
+		}			
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
+		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
+		return;	
+	}		
+			
+			
+	//return 	sql_field;	
 	//@
 	//@
 	//@
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all_view);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);
+		
+		//return get_sql_search;
+		//@
+		//@
+		//@	
+		//@
+		let get_sql_search_1 = {...get_sql_search};
+		Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
+
+		
+		
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_1,sql_from_view,sql_link_view);
+		
+		//return get_sql_search_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

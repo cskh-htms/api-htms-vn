@@ -141,6 +141,17 @@ router.get('/:user_id', async  function(req, res, next) {
 	//@
 	//@
 	//@ datas_get_all_list_datas
+	var datas_order_datas_send = {
+		'status_admin_compare': '<>',
+		'status_admin_value': '1'
+	}
+	var x = {...ojs_configs.orders_all};
+	var s = Object.assign(x,datas_order_datas_send);
+	
+	//res.send(s);
+	//return;
+	
+	
 	var datas_get_all_list_datas = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
@@ -150,7 +161,8 @@ router.get('/:user_id', async  function(req, res, next) {
 		'datas_cat':ojs_configs.datas_all,
 		'datas_option':ojs_configs.datas_all,
 		'datas_store':ojs_configs.datas_all,		
-		'datas_brand':ojs_configs.datas_all
+		'datas_brand':ojs_configs.datas_all,
+		'datas_order': s
 	}
 	
 	//res.send( datas_get_all_list_datas );	
@@ -176,14 +188,25 @@ router.get('/:user_id', async  function(req, res, next) {
 	//@
 	//@
 	//@ get_orders_datas
+	
+	var datas_orders_list_sum = {
+		'date_star':ojs_shares_date.get_current_month_now(),
+		'date_end':ojs_shares_date.get_current_date_end()
+	}	
+	var x = {...ojs_configs.orders_all};
+	var s = Object.assign(x,datas_orders_list_sum);	
+	
+	//res.send( s );	
+	//return;
+	
 	var datas_get_orders_datas = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
-		'store_id' : store_id,
-		
-		'datas_orders_list':ojs_configs.orders_all,
-		'datas_orders_product_list':ojs_configs.orders_all
+		'store_id' : store_id,		
+		'datas_orders_list_sum':s,
+		'datas_orders_product_list':ojs_configs.orders_all,
+		'order_list_by_user' : ojs_configs.orders_all
 	}
 	
 	//res.send( datas_get_orders_datas );	
@@ -211,7 +234,8 @@ router.get('/:user_id', async  function(req, res, next) {
 	
 	
 	
-	
+	//res.send([   get_all_list_datas[2].datas    ]);
+	//return;	
 
 
 
@@ -228,7 +252,13 @@ router.get('/:user_id', async  function(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			
-			'news_bussiness_menu' 	: get_datas_news_bussiness_menu
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
+			'store_list' 			: get_all_list_datas[2].datas,
+			'product_list' 			: get_all_list_datas[7].datas,
+			'order_list_sum' 		: get_orders_datas[1].datas,
+			'order_list_all' 		: get_orders_datas[3].datas,
+			'order_list' 			: get_all_list_datas[3].datas
+			
 		}
 		
 		//res.send(data_send);

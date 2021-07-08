@@ -21,7 +21,12 @@
 4.[orders_check_bussiness_menu_data]
 	- news bussiness datas
 	
+5.[get_order_list_by_user]
+	- lấy danh sách dơn hàng theo user	
 	
+	
+6.[get_all_list_datas]
+	- lấy danh sách dơn hàng tất cả		
 	
 */
 
@@ -32,6 +37,152 @@
 
 
 const ojs_datas_orders = {
+	
+	
+	//@
+	//@
+	//@
+	//@	
+	//@
+	//@ 6.[get_all_list_datas]	
+	get_all_list_datas : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[ 
+					
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"stores_ID",
+					"stores_name"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							}					
+						]    
+					}          
+				]			
+			}
+		}	
+		return datas_return;			
+	},	
+	//@
+	//@
+	//@
+	//@	
+	//@ end of 
+	//@ 6.[get_all_list_datas]	
+		
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	
+	//@
+	//@ 5.[get_order_list_by_user]	
+	get_order_list_by_user : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"stores_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							}						
+						]    
+					}          
+				],
+				"group_by" :	
+				[
+					"stores_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders"
+				]			
+			}
+		}	
+		return datas_return;			
+	},	
+	//@
+	//@
+	//@
+	//@	
+	//@ end of 
+	//@ 5.[get_order_list_by_user]	
+	
+	
+	
+	
 	
 	//@
 	//@
@@ -190,6 +341,7 @@ const ojs_datas_orders = {
 				[ 
 					"stores_ID",
 					"stores_name",
+					"sum(orders_details_speciality_qty)",
 					"sum(price_caution)"
 				],
 				"condition" :

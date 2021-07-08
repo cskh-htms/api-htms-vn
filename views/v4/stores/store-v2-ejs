@@ -1,0 +1,285 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+
+<% include ../masterpage/loader %>
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+
+<% include ../masterpage/header %>
+
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1>Quản lý <%= store_name %></h1>
+	<div class="store_row_btn">
+		<ul class="store_don_hang">
+			<li><a href=""><span class="number">2</span>Chờ xác nhận</a></li>
+			<li><a href=""><span class="number">4</span>Chờ lấy hàng</a></li>
+			<li><a href=""><span class="number">2</span>Đang giao</a></li>
+			<li><a href=""><span class="number">1</span>Đổi trả</a></li>
+			<li class="tu_choi_btn"><a href=""><span class="number">1</span>Bị từ chối</a>
+				<div class="store_thong_bao_wrap">
+					<div class="store_thong_bao">
+						<h2>Thông báo từ admin</h2>
+						<ul>
+							<li>
+								<a href="#">
+									<span>Mứt chanh dây 250g</span>
+									đã bị từ chối, hãy chỉnh sửa lại.
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Kẹo dẻo</span>
+									đã bị từ chối, hãy chỉnh sửa lại.
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Rượu vang đỏ Đà Lạt 500ml</span>
+									đã bị từ chối, hãy chỉnh sửa lại.
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Rượu vang đỏ Đà Lạt 500ml</span>
+									đã bị từ chối, hãy chỉnh sửa lại.
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_bd_green btn_add_sp">Thêm sản phẩm</a>
+	</div>
+	<div class="store_row">
+		<div class="store_col doanh_thu_han_muc">
+			<h2>Doanh thu</h2>
+			<a href="#" class="btn_bd_green">Yêu cầu thanh toán</a>
+			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+				<circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<circle class="circle-chart__circle" stroke="#4a914b" stroke-width="2" stroke-dasharray="55,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<g class="circle-chart__info">
+					<text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="4.5">12.580.000đ</text>
+					<text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Hạn mức 20.000.000đ</text>
+				</g>
+			</svg>
+			<p>70 sản phẩm bán ra</p>
+		</div>
+		<div class="store_col store_sp_km">
+			<h2>Sản phẩm đang khuyến mãi</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="store_col store_sp_ban_chay">
+			<h2>Sản phẩm bán chạy</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+
+	<div class="store_row">
+		<div class="store_col doanh_thu_thang_nay">
+			<h2>Doanh thu tháng này</h2>
+			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+				<circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<circle class="circle-chart__circle" stroke="#4a914b" stroke-width="2" stroke-dasharray="55,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<g class="circle-chart__info">
+					<text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="4.5">12.580.000đ</text>
+					<text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Tháng trước 20.000.000đ</text>
+				</g>
+			</svg>
+			<p>70 sản phẩm bán ra. (Nhận tiền vào ngày 01 hàng tháng)</p>
+		</div>
+		<div class="store_col store_sp_km">
+			<h2>Sản phẩm đang khuyến mãi</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="store_col store_sp_ban_chay">
+			<h2>Sản phẩm bán chạy</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+	<div class="doanh_thu">
+		<h2>Thống kê doanh thu</h2>
+		<div class="thong_ke_doanh_thu">
+			<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+				<div class="report_bock report_bock_payment">
+					<ul class="report_link_box report_bock_payment">
+						<li class="one report_link">
+							<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+						</li>
+						<li class="one report_link" >
+							<a href="#"  data_send="hom_qua">Hôm qua</a>
+						</li>				
+						<li class="one report_link">
+							<a href="#" data_send="tuan_nay">Tuần này</a>
+						</li>
+						<li class="one report_link">
+							<a href="#"  data_send="thang_nay" >tháng này</a>
+						</li>		
+						<li class="one report_link">
+							<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+						</li>	
+						<li class="one report_link">
+							<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+						</li>					
+					</ul>
+				</div>
+				<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+			</div>
+			<div id="ajax_load_payment" class="ajax_load"">
+				<% include ../masterpage/widget-bussiness-report-stores %>		
+			</div>	
+		</div>
+	</div>
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+<% include ../masterpage/loader-end %>

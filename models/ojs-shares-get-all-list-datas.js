@@ -153,7 +153,31 @@ const ojs_shares_get_all_list_datas = {
 		//@	
 		//@ * 1.3. [datas_order]
 		if(datas.datas_order){
-			var fn_datas_order = 0;
+			var datas_send = {
+				'user_id': datas.user_id,
+				'store_id' : datas.store_id,
+				'user_compare': datas.datas_order.user_compare,
+				'store_compare': datas.datas_order.store_compare,	
+				
+				'status_admin_compare' : datas.datas_order.status_admin_compare,
+				'status_admin_value' : datas.datas_order.status_admin_value,				
+				
+				'line_order_compare' : datas.datas_order.line_order_compare,	
+				'line_order_value' : datas.datas_order.line_order_value,
+				
+				'date_star' : datas.datas_order.date_star,	
+				'date_end' : datas.datas_order.date_end
+				
+			}
+			var fn_datas_order = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user',
+							ojs_datas_orders.get_all_list_datas(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_datas_order = 0;
 		}

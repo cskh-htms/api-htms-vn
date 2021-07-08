@@ -1,243 +1,109 @@
 
--- 
--- 
--- 
--- 
--- 
---
---   
--- 
-START TRANSACTION;
-
-
--- 
-
-
--- 
--- 
--- check products_speciality_name insert
-DROP TRIGGER  IF EXISTS  trig_products_speciality_name_update;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_name_update BEFORE UPDATE ON dala_products_speciality 
-FOR EACH ROW  
-BEGIN  
-
-
-
--- 
--- 
--- @ nếu tên sản phẩm trống thì báo lỗi
-IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_name_empty';   
-END IF;	
-
-
-
--- 
--- 
--- @ nếu sku trống thì báo lỗi
-IF(NEW.dala_products_speciality_sku  is null or NEW.dala_products_speciality_sku = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_sku_empty';   
-END IF;	
-
-
-
--- 
--- 
--- @ nếu ngày kết thúc nhỏ hơn ngày bắt đầu thì báo lỗi
-IF(LENGTH(NEW.dala_products_speciality_date_start) > 0  and LENGTH(NEW.dala_products_speciality_date_end) > 0) THEN 
-	IF( (UNIX_TIMESTAMP(NEW.dala_products_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_products_speciality_date_start)) <= 0 ) THEN 
-		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_date_end_less_star';   
-	END IF;
-END IF;	
-
-
-
-
--- 
--- 
--- @ nếu giá < 0 hoặc không nhập giá thì báo lỗi
-IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_price_empty';   
-END IF;	
-
-
-
-END $$ 
-DELIMITER ;
-
-
-
-
 
 
 
 -- 
 -- 
 -- 
--- check products_speciality_price insert
-DROP TRIGGER  IF EXISTS  trig_products_speciality_price_update;
 -- 
 
-DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_price_update BEFORE UPDATE ON dala_products_speciality 
-FOR EACH ROW  
-BEGIN  
-IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_price_empty';   
-END IF;	
-END $$ 
-DELIMITER ;
+-- list-datas
+var note = {
+	'0':'khong có',
+	'1': 'datas_user',
+	'2': 'datas_store',
+	'3': 'datas_order',
+	'4': 'datas_cat',
+	'5': 'datas_option',
+	'6': 'datas_brand',
+	'7': 'datas_product',
+	'8': 'datas_discount',
+	'9': 'datas_discount_store_add',
+	'10': 'datas_discount_product_add',
+	'11': 'datas_comment',
+	'12': 'datas_review',	
+	'13': 'datas_review_store',
+	'14': 'datas_coupon'		
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- order all
+var note = {
+	'0':'khong có',
+	'1':'datas_orders_list_sum(thống kê theo cửa hàng)',
+	'2':'datas_orders_product_list(thống kê theo sản phẩm)'	,
+	'3':'order_list_by_user(thống kê order by store theo user)'			
+}
+		
+		
 -- 
--- 
--- check products_speciality_store_id
-DROP TRIGGER  IF EXISTS  trig_products_speciality_store_id_update;
--- 
-
-DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_store_id_update BEFORE UPDATE ON dala_products_speciality
-FOR EACH ROW  
-BEGIN  
-IF(LENGTH(NEW.dala_products_speciality_store_id) <= 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_store_id_empty';   
-END IF;
-END $$ 
-DELIMITER ;
-
-
-
-
-
-
-
-
---
--- *data type
-DROP TRIGGER  IF EXISTS  trig_products_speciality_brand_update;
---
-
-DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_brand_update BEFORE UPDATE ON dala_products_speciality 
-FOR EACH ROW  
-BEGIN  
-
-IF(LENGTH(NEW.dala_products_speciality_brand) > 0 ) THEN 
+datas_all : {
+	'user_compare': '=',
+	'store_compare':'<>',
 	
-	SET @checkID = (select dala_brands_ID  from dala_brands where dala_brands_ID  = NEW.dala_products_speciality_brand);
-	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
-		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_brand_no_refe'; 
-	END IF;	
-END IF;
-
-
-END $$
-DELIMITER ;
-
-
-
-
-
-
-
-
-
--- 
--- 
--- products_speciality_parent_id
---
-
-DROP TRIGGER  IF EXISTS  trig_products_speciality_parent_id_update;
---
-
-DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_parent_id_update BEFORE UPDATE ON dala_products_speciality 
-FOR EACH ROW  
-BEGIN  
-
-IF(LENGTH( NEW.dala_products_speciality_parent_id ) > 0 ) THEN 
-
-	SET @parent_old = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_parent_id  = NEW.dala_products_speciality_parent_id );
+	'status_admin_compare':'=',
+	'status_admin_value':1,
 	
-	IF ( @parent_old = NEW.dala_products_speciality_parent_id ) THEN 
-		SIGNAL SQLSTATE '01000'; 
-	ELSE 
+	'status_store_compare':'=',
+	'status_store_value':1		
+},	
+-- 
+-- 
+orders_all : {
+	'user_compare': '=',
+	'store_compare':'<>',
 	
-		SET @checkID = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_parent_id );
-		IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
-			SIGNAL SQLSTATE '12345' 
-			SET MESSAGE_TEXT = 'trig_products_speciality_parent_id_no_refe'; 
-		END IF;		
+	'status_admin_compare':'=',
+	'status_admin_value':1,
 	
-	END IF;
+	'status_payment_compare':'=',
+	'status_payment_value':1,
+	
+	'line_order_compare':'=',
+	'line_order_value':'product',		
 
-END IF;
-
-
-END $$
-DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	'date_star':'2021/01/01 00:00:00',
+	'date_end':ojs_shares_date.get_current_date_end()
+}		
+		
+		
+		
+		
+		
+		
 --
 --
 --
--- commit 
-COMMIT ;
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
+var datas_orders_list_sum = {
+	'date_star':ojs_shares_date.get_current_month_now(),
+	'date_end':ojs_shares_date.get_current_date_end()
+}	
+var x = {...ojs_configs.orders_all};
+var s = Object.assign(x,datas_orders_list_sum);		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

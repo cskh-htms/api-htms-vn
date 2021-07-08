@@ -752,7 +752,7 @@ async  function search(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
 			res.send({ "error" : error, "message": error_send } ); 
 			return;	
