@@ -55,8 +55,8 @@ const ojs_config_app = {
 	
 	//@
 	//@
-	//domain : "http://localhost:2021",
-	domain : "https://appdala.com",
+	domain : "http://localhost:2021",
+	//domain : "https://appdala.com",
 	token_supper_job : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ",	
 	//@
 	//@
@@ -142,7 +142,7 @@ const ojs_config_app = {
 	//@ 5.[datas_all]	
 	datas_all : {
 		'user_compare': '=',
-		'store_compare':'<>',
+		'store_compare':'=',
 		
 		'status_admin_compare':'=',
 		'status_admin_value':1,
@@ -150,6 +150,23 @@ const ojs_config_app = {
 		'status_store_compare':'=',
 		'status_store_value':1		
 	},	
+	//@
+	//@
+	//@
+	//@
+	//@ tạo data cho get_all_list_datas admin
+	//@ 5.1.[datas_all_admin]	
+	datas_all_admin : {
+		'user_compare': '=',
+		'store_compare':'<>',
+		
+		'status_admin_compare':'=',
+		'status_admin_value':1,
+		
+		'status_store_compare':'=',
+		'status_store_value':1		
+	},		
+	
 	//@
 	//@
 	//@

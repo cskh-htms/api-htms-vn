@@ -26,7 +26,11 @@
 	
 	
 6.[get_all_list_datas]
-	- lấy danh sách dơn hàng tất cả		
+	- lấy danh sách dơn hàng tất cả theo user		
+	
+	
+7.[get_all_list_datas_count]	
+	-  lấy count dơn hàng theo user
 	
 */
 
@@ -37,7 +41,75 @@
 
 
 const ojs_datas_orders = {
-	
+	//@
+	//@
+	//@
+	//@	
+	//@
+	//@ 7.[get_all_list_datas_count]	
+	get_all_list_datas_count : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_field" :
+				[ 
+					
+					"count(orders_speciality_ID)",
+					"users_ID",
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							},
+							{
+								"field" : "orders_speciality_status_payment" ,
+								"value" : datas.status_payment_value,
+								"compare" : datas.status_payment_compare
+							}				
+						]    
+					}          
+				],
+				"group_by" :
+				[
+					"users_ID"
+				],			
+			}
+		}	
+		return datas_return;			
+	},	
+	//@
+	//@
+	//@
+	//@	
+	//@ end of 
+	//@ 7.[get_all_list_datas_count]		
 	
 	//@
 	//@

@@ -47,6 +47,7 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 //@
 //@
 //@ load datas
+const ojs_datas_notes = require('./ojs-datas-notes.js');
 const ojs_datas_orders = require('./ojs-datas-orders.js');
 const ojs_datas_category = require('./ojs-datas-category.js');
 const ojs_datas_stores = require('./ojs-datas-stores.js');
@@ -102,7 +103,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.1. [news_user]
+		//@ * 1. [news_user]
 		if(datas.news_user){
 			var fn_news_user = 0;
 		}else{
@@ -116,7 +117,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.2. [news_store]
+		//@ * 2. [news_store]
 		if(datas.news_store){
 			var fn_news_store = 0;
 		}else{
@@ -131,7 +132,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.3. [news_order]
+		//@ * 3. [news_order]
 		if(datas.news_order){
 			var date_star = "2020/01/01 00:00:00";
 			var date_end = ojs_shares_date.get_current_date_end();
@@ -152,16 +153,11 @@ const ojs_shares_news_bussiness_menu = {
 				
 				resolve(sms);
 			});	
-			
-			promise_all.push(fn_news_order);
 		}else{
 			var fn_news_order = 0;
-			promise_all.push(fn_news_order);
 		}
-		//@
-		//@
-		//@	end of 
-		//@ * 1.3. [news_order]	
+		promise_all.push(fn_news_order);	
+
 
 
 
@@ -170,7 +166,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.4. [news_cat]
+		//@ * 4. [news_cat]
 		if(datas.news_cat){
 			var data_send = {
 				'user_id':datas.user_id
@@ -196,7 +192,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.5. [news_option]
+		//@ * 5. [news_option]
 		if(datas.news_option){
 			var data_send = {
 				'user_id':datas.user_id
@@ -223,7 +219,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.6. [news_brand]
+		//@ * 6. [news_brand]
 		if(datas.news_brand){
 			var data_send = {
 				'user_id':datas.user_id
@@ -250,7 +246,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.7. [news_product]
+		//@ * 7. [news_product]
 		if(datas.news_product){
 			var data_send = {
 				'user_id':datas.user_id
@@ -279,7 +275,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.8. [news_discount]
+		//@ * 8. [news_discount]
 		if(datas.news_discount){
 			var data_send = {
 				'user_id':datas.user_id
@@ -306,7 +302,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.9. [news_discount_store_add]
+		//@ * 9. [news_discount_store_add]
 		if(datas.news_discount_store_add){
 			var data_send = {
 				'user_id':datas.user_id
@@ -333,7 +329,7 @@ const ojs_shares_news_bussiness_menu = {
 		//@
 		//@
 		//@	
-		//@ * 1.10. [news_discount_product_add]
+		//@ * 10. [news_discount_product_add]
 		if(datas.news_discount_product_add){
 			var data_send = {
 				'user_id':datas.user_id
@@ -353,6 +349,98 @@ const ojs_shares_news_bussiness_menu = {
 		promise_all.push(fn_news_discount_product_add);			
 		
 		
+		
+		
+		//@
+		//@
+		//@
+		//@	
+		//@ * 11. [news_comment]
+		if(datas.news_comment){
+			var fn_news_comment = 0;
+		}else{
+			var fn_news_comment = 0;
+		}
+		promise_all.push(fn_news_comment);		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@	
+		//@ * 12. [news_review]
+		if(datas.news_review){
+			var fn_news_review = 0;
+		}else{
+			var fn_news_review = 0;
+		}
+		promise_all.push(fn_news_review);				
+		
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@	
+		//@ * 13. [news_review_store]
+		if(datas.news_review_store){
+			var fn_news_review_store = 0;
+		}else{
+			var fn_news_review_store = 0;
+		}
+		promise_all.push(fn_news_review_store);			
+		
+		
+		
+		
+	
+		//@
+		//@
+		//@
+		//@	
+		//@ * 14. [news_coupon]
+		if(datas.news_coupon){
+			var fn_news_coupon = 0;
+		}else{
+			var fn_news_coupon = 0;
+		}
+		promise_all.push(fn_news_coupon);			
+		
+		
+		
+	
+		
+		
+		
+		//@
+		//@
+		//@
+		//@	
+		//@ * 15. [news_note]
+		if(datas.news_note){
+			var data_send = {
+				'user_id':datas.user_id,
+			}				
+			var fn_news_note = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/notes/search',
+							ojs_datas_notes.get_data_news_bussiness_menu(data_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
+		}else{
+			var fn_news_note = 0;
+		}
+		promise_all.push(fn_news_note);	
+		
+			
 
 
 
@@ -375,7 +463,8 @@ const ojs_shares_news_bussiness_menu = {
 			'11': 'news_comment',
 			'12': 'news_review',	
 			'13': 'news_review_store',
-			'14': 'news_coupon'		
+			'14': 'news_coupon',
+			'15': 'news_note'		
 		}
 		//promise_all.push(note);
 

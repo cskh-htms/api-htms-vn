@@ -113,7 +113,8 @@ router.get('/:user_id', async  function(req, res, next) {
 		'news_product': 'news_product',
 		'news_discount': 'news_discount',
 		'news_discount_store_add': 'news_discount_store_add',
-		'news_discount_product_add': 'news_discount_product_add'		
+		'news_discount_product_add': 'news_discount_product_add',
+		'news_note': 'news_note'		
 
 	}
 	
@@ -157,11 +158,8 @@ router.get('/:user_id', async  function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_product':ojs_configs.datas_all,
-		'datas_cat':ojs_configs.datas_all,
-		'datas_option':ojs_configs.datas_all,
-		'datas_store':ojs_configs.datas_all,		
-		'datas_brand':ojs_configs.datas_all,
+		'datas_product':ojs_configs.datas_all_admin,
+		'datas_store':ojs_configs.datas_all_admin,	
 		'datas_order': s
 	}
 	
@@ -179,7 +177,7 @@ router.get('/:user_id', async  function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(get_all_list_datas);
+	//res.send(get_all_list_datas[2]);
 	//return;
 	
 	
@@ -272,6 +270,7 @@ router.get('/:user_id', async  function(req, res, next) {
 			res.send({ "error" : "router_bussiness(web)->data_send", "message": error_send } ); 
 			return;		
 	}	
+	
 
 
 });

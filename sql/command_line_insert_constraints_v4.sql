@@ -173,7 +173,8 @@ source ./sql/16.9.table_coupon_speciality/03.table_coupon_speciality_constraint.
 
 
 
-
+-- 16.10.table_notes
+source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
 
 
 

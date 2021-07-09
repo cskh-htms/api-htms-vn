@@ -388,7 +388,7 @@ const get_owner_like_product = async function (datas) {
 							" AND " + 
 							ojs_configs.db_prefix + "like_product_ID  = '" + datas.datas.like_product_id + "' " 
 	
-	return sql_text;
+	//return sql_text;
 	//@
 	//@
 	//@

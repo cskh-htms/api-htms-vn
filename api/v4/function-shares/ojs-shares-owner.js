@@ -40,7 +40,7 @@ const models_discount_program_product_link = require('../models/models-discount-
 const models_coupon_speciality = require('../models/models-coupon-speciality');
 const models_like_product = require('../models/models-like-product');
 const models_like_store = require('../models/models-like-store');
-
+const models_notes = require('../models/models-notes');
 
 
 const ojs_configs = require('../../../configs/config');
@@ -1055,7 +1055,54 @@ const check_owner = async function(datas_check){
 		//@ end of 2.8 [owner_like_store] 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.8 owner_like_store
+		var owner_note = 0;
+		if(datas_check.note_id){
+			
+			var owner_note_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var note_id = datas_check.note_id;
+				
+				//return {"datas": [user_id,discount_program_details_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"note_id"	: note_id
+					}
+				}			
 
+
+				//return send_datas_check_owner_review;
+
+				owner_note_get = await models_notes.get_owner_notes(send_datas_check_owner_review);	
+				//return [owner_discount_program_details_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_note_get.error) { return {"error":owner_note_get.error,"message":owner_note_get.error} }	
+				if(owner_note_get.length > 0) { owner_note = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_note_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.8 [owner_note] 
 
 
 
@@ -1087,7 +1134,8 @@ const check_owner = async function(datas_check){
 			"owner_discount_program_product_link" : owner_discount_program_product_link,
 			"owner_coupon_speciality" :owner_coupon_speciality,
 			"owner_like_product" :owner_like_product,
-			"owner_like_store" :owner_like_store			
+			"owner_like_store" :owner_like_store,
+			"owner_note": owner_note			
 			}
 		return data_return;
 		//@

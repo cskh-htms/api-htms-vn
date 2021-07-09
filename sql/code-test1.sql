@@ -1,6 +1,25 @@
 
-
-
+-- 
+--
+--
+-- bussiness new menu
+var note = {
+	'0':'khong có',
+	'1': 'news_user',
+	'2': 'news_store',
+	'3': 'news_order',
+	'4': 'news_cat',
+	'5': 'news_option',
+	'6': 'news_brand',
+	'7': 'news_product',
+	'8': 'news_discount',
+	'9': 'news_discount_store_add',
+	'10': 'news_discount_product_add',
+	'11': 'news_comment',
+	'12': 'news_review',	
+	'13': 'news_review_store',
+	'14': 'news_coupon'		
+}
 
 -- 
 -- 

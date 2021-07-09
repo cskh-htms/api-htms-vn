@@ -17,14 +17,17 @@
 
 
 6.[show_price_sale_by_store]
-	- hiển thị doanh thu theo cửa hàng	
+	- hiển thị tổng price sale theo cửa hàng	
 
 
+7.[show_qty_sale_by_store]
+	- hiển thị tổng qty theo cửa hàng	
 
+8.[show_news_bussiness_menu_sum]
+	- lấy tổng số từ chối news bussiness
 
-
-
-
+9.[show_count_bussiness_menu_html]	
+	hiển thị html count menu
 
 --------------------------------------------------
 */
@@ -37,12 +40,42 @@
 
 ojs_share = {
 
+	//@
+	//@
+	//@ tạo html hiển thị count span
+	//@ 9.[show_count_bussiness_menu_html]	
+	show_count_bussiness_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_gray">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	},	
+
+	//@
+	//@
+	//@ lấy tổng số từ chối news bussiness
+	//@ 8.[show_news_bussiness_menu_sum]	
+	show_news_bussiness_menu_sum: function(datas){
+		var data_return = 0;
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i != 3){
+				data_return = data_return + datas[i];
+			}
+		}
+		
+		data_return = '<span class="news_red">' + data_return + '</span>';
+		return data_return;
+	},	
+
 
 	//@
 	//@
 	//@ 
 	//@ 7.[show_qty_sale_by_store]
-	//@ - hiển thị doanh thu theo cửa hàng	
+	//@ - hiển thị tổng qty theo cửa hàng	
 	show_qty_sale_by_store : function (datas,store_id){
 		var data_return = 0;
 		datas.map(value => {
@@ -65,7 +98,7 @@ ojs_share = {
 	//@
 	//@ 
 	//@ 6.[show_price_sale_by_store]
-	//@ - hiển thị doanh thu theo cửa hàng	
+	//@ - hiển thị tổng bán theo cửa hàng	
 	show_price_sale_by_store : function (datas,store_id){
 		var data_return = 0;
 		datas.map(value => {
@@ -134,25 +167,27 @@ ojs_share = {
 			'news_comment',
 			'news_review',	
 			'news_review_store',
-			'news_coupon'
+			'news_coupon',
+			'news_note'
 		]	
 
 		var data_config_text = [
 			'demo',
-			'User cần sử lý',
-			'Cửa hàng cần sử lý',
-			'Đơn hàng cần sử ký',
-			'Danh mục cần sử lý',
-			'Thuộc tính cần sử lý',
-			'Thương hiệu cần sử lý',
-			'Sản phẩm cần sử lý',
+			'User bị từ chối',
+			'Cửa hàng bị từ chối',
+			'Đơn hàng chưa hoàn thành',
+			'Danh mục bị từ chối',
+			'Thuộc tính bị từ chối',
+			'Thương hiệu bị từ chối',
+			'Sản phẩm bị từ chối',
 			'Chương trình khuyến mãi cần phê duyệt',
 			'Cửa hàng tham gia chương trình khuyến mãi mới',
 			'Sản phẩm mới tham gia khuyến mãi cần phê duyệt',
 			'Bình luận cần phê duyệt',
 			'Có đánh giá sản phẩm mới cần phê duyệt',	
 			'Có đánh giá cửa hàng mới cần phê duyệt',
-			'Có mã coupon mới cần phê duyệt'
+			'Có mã coupon mới cần phê duyệt',
+			'Tin nhắn chưa xem'
 		]	
 
 		
@@ -183,7 +218,11 @@ ojs_share = {
 		var data_return = "";
 		for(var i = 0; i < datas.length -1 ; i ++ ){
 			if(i == data_number &&  datas[i] > 0){
-				data_return = '<span class="news_red">' + datas[i] + '</span>';
+				var news_class = 'news_red';
+				if(i == 3 ) {
+					news_class = 'news_gray';
+				}
+				data_return = '<span class="' + news_class + '">' + datas[i] + '</span>';
 			}
 		}
 		return data_return;
@@ -223,7 +262,8 @@ ojs_share = {
 			'news_comment',
 			'news_review',	
 			'news_review_store',
-			'news_coupon'
+			'news_coupon',
+			'news_note'
 		]	
 
 		var data_config_text = [
@@ -241,7 +281,8 @@ ojs_share = {
 			'Bình luận cần phê duyệt',
 			'Có đánh giá sản phẩm mới cần phê duyệt',	
 			'Có đánh giá cửa hàng mới cần phê duyệt',
-			'Có mã coupon mới cần phê duyệt'
+			'Có mã coupon mới cần phê duyệt',
+			'Tin nhắm chưa xem'
 		]	
 
 		

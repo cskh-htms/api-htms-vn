@@ -1012,7 +1012,20 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program_product_link` (
 
 
 
+--
+-- Table structure for table `dala_notes`
+--
 
+DROP TABLE IF EXISTS `dala_notes`;
+CREATE TABLE IF NOT EXISTS `dala_notes` (
+  `dala_notes_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_notes_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_notes_user_id` int NOT NULL,
+  `dala_notes_status` TINYINT(1) NOT NULL DEFAULT '0',
+  `dala_notes_contents` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dala_notes_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Gữi thông tin cho khách hàng' AUTO_INCREMENT=1;
+COMMIT;
 
 
 

@@ -25,12 +25,261 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><%= title %></h1>
+	<h1>Quản lý <%= store_list[0].stores_name %></h1>
+
+
+
+	<script>
+	
+	
+		console.log(<%- //JSON.stringify({"sidebar_type" : sidebar_type}) %>);	
+		console.log(<%- JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);
+		console.log(<%- JSON.stringify({"list_data_count" : list_data_count}) %>);
+		console.log(<%- JSON.stringify({"store_list" : store_list}) %>);
+		console.log(<%- JSON.stringify({"Tin_nhan_tu_admin" : notes_list}) %>);
+		console.log(<%- //JSON.stringify({"product_list" : product_list}) %>);		
+		console.log(<%- //JSON.stringify({"order_list_sum" : order_list_sum}) %>);		
+		console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
+		console.log(<%- JSON.stringify({"order_list" : order_list}) %>);	
+	</script>
+
+	<%-  //ojs_share.show_news_bussiness_menu_html(news_bussiness_menu,3) -%>
+	<%-  ojs_share.show_news_bussiness_menu_home_page(news_bussiness_menu) -%>
+
+
+
+	<!-- --------------------
+	statussed 
+	--------------------- -->
+
+	<div class="store_row_btn">
+		<ul class="store_don_hang">
+			<li>
+				<a href="">
+					<span class="number">
+						<%-  list_data_count[3] %>
+					</span>Đã hoàng hành
+				</a>
+			</li>		
+			<li>
+				<a href="">
+					<span class="number">
+						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,0) %>
+					</span>Chờ xác nhận
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="number">
+						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,2) %>
+					</span>Chờ lấy hàng
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="number">
+						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,3) %>
+					</span>Đang giao
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="number">
+						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,4) %>
+					</span>Đổi trả
+				</a>
+			</li>
+		</ul>
+		<a href="/products/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_bd_green btn_add_sp">
+			Tạo sản phẩm
+		</a>
+	</div>
+
+	<!-- --------------------
+	end of statussed
+	--------------------- -->
+
+
+	<!-- --------------------
+	store_row
+	--------------------- -->
+	
+	<div class="store_row">
+		<div class="store_col store_sp_km">
+			<h2>Sản phẩm đang khuyến mãi</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price"><span>96.000đ</span>90.000đ</div>
+						<div class="sp_time">09/04 > 15/04</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="store_col store_sp_ban_chay">
+			<h2>Sản phẩm bán chạy</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sp_img"></div>
+						<h3>Mứt dâu tây lọ 200g</h3>
+						<div class="sp_price">90.000đ</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="store_col store_thong_bao">
+			<h2>Thông báo từ admin</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<span>Mứt chanh dây 250g</span>
+						đã bị từ chối, hãy chỉnh sửa lại.
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span>Kẹo dẻo</span>
+						đã bị từ chối, hãy chỉnh sửa lại.
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span>Rượu vang đỏ Đà Lạt 500ml</span>
+						đã bị từ chối, hãy chỉnh sửa lại.
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span>Rượu vang đỏ Đà Lạt 500ml</span>
+						đã bị từ chối, hãy chỉnh sửa lại.
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- --------------------
+	end of store_row
+	--------------------- -->
 
 
 
 
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+		
+		<h1>Thống kê doanh thu</h1>
+		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+			<div class="report_bock report_bock_payment">
+				<ul class="report_link_box report_bock_payment">
+					<li class="one report_link">
+						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					</li>
+					<li class="one report_link" >
+						<a href="#"  data_send="hom_qua">Hôm qua</a>
+					</li>				
+					<li class="one report_link">
+						<a href="#" data_send="tuan_nay">Tuần này</a>
+					</li>
+					<li class="one report_link">
+						<a href="#"  data_send="thang_nay" >tháng này</a>
+					</li>		
+					<li class="one report_link">
+						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+					</li>	
+					<li class="one report_link">
+						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+		</div>	
+		
+		<div id="ajax_load_payment" class="ajax_load"">
+		<% include ../masterpage/widget-bussiness-report-stores %>		
+		</div>	
 
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
+
+
+
+
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+		
+		<h1>Thống kê doanh thu</h1>
+		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+			<div class="report_bock report_bock_payment">
+				<ul class="report_link_box report_bock_payment">
+					<li class="one report_link">
+						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					</li>
+					<li class="one report_link" >
+						<a href="#"  data_send="hom_qua">Hôm qua</a>
+					</li>				
+					<li class="one report_link">
+						<a href="#" data_send="tuan_nay">Tuần này</a>
+					</li>
+					<li class="one report_link">
+						<a href="#"  data_send="thang_nay" >tháng này</a>
+					</li>		
+					<li class="one report_link">
+						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+					</li>	
+					<li class="one report_link">
+						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+		</div>	
+		
+		<div id="ajax_load_payment" class="ajax_load"">
+		<% include ../masterpage/widget-bussiness-report-stores %>		
+		</div>	
+
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
 
 
 

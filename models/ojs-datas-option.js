@@ -14,8 +14,8 @@
 3. [get_data_news_bussiness_menu]
 	news bussiness menu
 
-
-
+4.[get_all_list_datas_count]	
+	- count option theo users
 
 
 
@@ -25,7 +25,61 @@
 
 const ojs_datas_option = {
 	
-	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_all_list_datas_count]		
+	get_all_list_datas_count: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"count(options_product_speciality_ID)",
+				"users_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"options_product_speciality_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"options_product_speciality_status_stores",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				],
+				"group_by":
+				[
+					"users_ID"
+				],
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_all_list_datas_count]		
 	//@
 	//@
 	//@

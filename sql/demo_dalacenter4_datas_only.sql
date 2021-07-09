@@ -35,7 +35,8 @@ INSERT INTO `dala_service_type` (`dala_service_type_ID`, `dala_service_type_name
 
 INSERT INTO `dala_stores` (`dala_stores_ID`, `dala_stores_user_id`, `dala_stores_date_created`, `dala_stores_name`, `dala_stores_payment_limit`, `dala_stores_service_type_id`, `dala_stores_adress`, `dala_stores_province`, `dala_stores_district`, `dala_stores_wards`, `dala_stores_status_admin`, `dala_stores_status_stores`, `dala_stores_info_banking`, `dala_stores_local_x`, `dala_stores_local_y`, `dala_stores_local_adress`, `dala_stores_qoute`, `dala_stores_status_update`, `dala_stores_payment_methods`, `dala_stores_payment_time`, `dala_stores_upload_limit_day`, `dala_stores_upload_limit_month`) VALUES
 (17, 51, '2021-05-19 15:32:45', 'Cửa hàng đặt sản đà lạt DALA', 10000000, 3, 'asdasdasd', '', '', '', 1, 0, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
-(18, 52, '2021-05-19 15:32:45', 'Cửa hàng sao kim', 10000000, 3, 'asdasdasd', '', '', '', 1, 0, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300);
+(18, 52, '2021-05-19 15:32:45', 'Cửa hàng sao kim', 10000000, 3, 'asdasdasd', '', '', '', 1, 0, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
+(19, 55, '2021-05-19 15:32:45', 'Cửa hàng tuấn bảo',15000000, 3, 'd5, võ thị sáu, quyết thắng, biên hào', 'TP Biên hào', 'Quyết Thắng', 'D5, Võ thị sáu', '1', '1', '0481000862306', '', '', '', '', '1', '0', '28', '20', '300');
 --
 -- Đang đổ dữ liệu cho bảng `dala_users`
 --
@@ -125,10 +126,16 @@ VALUES
 
 (14,CURRENT_TIMESTAMP,'Trà Atiso','4','Trà Atiso','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 (15,CURRENT_TIMESTAMP,'Trà Bán chạy nhất','4','Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
-(16,CURRENT_TIMESTAMP,'Trà Giảm giá Hót','4','Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0','');
+(16,CURRENT_TIMESTAMP,'Trà Giảm giá Hót','4','Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png','','0','1','18','1','1','0',''),
 
 
+(19,CURRENT_TIMESTAMP,'demo1','4','Trà Atiso','https://appdala.com/images/dala-logo.png','','0','0','19','0','0','0',''),
+(20,CURRENT_TIMESTAMP,'demo2','4','Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png','','0','1','19','0','0','0',''),
+(21,CURRENT_TIMESTAMP,'demo3','4','Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png','','0','1','19','1','1','0',''),
 
+(22,CURRENT_TIMESTAMP,'demo4','4','Trà Atiso','https://appdala.com/images/dala-logo.png','','0','1','19','1','2','0',''),
+(23,CURRENT_TIMESTAMP,'demo5','4','Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png','','0','1','19','1','3','0',''),
+(24,CURRENT_TIMESTAMP,'demo6','4','Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png','','0','1','19','1','3','0','');
 
 --
 -- Đang đổ dữ liệu cho bảng `dala_brands`
@@ -153,9 +160,13 @@ VALUES
 (4,CURRENT_TIMESTAMP,'Biofresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '1', '1', '18', ''),
 (5,CURRENT_TIMESTAMP,'Dalat Natural Food','https://appdala.com/images/dala-logo.png','Nông lâm food','','1', '1', '1', '17', ''),
 (6,CURRENT_TIMESTAMP,'Quốc Lộc Coffee','https://appdala.com/images/dala-logo.png','BerryLand','','1', '1', '1', '18', ''),
-(7,CURRENT_TIMESTAMP,'LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '0', '1', '18', '');
+(7,CURRENT_TIMESTAMP,'LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','','1', '0', '1', '18', ''),
 
-
+(8,CURRENT_TIMESTAMP,'Ladophar1','https://appdala.com/images/dala-logo.png','Nông lâm food','','0', '0', '0', '19', ''),
+(9,CURRENT_TIMESTAMP,'Biofresh2','https://appdala.com/images/dala-logo.png','BerryLand','','1', '0', '0', '19', ''),
+(10,CURRENT_TIMESTAMP,'Dalat Natural Food3','https://appdala.com/images/dala-logo.png','Nông lâm food','','1', '1', '1', '19', ''),
+(11,CURRENT_TIMESTAMP,'Quốc Lộc Coffee4','https://appdala.com/images/dala-logo.png','BerryLand','','1', '2', '1', '19', ''),
+(12,CURRENT_TIMESTAMP,'LaFresh5','https://appdala.com/images/dala-logo.png','BerryLand','','1', '3', '1', '19', '');
 
 
 
@@ -188,8 +199,16 @@ VALUES
 
 (4,'Kích thướt','https://appdala.com/images/dala-logo.png', '0', '18', '1', '1', '1',  'Kích thướt',  CURRENT_TIMESTAMP, ''),
 (5,'Size lớn','https://appdala.com/images/dala-logo.png', '4', '18', '1', '1', '1',  'size lớn',  CURRENT_TIMESTAMP, ''),
-(6,'Size nhỏ','https://appdala.com/images/dala-logo.png', '4', '18', '1', '0', '1',  'size nhỏ',  CURRENT_TIMESTAMP, '');
+(6,'Size nhỏ','https://appdala.com/images/dala-logo.png', '4', '18', '1', '0', '1',  'size nhỏ',  CURRENT_TIMESTAMP, ''),
 
+
+(7,'Kích thướt1','https://appdala.com/images/dala-logo.png', '0', '19', '0', '0', '0',  'Kích thướt',  CURRENT_TIMESTAMP, ''),
+(8,'Size lớn2','https://appdala.com/images/dala-logo.png', '4', '19', '1', '0', '0',  'size lớn',  CURRENT_TIMESTAMP, ''),
+(9,'Size nhỏ3','https://appdala.com/images/dala-logo.png', '4', '19', '1', '1', '1',  'size nhỏ',  CURRENT_TIMESTAMP, ''),
+
+(10,'Kích thướt4','https://appdala.com/images/dala-logo.png', '0', '19', '1', '2', '1',  'Kích thướt',  CURRENT_TIMESTAMP, ''),
+(11,'Size lớn5','https://appdala.com/images/dala-logo.png', '4', '19', '1', '3', '1',  'size lớn',  CURRENT_TIMESTAMP, ''),
+(12,'Size nhỏ6','https://appdala.com/images/dala-logo.png', '4', '19', '1', '3', '1',  'size nhỏ',  CURRENT_TIMESTAMP, '');
 
 
 
@@ -307,8 +326,72 @@ VALUES
     '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','0', '1', '1','',
     '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
     '','10','10','10','200'
+),
+('8', 'demo', '0', CURRENT_TIMESTAMP, 'TRAs5', '19',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','0', '0', '0','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
+),
+('9', 'demo2', '0', CURRENT_TIMESTAMP, 'TRAss5', '19',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','0', '1', '0','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
+),
+('10', 'demo3', '0', CURRENT_TIMESTAMP, 'TRAsss5', '19',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','1', '1', '1','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
+),
+('11', 'demo4', '0', CURRENT_TIMESTAMP, 'TRAd5', '19',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','2', '1', '1','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
+),
+('12', 'demo5', '0', CURRENT_TIMESTAMP, 'TRAdd5', '19',
+    'https://appdala.com/images/dala-logo.png',
+    'https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;',
+    '	
+		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng
+		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt
+		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.
+		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.
+   ',
+    '60000','55000',  NULL, NULL, NULL,'2', 'Việt Nam','3', '1', '1','',
+    '⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ',
+    '','10','10','10','200'
 );
-
 
 
 
@@ -389,13 +472,14 @@ VALUES
 	('1','56',CURRENT_TIMESTAMP,'1','1','Biên hòa','','0948036018','custommers@gmail.com',''),
     ('2','56',CURRENT_TIMESTAMP,'1','1','Đà lạt','','0948036011','custommer2@gmail.com',''),
     ('3','56',CURRENT_TIMESTAMP,'1','1','Đồng nai','','0948036012','custommer3@gmail.com',''),
-    ('5','56',CURRENT_TIMESTAMP,'0','1','Lâm đồng','','0948036012','custommer3@gmail.com',''),	
-    ('4','56',CURRENT_TIMESTAMP,'1','1','TP HCM','','0948036013','custommer4@gmail.com','');
-
-
-
-
-
+    ('4','56',CURRENT_TIMESTAMP,'0','0','Lâm đồng','','0948036012','custommer3@gmail.com',''),	
+    ('5','56',CURRENT_TIMESTAMP,'1','1','TP HCM','','0948036013','custommer4@gmail.com',''),
+    ('6','56',CURRENT_TIMESTAMP,'2','0','TP HCM','','0948036013','custommer4@gmail.com',''),
+    ('7','56',CURRENT_TIMESTAMP,'3','0','TP HCM','','0948036013','custommer4@gmail.com',''),
+    ('8','56',CURRENT_TIMESTAMP,'4','0','TP HCM','','0948036013','custommer4@gmail.com',''),
+    ('9','56',CURRENT_TIMESTAMP,'0','0','TP HCM','','0948036013','custommer4@gmail.com','');
+	
+	
 --
 -- Đang đổ dữ liệu cho bảng dala_orders_details_speciality
 --
@@ -430,11 +514,35 @@ VALUES
 	( NULL, '4','product','6','3','17000',''),
 	( NULL, '4','product','5','3','120000',''),
 	( NULL, '4','product','4','5','29000',''),
-	( NULL, '4','product','3','3','29000','');
+	( NULL, '4','product','3','3','29000',''),
 
+	( NULL, '5','product','10','3','17000',''),
+	( NULL, '5','product','10','3','120000',''),
+	( NULL, '5','product','10','5','29000',''),
+	( NULL, '5','product','10','3','29000',''),
 
-
-
+	( NULL, '6','product','10','3','17000',''),
+	( NULL, '6','product','10','3','120000',''),
+	( NULL, '6','product','10','5','29000',''),
+	( NULL, '6','product','10','3','29000',''),
+	
+	
+	( NULL, '7','product','10','3','17000',''),
+	( NULL, '7','product','10','3','120000',''),
+	( NULL, '7','product','10','5','29000',''),
+	( NULL, '7','product','10','3','29000',''),	
+	
+	( NULL, '8','product','10','3','17000',''),
+	( NULL, '8','product','10','3','120000',''),
+	( NULL, '8','product','10','5','29000',''),
+	( NULL, '8','product','10','3','29000',''),
+	
+	
+	( NULL, '9','product','10','3','17000',''),
+	( NULL, '9','product','10','3','120000',''),
+	( NULL, '9','product','10','5','29000',''),
+	( NULL, '9','product','10','3','29000','');
+	
 
 --
 -- Đang đổ dữ liệu cho bảng dala_news
@@ -495,7 +603,7 @@ VALUES
 	(
 	6,'Dala hoàn thành kết nối API với APP', CURRENT_TIMESTAMP,'https://appdala.com/images/dala-logo.png',
     'Dala hoàn thành kết nối API với APP',
-    'Dala hoàn thành kết nối API với APP','1'
+    'Dala hoàn thành kết nối API với APP','0'
 	);
 	
 	
@@ -736,9 +844,9 @@ INSERT INTO `dala_like_store`(
     `dala_like_store_store_id`
 )
 VALUES 
-	(1, CURRENT_TIMESTAMP, '56', '17');
-
-
+	(1, CURRENT_TIMESTAMP, '56', '17'),
+	(2, CURRENT_TIMESTAMP, '56', '18'),
+	(3, CURRENT_TIMESTAMP, '56', '19');
 
 
 
@@ -789,20 +897,28 @@ INSERT INTO `dala_discount_program`(
 VALUES 
 	(1, CURRENT_TIMESTAMP, 'flash sale', '17',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','1','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Flash sale', ''
+    '0', '0','1','2','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Flash sale', ''
 	),
 
 	(2, CURRENT_TIMESTAMP, 'Mứt dâu giảm giá 40%', '17',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','2','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Mứt dâu giảm giá 40%', ''
+    '0', '0','2','2','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Mứt dâu giảm giá 40%', ''
 	),
 	(3, CURRENT_TIMESTAMP, 'Sản phẩm theo mùa', '18',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','3','1','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Sản phẩm theo mùa', ''
+    '0', '0','3','2','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi Sản phẩm theo mùa', ''
 	),
 	(4, CURRENT_TIMESTAMP, 'mua 1 tặng 1', '18',
     'https://appdala.com/images/dala-logo.png',
-    '0', '0','4','0','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi mua 1 tặng 1', ''
+    '0', '0','4','2','1', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi mua 1 tặng 1', ''
+	),
+	(5, CURRENT_TIMESTAMP, 'chương trình demo 1', '19',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','4','0','0', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi mua 1 tặng 1', ''
+	),
+	(6, CURRENT_TIMESTAMP, 'chương trình demo 2', '19',
+    'https://appdala.com/images/dala-logo.png',
+    '0', '0','4','1','0', '0', '0', '0', '0', NULL,  NULL, 'Chương trình khuyến mãi mua 1 tặng 1', ''
 	);
 
 
@@ -825,9 +941,9 @@ INSERT INTO `dala_discount_program_details`(
 VALUES  
 	(1, CURRENT_TIMESTAMP, '1', '18', '2', '1', '0', '0', '10', ''),
 	(2, CURRENT_TIMESTAMP, '2', '17', '2', '1', '0', '0', '20', ''),
-	(3, CURRENT_TIMESTAMP, '3', '18', '1', '1', '0', '0', '30', '');
-
-
+	(3, CURRENT_TIMESTAMP, '3', '18', '2', '1', '0', '0', '30', ''),
+	(4, CURRENT_TIMESTAMP, '4', '19', '0', '0', '0', '0', '30', ''),
+	(5, CURRENT_TIMESTAMP, '4', '19', '1', '1', '0', '0', '30', '');
 
 
 --
@@ -851,7 +967,11 @@ VALUES
 	
 	(6, CURRENT_TIMESTAMP, '2', '1', '1', ''),
 	(7, CURRENT_TIMESTAMP, '2', '3', '1', ''),
-	(8, CURRENT_TIMESTAMP, '2', '5', '0', '');
+	(8, CURRENT_TIMESTAMP, '2', '5', '0', ''),
+	
+	(9, CURRENT_TIMESTAMP, '4', '10', '1', ''),
+	(10, CURRENT_TIMESTAMP, '4', '8', '2', ''),
+	(11, CURRENT_TIMESTAMP, '5', '9', '2', '');	
 
 
 
@@ -894,8 +1014,84 @@ VALUES
 	( 3, CURRENT_TIMESTAMP, 'LE0209', '17',
     'Giảm giá 5% trong ngày lễ 02-09',
     '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '0', '1','0', ''
+	),
+	( 4, CURRENT_TIMESTAMP, 'LE0209s', '19',
+    'Giảm giá 5% trong ngày lễ 02-09 demo 1',
+    '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '0', '0','0', ''
+	),
+	( 5, CURRENT_TIMESTAMP, 'LE0209d', '19',
+    'Giảm giá 5% trong ngày lễ 02-09 demo 2',
+    '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '2', '1','0', ''
+	),
+	( 6, CURRENT_TIMESTAMP, 'LE0209f', '19',
+    'Giảm giá 5% trong ngày lễ 02-09 demo 3',
+    '0',  '1',  '0',  '3',  '0',  '0',  NULL,  NULL, '0', '3', '1','0', ''
 	);
+	
+	
+	
+	
+	
+	
+	
+	
+--
+-- Đang đổ dữ liệu cho bảng dala_notes
+--	
+INSERT INTO `dala_notes`(
+    `dala_notes_ID`,
+    `dala_notes_status`,
+    `dala_notes_date_created`,
+    `dala_notes_user_id`,
+    `dala_notes_contents`
+)
+VALUES  
+	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo 1'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo 2'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 3'),	
+	
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 4'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 5'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 6'),	
+	
+	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo 7'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo 8'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 9'),	
 
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 10'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 11'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 12'),	
+
+	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo 13'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo 14'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 15'),	
+
+
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 16'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 17'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 18'),	
+	
+	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo 19'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo 20'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 21'),		
+	
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 22'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 23'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 24');		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 -- 
 -- 
 -- 

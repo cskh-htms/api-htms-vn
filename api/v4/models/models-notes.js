@@ -1,15 +1,15 @@
 
 /*
 
-* 1. [insert_like_store]
+* 1. [insert_notes]
 
-* 2. [get_all_like_store]
+* 2. [get_all_notes]
 
-* 3. [get_one_like_store]
+* 3. [get_one_notes]
 
-* 4. [update_like_store]
+* 4. [update_notes]
 
-* 5. [delete_like_store]
+* 5. [delete_notes]
 
 * 6. [search]
 
@@ -55,11 +55,11 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 //@
 //@ fields select
 var sql_select_all = 	"" + 	
-	ojs_configs.db_prefix  + "like_store_ID as like_store_ID, " + 
-	"DATE_FORMAT(" + ojs_configs.db_prefix  + "like_store_date_created,'%Y/%m/%d %H:%i:%s') as like_store_date_created, " +	
-	ojs_configs.db_prefix  + "like_store_user_id as like_store_user_id, " + 
-	ojs_configs.db_prefix  + "like_store_status as like_store_status, " + 	
-	ojs_configs.db_prefix  + "like_store_store_id as like_store_store_id " ;
+	ojs_configs.db_prefix  + "notes_ID as notes_ID, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "notes_date_created,'%Y/%m/%d %H:%i:%s') as notes_date_created, " +	
+	ojs_configs.db_prefix  + "notes_user_id as notes_user_id, " + 
+	ojs_configs.db_prefix  + "notes_status as notes_status, " + 
+	ojs_configs.db_prefix  + "notes_contents as notes_contents ";
 
 
 //@
@@ -67,7 +67,7 @@ var sql_select_all = 	"" +
 //@
 //@from
 var sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "like_store "  
+	ojs_configs.db_prefix + "notes "  
 	
 	
 var sql_link_default = 	"";	
@@ -81,13 +81,8 @@ var sql_link_search = 	"" +
 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "like_store_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " +    
-	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "stores  ON  " + 
-	ojs_configs.db_prefix + "like_store_store_id  = " + 
-	ojs_configs.db_prefix + "stores_ID " 	  
+	ojs_configs.db_prefix + "notes_user_id  = " + 
+	ojs_configs.db_prefix + "users_ID ";  
 	
 	
 
@@ -96,7 +91,7 @@ var sql_link_search = 	"" +
 //@
 //@order	
 var sql_order_default = " order by " + 
-	ojs_configs.db_prefix + "like_store_date_created ASC ";
+	ojs_configs.db_prefix + "notes_date_created DESC ";
 	
 	
 	
@@ -105,18 +100,18 @@ var sql_order_default = " order by " +
 //@
 //@
 //@
-//@ * 1. [insert_like_store]
-var insert_like_store = async function (datas) {
+//@ * 1. [insert_notes]
+var insert_notes = async function (datas) {
 	
 	//@
 	//@
 	//@
 	//@
-	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "like_store  SET ?";
+	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "notes  SET ?";
 	var dataGo = {
-			"like_store_user_id"				: datas.like_store_user_id,
-			"like_store_store_id"				: datas.like_store_store_id,
-			"like_store_status"					: datas.like_store_status
+			"notes_user_id"				: datas.notes_user_id,
+			"notes_contents"			: datas.notes_contents,
+			"notes_status"				: datas.notes_status
 	}
 	
 	//@
@@ -140,12 +135,12 @@ var insert_like_store = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_like_store_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "model_notes_insert-> error_nymber : 1", "message" : error } ;
 	}
 
 };
 
-//@ end of * 1. [insert_like_store]
+//@ end of * 1. [insert_notes]
 
 
 
@@ -155,8 +150,8 @@ var insert_like_store = async function (datas) {
 //@@
 //@@
 //@@
-//@ * 2. [get_all_like_store]
-var get_all_like_store = async function () {
+//@ * 2. [get_all_notes]
+var get_all_notes = async function () {
 	
 	
 	
@@ -175,13 +170,13 @@ var get_all_like_store = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_like_store_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "model_notes_insert->get_all-> error_nymber : 1", "message" : error } ;
 	}
 };
 
 
 
-//@ end of * 2. [get_all_like_store]
+//@ end of * 2. [get_all_notes]
 
 
 
@@ -190,14 +185,14 @@ var get_all_like_store = async function () {
 //@
 //@
 //@
-//@ * 3. [get_one_like_store]
-const get_one_like_store = async function (like_store_id) {
+//@ * 3. [get_one_notes]
+const get_one_notes = async function (note_id) {
 	//create sql text
 	var sql_text = 	"SELECT " +  sql_select_all + 
 					sql_from_default + 
 					sql_link_default + 
 					" where " +  
-					ojs_configs.db_prefix + "like_store_ID = '" + like_store_id + "' "				
+					ojs_configs.db_prefix + "notes_ID = '" + note_id + "' "				
 	
 	//return sql_text;
 	
@@ -211,11 +206,11 @@ const get_one_like_store = async function (like_store_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_like_store->get_one_like_store->error-number : 1", "message" : error } ;
+		return  { "error" : "model_notes->get_one_notes->error-number : 1", "message" : error } ;
 	}
 };
 
-//@ * end of  3. [get_one_like_store]
+//@ * end of  3. [get_one_notes]
 
 
 
@@ -223,8 +218,8 @@ const get_one_like_store = async function (like_store_id) {
 //@
 //@
 //@
-//@* 4. [update_like_store]
-const update_like_store = async function (datas,like_store_id) {
+//@* 4. [update_notes]
+const update_notes = async function (datas,note_id) {
 	
 	var sqlSet = "";
 	
@@ -264,10 +259,10 @@ const update_like_store = async function (datas,like_store_id) {
 	});		
 
 
-	var table_name  = ojs_configs.db_prefix + "like_store ";
-	var field_where  = ojs_configs.db_prefix + "like_store_ID ";
+	var table_name  = ojs_configs.db_prefix + "notes ";
+	var field_where  = ojs_configs.db_prefix + "notes_ID ";
 	//create sql text
-	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ like_store_id + '"';
+	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ note_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -278,26 +273,26 @@ const update_like_store = async function (datas,like_store_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->like_store->update->error_number : 1", "message" : error } ;
+		return  { "error" : "model->notes->update->error_number : 1", "message" : error } ;
 	}
 };
 
 
 
-//@* end of 4. [update_like_store]
+//@* end of 4. [update_notes]
 
 
 //@
 //@
 //@
 //@
-//@* 5. [delete_like_store]
-const delete_like_store = async function (like_store_id) {
+//@* 5. [delete_notes]
+const delete_notes = async function (note_id) {
 
-	var table_name  = ojs_configs.db_prefix + "like_store ";
-	var field_where  = ojs_configs.db_prefix + "like_store_ID ";
+	var table_name  = ojs_configs.db_prefix + "notes ";
+	var field_where  = ojs_configs.db_prefix + "notes_ID ";
 	//create sql text
-	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ like_store_id + '"';
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ note_id + '"';
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -311,13 +306,13 @@ const delete_like_store = async function (like_store_id) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_like_store->delete->error_numbaer : 1 ", "message": error_send } ); 
+		res.send({ "error" : "model_notes->delete->error_numbaer : 1 ", "message": error_send } ); 
 		return;	
 	}
 };
 
 
-//@* end of 5. [delete_like_store]
+//@* end of 5. [delete_notes]
 
 
 
@@ -326,7 +321,7 @@ const delete_like_store = async function (like_store_id) {
 //@
 //@
 //@
-//@* 6. [delete_like_store]
+//@* 6. [delete_notes]
 const search = async function (datas) {
 	
 	//@
@@ -341,7 +336,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_like_store->search->error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "model_notes->search->error_number : 2", "message": error_send } ); 
 		return;	
 	}	
 	//return get_sql_search;
@@ -361,7 +356,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_like_store->search->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "model_notes->search->error_number : 1", "message": error_send } ); 
 		return;	
 	}
 };
@@ -376,17 +371,17 @@ const search = async function (datas) {
 //@
 //@
 //@
-// 7. [get_owner_like_store]
-const get_owner_like_store = async function (datas) {
+// 7. [get_owner_notes]
+const get_owner_notes = async function (datas) {
 	//return datas;
 	//create sql text
-	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "like_store_ID  "  + 
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "notes_ID  "  + 
 					sql_from_default + 
-					sql_link_search + 
+					sql_link_default + 
 					" WHERE " +  
-							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							ojs_configs.db_prefix + "notes_user_id = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
-							ojs_configs.db_prefix + "like_store_ID  = '" + datas.datas.like_store_id + "' " 
+							ojs_configs.db_prefix + "notes_ID  = '" + datas.datas.note_id + "' " 
 	
 	//return sql_text;
 	//@
@@ -401,11 +396,11 @@ const get_owner_like_store = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_like_store->get_owner_like_storet->error_number : 1", "message" : error } ;
+		return  { "error" : "models_notes->get_owner_notest->error_number : 1", "message" : error } ;
 	}
 };
 
-// 7. [get_owner_like_store]
+// 7. [get_owner_notes]
 
 
 
@@ -415,12 +410,12 @@ const get_owner_like_store = async function (datas) {
 //export module
 module.exports = {
 			search,
-			insert_like_store,
-			get_one_like_store,
-			update_like_store,
-			delete_like_store,
-			get_all_like_store,
-			get_owner_like_store
+			insert_notes,
+			get_one_notes,
+			update_notes,
+			delete_notes,
+			get_all_notes,
+			get_owner_notes
 };
 
 

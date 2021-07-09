@@ -237,6 +237,12 @@ router.use('/like-store', require('./routers-like-store'));
 
 
 
+/*------------------------------------------------
+		notes
+---------------------------------------------- */
+router.use('/notes', require('./routers-notes'));
+
+
 
 
 

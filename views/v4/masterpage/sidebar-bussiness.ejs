@@ -4,23 +4,6 @@ if( ( typeof user_id == 'number' || typeof user_id == 'string') && user_id){ use
 %>
 
 
-<% if( typeof store_list == 'object' 
-&& store_list && store_list.length > 0){
-	store_list = store_list;
-} else{ 
-	store_list=[] ;
-} %>
-
-<%
-//order check
-if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) { 
-	news_sum = '<span class="red">' + news_sum + '</span>';
-} else{ 
-	news_sum = "";
-}
-
-%>
-
 
 
 

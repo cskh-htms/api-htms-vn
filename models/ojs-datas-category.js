@@ -20,6 +20,70 @@
 */
 
 const ojs_datas_category = {
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_all_list_datas_count]	
+	//@ - count (số lượng category theo cửa hàng)
+	get_all_list_datas_count: function(datas){
+		
+		//return datas;
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"count(category_general_speciality_ID)",
+				"users_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"category_general_speciality_admin_status",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"category_general_speciality_stores_status",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				],
+				"group_by" :
+				 [
+					"users_ID"
+				 ]  
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_all_list_datas_count]	
+	
+		
+	
+	
 	//@
 	//@
 	//@

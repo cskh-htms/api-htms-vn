@@ -1,28 +1,3 @@
-<% if( ( typeof store_id == 'number' || typeof store_id == 'string' ) && store_id){ } else{ store_id = "0" } %>
-<% if(  typeof service_type_name  == 'string'  && service_type_name ){ } else{ service_type_name = "" } %>
-
-<% if( ( typeof store_name  == 'string'
- ||  typeof store_name  == 'number' ) 
- && store_name  && store_name.length > 0)
- {
-	store_name = store_name 
-} else{ 
-	store_name  = "" 
-} %>
-
-
-
-
-<%
-//order check
-if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) { 
-	news_sum = '<span class="red">' + news_sum + '</span>';
-} else{ 
-	news_sum = "";
-}
-
-%>
-
 
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
@@ -38,15 +13,18 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		
 		<!-- //cua hàng  -->
 		<li class="store_name">
-			<a href="/bussiness/<%= user_id %>" title="Về trang chủ"><i class="fas fa-home"></i></a><i class="fas fa-chevron-right"></i><div class="menu-name"><%= store_name %> </div>	
+			<a href="/bussiness/<%= user_id %>" title="Về trang chủ">
+			<i class="fas fa-home"></i><i class="fas fa-chevron-left"></i><div class="menu-name">Quản lý doanh nghiệp</div>	
+			</a>			
 		</li>	
+		
 		<!--
 		//Tổng quan
 		-->
 		<li id="sidebar_quan_ly">
 			<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
 				<i class="fas fa-tachometer-alt"></i>
-				<div class="menu-name">Tổng quan <%- news_sum %></div>
+				<div class="menu-name">Tổng quan  <%-  ojs_share.show_news_bussiness_menu_sum(news_bussiness_menu)  -%></div>
 			</a>
 		</li>
 		<!--
@@ -55,7 +33,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		<li id="sidebar_don_hang">
 			<a href="/stores/manage/orders/<%= store_id %>/all">
 				<i class="fas fa-clipboard-list"></i>
-				<div class="menu-name">Đơn hàng</div>
+				<div class="menu-name">Đơn hàng <%-  ojs_share.show_count_bussiness_menu_html(list_data_count,3)  -%></div>
 			</a>
 		</li>		
 		
@@ -63,33 +41,42 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		//Sản phẩm
 		-->
 		<li id="sidebar_san_pham">
-			<a href="/products/<%= service_type_name %>/<%= store_id %>">
+			<a href="/products/<%= store_list[0].service_type_name %>/<%= store_id %>">
 				<i class="fas fa-box-open"></i>
-				<div class="menu-name">Sản phẩm</div>
+				<div class="menu-name">
+					Sản phẩm
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,7)  -%>					
+				</div>
 			</a>
-			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a href="/products/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>	
 
 		<!--
 		//Danh mục
 		-->
 		<li id="sidebar_danh_muc">
-			<a href="/categorys/general/<%= service_type_name %>/<%= store_id %>">
+			<a href="/categorys/general/<%= store_list[0].service_type_name %>/<%= store_id %>">
 				<i class="fas fa-archive"></i>
-				<div class="menu-name">Danh mục</div>
+				<div class="menu-name">
+				Danh mục
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,4)  -%>	
+				</div>
 			</a>
-			<a href="/categorys/general/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a href="/categorys/general/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>
 		
 		<!--
 		//Tùy chọn
 		-->
 		<li id="sidebar_option">
-			<a href="/options/<%= service_type_name %>/<%= store_id %>">
+			<a href="/options/<%= store_list[0].service_type_name %>/<%= store_id %>">
 				<i class="fas fa-filter"></i>
-				<div class="menu-name">Tùy chọn</div>
+				<div class="menu-name">
+				Tùy chọn
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,5)  -%>				
+				</div>
 			</a>
-			<a href="/options/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a href="/options/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>
 		
 		<!--
@@ -98,7 +85,10 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		<li id="sidebar_thuong_hieu">
 			<a href="/brands/<%= store_id %>"> 
 				<i class="fas fa-award"></i>
-				<div class="menu-name">Thương hiệu</div>
+				<div class="menu-name">
+					Thương hiệu
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,6)  -%>				
+				</div>
 			</a>
 			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>
@@ -108,7 +98,10 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 		<li id="sidebar_chinh_sua_cua_hang">
 			<a href="/bussiness/stores/show/<%= store_id %>/<%= user_id %>">
 				<i class="fas fa-store"></i>
-				<div class="menu-name">Thông tin</div>
+				<div class="menu-name">
+				Tin nhắn 
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,15)  -%>				
+				</div>
 			</a>
 		</li>
 				
