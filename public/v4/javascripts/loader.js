@@ -115,8 +115,8 @@ $(document).ready(function($){
 		tinh_thanh_datas:[],
 		//Khai báo hosting global
 		//khi đổi tên miền có thể thay đổi biến này
-		host : "http://localhost:2021",
-		//host:"https://appdala.com",
+		//host : "http://localhost:2021",
+		host:"https://appdala.com",
 		//
 		//
 		//
