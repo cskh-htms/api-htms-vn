@@ -81,6 +81,9 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "products_speciality_image_slider as products_speciality_image_slider, " + 
 	ojs_configs.db_prefix  + "products_speciality_contents as products_speciality_contents, " + 
 	
+	ojs_configs.db_prefix  + "products_speciality_origin as products_speciality_origin, " + 
+	
+	
 	ojs_configs.db_prefix  + "products_speciality_price as products_speciality_price, " + 
 	ojs_configs.db_prefix  + "products_speciality_sale_of_price as products_speciality_sale_of_price, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "products_speciality_date_start,'%Y/%m/%d %H:%i:%s') as products_speciality_date_start, " + 
@@ -204,7 +207,7 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_featured_image" : mysql.escape(datas.products_speciality_featured_image).replace(/^'|'$/gi, ""),
 			"products_speciality_image_slider" : mysql.escape(datas.products_speciality_image_slider).replace(/^'|'$/gi, ""),
 			"products_speciality_contents" : mysql.escape(datas.products_speciality_contents).replace(/^'|'$/gi, ""),
-			
+			"products_speciality_origin" : mysql.escape(datas.products_speciality_origin).replace(/^'|'$/gi, ""),
 
 			"products_speciality_price" : datas.products_speciality_price,
 			"products_speciality_sale_of_price" : datas.products_speciality_sale_of_price,

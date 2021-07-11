@@ -22,6 +22,7 @@
 				products_speciality_featured_image : '',
 				products_speciality_image_slider : '',
 				products_speciality_contents : '',
+				products_speciality_origin : '',
 				
 				
 				products_speciality_price : '',
