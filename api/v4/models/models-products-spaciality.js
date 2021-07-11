@@ -455,10 +455,12 @@ const update_products_spaciality = async function (datas,product_id,cat_string,o
 	//@
 	try{
 		if(cat_string){
-			var cat_arr = JSON.parse(cat_string);
+			//var cat_arr = JSON.parse(cat_string);
+			var cat_arr = cat_string;
 		}
 		if(option_string){
-			var option_arr = JSON.parse(option_string);
+			//var option_arr = JSON.parse(option_string);
+			var option_arr = option_string;
 		}	
 	}
 	catch(error){

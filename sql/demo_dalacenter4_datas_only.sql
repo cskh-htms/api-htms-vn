@@ -1043,41 +1043,42 @@ INSERT INTO `dala_notes`(
     `dala_notes_status`,
     `dala_notes_date_created`,
     `dala_notes_user_id`,
+	`dala_notes_title`,
     `dala_notes_contents`
 )
 VALUES  
-	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo 1'),
-	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo 2'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 3'),	
+	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 1'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 2'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 3'),	
 	
-	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 4'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 5'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo 6'),	
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 4'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 5'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '56', 'Thông báo demo','Thông báo demo 6'),	
 	
-	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo 7'),
-	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo 8'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 9'),	
+	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 7'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 8'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 9'),	
 
-	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 10'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 11'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo 12'),	
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 10'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 11'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '51', 'Thông báo demo','Thông báo demo 12'),	
 
-	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo 13'),
-	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo 14'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 15'),	
+	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 13'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 14'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 15'),	
 
 
-	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 16'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 17'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo 18'),	
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 16'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 17'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '52', 'Thông báo demo','Thông báo demo 18'),	
 	
-	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo 19'),
-	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo 20'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 21'),		
+	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 19'),
+	(NULL,  '0', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 20'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 21'),		
 	
-	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 22'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 23'),
-	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo 24');		
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 22'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 23'),
+	(NULL,  '1', CURRENT_TIMESTAMP, '55', 'Thông báo demo','Thông báo demo 24');		
 	
 	
 	

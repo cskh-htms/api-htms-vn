@@ -1,28 +1,184 @@
-var express = require('express');
-var router = express.Router();
+//@
+//@
+//@
+//@
+//@ loader express
+const express = require('express');
+const router = express.Router();
+
+
+//@
+//@
+//@
+//@ loader extends module
 const fetch = require('node-fetch');
 
+
+//@
+//@
+//@
+//@ loader configs
 const ojs_configs = require('../../configs/config');
-const ojs_shares = require('../../models/ojs-shares');
-const ojs_datas = require('../../models/ojs-datas.js');
 
 
 
-const ojs_datas_orders = require('../../models/ojs-datas-orders.js');
-const ojs_datas_stores = require('../../models/ojs-datas-stores.js');
-const ojs_datas_category = require('../../models/ojs-datas-category.js');
 //@
 //@
-//@@@@@@@@@@@@
-//@@@@@@@@@@@@
+//@
+//@ loader function shares
+const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
+const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-list-datas');
+const ojs_shares_get_all_list_datas_all = require('../../models/ojs-shares-get-all-list-datas-all');
+const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
+const ojs_shares_news_bussiness_menu = require('../../models/ojs-shares-news-bussiness-menu');
+
+
+const ojs_shares_others = require('../../models/ojs-shares-others');
+const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
+const ojs_shares_date = require('../../models/ojs-shares-date');
+const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
+
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+/* 
+---------------------------------------------------------------
+
+* 1. [ajax_load_order_bussiness_store]
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+*/
+
+
 
 //@
 //@
-//@@@@@@@@@@@@
-//@@@@@@@@@@@@
-//@@
 //@
-//danh sách
+//@
+//@ 1. [ajax_load_order_bussiness_store]
+router.post('/ajax_load_order_bussiness_store/', async  function(req, res, next) {
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;	
+		var store_id = datas.store_id;		
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);	
+	
+	//res.send( [token,store_id,user_id] );	
+	//return;		
+	
+	
+
+	//--------------------------------------------------
+	//             datas-orders
+	// -------------------------------------------------
+	
+	
+	//@
+	//@
+	//@
+	//@ get_orders_datas
+	
+
+	
+	
+	var datas_orders_edit = {
+		'date_star':datas.date_star,
+		'date_end':datas.date_end,
+		'store_compare' : '=',
+		'status_admin_compare': 'in',
+		'status_admin_value':JSON.parse(datas.status_send),
+	}	
+	var datas_orders_edit_x = {...ojs_configs.orders_all};
+	var datas_orders_edit_s = Object.assign(datas_orders_edit_x,datas_orders_edit);	
+	
+	
+	//res.send( datas_orders_edit2_s );	
+	//return;
+	
+	var datas_get_orders_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,		
+		'order_sum_count' : datas_orders_edit_s,
+	}
+	
+	//res.send( datas_get_orders_datas );	
+	//return;	
+
+	//@
+	//@
+	//@	
+	//@
+	var get_orders_datas;
+	try{
+		get_orders_datas = await ojs_shares_get_orders_datas.get_orders_datas(datas_get_orders_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers store web -> get_orders_datas -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send(get_orders_datas);
+	//return;	
+	
+	
+	
+	//send web
+	data_send = {
+		'orders_list' : get_orders_datas[4].datas
+	}
+	
+	res.render( ojs_configs.view_version + '/masterpage/widget-order-show-table-stores', data_send );	
+
+});
+
+
+
+
+
+
+
+
+
+
+
 router.get('/', async function(req, res, next) {
 	//
 	let token = req.session.token;	
@@ -946,90 +1102,7 @@ router.post('/ajax_load_order_bussiness/', async  function(req, res, next) {
 //@
 //* ajax_load_order_bussiness
 //* load don hang tren trang bussiness ajax
-router.post('/ajax_load_order_bussiness_store/', async  function(req, res, next) {
-	//
-	let token = req.session.token;	
-	let datas  = req.body.datas;
-	//@
-	//@
-	//@@
-	//@@
-	let datas_check = {
-		"token":token
-	}
-	
-	//res.send(datas_check );	
-	//return;		
-	let check_datas_result;
-	try{
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "2.1.router_bussiness(app)->ajax_load_order_bussiness_store", "message": error_send } ); 
-		return;			
-	}
-	
-	//res.send(check_datas_result );	
-	//return;	
-	
-	
-	
-	//@
-	//@
-	//@
-	//kiem tra role
-	if(check_datas_result.error != ""){
-		var evn = ojs_configs.evn;
-		//////evn = "dev";;;
-		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "2.2.router_bussiness(app)->ajax_load_order_bussiness_store", "message": error_send } ); 
-		return;			
-	}
-	
-	
-	
-	var orders_list;
-	try {
-		var orders_list = await ojs_shares.get_data_send_token_post( 
-			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/orders/speciality/search', 
-			ojs_datas_orders.get_data_orders_detail_bussiness_store_ajax(datas.store_id,datas.date_star, datas.date_end,JSON.parse(datas.status_send)),
-			token
-		);
-		
-		
-		//res.send(orders_list);
-		//return;
-		
-		
-		if(orders_list.error != ""){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn,orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "39.router->bussiness-orders->ajax_load_order_bussiness_store", "message": error_send } ); 
-			return;				
-		}	
-		
-	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "38.router->bussiness-orders->ajax_load_order_bussiness_store", "message": error_send } ); 
-			return;		
-	}
-	//			
-	
-	//send web
-	data_send = {
-		'orders_list' : orders_list.datas
-	}
-	
-	res.render( check_datas_result.view_version + '/masterpage/widget-order-show-table-stores', data_send );	
 
-});
 //end of get admin
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		

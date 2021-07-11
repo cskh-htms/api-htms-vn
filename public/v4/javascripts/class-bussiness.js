@@ -1,10 +1,173 @@
 
+
+/*
+------------------------------------------------------------
+
+
+1. [ajax_load_option_no]
+
+2. [ajax_load_category_no]
+
+3. [ajax_load_order_bussiness_store]
+
+
+4. [ajax_load_products]	
+
+
+
+
+
+----------------------------------------------------------------
+*/
+
+
 $(document).ready(function($){
 
-	ojs_bussiness = {	
-		//
-		//
+	ojs_bussiness = {
 		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@	4. [ajax_load_products]		
+		ajax_load_products	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/products/speciality/ajax-products-list/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@	3. [ajax_load_order_bussiness_store]	
+		ajax_load_order_bussiness_store	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/ajax_load_order_bussiness_store/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				//console.log(result);
+				ojs_loadding.ajax_hide_loadding();
+				$('#ajax-wrap').html(result);
+				//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@ 2. [ajax_load_category_no]			
+		ajax_load_category_no	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/categorys/general/speciality/ajax-category-list-no/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@ 1. [ajax_load_option_no]	
+		ajax_load_option_no	: function(datas){		
+		
+		
+		
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/options/speciality/ajax-option-list-no/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save
+
+
+
+
+	
 	
 		//		
 		//
@@ -42,30 +205,7 @@ $(document).ready(function($){
 		//
 		//
 		//load products bussiness
-		ajax_load_products	: function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/ajax-products-list/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					console.log(result);
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save				
+			
 		//		
 		
 		//		
@@ -130,30 +270,7 @@ $(document).ready(function($){
 		//
 		//
 		//load products bussiness
-		ajax_load_category_no	: function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/categorys/general/speciality/ajax-category-list-no/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					console.log(result);
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save				
+				
 		//		
 								
 		
@@ -251,27 +368,7 @@ $(document).ready(function($){
 		//@
 		//@
 		//load option bussiness
-		ajax_load_option_no	: function(datas){		
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/options/speciality/ajax-option-list-no/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					//console.log(result);
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save				
+			
 		//			//@
 		//@
 		//@==================
@@ -467,30 +564,7 @@ $(document).ready(function($){
 		//@
 		//@
 		//* ajax_load_order_bussiness
-		ajax_load_order_bussiness_store	: function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/orders/speciality/ajax_load_order_bussiness_store/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-				console.log(result);
-				ojs_loadding.ajax_hide_loadding();
-				$('#ajax-wrap').html(result);
-				//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save	
+	
 
 
 		//@

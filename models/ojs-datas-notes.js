@@ -174,7 +174,8 @@ const ojs_datas_notes = {
 				[
 					"notes_date_created",
 					"notes_ID",
-					"notes_user_id",				
+					"notes_user_id",	
+					"notes_title",					
 					"notes_contents",
 					"notes_status"
 				],

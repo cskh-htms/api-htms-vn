@@ -21,15 +21,23 @@
 
 	   <tr>
 			<td class="user-name"><a href="#"><%= datas_category_general[x].category_general_speciality_name %></a>
-				<div class="row-actions">
-					<span class="edit">
-						<a href="/categorys/general/speciality/show/<%= datas_category_general[x].category_general_speciality_ID %>/<%= datas_category_general[x].stores_ID %>">
-						Chỉnh sửa</a> | 
-					</span>
-					<span class="delete">
-						<a href="#" data_cat_id="<%= datas_category_general[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a>
-					</span>
-				</div>
+				<% //neu nếu đã chấp nhận thì ko cho update nua
+				if( datas_category_general[x].category_general_speciality_admin_status != "1" ){ %>
+			
+					<div class="row-actions">
+						<span class="edit">
+							<a href="/categorys/general/speciality/show/<%= datas_category_general[x].category_general_speciality_ID %>/<%= datas_category_general[x].stores_ID %>">
+							Chỉnh sửa</a> | 
+						</span>
+						<span class="delete">
+							<a href="#" data_cat_id="<%= datas_category_general[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a>
+						</span>
+					</div>
+					
+				<% //enf of if
+				}
+				%>						
+					
 			</td>
 		
 			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas_category_general[x].category_general_speciality_admin_status) %></td>

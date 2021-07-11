@@ -47,12 +47,8 @@
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
-		arr_check_name.forEach(function(item) {
-			if(item == "products_speciality_price"){
-				if(check_data_fields.check_datas.check_empty(datas.products_speciality_price) == false){check_errer =  "giá sản phẩm là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_number(datas.products_speciality_price) == false){check_errer =  "giá sản phẩm là số";	return;}
-			}			
-			if(item == "products_speciality_name"){
+		arr_check_name.forEach(function(item) {		
+			if(item == "products_speciality_names"){
 				if(check_data_fields.check_datas.check_empty(datas.products_speciality_name) == false){check_errer =  "tên phẩm là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
 			}
 		});

@@ -288,7 +288,7 @@ const check_owner = async function(datas_check){
 				var user_id = jwt.decode(datas_check.token).users_ID;
 				var brand_id = datas_check.brand_id;
 				
-				//return {"datas": [user_id,option_id]};
+				//return {"datas": [user_id,brand_id]};
 				
 				//@
 				//@

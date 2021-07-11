@@ -27,6 +27,9 @@ content
 <div id="content" class="content">
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
 	<a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm</a><i class="fas fa-chevron-right"></i>Thêm sản phẩm</h1>
+	
+	
+	
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
@@ -203,22 +206,25 @@ content
 			
 			
 		</div>
-	</div>			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	</div>				
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 			
 	
 <div class="btn_box">
 	<a href="/products/speciality/ <%= store_id %>" class="btn_back">Quay về</a>
-	<a href="#" class="btn_back">Lưu & Ẩn</a>
+	<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
 	<button id="btn_save" class="btn_save">Đăng</button>
 </div>
 	
@@ -293,7 +299,7 @@ $(document).ready(function($){
 	});
 	//@
 	$("#upload_image").on("change",function(){
-		let input = this;
+		var input = this;
 		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
 	});		
 	//
@@ -302,14 +308,14 @@ $(document).ready(function($){
 		e.preventDefault();		
 		
 		// xoa image s3
-		let products_speciality_featured_image = $('#featured_image').attr("data_value");
-		let url = products_speciality_featured_image;
+		var products_speciality_featured_image = $('#featured_image').attr("data_value");
+		var url = products_speciality_featured_image;
 		
 		//console.log(url);
 		//return;
 		
 		
-		ojs_loader.delete_s3(url);
+		ojs_loader.devare_s3(url);
 		
 		//$('#featured_image').attr("data_s3","");
 		//xoa html
@@ -340,7 +346,7 @@ $(document).ready(function($){
 	//
 	//upload anh slider
 	$("#upload_image_arr").on("change",function(){
-		let input = this;
+		var input = this;
 		//alert('change');
 		ojs_loader.upload_anh_slider(input,"slider_image","arrImgBox")
 	});			
@@ -409,42 +415,63 @@ $(document).ready(function($){
 	
 	
 	
+	$(document).on('click','#btn_draf',function(e) {		
+		e.preventDefault();	
+		var datas = get_datas();
+		datas.datas.products_speciality_status_store = 0;
+		console.log(datas);
+		
+	});//end of save ajax	
 	
-	
-	
-	
-	// ajax luu san pham
 	$(document).on('click','#btn_save',function(e) {		
-		e.preventDefault();
+		e.preventDefault();	
+		var datas = get_datas();
+		datas.datas.products_speciality_status_store = 1;		
+		console.log(datas);				
+	});//end of save ajax
+
+
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ function get datas
+	function get_datas(){
 		
-		let cat_arr = [];
-		let ojs_cat = $('#category_inner').find('.cat_check');
 		
-		for(let i = 0; i < ojs_cat.length ; i ++ ){
+
+		
+		var cat_arr = [];
+		var ojs_cat = $('#category_inner').find('.cat_check');
+		
+		for(var i = 0; i < ojs_cat.length ; i ++ ){
 			if(    $(ojs_cat[i]).prop("checked")    ){
-				let x = $(ojs_cat[i]).val();
+				var x = $(ojs_cat[i]).val();
 				cat_arr.push(x);
 			}
 		}
 		//cat_arr = [1,2,"a",4];
-		let cat_string = cat_arr;
+		var cat_string = cat_arr;
 		//console.log(cat_string);		
 		//return;		
 
 		//@
 		//@
 		//danh sach option
-		let option_arr = [];
-		let ojs_option = $('#option_inner').find('.option_check');
+		var option_arr = [];
+		var ojs_option = $('#option_inner').find('.option_check');
 		
-		for(let i = 0; i < ojs_option.length ; i ++ ){
+		for(var i = 0; i < ojs_option.length ; i ++ ){
 			if(    $(ojs_option[i]).prop("checked")    ){
-				let x = $(ojs_option[i]).val();
+				var x = $(ojs_option[i]).val();
 				option_arr.push(x);
 			}
 		}
 		//@
-		let option_string = option_arr;		
+		var option_string = option_arr;		
 		//console.log(option_string);
 		//return;
 
@@ -453,34 +480,34 @@ $(document).ready(function($){
 		
 		
 		//@
-		let products_speciality_name = $('#products_speciality_name').val();
-		let products_speciality_type = $('#products_speciality_type  option:selected').val();
-		let products_speciality_sku = $('#products_speciality_sku').val();
-		let products_speciality_store_id = $('#store_id').val();		
+		var products_speciality_name = $('#products_speciality_name').val();
+		var products_speciality_type = $('#products_speciality_type  option:selected').val();
+		var products_speciality_sku = $('#products_speciality_sku').val();
+		var products_speciality_store_id = $('#store_id').val();		
 		
-		let products_speciality_featured_image = $('#featured_image').attr("data_value");
-		let products_speciality_image_slider = $('#slider_image').attr("data_value");			
+		var products_speciality_featured_image = $('#featured_image').attr("data_value");
+		var products_speciality_image_slider = $('#slider_image').attr("data_value");			
 		
-		let products_speciality_contents = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");
-		let products_speciality_excerpt = tinymce.get("excerpt").getContent().replace(/&nbsp;/gi, "");
-		
-		
-		let products_speciality_qoute = $('#products_speciality_qoute').val();
+		var products_speciality_contents = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");
+		var products_speciality_excerpt = tinymce.get("excerpt").getContent().replace(/&nbsp;/gi, "");
 		
 		
-		
-		
-		let products_speciality_price = $('#products_speciality_price').attr("data_value")
-		let products_speciality_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value")
+		var products_speciality_qoute = $('#products_speciality_qoute').val();
 		
 		
 		
-		let date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
-		let products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
+		
+		var products_speciality_price = $('#products_speciality_price').attr("data_value")
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value")
+		
+		
+		
+		var date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
+		var products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
 
 		
-		let date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
-		let products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		var date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
+		var products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
 		
 		if(products_speciality_date_end.length > 0){			
 			products_speciality_date_end = products_speciality_date_end + " 23:59:59"
@@ -490,28 +517,26 @@ $(document).ready(function($){
 		
 		
 		
-		let products_speciality_stock = $('#products_speciality_stock').attr("data_value")
+		var products_speciality_stock = $('#products_speciality_stock').attr("data_value")
 		
-		let products_speciality_brand = $('#products_speciality_brand  option:selected').val();		
-		let products_speciality_status_store = $('#products_speciality_status_store  option:selected').val();
+		var products_speciality_brand = $('#products_speciality_brand  option:selected').val();		
 			
-		let products_speciality_variation_option = $('#products_speciality_variation_option').val() ;
+		var products_speciality_variation_option = $('#products_speciality_variation_option').val() ;
 		
 		
-		let products_speciality_height = $('#products_speciality_height').attr("data_value")
-		let products_speciality_width = $('#products_speciality_width').attr("data_value")
-		let products_speciality_length = $('#products_speciality_length').attr("data_value")
-		let products_speciality_weight = $('#products_speciality_weight').attr("data_value")
-		
-		let products_speciality_discount = $('#products_speciality_discount').attr("data_value")
+		var products_speciality_height = $('#products_speciality_height').attr("data_value")
+		var products_speciality_width = $('#products_speciality_width').attr("data_value")
+		var products_speciality_length = $('#products_speciality_length').attr("data_value")
+		var products_speciality_weight = $('#products_speciality_weight').attr("data_value")
 		
 		
-		let products_speciality_unit_discount = $('#products_speciality_unit_discount  option:selected').val();
 		
 		
-		let user_id = $('#user_id').val();
+		var user_id = $('#user_id').val();
 		
-		
+		if(products_speciality_name == "" ){
+			ojs_message.message_ok_show("Chưa nhập tên sản phẩm");
+		}			
 		
 		//@@
 		if(products_speciality_stock == ""){products_speciality_stock = null;	};
@@ -530,9 +555,11 @@ $(document).ready(function($){
 		
 		
 		
+	
+		
 		//@@
 		//@@
-		let datas = {
+		var datas = {
 			"option_string" : option_string,
 			"cat_string" : cat_string,
 			"datas":{
@@ -550,23 +577,20 @@ $(document).ready(function($){
 				products_speciality_date_end : products_speciality_date_end,
 				products_speciality_stock : products_speciality_stock,
 				products_speciality_brand : products_speciality_brand,
-				products_speciality_status_store : products_speciality_status_store,
 				products_speciality_variation_option : products_speciality_variation_option,
 				products_speciality_height : products_speciality_height,
 				products_speciality_width : products_speciality_width,
 				products_speciality_length : products_speciality_length,
 				products_speciality_weight : products_speciality_weight,
-				products_speciality_discount : products_speciality_discount,	
-				products_speciality_unit_discount : products_speciality_unit_discount,
 				products_speciality_qoute : products_speciality_qoute				
 			}
 		}
-	//console.log(datas);		
-	//return;
-	
-	ojs_products_speciality.ajax_save(datas);	
-		
-	});//end of save ajax
+		return datas;
+	}
+	//@
+	//@
+	//@
+	//@ end of function get datas
 	//
 	//
 ///////////////////////////////////////////////////////
@@ -584,22 +608,18 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+<% include ../../masterpage/loader-end %>				
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

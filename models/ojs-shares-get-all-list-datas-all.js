@@ -1,10 +1,11 @@
 
 /*
-* mục đích : loader datas count bussiness
+* mục đích : loader datas admin menu
 
 
-[get_all_list_datas_count_count]
+[load_datas_admin_menu]
 
+* 1. [get_datas_admin_menu]
 
 	
 */
@@ -80,18 +81,17 @@ const ojs_datas_coupon = require('./ojs-datas-coupon.js');
 //@
 //@
 //@ ojs export
-const ojs_shares_get_all_list_datas_count = {
+const ojs_shares_get_all_list_datas_all = {
 
 	//@
 	//@
 	//@
 	//@
 	//@ return function load_datas_admin_menu
-	get_all_list_datas_count : async function (datas) {
+	get_all_list_datas_all : async function (datas) {
 		
 		
 		//return datas;
-		
 		//@
 		//@
 		//@ data return
@@ -103,7 +103,7 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.1. [datas_user]
+		//@ * 1. [datas_user]
 		if(datas.datas_user){
 			var fn_datas_user = 1;
 		}else{
@@ -117,13 +117,9 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.2. [datas_store]
+		//@ * 2. [datas_store]
 		if(datas.datas_store){
-			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_store.user_compare,
-				'store_compare': datas.datas_store.store_compare,	
+			var datas_send = {	
 				
 				'status_admin_compare' : datas.datas_store.status_admin_compare,
 				'status_admin_value' : datas.datas_store.status_admin_value,				
@@ -134,7 +130,7 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_store = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search',
-							ojs_datas_stores.get_all_list_datas_count(datas_send),
+							ojs_datas_stores.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -152,22 +148,14 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.3. [datas_order]
+		//@ * 3. [datas_order]
 		if(datas.datas_order){
 			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_order.user_compare,
-				'store_compare': datas.datas_order.store_compare,	
-				
 				'status_admin_compare' : datas.datas_order.status_admin_compare,
 				'status_admin_value' : datas.datas_order.status_admin_value,				
 				
 				'line_order_compare' : datas.datas_order.line_order_compare,	
 				'line_order_value' : datas.datas_order.line_order_value,
-
-				'status_payment_compare' : datas.datas_order.status_payment_compare,
-				'status_payment_value' : datas.datas_order.status_payment_value,
 				
 				'date_star' : datas.datas_order.date_star,	
 				'date_end' : datas.datas_order.date_end
@@ -176,7 +164,7 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_order = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user',
-							ojs_datas_orders.get_all_list_datas_count(datas_send),
+							ojs_datas_orders.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -186,23 +174,16 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_order = 0;
 		}
 		promise_all.push(fn_datas_order);
-		//@
-		//@
-		//@	end of 
-		//@ * 1.3. [datas_order]	
+
 
 
 		//@
 		//@
 		//@
 		//@	
-		//@ * 1.4. [datas_cat]
+		//@ * 4. [datas_cat]
 		if(datas.datas_cat){
 			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_cat.user_compare,
-				'store_compare': datas.datas_cat.store_compare,	
 				
 				'status_admin_compare' : datas.datas_cat.status_admin_compare,
 				'status_admin_value' : datas.datas_cat.status_admin_value,				
@@ -213,7 +194,7 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_cat = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/categorys/general/speciality/search',
-							ojs_datas_category.get_all_list_datas_count(datas_send),
+							ojs_datas_category.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -232,13 +213,9 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.5. [datas_option]
+		//@ * 5. [datas_option]
 		if(datas.datas_option){
 			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_option.user_compare,
-				'store_compare': datas.datas_option.store_compare,	
 				
 				'status_admin_compare' : datas.datas_option.status_admin_compare,
 				'status_admin_value' : datas.datas_option.status_admin_value,				
@@ -249,7 +226,7 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_option = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/options/speciality/search',
-							ojs_datas_option.get_all_list_datas_count(datas_send),
+							ojs_datas_option.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -270,14 +247,9 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.6. [datas_brand]
+		//@ * 6. [datas_brand]
 		if(datas.datas_brand){
-			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_brand.user_compare,
-				'store_compare': datas.datas_brand.store_compare,	
-				
+			var datas_send = {				
 				'status_admin_compare' : datas.datas_brand.status_admin_compare,
 				'status_admin_value' : datas.datas_brand.status_admin_value,				
 				
@@ -287,7 +259,7 @@ const ojs_shares_get_all_list_datas_count = {
 			var fn_datas_brand = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/brands/search',
-							ojs_datas_brands.get_all_list_datas_count(datas_send),
+							ojs_datas_brands.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -308,14 +280,10 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.7. [datas_product]
+		//@ * 7. [datas_product]
 		if(datas.datas_product){
 			
 			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
-				'user_compare': datas.datas_product.user_compare,
-				'store_compare': datas.datas_product.store_compare,	
 				
 				'status_admin_compare' : datas.datas_product.status_admin_compare,
 				'status_admin_value' : datas.datas_product.status_admin_value,				
@@ -324,13 +292,10 @@ const ojs_shares_get_all_list_datas_count = {
 				'status_store_value' : datas.datas_product.status_store_value			
 			}
 			
-			//return datas_send;
-			
-			
 			var fn_datas_product = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',
-							ojs_datas_products.get_all_list_datas_count(datas_send),
+							ojs_datas_products.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -350,7 +315,7 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.8. [datas_discount]
+		//@ * 8. [datas_discount]
 		if(datas.datas_discount){
 			var fn_datas_discount = 0;
 		}else{
@@ -364,7 +329,7 @@ const ojs_shares_get_all_list_datas_count = {
 		//@
 		//@
 		//@	
-		//@ * 1.9 [datas_discount_store_add]
+		//@ * 9 [datas_discount_store_add]
 		if(datas.datas_discount_store_add){
 			var fn_datas_discount_store_add = 0;
 		}else{
@@ -445,7 +410,8 @@ const ojs_shares_get_all_list_datas_count = {
 
 
 
-		
+
+
 		//@
 		//@
 		//@
@@ -453,18 +419,16 @@ const ojs_shares_get_all_list_datas_count = {
 		//@ * 15. [datas_note]
 		if(datas.datas_note){
 			var datas_send = {
-				'user_id': datas.user_id,
-				'store_id' : datas.store_id,
 				'user_compare': datas.datas_note.user_compare,
 				'store_compare': datas.datas_note.store_compare,	
 				
 				'status_admin_compare' : datas.datas_note.status_admin_compare,
-				'status_admin_value' : datas.datas_note.status_admin_value		
+				'status_admin_value' : datas.datas_note.status_admin_value	
 			}
 			var fn_datas_note = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/notes/search',
-							ojs_datas_notes.get_all_list_datas_count(datas_send),
+							ojs_datas_notes.get_all_list_datas_all(datas_send),
 							datas.token_job
 						);
 
@@ -499,9 +463,9 @@ const ojs_shares_get_all_list_datas_count = {
 			'12': 'datas_review',	
 			'13': 'datas_review_store',
 			'14': 'datas_coupon',
-			'15': 'datas_note'
+			'15': 'datas_note'			
 		}
-		//promise_all.push(note);
+		promise_all.push(note);
 
 		//@
 		//@
@@ -509,49 +473,19 @@ const ojs_shares_get_all_list_datas_count = {
 		//@ promise all
 		var result = await Promise.all(promise_all);
 		
-		//return result;
-		
-		//@
-		//@
-		//@
-		//@ tạo data return
-		var data_return = [];
-		for(var i = 0; i < result.length ; i ++ ){
-			if(result[i] == "0" || result[i] == 0){
-				data_return.push(result[i])
-			}else{
-				var x = result[i].datas;
-				if(x.length > 0){
-					var x2 = x[0];
-					var x3 = Object.entries(x2);
-					var x4 = x3[0][1];
-					data_return.push(x4);
-				}else{
-					data_return.push(0);
-				}
-			}
-		}		
-		
-		
-		data_return.push(note);				
-		
-		
-		
-		
-		
 
 		//@
 		//@
 		//@
 		//@ return 
-		return data_return;
+		return result;
 
 	}
 };//end of oj_loader
 
 
 
-module.exports = ojs_shares_get_all_list_datas_count;
+module.exports = ojs_shares_get_all_list_datas_all;
 
 
 

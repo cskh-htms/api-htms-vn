@@ -476,7 +476,7 @@ async function update_products_spaciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
-			res.send( { "error": "controllers-products-speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			res.send( { "error": "controllers-products-speciality->check-pushplic -> update-> model-run -> error_number : 1", "message" : error_send  } );
 			return;			
 		}
 		//@
@@ -485,8 +485,8 @@ async function update_products_spaciality(req, res, next) {
 		if(push_check.length <= 0){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, "Không có option " ,"Không có option" );
-			res.send( { "error": "controllers-products-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			var error_send = ojs_shares_show_errors.show_error( evn, " Không tìm thấy sản phẩm này " ,"Không tìm thấy sản phẩm này" );
+			res.send( { "error": "controllers-products-speciality->check-pushplic -> update-> model-run -> error_number : 2", "message" : error_send  } );	
 			return;
 		}		
 	
@@ -495,7 +495,7 @@ async function update_products_spaciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
-		res.send( { "error": "controllers-products-speciality->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send( { "error": "controllers-products-speciality->check-pushplic ->update-> model-run -> error_number : 3", "message" : error_send  } );
 		return;
 	}		
 	
@@ -528,7 +528,7 @@ async function update_products_spaciality(req, res, next) {
 		//@
 		//@
 		if(check_datas_result.user_role != "admin"){
-			delete datas.products_speciality_status_store;
+			delete datas.products_speciality_status_update;
 			delete datas.products_speciality_status_admin;
 		}		
 		
@@ -584,7 +584,7 @@ async function update_products_spaciality(req, res, next) {
 			
 			
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
 			res.send({ "error" : "controllers-products-speciality->update->model-run -> error_number : 1", "message": error_send } ); 
 			return;	
@@ -672,7 +672,7 @@ async function delete_products_spaciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "Không có option " ,"Không có option" );
-			res.send( { "error": "controllers-products-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send( { "error": "controllers-products-speciality->check-pushplic -> delete-> model-run -> error_number : 2", "message" : error_send  } );	
 			return;
 		}		
 	
@@ -693,13 +693,13 @@ async function delete_products_spaciality(req, res, next) {
 	// nếu không phải admin hoặt chủ sở hữu và option chưa pusplish
 	if(check_datas_result.user_role == "admin"  
 	|| (check_datas_result.owner_product == "1" 
-	&&  push_check[0].brands_status_admin == 0 ) 
+	&&  push_check[0].products_speciality_status_admin == 0 ) 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, "Bạn không đủ quyền thao tác, hoặc products đã puplish", 
-			"Bạn không đủ quyền thao tác,hoặc option đã puplish" );
+			"Bạn không đủ quyền thao tác,hoặc product đã puplish" );
 			
 		res.send({ 
 			"error" : "controllers-products-speciality-speciality->delete->get req -> error_number : 3", 

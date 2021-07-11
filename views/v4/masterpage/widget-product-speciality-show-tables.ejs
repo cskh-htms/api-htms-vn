@@ -3,10 +3,7 @@
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
 
-<script>
-		console.log(<%- JSON.stringify(products_list) %>);
-		console.log(<%- JSON.stringify(products_count) %>);
-	</script>
+
 <table class="table-list">
 	<thead>
 		<tr>
@@ -41,17 +38,20 @@
 			<% } else { %>
 				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
 			<% } %>
-			<td>
+			
+			
 			<%
-				let da_ban = 0;
-				for( var  y in products_count ) { 
-					if(products_list[x].products_speciality_ID == products_count[y].products_speciality_ID) {
-						da_ban = products_count[y].orders_details_speciality_qty_sum;
-					}
+			// -----------
+			// tính số lượng bán
+			var p_sale = 0;
+			for( var  v in product_list_sale ) { 
+				if(product_list_sale[v].products_speciality_ID == products_list[x].products_speciality_ID){
+					p_sale = product_list_sale[v].sum_orders_details_speciality_qty;
 				}
+			}
+			
 			%>
-			<%= da_ban %>
-			</td>	
+			<td><%= 	p_sale		%> </td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
 			

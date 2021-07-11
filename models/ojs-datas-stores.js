@@ -3,9 +3,10 @@
 -------------------------------------------------------
 
 1.[get_all_list_datas]	
-
-
-
+	- lấy danh sách store theo user
+	
+2.[get_all_list_datas_all]	
+	- lấy danh sách store all 
 
 
 
@@ -19,6 +20,64 @@
 
 const ojs_datas_stores = {
 	
+	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas_all]		
+	get_all_list_datas_all: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+					"stores_ID",
+					"stores_user_id",
+					"stores_name" ,
+					"stores_date_created",
+					"stores_adress",
+					"service_type_name",
+					"users_first_name",
+					"users_last_name",
+					"users_full_name",					
+					"stores_payment_limit",
+					"stores_status_update",
+					"stores_status_admin",
+					"stores_status_stores",
+					"stores_wards",
+					"stores_district",
+					"stores_province"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"stores_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"stores_status_stores",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_all_list_datas_all]		
+		
 	
 	//@
 	//@

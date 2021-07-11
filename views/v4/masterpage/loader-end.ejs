@@ -1,5 +1,6 @@
 <% include ./loadding-message %>
 <input type="hidden" value="<%- menu_taget %>" id="id_taget"/>
+<input type="hidden" value="<%- menu_taget_child %>" id="id_taget_child"/>
 </body>
 </html>
 
@@ -9,14 +10,18 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 	//@active sidebar
-	//ihien thi active bên sidebar
+	//hien thi active bên sidebar
 	let id_value = $('#id_taget').val();
 	if(id_value != "abc"){
 		$('#' + id_value).addClass('menu_taget');
 	}
 	
 	
-	
+	//hien thi active child bên sidebar
+	let id_value_child = $('#id_taget_child').val();
+	if(id_value_child != "abc"){
+		$('#' + id_value_child).addClass('menu_taget_child');
+	}	
 
 	//
 ///////////////////////////////////////////////////////

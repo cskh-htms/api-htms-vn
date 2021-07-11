@@ -14,12 +14,69 @@
 	- tin tức cho bussiness
 	
 	
+4.[get_all_list_datas_count]	
+	- tính count danh mục theo user
 	
+5.[get_all_list_datas_all]	
+	- lấy tat cả danh sách category
 
 -----------------------------------
 */
 
 const ojs_datas_category = {
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_all]		
+	get_all_list_datas_all: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+				"category_general_speciality_ID",
+				"category_general_speciality_name",
+				"category_general_speciality_category_parent_id",
+				"category_general_speciality_stores_id",
+				"category_general_speciality_stores_status",
+				"category_general_speciality_show",
+				"category_general_speciality_admin_status",
+				"category_general_speciality_update_status",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"category_general_speciality_admin_status",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"category_general_speciality_stores_status",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_all]		
+	
 	
 	
 	//@

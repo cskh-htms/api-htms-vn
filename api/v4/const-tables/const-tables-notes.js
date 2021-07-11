@@ -7,7 +7,8 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"notes_user_id"		: "",	
-		"notes_contentts"		: "",
+		"notes_contents"	: "",
+		"notes_title"		: "",
 		"notes_status"		: 0
 	}
 	function check_datas (datas){

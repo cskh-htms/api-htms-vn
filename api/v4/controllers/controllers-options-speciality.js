@@ -310,6 +310,8 @@ async function get_one_option_speciality(req, res, next) {
 		
 		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		//res.send(check_datas_result);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -323,7 +325,10 @@ async function get_one_option_speciality(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_option == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_option == "1" 
+	|| check_datas_result.user_role == "supper-job"
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -346,7 +351,7 @@ async function get_one_option_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn,error, " Lỗi lấy data options, liên hệ admin " );
-			res.send({ "error" : "controllers-option-speciality->get_one->get req -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "controllers-option-speciality->get_one->get req -> error_number : 4", "message": error_send } ); 
 			return;		
 		});
 	}
@@ -490,7 +495,7 @@ async function update_option_speciality(req, res, next) {
 		//@
 		if(check_datas_result.user_role != "admin"){
 			delete datas.options_product_speciality_status_admin;
-			delete datas.options_product_speciality_status_stores;
+			delete datas.options_product_speciality_status_update;
 		}		
 		
 		//@

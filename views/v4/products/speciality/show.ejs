@@ -1,7 +1,7 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
+<script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
 
 
 
@@ -31,7 +31,7 @@ content
 --------------------- -->
 <div id="content" class="content">
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm</a><i class="fas fa-chevron-right"></i>Chi tiết sản phẩm</h1>
+	<a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm</a><i class="fas fa-chevron-right"></i>Chỉnh sữa sản phẩm</h1>
 	
 	
 	<div class="pro_content_edit">
@@ -47,7 +47,7 @@ content
 				<h3>Thuộc tính</h3>
 				<div class="inside">
 					<p><span>Mã sku</span>
-						<input type="text" disabled value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
+						<input type="text" value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
 					<p><span>Tồn kho</span>
 						<input  
 						class="number_change" 
@@ -262,25 +262,6 @@ content
 
 
 
-
-			<!--
-			<div class="pro_box chiet_khau_box">
-				<h3>Chiết khấu</h3>	
-				<div class="inside">
-					<input 
-					class="number_change" 
-					data_value="<%= datas[0].products_speciality_discount %>" 					
-					type="text" 
-					value="<%= datas[0].products_speciality_discount %>" 
-					id="products_speciality_discount" 
-					/>	
-					<select id="products_speciality_unit_discount">
-						<%- ojs_share.show_unit_discount(datas[0].products_speciality_unit_discount) %>
-					</select>
-				</div>
-			</div>
-			-->
-			
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái admin</h3>	
 				<div class="inside">
@@ -304,8 +285,15 @@ content
 	
 <div class="btn_box">
 	<a href="/products/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	<a href="#" class="btn_back">Lưu & Ẩn</a>
-	<button id="btn_save" class="btn_save">Lưu</button>
+	
+	<%
+	if( datas[0].products_speciality_status_store == "0" ){
+	%>	
+		<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
+	<%	
+	}
+	%>
+	<button id="btn_save" class="btn_save">update</button>
 </div>	
 	
 	
@@ -521,104 +509,132 @@ $(document).ready(function($){
 	
 	
 	
-	// ajax luu san pham
+	$(document).on('click','#btn_draf',function(e) {		
+		e.preventDefault();	
+		var product_id = $('#product_id').val();
+		var datas = get_datas();
+		datas.datas.products_speciality_status_store = 0;
+		console.log(datas);
+		ojs_products_speciality.ajax_update(datas,product_id);	
+		
+	});//end of save ajax	
+	
 	$(document).on('click','#btn_save',function(e) {		
-		e.preventDefault();
+		e.preventDefault();	
+		var product_id = $('#product_id').val();
+		var datas = get_datas();
+		datas.datas.products_speciality_status_store = 1;		
+		console.log(datas);		
+		ojs_products_speciality.ajax_update(datas,product_id);			
+	});//end of save ajax
+
+
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ function get datas
+	function get_datas(){
 		
-		//@
-		let cat_arr = [];
-		let ojs_cat = $('#category_inner').find('.cat_check');
 		
-		for(let i = 0; i < ojs_cat.length ; i ++ ){
+
+		
+		var cat_arr = [];
+		var ojs_cat = $('#category_inner').find('.cat_check');
+		
+		for(var i = 0; i < ojs_cat.length ; i ++ ){
 			if(    $(ojs_cat[i]).prop("checked")    ){
-				let x = $(ojs_cat[i]).val();
+				var x = $(ojs_cat[i]).val();
 				cat_arr.push(x);
 			}
 		}
 		//cat_arr = [1,2,"a",4];
-		let cat_string = cat_arr;
+		var cat_string = cat_arr;
 		//console.log(cat_string);		
-		//return;			
-		
-		
+		//return;		
+
 		//@
 		//@
 		//danh sach option
-		let option_arr = [];
-		let ojs_option = $('#option_inner').find('.option_check');
+		var option_arr = [];
+		var ojs_option = $('#option_inner').find('.option_check');
 		
-		for(let i = 0; i < ojs_option.length ; i ++ ){
+		for(var i = 0; i < ojs_option.length ; i ++ ){
 			if(    $(ojs_option[i]).prop("checked")    ){
-				let x = $(ojs_option[i]).val();
+				var x = $(ojs_option[i]).val();
 				option_arr.push(x);
 			}
 		}
 		//@
-		let option_string = option_arr;		
+		var option_string = option_arr;		
 		//console.log(option_string);
 		//return;
+
+
+		
 		
 		
 		//@
-		let products_speciality_name = $('#products_speciality_name').val();
-		let products_speciality_type = $('#products_speciality_type  option:selected').val();
-		let products_speciality_sku = $('#products_speciality_sku').val();
-		let products_speciality_store_id = $('#store_id').val();		
+		var products_speciality_name = $('#products_speciality_name').val();
+		var products_speciality_type = $('#products_speciality_type  option:selected').val();
+		var products_speciality_sku = $('#products_speciality_sku').val();
+		var products_speciality_store_id = $('#store_id').val();		
 		
-		let product_id = $('#product_id').val();
-		let user_id = $('#user_id').val();
+		var products_speciality_featured_image = $('#featured_image').attr("data_value");
+		var products_speciality_image_slider = $('#slider_image').attr("data_value");			
 		
-		
-		
-		let products_speciality_featured_image = $('#featured_image').attr("data_value");
-		let products_speciality_image_slider = $('#slider_image').attr("data_value");			
-		
-		let products_speciality_contents = tinymce.get("noi_dung").getContent()
-		let products_speciality_excerpt = tinymce.get("excerpt").getContent()
-		
-		let products_speciality_price = $('#products_speciality_price').attr("data_value")
-		let products_speciality_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value")
+		var products_speciality_contents = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");
+		var products_speciality_excerpt = tinymce.get("excerpt").getContent().replace(/&nbsp;/gi, "");
 		
 		
-		let date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
-		let products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
-		
-		//console.log(date_01);
+		var products_speciality_qoute = $('#products_speciality_qoute').val();
 		
 		
 		
 		
-		let date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
-		let products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
-		if(products_speciality_date_end.length > 0){
+		var products_speciality_price = $('#products_speciality_price').attr("data_value")
+		var products_speciality_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value")
+		
+		
+		
+		var date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
+		var products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
+		var products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		
+		if(products_speciality_date_end.length > 0){			
 			products_speciality_date_end = products_speciality_date_end + " 23:59:59"
 		}
 		
-		let products_speciality_stock = $('#products_speciality_stock').val() ;
 		
-		let products_speciality_brand = $('#products_speciality_brand  option:selected').val();		
-		let products_speciality_status_admin = $('#products_speciality_status_admin  option:selected').val();
-		let products_speciality_status_store = $('#products_speciality_status_store  option:selected').val();
+		
+		
+		
+		var products_speciality_stock = $('#products_speciality_stock').attr("data_value")
+		
+		var products_speciality_brand = $('#products_speciality_brand  option:selected').val();		
 			
-		let products_speciality_variation_option = $('#products_speciality_variation_option').val() ;
+		var products_speciality_variation_option = $('#products_speciality_variation_option').val() ;
 		
 		
-		let products_speciality_height = $('#products_speciality_height').attr("data_value");
-		let products_speciality_width = $('#products_speciality_width').attr("data_value");
-		let products_speciality_length = $('#products_speciality_length').attr("data_value");
-		let products_speciality_weight = $('#products_speciality_weight').attr("data_value");
-		let products_speciality_status_update = $('#products_speciality_status_update').val();
-		
-		let products_speciality_discount = $('#products_speciality_discount').attr("data_value");
-		
-		
-		let products_speciality_unit_discount = $('#products_speciality_unit_discount  option:selected').val();
-		
-		
-		let products_speciality_qoute = $('#products_speciality_qoute').val();
+		var products_speciality_height = $('#products_speciality_height').attr("data_value")
+		var products_speciality_width = $('#products_speciality_width').attr("data_value")
+		var products_speciality_length = $('#products_speciality_length').attr("data_value")
+		var products_speciality_weight = $('#products_speciality_weight').attr("data_value")
 		
 		
 		
+		
+		var user_id = $('#user_id').val();
+		
+		if(products_speciality_name == "" ){
+			ojs_message.message_ok_show("Chưa nhập tên sản phẩm");
+		}			
 		
 		//@@
 		if(products_speciality_stock == ""){products_speciality_stock = null;	};
@@ -629,13 +645,19 @@ $(document).ready(function($){
 		
 		if(products_speciality_brand == ""){products_speciality_brand = null;};
 		
+		
+		
 		if(products_speciality_sale_of_price == ""){products_speciality_sale_of_price = null;};
 		if(products_speciality_date_start == ""){products_speciality_date_start = null;};
 		if(products_speciality_date_end == ""){products_speciality_date_end = null;};
 		
+		
+		
+	
+		
 		//@@
 		//@@
-		let datas = {
+		var datas = {
 			"option_string" : option_string,
 			"cat_string" : cat_string,
 			"datas":{
@@ -653,25 +675,22 @@ $(document).ready(function($){
 				products_speciality_date_end : products_speciality_date_end,
 				products_speciality_stock : products_speciality_stock,
 				products_speciality_brand : products_speciality_brand,
-				products_speciality_status_admin : products_speciality_status_admin,
-				products_speciality_status_store : products_speciality_status_store,
 				products_speciality_variation_option : products_speciality_variation_option,
 				products_speciality_height : products_speciality_height,
 				products_speciality_width : products_speciality_width,
 				products_speciality_length : products_speciality_length,
 				products_speciality_weight : products_speciality_weight,
-				products_speciality_discount : products_speciality_discount,	
-				products_speciality_unit_discount : products_speciality_unit_discount,
-				products_speciality_status_update : products_speciality_status_update,
-				products_speciality_qoute :products_speciality_qoute
+				products_speciality_qoute : products_speciality_qoute				
 			}
 		}
-	//console.log(datas);		
-	//return;
-	
-	ojs_products_speciality.ajax_update(datas,product_id);	
-		
-	});//end of save ajax
+		return datas;
+	}
+	//@
+	//@
+	//@
+	//@ end of function get datas
+	//
+	//
 	//
 	//
 ///////////////////////////////////////////////////////

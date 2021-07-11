@@ -32,6 +32,15 @@
 7.[get_all_list_datas_count]	
 	-  lấy count dơn hàng theo user
 	
+	
+8.[get_data_products_count]		
+	- tổng số lượng sản phẩm bán theo cửa hàng
+	
+	
+9.[get_order_list_sum_count]	
+	- lấy danh sách order có sum qty, sum price
+	
+	
 */
 
 
@@ -41,6 +50,142 @@
 
 
 const ojs_datas_orders = {
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	
+	//@
+	//@ 9.[get_order_list_sum_count]	
+	get_order_list_sum_count : function(datas){
+		
+		//return datas;
+		
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "",
+				"select_field" :
+				[ 
+					
+					"orders_speciality_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders",
+					"sum(orders_details_speciality_qty)",
+					"sum(price_caution)",
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							}						
+						]    
+					}          
+				],
+				"group_by" :	
+				[
+					"orders_speciality_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_date_orders"
+				]			
+			}
+		}	
+		return datas_return;			
+	},	
+	//@
+	//@	
+	//@ end of 
+	
+	
+	
+	
+	
+	
+	//@	
+	//@	
+	//@	
+	//@	
+	//@	
+	//@
+	//@ 8.[get_data_products_count]	
+	get_data_products_count : function(store_id){	
+		let datas_return = 		
+		{	
+			"datas" :   {
+				"select_field" :
+				[
+					"products_speciality_ID",		
+					"orders_details_speciality_qty_sum"		
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" : "stores_ID" ,
+								"value" : store_id,
+								"compare" : "="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : "1",
+								"compare" : "="
+							}	
+						]    
+					}          
+				],
+				"order" :
+				 [
+					{    "field"  :"products_speciality_ID",
+						"compare" : "ASC"
+					} 				
+				],
+				"group_by" : 
+				[
+					"products_speciality_ID"
+				]
+			}	
+		}		
+		return datas_return;	
+	},		
+	//@	
+	//@ end of
+	//@ 8.[get_data_products_count]		
+	
+	
+	
+	
 	//@
 	//@
 	//@
@@ -536,60 +681,7 @@ const ojs_datas_orders = {
 	//@ end of 
 	//@ 1.[orders_check_menu_data]	
 	
-	
-		
-	
 
-	
-	
-	
-	//* 
-	// * lấy dố lượng bán của sản phẩm
-	//* lấy danh sách sản phẩm và số lượng bán của mỗi sản phẩm
-	//* cho product trình bày
-	get_data_products_count : function(store_id){	
-		let datas_return = 		
-		{	
-			"datas" :   {
-				"select_field" :
-				[
-					"products_speciality_ID",		
-					"orders_details_speciality_qty_sum"		
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[             
-							{
-								"field" : "stores_ID" ,
-								"value" : store_id,
-								"compare" : "="
-							},
-							{
-								"field" : "orders_speciality_status_orders" ,
-								"value" : "1",
-								"compare" : "="
-							}	
-						]    
-					}          
-				],
-				"order" :
-				 [
-					{    "field"  :"products_speciality_ID",
-						"compare" : "ASC"
-					} 				
-				],
-				"group_by" : 
-				[
-					"products_speciality_ID"
-				]
-			}	
-		}		
-		return datas_return;	
-	},	
-	//@
 	
 	//@
 	//@

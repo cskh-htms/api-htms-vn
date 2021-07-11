@@ -53,7 +53,7 @@ IF(NEW.dala_options_product_speciality_parent_id > 0 ) THEN
 	
 		SET @checkID = (select dala_options_product_speciality_ID   
 		from dala_options_product_speciality 
-		where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_ID);
+		where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_parent_id);
 		IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 			SIGNAL SQLSTATE '12345' 
 			SET MESSAGE_TEXT = 'trig_check_options_product_speciality_parent_id_no_parent'; 

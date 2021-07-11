@@ -150,17 +150,17 @@ ojs_share = {
 	//@
 	//@ news_admin_menu_data
 	//@ 4.[news_bussiness_menu_data_config]
-	show_news_bussiness_menu_home_page : function(datas){
+	show_news_bussiness_menu_home_page : function(datas,store_id){
 		
 		var data_config_link = [
 			'demo',
 			'news_user',
 			'news_store',
-			'/orders/admin/0/',
-			'news_cat',
-			'news_option',
-			'news_brand',
-			'news_product',
+			'/stores/manage/orders/' + store_id + '/all',
+			'/categorys/general/speciality/' + store_id  ,
+			'/options/speciality/' + store_id,
+			'/brands/' + store_id,
+			'/products/speciality/' + store_id,
 			'news_discount',
 			'news_discount_store_add',
 			'news_discount_product_add',
@@ -168,7 +168,7 @@ ojs_share = {
 			'news_review',	
 			'news_review_store',
 			'news_coupon',
-			'news_note'
+			'/notes/' + store_id
 		]	
 
 		var data_config_text = [
@@ -245,17 +245,16 @@ ojs_share = {
 	//@
 	//@ news_admin_menu_data
 	//@ 2.[news_admin_menu_data_config]
-	show_news_admin_menu_home_page : function(datas){
+	show_news_admin_menu_home_page : function(datas,store_id){
 		
 		var data_config_link = [
 			'demo',
 			'news_user',
 			'news_store',
-			'/orders/admin/0/',
-			'news_cat',
-			'news_option',
-			'news_brand',
-			'news_product',
+			'/stores/manage/orders/' + store_id + '/all',
+			'/categorys/general/speciality/' + store_id,
+			'/options/speciality/' + store_id,
+			'/brands/' + store_id,
 			'news_discount',
 			'news_discount_store_add',
 			'news_discount_product_add',
@@ -263,7 +262,7 @@ ojs_share = {
 			'news_review',	
 			'news_review_store',
 			'news_coupon',
-			'news_note'
+			'/notes/' + store_id
 		]	
 
 		var data_config_text = [

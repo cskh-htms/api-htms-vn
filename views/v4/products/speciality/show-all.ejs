@@ -16,25 +16,29 @@ page wrap
 
 
 
+
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Sản phẩm</h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách sản phẩm</h1>
 	
-	<!--<div class="store_row">
-		<button id = "all" class="btn_add_store  active" data_btn="all"><a href="#">Tất cả</a></button>
-		<button id = "complate" class="btn_add_store" data_btn="all"><a href="#">Dã phê duyệt</a></button>
-		<button id = "new" class="btn_add_store" data_btn="new"><a href="#">Sản phẩm mới chờ sử lý</a></button>
-		<button id = "update" class="btn_add_store" data_btn="update"><a href="#">sản phẩm chỉnh sữa</a></button>
-		<button id = "not" class="btn_add_store" data_btn="not"><a href="#">Sản phẩm bị từ chối</a></button>
-	</div>	-->	
-		
+	
+	<script>
+		console.log(<%- //JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);
+		console.log(<%- //JSON.stringify({"list_data_count" : list_data_count}) %>);		
+		console.log(<%- JSON.stringify({"products_list" : products_list}) %>);		
+		console.log(<%- JSON.stringify({ "category_link_datas" : category_link_datas }) %>);	
+		console.log(<%- JSON.stringify({ "products_count" : products_count }) %>);	
+	</script>
+	
+	
+	
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
-			<select id="sap_xep_sp">
+			<select id="sap_xep_sp" disabled >
 				<option value="ten">Sắp xếp theo tên</option>
 				<option value="moinhat">Mới nhất</option>
 				<option value="giacao">Giá cao > thấp</option>
@@ -43,12 +47,12 @@ content
 			</select>
 		</div>
 		<div class="loc_wrap">
-			<select id="loc_danh_muc">
+			<select id="loc_danh_muc" disabled>
 				<option value="all">Tất cả danh mục</option>
 				<option>Mứt dâu</option>
 				<option>Cà phê</option>
 			</select>
-			<select id="loc_km">
+			<select id="loc_km" disabled >
 				<option value="all">Tất cả giá</option>
 				<option value="đangkhuyếnmãi">Đang giảm giá</option>
 				<option value="khuyếnmãivôthờihạn">Luôn giảm giá</option>
@@ -63,11 +67,17 @@ content
 				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
-	</div>
+	</div>	
+	
+	
+	
 	
 	<div id="ajax-wrap">
 	<% include ../../masterpage/widget-product-speciality-show-tables %>
-	</div>
+	</div>	
+	
+	
+	
 	
 	
 <input type="hidden" id="store_id" value="<%= store_id %>"/>
@@ -102,13 +112,13 @@ $(document).ready(function($){
 		//@
 		e.preventDefault();		
 		let product_id = $(this).attr("data_product_id");
+
 		//
 		//@
 		let x = "xác nhận xoá";		
 		let y = "delete_product_speciality";//function name in callback 
 		let z = ' { "product_id" : "' + product_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
+		ojs_message.message_yes_no_show(x,y,z);	
 	});			
 	//		
 	//	
@@ -175,7 +185,7 @@ $(document).ready(function($){
 			"datas":{
 				user_id 	: user_id,
 				store_id	:store_id,
-				status_admin : status_admin
+				status_admin : JSON.parse(status_admin)
 			}
 		}	
 		//console.log(datas);
@@ -312,4 +322,18 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>
+<% include ../../masterpage/loader-end %>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

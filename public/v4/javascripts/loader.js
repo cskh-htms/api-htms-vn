@@ -1,25 +1,10 @@
 
 
 
-
-
 /*
 ----------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1 [upload_anh_dai_dien]
 
 
 
@@ -30,84 +15,50 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function($){
 	
-	
-	//tat thong bao tyny
-	$(window).on('load', function () {
-      $('.tox-notifications-container').css('display','none');
-	});	
-	
-	//tu dong format so khi thay doi text class number_change
-	$('.number_change').on('keyup', function () {
-		var n_value = $(this).val();
-		var number_change = ojs_loader.string_to_int(n_value);
-		
-		$(this).attr("data_value",number_change);
-		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
-		
-		//console.log(number_change);
-	});		
-	
-	//tu dong format so khi thay doi text class number_change
-	$('.number_change_empty').on('keyup', function () {
-		var n_value = $(this).val();
-		if(n_value == ""){
-			$(this).val('');
-			$(this).attr("data_value",'');
-			return;
-		}
-		var number_change = ojs_loader.string_to_int(n_value);
-		
-		$(this).attr("data_value",number_change);
-		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
-		
-		//console.log(number_change);
-	});		
-	//tu dong chuyen datapike date text
-	$(function() {
-		$.datepicker.regional['vi'] = {
-		 closeText: 'Đóng',
-		 prevText: '<Trước',
-		 nextText: 'Tiếp>',
-		 currentText: 'Hôm nay',
-		 monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
-		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
-		 monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-		'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-		 dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
-		 dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-		dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-		 weekHeader: 'Tu',
-		 dateFormat: 'yy/mm/dd',
-		 firstDay: 0,
-		 isRTL: false,
-		 showMonthAfterYear: false,
-		 yearSuffix: ''};
-		 $.datepicker.setDefaults($.datepicker.regional['vi']);
-		 $("#datepicker").datepicker();
-	});
+
 
 	
 	ojs_loader = {	
 	
-
+	
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@ 1[upload_anh_dai_dien]
+		upload_anh_dai_dien: function(input,anhDaiDien,ImgBoxDaiDien){
+			if( !input.files.length ) return;
+			var formData = new FormData();
+			formData.append('image',input.files[0]);
+			
+			$.ajax({
+				type : "POST",	  
+				url : ojs_loader.host + "/upload-s3",
+				processData: false,
+				contentType: false,
+				data : formData,
+				dataType: 'json',
+				beforeSend:  function(xhr){
+					ojs_loadding.ajax_show_loadding(); 
+				},
+				error: function (request, status, error) {
+					console.log(error);
+					ojs_loadding.ajax_hide_loadding();
+				},
+				success : function(img) {
+					let blog_show = URL.createObjectURL(input.files[0]);
+					let url = img.url;
+					
+					ojs_loader.show_anh_dai_dien(anhDaiDien,ImgBoxDaiDien,blog_show,url);
+					ojs_loader.set_value_anh_dai_dien(anhDaiDien,ImgBoxDaiDien);
+					
+					ojs_loadding.ajax_hide_loadding();
+				}			 
+			});	
+		},
 
 		//@
 		//@
@@ -115,8 +66,8 @@ $(document).ready(function($){
 		tinh_thanh_datas:[],
 		//Khai báo hosting global
 		//khi đổi tên miền có thể thay đổi biến này
-		//host : "http://localhost:2021",
-		host:"https://appdala.com",
+		host : "http://localhost:2021",
+		//host:"https://appdala.com",
 		//
 		//
 		//
@@ -493,37 +444,7 @@ $(document).ready(function($){
 				}
 			});	
 		},	
-		//upload anh dai dien
-		upload_anh_dai_dien: function(input,anhDaiDien,ImgBoxDaiDien){
-			if( !input.files.length ) return;
-			var formData = new FormData();
-			formData.append('image',input.files[0]);
-			
-			$.ajax({
-				type : "POST",	  
-				url : ojs_loader.host + "/upload-s3",
-				processData: false,
-				contentType: false,
-				data : formData,
-				dataType: 'json',
-				beforeSend:  function(xhr){
-					ojs_loadding.ajax_show_loadding(); 
-				},
-				error: function (request, status, error) {
-					console.log(error);
-					ojs_loadding.ajax_hide_loadding();
-				},
-				success : function(img) {
-					let blog_show = URL.createObjectURL(input.files[0]);
-					let url = img.url;
-					
-					ojs_loader.show_anh_dai_dien(anhDaiDien,ImgBoxDaiDien,blog_show,url);
-					ojs_loader.set_value_anh_dai_dien(anhDaiDien,ImgBoxDaiDien);
-					
-					ojs_loadding.ajax_hide_loadding();
-				}			 
-			});	
-		},	
+	
 		//
 		//show anh dai dien loader
 
@@ -844,6 +765,70 @@ $(document).ready(function($){
 	///////////////////////////
 	//////////////////////////////
 	}//end of ojs loader
+	
+	
+	
+	
+	
+	//tat thong bao tyny
+	$(window).on('load', function () {
+      $('.tox-notifications-container').css('display','none');
+	});	
+	
+	//tu dong format so khi thay doi text class number_change
+	$('.number_change').on('keyup', function () {
+		var n_value = $(this).val();
+		var number_change = ojs_loader.string_to_int(n_value);
+		
+		$(this).attr("data_value",number_change);
+		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
+		
+		//console.log(number_change);
+	});		
+	
+	//tu dong format so khi thay doi text class number_change
+	$('.number_change_empty').on('keyup', function () {
+		var n_value = $(this).val();
+		if(n_value == ""){
+			$(this).val('');
+			$(this).attr("data_value",'');
+			return;
+		}
+		var number_change = ojs_loader.string_to_int(n_value);
+		
+		$(this).attr("data_value",number_change);
+		$(this).val(ojs_loader.show_price_format(number_change,0,",",".",""))
+		
+		//console.log(number_change);
+	});		
+	//tu dong chuyen datapike date text
+	$(function() {
+		$.datepicker.regional['vi'] = {
+		 closeText: 'Đóng',
+		 prevText: '<Trước',
+		 nextText: 'Tiếp>',
+		 currentText: 'Hôm nay',
+		 monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
+		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
+		 monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+		'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+		 dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+		 dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+		dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+		 weekHeader: 'Tu',
+		 dateFormat: 'yy/mm/dd',
+		 firstDay: 0,
+		 isRTL: false,
+		 showMonthAfterYear: false,
+		 yearSuffix: ''};
+		 $.datepicker.setDefaults($.datepicker.regional['vi']);
+		 $("#datepicker").datepicker();
+	});	
+	
+	
+	
+	
+	
 	
 });//end of document jquery
 

@@ -59,6 +59,7 @@ var sql_select_all = 	"" +
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "notes_date_created,'%Y/%m/%d %H:%i:%s') as notes_date_created, " +	
 	ojs_configs.db_prefix  + "notes_user_id as notes_user_id, " + 
 	ojs_configs.db_prefix  + "notes_status as notes_status, " + 
+	ojs_configs.db_prefix  + "notes_title as notes_title, " + 
 	ojs_configs.db_prefix  + "notes_contents as notes_contents ";
 
 
@@ -110,6 +111,7 @@ var insert_notes = async function (datas) {
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "notes  SET ?";
 	var dataGo = {
 			"notes_user_id"				: datas.notes_user_id,
+			"notes_title"				: datas.notes_title,
 			"notes_contents"			: datas.notes_contents,
 			"notes_status"				: datas.notes_status
 	}

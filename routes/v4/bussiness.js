@@ -247,6 +247,7 @@ router.get('/:user_id', async  function(req, res, next) {
 			'title' 				: 'Quản lý tài khoản doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'store_id' 				: get_all_list_datas[2].datas[0].stores_ID,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			

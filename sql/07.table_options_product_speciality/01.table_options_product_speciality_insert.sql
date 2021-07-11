@@ -42,8 +42,8 @@ END IF;
 -- kiểm tra id cha có chưa
 IF(NEW.dala_options_product_speciality_parent_id > 0 ) THEN 
 
-	SET @checkID = (select dala_category_general_speciality_ID  
-	from dala_category_general_speciality 
+	SET @checkID = (select dala_options_product_speciality_ID  
+	from dala_options_product_speciality 
 	where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_parent_id);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 		SIGNAL SQLSTATE '12345' 

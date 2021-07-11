@@ -18,10 +18,128 @@
 4.[get_all_list_datas_count]	
 	- count product theo user
 
+
+5.[get_category_link_datas_show_update]	
+	- lấy data cho update product 
+
+
+6.[get_options_link_datas_show_update]	
+	- lấy data cho update product 
+
+
+7.[get_category_link_datas]	
+
+
 -------------------------------------------
 */
 
 const ojs_datas_products = {
+	
+	//@
+	//@
+	//@
+	//@	
+	//@ 
+	//@ 7.[get_category_link_datas]		
+	get_category_link_datas: function(){
+		
+		let datas_return = 	
+		{
+			"datas" : 
+			{
+				"select_field" :
+				[
+					"category_general_speciality_link_ID",
+					"category_general_speciality_link_product_id",
+					"category_general_speciality_link_category_general_id",
+					"category_general_speciality_ID",
+					"category_general_speciality_name"
+				]
+			}//data
+		}
+		return datas_return;
+	},	
+	
+	
+	//@
+	//@	
+	//@
+	//@
+	//@ 
+	//@ 6.[get_options_link_datas_show_update]		
+	get_options_link_datas_show_update: function(product_id){
+		
+		let datas_return = 	
+		{
+			"datas" : 
+			{
+				"select_field" :
+				[
+					"options_product_speciality_link_ID",
+					"options_product_speciality_link_product_id",
+					"options_product_speciality_link_option_id"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"options_product_speciality_link_product_id",
+							"value" 	: product_id,
+							"compare" : "="
+						}						
+						]	
+					}				
+				],
+				"order" :[]
+			}//data
+		}
+		return datas_return;
+	},	
+	
+	//@
+	//@
+	//@ end of
+	//@ 6.[get_category_link_datas_show_update]		
+	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_category_link_datas_show_update]	
+	get_category_link_datas_show_update: function(product_id){
+		
+		let datas_return = 	
+		{
+			"datas" : 
+			{
+				"select_field" :
+				[
+					"category_general_speciality_link_ID",
+					"category_general_speciality_link_product_id",
+					"category_general_speciality_link_category_general_id"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"category_general_speciality_link_product_id",
+							"value" 	: product_id,
+							"compare" : "="
+						}						
+						]	
+					}				
+				]
+			}//data
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ end of 
+	//@ 5.[get_category_link_datas_show_update]		
+	
+	
 	
 	
 	//@
@@ -562,24 +680,7 @@ const ojs_datas_products = {
 	//
 	//
 	//lay products chưa puslish
-	get_category_link_datas: function(){
-		
-		let datas_return = 	
-		{
-			"datas" : 
-			{
-				"select_field" :
-				[
-					"category_general_speciality_link_ID",
-					"category_general_speciality_link_product_id",
-					"category_general_speciality_link_category_general_id",
-					"category_general_speciality_ID",
-					"category_general_speciality_name"
-				]
-			}//data
-		}
-		return datas_return;
-	},
+
 	//@
 	//@	
 	//@
@@ -587,34 +688,7 @@ const ojs_datas_products = {
 	//
 	//
 	//lay products chưa puslish
-	get_category_link_datas_show_update: function(product_id){
-		
-		let datas_return = 	
-		{
-			"datas" : 
-			{
-				"select_field" :
-				[
-					"category_general_speciality_link_ID",
-					"category_general_speciality_link_product_id",
-					"category_general_speciality_link_category_general_id"
-				],
-				"condition" : 
-				[
-					{	"relation": "and",
-						"where" : 
-						[
-						{	"field"		:"category_general_speciality_link_product_id",
-							"value" 	: product_id,
-							"compare" : "="
-						}						
-						]	
-					}				
-				]
-			}//data
-		}
-		return datas_return;
-	},
+
 	//@
 	//@	
 	//@
@@ -622,35 +696,7 @@ const ojs_datas_products = {
 	//
 	//
 	//lay products chưa puslish
-	get_options_link_datas_show_update: function(product_id){
-		
-		let datas_return = 	
-		{
-			"datas" : 
-			{
-				"select_field" :
-				[
-					"options_product_speciality_link_ID",
-					"options_product_speciality_link_product_id",
-					"options_product_speciality_link_option_id"
-				],
-				"condition" : 
-				[
-					{	"relation": "and",
-						"where" : 
-						[
-						{	"field"		:"options_product_speciality_link_product_id",
-							"value" 	: product_id,
-							"compare" : "="
-						}						
-						]	
-					}				
-				],
-				"order" :[]
-			}//data
-		}
-		return datas_return;
-	},
+
 	//@
 	//
 	//

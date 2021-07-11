@@ -84,6 +84,9 @@ async function insert_brands(req, res, next) {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
 		
+		
+		//res.send({datas});
+		//return;
 		//@
 		//@
 		//* nếu chưa có mã cữa hàng thì out
@@ -98,6 +101,11 @@ async function insert_brands(req, res, next) {
 		res.send({ "error" : "controllers-brands->insert->request->error_number : 1", "message": error_send } ); 
 		return;	
 	}	
+
+
+
+	//res.send(datas);
+	//return;
 
 
 	//@
@@ -311,20 +319,30 @@ async function get_one_brands(req, res, next) {
 		
 		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		
+		//res.send({ check_datas_result} ); 
+		//return;	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
 		res.send({ "error" : "controllers-brands->get_one->get req -> error_number : 2", "message": error_send } ); 
 		return;			
 	}
 	
+	//res.send({ check_datas_result} ); 
+	//return;			
+	
 	
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_brand == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(
+	check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_brand == "1" 
+	|| check_datas_result.user_role == "supper-job" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -490,7 +508,7 @@ async function update_brands(req, res, next) {
 		//@
 		//@
 		if(check_datas_result.user_role != "admin"){
-			delete datas.brands_status_stores;
+			delete datas.brands_status_update;
 			delete datas.brands_status_admin;
 		}		
 		
@@ -802,7 +820,11 @@ async  function search(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" || check_datas_result.user_role == "default"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "supper-job" 
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
@@ -810,7 +832,11 @@ async  function search(req, res, next) {
 			return;	
 		}		
 	}else if (check_condition_id == 1){
-		if( check_datas_result.owner_brand == "1" ||  check_datas_result.user_role == "admin"   || check_datas_result.user_role == "default"){ }else{
+		if( check_datas_result.owner_brand == "1" 
+		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "supper-job"  
+		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
@@ -832,9 +858,9 @@ async  function search(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-brands->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search brands" );
+			res.send({ "error" : "controllers-brands->search->check_condition_id -> error_number : 3", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -842,7 +868,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-		res.send({ "error" : "controllers-brands->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "controllers-brands->search->check_condition_id -> error_number : 4", "message": error_send } ); 
 		return;	
 	}
 }

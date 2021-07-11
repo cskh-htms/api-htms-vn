@@ -373,6 +373,11 @@ async function update_category_general_speciality(req, res, next) {
 		res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
+	
+	
+	//res.send([cat_id,datas,token]);
+	//return;
+	
 	//@
 	//@
 	//@ kiểm tra phân quyền 
@@ -384,6 +389,7 @@ async function update_category_general_speciality(req, res, next) {
 		
 		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -441,7 +447,7 @@ async function update_category_general_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
-		res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );
+		res.send( { "error": "controllers-category-general-speciality->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
 		return;
 	}		
 	

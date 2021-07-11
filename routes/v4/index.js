@@ -32,13 +32,14 @@ router.use('/products', require('../../routes/' + app_config.router_version + '/
 router.use('/categorys', require('../../routes/' + app_config.router_version + '/categorys') );
 router.use('/upload', require('../../routes/' + app_config.router_version + '/upload') );
 router.use('/upload-s3', require('../../routes/' + app_config.router_version + '/upload-s3') );
+router.use('/upload-wp', require('../../routes/' + app_config.router_version + '/upload-wp') );
 router.use('/delete-s3', require('../../routes/' + app_config.router_version + '/delete-s3') );
 router.use('/options', require('../../routes/' + app_config.router_version + '/options') );
 router.use('/brands', require('../../routes/' + app_config.router_version + '/brands') );
 router.use('/users', require('../../routes/' + app_config.router_version + '/users') );
 router.use('/orders', require('../../routes/' + app_config.router_version + '/orders') );
 router.use('/shipping', require('../../routes/' + app_config.router_version + '/shipping') );
-
+router.use('/notes', require('../../routes/' + app_config.router_version + '/notes') );
 
 
 router.use('/news', require('../../routes/' + app_config.router_version + '/news') );

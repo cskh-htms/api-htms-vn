@@ -12,6 +12,7 @@ ojs_loadding_message_callback = {
 	//
 	//xoa san pham dac san
 	delete_product:function(datas){
+		alert('asdasd');
 
 	},//end of xoa san pham dac san
 	//
@@ -24,7 +25,10 @@ ojs_loadding_message_callback = {
 		ojs_category_general_speciality.ajax_delete(cat_id);
 	},
 	//
-	//
+	//xoa category
+	delete_con_cua:function(){
+		console.log('asdasd');
+	},
 	//
 	//xoa option
 	delete_option_speciality:function(datas){
@@ -46,6 +50,8 @@ ojs_loadding_message_callback = {
 	//
 	//xoa product speciality
 	delete_product_speciality:function(datas){
+		alert(datas);
+		return;
 		let datas_parse = JSON.parse(datas);
 		let product_id = datas_parse.product_id;
 		ojs_products_speciality.ajax_delete(product_id);

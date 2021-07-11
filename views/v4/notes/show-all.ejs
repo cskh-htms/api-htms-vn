@@ -28,10 +28,10 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách tin nhắn</h1>
 
 	<script>
-		console.log(<%- JSON.stringify({"list_datas" : list_datas}) %>);
+		console.log(<%- JSON.stringify({"list_notes" : list_notes}) %>);
 		console.log(<%- //JSON.stringify({"product_list" : product_list}) %>);		
 		console.log(<%- //JSON.stringify({"order_list_sum" : order_list_sum}) %>);		
 		console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
@@ -41,27 +41,9 @@ content
 
 
 
-
-
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách Thương hiệu</h1>
-	<div class="sap_xep_loc">
-		<div class="sap_xep_wrap">
-			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm thương hiệu</a>
-		</div>
-		<div class="loc_wrap">
-			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
-				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
-				<option id="refuse" value="[3]">Bị từ chối</option>
-				<option id="checked" value="[1]">Đã duyệt</option>
-			</select>
-		</div>
-	</div>
-	
 	<div id="ajax-wrap">
 	
-	<% include ../masterpage/widget-brand-show-tables %>
+	<% include ../masterpage/widget-notes-show-tables %>
 
 	</div>
 

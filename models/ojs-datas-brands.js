@@ -18,11 +18,70 @@
 	- lấy count option theo user
 
 
+5.[get_all_list_datas_all]	
+	- lấy danh sách brand tất cả
+
+
 -------------------------------------
 */
 
 const ojs_datas_brands = {
 	
+
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_all]		
+	get_all_list_datas_all: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+				"brands_ID",
+				"brands_name",
+				"brands_status_stores",
+				"brands_status_admin",
+				"brands_stores_id",
+				"brands_status_update",
+				"users_ID",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"brands_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"brands_status_stores",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_all]
+
+
+
+
+
+
 	
 	//@
 	//@
