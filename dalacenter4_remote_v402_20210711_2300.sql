@@ -44,7 +44,7 @@ CREATE TABLE `dala_adress_meta` (
 
 LOCK TABLES `dala_adress_meta` WRITE;
 /*!40000 ALTER TABLE `dala_adress_meta` DISABLE KEYS */;
-INSERT INTO `dala_adress_meta` VALUES (1,'2021-07-09 11:38:44',56,'TP đà lạt','Quận 1','Phường 5','số 27, hẻm 14/3','TP đà lạt, Quận 1, Phường 5, số 27, hẻm 14/3',1),(2,'2021-07-09 11:38:44',56,'TP đà lạt','Quận 3','Phường 7','số 33, hẻm 55','TP đà lạt, Quận 3, Phường 7, số 33, hẻm 55',0),(3,'2021-07-09 11:38:44',56,'TP đà lạt','Quận 5','Phường 4','số 2, hẻm 77','TP đà lạt, Quận 5, Phường 4, số 2, hẻm 77',0);
+INSERT INTO `dala_adress_meta` VALUES (1,'2021-07-11 16:04:16',56,'TP đà lạt','Quận 1','Phường 5','số 27, hẻm 14/3','TP đà lạt, Quận 1, Phường 5, số 27, hẻm 14/3',1),(2,'2021-07-11 16:04:16',56,'TP đà lạt','Quận 3','Phường 7','số 33, hẻm 55','TP đà lạt, Quận 3, Phường 7, số 33, hẻm 55',0),(3,'2021-07-11 16:04:16',56,'TP đà lạt','Quận 5','Phường 4','số 2, hẻm 77','TP đà lạt, Quận 5, Phường 4, số 2, hẻm 77',0);
 /*!40000 ALTER TABLE `dala_adress_meta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +70,7 @@ CREATE TABLE `dala_brands` (
   PRIMARY KEY (`dala_brands_ID`),
   KEY `brands_stores_id` (`dala_brands_stores_id`),
   CONSTRAINT `brands_stores_id` FOREIGN KEY (`dala_brands_stores_id`) REFERENCES `dala_stores` (`dala_stores_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `dala_brands` (
 
 LOCK TABLES `dala_brands` WRITE;
 /*!40000 ALTER TABLE `dala_brands` DISABLE KEYS */;
-INSERT INTO `dala_brands` VALUES (1,'2021-07-09 11:38:44','Nông lâm food','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(2,'2021-07-09 11:38:44','BerryLand','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(3,'2021-07-09 11:38:44','Ladophar','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(4,'2021-07-09 11:38:44','Biofresh','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(5,'2021-07-09 11:38:44','Dalat Natural Food','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(6,'2021-07-09 11:38:44','Quốc Lộc Coffee','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(7,'2021-07-09 11:38:44','LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','',1,0,1,18,''),(8,'2021-07-09 11:38:44','Ladophar1','https://appdala.com/images/dala-logo.png','Nông lâm food','',0,0,0,19,''),(9,'2021-07-09 11:38:44','Biofresh2','https://appdala.com/images/dala-logo.png','BerryLand','',1,0,0,19,''),(10,'2021-07-09 11:38:44','Dalat Natural Food3','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,19,''),(11,'2021-07-09 11:38:44','Quốc Lộc Coffee4','https://appdala.com/images/dala-logo.png','BerryLand','',1,2,1,19,''),(12,'2021-07-09 11:38:44','LaFresh5','https://appdala.com/images/dala-logo.png','BerryLand','',1,3,1,19,'');
+INSERT INTO `dala_brands` VALUES (1,'2021-07-11 16:04:16','Nông lâm food','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(2,'2021-07-11 16:04:16','BerryLand','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(3,'2021-07-11 16:04:16','Ladophar','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(4,'2021-07-11 16:04:16','Biofresh','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(5,'2021-07-11 16:04:16','Dalat Natural Food','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,17,''),(6,'2021-07-11 16:04:16','Quốc Lộc Coffee','https://appdala.com/images/dala-logo.png','BerryLand','',1,1,1,18,''),(7,'2021-07-11 16:04:16','LaFresh','https://appdala.com/images/dala-logo.png','BerryLand','',1,0,1,18,''),(8,'2021-07-11 16:04:16','Ladophar1','https://appdala.com/images/dala-logo.png','Nông lâm food','',0,0,0,19,''),(9,'2021-07-11 16:04:16','Biofresh2','https://appdala.com/images/dala-logo.png','BerryLand','',1,0,0,19,''),(10,'2021-07-11 16:04:16','Dalat Natural Food3','https://appdala.com/images/dala-logo.png','Nông lâm food','',1,1,1,19,''),(11,'2021-07-11 16:04:16','Quốc Lộc Coffee4','https://appdala.com/images/dala-logo.png','BerryLand','',1,2,1,19,''),(12,'2021-07-11 16:04:16','LaFresh5','https://appdala.com/images/dala-logo.png','BerryLand','',1,3,1,19,'');
 /*!40000 ALTER TABLE `dala_brands` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -221,7 +221,7 @@ CREATE TABLE `dala_category_general_speciality` (
   PRIMARY KEY (`dala_category_general_speciality_ID`),
   KEY `category_general_speciality_stores_id` (`dala_category_general_speciality_stores_id`),
   CONSTRAINT `category_general_speciality_stores_id` FOREIGN KEY (`dala_category_general_speciality_stores_id`) REFERENCES `dala_stores` (`dala_stores_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `dala_category_general_speciality` (
 
 LOCK TABLES `dala_category_general_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_category_general_speciality` DISABLE KEYS */;
-INSERT INTO `dala_category_general_speciality` VALUES (1,'2021-07-09 11:38:44','Mứt Đà Lạt',0,'Mứt Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(2,'2021-07-09 11:38:44','Trái cây sấy dẻo',0,'Trái cây sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(3,'2021-07-09 11:38:44','Trái cây sấy giòn',0,'Trái cây sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(4,'2021-07-09 11:38:44','Trà Đà Lạt',0,'Trà Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(5,'2021-07-09 11:38:44','Kẹo dẻo',1,'Kẹo dẻo','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(6,'2021-07-09 11:38:44','Mứt Atiso',1,'Mứt Atiso','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(7,'2021-07-09 11:38:44','Mứt Bán chạy nhất',1,'Mứt Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(8,'2021-07-09 11:38:44','Bưởi sấy dẻo',2,'Bưởi sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(9,'2021-07-09 11:38:44','Cam sấy dẻo',2,'Cam sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(10,'2021-07-09 11:38:44','Chuối sấy dẻo',2,'Chuối sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(11,'2021-07-09 11:38:44','Chuối sấy giòn',3,'Chuối sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(12,'2021-07-09 11:38:44','Khoai lang sấy giòn',3,'Khoai lang sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(13,'2021-07-09 11:38:44','Mít sấy giòn',3,'Mít sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(14,'2021-07-09 11:38:44','Trà Atiso',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(15,'2021-07-09 11:38:44','Trà Bán chạy nhất',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(16,'2021-07-09 11:38:44','Trà Giảm giá Hót',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(17,'2021-07-09 11:38:44','Dâu sấy dẻo',3,'Dâu sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(18,'2021-07-09 11:38:44','Nông sản khô Đà Lạt',0,'Nông sản khô Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,18,1,0,0,''),(19,'2021-07-09 11:38:44','demo1',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,0,19,0,0,0,''),(20,'2021-07-09 11:38:44','demo2',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,19,0,0,0,''),(21,'2021-07-09 11:38:44','demo3',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,19,1,1,0,''),(22,'2021-07-09 11:38:44','demo4',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,1,19,1,2,0,''),(23,'2021-07-09 11:38:44','demo5',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,19,1,3,0,''),(24,'2021-07-09 11:38:44','demo6',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,19,1,3,0,'');
+INSERT INTO `dala_category_general_speciality` VALUES (1,'2021-07-11 16:04:16','Mứt Đà Lạt',0,'Mứt Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(2,'2021-07-11 16:04:16','Trái cây sấy dẻo',0,'Trái cây sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(3,'2021-07-11 16:04:16','Trái cây sấy giòn',0,'Trái cây sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(4,'2021-07-11 16:04:16','Trà Đà Lạt',0,'Trà Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(5,'2021-07-11 16:04:16','Kẹo dẻo',1,'Kẹo dẻo','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(6,'2021-07-11 16:04:16','Mứt Atiso',1,'Mứt Atiso','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(7,'2021-07-11 16:04:16','Mứt Bán chạy nhất',1,'Mứt Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,17,1,1,0,''),(8,'2021-07-11 16:04:16','Bưởi sấy dẻo',2,'Bưởi sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(9,'2021-07-11 16:04:16','Cam sấy dẻo',2,'Cam sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(10,'2021-07-11 16:04:16','Chuối sấy dẻo',2,'Chuối sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(11,'2021-07-11 16:04:16','Chuối sấy giòn',3,'Chuối sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(12,'2021-07-11 16:04:16','Khoai lang sấy giòn',3,'Khoai lang sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(13,'2021-07-11 16:04:16','Mít sấy giòn',3,'Mít sấy giòn','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(14,'2021-07-11 16:04:16','Trà Atiso',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(15,'2021-07-11 16:04:16','Trà Bán chạy nhất',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(16,'2021-07-11 16:04:16','Trà Giảm giá Hót',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(17,'2021-07-11 16:04:16','Dâu sấy dẻo',3,'Dâu sấy dẻo','https://appdala.com/images/dala-logo.png',0,0,1,18,1,1,0,''),(18,'2021-07-11 16:04:16','Nông sản khô Đà Lạt',0,'Nông sản khô Đà Lạt','https://appdala.com/images/dala-logo.png',0,0,1,18,1,0,0,''),(19,'2021-07-11 16:04:16','demo1',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,0,19,0,0,0,''),(20,'2021-07-11 16:04:16','demo2',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,19,0,0,0,''),(21,'2021-07-11 16:04:16','demo3',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,19,1,1,0,''),(22,'2021-07-11 16:04:16','demo4',4,'Trà Atiso','https://appdala.com/images/dala-logo.png',0,0,1,19,1,2,0,''),(23,'2021-07-11 16:04:16','demo5',4,'Trà Bán chạy nhất','https://appdala.com/images/dala-logo.png',0,0,1,19,1,3,0,''),(24,'2021-07-11 16:04:16','demo6',4,'Trà Giảm giá Hót','https://appdala.com/images/dala-logo.png',0,0,1,19,1,3,0,'');
 /*!40000 ALTER TABLE `dala_category_general_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -368,7 +368,7 @@ CREATE TABLE `dala_category_general_speciality_link` (
   KEY `category_general_speciality_link_product_id` (`dala_category_general_speciality_link_product_id`),
   CONSTRAINT `category_general_speciality_link_category_general_id` FOREIGN KEY (`dala_category_general_speciality_link_category_general_id`) REFERENCES `dala_category_general_speciality` (`dala_category_general_speciality_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `category_general_speciality_link_product_id` FOREIGN KEY (`dala_category_general_speciality_link_product_id`) REFERENCES `dala_products_speciality` (`dala_products_speciality_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +408,7 @@ CREATE TABLE `dala_category_news` (
 
 LOCK TABLES `dala_category_news` WRITE;
 /*!40000 ALTER TABLE `dala_category_news` DISABLE KEYS */;
-INSERT INTO `dala_category_news` VALUES (1,'2021-07-09 11:38:44','Tin Tức',0,'https://appdala.com/images/dala-logo.png','Tin Tức',1,1,1),(2,'2021-07-09 11:38:44','Tin khuyến mãi',0,'https://appdala.com/images/dala-logo.png','Tin khuyến mãi',1,1,1),(3,'2021-07-09 11:38:44','Tin Tức App',0,'https://appdala.com/images/dala-logo.png','Tin Tức App',1,1,1);
+INSERT INTO `dala_category_news` VALUES (1,'2021-07-11 16:04:16','Tin Tức',0,'https://appdala.com/images/dala-logo.png','Tin Tức',1,1,1),(2,'2021-07-11 16:04:16','Tin khuyến mãi',0,'https://appdala.com/images/dala-logo.png','Tin khuyến mãi',1,1,1),(3,'2021-07-11 16:04:16','Tin Tức App',0,'https://appdala.com/images/dala-logo.png','Tin Tức App',1,1,1);
 /*!40000 ALTER TABLE `dala_category_news` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -630,7 +630,7 @@ CREATE TABLE `dala_comments_speciality` (
 
 LOCK TABLES `dala_comments_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_comments_speciality` DISABLE KEYS */;
-INSERT INTO `dala_comments_speciality` VALUES (1,'2021-07-09 11:38:44',56,0,1,'sản phẩm tốt , rất hài lòng',1),(2,'2021-07-09 11:38:44',56,0,2,'sản phẩm tốt , rất hài lòng',1),(3,'2021-07-09 11:38:44',56,1,1,'sản phẩm tốt , rất hài lòng',1),(4,'2021-07-09 11:38:44',56,2,2,'sản phẩm tốt , rất hài lòng',0),(5,'2021-07-09 11:38:44',56,0,3,'sản phẩm tốt , rất hài lòng',0);
+INSERT INTO `dala_comments_speciality` VALUES (1,'2021-07-11 16:04:16',56,0,1,'sản phẩm tốt , rất hài lòng',1),(2,'2021-07-11 16:04:16',56,0,2,'sản phẩm tốt , rất hài lòng',1),(3,'2021-07-11 16:04:16',56,1,1,'sản phẩm tốt , rất hài lòng',1),(4,'2021-07-11 16:04:16',56,2,2,'sản phẩm tốt , rất hài lòng',0),(5,'2021-07-11 16:04:16',56,0,3,'sản phẩm tốt , rất hài lòng',0);
 /*!40000 ALTER TABLE `dala_comments_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -810,7 +810,7 @@ CREATE TABLE `dala_coupon_speciality` (
 
 LOCK TABLES `dala_coupon_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_coupon_speciality` DISABLE KEYS */;
-INSERT INTO `dala_coupon_speciality` VALUES (1,'2021-07-09 11:38:44','MPVC500',17,'Miễn phí vận chuyển cho đơn hàng tổng tiền lớn hơn 500.000 đ',0,1,0,1,0,30000,NULL,NULL,0,1,1,0,''),(2,'2021-07-09 11:38:44','DHDT',17,'Đơn hàng đầu tiên giảm giá 10%',0,1,0,3,0,0,NULL,NULL,0,1,1,0,''),(3,'2021-07-09 11:38:44','LE0209',17,'Giảm giá 5% trong ngày lễ 02-09',0,1,0,3,0,0,NULL,NULL,0,0,1,0,''),(4,'2021-07-09 11:38:44','LE0209s',19,'Giảm giá 5% trong ngày lễ 02-09 demo 1',0,1,0,3,0,0,NULL,NULL,0,0,0,0,''),(5,'2021-07-09 11:38:44','LE0209d',19,'Giảm giá 5% trong ngày lễ 02-09 demo 2',0,1,0,3,0,0,NULL,NULL,0,2,1,0,''),(6,'2021-07-09 11:38:44','LE0209f',19,'Giảm giá 5% trong ngày lễ 02-09 demo 3',0,1,0,3,0,0,NULL,NULL,0,3,1,0,'');
+INSERT INTO `dala_coupon_speciality` VALUES (1,'2021-07-11 16:04:16','MPVC500',17,'Miễn phí vận chuyển cho đơn hàng tổng tiền lớn hơn 500.000 đ',0,1,0,1,0,30000,NULL,NULL,0,1,1,0,''),(2,'2021-07-11 16:04:16','DHDT',17,'Đơn hàng đầu tiên giảm giá 10%',0,1,0,3,0,0,NULL,NULL,0,1,1,0,''),(3,'2021-07-11 16:04:16','LE0209',17,'Giảm giá 5% trong ngày lễ 02-09',0,1,0,3,0,0,NULL,NULL,0,0,1,0,''),(4,'2021-07-11 16:04:16','LE0209s',19,'Giảm giá 5% trong ngày lễ 02-09 demo 1',0,1,0,3,0,0,NULL,NULL,0,0,0,0,''),(5,'2021-07-11 16:04:16','LE0209d',19,'Giảm giá 5% trong ngày lễ 02-09 demo 2',0,1,0,3,0,0,NULL,NULL,0,2,1,0,''),(6,'2021-07-11 16:04:16','LE0209f',19,'Giảm giá 5% trong ngày lễ 02-09 demo 3',0,1,0,3,0,0,NULL,NULL,0,3,1,0,'');
 /*!40000 ALTER TABLE `dala_coupon_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -913,7 +913,7 @@ CREATE TABLE `dala_discount_program` (
 
 LOCK TABLES `dala_discount_program` WRITE;
 /*!40000 ALTER TABLE `dala_discount_program` DISABLE KEYS */;
-INSERT INTO `dala_discount_program` VALUES (1,'2021-07-09 11:38:44','flash sale',17,'https://appdala.com/images/dala-logo.png',0,0,1,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Flash sale',''),(2,'2021-07-09 11:38:44','Mứt dâu giảm giá 40%',17,'https://appdala.com/images/dala-logo.png',0,0,2,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Mứt dâu giảm giá 40%',''),(3,'2021-07-09 11:38:44','Sản phẩm theo mùa',18,'https://appdala.com/images/dala-logo.png',0,0,3,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Sản phẩm theo mùa',''),(4,'2021-07-09 11:38:44','mua 1 tặng 1',18,'https://appdala.com/images/dala-logo.png',0,0,4,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1',''),(5,'2021-07-09 11:38:44','chương trình demo 1',19,'https://appdala.com/images/dala-logo.png',0,0,4,0,0,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1',''),(6,'2021-07-09 11:38:44','chương trình demo 2',19,'https://appdala.com/images/dala-logo.png',0,0,4,1,0,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1','');
+INSERT INTO `dala_discount_program` VALUES (1,'2021-07-11 16:04:16','flash sale',17,'https://appdala.com/images/dala-logo.png',0,0,1,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Flash sale',''),(2,'2021-07-11 16:04:16','Mứt dâu giảm giá 40%',17,'https://appdala.com/images/dala-logo.png',0,0,2,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Mứt dâu giảm giá 40%',''),(3,'2021-07-11 16:04:16','Sản phẩm theo mùa',18,'https://appdala.com/images/dala-logo.png',0,0,3,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi Sản phẩm theo mùa',''),(4,'2021-07-11 16:04:16','mua 1 tặng 1',18,'https://appdala.com/images/dala-logo.png',0,0,4,2,1,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1',''),(5,'2021-07-11 16:04:16','chương trình demo 1',19,'https://appdala.com/images/dala-logo.png',0,0,4,0,0,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1',''),(6,'2021-07-11 16:04:16','chương trình demo 2',19,'https://appdala.com/images/dala-logo.png',0,0,4,1,0,0,0,0,0,NULL,NULL,'Chương trình khuyến mãi mua 1 tặng 1','');
 /*!40000 ALTER TABLE `dala_discount_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -949,7 +949,7 @@ CREATE TABLE `dala_discount_program_details` (
 
 LOCK TABLES `dala_discount_program_details` WRITE;
 /*!40000 ALTER TABLE `dala_discount_program_details` DISABLE KEYS */;
-INSERT INTO `dala_discount_program_details` VALUES (1,'2021-07-09 11:38:44',1,18,2,1,0,0,10,''),(2,'2021-07-09 11:38:44',2,17,2,1,0,0,20,''),(3,'2021-07-09 11:38:44',3,18,2,1,0,0,30,''),(4,'2021-07-09 11:38:44',4,19,0,0,0,0,30,''),(5,'2021-07-09 11:38:44',4,19,1,1,0,0,30,'');
+INSERT INTO `dala_discount_program_details` VALUES (1,'2021-07-11 16:04:16',1,18,2,1,0,0,10,''),(2,'2021-07-11 16:04:16',2,17,2,1,0,0,20,''),(3,'2021-07-11 16:04:16',3,18,2,1,0,0,30,''),(4,'2021-07-11 16:04:16',4,19,0,0,0,0,30,''),(5,'2021-07-11 16:04:16',4,19,1,1,0,0,30,'');
 /*!40000 ALTER TABLE `dala_discount_program_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -981,7 +981,7 @@ CREATE TABLE `dala_discount_program_product_link` (
 
 LOCK TABLES `dala_discount_program_product_link` WRITE;
 /*!40000 ALTER TABLE `dala_discount_program_product_link` DISABLE KEYS */;
-INSERT INTO `dala_discount_program_product_link` VALUES (1,'2021-07-09 11:38:44',1,2,1,''),(2,'2021-07-09 11:38:44',1,4,1,''),(3,'2021-07-09 11:38:44',1,6,1,''),(4,'2021-07-09 11:38:44',3,2,1,''),(5,'2021-07-09 11:38:44',3,4,1,''),(6,'2021-07-09 11:38:44',2,1,1,''),(7,'2021-07-09 11:38:44',2,3,1,''),(8,'2021-07-09 11:38:44',2,5,0,''),(9,'2021-07-09 11:38:44',4,10,1,''),(10,'2021-07-09 11:38:44',4,8,2,''),(11,'2021-07-09 11:38:44',5,9,2,'');
+INSERT INTO `dala_discount_program_product_link` VALUES (1,'2021-07-11 16:04:16',1,2,1,''),(2,'2021-07-11 16:04:16',1,4,1,''),(3,'2021-07-11 16:04:16',1,6,1,''),(4,'2021-07-11 16:04:16',3,2,1,''),(5,'2021-07-11 16:04:16',3,4,1,''),(6,'2021-07-11 16:04:16',2,1,1,''),(7,'2021-07-11 16:04:16',2,3,1,''),(8,'2021-07-11 16:04:16',2,5,0,''),(9,'2021-07-11 16:04:16',4,10,1,''),(10,'2021-07-11 16:04:16',4,8,2,''),(11,'2021-07-11 16:04:16',5,9,2,'');
 /*!40000 ALTER TABLE `dala_discount_program_product_link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1012,7 +1012,7 @@ CREATE TABLE `dala_like_product` (
 
 LOCK TABLES `dala_like_product` WRITE;
 /*!40000 ALTER TABLE `dala_like_product` DISABLE KEYS */;
-INSERT INTO `dala_like_product` VALUES (1,'2021-07-09 11:38:44',56,1,0),(2,'2021-07-09 11:38:44',56,2,0),(3,'2021-07-09 11:38:44',56,3,0);
+INSERT INTO `dala_like_product` VALUES (1,'2021-07-11 16:04:16',56,1,0),(2,'2021-07-11 16:04:16',56,2,0),(3,'2021-07-11 16:04:16',56,3,0);
 /*!40000 ALTER TABLE `dala_like_product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1127,7 +1127,7 @@ CREATE TABLE `dala_like_store` (
 
 LOCK TABLES `dala_like_store` WRITE;
 /*!40000 ALTER TABLE `dala_like_store` DISABLE KEYS */;
-INSERT INTO `dala_like_store` VALUES (1,'2021-07-09 11:38:44',56,17,0),(2,'2021-07-09 11:38:44',56,18,0),(3,'2021-07-09 11:38:44',56,19,0);
+INSERT INTO `dala_like_store` VALUES (1,'2021-07-11 16:04:16',56,17,0),(2,'2021-07-11 16:04:16',56,18,0),(3,'2021-07-11 16:04:16',56,19,0);
 /*!40000 ALTER TABLE `dala_like_store` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1233,7 +1233,7 @@ CREATE TABLE `dala_news` (
 
 LOCK TABLES `dala_news` WRITE;
 /*!40000 ALTER TABLE `dala_news` DISABLE KEYS */;
-INSERT INTO `dala_news` VALUES (1,'Dala hoàn thành app vào cuối tháng 7','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành app vào cuối tháng 7','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	dala hoàn thành app vào cuối tháng 7, Đội ngủ thiết kế đã hoàn thiện giao diện suất sắc\n	\n	\n	',1),(2,'Dala hoàn thành API','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành API chờ kết nối app','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	Dala hoàn thành API chờ kết nối app. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng\n	\n	\n	',1),(3,'Dala hoàn thành kết nối API với APP','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành kết nối API với APP','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	Dala hoàn thành kết nối API với APP. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng, Cam kết hoàn thành trong tháng 7\n	\n	\n	',1),(4,'Dala hoàn thành app vào cuối tháng 7','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành app vào cuối tháng 7','Dala hoàn thành app vào cuối tháng 7',1),(5,'Dala hoàn thành API','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành API chờ kết nối app','Dala hoàn thành API chờ kết nối app.',1),(6,'Dala hoàn thành kết nối API với APP','2021-07-09 11:38:44','https://appdala.com/images/dala-logo.png','Dala hoàn thành kết nối API với APP','Dala hoàn thành kết nối API với APP',0);
+INSERT INTO `dala_news` VALUES (1,'Dala hoàn thành app vào cuối tháng 7','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành app vào cuối tháng 7','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	dala hoàn thành app vào cuối tháng 7, Đội ngủ thiết kế đã hoàn thiện giao diện suất sắc\n	\n	\n	',1),(2,'Dala hoàn thành API','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành API chờ kết nối app','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	Dala hoàn thành API chờ kết nối app. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng\n	\n	\n	',1),(3,'Dala hoàn thành kết nối API với APP','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành kết nối API với APP','\n	\n	<div><img src=\"https://appdala.com/images/dala-logo.png\"/></div>\r\n<br>\r\n\n	Dala hoàn thành kết nối API với APP. những màn hình đâu tiên của APP đã xuất hiện, Đội ngủ lập trình đang rất hào hứng, Cam kết hoàn thành trong tháng 7\n	\n	\n	',1),(4,'Dala hoàn thành app vào cuối tháng 7','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành app vào cuối tháng 7','Dala hoàn thành app vào cuối tháng 7',1),(5,'Dala hoàn thành API','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành API chờ kết nối app','Dala hoàn thành API chờ kết nối app.',1),(6,'Dala hoàn thành kết nối API với APP','2021-07-11 16:04:16','https://appdala.com/images/dala-logo.png','Dala hoàn thành kết nối API với APP','Dala hoàn thành kết nối API với APP',0);
 /*!40000 ALTER TABLE `dala_news` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1289,6 +1289,7 @@ CREATE TABLE `dala_notes` (
   `dala_notes_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dala_notes_user_id` int NOT NULL,
   `dala_notes_status` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_notes_title` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_notes_contents` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_notes_ID`),
   KEY `notes_user_id` (`dala_notes_user_id`),
@@ -1302,7 +1303,7 @@ CREATE TABLE `dala_notes` (
 
 LOCK TABLES `dala_notes` WRITE;
 /*!40000 ALTER TABLE `dala_notes` DISABLE KEYS */;
-INSERT INTO `dala_notes` VALUES (1,'2021-07-09 11:38:44',56,0,'Thông báo demo 1'),(2,'2021-07-09 11:38:44',56,0,'Thông báo demo 2'),(3,'2021-07-09 11:38:44',56,1,'Thông báo demo 3'),(4,'2021-07-09 11:38:44',56,1,'Thông báo demo 4'),(5,'2021-07-09 11:38:44',56,1,'Thông báo demo 5'),(6,'2021-07-09 11:38:44',56,1,'Thông báo demo 6'),(7,'2021-07-09 11:38:44',51,0,'Thông báo demo 7'),(8,'2021-07-09 11:38:44',51,0,'Thông báo demo 8'),(9,'2021-07-09 11:38:44',51,1,'Thông báo demo 9'),(10,'2021-07-09 11:38:44',51,1,'Thông báo demo 10'),(11,'2021-07-09 11:38:44',51,1,'Thông báo demo 11'),(12,'2021-07-09 11:38:44',51,1,'Thông báo demo 12'),(13,'2021-07-09 11:38:44',52,0,'Thông báo demo 13'),(14,'2021-07-09 11:38:44',52,0,'Thông báo demo 14'),(15,'2021-07-09 11:38:44',52,1,'Thông báo demo 15'),(16,'2021-07-09 11:38:44',52,1,'Thông báo demo 16'),(17,'2021-07-09 11:38:44',52,1,'Thông báo demo 17'),(18,'2021-07-09 11:38:44',52,1,'Thông báo demo 18'),(19,'2021-07-09 11:38:44',55,0,'Thông báo demo 19'),(20,'2021-07-09 11:38:44',55,0,'Thông báo demo 20'),(21,'2021-07-09 11:38:44',55,1,'Thông báo demo 21'),(22,'2021-07-09 11:38:44',55,1,'Thông báo demo 22'),(23,'2021-07-09 11:38:44',55,1,'Thông báo demo 23'),(24,'2021-07-09 11:38:44',55,1,'Thông báo demo 24');
+INSERT INTO `dala_notes` VALUES (1,'2021-07-11 16:04:16',56,0,'Thông báo demo','Thông báo demo 1'),(2,'2021-07-11 16:04:16',56,0,'Thông báo demo','Thông báo demo 2'),(3,'2021-07-11 16:04:16',56,1,'Thông báo demo','Thông báo demo 3'),(4,'2021-07-11 16:04:16',56,1,'Thông báo demo','Thông báo demo 4'),(5,'2021-07-11 16:04:16',56,1,'Thông báo demo','Thông báo demo 5'),(6,'2021-07-11 16:04:16',56,1,'Thông báo demo','Thông báo demo 6'),(7,'2021-07-11 16:04:16',51,0,'Thông báo demo','Thông báo demo 7'),(8,'2021-07-11 16:04:16',51,0,'Thông báo demo','Thông báo demo 8'),(9,'2021-07-11 16:04:16',51,1,'Thông báo demo','Thông báo demo 9'),(10,'2021-07-11 16:04:16',51,1,'Thông báo demo','Thông báo demo 10'),(11,'2021-07-11 16:04:16',51,1,'Thông báo demo','Thông báo demo 11'),(12,'2021-07-11 16:04:16',51,1,'Thông báo demo','Thông báo demo 12'),(13,'2021-07-11 16:04:16',52,0,'Thông báo demo','Thông báo demo 13'),(14,'2021-07-11 16:04:16',52,0,'Thông báo demo','Thông báo demo 14'),(15,'2021-07-11 16:04:16',52,1,'Thông báo demo','Thông báo demo 15'),(16,'2021-07-11 16:04:16',52,1,'Thông báo demo','Thông báo demo 16'),(17,'2021-07-11 16:04:16',52,1,'Thông báo demo','Thông báo demo 17'),(18,'2021-07-11 16:04:16',52,1,'Thông báo demo','Thông báo demo 18'),(19,'2021-07-11 16:04:16',55,0,'Thông báo demo','Thông báo demo 19'),(20,'2021-07-11 16:04:16',55,0,'Thông báo demo','Thông báo demo 20'),(21,'2021-07-11 16:04:16',55,1,'Thông báo demo','Thông báo demo 21'),(22,'2021-07-11 16:04:16',55,1,'Thông báo demo','Thông báo demo 22'),(23,'2021-07-11 16:04:16',55,1,'Thông báo demo','Thông báo demo 23'),(24,'2021-07-11 16:04:16',55,1,'Thông báo demo','Thông báo demo 24');
 /*!40000 ALTER TABLE `dala_notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1407,7 +1408,7 @@ CREATE TABLE `dala_options_product_speciality` (
   PRIMARY KEY (`dala_options_product_speciality_ID`),
   KEY `options_product_speciality_stores_id` (`dala_options_product_speciality_stores_id`),
   CONSTRAINT `options_product_speciality_stores_id` FOREIGN KEY (`dala_options_product_speciality_stores_id`) REFERENCES `dala_stores` (`dala_stores_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1416,7 +1417,7 @@ CREATE TABLE `dala_options_product_speciality` (
 
 LOCK TABLES `dala_options_product_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_options_product_speciality` DISABLE KEYS */;
-INSERT INTO `dala_options_product_speciality` VALUES (1,'Màu Sắc','https://appdala.com/images/dala-logo.png',0,17,1,1,1,'Màu Sắc','2021-07-09 11:38:44',''),(2,'Màu đỏ','https://appdala.com/images/dala-logo.png',1,17,1,1,1,'Màu đỏ','2021-07-09 11:38:44',''),(3,'Màu xanh','https://appdala.com/images/dala-logo.png',1,17,1,1,1,'Màu xanh','2021-07-09 11:38:44',''),(4,'Kích thướt','https://appdala.com/images/dala-logo.png',0,18,1,1,1,'Kích thướt','2021-07-09 11:38:44',''),(5,'Size lớn','https://appdala.com/images/dala-logo.png',4,18,1,1,1,'size lớn','2021-07-09 11:38:44',''),(6,'Size nhỏ','https://appdala.com/images/dala-logo.png',4,18,1,0,1,'size nhỏ','2021-07-09 11:38:44',''),(7,'Kích thướt1','https://appdala.com/images/dala-logo.png',0,19,0,0,0,'Kích thướt','2021-07-09 11:38:44',''),(8,'Size lớn2','https://appdala.com/images/dala-logo.png',4,19,1,0,0,'size lớn','2021-07-09 11:38:44',''),(9,'Size nhỏ3','https://appdala.com/images/dala-logo.png',4,19,1,1,1,'size nhỏ','2021-07-09 11:38:44',''),(10,'Kích thướt4','https://appdala.com/images/dala-logo.png',0,19,1,2,1,'Kích thướt','2021-07-09 11:38:44',''),(11,'Size lớn5','https://appdala.com/images/dala-logo.png',4,19,1,3,1,'size lớn','2021-07-09 11:38:44',''),(12,'Size nhỏ6','https://appdala.com/images/dala-logo.png',4,19,1,3,1,'size nhỏ','2021-07-09 11:38:44','');
+INSERT INTO `dala_options_product_speciality` VALUES (1,'Màu Sắc','https://appdala.com/images/dala-logo.png',0,17,1,1,1,'Màu Sắc','2021-07-11 16:04:16',''),(2,'Màu đỏ','https://appdala.com/images/dala-logo.png',1,17,1,1,1,'Màu đỏ','2021-07-11 16:04:16',''),(3,'Màu xanh','https://appdala.com/images/dala-logo.png',1,17,1,1,1,'Màu xanh','2021-07-11 16:04:16',''),(4,'Kích thướt','https://appdala.com/images/dala-logo.png',0,18,1,1,1,'Kích thướt','2021-07-11 16:04:16',''),(5,'Size lớn','https://appdala.com/images/dala-logo.png',4,18,1,1,1,'size lớn','2021-07-11 16:04:16',''),(6,'Size nhỏ','https://appdala.com/images/dala-logo.png',4,18,1,0,1,'size nhỏ','2021-07-11 16:04:16',''),(7,'Kích thướt1','https://appdala.com/images/dala-logo.png',0,19,0,0,0,'Kích thướt','2021-07-11 16:04:16',''),(8,'Size lớn2','https://appdala.com/images/dala-logo.png',4,19,1,0,0,'size lớn','2021-07-11 16:04:16',''),(9,'Size nhỏ3','https://appdala.com/images/dala-logo.png',4,19,1,1,1,'size nhỏ','2021-07-11 16:04:16',''),(10,'Kích thướt4','https://appdala.com/images/dala-logo.png',0,19,1,2,1,'Kích thướt','2021-07-11 16:04:16',''),(11,'Size lớn5','https://appdala.com/images/dala-logo.png',4,19,1,3,1,'size lớn','2021-07-11 16:04:16',''),(12,'Size nhỏ6','https://appdala.com/images/dala-logo.png',4,19,1,3,1,'size nhỏ','2021-07-11 16:04:16','');
 /*!40000 ALTER TABLE `dala_options_product_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1448,8 +1449,8 @@ END IF;
 
 IF(NEW.dala_options_product_speciality_parent_id > 0 ) THEN 
 
-	SET @checkID = (select dala_category_general_speciality_ID  
-	from dala_category_general_speciality 
+	SET @checkID = (select dala_options_product_speciality_ID  
+	from dala_options_product_speciality 
 	where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_parent_id);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 		SIGNAL SQLSTATE '12345' 
@@ -1506,7 +1507,7 @@ IF(NEW.dala_options_product_speciality_parent_id > 0 ) THEN
 	
 		SET @checkID = (select dala_options_product_speciality_ID   
 		from dala_options_product_speciality 
-		where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_ID);
+		where dala_options_product_speciality_ID  = NEW.dala_options_product_speciality_parent_id);
 		IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 			SIGNAL SQLSTATE '12345' 
 			SET MESSAGE_TEXT = 'trig_check_options_product_speciality_parent_id_no_parent'; 
@@ -1541,7 +1542,7 @@ CREATE TABLE `dala_options_product_speciality_link` (
   KEY `options_product_speciality_link_product_id` (`dala_options_product_speciality_link_product_id`),
   CONSTRAINT `options_product_speciality_link_option_id` FOREIGN KEY (`dala_options_product_speciality_link_option_id`) REFERENCES `dala_options_product_speciality` (`dala_options_product_speciality_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `options_product_speciality_link_product_id` FOREIGN KEY (`dala_options_product_speciality_link_product_id`) REFERENCES `dala_products_speciality` (`dala_products_speciality_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1732,7 +1733,7 @@ CREATE TABLE `dala_orders_speciality` (
 
 LOCK TABLES `dala_orders_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_orders_speciality` DISABLE KEYS */;
-INSERT INTO `dala_orders_speciality` VALUES (1,56,'2021-07-09 11:38:44',1,1,'Biên hòa','','0948036018','custommers@gmail.com',''),(2,56,'2021-07-09 11:38:44',1,1,'Đà lạt','','0948036011','custommer2@gmail.com',''),(3,56,'2021-07-09 11:38:44',1,1,'Đồng nai','','0948036012','custommer3@gmail.com',''),(4,56,'2021-07-09 11:38:44',0,0,'Lâm đồng','','0948036012','custommer3@gmail.com',''),(5,56,'2021-07-09 11:38:44',1,1,'TP HCM','','0948036013','custommer4@gmail.com',''),(6,56,'2021-07-09 11:38:44',2,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(7,56,'2021-07-09 11:38:44',3,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(8,56,'2021-07-09 11:38:44',4,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(9,56,'2021-07-09 11:38:44',0,0,'TP HCM','','0948036013','custommer4@gmail.com','');
+INSERT INTO `dala_orders_speciality` VALUES (1,56,'2021-07-11 16:04:16',1,1,'Biên hòa','','0948036018','custommers@gmail.com',''),(2,56,'2021-07-11 16:04:16',1,1,'Đà lạt','','0948036011','custommer2@gmail.com',''),(3,56,'2021-07-11 16:04:16',1,1,'Đồng nai','','0948036012','custommer3@gmail.com',''),(4,56,'2021-07-11 16:04:16',0,0,'Lâm đồng','','0948036012','custommer3@gmail.com',''),(5,56,'2021-07-11 16:04:16',1,1,'TP HCM','','0948036013','custommer4@gmail.com',''),(6,56,'2021-07-11 16:04:16',2,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(7,56,'2021-07-11 16:04:16',3,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(8,56,'2021-07-11 16:04:16',4,0,'TP HCM','','0948036013','custommer4@gmail.com',''),(9,56,'2021-07-11 16:04:16',0,0,'TP HCM','','0948036013','custommer4@gmail.com','');
 /*!40000 ALTER TABLE `dala_orders_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1967,7 +1968,7 @@ CREATE TABLE `dala_products_speciality` (
   `dala_products_speciality_image_slider` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_origin` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_products_speciality_contents` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_products_speciality_price` float NOT NULL,
+  `dala_products_speciality_price` float NOT NULL DEFAULT '0',
   `dala_products_speciality_sale_of_price` float DEFAULT NULL,
   `dala_products_speciality_date_start` datetime DEFAULT NULL,
   `dala_products_speciality_date_end` datetime DEFAULT NULL,
@@ -1984,10 +1985,9 @@ CREATE TABLE `dala_products_speciality` (
   `dala_products_speciality_length` int DEFAULT NULL,
   `dala_products_speciality_weight` int DEFAULT NULL,
   PRIMARY KEY (`dala_products_speciality_ID`),
-  UNIQUE KEY `dala_products_speciality_sku` (`dala_products_speciality_sku`),
   KEY `products_speciality_store_id` (`dala_products_speciality_store_id`),
   CONSTRAINT `products_speciality_store_id` FOREIGN KEY (`dala_products_speciality_store_id`) REFERENCES `dala_stores` (`dala_stores_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1996,7 +1996,7 @@ CREATE TABLE `dala_products_speciality` (
 
 LOCK TABLES `dala_products_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_products_speciality` DISABLE KEYS */;
-INSERT INTO `dala_products_speciality` VALUES (1,'Kẹo dẻo phủ chocolate loại đặc biệt-220gr',0,'2021-07-09 11:38:44','KD1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam',' Kẹo dẻo phủ socola có vị ngọt nhẹ và dai, phủ một lớp socola mỏng, cho ta vị hậu đắng nhẹ tăng thêm độ hoàn hảo và một hương vị đặc trưng của vùng cao nguyên Đà Lạt.\r\n\r\nMàu sắc: Kẹo có màu sắc tự nhiên, phủ bên trên là lớp socola mỏng tạo cái nhìn thiện cảm cho người dùng.\r\nMùi vị: mỗi màu sắc là một vị khác nhau, chua,ngọt trộn với vị hậu đắng nhẹ gây kích thích vị giác.\r\nĂn trực tiếp.\r\nChỉ sử dụng acid citrid để bảo quản và duy trì màu sắc cho sản phẩm. Trẻ em, phụ nữ mang thai có thể sử dụng được.\r\n – Thành phần: Kẹo dẻo trái cây (70%), chocolate đen.\r\n\r\n – KLT: 220g\r\n\r\n – Hướng dẫn sử dụng: Mở bao bì và dùng trực tiếp. Làm kín miệng sau mỗi lần sử dụng.\r\n\r\n – Bảo quản: Bảo quản nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp.\r\n\r\n                      Không sử dụng sản phẩm khi có dấu hiệu ẩm mốc, xuất hiện mùi lạ.\r\n\r\nSản phẩm được phân phối bởi Dala.vn.',70000,65000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(2,'Vỏ bưởi mật ong sấy dẻo-100gram',0,'2021-07-09 11:38:44','KD2',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng ⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n	',70000,65000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(3,'Khoai lang Nhật sợi sấy dòn loại Đặc Biệt-100gram',0,'2021-07-09 11:38:44','CS1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		KHOAI LANG NHẬT SỢI SẤY GIÒN\n		Ai trong chúng ta cũng đều biết đến khoai lang, một loại thực phẩm tuy giản dị, thô sơ nhưng lại mang trong mình hàm lượng dinh dưỡng và chất xơ cao đến không ngờ. Nhưng, có chắc rằng bạn biết đến khoai lang ở dạng sợi chưa? Trong hình dáng mới, cọng thuôn dài, độ dài khoảng tầm 7cm, sản phẩm mang lại cho người dùng. một cảm giác ăn thật ngon miệng.\n	',35000,29000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(4,'Trà Actisô Túi Lọc Ladophar – 100 túi',0,'2021-07-09 11:38:44','TRA1',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n	\n	Trà túi lọc Actiso là sản phấm chiết xuất từ thiên nhiên, với hương thơm và vị ngọt hoàn toàn tự nhiên nay được bổ sung thêm thành phần cao Actisô giúp tăng cường hiệu quả phòng ngừa và bảo vệ gan mật.\n	Trà túi lọc Actiso được đóng gói theo quy cách 100 túi lọc x 2g, rất dễ dàng sử dụng cũng như bảo quản.\n	Trà túi lọc Actiso rất tốt. Với công dụng mát gan, lợi tiểu, thông mật, rất thích hợp cho người bị yếu gan, nổi mề đay, vàng da. Có thể dùng hằng ngày thay nước lọc. \n	\n   ',35000,29000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(5,'Dâu tây sấy dẻo-150gr',0,'2021-07-09 11:38:44','DAU1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n	\n		Từ lâu, những quả dâu tây đỏ mọng nước đã nổi tiếng là nguồn cung cấp vitamin C dồi dào cho cơ thể, nhưng ít người biết tới loại quả này còn rất giàu các chất chống oxy hóa có lợi. Việc ăn dâu tây mỗi ngày giúp ngăn ngừa lão hóa, tăng cường hệ miễn dịch, giảm chứng viêm khớp, phòng ngừa tiểu đường cũng như sự hình thành và lan rộng của các khối u. Đặc biệt, dâu tây còn giúp cơ thể sản sinh các hormore hạnh phúc (dopamine, serotonin) không chỉ chữa chứng trầm cảm còn giúp thúc đẩy máu mang dưỡng chất tới não.\n		Hiểu được được tầm quan trọng của dâu tây đối với sức khỏe, BerryLand đã sử dụng dây chuyền sản xuất hiện đại của mình để mang đến những quả dâu cô đặc đầy dinh dưỡng trong món Dâu Sấy Dẻo nổi tiếng của mình. Được sấy bằng công nghệ cao trong dây chuyền khép kín, Dâu sấy dẻo BerryLand không chỉ giữ được hàm lượng dinh dưỡng của trái cây tươi, mà còn làm giảm độ chua giúp tăng vị ngọt dịu cho những quả dâu thêm phần thơm ngon. Chính vì vậy, món ăn vặt dinh dưỡng này sẽ là lựa chọn phù hợp cho tất cả các đối tượng từ trẻ em, người lớn cho tới các mẹ bầu. Ngoài ra, sản phẩm được đóng gói nhỏ gọn, đẹp mắt phù hợp cho việc đãi khách, mang theo tới văn phòng, hay những chuyến du lịch xa.	\n   \n   ',140000,120000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(6,'Trà Lado Linh Chi bổ gan mật – Hộp 20 Túi Lọc',0,'2021-07-09 11:38:44','DAU2',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',20000,17000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(7,'Cỏ ngọt sấy khô bịch loại 1 – 225gram',0,'2021-07-09 11:38:44','TRA5',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(8,'demo',0,'2021-07-09 11:38:44','TRAs5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,0,0,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(9,'demo2',0,'2021-07-09 11:38:44','TRAss5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,1,0,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(10,'demo3',0,'2021-07-09 11:38:44','TRAsss5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(11,'demo4',0,'2021-07-09 11:38:44','TRAd5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,2,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(12,'demo5',0,'2021-07-09 11:38:44','TRAdd5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,3,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200);
+INSERT INTO `dala_products_speciality` VALUES (1,'Kẹo dẻo phủ chocolate loại đặc biệt-220gr',0,'2021-07-11 16:04:16','KD1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam',' Kẹo dẻo phủ socola có vị ngọt nhẹ và dai, phủ một lớp socola mỏng, cho ta vị hậu đắng nhẹ tăng thêm độ hoàn hảo và một hương vị đặc trưng của vùng cao nguyên Đà Lạt.\r\n\r\nMàu sắc: Kẹo có màu sắc tự nhiên, phủ bên trên là lớp socola mỏng tạo cái nhìn thiện cảm cho người dùng.\r\nMùi vị: mỗi màu sắc là một vị khác nhau, chua,ngọt trộn với vị hậu đắng nhẹ gây kích thích vị giác.\r\nĂn trực tiếp.\r\nChỉ sử dụng acid citrid để bảo quản và duy trì màu sắc cho sản phẩm. Trẻ em, phụ nữ mang thai có thể sử dụng được.\r\n – Thành phần: Kẹo dẻo trái cây (70%), chocolate đen.\r\n\r\n – KLT: 220g\r\n\r\n – Hướng dẫn sử dụng: Mở bao bì và dùng trực tiếp. Làm kín miệng sau mỗi lần sử dụng.\r\n\r\n – Bảo quản: Bảo quản nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp.\r\n\r\n                      Không sử dụng sản phẩm khi có dấu hiệu ẩm mốc, xuất hiện mùi lạ.\r\n\r\nSản phẩm được phân phối bởi Dala.vn.',70000,65000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(2,'Vỏ bưởi mật ong sấy dẻo-100gram',0,'2021-07-11 16:04:16','KD2',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng ⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n	',70000,65000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(3,'Khoai lang Nhật sợi sấy dòn loại Đặc Biệt-100gram',0,'2021-07-11 16:04:16','CS1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		KHOAI LANG NHẬT SỢI SẤY GIÒN\n		Ai trong chúng ta cũng đều biết đến khoai lang, một loại thực phẩm tuy giản dị, thô sơ nhưng lại mang trong mình hàm lượng dinh dưỡng và chất xơ cao đến không ngờ. Nhưng, có chắc rằng bạn biết đến khoai lang ở dạng sợi chưa? Trong hình dáng mới, cọng thuôn dài, độ dài khoảng tầm 7cm, sản phẩm mang lại cho người dùng. một cảm giác ăn thật ngon miệng.\n	',35000,29000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(4,'Trà Actisô Túi Lọc Ladophar – 100 túi',0,'2021-07-11 16:04:16','TRA1',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n	\n	Trà túi lọc Actiso là sản phấm chiết xuất từ thiên nhiên, với hương thơm và vị ngọt hoàn toàn tự nhiên nay được bổ sung thêm thành phần cao Actisô giúp tăng cường hiệu quả phòng ngừa và bảo vệ gan mật.\n	Trà túi lọc Actiso được đóng gói theo quy cách 100 túi lọc x 2g, rất dễ dàng sử dụng cũng như bảo quản.\n	Trà túi lọc Actiso rất tốt. Với công dụng mát gan, lợi tiểu, thông mật, rất thích hợp cho người bị yếu gan, nổi mề đay, vàng da. Có thể dùng hằng ngày thay nước lọc. \n	\n   ',35000,29000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(5,'Dâu tây sấy dẻo-150gr',0,'2021-07-11 16:04:16','DAU1',17,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n	\n		Từ lâu, những quả dâu tây đỏ mọng nước đã nổi tiếng là nguồn cung cấp vitamin C dồi dào cho cơ thể, nhưng ít người biết tới loại quả này còn rất giàu các chất chống oxy hóa có lợi. Việc ăn dâu tây mỗi ngày giúp ngăn ngừa lão hóa, tăng cường hệ miễn dịch, giảm chứng viêm khớp, phòng ngừa tiểu đường cũng như sự hình thành và lan rộng của các khối u. Đặc biệt, dâu tây còn giúp cơ thể sản sinh các hormore hạnh phúc (dopamine, serotonin) không chỉ chữa chứng trầm cảm còn giúp thúc đẩy máu mang dưỡng chất tới não.\n		Hiểu được được tầm quan trọng của dâu tây đối với sức khỏe, BerryLand đã sử dụng dây chuyền sản xuất hiện đại của mình để mang đến những quả dâu cô đặc đầy dinh dưỡng trong món Dâu Sấy Dẻo nổi tiếng của mình. Được sấy bằng công nghệ cao trong dây chuyền khép kín, Dâu sấy dẻo BerryLand không chỉ giữ được hàm lượng dinh dưỡng của trái cây tươi, mà còn làm giảm độ chua giúp tăng vị ngọt dịu cho những quả dâu thêm phần thơm ngon. Chính vì vậy, món ăn vặt dinh dưỡng này sẽ là lựa chọn phù hợp cho tất cả các đối tượng từ trẻ em, người lớn cho tới các mẹ bầu. Ngoài ra, sản phẩm được đóng gói nhỏ gọn, đẹp mắt phù hợp cho việc đãi khách, mang theo tới văn phòng, hay những chuyến du lịch xa.	\n   \n   ',140000,120000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(6,'Trà Lado Linh Chi bổ gan mật – Hộp 20 Túi Lọc',0,'2021-07-11 16:04:16','DAU2',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',20000,17000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(7,'Cỏ ngọt sấy khô bịch loại 1 – 225gram',0,'2021-07-11 16:04:16','TRA5',18,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(8,'demo',0,'2021-07-11 16:04:16','TRAs5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,0,0,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(9,'demo2',0,'2021-07-11 16:04:16','TRAss5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,0,1,0,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(10,'demo3',0,'2021-07-11 16:04:16','TRAsss5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,1,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(11,'demo4',0,'2021-07-11 16:04:16','TRAd5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,2,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(12,'demo5',0,'2021-07-11 16:04:16','TRAdd5',19,0,'https://appdala.com/images/dala-logo.png','https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;https://appdala.com/images/dala-logo.png;','Việt Nam','	\n		⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\n		⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\n		⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\n		⇒ Mua số lượng lớn khách hàng vui lòng liên hệ Hotline: 0982900100 để có giá tốt nhất.\n   ',60000,55000,NULL,NULL,NULL,2,3,1,1,'','⇒ Khuyễn mãi giao hàng miễn phí trên toàn quốc với đơn hàng trên 1 triệu đồng\r\n⇒ Giao hàng Siêu tốc (Từ 1 tiếng – 3 tiếng) trong nội thành TP Đà Lạt\r\n⇒ Tuyển đại lý trên toàn quốc với nhiều chính sách ưu đãi, hấp dẫn dành cho đại lý.\r\n\r\n⇒ Mua số lượng lớn khách hàng ','',10,10,10,200),(13,'demo product 20',0,'2021-07-11 23:22:40','13SK',19,0,'','','','',100000,NULL,NULL,NULL,NULL,NULL,0,0,0,'','','',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `dala_products_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2008,24 +2008,26 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_name_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
+
+
+
+
 
 
 IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_name_empty';   
+	SET MESSAGE_TEXT = 'trig_products_speciality_insert_name_empty';   
 END IF;	
 
-IF(NEW.dala_products_speciality_sku  is null or NEW.dala_products_speciality_sku = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_sku_empty';   
-END IF;	
+
+
 
 
 IF(LENGTH(NEW.dala_products_speciality_date_start) > 0  and LENGTH(NEW.dala_products_speciality_date_end) > 0) THEN 
 	IF( (UNIX_TIMESTAMP(NEW.dala_products_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_products_speciality_date_start)) <= 0 ) THEN 
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_date_end_less_star';   
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_date_end_less_star';   
 	END IF;
 END IF;	
 
@@ -2034,100 +2036,33 @@ END IF;
 
 
 
-
-
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = latin1 */ ;
-/*!50003 SET character_set_results = latin1 */ ;
-/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_price_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
-IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_price_empty';   
-END IF;	
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = latin1 */ ;
-/*!50003 SET character_set_results = latin1 */ ;
-/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_store_id_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
-IF(LENGTH(NEW.dala_products_speciality_store_id) <= 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_store_id_empty';   
-END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = latin1 */ ;
-/*!50003 SET character_set_results = latin1 */ ;
-/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_brand_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
-
 IF(LENGTH(NEW.dala_products_speciality_brand) > 0 ) THEN 
 	
 	SET @checkID = (select dala_brands_ID  from dala_brands where dala_brands_ID  = NEW.dala_products_speciality_brand);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_brand_no_refe'; 
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_brand_no_refe'; 
 	END IF;	
 END IF;
 
 
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = latin1 */ ;
-/*!50003 SET character_set_results = latin1 */ ;
-/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trig_products_speciality_parent_id_insert` BEFORE INSERT ON `dala_products_speciality` FOR EACH ROW BEGIN  
 
-IF(LENGTH( NEW.dala_products_speciality_parent_id ) > 0 ) THEN 
+
+
+
+
+IF( LENGTH(NEW.dala_products_speciality_parent_id) > 0 AND NEW.dala_products_speciality_parent_id  > 0 ) THEN 
 	
 	SET @checkID = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_parent_id );
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_parent_id_no_refe'; 
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_parent_id_no_refe_insert'; 
 	END IF;	
 END IF;
+
+
+
+
 
 
 END */;;
@@ -2150,21 +2085,12 @@ DELIMITER ;;
 
 
 
+
+
 IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_name_empty';   
+	SET MESSAGE_TEXT = 'trig_products_speciality_update_name_empty';   
 END IF;	
-
-
-
-
-
-
-IF(NEW.dala_products_speciality_sku  is null or NEW.dala_products_speciality_sku = '') THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_sku_empty';   
-END IF;	
-
 
 
 
@@ -2173,19 +2099,8 @@ END IF;
 IF(LENGTH(NEW.dala_products_speciality_date_start) > 0  and LENGTH(NEW.dala_products_speciality_date_end) > 0) THEN 
 	IF( (UNIX_TIMESTAMP(NEW.dala_products_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_products_speciality_date_start)) <= 0 ) THEN 
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_date_end_less_star';   
+		SET MESSAGE_TEXT = 'trig_products_speciality_update_date_end_less_star';   
 	END IF;
-END IF;	
-
-
-
-
-
-
-
-IF(NEW.dala_products_speciality_price  is null or NEW.dala_products_speciality_price = '' or NEW.dala_products_speciality_price < 0) THEN 
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_products_speciality_price_empty';   
 END IF;	
 
 
@@ -2198,9 +2113,8 @@ IF(LENGTH(NEW.dala_products_speciality_brand) > 0 ) THEN
 	SET @checkID = (select dala_brands_ID  from dala_brands where dala_brands_ID  = NEW.dala_products_speciality_brand);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
 		SIGNAL SQLSTATE '12345' 
-		SET MESSAGE_TEXT = 'trig_products_speciality_brand_no_refe'; 
+		SET MESSAGE_TEXT = 'trig_products_speciality_update_brand_no_refe'; 
 	END IF;	
-	
 END IF;
 
 
@@ -2208,36 +2122,41 @@ END IF;
 
 
 
-IF(LENGTH( NEW.dala_products_speciality_parent_id ) > 0 ) THEN 
 
-	SET @parent_old = (select dala_products_speciality_parent_id  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_ID );
+IF( LENGTH(NEW.dala_products_speciality_parent_id) > 0 AND NEW.dala_products_speciality_parent_id  > 0 ) THEN 
 	
-	IF ( @parent_old = NEW.dala_products_speciality_parent_id ) THEN 
-		SIGNAL SQLSTATE '01000'; 
+	SET @checkID = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_parent_id );
+	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
+		SIGNAL SQLSTATE '12345' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_update_parent_id_no_refe_update'; 
+	END IF;	
+END IF;
+
+
+
+
+
+
+IF(LENGTH(NEW.dala_products_speciality_sku) > 0) THEN 
+	SET @sku_old = (select dala_products_speciality_sku   
+		from dala_products_speciality 
+		where dala_products_speciality_ID  = NEW.dala_products_speciality_ID 	
+	);
+	
+	IF (@sku_old is null or @sku_old = '' or @sku_old = 'null' or @sku_old = NEW.dala_products_speciality_sku ) THEN   
+		SIGNAL SQLSTATE '01000';
 	ELSE 
-	
-		SET @checkID = (select dala_products_speciality_ID  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_parent_id );
-		IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN   
+		
+		SET @check_sku = (select dala_products_speciality_ID   
+			from dala_products_speciality 
+			where dala_products_speciality_sku  = NEW.dala_products_speciality_sku 	
+		);	
+		IF(@check_sku > 0 ) THEN
 			SIGNAL SQLSTATE '12345' 
-			SET MESSAGE_TEXT = 'trig_products_speciality_parent_id_no_refe'; 
-		END IF;		
-	
-	END IF;
-
-END IF;
-
-
-
-
-
-
-
-
-
-
-
-
-
+			SET MESSAGE_TEXT = 'trig_products_speciality_sku_double'; 		
+		END IF;
+	END IF;	
+END IF;	
 
 
 END */;;
@@ -2305,7 +2224,7 @@ CREATE TABLE `dala_reviews_speciality` (
 
 LOCK TABLES `dala_reviews_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_reviews_speciality` DISABLE KEYS */;
-INSERT INTO `dala_reviews_speciality` VALUES (1,'2021-07-09 11:38:44',56,1,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,5),(2,'2021-07-09 11:38:44',56,2,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,4),(3,'2021-07-09 11:38:44',56,3,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,3),(4,'2021-07-09 11:38:44',56,4,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',0,2);
+INSERT INTO `dala_reviews_speciality` VALUES (1,'2021-07-11 16:04:16',56,1,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,5),(2,'2021-07-11 16:04:16',56,2,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,4),(3,'2021-07-11 16:04:16',56,3,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',1,3),(4,'2021-07-11 16:04:16',56,4,'Sản phẩm rất tốt, Đã mua và hài lòng vhới chất lượng và dịch vụ',0,2);
 /*!40000 ALTER TABLE `dala_reviews_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2418,7 +2337,7 @@ CREATE TABLE `dala_reviews_store_speciality` (
 
 LOCK TABLES `dala_reviews_store_speciality` WRITE;
 /*!40000 ALTER TABLE `dala_reviews_store_speciality` DISABLE KEYS */;
-INSERT INTO `dala_reviews_store_speciality` VALUES (1,'2021-07-09 11:38:44',56,17,'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo',1,5),(2,'2021-07-09 11:38:44',56,18,'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo',0,4);
+INSERT INTO `dala_reviews_store_speciality` VALUES (1,'2021-07-11 16:04:16',56,17,'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo',1,5),(2,'2021-07-11 16:04:16',56,18,'Cửa hàng rất tốt- giao hàng nhanh, Chu đáo',0,4);
 /*!40000 ALTER TABLE `dala_reviews_store_speciality` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2782,7 +2701,7 @@ CREATE TABLE `dala_shipping_tracking` (
 
 LOCK TABLES `dala_shipping_tracking` WRITE;
 /*!40000 ALTER TABLE `dala_shipping_tracking` DISABLE KEYS */;
-INSERT INTO `dala_shipping_tracking` VALUES (1,'2021-07-09 11:38:44',63,1,'giao hàng trong ngày',0,'giao hàng trong ngày'),(2,'2021-07-09 11:38:44',63,1,'giao hàng trong ngày',1,'giao hàng trong ngày'),(3,'2021-07-09 11:38:44',63,1,'giao hàng trong ngày',2,'giao hàng trong ngày'),(4,'2021-07-09 11:38:44',63,1,'giao hàng trong ngày',3,'giao hàng trong ngày'),(5,'2021-07-09 11:38:44',63,2,'giao hàng trong ngày',0,'giao hàng trong ngày'),(6,'2021-07-09 11:38:44',63,2,'giao hàng trong ngày',1,'giao hàng trong ngày'),(7,'2021-07-09 11:38:44',63,2,'giao hàng trong ngày',2,'giao hàng trong ngày');
+INSERT INTO `dala_shipping_tracking` VALUES (1,'2021-07-11 16:04:16',63,1,'giao hàng trong ngày',0,'giao hàng trong ngày'),(2,'2021-07-11 16:04:16',63,1,'giao hàng trong ngày',1,'giao hàng trong ngày'),(3,'2021-07-11 16:04:16',63,1,'giao hàng trong ngày',2,'giao hàng trong ngày'),(4,'2021-07-11 16:04:16',63,1,'giao hàng trong ngày',3,'giao hàng trong ngày'),(5,'2021-07-11 16:04:16',63,2,'giao hàng trong ngày',0,'giao hàng trong ngày'),(6,'2021-07-11 16:04:16',63,2,'giao hàng trong ngày',1,'giao hàng trong ngày'),(7,'2021-07-11 16:04:16',63,2,'giao hàng trong ngày',2,'giao hàng trong ngày');
 /*!40000 ALTER TABLE `dala_shipping_tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2947,7 +2866,7 @@ CREATE TABLE `dala_token` (
   `dala_token_value` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_token_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`dala_token_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2956,7 +2875,7 @@ CREATE TABLE `dala_token` (
 
 LOCK TABLES `dala_token` WRITE;
 /*!40000 ALTER TABLE `dala_token` DISABLE KEYS */;
-INSERT INTO `dala_token` VALUES (1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJfcm9sZSI6ImRlZmF1bHQiLCJpYXQiOjE2MjMyMjg3NTl9.iQrzkanw_3SAyFT03Kq3GbWLdpcZtvkuswhKaKtsn0M','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJzX3Bob25lIjoiMDk0ODAzNjAxMDciLCJ1c2Vyc19lbWFpbCI6Ikd1ZXN0RGFsYUFsbEBnbWFpbC5jb20iLCJ1c2Vyc19wYXNzd29yZCI6IjQxMjc4OTUzNGY1Y2Q1YjI2M2JiNTc0YmEyZjA5NTg1IiwidXNlcl9yb2xlIjoiZGVmYXVsdCIsImlhdCI6MTYyMzIyODc1OX0.q5Qv9zG_ynJsnOFFqcB4mDpMftZ9fxHToXbFfuAxXBo','2021-07-09 11:38:44'),(2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2Vyc19waG9uZSI6IjA4ODk0NTAzMDciLCJ1c2Vyc19lbWFpbCI6InN1cHBlci1qb2JAZ21haWwuY29tIiwidXNlcnNfcGFzc3dvcmQiOiJlNmY2YzE4NTY5MDlmZDRiNTI3YjNhYjA0ZDBlOTlhMyIsInVzZXJfcm9sZSI6InN1cHBlci1qb2IiLCJpYXQiOjE2MjM1NTE1MTd9.S37Ab2vDod4e9YErqdqeLEFTUt18WgEcxMUtsROdC7o','2021-07-09 11:38:44');
+INSERT INTO `dala_token` VALUES (1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJfcm9sZSI6ImRlZmF1bHQiLCJpYXQiOjE2MjMyMjg3NTl9.iQrzkanw_3SAyFT03Kq3GbWLdpcZtvkuswhKaKtsn0M','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTcsInVzZXJzX2Z1bGxfbmFtZSI6Ikd1ZXN0RGFsYUFsbCIsInVzZXJzX3Bob25lIjoiMDk0ODAzNjAxMDciLCJ1c2Vyc19lbWFpbCI6Ikd1ZXN0RGFsYUFsbEBnbWFpbC5jb20iLCJ1c2Vyc19wYXNzd29yZCI6IjQxMjc4OTUzNGY1Y2Q1YjI2M2JiNTc0YmEyZjA5NTg1IiwidXNlcl9yb2xlIjoiZGVmYXVsdCIsImlhdCI6MTYyMzIyODc1OX0.q5Qv9zG_ynJsnOFFqcB4mDpMftZ9fxHToXbFfuAxXBo','2021-07-11 16:04:16'),(2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2Vyc19waG9uZSI6IjA4ODk0NTAzMDciLCJ1c2Vyc19lbWFpbCI6InN1cHBlci1qb2JAZ21haWwuY29tIiwidXNlcnNfcGFzc3dvcmQiOiJlNmY2YzE4NTY5MDlmZDRiNTI3YjNhYjA0ZDBlOTlhMyIsInVzZXJfcm9sZSI6InN1cHBlci1qb2IiLCJpYXQiOjE2MjM1NTE1MTd9.S37Ab2vDod4e9YErqdqeLEFTUt18WgEcxMUtsROdC7o','2021-07-11 16:04:16'),(3,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMTk2MzksImV4cCI6MTYyNjAyNjgzOX0.KSExsDCYSKD8umPlyXgYqnsAOBtlfPgoFuUyBALk7oE','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2Vyc19waG9uZSI6IjA5NDgwMzYwMTA1IiwidXNlcnNfZW1haWwiOiJ0dWFuYmFvQGdtYWlsLmNvbSIsInVzZXJzX3Bhc3N3b3JkIjoiYTNkY2I0ZDIyOWRlNmZkZTBkYjU2ODZkZWU0NzE0NWQiLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMTk2MzksImV4cCI6MTYyNjAyNjgzOX0.XCFos2kjT1QakyVwdZGI8wQFSAEIo-b4qAZRAbbSHqE','2021-07-11 23:07:19'),(4,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMjAxNDMsImV4cCI6MTYyNjAyNzM0M30.WCwOqOWTZIkAmUQYwezHXNyaoAVK-ePNOVrURrJYocc','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2Vyc19waG9uZSI6IjA5NDgwMzYwMTA1IiwidXNlcnNfZW1haWwiOiJ0dWFuYmFvQGdtYWlsLmNvbSIsInVzZXJzX3Bhc3N3b3JkIjoiYTNkY2I0ZDIyOWRlNmZkZTBkYjU2ODZkZWU0NzE0NWQiLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMjAxNDMsImV4cCI6MTYyNjAyNzM0M30.ssZYVN_e5HxCoxbtYdDEYiFfBglaDjJcAB3P0MeawJk','2021-07-11 23:15:43'),(5,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMjA1NjksImV4cCI6MTYyNjAyNzc2OX0.W3JqefUhr1nDVVfdrDfs_jJZcN_pDm-dRqbFGNz68Sw','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NTUsInVzZXJzX2Z1bGxfbmFtZSI6InR1YW5iYW8iLCJ1c2Vyc19waG9uZSI6IjA5NDgwMzYwMTA1IiwidXNlcnNfZW1haWwiOiJ0dWFuYmFvQGdtYWlsLmNvbSIsInVzZXJzX3Bhc3N3b3JkIjoiYTNkY2I0ZDIyOWRlNmZkZTBkYjU2ODZkZWU0NzE0NWQiLCJ1c2VyX3JvbGUiOiJidXNzaW5lc3MiLCJpYXQiOjE2MjYwMjA1NjksImV4cCI6MTYyNjAyNzc2OX0.ClpQzad2KCuLDHN0OHT3FmVHbtQoAxV6HjRasmMkH6o','2021-07-11 23:22:49');
 /*!40000 ALTER TABLE `dala_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3466,7 +3385,7 @@ CREATE TABLE `dala_view_product` (
 
 LOCK TABLES `dala_view_product` WRITE;
 /*!40000 ALTER TABLE `dala_view_product` DISABLE KEYS */;
-INSERT INTO `dala_view_product` VALUES (1,'2021-07-09 11:38:44',56,1),(2,'2021-07-09 11:38:44',56,2),(3,'2021-07-09 11:38:44',56,3);
+INSERT INTO `dala_view_product` VALUES (1,'2021-07-11 16:04:16',56,1),(2,'2021-07-11 16:04:16',56,2),(3,'2021-07-11 16:04:16',56,3);
 /*!40000 ALTER TABLE `dala_view_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3639,4 +3558,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-09 18:39:35
+-- Dump completed on 2021-07-11 23:25:36
