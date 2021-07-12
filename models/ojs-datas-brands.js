@@ -41,6 +41,7 @@ const ojs_datas_brands = {
 				"select_field" :
 				[
 				"brands_ID",
+				"brands_date_created",
 				"brands_name",
 				"brands_status_stores",
 				"brands_status_admin",
@@ -67,7 +68,8 @@ const ojs_datas_brands = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;
@@ -252,6 +254,7 @@ const ojs_datas_brands = {
 				"select_field" :
 				[
 				"brands_ID",
+				"brands_date_created",
 				"brands_name",
 				"brands_status_stores",
 				"brands_status_admin",
@@ -288,7 +291,8 @@ const ojs_datas_brands = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;

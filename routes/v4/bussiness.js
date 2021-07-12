@@ -136,35 +136,61 @@ router.get('/:user_id', async  function(req, res, next) {
 	//return;
 
 
+	//@
+	//@
+	//@ datas_store_all
+	var data_store_data_edit = {'store_compare':'<>'};
+	var data_store_data_copy = {...ojs_configs.datas_all};	
+	var data_store_data_assign = Object.assign(data_store_data_copy,data_store_data_edit);
+	//@
+	//@
+	//@
+	//@
+	//@ datas_user_all
+	var data_product_order = [{'field':'products_speciality_date_created','compare':'DESC'}];
+	var data_product_order_edit = {'order':data_product_order};
+	var data_product_order_copy = {...ojs_configs.datas_all};	
+	var data_product_order_assign = Object.assign(data_product_order_copy,data_product_order_edit);
+	//@
+	var data_product_data_edit = {'store_compare':'<>'};
+	//@
+	var data_product_ok = Object.assign(data_product_order_assign,data_product_data_edit);
 
+	
+	
+	//@
+	//@
+	//@ datas_orders_all
+	var data_order_order = [{'field':'orders_speciality_date_orders','compare':'DESC'}];
+	var data_order_order_edit = {'order':data_order_order};
+	var data_order_order_copy = {...ojs_configs.orders_all};	
+	var data_order_order_assign = Object.assign(data_order_order_copy,data_order_order_edit);
+	//@
+	var data_order_data_edit = {'store_compare':'<>','status_admin_compare': '<>'};
+	//@
+	var data_order_ok = Object.assign(data_order_order_assign,data_order_data_edit);	
+	
+	
 
+	
 	//@
 	//@
 	//@
-	//@ datas_get_all_list_datas
-	var datas_order_datas_send = {
-		'status_admin_compare': '<>',
-		'status_admin_value': '1'
-	}
-	var x = {...ojs_configs.orders_all};
-	var s = Object.assign(x,datas_order_datas_send);
-	
-	//res.send(s);
-	//return;
-	
-	
 	var datas_get_all_list_datas = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_product':ojs_configs.datas_all_admin,
-		'datas_store':ojs_configs.datas_all_admin,	
-		'datas_order': s
+		'datas_store':data_store_data_assign,	
+		'datas_product':data_product_ok,
+		'datas_order' : data_order_ok,
 	}
 	
 	//res.send( datas_get_all_list_datas );	
 	//return;		
+	
+	
+	
 	var get_all_list_datas;
 	try{
 		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
@@ -177,10 +203,13 @@ router.get('/:user_id', async  function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(get_all_list_datas[2]);
+	//res.send(get_all_list_datas);
 	//return;
 	
-	
+	if(get_all_list_datas[2].datas.length <= 0 ){
+		res.send('<h1 style="text-align:center; padding:50px 2%;">Tài khoản chưa có cửa hàng nào</h1><p style="text-align:center; padding:50px 2%;"><a href="/users/">Quay về</a></p>');
+		return;
+	}	
 	
 	//@
 	//@
@@ -247,7 +276,7 @@ router.get('/:user_id', async  function(req, res, next) {
 			'title' 				: 'Quản lý tài khoản doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
-			'store_id' 				: store_id,
+			'store_id' 				: get_all_list_datas[2].datas[0].stores_ID,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			

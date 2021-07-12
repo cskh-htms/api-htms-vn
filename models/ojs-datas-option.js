@@ -41,6 +41,7 @@ const ojs_datas_option = {
 				"select_field" :
 				[
 				"options_product_speciality_parent_id",
+				"options_product_speciality_date_created",
 				"options_product_speciality_name",
 				"options_product_speciality_ID",
 				"options_product_speciality_stores_id",
@@ -68,7 +69,8 @@ const ojs_datas_option = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;

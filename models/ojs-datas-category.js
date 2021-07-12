@@ -39,6 +39,7 @@ const ojs_datas_category = {
 				"select_field" :
 				[
 				"category_general_speciality_ID",
+				"category_general_speciality_date_created",
 				"category_general_speciality_name",
 				"category_general_speciality_category_parent_id",
 				"category_general_speciality_stores_id",
@@ -67,7 +68,8 @@ const ojs_datas_category = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;
@@ -243,6 +245,7 @@ const ojs_datas_category = {
 				"select_field" :
 				[
 				"category_general_speciality_ID",
+				"category_general_speciality_date_created",
 				"category_general_speciality_name",
 				"category_general_speciality_category_parent_id",
 				"category_general_speciality_stores_id",
@@ -281,7 +284,8 @@ const ojs_datas_category = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;

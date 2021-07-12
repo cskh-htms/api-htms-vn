@@ -68,7 +68,8 @@ const ojs_datas_stores = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order" : datas.order,
 			}
 		}
 		return datas_return;
@@ -136,7 +137,8 @@ const ojs_datas_stores = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order" : datas.order,
 			}
 		}
 		return datas_return;

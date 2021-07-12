@@ -314,6 +314,7 @@ const ojs_datas_products = {
 				"select_field" :
 				[
 					"products_speciality_ID",
+					"products_speciality_date_created",
 					"stores_ID",
 					"stores_name",
 					"products_speciality_name",
@@ -352,7 +353,8 @@ const ojs_datas_products = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;

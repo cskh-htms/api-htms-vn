@@ -21,6 +21,7 @@ const ojs_datas_users = {
 			"datas" :   {
 				"select_field" :
 				[
+				"users_date_created",
 				"users_ID",
 				"users_full_name",
 				"users_adress",

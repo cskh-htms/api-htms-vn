@@ -674,7 +674,7 @@ router.get('/:store_id', async function(req, res, next) {
 	}
 
 	var user_id = ojs_shares_others.get_users_id(token)
-
+	var users_type 	=  ojs_shares_others.get_users_type(token);
 
 	//@
 	//@
@@ -736,13 +736,6 @@ router.get('/:store_id', async function(req, res, next) {
 
 
 
-	//res.send(s);
-	//return;
-	var datas_store_send = {
-		'store_compare':'='
-	}	
-	var datas_store_send_x = {...ojs_configs.datas_all};
-	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
 	//@
 	//@
 	//@
@@ -752,12 +745,15 @@ router.get('/:store_id', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_store':datas_store_send_s,
+		'datas_store':ojs_configs.datas_all,
 		'datas_brand': ojs_configs.datas_all
 	}
 	
-	//res.send( datas_get_all_list_datas );	
-	//return;		
+	res.send( datas_get_all_list_datas );	
+	return;		
+	
+	
+	
 	var get_all_list_datas;
 	try{
 		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
@@ -770,8 +766,8 @@ router.get('/:store_id', async function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(get_all_list_datas);
-	//return;
+	res.send(get_all_list_datas);
+	return;
 
 
 

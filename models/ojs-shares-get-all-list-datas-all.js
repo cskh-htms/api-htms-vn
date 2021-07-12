@@ -106,15 +106,9 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 1. [datas_user]
 		if(datas.datas_user){
-			var datas_send = {	
-				
-				'status_admin_compare' : datas.datas_user.status_admin_compare,
-				'status_admin_value' : datas.datas_user.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_user.status_store_compare,	
-				'status_store_value' : datas.datas_user.status_store_value,
-				'order' : datas.datas_user.order				
-			}
+			var datas_send = datas.datas_user;
+			
+			//return datas_send;
 			
 			//return ojs_datas_users.get_all_list_datas_all(datas_send);
 			
@@ -140,14 +134,8 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 2. [datas_store]
 		if(datas.datas_store){
-			var datas_send = {	
-				
-				'status_admin_compare' : datas.datas_store.status_admin_compare,
-				'status_admin_value' : datas.datas_store.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_store.status_store_compare,	
-				'status_store_value' : datas.datas_store.status_store_value			
-			}
+			var datas_send = datas.datas_store;
+			
 			var fn_datas_store = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search',
@@ -171,17 +159,8 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 3. [datas_order]
 		if(datas.datas_order){
-			var datas_send = {
-				'status_admin_compare' : datas.datas_order.status_admin_compare,
-				'status_admin_value' : datas.datas_order.status_admin_value,				
+			var datas_send = datas.datas_order;
 				
-				'line_order_compare' : datas.datas_order.line_order_compare,	
-				'line_order_value' : datas.datas_order.line_order_value,
-				
-				'date_star' : datas.datas_order.date_star,	
-				'date_end' : datas.datas_order.date_end
-				
-			}
 			var fn_datas_order = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user',
@@ -204,14 +183,9 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 4. [datas_cat]
 		if(datas.datas_cat){
-			var datas_send = {
-				
-				'status_admin_compare' : datas.datas_cat.status_admin_compare,
-				'status_admin_value' : datas.datas_cat.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_cat.status_store_compare,	
-				'status_store_value' : datas.datas_cat.status_store_value			
-			}			
+			
+			var datas_send = datas.datas_cat;
+			
 			var fn_datas_cat = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/categorys/general/speciality/search',
@@ -236,14 +210,9 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 5. [datas_option]
 		if(datas.datas_option){
-			var datas_send = {
-				
-				'status_admin_compare' : datas.datas_option.status_admin_compare,
-				'status_admin_value' : datas.datas_option.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_option.status_store_compare,	
-				'status_store_value' : datas.datas_option.status_store_value			
-			}				
+			
+			var datas_send = datas.datas_option;	
+			
 			var fn_datas_option = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/options/speciality/search',
@@ -270,13 +239,9 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 6. [datas_brand]
 		if(datas.datas_brand){
-			var datas_send = {				
-				'status_admin_compare' : datas.datas_brand.status_admin_compare,
-				'status_admin_value' : datas.datas_brand.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_brand.status_store_compare,	
-				'status_store_value' : datas.datas_brand.status_store_value			
-			}
+			
+			var datas_send = datas.datas_brand;
+			
 			var fn_datas_brand = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/brands/search',
@@ -304,14 +269,7 @@ const ojs_shares_get_all_list_datas_all = {
 		//@ * 7. [datas_product]
 		if(datas.datas_product){
 			
-			var datas_send = {
-				
-				'status_admin_compare' : datas.datas_product.status_admin_compare,
-				'status_admin_value' : datas.datas_product.status_admin_value,				
-				
-				'status_store_compare' : datas.datas_product.status_store_compare,	
-				'status_store_value' : datas.datas_product.status_store_value			
-			}
+			var datas_send = datas.datas_product;
 			
 			var fn_datas_product = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
@@ -439,13 +397,9 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 15. [datas_note]
 		if(datas.datas_note){
-			var datas_send = {
-				'user_compare': datas.datas_note.user_compare,
-				'store_compare': datas.datas_note.store_compare,	
-				
-				'status_admin_compare' : datas.datas_note.status_admin_compare,
-				'status_admin_value' : datas.datas_note.status_admin_value	
-			}
+			
+			var datas_send = datas.datas_note;
+			
 			var fn_datas_note = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/notes/search',

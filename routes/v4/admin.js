@@ -93,7 +93,7 @@ router.get('/', async  function(req, res, next) {
 	//@
 	var  user_id = ojs_shares_others.get_users_id(token);	
 	
-	//res.send( [token,store_id] );	
+	//res.send( [user_id] );	
 	//return;		
 	
 	
@@ -124,7 +124,10 @@ router.get('/', async  function(req, res, next) {
 	}
 	
 	//res.send( datas_check_news_admin_menu );	
-	//return;		
+	//return;	
+
+
+	
 	var get_datas_news_admin_menu;
 	try{
 		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
@@ -142,12 +145,13 @@ router.get('/', async  function(req, res, next) {
 
 
 	data_send = {
-		'title' : 'Admin quản lý dala',
+		'title' 			: 'Admin quản lý dala',
 		'users_type' 		: ojs_shares_others.get_users_type(token),
 		'user_id' 			: ojs_shares_others.get_users_id(token),
 		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 		'js_css_version'	: ojs_configs.js_css_version,
 		'menu_taget'		: 'sidebar_tong_quan',
+		'sidebar_type'		:  "",
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu
 	}
@@ -156,6 +160,8 @@ router.get('/', async  function(req, res, next) {
 	
 	//res.send(data_send);
 	//return;	
+	
+	
 	res.render( ojs_configs.view_version + '/users/admin', data_send );	
 
 });

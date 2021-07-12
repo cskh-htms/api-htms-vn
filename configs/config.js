@@ -148,7 +148,8 @@ const ojs_config_app = {
 		'status_admin_value':1,
 		
 		'status_store_compare':'=',
-		'status_store_value':1		
+		'status_store_value':1,
+		'order' : []
 	},	
 	//@
 	//@
@@ -157,14 +158,15 @@ const ojs_config_app = {
 	//@ tạo data cho get_all_list_datas admin
 	//@ 5.1.[datas_all_admin]	
 	datas_all_admin : {
-		'user_compare': '=',
+		'user_compare': '<>',
 		'store_compare':'<>',
 		
 		'status_admin_compare':'=',
 		'status_admin_value':1,
 		
 		'status_store_compare':'=',
-		'status_store_value':1		
+		'status_store_value':1,
+		'order' : []		
 	},		
 	
 	//@
@@ -187,7 +189,8 @@ const ojs_config_app = {
 		'line_order_value':'product',		
 
 		'date_star':'2021/01/01 00:00:00',
-		'date_end':ojs_shares_date.get_current_date_end()
+		'date_end':ojs_shares_date.get_current_date_end(),
+		'order' : []	
 	}
 	
 	

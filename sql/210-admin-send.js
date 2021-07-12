@@ -7,6 +7,7 @@
 			'js_css_version'	: ojs_configs.js_css_version,
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
 			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",
 			
 			
 	}

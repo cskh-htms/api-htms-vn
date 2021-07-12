@@ -32,7 +32,7 @@ content
 	<script>
 	
 	
-		console.log(<%- //JSON.stringify({"sidebar_type" : sidebar_type}) %>);	
+		console.log(<%- JSON.stringify({"sidebar_type" : sidebar_type}) %>);	
 		console.log(<%- JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);
 		console.log(<%- JSON.stringify({"list_data_count" : list_data_count}) %>);
 		console.log(<%- JSON.stringify({"store_list" : store_list}) %>);
@@ -297,8 +297,9 @@ end content
 <% include ../masterpage/footer %>
 
 </div><!-- //content_wrap -->	
-
-
+<h1>
+<%= sidebar_type %>
+</h1>
 <% include ../masterpage/sidebar %>
 
 <!-- --------------------

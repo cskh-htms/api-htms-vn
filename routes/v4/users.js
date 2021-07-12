@@ -314,6 +314,7 @@ router.get('/show/:user_id', async function(req, res, next) {
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
 			'news_admin_menu' 	: get_datas_news_admin_menu,			
 			'datas' 			: user_tager.datas,
+			'sidebar_type'		: "",
 		}
 		
 		//res.send( data_send );	
@@ -495,6 +496,7 @@ router.get('/add', async function(req, res, next) {
 			'js_css_version'	: ojs_configs.js_css_version,
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
 			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",
 		}
 		//res.send(data_send);
 		res.render( ojs_configs.view_version + '/users/add', data_send );	
@@ -603,39 +605,35 @@ router.get('/', async function(req, res, next) {
 	
 	
 
-	var user_order = 
-		[               
-			{
-				"field"  :"users_date_created",
-				"compare" : "DESC"
-			}
-        ] 
-	//@
-	//@		
-	var data_user_edit = {
-		'status_admin_compare':'<>',
-		'status_admin_value':'0',
-		'status_store_compare':'<>',
-		'status_store_value':'0',
-		'order':	user_order,	
-	}	
-	var data_user_edit_x = {...ojs_configs.datas_all};
-	var data_user_edit_s = Object.assign(data_user_edit_x,data_user_edit);		
 	//@
 	//@
+	//@
+	//@ datas_user_all
+	var data_user_order = [{'field':'users_date_created','compare':'DESC'}];
+	var data_user_order_edit = {'order':data_user_order};
+	var data_user_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_user_order_assign = Object.assign(data_user_order_copy,data_user_order_edit);
+	//@
+	var data_user_data_edit = {'status_admin_compare':'<>','status_store_compare':'<>'};
+	//@
+	var data_user_ok = Object.assign(data_user_order_assign,data_user_data_edit);
+	
+
 	
 	
-	//@
-	//@ datas all
 	var datas_get_all_list_datas_all = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
-		'datas_user': data_user_edit_s,
+		'datas_user': data_user_ok,
 	}
 	
-	//res.send( datas_get_all_list_datas );	
+	//res.send( datas_get_all_list_datas_all );	
 	//return;		
+	
+	
+	
+	
 	var get_all_list_datas_all;
 	try{
 		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
@@ -647,9 +645,17 @@ router.get('/', async function(req, res, next) {
 		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
 		return;			
 	}
-	
+
+
+
 	//res.send(get_all_list_datas_all);
 	//return;
+
+
+
+
+
+
 
 
 	try {	
@@ -661,6 +667,7 @@ router.get('/', async function(req, res, next) {
 			'js_css_version'	: ojs_configs.js_css_version,
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
 			'news_admin_menu' 	: get_datas_news_admin_menu,	
+			'sidebar_type'		: "",
 					
 			'users_list' 		: get_all_list_datas_all[1].datas
 		}

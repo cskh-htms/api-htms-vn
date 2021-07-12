@@ -15,6 +15,20 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 
+
+
+<script>
+	console.log(<%- JSON.stringify({"store_list" : store_list}) %>);
+	console.log(<%- //JSON.stringify({"list_data_count" : list_data_count}) %>);		
+	console.log(<%- //JSON.stringify({"store_list" : store_list}) %>);		
+	console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
+	console.log(<%- //JSON.stringify({"order_list" : order_list}) %>);	
+</script>	
+
+
+
+
+
 <!-- --------------------
 content
 --------------------- -->
@@ -33,7 +47,6 @@ content
 				<th class="user-name">Tên cửa hàng</th>
 				<th class="user-name">Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
-				<th class="user-phone">Điện thoại</th>
 				<th class="user-role">Địa chỉ</th>
 				<th class="user-role">Hạn mứt thanh toán</th>
 				<th class="user-role">Trạng thái cửa hàng</th>
@@ -50,7 +63,6 @@ content
 				<th class="user-name">Tên cửa hàng</th>
 				<th class="user-name">Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
-				<th class="user-phone">Điện thoại</th>
 				<th class="user-role">Địa chỉ</th>
 				<th class="user-role">Hạn mứt thanh toán</th>
 				<th class="user-role">Trạng thái cửa hàng</th>
@@ -84,8 +96,6 @@ end content
 </div><!-- //pagewrap -->
 
 
-
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 
 
