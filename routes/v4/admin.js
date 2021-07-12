@@ -26,11 +26,16 @@ const ojs_configs = require('../../configs/config');
 //@
 //@
 //@ loader function shares
+const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
+const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-list-datas');
+const ojs_shares_get_all_list_datas_all = require('../../models/ojs-shares-get-all-list-datas-all');
+const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
 const ojs_shares_news_admin_menu = require('../../models/ojs-shares-news-admin-menu');
+
 const ojs_shares_others = require('../../models/ojs-shares-others');
 const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
-
-
+const ojs_shares_date = require('../../models/ojs-shares-date');
+const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -38,19 +43,40 @@ const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
 
 
 
-//get
-//appdala.com/admin
-//@@@@@@@@@@@@@@
-//@@@@@@@@@@@@@@
+
+/* 
+---------------------------------------------------------------
+
+* 1. [/]
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+*/
+
+
+
+//@
+//@
+//@
+//@
+//@ 1. [/]
 router.get('/', async  function(req, res, next) {
 	//@
 	//@
 	//@
+	//@
+	//@	
 	//lấy token
 	try {
-		var token = req.session.token;	
+		var token = req.session.token;
 		
-		if(token == "" || token == null || token == undefined){
+		if(token == "" || token == null || token == undefined || token == 'null'){
 			res.redirect("/login");
 			return;
 		}		
@@ -59,11 +85,20 @@ router.get('/', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers admin web -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);	
 	
+	//res.send( [token,store_id] );	
+	//return;		
+	
+	
+	
+
 
 
 
@@ -112,6 +147,7 @@ router.get('/', async  function(req, res, next) {
 		'user_id' 			: ojs_shares_others.get_users_id(token),
 		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_tong_quan',
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu
 	}

@@ -12,7 +12,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/users/register",
+			  url : ojs_loader.host + "/users/save",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -31,7 +31,7 @@ $(document).ready(function($){
 						if(result.error.length > 0){
 							ojs_message.message_ok_show(result.message);
 						}else{
-							ojs_message.message_ok_show(" Đã tạo users",ojs_loader.host + "/login");
+							ojs_message.message_ok_show(" Đã tạo users",ojs_loader.host + "/users/");
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
@@ -67,12 +67,7 @@ $(document).ready(function($){
 						if(result.error.length > 0){
 							ojs_message.message_ok_show(result.message);
 						}else{
-							let users_password = $('#users_password').val();
-							if(users_password.length > 0){
-								ojs_message.message_ok_show(" Đã update",ojs_loader.host + "/logout");
-							}else{
-								ojs_message.message_ok_show(" Đã update");
-							}
+							ojs_message.message_ok_show(" Đã update",ojs_loader.host + "/users/");
 						}
 					}					  
 					ojs_loadding.ajax_hide_loadding();				  

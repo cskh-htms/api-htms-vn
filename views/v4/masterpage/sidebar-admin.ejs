@@ -31,23 +31,78 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
+	<!-- 
 		<li id="sidebar_tong_quan">
 			<a href="/admin/">
 				<i class="fas fa-tachometer-alt"></i>
 				<div class="menu-name">Tổng quan <%- news_sum %></div>
 			</a>
 		</li>
-		
-		<!-- 
-		//users
-		-->	
+	-->	
+		<!-- --------------------------------
+					//tổng quan
+		--------------------------------- -->		
 		<li>
-		<i class="fas fa-user"></i>
-		<div class="menu-name">Tài khoản</div>
 		<ul>
-			<li id="sidebar_danh_sach_tai_khoan"><a href="/users">Danh sách tài khoản</a></li>
+			
+			<li id="sidebar_tong_quan">
+				<a href="/admin/">
+					<i class="fas fa-box-open"></i>
+					<div class="menu-name">
+						Tổng quan <%- ojs_share.show_news_admin_menu_sum(news_admin_menu); -%>								
+					</div>
+				</a>
+			</li>
+
+		</ul>
+		</li>		
+		
+		
+		
+		
+		<!-- --------------------------------
+					//users
+		--------------------------------- -->		
+		<li>
+		<ul>
+			
+			<li id="sidebar_danh_sach_tai_khoan">
+				<a href="/users/">
+					<i class="fas fa-box-open"></i>
+					<div class="menu-name">
+						Danh sách tài khoản								
+					</div>
+				</a>
+				<a href="/users/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			</li>
+
 		</ul>
 		</li>
+		
+		
+		<!-- --------------------------------
+					//store
+		--------------------------------- -->	
+		
+		
+		<li>
+		<ul>
+			
+			<li id="sidebar_danh_sach_cua_hang">
+				<a href="/stores/">
+					<i class="fas fa-box-open"></i>
+					<div class="menu-name">
+						Cửa hàng								
+					</div>
+				</a>
+				<a href="/stores/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			</li>
+			
+
+		</ul>
+		</li>		
+		
+		
 		
 		<!-- 
 		//cửa hàng

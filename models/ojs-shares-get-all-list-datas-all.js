@@ -47,6 +47,7 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 //@
 //@
 //@ load datas
+const ojs_datas_users = require('./ojs-datas-users.js');
 const ojs_datas_notes = require('./ojs-datas-notes.js');
 const ojs_datas_orders = require('./ojs-datas-orders.js');
 const ojs_datas_category = require('./ojs-datas-category.js');
@@ -105,7 +106,27 @@ const ojs_shares_get_all_list_datas_all = {
 		//@	
 		//@ * 1. [datas_user]
 		if(datas.datas_user){
-			var fn_datas_user = 1;
+			var datas_send = {	
+				
+				'status_admin_compare' : datas.datas_user.status_admin_compare,
+				'status_admin_value' : datas.datas_user.status_admin_value,				
+				
+				'status_store_compare' : datas.datas_user.status_store_compare,	
+				'status_store_value' : datas.datas_user.status_store_value,
+				'order' : datas.datas_user.order				
+			}
+			
+			//return ojs_datas_users.get_all_list_datas_all(datas_send);
+			
+			var fn_datas_user = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/search',
+							ojs_datas_users.get_all_list_datas_all(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_datas_user = 0;
 		}

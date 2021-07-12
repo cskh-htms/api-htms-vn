@@ -1,1 +1,197 @@
-<h1>sdfsdfsdfsd</h1>
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% if( typeof js_css_version == 'string' && js_css_version){ } else{ js_css_version="" } %>
+
+
+
+
+
+<% include ../masterpage/loader %>
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-users.js"></script>	
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"news_admin_menu" : news_admin_menu}) %>);
+	console.log(<%- //JSON.stringify({"list_data_count" : list_data_count}) %>);		
+	console.log(<%- //JSON.stringify({"store_list" : store_list}) %>);		
+	console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
+	console.log(<%- //JSON.stringify({"order_list" : order_list}) %>);	
+</script>		
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+
+
+	<div class="login-box">
+		<div class="textbox">
+			<i class="fas fa-user"></i>
+			<input type="text" id="users_full_name" placeholder="Tên của bạn">
+		</div>
+		
+		<div class="textbox">
+			<i class="fas fa-mobile-alt"></i>
+			<input type="text" value="" id="users_phone" placeholder="Điện thoại" />
+		</div>
+
+		<div class="textbox">
+			<i class="fas fa-envelope"></i>
+			<input type="text" value="" id="users_email" placeholder="Email" />
+		</div>
+
+		
+		<div class="textbox">
+			<i class="fas fa-map-marker-alt"></i>
+			<input type="text" value="" id="users_adress" placeholder="Địa chỉ" />
+		</div>
+
+
+		<div class="textbox">
+			<i class="fas fa-lock"></i>
+			<input type="password" id="users_password" placeholder="Mật khẩu">
+		 </div>
+		 
+		 
+		 
+		<div class="textbox">
+			<span>Loại tài khoản</span>
+			<select name="users_users_type_id" id="users_users_type_id">
+				<option value="14" seleted >Doanh nghiệp</option>
+			</select>
+		</div>
+		<button id="btn_save" class="btn">Tạo tài khoản</button>
+	</div>	
+		
+	
+
+	
+</div>
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+<script>
+
+$(document).ready(function($){
+//////////////////////////////////////////////////////////////	
+	//@@
+	//@@	
+	$(document).on('click','#btn_save',function(e) {
+		
+		e.preventDefault();
+		//alert("sdasdasd");
+		//return;
+		let users_full_name = $('#users_full_name').val();
+		let users_adress = $('#users_adress').val();
+		let users_email = $('#users_email').val();
+		let users_phone = $('#users_phone').val();
+		let users_password = $('#users_password').val();
+		let users_users_type_id = $('#users_users_type_id  option:selected').val();
+		
+		if(users_phone.length <= 0 ){
+			ojs_message.message_ok_show('Chưa nhập số điện thoại');
+			return;
+		}
+		
+		if(users_full_name.length <= 0 ){
+			ojs_message.message_ok_show('Chưa nhập tên của bạn');
+			return;
+		}		
+		
+		
+
+		var datas = {
+			"datas":{
+				users_full_name : users_full_name,
+				users_adress : users_adress,
+				users_email : users_email,
+				users_phone : users_phone,
+				users_password : users_password,
+				users_users_type_id  : users_users_type_id 
+			}
+		}
+
+
+		
+		//console.log(datas);
+		//return;			
+	
+		ojs_users.ajax_save(datas);		
+	//#
+	//#
+	//#
+	});
+/////////////////////////////////////////////////////////////////////////
+});
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+

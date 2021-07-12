@@ -34,9 +34,50 @@ var data_edit_s = Object.assign(data_edit_x,data_edit);
 
 
 
+
+
+//@
+//@		
+var data_user_edit = {
+	'status_admin_compare':'<>',
+	'status_admin_value':'0',
+	'status_store_compare':'<>',
+	'status_store_value':'0',
+	'order':	user_order,	
+}	
+var data_user_edit_x = {...ojs_configs.datas_all};
+var data_user_edit_s = Object.assign(data_user_edit_x,data_user_edit);		
+//@
+//@
+
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+datas_all_admin : {
+	'user_compare': '=',
+	'store_compare':'<>',
+	
+	'status_admin_compare':'=',
+	'status_admin_value':1,
+	
+	'status_store_compare':'=',
+	'status_store_value':1		
+}
 
 
 

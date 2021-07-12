@@ -14,7 +14,6 @@
 	<thead>
 		<tr>
 			<th class="user-name">Tên tài khoản</th>
-			<th class="user-name">Tên</th>
 			<th class="user-email">Email</th>
 			<th class="user-phone">Điện thoại</th>
 			<th class="user-role">Phân quyền</th>
@@ -25,7 +24,7 @@
 	<% 
 	for(var  x in users_list) { %>
 	   <tr>
-				<td class="user-name"><a href="#"><%= users_list[x].users_name %></a>
+				<td class="user-name"><a href="#"><%= users_list[x].users_full_name %></a>
 				<div class="row-actions">
 					<span class="edit"><a href="/users/show/<%= users_list[x].users_ID %>">Chỉnh sửa</a> | </span>
 					<%
@@ -44,7 +43,7 @@
 					<span class="delete"><a href="#" class="submitdelete" data_user_id="<%= users_list[x].users_ID %>">Xóa</a></span>
 				</div>
 				</td>
-				<td class="user-name"><%= users_list[x].users_first_name  + " " + users_list[x].users_last_name %></td>
+
 				<td class="user-name"><%= users_list[x].users_email %></td>
 				<td class="user-name"><%= users_list[x].users_phone %></td>
 				<td class="user-role"><%= users_list[x].users_type_name %></td>
@@ -58,7 +57,6 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Tên tài khoản</th>
-			<th class="user-name">Tên</th>
 			<th class="user-email">Email</th>
 			<th class="user-phone">Điện thoại</th>
 			<th class="user-role">Phân quyền</th>

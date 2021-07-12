@@ -28,6 +28,12 @@
 	//@
 	//@
 	//var  user_id = ojs_shares_others.get_users_id(token);	
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}
 	
 	//res.send( [token,store_id] );	
 	//return;	

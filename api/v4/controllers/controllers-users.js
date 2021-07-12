@@ -643,6 +643,10 @@ async function get_one_users(req, res, next) {
 //5. [update_users]
 // chỉ có admin và chủ sỡ hữ mới uodate được
 async function update_users(req, res, next) {
+	
+	
+
+	
 	//@
 	//@
 	//@	get datas req
@@ -668,6 +672,9 @@ async function update_users(req, res, next) {
 		return { "error" : "ojs_shares->update_users->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
+	//res.send(datas);
+	//return;
+
 	
 	//@
 	//@
@@ -705,7 +712,7 @@ async function update_users(req, res, next) {
 	//@
 	//@
 	// nếu là user guest thì kho6nf cho update
-	if(check_datas_result.user_role == "default" ){
+	if( check_datas_result.user_role == "default" ){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Users guest không update", "Users guest không update" );
@@ -729,43 +736,53 @@ async function update_users(req, res, next) {
 	//@
 	//@
 	// check data user login type
-	try{
-		var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
-		var name_check = datas.users_login_name;
-		//@
-		//@
-		//check type
-		if (regex.test(name_check)) {
+	if(datas.users_login_name){
+		try{
+			var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+			var name_check = datas.users_login_name;
 			//@
-			//if data type là email			
-			var datas_email_field = {
-				"users_email":name_check
-			};
 			//@
-			var datas_insert = Object.assign(datas, datas_email_field);
+			//check type
+			if (regex.test(name_check)) {
+				//@
+				//if data type là email			
+				var datas_email_field = {
+					"users_email":name_check
+				};
+				//@
+				var datas_insert = Object.assign(datas, datas_email_field);
 
 
-		} else {
-			//@
-			//if data type là phone
-			var datas_phone_field = {
-				"users_phone":name_check
-			};
-			//@
-			var datas_insert = Object.assign(datas, datas_phone_field);
+			} else {
+				//@
+				//if data type là phone
+				var datas_phone_field = {
+					"users_phone":name_check
+				};
+				//@
+				var datas_insert = Object.assign(datas, datas_phone_field);
+			}
+			
+			delete datas_insert.users_login_name;
+			
 		}
-		
-		delete datas_insert.users_login_name;
-		
+		catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi chuyển đổi data type, Liên hệ bộ phan HTKT dala" );
+				res.send({ "error" : "controller_users->update_users->change type->error_number : 1", "message": error_send } ); 
+				return;	
+		}		
 	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi chuyển đổi data type, Liên hệ bộ phan HTKT dala" );
-			res.send({ "error" : "controller_users->update_users->change type->error_number : 1", "message": error_send } ); 
-			return;	
-	}
+	
+	
+	//@
+	//@
+	//@
+	var datas_insert = datas;
 
+	//res.send([datas_insert,user_id]);
+	//return;
 
 	//@
 	//@

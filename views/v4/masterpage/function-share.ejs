@@ -29,6 +29,9 @@
 9.[show_count_bussiness_menu_html]	
 	hiển thị html count menu
 
+
+10.[show_news_admin_menu_sum]	
+
 --------------------------------------------------
 */
 
@@ -38,7 +41,23 @@
 
 
 
+
 ojs_share = {
+
+	//@
+	//@
+	//@ lấy tổng số new cần sử lý 
+	//@ 8.[show_news_admin_menu_sum]	
+	show_news_admin_menu_sum: function(datas){
+		var data_return = 0;
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			data_return = data_return + datas[i];
+		}
+		
+		data_return = '<span class="news_red">' + data_return + '</span>';
+		return data_return;
+	},	
+
 
 	//@
 	//@
@@ -69,6 +88,7 @@ ojs_share = {
 		data_return = '<span class="news_red">' + data_return + '</span>';
 		return data_return;
 	},	
+
 
 
 	//@
