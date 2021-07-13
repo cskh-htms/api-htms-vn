@@ -858,6 +858,9 @@ const search_all = async function (datas) {
 	//@
 	//@
 	//@ select field
+	
+	//return datas;
+	
 	var sql_field;
 	try {
 		if(datas.select_field){
@@ -899,7 +902,7 @@ const search_all = async function (datas) {
 		return;	
 	}		
 		
-		
+	//return sql_order;
 	
 	//@
 	//@
@@ -974,9 +977,9 @@ const search_all = async function (datas) {
 	//@	
 	//@
 	let get_sql_search_2 = {...get_sql_search_1};
-	Object.assign(get_sql_search_2, { 'sql_order' : "" } );	
+	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
 
-
+	//return get_sql_search_2;	
 
 
 	//@
@@ -997,7 +1000,7 @@ const search_all = async function (datas) {
 	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });		
 				
 		
-	
+	//return get_sql_search;	
 		
 	//@
 	//@

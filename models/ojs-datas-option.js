@@ -289,7 +289,8 @@ const ojs_datas_option = {
 							} 								
 						]    
 					}
-				]
+				],
+				"order":datas.order
 			}
 		}
 		return datas_return;

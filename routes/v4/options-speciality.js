@@ -223,20 +223,65 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 	
 	//@
 	//@
-	var  user_id = ojs_shares_others.get_users_id(token);	
+	//@
+	//@
+	var  user_id = 0;	
 	
-	//res.send( [token,store_id] );	
+	//--------------------------------------------------
+	//           lấy user_id store
+	// -------------------------------------------------
+	//@
+	//@
+	//@
+	//@
+	//@
+	var datas_store_send = {
+		'user_compare':'<>'
+	}	
+	var datas_store_send_x = {...ojs_configs.datas_all};
+	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_store':datas_store_send_s
+	}
+	
+	//res.send( datas_get_all_list_datas );	
 	//return;		
+	var get_all_list_datas_store;
+	try{
+		get_all_list_datas_store = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_store -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	var user_id = get_all_list_datas_store[2].datas[0].stores_user_id;
+
+
+	//res.send( [user_id] );	
+	//return;		
+	
 	
 	//--------------------------------------------------
 	//              news menu
-	// -------------------------------------------------
+	// -------------------------------------------------	
+	
+	
 	
 	//@
 	//@
 	//@
-	//@
-	//@		
 	//@ check new bussiness
 	var datas_order_send = {
 		'status_admin_compare':'<>'
@@ -256,12 +301,18 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
 	
 	
+	//res.send( datas_order_send_s );	
+	//return;	
+	
+
+	
 	
 	var datas_check_news_bussiness_menu = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id':user_id,
 		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
 		'news_user':'news_user',
 		'news_order': datas_order_send_s,
 		'news_cat': 'news_cat',
@@ -273,7 +324,10 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 	}
 	
 	//res.send( datas_check_news_bussiness_menu );	
-	//return;		
+	//return;	
+
+
+	
 	var get_datas_news_bussiness_menu;
 	try{
 		get_datas_news_bussiness_menu = await ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
@@ -282,7 +336,7 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news bussiness menu" );
-		res.send({ "error" : "routers bussiness web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers stores web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -291,9 +345,13 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 
 		
 	
+
+
+
 	//--------------------------------------------------
-	//              news count
+	//               datas count
 	// -------------------------------------------------
+
 
 
 	//@
@@ -340,15 +398,24 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas count bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas_count -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers store web -> get_all_list_datas_count -> 1", "message": error_send } ); 
 		return;			
 	}
 	
 	//res.send(get_all_list_datas_count);
 	//return;	
 	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+
 	
 	
 	
@@ -479,7 +546,7 @@ router.get('/show/:option_id/:store_id', async function(req, res, next) {
 			'title' 				: 'Chỉnh sửa option',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'user_id' 				: user_id,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
@@ -609,21 +676,16 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	//@
 	//var  user_id = ojs_shares_others.get_users_id(token);	
 	
-	//res.send( [token,store_id,user_id] );	
-	//return;		
 	
-	
-
-
 	//--------------------------------------------------
 	//              news menu
-	// -------------------------------------------------
+	// -------------------------------------------------	
+	
+	
 	
 	//@
 	//@
 	//@
-	//@
-	//@		
 	//@ check new bussiness
 	var datas_order_send = {
 		'status_admin_compare':'<>'
@@ -643,12 +705,18 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
 	
 	
+	//res.send( datas_order_send_s );	
+	//return;	
+	
+
+	
 	
 	var datas_check_news_bussiness_menu = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id':user_id,
 		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
 		'news_user':'news_user',
 		'news_order': datas_order_send_s,
 		'news_cat': 'news_cat',
@@ -660,7 +728,10 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	}
 	
 	//res.send( datas_check_news_bussiness_menu );	
-	//return;		
+	//return;	
+
+
+	
 	var get_datas_news_bussiness_menu;
 	try{
 		get_datas_news_bussiness_menu = await ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
@@ -669,7 +740,7 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news bussiness menu" );
-		res.send({ "error" : "routers bussiness web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers stores web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -678,9 +749,13 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 
 		
 	
+
+
+
 	//--------------------------------------------------
-	//              news count
+	//               datas count
 	// -------------------------------------------------
+
 
 
 	//@
@@ -727,15 +802,26 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas count bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas_count -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers store web -> get_all_list_datas_count -> 1", "message": error_send } ); 
 		return;			
 	}
 	
 	//res.send(get_all_list_datas_count);
-	//return;
+	//return;	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
 
+	
+	
 
 	
 
@@ -830,7 +916,7 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 			'title' 				: 'Tạo optios',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'user_id' 				: user_id,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
@@ -905,21 +991,25 @@ router.post('/ajax-option-list-no/', async function(req, res, next) {
 	//             list-datas-bussiness
 	// -------------------------------------------------
 	
-	
-	
+		
 	//@
 	//@
+	//@ datas_brand
+	var data_option_order = [{'field':'options_product_speciality_date_created','compare':'DESC'}];
+	var data_option_order_edit = {'order':data_option_order};
+	var data_option_order_copy = {...ojs_configs.datas_all};	
+	var data_option_order_assign = Object.assign(data_option_order_copy,data_option_order_edit);
 	//@
-	//@ datas brand
-	var data_edit = {
+	var data_option_data_edit = {
 		'status_admin_compare':'in',
 		'status_admin_value':datas.status_admin,
 		'store_compare':'=',
 		'status_store_compare':'in',
-		'status_store_value':[0,1],		
-	}	
-	var data_edit_x = {...ojs_configs.datas_all};
-	var data_edit_s = Object.assign(data_edit_x,data_edit);	
+		'status_store_value':[0,1],			
+		};
+	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
+	
+	
 	//@
 	//@
 	//@ datas brand
@@ -928,11 +1018,13 @@ router.post('/ajax-option-list-no/', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_option': data_edit_s 
+		'datas_option': data_option_ok
 	}
 	
 	//res.send( datas_get_all_list_datas );	
 	//return;		
+	
+	
 	var get_all_list_datas;
 	try{
 		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
@@ -1014,23 +1106,65 @@ router.get('/:store_id', async function(req, res, next) {
 	
 	//@
 	//@
-	var  user_id = ojs_shares_others.get_users_id(token);	
+	//@
+	//@
+	var  user_id = 0;	
 	
-	//res.send( [token,store_id] );	
-	//return;
+	//--------------------------------------------------
+	//           lấy user_id store
+	// -------------------------------------------------
+	//@
+	//@
+	//@
+	//@
+	//@
+	var datas_store_send = {
+		'user_compare':'<>'
+	}	
+	var datas_store_send_x = {...ojs_configs.datas_all};
+	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_store':datas_store_send_s
+	}
 	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	var get_all_list_datas_store;
+	try{
+		get_all_list_datas_store = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_store -> 1", "message": error_send } ); 
+		return;			
+	}
 	
+	var user_id = get_all_list_datas_store[2].datas[0].stores_user_id;
+
+
+	//res.send( [user_id] );	
+	//return;		
 	
 	
 	//--------------------------------------------------
 	//              news menu
-	// -------------------------------------------------
+	// -------------------------------------------------	
+	
+	
 	
 	//@
 	//@
 	//@
-	//@
-	//@		
 	//@ check new bussiness
 	var datas_order_send = {
 		'status_admin_compare':'<>'
@@ -1050,12 +1184,18 @@ router.get('/:store_id', async function(req, res, next) {
 	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
 	
 	
+	//res.send( datas_order_send_s );	
+	//return;	
+	
+
+	
 	
 	var datas_check_news_bussiness_menu = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id':user_id,
 		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
 		'news_user':'news_user',
 		'news_order': datas_order_send_s,
 		'news_cat': 'news_cat',
@@ -1068,6 +1208,8 @@ router.get('/:store_id', async function(req, res, next) {
 	
 	//res.send( datas_check_news_bussiness_menu );	
 	//return;	
+
+
 	
 	var get_datas_news_bussiness_menu;
 	try{
@@ -1077,7 +1219,7 @@ router.get('/:store_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news bussiness menu" );
-		res.send({ "error" : "routers option web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers stores web -> get_news_bussiness_menu -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -1085,11 +1227,14 @@ router.get('/:store_id', async function(req, res, next) {
 	//return;	
 
 		
-		
 	
+
+
+
 	//--------------------------------------------------
-	//              news count
+	//               datas count
 	// -------------------------------------------------
+
 
 
 	//@
@@ -1136,17 +1281,26 @@ router.get('/:store_id', async function(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas count bussiness" );
-		res.send({ "error" : "routers option web -> get_all_list_datas_count -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers store web -> get_all_list_datas_count -> 1", "message": error_send } ); 
 		return;			
 	}
 	
 	//res.send(get_all_list_datas_count);
-	//return;
+	//return;	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
 
-
-
+	
+	
 
 
 	//--------------------------------------------------
@@ -1209,12 +1363,24 @@ router.get('/:store_id', async function(req, res, next) {
 	//@
 	//@
 	//@ datas brand
+	//@
+	//@
+	//@ datas_brand
+	var data_option_order = [{'field':'options_product_speciality_date_created','compare':'DESC'}];
+	var data_option_order_edit = {'order':data_option_order};
+	var data_option_order_copy = {...ojs_configs.datas_all};	
+	var data_option_order_assign = Object.assign(data_option_order_copy,data_option_order_edit);
+	//@
+	var data_option_data_edit = {'user_compare':'='};
+	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
+
+	
 	var datas_get_all_list_datas_all = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_option': ojs_configs.datas_all,
+		'datas_option': data_option_ok,
 	}
 	
 	//res.send( datas_get_all_list_datas );	
@@ -1249,7 +1415,7 @@ router.get('/:store_id', async function(req, res, next) {
 			'title' 				: 'Danh sách tùy chọn',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'user_id' 				: user_id,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
