@@ -695,6 +695,7 @@ async  function search(req, res, next) {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "supper-job"  
 		|| check_datas_result.user_role == "default"
 		){ }else{
 			var evn = ojs_configs.evn;

@@ -519,7 +519,8 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-				console.log("orders_list_taget");  
+				//console.log(result); 
+				//ojs_loadding.ajax_hide_loadding();				
 				//return;
 				ojs_loadding.ajax_hide_loadding();
 				ojs_loadding.ajax_show_content('<div class="order-detail-box">' + result + '</div>');

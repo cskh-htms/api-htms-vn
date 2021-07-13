@@ -263,7 +263,7 @@ const get_owner_order = async function (datas) {
 	//create sql text
 	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "orders_speciality_ID   "  + 
 					sql_from_default + 
-					sql_link_default + 
+					sql_link_search + 
 						
 					" WHERE " +  
 							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 

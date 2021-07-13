@@ -5,36 +5,6 @@
 
 
 
-	//@
-	//@
-	//@ datas_orders
-	var data_order_order = [{'field':'orders_speciality_date_orders','compare':'DESC'}];
-	var data_order_order_edit = {'order':data_order_order};
-	var data_order_order_copy = {...ojs_configs.orders_all};	
-	var data_order_order_assign = Object.assign(data_order_order_copy,data_order_order_edit);
-	//@
-	var data_order_data_edit = {'store_compare':'=','status_admin_compare': '<>','status_admin_value': '100'};
-	//@
-	var data_order_ok = Object.assign(data_order_order_assign,data_order_data_edit);	
-
-	
-	
-	
-	//@
-	//@
-	//@ datas_note
-	var data_note_order = [{'field':'notes_date_created','compare':'DESC'}];
-	var data_note_order_edit = {'order':data_note_order};
-	var data_note_order_copy = {...ojs_configs.datas_all};	
-	var data_note_order_assign = Object.assign(data_note_order_copy,data_note_order_edit);
-	//@
-	var data_note_data_edit = {'status_admin_compare': '<>','status_admin_value': '100'};
-	//@
-	var data_note_ok = Object.assign(data_note_order_assign,data_note_data_edit);	
-	
-	
-	
-	
 	
 	var datas_get_all_list_datas = {
 		'token':token,
@@ -42,8 +12,6 @@
 		'user_id' : user_id,
 		'store_id' : store_id,
 		'datas_store':ojs_configs.datas_all,
-		'datas_order': data_order_ok,
-		'datas_note': data_note_ok
 	}
 	
 	//res.send( datas_get_all_list_datas );	

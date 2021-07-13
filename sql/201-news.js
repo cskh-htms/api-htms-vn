@@ -1,4 +1,52 @@
+	//@
+	//@
+	var  user_id = 0;	
+	
+	//--------------------------------------------------
+	//           lấy user_id store
+	// -------------------------------------------------
+	//@
+	//@
+	//@
+	//@
+	//@
+	var datas_store_send = {
+		'user_compare':'<>'
+	}	
+	var datas_store_send_x = {...ojs_configs.datas_all};
+	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_store':datas_store_send_s
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	var get_all_list_datas_store;
+	try{
+		get_all_list_datas_store = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_store -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	var user_id = get_all_list_datas_store[2].datas[0].stores_user_id;
 
+
+	//res.send( [user_id] );	
+	//return;		
+	
 	
 	//--------------------------------------------------
 	//              news menu
@@ -32,6 +80,7 @@
 	//return;	
 	
 
+	
 	
 	var datas_check_news_bussiness_menu = {
 		'token':token,
@@ -70,12 +119,14 @@
 	//return;	
 
 		
-		
+	
+
 
 
 	//--------------------------------------------------
-	//             datas_count
+	//               datas count
 	// -------------------------------------------------
+
 
 
 	//@
@@ -129,5 +180,4 @@
 	}
 	
 	//res.send(get_all_list_datas_count);
-	//return;
-
+	//return;	

@@ -178,7 +178,7 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 
-	
+	var user_id = $('#user_id').val();
 
 	//@
 	//@
@@ -253,13 +253,15 @@ $(document).ready(function($){
 
 		var data_status = $('.status_box').find('.status_active').attr("data_send");
 		var store_id = $('#store_id').val();
+		
 		//
 		var datas = {
 			"datas":{
 				date_star : date_01_ok,
 				date_end : date_02_ok,
 				status_send : data_status,
-				store_id : store_id
+				store_id : store_id,
+				user_id : user_id
 			}
 		}		
 		//console.log(datas);
@@ -301,7 +303,8 @@ $(document).ready(function($){
 				date_star 	: date_star,
 				date_end 	: date_end,
 				status_send : data_status,
-				store_id : store_id
+				store_id : store_id,
+				user_id : user_id
 			}
 		}	
 		//console.log(datas);
@@ -371,7 +374,8 @@ $(document).ready(function($){
 				date_star 	: date_star,
 				date_end 	: date_end,
 				status_send : data_status,
-				store_id : store_id
+				store_id : store_id,
+				user_id : user_id
 			}
 		}	
 		//console.log(datas);

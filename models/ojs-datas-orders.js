@@ -40,6 +40,13 @@
 9.[get_order_list_sum_count]	
 	- lấy danh sách order có sum qty, sum price
 	
+10.[get_data_orders_detail_bussiness]	
+	- xem order	
+	
+	
+11.[get_data_orders_detail_bussiness_taget]	
+	- lấy orders theo id	
+	
 	
 */
 
@@ -51,8 +58,80 @@
 
 const ojs_datas_orders = {
 	
+	//@
+	//@	
+	//@
+	//@ 11.[get_data_orders_detail_bussiness_taget]	
+	//@ - lấy orders theo id	
+	get_data_orders_detail_bussiness_taget : function(order_id){
+		
+		let datas_return = 		
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"orders_speciality_ID",
+					"orders_speciality_status_orders",
+					"orders_speciality_adress",
+					"orders_speciality_date_orders",
+					"users_full_name"					
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[        
+							{   "field"     :"orders_speciality_ID",
+								"value"     : order_id,
+								"compare" 	: "="
+							} 					
+						]    
+					}         
+				]
+			}	
+		}	
+		return datas_return;	
+	},	
 	
-	
+	//@
+	//@
+	//@	
+	//@
+	//@ 10.[get_data_orders_detail_bussiness]	
+	//@ - lấy order details
+	get_data_orders_detail_bussiness : function(order_id){
+		
+		let datas_return = 		
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"orders_details_speciality_price",
+					"products_speciality_name",
+					"orders_details_medium_text",
+					"price_caution"					
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[        
+							{   "field"     :"orders_details_speciality_order_id",
+								"value"     : order_id,
+								"compare" 	: "="
+							} 					
+						]    
+					}         
+				]
+			}	
+		}	
+		return datas_return;	
+	},	
 	
 	//@
 	//@
@@ -197,8 +276,7 @@ const ojs_datas_orders = {
 		{		
 			"datas" :   {
 				"select_field" :
-				[ 
-					
+				[ 					
 					"count(orders_speciality_ID)",
 					"users_ID",
 				],
@@ -997,77 +1075,14 @@ const ojs_datas_orders = {
 	//@
 	//* get_data_orders_detail_bussiness
 	// * load detail oeder khi click vao
-	get_data_orders_detail_bussiness : function(order_id){
-		
-		let datas_return = 		
-		{
-			"datas" :   {
-				"select_field" :
-				[
-					"orders_details_speciality_line_order",
-					"orders_details_speciality_product_id",
-					"orders_details_speciality_qty",
-					"orders_details_speciality_price",
-					"orders_details_speciality_discount",
-					"orders_details_speciality_unit_discount",
-					"products_speciality_name",
-					"orders_details_medium_text"			
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[        
-							{   "field"     :"orders_details_speciality_order_id",
-								"value"     : order_id,
-								"compare" 	: "="
-							} 					
-						]    
-					}         
-				]
-			}	
-		}	
-		return datas_return;	
-	},
+
 	//	
 	//@
 	//@
 	//@
 	//* get_data_orders_detail_bussiness
 	// * load detail oeder khi click vao
-	get_data_orders_detail_bussiness_taget : function(order_id){
-		
-		let datas_return = 		
-		{
-			"datas" :   {
-				"select_type" : "DISTINCT",
-				"select_field" :
-				[
-					"orders_speciality_ID",
-					"orders_speciality_status_orders",
-					"users_first_name",
-					"users_last_name",
-					"orders_speciality_adress",
-					"orders_speciality_date_orders"		
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[        
-							{   "field"     :"orders_speciality_ID",
-								"value"     : order_id,
-								"compare" 	: "="
-							} 					
-						]    
-					}         
-				]
-			}	
-		}	
-		return datas_return;	
-	},
+
 
 	//
 	//ghet all data view order
