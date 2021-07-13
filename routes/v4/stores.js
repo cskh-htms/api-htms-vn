@@ -661,6 +661,15 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	
 	
 	
+	
+	
+	
+	//--------------------------------------------------
+	//              news menu
+	// -------------------------------------------------	
+	
+	
+	
 	//@
 	//@
 	//@
@@ -686,15 +695,14 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	//res.send( datas_order_send_s );	
 	//return;	
 	
-	
-	
-	
+
 	
 	var datas_check_news_bussiness_menu = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
 		'user_id':user_id,
 		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
 		'news_user':'news_user',
 		'news_order': datas_order_send_s,
 		'news_cat': 'news_cat',
@@ -728,20 +736,39 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		
 	
 
+	//--------------------------------------------------
+	//              list datas
+	// -------------------------------------------------
 
 
 
 	//@
 	//@
+	//@ datas_orders
+	var data_order_order = [{'field':'orders_speciality_date_orders','compare':'DESC'}];
+	var data_order_order_edit = {'order':data_order_order};
+	var data_order_order_copy = {...ojs_configs.orders_all};	
+	var data_order_order_assign = Object.assign(data_order_order_copy,data_order_order_edit);
 	//@
-	//@ datas_get_all_list_datas
-	var datas_order_send = {
-		'status_admin_compare': '<>',
-		'status_admin_value': '100',
-		'store_compare': '=',
-	}
-	var datas_order_send_x = {...ojs_configs.orders_all};
-	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);
+	var data_order_data_edit = {'store_compare':'=','status_admin_compare': '<>','status_admin_value': '100'};
+	//@
+	var data_order_ok = Object.assign(data_order_order_assign,data_order_data_edit);	
+
+	
+	
+	
+	//@
+	//@
+	//@ datas_note
+	var data_note_order = [{'field':'notes_date_created','compare':'DESC'}];
+	var data_note_order_edit = {'order':data_note_order};
+	var data_note_order_copy = {...ojs_configs.datas_all};	
+	var data_note_order_assign = Object.assign(data_note_order_copy,data_note_order_edit);
+	//@
+	var data_note_data_edit = {'status_admin_compare': '<>','status_admin_value': '100'};
+	//@
+	var data_note_ok = Object.assign(data_note_order_assign,data_note_data_edit);	
+	
 	
 	
 	
@@ -752,8 +779,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'user_id' : user_id,
 		'store_id' : store_id,
 		'datas_store':ojs_configs.datas_all,
-		'datas_order': datas_order_send_s,
-		'datas_note': ojs_configs.datas_all
+		'datas_order': data_order_ok,
+		'datas_note': data_note_ok
 	}
 	
 	//res.send( datas_get_all_list_datas );	
@@ -776,6 +803,12 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	//res.send(get_all_list_datas);
 	//return;
 
+
+
+
+	//--------------------------------------------------
+	//               datas count
+	// -------------------------------------------------
 
 
 

@@ -83,7 +83,7 @@ var sql_link_search = 	"" +
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "users  ON  " + 
 	ojs_configs.db_prefix + "notes_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID ";  
+	ojs_configs.db_prefix + "users_ID "  
 	
 	
 

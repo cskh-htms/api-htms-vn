@@ -92,7 +92,20 @@ router.get('/:user_id', async  function(req, res, next) {
 
 
 
+	// -----------------------------------------------------------
+				//news bussiness
+	//------------------------------------------------------------
 
+
+
+
+
+	//@
+	//@
+	//@ datas_store
+	var data_news_compare_copy = {...ojs_configs.datas_news_bussiness};	
+	var data_news_compare_data_edit = {'store_compare':'<>'};
+	var data_news_compare_ok = Object.assign(data_news_compare_copy,data_news_compare_data_edit);	
 
 
 	//@
@@ -104,6 +117,7 @@ router.get('/:user_id', async  function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id':user_id,
 		'store_id':store_id,
+		'compare':data_news_compare_ok,
 		'news_user':'news_user',
 		'news_store': 'news_store',
 		'news_order': 'news_order',
@@ -111,15 +125,16 @@ router.get('/:user_id', async  function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_discount': 'news_discount',
-		'news_discount_store_add': 'news_discount_store_add',
-		'news_discount_product_add': 'news_discount_product_add',
 		'news_note': 'news_note'		
-
 	}
 	
 	//res.send( datas_check_news_bussiness_menu );	
 	//return;		
+	
+	
+	
+	
+	
 	var get_datas_news_bussiness_menu;
 	try{
 		get_datas_news_bussiness_menu = await ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
@@ -134,6 +149,17 @@ router.get('/:user_id', async  function(req, res, next) {
 	
 	//res.send(get_datas_news_bussiness_menu);
 	//return;
+
+
+
+
+	// -----------------------------------------------------------
+				//list_datas
+	//------------------------------------------------------------
+
+
+
+
 
 
 	//@
@@ -211,6 +237,16 @@ router.get('/:user_id', async  function(req, res, next) {
 		return;
 	}	
 	
+	
+	
+	
+
+	// -----------------------------------------------------------
+				//orsers_datas
+	//------------------------------------------------------------
+	
+	
+	
 	//@
 	//@
 	//@
@@ -261,9 +297,9 @@ router.get('/:user_id', async  function(req, res, next) {
 	
 	
 	
-	//res.send([   get_all_list_datas[2].datas    ]);
-	//return;	
-
+	// -----------------------------------------------------------
+				//send
+	//------------------------------------------------------------
 
 
 	//@
@@ -301,8 +337,6 @@ router.get('/:user_id', async  function(req, res, next) {
 			return;		
 	}	
 	
-
-
 });
 //
 //

@@ -229,11 +229,16 @@ const ojs_datas_products = {
 								"value"     : '3',
 								"compare" : "="
 							},
-							{   
-								"field"     :"users_ID",
-								"value"     : datas.user_id,
-								"compare" : "="
-							}  							
+							{
+								"field" : "users_ID" ,
+								"value" : datas.user_id,
+								"compare" : datas.user_compare
+							},
+							{
+								"field" : "stores_ID" ,
+								"value" : datas.store_id,
+								"compare" : datas.store_compare
+							}	 							
 						]    
 					}
 				]

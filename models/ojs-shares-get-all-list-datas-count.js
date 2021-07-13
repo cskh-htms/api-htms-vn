@@ -461,6 +461,11 @@ const ojs_shares_get_all_list_datas_count = {
 				'status_admin_compare' : datas.datas_note.status_admin_compare,
 				'status_admin_value' : datas.datas_note.status_admin_value		
 			}
+			
+			
+			//return datas_send;
+			//return ojs_datas_notes.get_all_list_datas_count(datas_send);
+			
 			var fn_datas_note = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/notes/search',

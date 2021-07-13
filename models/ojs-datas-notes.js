@@ -43,12 +43,12 @@ const ojs_datas_notes = {
 					{    
 						"relation": "and",
 						"where" :
-						[  
-							{   
-								"field"     :"users_ID",
-								"value"     : datas.user_id,
-								"compare" 	: datas.user_compare
-							},
+						[ 
+							{
+								"field" : "users_ID" ,
+								"value" : datas.user_id,
+								"compare" : datas.user_compare
+							},	
 							{   
 								"field"     :"notes_status",
 								"value"     : '100',

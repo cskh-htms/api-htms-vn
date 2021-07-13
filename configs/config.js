@@ -6,15 +6,17 @@
 -----------------------------------------------------------
 
 
-
-
-5.[datas_all]	
-	- tạo data cho get_all_list_datas
-
-6. [orders_al]
+1. [orders_al]
 	- tạo data cho get_orders_all
 
+2.[datas_all_admin]	
+	- tạo data cho get_all_list_datas_all
 
+3.[datas_all]	
+	- tạo data cho get_all_list_datas
+
+4.[datas_news_bussiness]	
+	- tạo đata config cho news bussiness
 
 
 
@@ -38,6 +40,89 @@ const ojs_config_app = {
 	
 	//@
 	//@
+	domain : "http://localhost:2021",
+	//domain : "https://appdala.com",
+
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 
+	//@ 4.[datas_news_bussiness]	
+	//@ 	- tạo đata config cho news bussiness
+	datas_news_bussiness : {
+		'user_compare': '=',
+		'store_compare':'=',
+	},		
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ tạo data cho get_all_list_datas
+	//@ 3.[datas_all]	
+	datas_all : {
+		'user_compare': '=',
+		'store_compare':'=',
+		
+		'status_admin_compare':'=',
+		'status_admin_value':1,
+		
+		'status_store_compare':'=',
+		'status_store_value':1,
+		'order' : []
+	},	
+	//@
+	//@
+	//@
+	//@
+	//@ tạo data cho get_all_list_datas admin
+	//@ 2.[datas_all_admin]	
+	datas_all_admin : {
+		'user_compare': '<>',
+		'store_compare':'<>',
+		
+		'status_admin_compare':'=',
+		'status_admin_value':1,
+		
+		'status_store_compare':'=',
+		'status_store_value':1,
+		'order' : []		
+	},		
+	
+	//@
+	//@
+	//@
+	//@
+	//@ tạo data cho get_orders_datas
+	//@ 1. [orders_al]
+	orders_all : {
+		'user_compare': '=',
+		'store_compare':'<>',
+		
+		'status_admin_compare':'=',
+		'status_admin_value':1,
+		
+		'status_payment_compare':'=',
+		'status_payment_value':1,
+		
+		'line_order_compare':'=',
+		'line_order_value':'product',		
+
+		'date_star':'2021/01/01 00:00:00',
+		'date_end':ojs_shares_date.get_current_date_end(),
+		'order' : []	
+	},	
+	
+	
+	
+	//@
+	//@
 	//@
 	//version default
 	//nếu không lấy dc version thì mặc định version là đây
@@ -53,10 +138,7 @@ const ojs_config_app = {
 	//@
 	status_page : "active",	//active hoặt maintenance
 	
-	//@
-	//@
-	domain : "http://localhost:2021",
-	//domain : "https://appdala.com",
+
 	token_supper_job : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ",	
 	//@
 	//@
@@ -133,65 +215,7 @@ const ojs_config_app = {
 	
 	
 	
-	
-	//@
-	//@
-	//@
-	//@
-	//@ tao5 data cho get_all_list_datas
-	//@ 5.[datas_all]	
-	datas_all : {
-		'user_compare': '=',
-		'store_compare':'=',
-		
-		'status_admin_compare':'=',
-		'status_admin_value':1,
-		
-		'status_store_compare':'=',
-		'status_store_value':1,
-		'order' : []
-	},	
-	//@
-	//@
-	//@
-	//@
-	//@ tạo data cho get_all_list_datas admin
-	//@ 5.1.[datas_all_admin]	
-	datas_all_admin : {
-		'user_compare': '<>',
-		'store_compare':'<>',
-		
-		'status_admin_compare':'=',
-		'status_admin_value':1,
-		
-		'status_store_compare':'=',
-		'status_store_value':1,
-		'order' : []		
-	},		
-	
-	//@
-	//@
-	//@
-	//@
-	//@ tạo data cho get_orders_datas
-	//@ 6. [orders_al]
-	orders_all : {
-		'user_compare': '=',
-		'store_compare':'<>',
-		
-		'status_admin_compare':'=',
-		'status_admin_value':1,
-		
-		'status_payment_compare':'=',
-		'status_payment_value':1,
-		
-		'line_order_compare':'=',
-		'line_order_value':'product',		
 
-		'date_star':'2021/01/01 00:00:00',
-		'date_end':ojs_shares_date.get_current_date_end(),
-		'order' : []	
-	}
 	
 	
 }

@@ -52,7 +52,12 @@ var data_store_order_assign = Object.assign(data_store_order_copy,data_store_ord
 //@
 
 
-
+//@
+//@
+//@ datas_store
+var data_store_copy = {...ojs_configs.datas_all};	
+var data_store_data_edit = {'user_compare':'<>'};
+var data_store_ok = Object.assign(data_store_copy,data_store_data_edit);
 
 
 
@@ -69,6 +74,33 @@ var data_order_data_edit = {'store_compare':'<>','status_admin_compare': '<>'};
 var data_order_ok = Object.assign(data_order_order_assign,data_order_data_edit);	
 
 
+
+
+//@
+//@
+//@ datas_brand
+var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+var data_brand_order_edit = {'order':data_brand_order};
+var data_brand_order_copy = {...ojs_configs.datas_all};	
+var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+//@
+var data_brand_data_edit = {'user_compare':'<>','status_admin_compare': '<>'};
+var data_brand_ok = Object.assign(data_brand_order_assign,data_brand_data_edit);
+
+
+
+
+//@
+//@
+//@ datas_note
+var data_note_order = [{'field':'notes_date_created','compare':'DESC'}];
+var data_note_order_edit = {'order':data_note_order};
+var data_note_order_copy = {...ojs_configs.datas_all};	
+var data_note_order_assign = Object.assign(data_note_order_copy,data_note_order_edit);
+//@
+var data_note_data_edit = {'status_admin_compare': '<>','status_admin_value': '100'};
+//@
+var data_note_ok = Object.assign(data_note_order_assign,data_note_data_edit);	
 
 
 
@@ -134,7 +166,8 @@ orders_all : {
 	'line_order_value':'product',		
 
 	'date_star':'2021/01/01 00:00:00',
-	'date_end':ojs_shares_date.get_current_date_end()
+	'date_end':ojs_shares_date.get_current_date_end(),
+	'order':[]
 }		
 		
 		

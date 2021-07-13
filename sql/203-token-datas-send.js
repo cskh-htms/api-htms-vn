@@ -50,6 +50,7 @@
 	
 	
 	//@ var  user_id = ojs_shares_others.get_users_id(token);
+	//@ var users_type 	= ojs_shares_others.get_users_type(token);
 	//@
 	//@
 	//@

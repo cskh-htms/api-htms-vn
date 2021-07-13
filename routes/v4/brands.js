@@ -736,6 +736,17 @@ router.get('/:store_id', async function(req, res, next) {
 
 
 
+
+
+
+	//@
+	//@
+	//@ datas_store
+	var data_store_copy = {...ojs_configs.datas_all};	
+	var data_store_data_edit = {'user_compare':'<>'};
+	var data_store_ok = Object.assign(data_store_copy,data_store_data_edit);
+
+
 	//@
 	//@
 	//@
@@ -745,12 +756,12 @@ router.get('/:store_id', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_store':ojs_configs.datas_all,
-		'datas_brand': ojs_configs.datas_all
+		'datas_store':data_store_ok,
+		//'datas_brand': data_brand_ok
 	}
 	
-	res.send( datas_get_all_list_datas );	
-	return;		
+	//res.send( datas_get_all_list_datas );	
+	//return;		
 	
 	
 	
@@ -766,8 +777,8 @@ router.get('/:store_id', async function(req, res, next) {
 		return;			
 	}
 	
-	res.send(get_all_list_datas);
-	return;
+	//res.send(get_all_list_datas);
+	//return;
 
 
 
@@ -827,8 +838,19 @@ router.get('/:store_id', async function(req, res, next) {
 
 
 
+	// -----------------------------------------------------
+				//list_datas_all
+	//------------------------------------------------------
 
 
+
+	//@
+	//@
+	//@ datas_brand
+	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+	var data_brand_order_edit = {'order':data_brand_order};
+	var data_brand_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
 
 	//@
 	//@
@@ -839,7 +861,7 @@ router.get('/:store_id', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_brand': ojs_configs.datas_all,
+		'datas_brand': data_brand_order_assign,
 	}
 	
 	//res.send( datas_get_all_list_datas );	
