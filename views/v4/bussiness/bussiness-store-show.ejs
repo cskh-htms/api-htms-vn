@@ -36,10 +36,6 @@ if(users_type == "admin"){
 %>
 
 
-<% 
-sidebar_type = 4;
-%>
-<% menu_taget = "sidebar_chinh_sua_cua_hang" %>
 
 <% include ../masterpage/loader %>
 
@@ -54,6 +50,9 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 
 <!-- --------------------
@@ -62,6 +61,10 @@ content
 <div id="content" class="content user_edit">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
+
+	<!-- --------------------------
+			// block 1
+	---------------------------- -->
 	<div class="store_content">
 	<div class="white_box">
 		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
@@ -73,7 +76,7 @@ content
 			</select>
 			<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
 		</div>
-		<p><span>Số điện thoại</span><input type="text" class= "" value="<%= datas[0].stores_phone %>" id="stores_phone"/></p>
+		<br>
 		
 		<div class="select-box-tinh-thanh">
 		<span>Tỉnh thành</span>
@@ -128,6 +131,13 @@ content
 		<p><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
 		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
 	</div>
+
+
+	<!-- --------------------------
+			//  block  2
+	---------------------------- -->
+
+
 	<div class="white_box">
 		<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
 		<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
@@ -152,18 +162,10 @@ content
 		</p>	
 		
 		
-		<!--<p>
-		<span>Trạng thái cửa hàng:</span>
-		<select id="stores_status_stores">
-			<%- ojs_share.show_status_select_share_all_two(datas[0].stores_status_stores) %>
-		</select>
-		<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
-		</p>-->
-		
 		<p>
 			<span>Trạng thái admin:</span>
-			<select id="stores_status" <%- status_disebale %>>
-				<%- ojs_share.show_status_select_share_all(datas[0].stores_status) %>
+			<select id="stores_status_admin" <%- status_disebale %>>
+				<%- ojs_share.show_status_select_share_all(datas[0].stores_status_admin) %>
 			</select>	
 			<span class="giai-thich"><span>Cửa hàng đã được admin duyệt chưa</span></span>
 		</p>
@@ -175,10 +177,13 @@ content
 			<span class="giai-thich"><span>Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây.</span></span>
 		</p>		
 	</div>
-	</div>
+
+	<!-- --------------------------
+			// end of  block  2
+	---------------------------- -->
+
 
 <div class="btn_box">
-	<a href="/stores/manage/<%= store_id %>/<%= user_id %>/" class="btn_back">Quay về</a>
 	<button id="btn_save" class="btn_save">Lưu</button>
 </div>	
 	
@@ -234,42 +239,41 @@ $(document).ready(function($){
 			
 		//@
 		
-		let stores_name = $('#stores_name').val();
-		let stores_user_id = $('#user_id').val();
+		var stores_name = $('#stores_name').val();
+		var stores_user_id = $('#user_id').val();
 		
-		let stores_service_type_id = $('#stores_service_type_id  option:selected').val();	
+		var stores_service_type_id = $('#stores_service_type_id  option:selected').val();	
 		
-		let stores_adress = $('#stores_adress').val();
+		var stores_adress = $('#stores_adress').val();
 		
-		let stores_local_x = $('#stores_local_x').val();
-		let stores_local_y = $('#stores_local_y').val();
+		var stores_local_x = $('#stores_local_x').val();
+		var stores_local_y = $('#stores_local_y').val();
 		
 		
 		
-		let stores_province = $('#stores_province').attr("data_value");
-		let stores_district = $('#stores_district').attr("data_value");
-		let stores_wards = $('#stores_wards').attr("data_value");
+		var stores_province = $('#stores_province').attr("data_value");
+		var stores_district = $('#stores_district').attr("data_value");
+		var stores_wards = $('#stores_wards').attr("data_value");
 
 		
-		let stores_local_adress = $('#stores_local_adress').val();
+		var stores_local_adress = $('#stores_local_adress').val();
 		
 		
-		let stores_phone = $('#stores_phone').val();
+		var stores_phone = $('#stores_phone').val();
 		
-		let stores_info_banking = $('#stores_info_banking').val();
-		let stores_qoute = $('#stores_qoute').val();
+		var stores_info_banking = $('#stores_info_banking').val();
+		var stores_qoute = $('#stores_qoute').val();
 		
-		let stores_status = $('#stores_status  option:selected').val();
-		let stores_status_stores = $('#stores_status_stores  option:selected').val();
+		var stores_status_admin = $('#stores_status_admin  option:selected').val();
 		
 		
-		let stores_payment_limit = $('#stores_payment_limit').attr("data_value");
+		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");
 		
-		let store_id = $('#store_id').val();
-		let stores_status_update = $('#stores_status_update').val();
+		var store_id = $('#store_id').val();
+		var stores_status_update = $('#stores_status_update').val();
 	
-		let stores_upload_limit_day = $('#stores_upload_limit_day').val();
-		let stores_upload_limit_month = $('#stores_upload_limit_month').val();
+		var stores_upload_limit_day = $('#stores_upload_limit_day').val();
+		var stores_upload_limit_month = $('#stores_upload_limit_month').val();
 
 	
 		
@@ -279,7 +283,7 @@ $(document).ready(function($){
 		//@
 
 		//
-		let datas = {
+		var datas = {
 			"datas":{
 				stores_name : stores_name,
 				stores_user_id: stores_user_id,
@@ -291,19 +295,19 @@ $(document).ready(function($){
 				stores_local_x : stores_local_x,
 				stores_local_y : stores_local_y,
 				stores_local_adress : stores_local_adress,
-				stores_phone : stores_phone,
 				stores_payment_limit : stores_payment_limit,
 				stores_info_banking : stores_info_banking,
 				stores_qoute : stores_qoute,
-				stores_status : stores_status,
-				stores_status_stores : stores_status_stores,
+				stores_status_admin : stores_status_admin,
 				stores_upload_limit_day :stores_upload_limit_day,
-				stores_upload_limit_month : stores_upload_limit_month,
-				stores_status_update : stores_status_update				
+				stores_upload_limit_month : stores_upload_limit_month	
 			}
 		}
+		
+		
 		//console.log(datas);		
 		//return;
+		
 		
 		ojs_bussiness.ajax_update(datas,store_id);	
 		
@@ -312,7 +316,7 @@ $(document).ready(function($){
 	
 	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
 		//console.log(datas);
-		let tinh_thanh = ojs_loader.get_tinh_thanh(datas);
+		var tinh_thanh = ojs_loader.get_tinh_thanh(datas);
 		ojs_loader.tinh_thanh_datas = datas;
 		console.log(ojs_loader.tinh_thanh_datas);
 	});	
@@ -326,8 +330,8 @@ $(document).ready(function($){
 		
 
 		//@		
-		let taget = $(this).val();
-		let quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
+		var taget = $(this).val();
+		var quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
 		
 		$('#select_stores_district').html(quan_huyen);
 		$('#select_stores_wards').html('<option value="0"></option>');
@@ -342,8 +346,8 @@ $(document).ready(function($){
 	$(document).on('change','#select_stores_district',function(e) {		
 		e.preventDefault();
 		
-		let taget = $(this).val();
-		let phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
+		var taget = $(this).val();
+		var phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
 		
 		$('#select_stores_wards').html(phuong_xa);
 		
@@ -372,3 +376,22 @@ $(document).ready(function($){
 
 
 <% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

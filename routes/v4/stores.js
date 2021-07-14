@@ -174,10 +174,17 @@ router.get('/', async  function(req, res, next) {
 	//@		
 	
 	var data_store_edit = {
-		'order':	store_order,	
+		'order':	store_order,
+		'status_admin_compare':'<>',
+		'status_admin_value':'100'		
 	}	
 	var data_store_edit_x = {...ojs_configs.datas_all};
 	var data_store_edit_s = Object.assign(data_store_edit_x,data_store_edit);		
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@

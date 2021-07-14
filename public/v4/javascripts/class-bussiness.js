@@ -414,7 +414,7 @@ $(document).ready(function($){
 							}
 						}else{
 							let user_id = $('#user_id').val();
-							ojs_message.message_ok_show(" Đã tạo cửa hàng",ojs_loader.host + '/bussiness/' + user_id);
+							ojs_message.message_ok_show(" Đã tạo cửa hàng",ojs_loader.host + '/stores/');
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

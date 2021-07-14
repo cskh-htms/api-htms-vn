@@ -23,6 +23,9 @@
 
 8.  [search]
 
+8.1. [search_bussiness]
+
+
 9.  [get_role]
 
 10.  [delete_users]
@@ -142,9 +145,17 @@ var sql_link_search = 	" " +
 		ojs_configs.db_prefix +  "users_type_ID  " ;
 
 
+var sql_link_search_bussiness = 	" " + 
 
-
-
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "users_type  ON  " + 
+		ojs_configs.db_prefix +  "users_users_type_id = " + 
+		ojs_configs.db_prefix +  "users_type_ID  " + 
+		
+	" LEFT JOIN " + 
+		ojs_configs.db_prefix +  "stores  ON  " + 
+		ojs_configs.db_prefix +  "users_ID  = " + 
+		ojs_configs.db_prefix +  "stores_user_id  " ;
 	
 		
 //@@
@@ -718,6 +729,52 @@ const search = async function (datas) {
 // * end of 8. [search]	
 	
 
+
+
+//@@
+//@@
+//@@
+//@@
+//@@
+//@@
+// * 8.1. [search_bussiness]
+const search_bussiness = async function (datas) {
+	
+
+	//@
+	//@
+	//@
+	//@ lấy oject search	
+	var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);	
+	//return  get_sql_search;
+	//@
+	//@
+	//@
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search_bussiness);	
+	
+
+	
+	
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_users->search->error_number: 1", "message" : error } ;
+	}
+
+};
+
+// * end of 8. [search]	
+
+
+
+
 //
 //@
 //@
@@ -891,5 +948,6 @@ module.exports = {
 	get_role,
 	get_owner_user,
 	update_lost_password,
-	update_users_phone
+	update_users_phone,
+	search_bussiness
 };

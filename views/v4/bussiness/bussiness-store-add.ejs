@@ -7,7 +7,7 @@
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
-<div id="page_wrap" class="page_wrap no_sidebar">
+<div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
 <!-- --------------------
@@ -15,18 +15,20 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 
-
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content user_edit">
 
-	<h1><a href="/bussiness/<%= user_id %>">Quản lý doanh nghiệp</a><i class="fas fa-chevron-right"></i><%= title %></h1>
-	
+	<h1><a href="/bussiness/<%= user_id %>">Tạo cửa hàng</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<div class="store_content">
 	<div class="white_box">
 		<p><span>Tên cửa hàng</span><input type="text" class= "" value="" id="stores_name"/></p>
-		<p><span>Số điện thoại</span><input type="text" class= "" value="" id="stores_phone"/></p>
+		<br>
 		
 		</br>
 		<div class="select-box-tinh-thanh">
@@ -34,7 +36,7 @@ content
 		<select id="select_stores_province">
 			<option value="0"></option>
 		</select>
-		<p style="display:none"><span>Tỉnh thành</span><input type="text" class= "" value="" id="stores_province"/></p>
+		<p style="display:none"><span>Tỉnh thành</span><input type="text" data_value="" value="" id="stores_province"/></p>
 		</div>
 		
 		</br>
@@ -43,7 +45,7 @@ content
 		<select id="select_stores_district">
 			<option value="0"></option>
 		</select>	
-		<p style="display:none"><span>Quận huyện</span><input type="text" class= "" value="" id="stores_district"/></p>
+		<p style="display:none"><span>Quận huyện</span><input type="text" data_value="" value="" id="stores_district"/></p>
 		</div>
 		
 		
@@ -53,7 +55,7 @@ content
 		<select id="select_stores_wards">
 			<option value="0"></option>
 		</select>		
-		<p style="display:none"><span>Phường xã</span><input type="text" class= "" value="" id="stores_wards"/></p>
+		<p style="display:none"><span>Phường xã</span><input type="text" data_value="" value="" id="stores_wards"/></p>
 		</div>
 		
 		
@@ -66,6 +68,9 @@ content
 		<br>
 		<p style="display:none"><span>giới hạn upload hình trong ngày</span><input type="text" class= "" value="20" id="stores_upload_limit_day"/></p>
 		<p style="display:none"><span>giới hạn upload hình trong tháng</span><input type="text" class= "" value="300" id="stores_upload_limit_month"/></p>
+	</div>
+	<div class="white_box">
+
 
 		<div id="loai_service_wrap">
 		<span>Loại dịch vụ</span>
@@ -98,14 +103,38 @@ content
 		
 		
 		<p>
-		<span>Trạng thái cửa hàng:</span>
-		<select id="stores_status_stores">
+		<span>Trạng thái cửa hàng:</span><br>
+		<select id="stores_status_admin">
 			<%- ojs_share.show_status_product() %>
 		</select>
-		<span class="giai-thich"><span>Khi thông tin cửa hàng ok, chọn "đã phê duyệt" để hiển thị cửa hàng.</span></span>
+		<span class="giai-thich"><span>Cửa hàng đã kích hoạt hay chưa, chọn "đã phê duyệt" để hiển kích hoạt cửa hàng.</span></span>
 		</p>
 		
 		
+		<!-- -----------
+		//chon user
+		-------------- -->
+		
+		<p>
+		<span>Chọn tài khoản doanh nghiệp</span><br>
+		<select id="stores_user_id">
+			<option value="0">Chọn một tài khoản</option>
+		<%
+		for(var i = 0; i < users_list.length; i ++){ %>
+			<option value="<%= users_list[i].users_ID %>"><%= users_list[i].users_full_name %></option>
+		<%	
+		}
+		%>
+		
+		
+		</select>
+		<span class="giai-thich"><span>Tài khoản doanh nghiệp</span></span>
+		</p>		
+		
+		
+		<!-- -----------
+		//chon user
+		-------------- -->		
 		
 
 		<p>
@@ -114,13 +143,12 @@ content
 			<span class="giai-thich"><span>Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây.</span></span>
 		</p>	
 	</div>
-
+	</div>
 	
 	
 	
 
 <div class="btn_box">
-	<a href="/bussiness/<%= user_id %>/" class="btn_back">Quay về</a>
 	<button id="btn_save" class="btn_save">Save</button>
 </div>	
 	
@@ -173,56 +201,59 @@ $(document).ready(function($){
 		//alert("hú hú");
 		//return;
 		
+		
+		
+		
+		
 			
 		//@
-		let stores_name = $('#stores_name').val();
-		let stores_user_id = $('#user_id').val();
+		var stores_name = $('#stores_name').val();
+		var stores_user_id = $('#stores_user_id  option:selected').val();
 		
 		
 		
 		
-		let stores_info_banking = $('#stores_info_banking').val();
-		let stores_qoute = $('#stores_qoute').val();
+		var stores_info_banking = $('#stores_info_banking').val();
+		var stores_qoute = $('#stores_qoute').val();
 		
-		let stores_status = $('#stores_status  option:selected').val();
-		let stores_status_stores = $('#stores_status_stores  option:selected').val();
+		var stores_status_admin = $('#stores_status_admin  option:selected').val();
 		
-		
-		let stores_payment_limit = $('#stores_payment_limit').attr("data_value");		
+		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");		
 		
 		
-		let stores_province = $('#stores_province').attr("data_value");
-		let stores_district = $('#stores_district').attr("data_value");
-		let stores_wards = $('#stores_wards').attr("data_value");
-		let stores_adress = $('#stores_adress').val();
+		var stores_province = $('#stores_province').attr("data_value");
+		var stores_district = $('#stores_district').attr("data_value");
+		var stores_wards = $('#stores_wards').attr("data_value");
+		var stores_adress = $('#stores_adress').val();
 		
 		
 		
-		let stores_local_x = $('#stores_local_x').val();
-		let stores_local_y = $('#stores_local_y').val();
-		let stores_local_adress = $('#stores_local_adress').val();
-		
-		let stores_upload_limit_day = $('#stores_upload_limit_day').val();
-		let stores_upload_limit_month = $('#stores_upload_limit_month').val();
-
-		let stores_phone = $('#stores_phone').val();
+		var stores_local_x = $('#stores_local_x').val();
+		var stores_local_y = $('#stores_local_y').val();
+		var stores_local_adress = $('#stores_local_adress').val();
 		
 		
-		let stores_service_type_id = $('#stores_service_type_id  option:selected').val();		
+		var stores_service_type_id = $('#stores_service_type_id  option:selected').val();		
 		if(stores_service_type_id == 0  || stores_service_type_id == "0"){
 			ojs_message.message_ok_show("chọn loại service");
 			return;
 		}
+		
+		if(stores_user_id == 0  || stores_user_id == "0"){
+			ojs_message.message_ok_show("chọn một tài khoản doanh nghiệp");
+			return;
+		}		
+		
 		//@
 		
 		//@
 		//@
 
 		//
-		let datas = {
+		var datas = {
 			"datas":{
 				stores_name : stores_name,
-				stores_users_id: stores_user_id,
+				stores_user_id: stores_user_id,
 				stores_service_type_id : stores_service_type_id,
 				stores_province : stores_province,
 				stores_district : stores_district,
@@ -230,17 +261,16 @@ $(document).ready(function($){
 				stores_adress : stores_adress,
 				stores_local_x : stores_local_x,
 				stores_local_y : stores_local_y,
-				stores_local_adress : stores_local_adress,				
-				stores_phone : stores_phone,
+				stores_local_adress : stores_local_adress,		
 				stores_payment_limit : stores_payment_limit,
 				stores_info_banking : stores_info_banking,
 				stores_qoute : stores_qoute,
-				stores_status : stores_status,
-				stores_status_stores : stores_status_stores,
-				stores_upload_limit_day :stores_upload_limit_day,
-				stores_upload_limit_month : stores_upload_limit_month
+				stores_status_admin : stores_status_admin,
+				stores_status_stores : 1,
 			}
 		}
+		
+		
 		//console.log(datas);		
 		//return;
 		
@@ -256,7 +286,7 @@ $(document).ready(function($){
 	
 	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
 		//console.log(datas);
-		let tinh_thanh = ojs_loader.get_tinh_thanh(datas);
+		var tinh_thanh = ojs_loader.get_tinh_thanh(datas);
 		$('#select_stores_province').html(tinh_thanh);
 		ojs_loader.tinh_thanh_datas = datas;
 		console.log(ojs_loader.tinh_thanh_datas);
@@ -268,8 +298,8 @@ $(document).ready(function($){
 		
 
 		//@		
-		let taget = $(this).val();
-		let quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
+		var taget = $(this).val();
+		var quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
 		
 		$('#select_stores_district').html(quan_huyen);
 		$('#select_stores_wards').html('<option value="0"></option>');
@@ -284,8 +314,8 @@ $(document).ready(function($){
 	$(document).on('change','#select_stores_district',function(e) {		
 		e.preventDefault();
 		
-		let taget = $(this).val();
-		let phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
+		var taget = $(this).val();
+		var phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
 		
 		$('#select_stores_wards').html(phuong_xa);
 		

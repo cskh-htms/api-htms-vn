@@ -2,6 +2,7 @@
 /*
 -------------------------------------
 
+1.[get_data_user_list_add_store]
 
 
 -------------------------------------
@@ -9,7 +10,53 @@
 
 const ojs_datas_users = {
 	
-
+	//@
+	//@
+	//@ 
+	//@ 1.[get_data_user_list_add_store]		
+	get_data_user_list_add_store: function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"users_ID",
+				"users_full_name"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_type_name",
+								"value"     : "bussiness",
+								"compare" 	: "="
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : "",
+								"compare" 	: "null"
+							} 								
+						]    
+					}
+				],
+				"order" :[
+					{    
+						"field" :"users_full_name",
+						"compare" : "ASC"
+					}    
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 
 	//@
 	//@
 	//@ 

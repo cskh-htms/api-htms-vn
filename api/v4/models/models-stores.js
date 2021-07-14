@@ -111,6 +111,11 @@ var sql_link_search = 	"" +
 	ojs_configs.db_prefix + "users  ON  " + 
 	ojs_configs.db_prefix + "stores_user_id  = " + 
 	ojs_configs.db_prefix + "users_ID " +    
+
+	" LEFT JOIN " + 
+	ojs_configs.db_prefix + "users_type  ON  " + 
+	ojs_configs.db_prefix + "users_users_type_id  = " + 
+	ojs_configs.db_prefix + "users_ID " +  
 	
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "service_type  ON  " + 

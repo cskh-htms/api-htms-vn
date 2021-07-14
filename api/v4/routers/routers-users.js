@@ -58,7 +58,12 @@
 			
 13. * [check-token]
 	* 
+	
+
+14. * [search-bussiness]
+	* lấy data user theo cách search
 		
+	
 						
 	
 */
@@ -179,6 +184,21 @@ router.delete('/:user_id', middle_ware, controllers_users.delete_users);
 //@@
 //13. [check-token] 
 router.post('/check-token', controllers_users.check_token);
+
+
+
+
+//@@
+//@@
+//@@
+//11. [search-bussiness] 
+router.post('/search-bussiness', middle_ware, controllers_users.search_bussiness);
+
+
+
+
+
+
 
 
 /*

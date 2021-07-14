@@ -2073,7 +2073,101 @@ const check_token = async function (req, res, next) {
 
 
 
+//@
+//@
+//@
+//@
+//11. [search] 
+//@
+const search_bussiness = async function (req, res, next) {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		
+		
+		//res.send(datas);
+		//return;
+		//@
+		//@
+		//@
 
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_users->search->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+		
+	//res.send(datas);
+	//return;
+
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token
+		}			
+
+
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controller_users->search-bussiness->check_role -> error_number : 1", "message": error_send } ); 
+		return;			
+	}
+	
+	
+
+	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" ){}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
+			res.send({ "error" : "controller_users->search-bussiness->check_condition_id -> error_number : 2", "message": error_send } ); 
+			return;	
+	}		
+
+
+	
+
+	//@@
+	//@@
+	//@@
+	try {
+		models_users.search_bussiness(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		
+		}, error => {
+				var evn = ojs_configs.evn;
+				evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
+				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 3", "message": error_send } ); 
+				return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
+		res.send({ "error" : "controller_users->search->models_users.search -> error_number : 4", "message": error_send } ); 
+		return;	
+	}
+
+}//
+
+//11. end of  [search] 
 
 
 
@@ -2095,7 +2189,8 @@ module.exports = {
 		get_verification_code,
 		verification_code,
 		lost_password,
-		check_token
+		check_token,
+		search_bussiness
 };
 
 
