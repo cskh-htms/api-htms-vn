@@ -10,8 +10,8 @@ $(document).ready(function($){
 		//
 		//load products bussiness
 		ajax_load_order	: function(datas){		
-			//console.log(datas);
-			//return;
+			console.log(datas);
+			return;
 			//goi api
 			 $.ajax({
 			  type : "POST",	  
@@ -26,8 +26,8 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//console.log(result);
-					$('#ajax-wrap').html(result);
+					console.log(result);
+					//$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;
 			  }//end of success			  

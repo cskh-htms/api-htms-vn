@@ -48,6 +48,12 @@
 	- lấy orders theo id	
 	
 	
+	
+12.[get_all_list_datas_all]	
+	- lấy orders all	
+	
+	
+	
 */
 
 
@@ -57,6 +63,154 @@
 
 
 const ojs_datas_orders = {
+	
+	
+	//@
+	//@	
+	//@	
+	//@
+	//@	
+	//@
+	//@ 12.[get_all_list_datas_all]	
+	//@ - lấy orders all
+	get_all_list_datas_all_customer : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[ 
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"stores_ID",
+					"stores_name",
+					"users_full_name",
+					"orders_speciality_notes",
+					"orders_speciality_adress"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							},
+							{
+								"field" : "orders_speciality_status_payment" ,
+								"value" : datas.status_payment_value,
+								"compare" : datas.status_payment_compare
+							}						
+						]    
+					}          
+				],
+				"order":datas.order			
+			}
+		}	
+		return datas_return;			
+	},		
+		
+	
+	//@
+	//@	
+	//@	
+	//@
+	//@	
+	//@
+	//@ 12.[get_all_list_datas_all]	
+	//@ - lấy orders all
+	get_all_list_datas_all : function(datas){
+		let datas_return = 	
+		{		
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[ 
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"stores_ID",
+					"stores_name",
+					"users_full_name",
+					"orders_speciality_notes",
+					"orders_speciality_adress"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[             
+							{
+								"field" 	: "users_ID" ,
+								"value" 	: datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{	
+								"field"		:"orders_details_speciality_line_order",
+								"value" 	: datas.line_order_value,
+								"compare" 	: datas.line_order_compare
+							},
+							{
+								"field" 	: "orders_speciality_date_orders" ,
+								"value" 	: datas.date_star,
+								"compare" 	: ">="
+							},
+							{
+								"field" : "orders_speciality_date_orders" ,
+								"value" : datas.date_end,
+								"compare" : "<="
+							},
+							{
+								"field" : "orders_speciality_status_orders" ,
+								"value" : datas.status_admin_value,
+								"compare" : datas.status_admin_compare
+							},
+							{
+								"field" : "orders_speciality_status_payment" ,
+								"value" : datas.status_payment_value,
+								"compare" : datas.status_payment_compare
+							}						
+						]    
+					}          
+				],
+				"order":datas.order			
+			}
+		}	
+		return datas_return;			
+	},		
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//@
 	//@	
@@ -113,7 +267,8 @@ const ojs_datas_orders = {
 					"orders_details_speciality_price",
 					"products_speciality_name",
 					"orders_details_medium_text",
-					"price_caution"					
+					"price_caution",
+					"orders_details_speciality_ID"					
 				],
 				"condition" :
 				[

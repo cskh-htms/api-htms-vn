@@ -304,7 +304,8 @@ router.get('/show/:user_id', async function(req, res, next) {
 	
 
 	try {	
-		data_send = {
+	
+			datas_info = {
 			'title' 			: 'Chỉnh sửa tài khoản',
 			'users_type' 		: ojs_shares_others.get_users_type(token),
 			'user_role' 		: ojs_shares_others.get_users_type(token),
@@ -316,11 +317,25 @@ router.get('/show/:user_id', async function(req, res, next) {
 			'datas' 			: user_tager.datas,
 			'sidebar_type'		: "",
 		}
+	
+		data_send = {
+			'title' 			: 'Chỉnh sửa tài khoản',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_role' 		: ojs_shares_others.get_users_type(token),
+			'user_id' 			: user_id,
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
+			'news_admin_menu' 	: get_datas_news_admin_menu,			
+			'datas' 			: user_tager.datas,
+			'sidebar_type'		: "",
+			'datas_info' : datas_info
+		}
 		
 		//res.send( data_send );	
 		//return;			
 		
-		res.render( ojs_configs.view_version + '/users/show', data_send );	
+		res.render( ojs_configs.view_version + '/users/admin-show', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -487,6 +502,17 @@ router.get('/add', async function(req, res, next) {
 	//@
 	//@
 	try {	
+	
+		datas_info = {
+			'title' 			: 'Tạo user',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_id' 			: ojs_shares_others.get_users_id(token),
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
+			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",
+		}	
 
 		data_send = {
 			'title' 			: 'Tạo user',
@@ -497,9 +523,10 @@ router.get('/add', async function(req, res, next) {
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
 			'news_admin_menu' 	: get_datas_news_admin_menu,
 			'sidebar_type'		: "",
+			'datas_info':datas_info
 		}
 		//res.send(data_send);
-		res.render( ojs_configs.view_version + '/users/add', data_send );	
+		res.render( ojs_configs.view_version + '/users/admin-add', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -659,7 +686,7 @@ router.get('/', async function(req, res, next) {
 
 
 	try {	
-		data_send = {
+		datas_info = {
 			'title' 			: 'Admin quản lý dala',
 			'users_type' 		: ojs_shares_others.get_users_type(token),
 			'user_id' 			: ojs_shares_others.get_users_id(token),
@@ -670,10 +697,25 @@ router.get('/', async function(req, res, next) {
 			'sidebar_type'		: "",
 					
 			'users_list' 		: get_all_list_datas_all[1].datas
+		}	
+	
+	
+		data_send = {
+			'title' 			: 'Admin quản lý dala',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_id' 			: ojs_shares_others.get_users_id(token),
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
+			'news_admin_menu' 	: get_datas_news_admin_menu,	
+			'sidebar_type'		: "",
+					
+			'users_list' 		: get_all_list_datas_all[1].datas,
+			'datas_info':datas_info
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version + '/users/show-all', data_send );	
+		res.render( ojs_configs.view_version + '/users/admin-show-all', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

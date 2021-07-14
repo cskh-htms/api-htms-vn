@@ -194,7 +194,7 @@ async  function insert_orders_spaciality_detail(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 			
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
 			res.send({ "error" : "controllers_orders_speciality_detail->insert-> run->number_error : 1 ", "message": error_send } ); 
 			return;				
@@ -202,7 +202,7 @@ async  function insert_orders_spaciality_detail(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert datas, liên hệ admin" );
 		res.send({ "error" : "controllers_orders_speciality_detail->insert-> run->number_error : 2", "message": error_send } ); 
 		return;	

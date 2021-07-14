@@ -19,6 +19,7 @@ if (typeof order_sum == 'number' && order_sum) {
 
 <script src="../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>	
 
+
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
@@ -28,7 +29,9 @@ page wrap
 <% include ../../masterpage/header %>
 
 
-
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 
 <!-- --------------------
@@ -42,8 +45,13 @@ content
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">
+			
 				<li class="one report_link">
-					<a class="report_active" href="#" class="" data_send="hom_nay">Hôm nay</a>
+					<a href="#"  class="report_active"  data_send="thang_nay">Tháng này</a>
+				</li>
+				
+				<li class="one report_link">
+					<a href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
 				<li class="one report_link" >
 					<a href="#"  data_send="hom_qua">Hôm qua</a>
@@ -51,9 +59,7 @@ content
 				<li class="one report_link">
 					<a href="#" data_send="tuan_nay">Tuần này</a>
 				</li>
-				<li class="one report_link">
-					<a href="#"  data_send="thang_nay">Tháng này</a>
-				</li>					
+				
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
 			
@@ -61,7 +67,11 @@ content
 				<ul class="status_box">
 			
 					<li>
-						<a href="#"  data_send="[0]" class="status_link   status_active">chờ xử lý </a>
+						<a href="#"  data_send="[0,1,2,3,4,5,6,7,8,9,10]" class="status_link   status_active"> Tất cả </a>
+					</li>	
+					
+					<li>
+						<a href="#"  data_send="[0]" class="status_link ">chờ xử lý </a>
 					</li>	
 
 					<li>
@@ -188,9 +198,13 @@ $(document).ready(function($){
 				date_end : date_02_ok,
 				status_send : data_status
 			}
-		}		
+		}	
+
+		
 		//console.log(datas);
 		//return;
+		
+		
 		ojs_orders.ajax_load_order(datas);	
 		
 		//
@@ -228,8 +242,13 @@ $(document).ready(function($){
 				status_send : data_status
 			}
 		}	
+		
+		
 		//console.log(datas);
 		//return;
+		
+		
+		
 		ojs_orders.ajax_load_order(datas);	
 				
 		//@
@@ -297,8 +316,13 @@ $(document).ready(function($){
 				status_send : data_status
 			}
 		}	
+		
+		
+		
 		//console.log(datas);
 		//return;
+		
+		
 		ojs_orders.ajax_load_order(datas);			
 		
 	});			

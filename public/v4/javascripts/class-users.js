@@ -92,7 +92,8 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				//console.log(result);
-				//ojs_loadding.ajax_hide_loadding();	
+				///ojs_loadding.ajax_hide_loadding();	
+				
 				//return;				
 				//ojs_loader.evn = "dev";
 				if(ojs_loader.evn == "dev"){
@@ -105,9 +106,9 @@ $(document).ready(function($){
 							}else{
 								if(ojs_loader.evn == "demo"){
 									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa user \n xem lỗi ở console");
+									ojs_message.message_ok_show(result.message);
 								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa users");
+									ojs_message.message_ok_show(result.message);
 								}
 							}
 					}else{

@@ -418,7 +418,7 @@ router.get('/stores/add/', async  function(req, res, next) {
 		//return;
 		
 		
-		res.render( ojs_configs.view_version + '/bussiness/bussiness-store-add', data_send  );	
+		res.render( ojs_configs.view_version + '/bussiness/admin-bussiness-store-add', data_send  );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -753,7 +753,7 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 		
 		
 		
-		res.render( ojs_configs.view_version + '/bussiness/bussiness-store-show', data_send  );	
+		res.render( ojs_configs.view_version + '/bussiness/admin-bussiness-store-show', data_send  );	
 	}
 	catch(error){
 		var error_send = ojs_shares_show_errors.show_error( ojs_shares.evn, error, "server đang bận, truy cập lại sau" );

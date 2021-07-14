@@ -19,6 +19,9 @@ page wrap
 --------------------- -->
 <% include ../../masterpage/header %>
 
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>
 
 
 
@@ -28,6 +31,8 @@ content
 <div id="content" class="content">
 
 	<h1><%= title %></h1>
+
+
 
 	<% 
 	if(datas.length > 0){
@@ -41,21 +46,13 @@ content
 						<input type="text" disabled class= "" value="<%= datas[0].orders_speciality_ID %>" id="orders_speciality_ID"/>
 					</div>		
 
+
 					<div class="value_row">
 						<span>Ngày đặt hàng</span>
 						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_date_orders) %>" id="orders_speciality_date_orders"/>
 					</div>	
-					
-					<div class="value_row">
-						<span>Họ</span>
-						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].users_first_name) %>" id="users_first_name"/>
-					</div>	
-						
-					<div class="value_row">
-						<span>Tên</span>
-						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].users_last_name) %>" id="users_last_name"/>
-					</div>	
-					
+
+
 					<div class="value_row">
 						<span>Điện thoại</span>
 						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_phone) %>" id="orders_speciality_phone"/>
@@ -75,6 +72,7 @@ content
 						<span>Ghi chú giao hàng</span>
 						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_notes) %>" id="orders_speciality_notes"/>
 					</div>	
+
 				</div>
 			</div>
 		
@@ -95,7 +93,10 @@ content
 	<% 
 	}
 	%>		
-	
+
+
+
+
 	<% 
 	if(orders_detail.length > 0){
 	%>	
@@ -106,6 +107,9 @@ content
 	<% 
 	}
 	%>	
+
+
+
 	
 <div class="btn_box">
 	<a href="/orders/speciality/" class="btn_back">Quay về</a>
@@ -208,20 +212,25 @@ $(document).ready(function($){
 		let orders_details_medium_text = $(this).parents(".add_fee_content_box").find(".fee_name").val();
 				
 		
-		
+		if(orders_details_medium_text =="" || orders_details_speciality_price == ""){
+			ojs_message.message_ok_show("vui lòng nhập dữ liệu");
+			return;
+		}
+			
+			
 		
 		//@
 		//
 		
 		var datas = {
 			"datas":{
-				orders_details_speciality_price : orders_details_speciality_price,
-				orders_details_speciality_line_order : "add_fee",
-				orders_details_medium_text : orders_details_medium_text,
-				orders_details_speciality_order_id : order_id 
+				"orders_details_speciality_order_id" : order_id,
+				"orders_details_speciality_price" : orders_details_speciality_price,
+				"orders_details_speciality_line_order":"add_fee",
+				"orders_details_medium_text": orders_details_medium_text
 			}
 		}
-		//console.log(datas);
+		console.log(datas);
 		ojs_orders.ajax_add_fee(datas);	
 		
 	});//end of save detail 	
@@ -277,6 +286,9 @@ $(document).ready(function($){
 		//return;
 		
 		var detail_id = $(this).attr("data_delete");
+		
+		//console.log(detail_id);
+		//return;
 		//@
 		let x = "xác nhận xoá";		
 		let y = "delete_order_speciality_detail";//function name in callback 
@@ -330,8 +342,13 @@ $(document).ready(function($){
 				orders_speciality_status_orders : orders_speciality_status_orders
 			}
 		}
-		//console.log(datas);		
+		
+		
+		
+		//console.log(order_id);		
 		//return;
+		
+		
 		
 		ojs_orders.ajax_update(datas,order_id);	
 		
@@ -345,3 +362,34 @@ $(document).ready(function($){
 
 <% include ../../masterpage/loader-end %>	
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -30,18 +30,12 @@
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
+			
 			if(item == "orders_details_speciality_order_id"){
 				if(check_data_fields.check_datas.check_empty(datas.orders_details_speciality_order_id) == false){check_errer =  "mã đơn hàng là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
 				
 			}
-			
-			if(item == "orders_details_speciality_line_order"){
-				if(check_data_fields.check_datas.check_empty(datas.orders_details_speciality_line_order) == false){check_errer =  "line order là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}	
-
-			if(item == "orders_details_speciality_price"){
-				if(check_data_fields.check_datas.check_empty(datas.orders_details_speciality_price) == false){check_errer =  "line order là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}				
+				
 
 		});
 		//data ok cho phép insert
@@ -58,7 +52,7 @@
 		if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0 ){
 			return "Không tìm thấy đơn hàng trong chi tiết đơn hàng";
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
+			return "Lỗi insert details orders ";
 		}
 	}	
 			

@@ -27,7 +27,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -71,9 +71,10 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 					//console.log(result);
+					ojs_loadding.ajax_hide_loadding();
 					//return;
 					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
@@ -153,7 +154,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "demo";
+					ojs_loader.evn = "dev";
 					//console.log(result);
 					//ojs_loadding.ajax_hide_loadding();	
 					//return;
@@ -263,7 +264,7 @@ $(document).ready(function($){
 		//@
 		//xoa detail
 		ajax_delete_detail: function(detail_id){		
-			//alert(orders_id);
+			//alert(detail_id);
 			//return;
 			//goi api
 			 $.ajax({
@@ -277,7 +278,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				ojs_loader.evn = "demo";
+				//ojs_loader.evn = "dev";
 				if(ojs_loader.evn == "dev"){
 					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 					console.log(result);

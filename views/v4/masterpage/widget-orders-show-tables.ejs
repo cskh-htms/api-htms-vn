@@ -16,7 +16,6 @@ if(datas.length == 0){
 				<th class="user-name">Khách hàng</th>
 				<th class="user-name">Cửa hàng</th>
 				<th class="user-name">Địa chỉ</th>
-				<th class="user-name">Điện thoại</th>
 				<th class="user-name">Ghi chú</th>
 				<th class="user-name">Thanh toán</th>
 				<th class="user-name">Hoàn thành</th>
@@ -38,10 +37,9 @@ if(datas.length == 0){
 				</td>
 				
 				<td class="user-name"><%- datas[x].orders_speciality_date_orders %></td>
-				<td class="user-name"><%- datas[x].users_first_name + "" +  datas[x].users_last_name %></td>
+				<td class="user-name"><%- datas[x].users_full_name %></td>
 				<td class="user-name"><%- datas[x].stores_name %></td>
 				<td class="user-name"><%- datas[x].orders_speciality_adress %></td>
-				<td class="user-name"><%- datas[x].orders_speciality_phone %></td>
 				<td class="user-name"><%- datas[x].orders_speciality_notes %></td>
 				<td class="user-name"><%- ojs_share.show_status_orders_checkout(datas[x].orders_speciality_status_payment) %></td>				
 				<td class="user-name"><%- ojs_share.show_status_orders_complate(datas[x].orders_speciality_status_orders) %></td>
@@ -61,7 +59,6 @@ if(datas.length == 0){
 				<th class="user-name">Khách hàng</th>
 				<th class="user-name">Cửa hàng</th>				
 				<th class="user-name">Địa chỉ</th>
-				<th class="user-name">Điện thoại</th>
 				<th class="user-name">Ghi chú</th>
 				<th class="user-name">Thanh toán</th>
 				<th class="user-name">Hoàn thành</th>

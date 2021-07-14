@@ -69,6 +69,7 @@ const insert_orders_spaciality_detail = async function (datas) {
 	//@
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "orders_details_speciality  SET ?";
 	var dataGo = {
+
 			"orders_details_speciality_order_id"			: datas.orders_details_speciality_order_id,
 			"orders_details_speciality_line_order"			: datas.orders_details_speciality_line_order,		
 			"orders_details_speciality_product_id"			: datas.orders_details_speciality_product_id,	

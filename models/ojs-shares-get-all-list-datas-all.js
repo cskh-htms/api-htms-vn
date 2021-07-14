@@ -161,6 +161,8 @@ const ojs_shares_get_all_list_datas_all = {
 		if(datas.datas_order){
 			var datas_send = datas.datas_order;
 				
+			//return 	datas_send;
+				
 			var fn_datas_order = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user',
@@ -417,6 +419,34 @@ const ojs_shares_get_all_list_datas_all = {
 	
 
 
+		//@
+		//@
+		//@
+		//@	
+		//@ * 16. [datas_order_customer]
+		if(datas.datas_order_customer){
+			var datas_send = datas.datas_order_customer;
+				
+			//return 	datas_send;
+				
+			var fn_datas_order_customer = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_customer',
+							ojs_datas_orders.get_all_list_datas_all_customer(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
+		}else{
+			var fn_datas_order_customer = 0;
+		}
+		promise_all.push(fn_datas_order_customer);
+
+
+
+
+
 
 
 		//@
@@ -438,7 +468,8 @@ const ojs_shares_get_all_list_datas_all = {
 			'12': 'datas_review',	
 			'13': 'datas_review_store',
 			'14': 'datas_coupon',
-			'15': 'datas_note'			
+			'15': 'datas_note',
+			'16': 'datas_order_customer'			
 		}
 		promise_all.push(note);
 

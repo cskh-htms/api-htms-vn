@@ -64,6 +64,12 @@ var note = {
 		
 		
 		
+	
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>			
+	
+	
 		
 		
 		

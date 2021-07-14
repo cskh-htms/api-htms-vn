@@ -1902,8 +1902,14 @@ async function delete_users(req, res, next) {
 		models_users.delete_users(user_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
-			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi delete users, liên hệ bộ phẫn HTKT dala" );
-			res.send( { "error": "controller_users->delete_users->error_number : 7", "message" : error_send  } );	
+			var evn = ojs_configs.evn;
+			var message_error = default_field.get_message_error(error);
+			//evn = "dev";
+			//@
+			//@				
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
+			res.send({ "error" : "controller_users->register->error_number : 4", "message": error_send } ); 
+			return;
 		});
 	}
 	catch(error){
