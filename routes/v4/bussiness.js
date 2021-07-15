@@ -1012,8 +1012,9 @@ router.get('/:user_id', async  function(req, res, next) {
 	//@
 	//@
 	//@ create data send
-	try {	
-		data_send = {
+	try {
+
+		datas_info = {
 			'title' 				: 'Quản lý tài khoản doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
@@ -1027,6 +1028,27 @@ router.get('/:user_id', async  function(req, res, next) {
 			'order_list_sum' 		: get_orders_datas[1].datas,
 			'order_list_all' 		: get_orders_datas[3].datas,
 			'order_list' 			: get_all_list_datas[3].datas
+			
+		}
+
+
+
+		
+		data_send = {
+			'title' 				: 'Quản lý tài khoản doanh nghiệp',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'store_id' 				: get_all_list_datas[2].datas[0].stores_ID,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
+			'store_list' 			: get_all_list_datas[2].datas,
+			'product_list' 			: get_all_list_datas[7].datas,
+			'order_list_sum' 		: get_orders_datas[1].datas,
+			'order_list_all' 		: get_orders_datas[3].datas,
+			'order_list' 			: get_all_list_datas[3].datas,
+			'datas_info'			: datas_info
 			
 		}
 		

@@ -2081,6 +2081,69 @@ end of van luc 07.04.2021
 }
 
 
+.send-box {
+    display: flex;
+}
+
+.send-box .pro_content_edit {
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 60%;
+}
+
+
+.send-box  .pro_content_edit_2 {
+    width: 100%;
+    max-width: 40%;
+}
+.send-box .pro_content_edit .pro_col01 {
+    width: 90%;
+}
+
+.check_box_wrap{
+    display: flex;
+    align-items: center;
+}
+
+.check_box_wrap label{
+	cursor: pointer;
+    display: block;
+    padding: 5px 0px;	
+    padding-left: 10px;
+    width: 80%;	
+}
+
+.ajax_inner {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

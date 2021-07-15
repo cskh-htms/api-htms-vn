@@ -1791,20 +1791,11 @@ const search = async function (req, res, next) {
 	//@@
 	try {
 		models_users.search(datas).then( results => {
-			
-			if(results.length  > 0) {
-				res.send( { "error" : "", "datas" : results } );
-				return;
-			}else{
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi search users, liên hệ bộ phẫn HTKT dala", "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
-				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 2", "message": error_send } ); 
-				return;		
-			}		
+			res.send( { "error" : "", "datas" : results } );
+			return;
 		}, error => {
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi search users, liên hệ bộ phẫn HTKT dala" );
 				res.send({ "error" : "controller_users->search->models_users.search -> error_number : 3", "message": error_send } ); 
 				return;	

@@ -14,10 +14,6 @@ if( typeof title == 'string' && title){ title = title } else{ title="" }
 
 	<script>
 		console.log(<%- JSON.stringify({"list_datas" : list_datas}) %>);
-		console.log(<%- //JSON.stringify({"product_list" : product_list}) %>);		
-		console.log(<%- //JSON.stringify({"order_list_sum" : order_list_sum}) %>);		
-		console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
-		console.log(<%- //JSON.stringify({"order_list" : order_list}) %>);	
 	</script>
 
 
@@ -26,24 +22,23 @@ datas = list_datas
 %>
 
 
+
+
 <% //neu admin thi hien muc nay
-var enable_text;
-var enable_text2;
-var enable_text3;
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
 if(user_role =="admin"){ 
-	enable_text = "" ;
-	enable_text2 = "" ;
 	enable_text3 = "" ;
-}else if(datas[0].brands_status_update == "0"){
-	enable_text = "" ;
-	enable_text2 = " disabled " ;
-	enable_text3 = "" ;
-}else{
-	enable_text = " disabled " ;
-	enable_text2 = " disabled " ;
-	enable_text3 = " disabled " ;
+	enable_text2 = " disabled "
 }
-%>
+
+%>	
+
+
+
+
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
@@ -70,7 +65,7 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên thương hiệu</h3>
 				<div class="inside">
-					<input  <%- enable_text %>  type="text" class= "" value="<%- ojs_share.unCape(datas[0].brands_name) %>" id="brands_name"/>
+					<input  type="text" class= "" value="<%- ojs_share.unCape(datas[0].brands_name) %>" id="brands_name"/>
 				</div>
 			</div>
 			<div class="pro_box">
@@ -100,7 +95,7 @@ content
 			<div class="pro_box">
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
-					<select  id="brands_status_stores" <%- enable_text3 %>>
+					<select  id="brands_status_stores" <%- enable_text3 + " " + enable_text2 %>>
 						<%- ojs_share.show_status_select_share_all_two ( datas[0].brands_status_stores ) %> 
 					</select>
 				</div>
@@ -110,7 +105,7 @@ content
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
-					<select id="brands_status_admin" <%- enable_text2 %>>
+					<select id="brands_status_admin" <%- enable_text3 %>>
 						<%- ojs_share.show_status_select_share_all(datas[0].brands_status_admin ) %>
 					</select>
 				</div>
@@ -124,7 +119,7 @@ content
 	------------------- -->
 	<div style="display:none;" class="value_row">
 		<span>Mô tả ngắn</span><br>
-		<textarea  <%- enable_text %>  class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"><%- ojs_share.unCape(datas[0].brands_excerpt) %></textarea>
+		<textarea  class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"><%- ojs_share.unCape(datas[0].brands_excerpt) %></textarea>
 	</div>
 	<!-- ------------------
 	//thông tin mô tả
@@ -135,7 +130,7 @@ content
 	------------------- -->
 	<div class="value_row" style="display:none;">
 		<span>Chi tiết thương hiệu</span><br>
-		<textarea   <%- enable_text %>  class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share.unCape(datas[0].brands_information ) %></textarea>
+		<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share.unCape(datas[0].brands_information ) %></textarea>
 	</div>
 	<!-- ------------------
 	//thông tin mô tả

@@ -25,7 +25,38 @@ $(document).ready(function($){
 
 	ojs_bussiness = {
 		
-		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@	4. [ajax_load_products]		
+		ajax_load_products_admin : function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/products/speciality/ajax-products-list-admin/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
 		//@
 		//@
 		//@
@@ -207,7 +238,34 @@ $(document).ready(function($){
 		//load products bussiness
 			
 		//		
-		
+		//		
+		//
+		//
+		//load products bussiness
+		ajax_load_brand_admin	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/brands/ajax-brand-list-admin/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
 		//		
 		//
 		//
@@ -258,9 +316,10 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					console.log(result);
+					//console.log(result);
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
+					return;
 					//return;
 			  }//end of success			  
 			});	//end of ajax
@@ -343,6 +402,11 @@ $(document).ready(function($){
 		//@
 		//load option bussiness
 		ajax_load_option: function(datas){		
+			
+			//console.log(datas);
+			//return;
+			
+			
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",

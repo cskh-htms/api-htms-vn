@@ -13,7 +13,7 @@
 
 * 6. [search]
 
-
+* 7. [save_all]
 
 */
 
@@ -60,6 +60,104 @@ const models_notes = require('../models/models-notes');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 7. [save_all]
+async function save_all(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	// lấy data request
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		
+		//res.send([datas,token]);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "controllers-notes->insert->request->error_number : 2", "message": error_send } ); 
+		return;	
+	}	
+
+
+
+	//@
+	//@
+	//@
+	//@
+	try{
+		var datas_check = {
+			"token":token
+		}		
+		var check_datas_result;
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "controllers-store->indert-> check owner->number_error : 3 ", "message": error_send } ); 
+		return;			
+	}
+
+
+
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(
+	check_datas_result.user_role == "admin" 
+	){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "controllers-notes->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		return;			
+	}		
+	
+
+		
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_notes.save_all(datas).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			//@trích thông tin lỗi hiễn thị cho khách hàng
+			var message_error = default_field.get_message_error(error);
+
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
+			res.send({ "error" : "controllers-notes->insert->save-all->model-run->number_error : 1 ", "message": error_send } ); 
+			return;
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert notes , Liên hệ admin" );
+		res.send({ "error" : "controllers-notes->save-all->model-run->number_error : 2 ", "message": error_send } ); 
+		return;
+	}		
+}
 
 
 
@@ -716,7 +814,8 @@ module.exports = {
 		get_one_notes,
 		update_notes,
 		delete_notes,
-		get_all_notes
+		get_all_notes,
+		save_all
 };
 
 

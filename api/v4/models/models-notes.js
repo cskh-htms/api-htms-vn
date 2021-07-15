@@ -13,6 +13,9 @@
 
 * 6. [search]
 
+7. [save_all]
+
+
 */
 
 
@@ -93,6 +96,59 @@ var sql_link_search = 	"" +
 //@order	
 var sql_order_default = " order by " + 
 	ojs_configs.db_prefix + "notes_date_created DESC ";
+	
+	
+	
+	
+	
+	
+	
+//@
+//@
+//@
+//@
+//@ * 7. [save_all]
+var save_all = async function (datas) {
+	
+	//@
+	//@
+	//@
+	//@
+	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "notes  SET ?";
+	var dataGo = {
+			"notes_user_id"				: datas.notes_user_id,
+			"notes_title"				: datas.notes_title,
+			"notes_contents"			: datas.notes_contents,
+			"notes_status"				: datas.notes_status
+	}
+	
+	//@
+	//@
+	//@
+	var kes = Object.keys(dataGo);
+	for(var x in kes){
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+	}
+
+
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_notes_insert-> error_nymber : 1", "message" : error } ;
+	}
+
+};	
+	
+	
 	
 	
 	
@@ -417,7 +473,8 @@ module.exports = {
 			update_notes,
 			delete_notes,
 			get_all_notes,
-			get_owner_notes
+			get_owner_notes,
+			save_all
 };
 
 

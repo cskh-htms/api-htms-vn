@@ -370,6 +370,23 @@ router.get('/', async  function(req, res, next) {
 	//@
 	//@
 	try {
+		
+		datas_info = {
+			'title' 			: 'Danh sách cửa hàng',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_role' 		: ojs_shares_others.get_users_type(token),
+			'user_id' 			: ojs_shares_others.get_users_id(token),
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_danh_sach_cua_hang',
+			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",			
+			
+			'store_list' : get_all_list_datas_all[2].datas,
+			
+		}		
+		
+		
 		data_send = {
 			'title' 			: 'Danh sách cửa hàng',
 			'users_type' 		: ojs_shares_others.get_users_type(token),
@@ -382,6 +399,7 @@ router.get('/', async  function(req, res, next) {
 			'sidebar_type'		: "",			
 			
 			'store_list' : get_all_list_datas_all[2].datas,
+			'datas_info' : datas_info
 			
 		}
 		//res.send(data_send);
@@ -769,7 +787,8 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 	//@
 	//@
 	try {	
-		data_send = {
+	
+		datas_info = {
 			
 			'title' 				: 'Quản lý đơn hàng',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
@@ -791,9 +810,37 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 			
 			'orders_list' : get_orders_datas[4].datas,
 			'order_list_all' : get_orders_datas[3].datas,			
+		}	
+	
+		data_send = {
+			
+			'title' 				: 'Quản lý đơn hàng',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role'  			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id' 				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_don_hang',			
+			'store_list' 			: get_all_list_datas[2].datas,
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
+			'list_data_count' 		: get_all_list_datas_count,
+			'service_type_name' 	: get_all_list_datas[2].datas[0].service_type_name,
+			'store_name' 			: get_all_list_datas[2].datas[0].stores_name,			
 			
 			
+			"status_int"			:status_int,
+			
+			'orders_list' : get_orders_datas[4].datas,
+			'order_list_all' : get_orders_datas[3].datas,	
+			'datas_info' : datas_info
 		}
+		
+		
+		
+		
+		
 		//res.send(data_send);
 		//return;
 		res.render( ojs_configs.view_version + '/stores/orders', data_send );	
@@ -1066,7 +1113,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	//@
 	//@ send
 	try {	
-		data_send = {
+	
+		datas_info = {
 			'title' 				: 'Quản lý doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: user_id,			
@@ -1081,6 +1129,26 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'store_list' 			: get_all_list_datas[2].datas,
 			'order_list' 			: get_all_list_datas[3].datas,
 			'notes_list' 			: get_all_list_datas[15].datas
+			
+		}	
+	
+	
+		data_send = {
+			'title' 				: 'Quản lý doanh nghiệp',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,			
+			'store_id'				: get_all_list_datas[2].datas[0].stores_ID,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_quan_ly',
+			
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
+			'list_data_count' 		: get_all_list_datas_count,
+			'store_list' 			: get_all_list_datas[2].datas,
+			'order_list' 			: get_all_list_datas[3].datas,
+			'notes_list' 			: get_all_list_datas[15].datas,
+			'datas_info':datas_info
 			
 		}
 		

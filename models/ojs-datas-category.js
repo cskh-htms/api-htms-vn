@@ -225,8 +225,8 @@ const ojs_datas_category = {
 							"compare" 	: "="
 						},
 						{   "field"    :"category_general_speciality_admin_status",
-							"value"     : [1],
-							"compare" 	: "not in"
+							"value"     : '0',
+							"compare" 	: '='
 						}							
 						]    
 					}     

@@ -11,23 +11,16 @@
 
 
 <% //neu admin thi hien muc nay
-var enable_text;
-var enable_text2;
-var enable_text3;
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
 if(user_role =="admin"){ 
-	enable_text = "" ;
-	enable_text2 = "" ;
 	enable_text3 = "" ;
-}else if(datas[0].options_product_speciality_status_update == "0"){
-	enable_text = "" ;
-	enable_text2 = " disabled " ;
-	enable_text3 = "" ;
-}else{
-	enable_text = " disabled " ;
-	enable_text2 = " disabled " ;
-	enable_text3 = " disabled " ;
+	enable_text2 = " disabled "
 }
-%>
+
+%>	
 
 
 
@@ -46,6 +39,16 @@ page wrap
 
 
 
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
 <!-- --------------------
 content
 --------------------- -->
@@ -59,7 +62,7 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên tùy chọn</h3>
 				<div class="inside">
-					<input  <%- enable_text %> type="text" class= "" value="<%- ojs_share.unCape(datas[0].options_product_speciality_name) %>" id="options_product_speciality_name"/>
+					<input type="text" class= "" value="<%- ojs_share.unCape(datas[0].options_product_speciality_name) %>" id="options_product_speciality_name"/>
 				</div>
 			</div>
 			
@@ -77,7 +80,7 @@ content
 			<div id="category_general_wrap" class="value_row pro_box">
 				<h3>Tùy chọn cha</h3>
 				<div id="category_general_box" class="inside">
-					<select  <%- enable_text %>  name="category_general" id="options_product_speciality_parent_id"  >
+					<select  name="category_general" id="options_product_speciality_parent_id"  >
 						<% include ../../masterpage/widget-option-check-box %>
 					</select>
 				</div>
@@ -85,21 +88,21 @@ content
 			<!-- ------------------
 			//option cha
 			------------------- -->
-			<!--
+
 			<div class="pro_box">
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
-					<select id="options_product_speciality_status_stores"  <%- enable_text3 %>>
+					<select id="options_product_speciality_status_stores"  <%- enable_text %>>
 						<%- ojs_share.show_status_select_share_all_two(datas[0].options_product_speciality_status_stores ) %> 
 					</select>
 				</div>
 			</div>
-			-->
+
 					
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
-					<select id="options_product_speciality_status_admin" <%- enable_text2 %>>
+					<select id="options_product_speciality_status_admin" <%- enable_text3 %>>
 						<%- ojs_share.show_status_select_share_all(datas[0].options_product_speciality_status_admin ) %>
 					</select>
 				</div>
@@ -315,8 +318,13 @@ $(document).ready(function($){
 		let options_product_speciality_information = tinymce.get("noi_dung").getContent();
 		
 		let options_product_speciality_qoute = $('#options_product_speciality_qoute').val();
-		//
-				
+		
+		let options_product_speciality_status_stores = $('#options_product_speciality_status_stores  option:selected').val();
+		
+		let options_product_speciality_status_admin = $('#options_product_speciality_status_admin  option:selected').val();	
+		
+
+	
 		
 		let datas = {
 			"datas":{
@@ -325,7 +333,9 @@ $(document).ready(function($){
 				options_product_speciality_information : options_product_speciality_information,
 				options_product_speciality_featured_image : options_product_speciality_featured_image,
 				options_product_speciality_qoute : options_product_speciality_qoute,
-				options_product_speciality_stores_id : store_id
+				options_product_speciality_stores_id : store_id,
+				options_product_speciality_status_admin:options_product_speciality_status_admin,
+				options_product_speciality_status_stores : options_product_speciality_status_stores
 				
 			}
 		}

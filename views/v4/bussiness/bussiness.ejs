@@ -28,6 +28,14 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>		
+
+
+
 <!-- --------------------
 content
 --------------------- -->
@@ -35,13 +43,6 @@ content
 
 	<h1><%= title %></h1>
 
-	<script>
-		console.log(<%- JSON.stringify({"datas->store_list" : datas}) %>);
-		console.log(<%- JSON.stringify({"product_list" : product_list}) %>);		
-		console.log(<%- JSON.stringify({"order_list_sum" : order_list_sum}) %>);		
-		console.log(<%- JSON.stringify({"order_list_all" : order_list_all}) %>);	
-		console.log(<%- JSON.stringify({"order_list" : order_list}) %>);	
-	</script>
 
 <%
 if(store_id == 0){ %>

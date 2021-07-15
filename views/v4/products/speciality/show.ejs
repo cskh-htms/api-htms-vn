@@ -14,6 +14,9 @@ if(users_type == "admin"){
 %>
 
 
+
+
+
 <% menu_taget = "sidebar_san_pham" %>
 
 
@@ -24,6 +27,11 @@ if(users_type == "admin"){
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 
 <!-- --------------------
@@ -580,6 +588,11 @@ $(document).ready(function($){
 		//@
 		var products_speciality_name = $('#products_speciality_name').val();
 		var products_speciality_type = $('#products_speciality_type  option:selected').val();
+		
+		var products_speciality_status_admin = $('#products_speciality_status_admin  option:selected').val();
+		
+		
+		
 		var products_speciality_sku = $('#products_speciality_sku').val();
 		var products_speciality_store_id = $('#store_id').val();		
 		
@@ -680,7 +693,8 @@ $(document).ready(function($){
 				products_speciality_width : products_speciality_width,
 				products_speciality_length : products_speciality_length,
 				products_speciality_weight : products_speciality_weight,
-				products_speciality_qoute : products_speciality_qoute				
+				products_speciality_qoute : products_speciality_qoute,
+				products_speciality_status_admin : products_speciality_status_admin				
 			}
 		}
 		return datas;

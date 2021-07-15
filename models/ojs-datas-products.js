@@ -35,6 +35,75 @@
 
 const ojs_datas_products = {
 	
+	
+	//@
+	//@
+	//@ 
+	//@ 8.[get_all_list_datas]		
+	get_all_list_datas_all: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type" : "DISTINCT",
+				"select_field" :
+				[
+					"products_speciality_ID",
+					"products_speciality_date_created",
+					"stores_ID",
+					"stores_name",
+					"products_speciality_name",
+					"products_speciality_price",
+					"products_speciality_sale_of_price",
+					"products_speciality_sale_of_price_time_check",
+					"products_speciality_status_store",
+					"products_speciality_status_admin",
+					"products_speciality_featured_image"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : datas.user_id,
+								"compare" 	: datas.user_compare
+							},
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							},
+							{   
+								"field"     :"products_speciality_status_store",
+								"value"     : datas.status_store_value,
+								"compare" 	: datas.status_store_compare
+							} 								
+						]    
+					}
+				],
+				"order":datas.order
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 8.[get_all_list_datas]			
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@
@@ -288,8 +357,8 @@ const ojs_datas_products = {
 							},
 							{   
 								"field"     :"products_speciality_status_admin",
-								"value"     : [1],
-								"compare" : "not in"
+								"value"     : '0',
+								"compare" : "="
 							}   							
 						]    
 					}

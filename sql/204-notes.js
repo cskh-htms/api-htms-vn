@@ -72,6 +72,23 @@ var note = {
 	
 		
 		
+<% //neu admin thi hien muc nay
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled "
+}
+
+%>		
+		
+		
+		
+		
+		
+		
 		
 <script>
 	console.log(<%- JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);

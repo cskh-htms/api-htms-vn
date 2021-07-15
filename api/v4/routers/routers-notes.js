@@ -40,12 +40,36 @@ const controllers_notes = require('../controllers/controllers-notes');
 
 
 
+
+
+//@
+//@
+//@
+//@
+//@* 7. [save-all]
+router.post('/save-all', middle_ware, controllers_notes.save_all);
+
+
+
+
+
+
+
 //@
 //@
 //@
 //@
 //@* 1. [insert_store]
 router.post('/', middle_ware, controllers_notes.insert_notes);
+
+
+
+
+
+
+
+
+
 
 
 

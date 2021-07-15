@@ -14,7 +14,9 @@ page wrap
 
 
 
-
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 
 <!-- --------------------
@@ -23,16 +25,6 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách sản phẩm</h1>
-	
-	
-	<script>
-		console.log(<%- //JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);
-		console.log(<%- //JSON.stringify({"list_data_count" : list_data_count}) %>);		
-		console.log(<%- JSON.stringify({"products_list" : products_list}) %>);		
-		console.log(<%- JSON.stringify({ "category_link_datas" : category_link_datas }) %>);	
-		console.log(<%- JSON.stringify({ "products_count" : products_count }) %>);	
-	</script>
-	
 	
 	
 	<div class="sap_xep_loc">

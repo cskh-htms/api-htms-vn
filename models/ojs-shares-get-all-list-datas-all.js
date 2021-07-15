@@ -273,6 +273,12 @@ const ojs_shares_get_all_list_datas_all = {
 			
 			var datas_send = datas.datas_product;
 			
+			//return datas_send;
+			
+			
+			//return ojs_datas_products.get_all_list_datas_all(datas_send);
+			
+			
 			var fn_datas_product = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',

@@ -221,8 +221,8 @@ const ojs_datas_option = {
 							},
 							{
 								"field" : "options_product_speciality_status_admin" ,
-								"value" : [1],
-								"compare" : "not in"
+								"value" : '0',
+								"compare" : "="
 							}						
 						]    
 					}         

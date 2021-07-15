@@ -18,7 +18,9 @@ page wrap
 <% include ../masterpage/header %>
 
 
-
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>		
 
 <!-- --------------------
 content
@@ -28,20 +30,6 @@ content
 	<h1>Quản lý <%= store_list[0].stores_name %></h1>
 
 
-
-	<script>
-	
-	
-		console.log(<%- JSON.stringify({"sidebar_type" : sidebar_type}) %>);	
-		console.log(<%- JSON.stringify({"news_bussiness_menu" : news_bussiness_menu}) %>);
-		console.log(<%- JSON.stringify({"list_data_count" : list_data_count}) %>);
-		console.log(<%- JSON.stringify({"store_list" : store_list}) %>);
-		console.log(<%- JSON.stringify({"Tin_nhan_tu_admin" : notes_list}) %>);
-		console.log(<%- //JSON.stringify({"product_list" : product_list}) %>);		
-		console.log(<%- //JSON.stringify({"order_list_sum" : order_list_sum}) %>);		
-		console.log(<%- //JSON.stringify({"order_list_all" : order_list_all}) %>);	
-		console.log(<%- JSON.stringify({"order_list" : order_list}) %>);	
-	</script>
 
 	<%-  //ojs_share.show_news_bussiness_menu_html(news_bussiness_menu,3) -%>
 	<%-  ojs_share.show_news_bussiness_menu_home_page(news_bussiness_menu,store_id) -%>

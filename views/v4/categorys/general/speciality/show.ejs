@@ -15,22 +15,15 @@
 
 
 <% //neu admin thi hien muc nay
-var enable_text;
-var enable_text2;
-var enable_text3;
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
 if(user_role =="admin"){ 
-	enable_text = "" ;
-	enable_text2 = "" ;
 	enable_text3 = "" ;
-}else if(datas[0].category_general_speciality_update_status == "0"){
-	enable_text = "" ;
-	enable_text2 = " disabled " ;
-	enable_text3 = "" ;
-}else{
-	enable_text = " disabled " ;
-	enable_text2 = " disabled " ;
-	enable_text3 = " disabled " ;
+	enable_text2 = " disabled "
 }
+
 %>
 
 
@@ -51,7 +44,9 @@ page wrap
 <% include ../../../masterpage/header %>
 
 
-
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>
 
 <!-- --------------------
 content
@@ -66,7 +61,7 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên danh mục</h3>
 				<div class="inside">
-					<input <%- enable_text %> type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
+					<input type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
 				</div>
 			</div>
 			
@@ -76,7 +71,7 @@ content
 			<div class="pro_box" style="display: none">
 				<h3>Mô tả danh mục</h3>
 				<div class="inside">
-					<textarea <%- enable_text %>  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
+					<textarea  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
 					<%- ojs_share.unCape(datas[0].category_general_speciality_infomation) %>
 					</textarea>
 				</div>
@@ -88,7 +83,7 @@ content
 			<div class="pro_box">
 				<h3>Lời nhắn từ admin</h3>
 				<div class="inside">
-					<textarea <%- enable_text %> id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
+					<textarea  id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
 				</div>
 			</div>	
 
@@ -100,7 +95,7 @@ content
 			<div id="category_general_wrap" class="value_row pro_box">
 				<h3>Danh mục cha</h3>
 				<div id="category_general_box" class="inside">
-					<select name="category_general" id="category_general_speciality_category_parent_id" <%- enable_text %> >
+					<select name="category_general" id="category_general_speciality_category_parent_id" >
 						<% include ../../../masterpage/widget-category-general-check-box %>
 					</select>
 				</div>
@@ -138,31 +133,34 @@ content
 			<div class="pro_box">
 				<h3>Ẩn hiện danh mục</h3>
 				<div class="select-wrap inside">
-					<select id="category_general_speciality_show">
+					<select id="category_general_speciality_show" <%- enable_text3 %>>
 						<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
 					</select>		
 				</div>
 			</div>
 			
-			<!--
+
 			<div class="pro_box">
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
-					<select id="category_general_speciality_stores_status"  <%- enable_text3 %> >
+					<select id="category_general_speciality_stores_status"  <%- enable_text3 + " " + enable_text2 %> >
 						<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
 					</select>
 				</div>
 			</div>
-			-->
+
 			
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
-					<select id="category_general_speciality_admin_status" <%- enable_text2 %>>
+					<select id="category_general_speciality_admin_status" <%- enable_text3 %>>
 						<%- ojs_share.show_status_select_share_all(datas[0].category_general_speciality_admin_status ) %>
 					</select>
 				</div>
 			</div>
+			
+			
+			
 		</div>
 	</div>
 
@@ -293,6 +291,7 @@ $(document).ready(function($){
 		e.preventDefault();
 		var datas = get_datas();	
 		datas.datas.category_general_speciality_stores_status = 1;
+		
 		//console.log(datas);
 		//return;
 		
@@ -320,6 +319,8 @@ $(document).ready(function($){
 		//@
 		let category_general_speciality_infomation = tinymce.get("noi_dung").getContent();
 		
+		let category_general_speciality_admin_status = $('#category_general_speciality_admin_status  option:selected').val();
+		let category_general_speciality_stores_status = $('#category_general_speciality_stores_status  option:selected').val();
 		
 		
 		let category_general_speciality_qoute = $('#category_general_speciality_qoute').val();
@@ -337,7 +338,9 @@ $(document).ready(function($){
 				category_general_speciality_sort_order : category_general_speciality_sort_order,
 				category_general_speciality_show : category_general_speciality_show,
 				category_general_speciality_stores_id : store_id,
-				category_general_speciality_qoute : category_general_speciality_qoute
+				category_general_speciality_qoute : category_general_speciality_qoute,
+				category_general_speciality_admin_status : category_general_speciality_admin_status,
+				category_general_speciality_stores_status: category_general_speciality_stores_status
 			}
 		}
 		

@@ -32,7 +32,7 @@ const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-l
 const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
 const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
 const ojs_shares_news_bussiness_menu = require('../../models/ojs-shares-news-bussiness-menu');
-
+const ojs_shares_news_admin_menu = require('../../models/ojs-shares-news-admin-menu');
 
 const ojs_shares_others = require('../../models/ojs-shares-others');
 const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
@@ -70,8 +70,332 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 8. [/delete/:brand_id]
 
 
+9. [ajax_load_brand_admin]
+
+
 --------------------------------------------------------------------
 */
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 9. [ajax_load_brand_admin]
+router.post('/ajax-brand-list-admin/', async function(req, res, next) {
+
+	//@
+	//@
+	//@
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		var user_id = datas.user_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	//res.send( datas );	
+	//return;		
+
+	
+	//@
+	//@
+	//@ datas_brand
+	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+	var data_brand_order_edit = {'order':data_brand_order};
+	var data_brand_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+	//@
+	var data_brand_data_edit = {
+		'status_admin_compare':'in',
+		'status_admin_value':JSON.parse(datas.status_admin),
+		'status_store_compare':'=',
+		'status_store_value':'1',	
+		};
+	var data_brand_ok = Object.assign(data_brand_order_assign,data_brand_data_edit);	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : 0,
+		'store_id' : 0,
+		'datas_brand': data_brand_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas_all;
+	try{
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;	
+	
+	
+	//@
+	//@
+	//@
+	try {	
+		//
+		//@
+		data_send = {
+			'list_datas' : get_all_list_datas_all[6].datas,
+			'users_type' : ojs_shares_others.get_users_type(token),
+			'user_role'  : ojs_shares_others.get_users_type(token),
+			'user_id' : 0	
+		}
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/masterpage/widget-brand-show-tables', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_brand(app)->ajax", "message": error_send } ); 
+		return;	
+	}
+
+});
+
+
+//@
+//@
+//@
+//@
+//@ 1. [/]
+router.get('/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}
+	
+	//res.send( [token,store_id] );	
+	//return;	
+	
+	
+	//--------------------------------------------------
+	//             news-admin
+	// -------------------------------------------------
+	
+	
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;		
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;	
+	
+	
+	
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	
+	
+	
+	
+	//@
+	//@
+	//@ datas_brand
+	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+	var data_brand_order_edit = {'order':data_brand_order};
+	var data_brand_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+	//@
+	var data_brand_data_edit = {
+		'status_admin_compare': '=',
+		'status_admin_value': '1',
+		'status_store_compare': '=',
+		'status_store_value': '1',		
+		};
+	var data_brand_ok = Object.assign(data_brand_order_assign,data_brand_data_edit);
+
+	
+	
+
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : 0,
+		'store_id' : 0,
+		'datas_brand': data_brand_ok,
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	var get_all_list_datas_all;
+	try{
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas_all);
+	//return;
+	
+	
+	//@ var  user_id = ojs_shares_others.get_users_id(token);
+	//@ var users_type 	= ojs_shares_others.get_users_type(token);
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+	
+		datas_info = {
+			'title' 			: 'Danh sách thương hiệu',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_role' 		: 0,
+			'user_id' 			:0,
+			'store_id'			: 0,
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_brand',
+			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",			
+			
+			'list_datas' : get_all_list_datas_all[6].datas,
+			
+		}	
+	
+		data_send = {
+			'title' 			: 'Danh sách thương hiệu',
+			'users_type' 		: ojs_shares_others.get_users_type(token),
+			'user_role' 		: ojs_shares_others.get_users_type(token),
+			'user_id' 			:0,
+			'store_id'			: 0,
+			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'	: ojs_configs.js_css_version,
+			'menu_taget'		:'sidebar_brand',
+			'news_admin_menu' 	: get_datas_news_admin_menu,
+			'sidebar_type'		: "",			
+			
+			'list_datas' : get_all_list_datas_all[6].datas,
+			'datas_info':datas_info
+			
+		}
+
+		//res.send(data_send);
+		//return;
+		
+		res.render( ojs_configs.view_version + '/brands/admin-show-all', data_send );
+	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "35.router_app->brands->get", "message": error_send } ); 
+		return;	
+	}		
+	
+	
+	
+
+});
+
+
 
 //@
 //@
