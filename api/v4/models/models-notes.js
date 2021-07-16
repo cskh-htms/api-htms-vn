@@ -114,29 +114,55 @@ var save_all = async function (datas) {
 	//@
 	//@
 	//@
-	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "notes  SET ?";
-	var dataGo = {
-			"notes_user_id"				: datas.notes_user_id,
-			"notes_title"				: datas.notes_title,
-			"notes_contents"			: datas.notes_contents,
-			"notes_status"				: datas.notes_status
+	
+	//return datas;
+	
+	
+	var sql_text = "START TRANSACTION ; "
+	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "notes(" + 
+	ojs_configs.db_prefix + 'notes_user_id,' + 
+	ojs_configs.db_prefix + 'notes_title,' + 
+	ojs_configs.db_prefix + 'notes_contents)  VALUES';
+	
+	
+	
+	var sql_loop = "";
+	if(datas.notes_user_id.length > 0){
+		for(var i = 0; i < datas.notes_user_id.length; i ++){
+			if(sql_loop == ""){
+				sql_loop = sql_loop + "('" + 
+				datas.notes_user_id[i] + "' ,'" +
+				datas.notes_title + "' ,'" +
+				datas.notes_contents + "' ) " 
+			}else{
+				sql_loop = sql_loop + ",('" + 
+				datas.notes_user_id[i] + "' ,'" +
+				datas.notes_title + "' ,'" +
+				datas.notes_contents + "' ) " 				
+			}
+		}
 	}
 	
-	//@
-	//@
-	//@
-	var kes = Object.keys(dataGo);
-	for(var x in kes){
-		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
-	}
+	sql_text = sql_text + sql_loop;
+	
+	
 
 
+	
+	//commit
+	sql_text = sql_text + " ; COMMIT;"	
+
+
+	//return sql_text;
+	
+	
+	
 	//@
 	//@
 	//@
 	try {
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
 			} );
