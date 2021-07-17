@@ -574,7 +574,7 @@ router.get('/', async function(req, res, next) {
 	//@
 	var  user_id = ojs_shares_others.get_users_id(token);	
 	
-	//res.send( [token,store_id] );	
+	//res.send( [token,user_id] );	
 	//return;		
 	
 

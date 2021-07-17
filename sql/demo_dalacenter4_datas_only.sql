@@ -29,14 +29,23 @@ INSERT INTO `dala_service_type` (`dala_service_type_ID`, `dala_service_type_name
 (3, 'speciality', 'dịch vụ bán hàng đặc sản đà lạt'),
 (4, 'food-drink', 'dịch vụ ăn uống ăn uông');
 
+
+
 --
--- Đang đổ dữ liệu cho bảng `dala_stores`
+-- Đang đổ dữ liệu cho bảng `dala_users_type`
 --
 
-INSERT INTO `dala_stores` (`dala_stores_ID`, `dala_stores_user_id`, `dala_stores_date_created`, `dala_stores_name`, `dala_stores_payment_limit`, `dala_stores_service_type_id`, `dala_stores_adress`, `dala_stores_province`, `dala_stores_district`, `dala_stores_wards`, `dala_stores_status_admin`, `dala_stores_status_stores`, `dala_stores_info_banking`, `dala_stores_local_x`, `dala_stores_local_y`, `dala_stores_local_adress`, `dala_stores_qoute`, `dala_stores_status_update`, `dala_stores_payment_methods`, `dala_stores_payment_time`, `dala_stores_upload_limit_day`, `dala_stores_upload_limit_month`) VALUES
-(17, 51, '2021-05-19 15:32:45', 'Cửa hàng đặt sản đà lạt DALA', 10000000, 3, 'asdasdasd', '', '', '', 1, 0, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
-(18, 52, '2021-05-19 15:32:45', 'Cửa hàng sao kim', 10000000, 3, 'asdasdasd', '', '', '', 1, 0, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
-(19, 55, '2021-05-19 15:32:45', 'Cửa hàng tuấn bảo',15000000, 3, 'd5, võ thị sáu, quyết thắng, biên hào', 'TP Biên hào', 'Quyết Thắng', 'D5, Võ thị sáu', '1', '1', '0481000862306', '', '', '', '', '1', '0', '28', '20', '300');
+INSERT INTO `dala_users_type` (`dala_users_type_ID`, `dala_users_type_name`, `dala_users_type_infomation`) VALUES
+(13, 'admin', '354aae4c3655725e157156614010b592'),
+(14, 'bussiness', '950a14f62033feb91295dcb123d88e06'),
+(15, 'customer', 'c20284d123204abaf547da15957b17f8'),
+(16, 'default', '319b17162d07a5697a5b2175279a54b0'),
+(17, 'supper-job', '22e9dfe5055e7e35bd4f754a01c365f7'),
+(18, 'shipping', 'c18907b28bc58bce8aa0776e8cf0fae9');
+
+
+
+
 --
 -- Đang đổ dữ liệu cho bảng `dala_users`
 --
@@ -54,17 +63,21 @@ INSERT INTO `dala_users` (`dala_users_ID`, `dala_users_date_created`, `dala_user
 
 
 
+
+
+
+
+
+
 --
--- Đang đổ dữ liệu cho bảng `dala_users_type`
+-- Đang đổ dữ liệu cho bảng `dala_stores`
 --
 
-INSERT INTO `dala_users_type` (`dala_users_type_ID`, `dala_users_type_name`, `dala_users_type_infomation`) VALUES
-(13, 'admin', '354aae4c3655725e157156614010b592'),
-(14, 'bussiness', '950a14f62033feb91295dcb123d88e06'),
-(15, 'customer', 'c20284d123204abaf547da15957b17f8'),
-(16, 'default', '319b17162d07a5697a5b2175279a54b0'),
-(17, 'supper-job', '22e9dfe5055e7e35bd4f754a01c365f7'),
-(18, 'shipping', 'c18907b28bc58bce8aa0776e8cf0fae9');
+INSERT INTO `dala_stores` (`dala_stores_ID`, `dala_stores_user_id`, `dala_stores_date_created`, `dala_stores_name`, `dala_stores_payment_limit`, `dala_stores_service_type_id`, `dala_stores_adress`, `dala_stores_province`, `dala_stores_district`, `dala_stores_wards`, `dala_stores_status_admin`, `dala_stores_status_stores`, `dala_stores_info_banking`, `dala_stores_local_x`, `dala_stores_local_y`, `dala_stores_local_adress`, `dala_stores_qoute`, `dala_stores_status_update`, `dala_stores_payment_methods`, `dala_stores_payment_time`, `dala_stores_upload_limit_day`, `dala_stores_upload_limit_month`) VALUES
+(17, 51, '2021-05-19 15:32:45', 'Cửa hàng đặt sản đà lạt DALA', 10000000, 3, 'asdasdasd', '', '', '', 1, 1, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
+(18, 52, '2021-05-19 15:32:45', 'Cửa hàng sao kim', 10000000, 3, 'asdasdasd', '', '', '', 1, 1, '', '', '', 'asdasdasd', 'asdasdasd', 1, 0, 28, 20, 300),
+(19, 55, '2021-05-19 15:32:45', 'Cửa hàng tuấn bảo',15000000, 3, 'd5, võ thị sáu, quyết thắng, biên hào', 'TP Biên hào', 'Quyết Thắng', 'D5, Võ thị sáu', '1', '1', '0481000862306', '', '', '', '', '1', '0', '28', '20', '300');
+
 
 
 
@@ -576,11 +589,7 @@ VALUES
 	(1, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '0','giao hàng trong ngày'),
 	(2, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '1','giao hàng trong ngày'),
 	(3, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '2','giao hàng trong ngày'),
-	(4, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '3','giao hàng trong ngày'),
-
-	(5, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '0','giao hàng trong ngày'),
-	(6, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '1','giao hàng trong ngày'),
-	(7, CURRENT_TIMESTAMP,'63', '2','giao hàng trong ngày', '2','giao hàng trong ngày');
+	(4, CURRENT_TIMESTAMP,'63', '1','giao hàng trong ngày', '3','giao hàng trong ngày');
 
 
 
@@ -810,18 +819,7 @@ INSERT INTO `dala_discount_program_product_link`(
 VALUES 
 	(1, CURRENT_TIMESTAMP, '1', '2', '1', ''),
 	(2, CURRENT_TIMESTAMP, '1', '4', '1', ''),
-	(3, CURRENT_TIMESTAMP, '1', '6', '1', ''),
-	
-	(4, CURRENT_TIMESTAMP, '3', '2', '1', ''),
-	(5, CURRENT_TIMESTAMP, '3', '4', '1', ''),
-	
-	(6, CURRENT_TIMESTAMP, '2', '1', '1', ''),
-	(7, CURRENT_TIMESTAMP, '2', '3', '1', ''),
-	(8, CURRENT_TIMESTAMP, '2', '5', '0', ''),
-	
-	(9, CURRENT_TIMESTAMP, '4', '10', '1', ''),
-	(10, CURRENT_TIMESTAMP, '4', '8', '2', ''),
-	(11, CURRENT_TIMESTAMP, '5', '9', '2', '');	
+	(3, CURRENT_TIMESTAMP, '1', '6', '1', '');
 
 
 

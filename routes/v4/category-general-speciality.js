@@ -1273,7 +1273,7 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	//@
 	//@
 	//@
-	//@ datas brand
+	//@ datas cat
 	var datas_get_all_list_datas_all = {
 		'token':token,
 		'token_job':ojs_configs.token_supper_job,
@@ -1299,15 +1299,6 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	//res.send(get_all_list_datas_all);
 	//return;
 
-
-
-
-
-
-
-
-	
-	
 
 	try {	
 	

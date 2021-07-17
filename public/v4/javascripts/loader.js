@@ -36,7 +36,7 @@ $(document).ready(function($){
 			
 			$.ajax({
 				type : "POST",	  
-				url : ojs_loader.host + "/upload-s3",
+				url : ojs_loader.host + "/upload-wp",
 				processData: false,
 				contentType: false,
 				data : formData,
