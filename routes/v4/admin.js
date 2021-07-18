@@ -12,7 +12,7 @@ const router = express.Router();
 //@
 //@ loader extends module
 const fetch = require('node-fetch');
-
+const md5 = require('md5');
 
 //@
 //@
@@ -93,14 +93,6 @@ router.get('/', async  function(req, res, next) {
 	//@
 	var  user_id = ojs_shares_others.get_users_id(token);	
 	
-	//res.send( [user_id] );	
-	//return;		
-	
-	
-	
-
-
-
 
 	//@
 	//@

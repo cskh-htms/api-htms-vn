@@ -779,7 +779,19 @@ async function update_users(req, res, next) {
 	//@
 	//@
 	//@
-	var datas_insert = datas;
+	var datas_insert_s = datas;
+	
+	if(datas.users_password && datas.users_password.length > 0){
+		var datas_p= {
+			"users_password_lost":""
+		};
+		//@
+		var datas_insert = Object.assign(datas_insert_s, datas_p);
+	}
+	
+	
+	
+	
 
 	//res.send([datas_insert,user_id]);
 	//return;
@@ -1171,6 +1183,10 @@ async function verification_code(req, res, next) {
 //* 8. [lost_password]
 async function lost_password(req, res, next) {
 	
+	
+	
+	//res.send(md5(3993));
+	//return;
 	//@
 	//@
 	//@	get datas req
@@ -1216,16 +1232,17 @@ async function lost_password(req, res, next) {
 					//@
 					//@
 					//@ 
-					let txt_md5 = md5(results[0].users_ID + Math.random());
-					var txt_code = txt_md5.substring(1, 9);				
-					
+					//let txt_md5 = md5(results[0].users_ID + Math.random());
+					//var txt_code = txt_md5.substring(1, 9);				
+					var n_password = Math.floor(1000 + Math.random() * 9000);
+					n_password = n_password.toString();
 					//@
 					//@
 					// update verification status
 					try {
 						
 						var datas_verification = {
-							"users_password" : txt_code
+							"users_password" : n_password
 						}
 						//@
 						//@
@@ -1237,7 +1254,7 @@ async function lost_password(req, res, next) {
 							
 							var email_to = datas.email_or_phone;
 							var email_title = "test email";
-							var email_content = '<p> mật khẩu mới tại dala app : [' + txt_code + ']</p>';
+							var email_content = '<p> mật khẩu mới tại dala app : [' + n_password + ']</p>';
 							//@
 							//@
 							ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);
@@ -1317,6 +1334,8 @@ async function lost_password(req, res, next) {
 			//@tạo mật khẩu mới
 			try{
 				var n_password = Math.floor(1000 + Math.random() * 9000);
+				n_password = n_password.toString();
+				
 				var datas_users_update =  await models_users.update_users_phone(n_password,datas.email_or_phone);
 			}
 			catch(error){
@@ -1919,7 +1938,7 @@ async function delete_users(req, res, next) {
 //@
 //@
 //@
-//13. [check-token] 
+//13. [check_token] 
 //@
 const check_token = async function (req, res, next) {
 	
