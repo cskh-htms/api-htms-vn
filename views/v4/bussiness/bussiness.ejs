@@ -44,14 +44,7 @@ content
 	<h1><%= title %></h1>
 
 
-<%
-if(store_id == 0){ %>
 
-<h3> chưa có cửa hàng nào </h3>
-<p> Liên hệ admin để tạo cửa hàng </p>
-<%
-}else{
-%>	
 	<!-- --------------------
 		//1. Hiển thị tin tức
 	--------------------- -->
@@ -93,9 +86,18 @@ if(store_id == 0){ %>
 		}
 	}
 
+	%>
 	
+	
+	
+	<% 
 	for( var  x in datas ) { %>
+
+
+
 		<div class="store_box">
+			
+			
 			<div class="store_name">
 				<h3>
 					<a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">
@@ -103,12 +105,19 @@ if(store_id == 0){ %>
 					</a>
 				</h3>
 				<%- ojs_share.show_status_table_share_all(datas[x].stores_status ) %></i>
-			</div>
+			</div>			
 			
+		
+
 			<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">
 				Quản lý
 				<span><%= news_sum %></span>
-			</a>			
+			</a>
+
+
+
+		
+			
 			
 			<ul class="store_don_hang">
 				<li>
@@ -116,29 +125,37 @@ if(store_id == 0){ %>
 						<span class="number"><%= order_list.length %>
 						</span>Tổng đơn hàng
 						</a>
-				</li>			
-			
+				</li>	
+
 				<li>
 					<a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/0">
 						<span class="number"><%= ojs_share.show_count_status_order_by_store(order_list,datas[x].stores_ID,0) %>
 						</span>Chờ xác nhận
 						</a>
 				</li>
+
+
 				<li>
 					<a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/2">
 					<span class="number"><%= ojs_share.show_count_status_order_by_store(order_list,datas[x].stores_ID,2) %>
 					</span>Chờ lấy hàng</a>
-					</li>
+				</li>
+				
+				
 				<li>
 					<a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/3"><span class="number">
 					<%= ojs_share.show_count_status_order_by_store(order_list,datas[x].stores_ID,3) %></span>Đang giao</a>
 				</li>
+
+				
 				<li>
 					<a href="/stores/manage/orders/<%= [datas[x].stores_ID] %>/4">
 					<span class="number"><%= ojs_share.show_count_status_order_by_store(order_list,datas[x].stores_ID,4) %></span>Đổi trả</a>
-				</li>
+				</li>				
+
 			</ul>			
 			
+
 			<div class="store_box_content">
 				<div class="store_thang_nay">
 					Doanh thu tháng này 
@@ -146,7 +163,10 @@ if(store_id == 0){ %>
 						<%-  ojs_share.show_price_format( ojs_share.show_price_sale_by_store(order_list_sum,datas[x].stores_ID), 0,",",".","đ") -%>
 					</span> với <span><%= ojs_share.show_qty_sale_by_store(order_list_sum,datas[x].stores_ID) %></span> sản phẩm bán ra.
 				</div>
-			</div>			
+			</div>		
+
+
+			
 			
 			<div class="store_thong_tin">
 				<p>Địa chỉ: <span><%- ojs_share.unCape(datas[x].stores_adress) %>,
@@ -158,29 +178,26 @@ if(store_id == 0){ %>
 			</div>	
 			
 		</div>
+
+
+
+
+
+
+
+
 	<% 
 	} //end of for
-	%>
-
+	%>	
+	
+	
+	
+	
+	
 
 	<!-- --------------------
 		//2. end of hiển thị cửa hàng
 	--------------------- -->
-
-
-
-
-
-
-	<%
-	}
-	%>
-
-
-
-
-
-
 
 
 

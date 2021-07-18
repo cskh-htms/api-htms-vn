@@ -384,7 +384,6 @@ const ojs_datas_products = {
 		let datas_return = 	
 		{
 			"datas" :   {
-				"select_type" : "DISTINCT",
 				"select_field" :
 				[
 					"products_speciality_ID",
