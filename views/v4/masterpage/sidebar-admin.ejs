@@ -39,58 +39,41 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 			</a>
 		</li>
 	-->	
+	
+	
+		<li class="sidebar_name">Quản lý Admin</li>
+			
 		<!-- --------------------------------
 					//tổng quan
 		--------------------------------- -->		
-		<li>
-		<ul>
-			
 			<li id="sidebar_tong_quan">
 				<a href="/admin/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-tachometer-alt"></i>
 					<div class="menu-name">
 						Tổng quan <%- ojs_share.show_news_admin_menu_sum(news_admin_menu); -%>								
 					</div>
 				</a>
 			</li>
 
-		</ul>
-		</li>		
-		
-		
-		
-		
 		<!-- --------------------------------
 					//users
 		--------------------------------- -->		
-		<li>
-		<ul>
-			
 			<li id="sidebar_danh_sach_tai_khoan">
 				<a href="/users/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-user"></i>
 					<div class="menu-name">
 						Danh sách tài khoản								
 					</div>
 				</a>
 				<a href="/users/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
-
-		</ul>
-		</li>
-		
-		
 		<!-- --------------------------------
 					//store
 		--------------------------------- -->	
 		
-		
-		<li>
-		<ul>
-			
 			<li id="sidebar_danh_sach_cua_hang">
 				<a href="/stores/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-store"></i>
 					<div class="menu-name">
 						Cửa hàng								
 					</div>
@@ -98,44 +81,24 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/bussiness/stores/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-
-		</ul>
-		</li>		
-		
-		
 		
 		<!-- --------------------------------
 					//orders
 		--------------------------------- -->	
 		
-		
-		<li>
-		<ul>
-			
 			<li id="sidebar_don_hang_dac_san">
 				<a href="/orders/speciality/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-clipboard-list"></i>
 					<div class="menu-name">
 						Đơn hàng  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,3); -%>								
 					</div>
 				</a>
 			</li>
 			
-
-		</ul>
-		</li>		
-		
-		
-	
-
 		<!-- --------------------------------
 					//sản phẩm
 		--------------------------------- -->	
 		
-		
-		<li>
-		<ul>
-			
 			<li id="sidebar_product">
 				<a href="/products/speciality/">
 					<i class="fas fa-box-open"></i>
@@ -147,24 +110,14 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/products/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-
-		</ul>
-		</li>	
-
-
-	
 		
 		<!-- --------------------------------
 					//category
 		--------------------------------- -->	
 		
-		
-		<li>
-		<ul>
-			
 			<li id="sidebar_category">
 				<a href="/categorys/general/speciality/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-archive"></i>
 					<div class="menu-name">
 						Danh mục  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,4); -%>		
 												
@@ -173,24 +126,14 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/categorys/general/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-
-		</ul>
-		</li>			
-		
-		
-		
 		
 		<!-- --------------------------------
-					//category
+					//option
 		--------------------------------- -->	
-		
-		
-		<li>
-		<ul>
-			
+	
 			<li id="sidebar_option">
 				<a href="/options/speciality/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-filter"></i>
 					<div class="menu-name">
 						Tuỳ chọn  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,5); -%>		
 												
@@ -199,63 +142,34 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/options/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-
-		</ul>
-		</li>			
-		
-		
-		
-		
 		
 		<!-- --------------------------------
 					//brand
 		--------------------------------- -->	
-		
-		
-		<li>
-		<ul>
-			
+	
 			<li id="sidebar_brand">
 				<a href="/brands/">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-award"></i>
 					<div class="menu-name">
-						Thương hiệu  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,6); -%>		
-												
+						Thương hiệu  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,6); -%>							
 					</div>
 				</a>
 				<a href="/brands/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-
-		</ul>
-		</li>			
-		
-		
-		
 		
 		<!-- --------------------------------
 					//notes
 		--------------------------------- -->	
-		
-		
-		<li>
-		<ul>
-			
+	
 			<li id="sidebar_note">
 				<a href="/notes/send">
-					<i class="fas fa-box-open"></i>
+					<i class="fas fa-comment"></i>
 					<div class="menu-name">
-						Gữi tin nhắn 													
+						Gửi tin nhắn 													
 					</div>
 				</a>
 			</li>
-			
-
-		</ul>
-		</li>				
-		
-		
-		
 		
 		<!-- 
 		//cửa hàng

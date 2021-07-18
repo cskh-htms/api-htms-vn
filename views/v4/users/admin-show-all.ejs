@@ -29,10 +29,26 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><%= title %></h1>
-
-
-
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách tài khoản</h1>
+	
+	<div class="sap_xep_loc">
+		<div class="sap_xep_wrap">
+			<a href="/users/add/" class="btn_green">Thêm tài khoản</a>
+		</div>
+		<div class="loc_wrap">
+			<select id="loc_trang_thai">
+				<option id="all" value="[0,1,2,3]">Tất cả phân quyền</option>
+				<option id="checking" value="[0]">Defaul</option>
+				<option id="edit" value="[2]">Supper job</option>
+				<option id="refuse" value="[3]">Shiper</option>
+				<option id="checked" value="[1]">Customer</option>
+				<option id="checked" value="[1]">Business</option>
+				<option id="checked" value="[1]">Admin</option>
+			</select>
+		</div>
+	</div>	
+	
+	
 	<% 
 	include ../masterpage/widget-users-show-tables 
 	%>

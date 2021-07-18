@@ -41,9 +41,41 @@ content
 
 	<h1><%= title %></h1>
 	
-	
+
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
+			
+			<div class="ul-wrap">
+				<ul class="status_box">
+			
+					<li>
+						<a href="#"  data_send="[0,1,2,3,4,5,6,7,8,9,10]" class="status_link   status_active"> Tất cả </a>
+					</li>	
+					
+					<li>
+						<a href="#"  data_send="[0]" class="status_link ">Chờ xác nhận</a>
+					</li>	
+
+					<li>
+						<a href="#"  data_send="[2]" class="status_link">Chờ lấy hàng</a>
+					</li>	
+
+					<li>
+						<a href="#"  data_send="[3]" class="status_link">Đang giao</a>
+					</li>	
+					<li >
+						<a class="one status_link" href="#" data_send="[1]">Đã hoàn thành</a>
+					</li>
+					<li>
+						<a href="#"  data_send="[4]" class="status_link">Đổi trả</a>
+					</li>	
+					<li >
+						<a class="one status_link" href="#" status_num="5" data_send="[5]">Đơn hủy</a>
+					</li>
+											
+				</ul>	
+					
+			</div>
 			<ul class="report_link_box">
 			
 				<li class="one report_link">
@@ -62,48 +94,16 @@ content
 				
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
-			
-			<div class="ul-wrap">
-				<ul class="status_box">
-			
-					<li>
-						<a href="#"  data_send="[0,1,2,3,4,5,6,7,8,9,10]" class="status_link   status_active"> Tất cả </a>
-					</li>	
-					
-					<li>
-						<a href="#"  data_send="[0]" class="status_link ">chờ xử lý </a>
-					</li>	
-
-					<li>
-						<a href="#"  data_send="[2]" class="status_link">Đang lấy hàng</a>
-					</li>	
-
-					<li>
-						<a href="#"  data_send="[3]" class="status_link">Đang vận chuyển</a>
-					</li>	
-					
-					<li>
-						<a href="#"  data_send="[4]" class="status_link">Đổi trả</a>
-					</li>	
-					
-					<li >
-						<a class="one status_link" href="#" data_send="[1]">Đã hoàn thành</a>
-					</li>						
-				</ul>	
-				<ul class="reset_box">
+			<ul class="reset_box">
 					<li>
 						<a href="/orders/speciality/"  data_send="" class="">Đặt lại</a>
 					</li>				
 					
-				</ul>	
-			</div>
+				</ul>
 		</div>
 		
 	</div>
-	
-	
-	<br>
-	<br>
+
 	<div id="ajax-wrap">
 	<% include ../../masterpage/widget-orders-show-tables %>
 	</div>

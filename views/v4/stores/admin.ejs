@@ -28,9 +28,24 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-
-	<h1><%= title %></h1>
 	
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	
+
+	<div class="sap_xep_loc">
+		<div class="sap_xep_wrap">
+			<a href="/bussiness/stores/add/" class="btn_green">Tạo cửa hàng</a>
+		</div>
+		<div class="loc_wrap">
+			<select id="loc_trang_thai">
+				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
+				<option id="refuse" value="[3]">Bị từ chối</option>
+				<option id="checked" value="[1]">Đã duyệt</option>
+			</select>
+		</div>
+	</div>	
 	
 	
 	
@@ -40,12 +55,12 @@ content
 		<thead>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
-				<th class="user-name">Chủ cửa hàng</th>
+				<th>Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
-				<th class="user-role">Địa chỉ</th>
-				<th class="user-role">Hạn mứt thanh toán</th>
-				<th class="user-role">Trạng thái cửa hàng</th>
-				<th class="user-role">Trạng thái admin</th>
+				<th class="user-name">Địa chỉ</th>
+				<th class="user-role">Hạn mức thanh toán</th>
+				<th class="user-role">Cửa hàng duyệt</th>
+				<th class="user-role">Admin duyệt</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -56,12 +71,12 @@ content
 		<tfoot>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
-				<th class="user-name">Chủ cửa hàng</th>
+				<th>Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
-				<th class="user-role">Địa chỉ</th>
-				<th class="user-role">Hạn mứt thanh toán</th>
-				<th class="user-role">Trạng thái cửa hàng</th>
-				<th class="user-role">Trạng thái admin</th>
+				<th class="user-name">Địa chỉ</th>
+				<th class="user-role">Hạn mức thanh toán</th>
+				<th class="user-role">Cửa hàng duyệt</th>
+				<th class="user-role">Admin duyệt</th>
 			</tr>
 		</tfoot>
 	</table>

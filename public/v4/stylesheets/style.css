@@ -204,12 +204,17 @@ a {
 	width: 100%;
     max-width: 280px;
     background-color: #4a914b;
-	padding: 25px 0 25px 25px;
+	padding: 30px 0 25px 25px;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	z-index: 1;
+}
+#sidebar .admin-menu .sidebar_name {
+	margin-bottom: 25px;
+	color: white;
+	font-size: 120%;
 }
 #sidebar .admin-menu {
 	margin: 0;
@@ -382,6 +387,7 @@ a {
 }
 #header .logo img {
 	width: 100%;
+	border-radius: 6px;
 }
 #header .user {
 	display: flex;
@@ -750,7 +756,7 @@ input[disabled] {
 }
 #content.user_edit span {
 	margin-right: 20px;
-	min-width: 140px;
+	min-width: 155px;
     display: inline-block;
     text-transform: capitalize;
 }
