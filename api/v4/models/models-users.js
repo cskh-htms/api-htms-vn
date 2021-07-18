@@ -171,8 +171,7 @@ const insert_users = async function (datas) {
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "users  SET ?";
 	let dataGo = {
 		"users_full_name"					: mysql.escape(datas.users_full_name).replace(/^'|'$/gi, ""),
-		"users_password"					: md5(datas.users_password),
-		"users_password_lost"				: md5(datas.users_password_lost),		
+		"users_password"					: md5(datas.users_password.toString()),		
 		"users_first_name"					: mysql.escape(datas.users_first_name).replace(/^'|'$/gi, ""),	
 		"users_last_name"					: mysql.escape(datas.users_last_name).replace(/^'|'$/gi, ""),
 		"users_adress"						: mysql.escape(datas.users_adress).replace(/^'|'$/gi, ""),
@@ -238,7 +237,7 @@ const login = async function (datas) {
 			sql_from_default + 
 			sql_link_default +
 			"where " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
-			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
+			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password.toString()) + "'";
 
 
 	} else {
@@ -248,7 +247,7 @@ const login = async function (datas) {
 			sql_from_default + 
 			sql_link_default +
 			"where " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
-			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password) + "'";
+			"and " + ojs_configs.db_prefix + "users_password = '" + md5(datas.users_password.toString()) + "'";
 	}
 	
 	//return sql_text;
@@ -286,7 +285,7 @@ const login_lost = async function (datas) {
 			sql_from_default + 
 			sql_link_default +
 			"where " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " + 
-			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'";
+			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password.toString()) + "'";
 
 
 	} else {
@@ -296,7 +295,7 @@ const login_lost = async function (datas) {
 			sql_from_default + 
 			sql_link_default +
 			"where " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " + 
-			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'";
+			"and " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password.toString()) + "'";
 	}
 	
 	
@@ -418,7 +417,7 @@ const update_users = async function (datas,user_id) {
 		
 		//thay md5 cho passs
 		if(item == "users_password"){
-			arrValueDatas[i] = md5(arrValueDatas[i]);
+			arrValueDatas[i] = md5(arrValueDatas[i].toString());
 		}
 		
 		
@@ -486,8 +485,12 @@ const update_lost_password = async function (datas) {
 		//if data type là email
 		var sql_text = 	"UPDATE " + 
 			ojs_configs.db_prefix + "users set " + 
-			ojs_configs.db_prefix + "users_password_lost = '" + 
-			md5(datas.users_password) + "' " + 
+			
+			ojs_configs.db_prefix + "users_password_lost = ''," + 
+			
+			ojs_configs.db_prefix + "users_password = '" + 
+			md5(datas.users_password.toString()) + "' " + 
+			
 			"where " + ojs_configs.db_prefix + "users_email = '" + datas.users_login_name + "' " ;
 
 
@@ -496,8 +499,13 @@ const update_lost_password = async function (datas) {
 		//if data type là phone
 		var sql_text = 	"UPDATE " + 
 			ojs_configs.db_prefix + "users set " + 
-			ojs_configs.db_prefix + "users_password_lost = ' " + 
-			md5(datas.users_password) + "' " + 
+			
+			ojs_configs.db_prefix + "users_password_lost = ''," + 
+			
+			ojs_configs.db_prefix + "users_password = '" + 
+			md5(datas.users_password.toString()) + "' " + 
+			
+			
 			"where " + ojs_configs.db_prefix + "users_phone = '" + datas.users_login_name + "' " ;
 	}
 	
@@ -619,7 +627,7 @@ const update_users_email = async function (datas,user_id) {
 	//@
 	var table_name  = ojs_configs.db_prefix + "users ";
 	var field_where  = ojs_configs.db_prefix + "users_ID ";
-	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password) + "'" ;
+	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(datas.users_password.toString()) + "'" ;
 	//create sql text
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
 	
@@ -655,7 +663,7 @@ const update_users_phone = async function (n_password,phone) {
 
 	var table_name  = ojs_configs.db_prefix + "users ";
 	var field_where  = ojs_configs.db_prefix + "users_phone ";
-	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(n_password) + "'" ;
+	var sqlSet = " " + ojs_configs.db_prefix + "users_password_lost = '" + md5(n_password.toString()) + "'" ;
 	//create sql text
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ phone + '"';
 	
