@@ -29,14 +29,14 @@ $(document).ready(function($){
 		//@
 		//@
 		//@ 1[upload_anh_dai_dien]
-		upload_anh_dai_dien: function(input,anhDaiDien,ImgBoxDaiDien){
+		upload_anh_dai_dien: function(input,anhDaiDien,ImgBoxDaiDien,user_id){
 			if( !input.files.length ) return;
 			var formData = new FormData();
 			formData.append('image',input.files[0]);
 			
 			$.ajax({
 				type : "POST",	  
-				url : ojs_loader.host + "/upload-wp",
+				url : ojs_loader.host + "/upload-wp/" + user_id,
 				processData: false,
 				contentType: false,
 				data : formData,
@@ -49,6 +49,12 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 				},
 				success : function(img) {
+					
+					console.log(img);
+					ojs_loadding.ajax_hide_loadding();
+					return;
+					
+					
 					let blog_show = URL.createObjectURL(input.files[0]);
 					let url = img.url;
 					

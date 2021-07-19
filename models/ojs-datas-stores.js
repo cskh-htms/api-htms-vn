@@ -30,7 +30,6 @@ const ojs_datas_stores = {
 		let datas_return = 	
 		{
 			"datas" :   {
-				"select_type" : "DISTINCT",
 				"select_field" :
 				[
 					"stores_ID",
@@ -89,7 +88,6 @@ const ojs_datas_stores = {
 		let datas_return = 	
 		{
 			"datas" :   {
-				"select_type" : "DISTINCT",
 				"select_field" :
 				[
 					"stores_ID",

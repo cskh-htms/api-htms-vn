@@ -169,6 +169,9 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
+
+
+	var user_id = $('#user_id').val();
 	//
 	//@
 	ojs_loader.loadTinyMCE('noi_dung');
@@ -187,11 +190,23 @@ $(document).ready(function($){
 		e.preventDefault();		
 		$('#upload_image').trigger( "click" );
 	});
+	
+	
+	
+	
+	
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
+	
+	
+	
+	
+	
+	
+	
 	//
 	//xóa image dai dien
 	$(document).on('click','.xoaAnhDaiDien',function(e) {		

@@ -357,8 +357,8 @@ const ojs_datas_products = {
 							},
 							{   
 								"field"     :"products_speciality_status_admin",
-								"value"     : '0',
-								"compare" : "="
+								"value"     : [0,2],
+								"compare" : "in"
 							}   							
 						]    
 					}

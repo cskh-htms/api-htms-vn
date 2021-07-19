@@ -421,7 +421,7 @@ const get_owner_product = async function (datas) {
 							" AND " + 
 							ojs_configs.db_prefix + "products_speciality_ID  = '" + datas.datas.product_id + "' " 
 	
-	return sql_text;
+	//return sql_text;
 	//@
 	//@
 	//@

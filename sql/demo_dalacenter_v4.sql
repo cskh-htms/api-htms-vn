@@ -775,11 +775,10 @@ DROP TABLE IF EXISTS `dala_uploads_infomation`;
 CREATE TABLE IF NOT EXISTS `dala_uploads_infomation` (
   `dala_uploads_infomation_ID` int NOT NULL AUTO_INCREMENT,
   `dala_uploads_infomation_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dala_uploads_infomation_stores_id` int NOT NULL,
+  `dala_uploads_infomation_user_id` int NOT NULL,
   `dala_uploads_infomation_url` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_uploads_infomation_ip` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`dala_uploads_infomation_ID`),
-  KEY `dala_uploads_infomation_stores_id__ dala_stores_ID` (`dala_uploads_infomation_stores_id`)
+  `dala_uploads_infomation_image_id` int NOT NULL,
+  PRIMARY KEY (`dala_uploads_infomation_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
