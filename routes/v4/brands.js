@@ -329,8 +329,8 @@ router.get('/', async function(req, res, next) {
 		return;			
 	}
 	
-	res.send(get_all_list_datas_all);
-	return;
+	//res.send(get_all_list_datas_all);
+	//return;
 	
 	
 	//@ var  user_id = ojs_shares_others.get_users_id(token);

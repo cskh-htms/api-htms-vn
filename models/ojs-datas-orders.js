@@ -499,7 +499,6 @@ const ojs_datas_orders = {
 		let datas_return = 	
 		{		
 			"datas" :   {
-				"select_type" : "DISTINCT",
 				"select_field" :
 				[ 
 					
