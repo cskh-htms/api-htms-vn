@@ -123,7 +123,8 @@ a {
     padding: 30px;
     border-radius: 10px;
 	background: white;
-	max-width: 90%;
+	max-width: 450px;
+	margin: 0 auto;
 }
 .login-box h1{
   float: left;
@@ -2124,6 +2125,20 @@ end of van luc 07.04.2021
 .ajax_inner {
     border: 1px solid #ccc;
     padding: 10px;
+	border-radius: 4px;
+    margin-top: 10px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mb15 {
+	margin-bottom: 15px;
+}
+.mb20 {
+	margin-bottom: 20px;
+}
+.mb25 {
+	margin-bottom: 25px;
 }
 
 
