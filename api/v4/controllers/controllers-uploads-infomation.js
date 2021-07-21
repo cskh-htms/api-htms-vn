@@ -13,7 +13,7 @@
 
 * 6. [search]
 
-
+* 7. [delete_image]
 
 */
 
@@ -705,7 +705,102 @@ async  function search(req, res, next) {
 
 
 
+//@@
+//@@
+//@@
+//@@
+//@@
+//@* 7. [delete_image]
+async  function delete_image(req, res, next) {
+	//@
+	//@
+	//@	get datas req
+	try {
+		var image_id = req.params.image_id;
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controllers-uploads_infomation->delete-image->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send([image_id]);
+	//return;
+	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"image_id":image_id
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "controllers-uploads_infomation->delete-image->get req -> error_number : 2", "message": error_send } ); 
+		return;			
+	}
 
+
+
+	//res.send(check_datas_result);
+	//return;
+
+
+
+	//@
+	//@
+	// nếu không phải admin hoặt chủ sở hữ user thì return error
+	if(
+	check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_image == "1" 
+	){}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+		res.send({ "error" : "controllers-uploads_infomation->delete-image->get req -> error_number : 3", "message": error_send } ); 
+		return;			
+	}		
+	
+
+	//##
+	//##
+	//#end of check chủ sỡ hữu 
+	//@
+	try {
+		models_uploads_infomation.delete_image(image_id).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			let message_error = default_field.get_message_error(error);
+			
+			
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
+			res.send({ "error" : "1.4.controllers-uploads_infomation->delete-image ", "message": error_send } ); 
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+			res.send({ "error" : "2.6.model_sotres->uploads_infomation/delete-image ", "message": error_send } ); 
+			return;	
+	}	
+}
+//@* end of  7. [delete_image]
 
 
 
@@ -716,7 +811,8 @@ module.exports = {
 		get_one_uploads_infomation,
 		update_uploads_infomation,
 		delete_uploads_infomation,
-		get_all_uploads_infomation
+		get_all_uploads_infomation,
+		delete_image
 };
 
 

@@ -6,6 +6,10 @@
 
 1 [upload_anh_dai_dien]
 
+2 [delete_wp]
+
+3 [upload_anh_slider]
+
 
 
 
@@ -22,7 +26,67 @@ $(document).ready(function($){
 	
 	ojs_loader = {	
 	
-	
+		//@
+		//@
+		//@ 3 [upload_anh_slider]
+		upload_anh_slider: function(input,hinhSlider,arrImgBox,user_id){
+			if( !input.files.length ) return;
+			var formData = new FormData();
+			formData.append('image',input.files[0]);
+			
+			$.ajax({
+				type : "POST",	  
+				url : ojs_loader.host + "/upload-wp/" + user_id,
+				processData: false,
+				contentType: false,
+				data : formData,
+				dataType: 'json',
+				beforeSend:  function(xhr){
+					ojs_loadding.ajax_show_loadding(); 
+				},
+				error: function (request, status, error) {
+					console.log(error);
+					ojs_loadding.ajax_hide_loadding();
+				},
+				success : function(img) {
+					
+					let blog_show = URL.createObjectURL(input.files[0]);
+					let id = img.datas[0];
+					let url = img.datas[1];
+					
+					ojs_loader.show_anh_slider(hinhSlider,arrImgBox,blog_show,url);
+										
+					ojs_loader.set_value_anh_slider(hinhSlider,arrImgBox);					
+										
+					ojs_loadding.ajax_hide_loadding();
+				}			 
+			});	
+		},
+		//@
+		//@
+		//@ 2. [delete_wp]
+		delete_wp: function(url){
+			//console.log(url);
+			//return;
+			
+			$.ajax({
+				type : "POST",	  
+				url : ojs_loader.host + "/upload-wp/delete-image/",
+				data : {url:url},
+				beforeSend:  function(xhr){
+					ojs_loadding.ajax_show_loadding(); 
+				},
+				error: function (request, status, error) {
+					console.log(error);
+					ojs_loadding.ajax_hide_loadding();
+				},
+				success : function(result) {
+					console.log(result);
+					ojs_loadding.ajax_hide_loadding();
+				}			 
+			});				
+			
+		},//end of show anh dai dien		
 		//@
 		//@
 		//@
@@ -50,18 +114,25 @@ $(document).ready(function($){
 				},
 				success : function(img) {
 					
-					console.log(img);
-					ojs_loadding.ajax_hide_loadding();
-					return;
+					//console.log(img);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;					
 					
-					
-					let blog_show = URL.createObjectURL(input.files[0]);
-					let url = img.url;
-					
-					ojs_loader.show_anh_dai_dien(anhDaiDien,ImgBoxDaiDien,blog_show,url);
-					ojs_loader.set_value_anh_dai_dien(anhDaiDien,ImgBoxDaiDien);
-					
-					ojs_loadding.ajax_hide_loadding();
+					if(img.error == ""){
+						let blog_show = URL.createObjectURL(input.files[0]);
+						let id = img.datas[0];
+						let url = img.datas[1];
+						
+						ojs_loader.show_anh_dai_dien(anhDaiDien,ImgBoxDaiDien,blog_show,url);
+						ojs_loader.set_value_anh_dai_dien(anhDaiDien,ImgBoxDaiDien);
+						
+						ojs_loadding.ajax_hide_loadding();						
+					}else{
+						
+						ojs_message.message_ok_show(img.message);
+						ojs_loadding.ajax_hide_loadding();	
+						
+					}
 				}			 
 			});	
 		},
@@ -455,26 +526,30 @@ $(document).ready(function($){
 		//show anh dai dien loader
 
 		show_anh_dai_dien: function(anhDaiDienHiddenID,ImgBoxDaiDien,blog_show,url){
-			let srcImageAnhDaiDien = "";
-			let srcImageAnhblog = "";
-			if(blog_show =="" || url == ""){
-				srcImageAnhDaiDien = $('#' + anhDaiDienHiddenID).attr("data_value");
-				srcImageAnhblog = $('#' + anhDaiDienHiddenID).attr("data_value");
-			}else{
-				srcImageAnhDaiDien = url;
-				srcImageAnhblog = blog_show;
-			}
-
-			if(srcImageAnhDaiDien != ""){
+			
+			if(blog_show.length > 0 ){
 				let showImageText = "";
 				showImageText = showImageText + 
 				'<div class="img_box">' + 
-					'<img class="imgShow" src="' + srcImageAnhblog + '" data_s3="' + srcImageAnhDaiDien + '" />' + 
+					'<img class="imgShow" src="' + blog_show + '"  data_url="' + url + '"  />' + 
 					'<span class="xoaAnhDaiDien">X</span>' + 
 				'</div>'
 				//console.log(showImageText);
 				$('#' + ImgBoxDaiDien ).html(showImageText);
+			}else{
+				let url = $('#' + anhDaiDienHiddenID ).attr('data_value');
+				if(url.length > 0){
+					let showImageText = "";
+					showImageText = showImageText + 
+					'<div class="img_box">' + 
+						'<img class="imgShow" src="' + url + '"  data_url="' + url + '"  />' + 
+						'<span class="xoaAnhDaiDien">X</span>' + 
+					'</div>'
+					//console.log(showImageText);
+					$('#' + ImgBoxDaiDien ).html(showImageText);	
+				}				
 			}
+
 		},//end of show anh dai dien
 
 		//
@@ -488,49 +563,15 @@ $(document).ready(function($){
 			let textSetValue =  "";
 			for(var  i = 0; i < ojsAnhDaiDien.length; i ++) { 
 				if(textSetValue == ""){
-					textSetValue = $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_s3');
+					textSetValue = $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_url');
 				}else{
-					textSetValue = textSetValue + ";" + $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_s3');
+					textSetValue = textSetValue + ";" + $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_url');
 				}
 			}		
 			$('#' + anhDaiDien).attr("data_value",textSetValue);
 		},		
 		//
-		//
-		//
-		//upload anh slider
-		upload_anh_slider: function(input,hinhSlider,arrImgBox){
-			if( !input.files.length ) return;
-			var formData = new FormData();
-			formData.append('image',input.files[0]);
-			
-			$.ajax({
-				type : "POST",	  
-				url : ojs_loader.host + "/upload-s3",
-				processData: false,
-				contentType: false,
-				data : formData,
-				dataType: 'json',
-				beforeSend:  function(xhr){
-					ojs_loadding.ajax_show_loadding(); 
-				},
-				error: function (request, status, error) {
-					console.log(error);
-					ojs_loadding.ajax_hide_loadding();
-				},
-				success : function(img) {
-					
-					let blog_show = URL.createObjectURL(input.files[0]);
-					let url = img.url;
-					
-					ojs_loader.show_anh_slider(hinhSlider,arrImgBox,blog_show,url);
-										
-					ojs_loader.set_value_anh_slider(hinhSlider,arrImgBox);					
-										
-					ojs_loadding.ajax_hide_loadding();
-				}			 
-			});	
-	},
+
 	//
 	//
 	//
@@ -552,7 +593,7 @@ $(document).ready(function($){
 				for(var  x in srcImageArr) { 
 					showImageText = showImageText + 
 					'<div class="img-box">' + 
-						'<img class="imgShow" data_s3="' + srcImageArr[x] + '" src="'  + srcImageArr[x] + '"  />' + 
+						'<img class="imgShow" data_value="' + srcImageArr[x] + '" src="'  + srcImageArr[x] + '"  />' + 
 						'<span class="xoaAnhSlider">X</span>' + 
 					'</div>'
 				}
@@ -566,7 +607,7 @@ $(document).ready(function($){
 			if(html_box == ""){
 				let showImageText = "" + 
 					'<div class="img-box">' + 
-						'<img class="imgShow" data_s3="' + img_url_s3 + '" src="'  + img_blog + '"  />' + 
+						'<img class="imgShow" data_value="' + img_url_s3 + '" src="'  + img_blog + '"  />' + 
 						'<span class="xoaAnhSlider">X</span>' + 
 					'</div>'
 				
@@ -574,7 +615,7 @@ $(document).ready(function($){
 			}else{
 				let showImageText = "" + 
 					'<div class="img-box">' + 
-						'<img class="imgShow" data_s3="' + img_url_s3 + '" src="'  + img_blog + '"  />' + 
+						'<img class="imgShow" data_value="' + img_url_s3 + '" src="'  + img_blog + '"  />' + 
 						'<span class="xoaAnhSlider">X</span>' + 
 					'</div>'
 					
@@ -597,9 +638,9 @@ $(document).ready(function($){
 			let textSetValue =  "";
 			for(var  i = 0; i < ojsAnhDaiDien.length; i ++) { 
 				if(textSetValue == ""){
-					textSetValue = $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_s3');
+					textSetValue = $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_value');
 				}else{
-					textSetValue = textSetValue + ";" + $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_s3');
+					textSetValue = textSetValue + ";" + $(ojsAnhDaiDien[i]).find('.imgShow').attr('data_value');
 				}
 			}		
 			

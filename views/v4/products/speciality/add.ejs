@@ -262,6 +262,7 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 
+	var user_id = $('#user_id').val();
 
 	$( "#products_speciality_date_start" ).datepicker({
 			dateFormat: "yy-mm-dd",
@@ -302,7 +303,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		var input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	//
 	//xua image dai dien
@@ -317,7 +318,7 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_loader.devare_s3(url);
+		ojs_loader.delete_wp(url);
 		
 		//$('#featured_image').attr("data_s3","");
 		//xoa html

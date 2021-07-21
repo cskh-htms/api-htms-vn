@@ -344,7 +344,7 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 
-
+	var user_id = $('#user_id').val();
 	let date_s1 = $('#products_speciality_date_start').val();
 	let date_s2 = $('#products_speciality_date_end').val();
 		
@@ -407,7 +407,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	//
 	//xua image dai dien
@@ -417,7 +417,7 @@ $(document).ready(function($){
 		// xoa image s3
 		let products_speciality_featured_image = $('#featured_image').attr("data_value");
 		let url = products_speciality_featured_image;
-		ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
 
 		//xoa html
 		$(this).parent(".img_box").remove();
@@ -430,9 +430,18 @@ $(document).ready(function($){
 	//xoa image slider
 	$(document).on('click','.xoaAnhSlider',function(e) {		
 		e.preventDefault();		
+		
+		
+		let url = $(this).parent(".img-box").find('.imgShow').attr("data_value");
+		//console.log(url);
+		//return;
+		
+		ojs_loader.delete_wp(url);		
+		
+		
 		$(this).parent(".img-box").remove();
 		ojs_loader.set_value_anh_slider('slider_image','arrImgBox');
-		ojs_loader.set_value_anh_slider_s3('slider_image_h','arrImgBox');
+		//ojs_loader.set_value_anh_slider_s3('slider_image_h','arrImgBox');
 	});			
 	//
 	//	
@@ -448,7 +457,7 @@ $(document).ready(function($){
 	$("#upload_image_arr").on("change",function(){
 		let input = this;
 		//alert('change');
-		ojs_loader.upload_anh_slider(input,"slider_image","arrImgBox");
+		ojs_loader.upload_anh_slider(input,"slider_image","arrImgBox",user_id);
 	});			
 	//		
 	//	

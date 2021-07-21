@@ -1115,7 +1115,7 @@ const check_owner = async function(datas_check){
 		//@
 		//@
 		//@
-		//@ 2.9 owner_like_store
+		//@ 2.9 owner_uploads_infomation
 		var owner_uploads_infomation = 0;
 		if(datas_check.uploads_infomation_id){
 			
@@ -1162,6 +1162,63 @@ const check_owner = async function(datas_check){
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 3.0 owner_image
+		var owner_image = 0;
+		if(datas_check.image_id){
+			
+			var owner_image_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var image_id = datas_check.image_id;
+				
+				//return {"datas": [user_id,image_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"image_id"	: image_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_image_get = await models_uploads_infomation.get_owner_image(send_datas_check_owner_review);	
+				//return [get_owner_image];
+				//@
+				//@
+				//@
+				//@
+				if(owner_image_get.error) { return {"error":owner_image_get.error,"message":owner_image_get.error} }	
+				if(owner_image_get.length > 0) { owner_image = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_image_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.9 [owner_image] 
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1191,7 +1248,8 @@ const check_owner = async function(datas_check){
 			"owner_like_product" :owner_like_product,
 			"owner_like_store" :owner_like_store,
 			"owner_note": owner_note,
-			"owner_uploads_infomation": owner_uploads_infomation		
+			"owner_uploads_infomation": owner_uploads_infomation,
+			"owner_image":owner_image
 			}
 		return data_return;
 		//@

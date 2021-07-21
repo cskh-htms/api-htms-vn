@@ -220,13 +220,12 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_loader.delete_s3(url);
-		
-		//$('#featured_image').attr("data_s3","");
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
 		//xoa html
 		$(this).parent(".img_box").remove();
 		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
-		
 	});			
 	//		
 	//	

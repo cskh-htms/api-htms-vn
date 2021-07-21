@@ -11,10 +11,13 @@
 
 * 5. [delete_uploads_infomation]
 
+* 5.1 [delete_image]
+
 * 6. [search]
 
 * 7. [get_owner_uploads_infomation]
 
+* 8. [get_owner_image]
 
 */
 
@@ -329,6 +332,42 @@ const delete_uploads_infomation = async function (uploads_infomation_id) {
 
 
 
+//@
+//@
+//@
+//@
+//@* 5.1 [delete_image]
+const delete_image = async function (image_id) {
+
+	var table_name  = ojs_configs.db_prefix + "uploads_infomation ";
+	var field_where  = ojs_configs.db_prefix + "uploads_infomation_image_id ";
+	//create sql text
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ image_id + '"';
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
+		res.send({ "error" : "model_uploads_infomation->delete-image->error_number : 1 ", "message": error_send } ); 
+		return;	
+	}
+};
+
+
+//@* end of 5.1 [delete_uploads_infomation]
+
+
+
+
+
 
 //@
 //@
@@ -378,6 +417,10 @@ const search = async function (datas) {
 
 
 
+
+
+
+
 //@
 //@
 //@
@@ -415,6 +458,44 @@ const get_owner_uploads_infomation = async function (datas) {
 
 
 
+//@
+//@
+//@
+// 8. [get_owner_image]
+const get_owner_image = async function (datas) {
+	//return datas;
+	//create sql text
+	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "uploads_infomation_ID  "  + 
+					sql_from_default + 
+					sql_link_search + 
+					" WHERE " +  
+							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							" AND " + 
+							ojs_configs.db_prefix + "uploads_infomation_image_id = '" + datas.datas.image_id + "' " 
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "models_products->get_owner_image->error_number : 1", "message" : error } ;
+	}
+};
+
+// 8. [get_owner_image]
+
+
+
+
+
 
 //export module
 module.exports = {
@@ -424,7 +505,9 @@ module.exports = {
 			update_uploads_infomation,
 			delete_uploads_infomation,
 			get_all_uploads_infomation,
-			get_owner_uploads_infomation
+			get_owner_uploads_infomation,
+			get_owner_image,
+			delete_image
 };
 
 

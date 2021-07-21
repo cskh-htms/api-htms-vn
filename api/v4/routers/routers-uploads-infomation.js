@@ -13,8 +13,7 @@
 
 * 6. [search]
 
-
-
+* 7. [delete_image]
 
 
 
@@ -83,6 +82,17 @@ router.put('/:uploads_infomation_id', middle_ware, controllers_uploads_infomatio
 //@
 //@* 5. [delete_uploads_infomation]
 router.delete('/:uploads_infomation_id', middle_ware ,controllers_uploads_infomation.delete_uploads_infomation);
+
+
+
+//@
+//@
+//@
+//@
+//@* 7. [delete_image]
+router.delete('/delete-image/:image_id', middle_ware ,controllers_uploads_infomation.delete_image);
+
+
 
 
 
