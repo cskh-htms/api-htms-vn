@@ -2141,9 +2141,24 @@ end of van luc 07.04.2021
 	margin-bottom: 25px;
 }
 
-
-
-
+.doanhthu {
+	color: #4a914b;
+	font-weight: bold;
+}
+.hanmuc {
+	display: block;
+}
+.hanmuc:before {
+	content: '';
+	width: 30px;
+	height: 1px;
+	background: #555;
+	display: block;
+	margin: 2px auto;
+}
+.ck {
+	color: #F1783A;
+}
 
 
 

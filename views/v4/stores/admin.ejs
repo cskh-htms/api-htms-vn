@@ -37,6 +37,11 @@ content
 			<a href="/bussiness/stores/add/" class="btn_green">Tạo cửa hàng</a>
 		</div>
 		<div class="loc_wrap">
+			<select id="loc_kieu_thanh_toan">
+				<option id="" value="">Tất cả kiểu T.Toán</option>
+				<option id="" value="">T.Toán theo hạn mức</option>
+				<option id="" value="">T.Toán theo ngày</option>
+			</select>
 			<select id="loc_trang_thai">
 				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
@@ -55,11 +60,12 @@ content
 		<thead>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
+				<th class="user-role">Đơn hàng</th>
+				<th class="user-role">Doanh thu tháng này</th>
+				<th class="user-role">Doanh thu<span class="hanmuc">Hạn mức</span></th>
 				<th>Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
 				<th class="user-name">Địa chỉ</th>
-				<th class="user-role">Hạn mức thanh toán</th>
-				<th class="user-role">Cửa hàng duyệt</th>
 				<th class="user-role">Admin duyệt</th>
 			</tr>
 		</thead>
@@ -71,11 +77,12 @@ content
 		<tfoot>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
+				<th class="user-role">Đơn hàng</th>
+				<th class="user-role">Doanh thu tháng này</th>
+				<th class="user-role">Doanh thu<span class="hanmuc">Hạn mức</span></th>
 				<th>Chủ cửa hàng</th>
 				<th class="user-email">Nghành nghề</th>
 				<th class="user-name">Địa chỉ</th>
-				<th class="user-role">Hạn mức thanh toán</th>
-				<th class="user-role">Cửa hàng duyệt</th>
 				<th class="user-role">Admin duyệt</th>
 			</tr>
 		</tfoot>

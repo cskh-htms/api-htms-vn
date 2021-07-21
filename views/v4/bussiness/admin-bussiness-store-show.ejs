@@ -145,7 +145,6 @@ content
 		<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
 		<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
 		
-		
 		<p>
 			<span>Hạn mức thanh toán</span>
 			<input type="text" class= "number_change" <%- status_disebale %>
@@ -153,8 +152,9 @@ content
 				value="<%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>" 
 				id="stores_payment_limit"
 			/>
-			<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng.</span></span>
+			<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng. Để trống sẽ thanh toán theo ngày</span></span>
 		</p>
+		
 		
 		
 		<p>
@@ -162,6 +162,10 @@ content
 			<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" placeholder="Nhập số tài khoản, ngân hàng và tên chủ tài khoản." ><%- ojs_share.unCape(datas[0].stores_info_banking) %></textarea>
 		</p>	
 		
+		<p>
+			<span>Đã chuyển khoản</span>
+			<a href="#" class="btn_bd_green">Đặt lại doanh thu</a>
+		</p>
 		
 		<p>
 			<span>Trạng thái admin:</span>
