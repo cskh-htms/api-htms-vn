@@ -34,15 +34,13 @@ content
 
 
 
-	<h1><a href="/admin/">admin</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i><%= title %></h1>
 	<div class="send-box">
 		<div class="pro_content_edit">
 			<div class="pro_col01">
 				<!-- ------------------
 				//Ten thuong hieu
 				------------------- -->
-				<br>
-				<br>
 				<div class="pro_box ten_sp_box">
 					<h3> Tiêu đề </h3>
 					<div class="inside">
@@ -53,32 +51,36 @@ content
 				<!-- ------------------
 				thông tin mô tả
 				------------------- -->
-				<div" class="value_row">
-					<span> Nội dung </span><br>
-					<textarea class="noi_dung"  id="noi_dung"  rows="5" cols="100%"></textarea>
+				<div class="pro_box value_row">
+					<h3> Nội dung </h3>
+					<div class="inside">
+						<textarea class="noi_dung"  id="noi_dung"  rows="5" cols="100%"></textarea>
+					</div>
 				</div>
 				<!-- ------------------
 				//thông tin mô tả
 				------------------- -->
+			</div>
 		</div>
 
-
-
-
 		<div class="pro_content_edit_2">
-			<div class="loc_wrap">
-				<select id="loc_trang_thai">
-					<option  value="0"> Cửa hàng </option>
-					<option  value="1"> Khách hàng </option>
-				</select>
+			<div class="pro_box">
+				<h3>Gửi đến</h3>
+				<div class="inside">
+					<div class="loc_wrap mb15">
+						<select id="loc_trang_thai">
+							<option  value="0"> Cửa hàng </option>
+							<option  value="1"> Khách hàng </option>
+						</select>
+					</div>
+					<div class="check_box_wrap">
+						<input type="checkbox" id="check_all"/><label for="check_all">Chọn tất cả</label>
+					</div>
+					<div id="ajax_wrap">
+						<% include ../masterpage/widget-notes-show-store %>
+					</div>
+				</div>
 			</div>
-			<br>
-			<input type="checkbox" id="check_all"/><label for="check_all">Chọn tất cả</label>
-			<br>
-			<div id="ajax_wrap">
-				<% include ../masterpage/widget-notes-show-store %>
-			</div>
-		
 		</div>	
 
 		
@@ -91,7 +93,7 @@ content
 	<div class="btn_box">
 		<a href="/admin/" class="btn_back">Quay về</a>
 
-		<button id="btn_save" class="btn_save">Gữi</button>
+		<button id="btn_save" class="btn_save">Gửi</button>
 	</div>
 
 
