@@ -311,7 +311,28 @@ const ojs_shares_get_all_list_datas = {
 		//@	
 		//@ * 8. [datas_discount]
 		if(datas.datas_discount){
-			var fn_datas_discount = 0;
+			var x = {...datas.datas_discount};
+			var y = {'user_id': datas.user_id,'store_id' : datas.store_id}
+			var z = Object.assign(x,y);
+			var datas_send = z;			
+			
+			//return datas_send;
+			
+			
+			
+			//return ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',
+							//ojs_datas_products.get_all_list_datas(datas_send);
+			
+			
+			var fn_datas_product = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',
+							ojs_datas_products.get_all_list_datas(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_datas_discount = 0;
 		}

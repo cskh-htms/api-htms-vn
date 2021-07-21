@@ -41,10 +41,13 @@ const models_coupon_speciality = require('../models/models-coupon-speciality');
 const models_like_product = require('../models/models-like-product');
 const models_like_store = require('../models/models-like-store');
 const models_notes = require('../models/models-notes');
-
+const models_uploads_infomation = require('../models/models-uploads-infomation');
 
 const ojs_configs = require('../../../configs/config');
 const jwt = require('jsonwebtoken');
+
+
+
 //
 //
 //@@
@@ -1108,6 +1111,115 @@ const check_owner = async function(datas_check){
 
 
 
+		//@
+		//@
+		//@
+		//@
+		//@ 2.9 owner_uploads_infomation
+		var owner_uploads_infomation = 0;
+		if(datas_check.uploads_infomation_id){
+			
+			var owner_uploads_infomation_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var uploads_infomation_id = datas_check.uploads_infomation_id;
+				
+				//return {"datas": [user_id,uploads_infomation_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"uploads_infomation_id"	: uploads_infomation_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_uploads_infomation_get = await models_uploads_infomation.get_owner_uploads_infomation(send_datas_check_owner_review);	
+				//return [owner_uploads_infomation_get];
+				//@
+				//@
+				//@
+				//@
+				if(owner_uploads_infomation_get.error) { return {"error":owner_uploads_infomation_get.error,"message":owner_uploads_infomation_get.error} }	
+				if(owner_uploads_infomation_get.length > 0) { owner_uploads_infomation = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_uploads_infomation_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.9 [owner_uploads_infomation] 
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 3.0 owner_image
+		var owner_image = 0;
+		if(datas_check.image_id){
+			
+			var owner_image_get;
+			//@
+			//@
+			try {
+				var user_id = jwt.decode(datas_check.token).users_ID;
+				var image_id = datas_check.image_id;
+				
+				//return {"datas": [user_id,image_id]};
+				
+				//@
+				//@
+				//@@
+				var send_datas_check_owner_review = { 
+					"datas" : {
+						"user_id" 	: user_id,
+						"image_id"	: image_id
+					}
+				}			
+
+
+				//return send_datas_check_owner_review;
+
+				owner_image_get = await models_uploads_infomation.get_owner_image(send_datas_check_owner_review);	
+				//return [get_owner_image];
+				//@
+				//@
+				//@
+				//@
+				if(owner_image_get.error) { return {"error":owner_image_get.error,"message":owner_image_get.error} }	
+				if(owner_image_get.length > 0) { owner_image = 1 }				
+				
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares.show_error( evn, error, "Lỗi get option " );
+				return { "error":"ojs_shares_owner->owner_image_get->error_number : 1", "message": error_send };	
+			}			
+		}		
+		//@ end of 2.9 [owner_image] 
+
+
+
+
+
+
+
+
+
+
 
 
 		//@
@@ -1135,7 +1247,9 @@ const check_owner = async function(datas_check){
 			"owner_coupon_speciality" :owner_coupon_speciality,
 			"owner_like_product" :owner_like_product,
 			"owner_like_store" :owner_like_store,
-			"owner_note": owner_note			
+			"owner_note": owner_note,
+			"owner_uploads_infomation": owner_uploads_infomation,
+			"owner_image":owner_image
 			}
 		return data_return;
 		//@

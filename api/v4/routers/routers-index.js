@@ -247,6 +247,13 @@ router.use('/notes', require('./routers-notes'));
 
 
 
+/*------------------------------------------------
+		uploads infomation
+---------------------------------------------- */
+router.use('/uploads-infomation', require('./routers-uploads-infomation'));
+
+
+
 
 
 

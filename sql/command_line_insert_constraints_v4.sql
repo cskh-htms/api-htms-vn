@@ -179,6 +179,12 @@ source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
 
 
 
+-- 16.11.table_uploads_infomation
+source ./sql/16.11.table_uploads_infomation/03.table_uploads_infomation_constraint.sql;
+
+
+
+
 
 
 

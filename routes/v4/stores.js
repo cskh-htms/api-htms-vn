@@ -1080,7 +1080,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'store_id' : store_id,
 		'datas_store':ojs_configs.datas_all,
 		'datas_order': data_order_ok,
-		'datas_note': data_note_ok
+		'datas_note': data_note_ok,
+		'datas_discount': ojs_configs.datas_all
 	}
 	
 	//res.send( datas_get_all_list_datas );	

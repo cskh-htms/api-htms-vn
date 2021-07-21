@@ -169,6 +169,9 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
+
+
+	var user_id = $('#user_id').val();
 	//
 	//@
 	ojs_loader.loadTinyMCE('noi_dung');
@@ -187,11 +190,23 @@ $(document).ready(function($){
 		e.preventDefault();		
 		$('#upload_image').trigger( "click" );
 	});
+	
+	
+	
+	
+	
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
+	
+	
+	
+	
+	
+	
+	
 	//
 	//xóa image dai dien
 	$(document).on('click','.xoaAnhDaiDien',function(e) {		
@@ -205,13 +220,12 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_loader.delete_s3(url);
-		
-		//$('#featured_image').attr("data_s3","");
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
 		//xoa html
 		$(this).parent(".img_box").remove();
 		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
-		
 	});			
 	//		
 	//	
