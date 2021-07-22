@@ -309,8 +309,8 @@ router.post('/:user_id', upload, async function (req, res, next) {
 			);
 		
 		
-			res.send( {"error":"","datas":active_save} );
-			return ;		
+			//res.send( {"error":"","datas":active_save} );
+			//return ;		
 		
 		
 		//@
