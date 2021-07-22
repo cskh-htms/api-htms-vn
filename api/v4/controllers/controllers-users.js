@@ -652,6 +652,7 @@ async function update_users(req, res, next) {
 	//@	get datas req
 	try {
 		var datas = req.body.datas;
+		var datas_c = {...datas};
 		var user_id = req.params.user_id;
 		var token = req.headers['token'];
 	}
@@ -672,7 +673,7 @@ async function update_users(req, res, next) {
 		return { "error" : "ojs_shares->update_users->check_token_empty->error_number : 2", "message": error_send } ; 			
 	}	
 		
-	//res.send(datas);
+	//res.send([datas,user_id]);
 	//return;
 
 	
@@ -697,6 +698,10 @@ async function update_users(req, res, next) {
 	}
 	
 
+	//res.send(check_datas_result);
+	//return;	
+
+
 
 	//@
 	//@
@@ -712,7 +717,7 @@ async function update_users(req, res, next) {
 	//@
 	//@
 	// nếu là user guest thì kho6nf cho update
-	if( check_datas_result.user_role == "default" ){
+	if( check_datas_result.user_role == "default" || check_datas_result.user_role == "supper-job"  ){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Users guest không update", "Users guest không update" );
@@ -733,9 +738,17 @@ async function update_users(req, res, next) {
 
 
 
+
+	//res.send(check_datas_result);
+	//return;	
+
+
+
 	//@
 	//@
 	// check data user login type
+	var data_insert = {...datas};
+	
 	if(datas.users_login_name){
 		try{
 			var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
@@ -750,7 +763,7 @@ async function update_users(req, res, next) {
 					"users_email":name_check
 				};
 				//@
-				var datas_insert = Object.assign(datas, datas_email_field);
+				data_insert = Object.assign(datas_c, datas_email_field);
 
 
 			} else {
@@ -760,10 +773,10 @@ async function update_users(req, res, next) {
 					"users_phone":name_check
 				};
 				//@
-				var datas_insert = Object.assign(datas, datas_phone_field);
+				data_insert = Object.assign(datas_c, datas_phone_field);
 			}
 			
-			delete datas_insert.users_login_name;
+			delete data_insert.users_login_name;
 			
 		}
 		catch(error){
@@ -778,29 +791,35 @@ async function update_users(req, res, next) {
 	
 	//@
 	//@
-	//@
-	var datas_insert_s = datas;
+	//@ nếu dữ liệu ko thâ đổi thì lấy dữ liệu gốc
+
 	
+
+	
+	
+	//@
+	//@
+	//@
 	if(datas.users_password && datas.users_password.length > 0){
 		var datas_p= {
 			"users_password_lost":""
 		};
 		//@
-		var datas_insert = Object.assign(datas_insert_s, datas_p);
+		Object.assign(data_insert, datas_p);
 	}
 	
-	
+
 	
 	
 
-	//res.send([datas_insert,user_id]);
+	//res.send([data_insert,user_id]);
 	//return;
 
 	//@
 	//@
 	//@
 	try {
-		models_users.update_users(datas_insert,user_id).then( results => {
+		models_users.update_users(data_insert,user_id).then( results => {
 			res.send( {"error" : "", "datas" : results} );
 		}, error => {
 			

@@ -107,6 +107,13 @@
 			return "Loại user không hợp lệ";
 			
 			
+		}else if(error.sqlMessage.search("trig_dala_users_email_data_type") >= 0){
+			return " Email không hợp lệ, vui lòng đổi email ";
+		}else if(error.sqlMessage.search("users_users_type_id") >= 0){
+			return "Loại user không hợp lệ";			
+			
+	
+			
 		}else if(error.sqlMessage.search("a parent row") >= 0){
 			return " Tài khảon đã có data liên kết, không thể xoá, (ví dụ : tài khoản đã có cửa hàng) ";			
 			
@@ -116,8 +123,7 @@
 		}else{
 			return "Lỗi data type insert vui lòng liên hệ admin";
 		}
-		
-		
+			
 	}	
 	//
 	//

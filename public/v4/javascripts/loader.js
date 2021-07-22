@@ -114,9 +114,9 @@ $(document).ready(function($){
 				},
 				success : function(img) {
 					
-					//console.log(img);
-					//ojs_loadding.ajax_hide_loadding();
-					//return;					
+					console.log(img);
+					ojs_loadding.ajax_hide_loadding();
+					return;					
 					
 					if(img.error == ""){
 						let blog_show = URL.createObjectURL(input.files[0]);

@@ -937,10 +937,18 @@ router.get('/:user_id', async  function(req, res, next) {
 	//res.send(get_all_list_datas);
 	//return;
 	
+	//res.send(get_all_list_datas);
+	//return;
+	var ust = ojs_shares_others.get_users_type(token);
 	if(get_all_list_datas[2].datas.length <= 0 ){
-		res.send('<h1 style="text-align:center; padding:50px 2%;">Tài khoản chưa có cửa hàng nào, hoặc cửa hàng chưa đựợc kíhh hoạt</h1><p style="text-align:center; padding:50px 2%;"><a href="/users/">Quay về</a></p>');
-		return;
-	}	
+		if(ust == "admin"){
+			res.send('<h1 style="text-align:center; padding:50px 2%;">Tài khoản chưa có cửa hàng nào, hoặc cửa hàng chưa đựợc kích hoạt</h1><p style="text-align:center; padding:50px 2%;"><a href="/users/">Quay về</a></p>');
+			return;
+		}else{
+			res.send('<h1 style="text-align:center; padding:50px 2%;">Tài khoản chưa có cửa hàng nào, hoặc cửa hàng chưa đựợc kích hoạt</h1>');
+			return;			
+		}
+	}
 	
 	
 	
