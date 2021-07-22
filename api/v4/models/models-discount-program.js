@@ -69,6 +69,8 @@ var sql_select_all = 	"" +
 	
 	ojs_configs.db_prefix  + "discount_program_price_created as discount_program_price_created, " + 	
 	ojs_configs.db_prefix  + "discount_program_price_sale as discount_program_price_sale, " + 
+	ojs_configs.db_prefix  + "discount_program_type as discount_program_type, " + 
+	
 
 	
 	ojs_configs.db_prefix  + "discount_program_price_one_day as discount_program_price_one_day, " + 	
@@ -144,6 +146,8 @@ var insert_discount_program = async function (datas) {
 			
 			"discount_program_price_created"		: datas.discount_program_price_created,
 			"discount_program_price_sale"			: datas.discount_program_price_sale,
+			"discount_program_type"					: datas.discount_program_type,
+			
 			
 			"discount_program_store_id_created": datas.discount_program_store_id_created,
 			"discount_program_qoute"				: mysql.escape(datas.discount_program_qoute).replace(/^'|'$/gi, ""),			
@@ -387,7 +391,7 @@ const search = async function (datas) {
 		res.send({ "error" : "model_discount_program->search->error_number : 2", "message": error_send } ); 
 		return;	
 	}	
-	//return get_sql_search;
+	return get_sql_search_group;
 	//@
 	//@
 	//@

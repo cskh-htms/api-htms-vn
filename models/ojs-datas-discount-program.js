@@ -43,7 +43,8 @@ const ojs_datas_discount_program = {
 				"discount_program_position",
 				"discount_program_status_admin",
 				"discount_program_status_update",
-				"discount_program_information"
+				"discount_program_information",
+				"discount_program_type"
 				],
 				"condition" :
 				[				
@@ -62,12 +63,12 @@ const ojs_datas_discount_program = {
 								"compare" 	: datas.store_compare
 							},
 							{   
-								"field"     :"brands_status_admin",
+								"field"     :"discount_program_status_admin",
 								"value"     : datas.status_admin_value,
 								"compare" 	: datas.status_admin_compare
 							},
 							{   
-								"field"     :"brands_status_stores",
+								"field"     :"discount_program_date_end",
 								"value"     : datas.status_store_value,
 								"compare" 	: datas.status_store_compare
 							} 								

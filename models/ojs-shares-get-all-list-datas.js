@@ -320,14 +320,14 @@ const ojs_shares_get_all_list_datas = {
 			
 			
 			
-			//return ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',
-							//ojs_datas_products.get_all_list_datas(datas_send);
+			//return ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/search',
+							//ojs_datas_discount_program.get_all_list_datas(datas_send);
 			
 			
-			var fn_datas_product = new Promise((resolve, reject) => {
+			var fn_datas_discount = new Promise((resolve, reject) => {
 				var result = ojs_shares_fetch_data.get_data_send_token_post( 
-							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all',
-							ojs_datas_products.get_all_list_datas(datas_send),
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/search',
+							ojs_datas_discount_program.get_all_list_datas(datas_send),
 							datas.token_job
 						);
 
