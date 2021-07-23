@@ -996,6 +996,20 @@ router.get('/:store_id', async function(req, res, next) {
 	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
 	//@
 	//@
+	
+	
+	//@
+	//@
+	//@ datas_brand
+	var data_product_order = [{'field':'products_speciality_date_created','compare':'DESC'}];
+	var data_product_order_edit = {'order':data_product_order};
+	var data_product_order_copy = {...ojs_configs.datas_all};	
+	var data_product_order_assign = Object.assign(data_product_order_copy,data_product_order_edit);
+	//@
+	var data_product_data_edit = {'user_compare':'=','status_admin_compare': '='};
+	var data_product_ok = Object.assign(data_product_order_assign,data_product_data_edit);	
+	
+	
 	//@
 	//@ datas brand
 	var datas_get_all_list_datas = {
@@ -1004,7 +1018,7 @@ router.get('/:store_id', async function(req, res, next) {
 		'user_id' : user_id,
 		'store_id' : store_id,
 		'datas_store':datas_store_send_s,
-		'datas_product' : ojs_configs.datas_all
+		'datas_product' : data_product_ok
 	}
 	
 	//res.send( datas_get_all_list_datas );	
@@ -1233,7 +1247,7 @@ router.get('/:store_id', async function(req, res, next) {
 		}
 		
 		
-		//res.send(data_send);
+		//res.send(get_all_list_datas[7].datas);
 		//return;
 		res.render( ojs_configs.view_version + '/products/speciality/show-all', data_send );		
 	}
