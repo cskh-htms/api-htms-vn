@@ -14,16 +14,17 @@
 					<span class="delete"><a href="#" data_users_id ="<%= datas[x].stores_user_id  %>" data_stores_id="<%= datas[x].stores_ID  %>" class="submitdelete">Xóa</a> | </span>
 				</div>	
 			</td>
-			<td>12</td>
 			<td>
 				<span class="doanhthu">120.000.xxx</span>
-				<span class="ck" title="Đủ ĐK thanh toán"><i class="fab fa-cc-visa"></i></span>
 			</td>
 			<td>
 				<span class="doanhthu">4.000.000</span>
 				<span class="hanmuc"><%- ojs_share.show_price_format(datas[x].stores_payment_limit,0,",",".","") %></span>
-				<span class="ck" title="Đủ ĐK thanh toán"><i class="fab fa-cc-visa"></i></span>
 			</td>
+			<th>
+				<span class="ck-ok" title="Đủ ĐK thanh toán"><i class="fab fa-cc-visa"></i></span> <!-- /* Đủ Dk nhận tiền thì hiện icon màu cam này */ -->
+				<span class="ck" title="Chưa đủ ĐK"><i class="fab fa-cc-visa"></i></span>
+			</th>
 			<td><%- ojs_share.unCape(datas[x].users_full_name) + " " + ojs_share.unCape(datas[x].users_full_name) %></td>
 			<td><%- ojs_share.unCape(datas[x].service_type_name) %></td>
 			<td class="user-name">
