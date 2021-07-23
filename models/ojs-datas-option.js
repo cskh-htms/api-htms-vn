@@ -258,6 +258,7 @@ const ojs_datas_option = {
 				"options_product_speciality_status_admin",
 				"options_product_speciality_status_stores",
 				"options_product_speciality_status_update",
+				"options_product_speciality_date_created",
 				"users_ID",
 				"stores_ID"
 				],

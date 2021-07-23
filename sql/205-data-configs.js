@@ -117,14 +117,15 @@ var data_note_ok = Object.assign(data_note_order_assign,data_note_data_edit);
 //@
 //@
 datas_all_admin : {
-	'user_compare': '=',
+	'user_compare': '<>',
 	'store_compare':'<>',
 	
 	'status_admin_compare':'=',
 	'status_admin_value':1,
 	
 	'status_store_compare':'=',
-	'status_store_value':1		
+	'status_store_value':1	,
+	'order' : []	
 }
 
 
@@ -136,13 +137,14 @@ datas_all_admin : {
 //@
 datas_all : {
 	'user_compare': '=',
-	'store_compare':'<>',
+	'store_compare':'=',
 	
 	'status_admin_compare':'=',
 	'status_admin_value':1,
 	
 	'status_store_compare':'=',
-	'status_store_value':1		
+	'status_store_value':1	,
+	'order' : []	
 }
 
 

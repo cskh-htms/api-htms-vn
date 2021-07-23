@@ -171,7 +171,8 @@ const insert_users = async function (datas) {
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "users  SET ?";
 	let dataGo = {
 		"users_full_name"					: mysql.escape(datas.users_full_name).replace(/^'|'$/gi, ""),
-		"users_password"					: md5(datas.users_password.toString()),		
+		"users_password"					: md5(datas.users_password.toString()),	
+		"users_password_lost"				: md5(datas.users_password_lost.toString()),	
 		"users_first_name"					: mysql.escape(datas.users_first_name).replace(/^'|'$/gi, ""),	
 		"users_last_name"					: mysql.escape(datas.users_last_name).replace(/^'|'$/gi, ""),
 		"users_adress"						: mysql.escape(datas.users_adress).replace(/^'|'$/gi, ""),

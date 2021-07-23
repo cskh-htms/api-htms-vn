@@ -125,7 +125,7 @@ router.post('/delete-image/', async function (req, res, next) {
 		//@
 		//@
 		var data_delete = await ojs_shares_fetch_data.get_data_send_token_post(
-			ojs_configs.domain + '/api/' + ojs_configs.api_version + '/uploads-infomation/search/',datas,token);
+			ojs_configs.domain + '/api/' + ojs_configs.api_version + '/uploads-infomation/search/',datas,ojs_configs.token_supper_job);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -307,6 +307,11 @@ router.post('/:user_id', upload, async function (req, res, next) {
 			datas,
 			token
 			);
+		
+		
+			//res.send( {"error":"","datas":active_save} );
+			//return ;		
+		
 		
 		//@
 		//@

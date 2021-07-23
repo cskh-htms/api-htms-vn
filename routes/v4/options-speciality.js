@@ -1395,7 +1395,7 @@ router.post('/ajax-option-list-no/', async function(req, res, next) {
 		'status_admin_value':datas.status_admin,
 		'store_compare':'=',
 		'status_store_compare':'in',
-		'status_store_value':[0,1],			
+		'status_store_value':[0,1],					
 		};
 	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
 	

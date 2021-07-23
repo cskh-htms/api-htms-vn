@@ -176,8 +176,8 @@ router.post('/ajax-orders-list/', async  function(req, res, next) {
 		return;			
 	}
 	
-	res.send( get_all_list_datas_all );
-	return;
+	//res.send( get_all_list_datas_all );
+	//return;
 
 
 
@@ -1070,6 +1070,26 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	var data_note_ok = Object.assign(data_note_order_assign,data_note_data_edit);	
 	
 	
+	//@
+	//@
+	//@ datas_note
+	var data_discount_order = [{'field':'discount_program_date_created','compare':'DESC'}];
+	var data_discount_order_edit = {'order':data_discount_order};
+	var data_discount_order_copy = {...ojs_configs.datas_all};	
+	var data_discount_order_assign = Object.assign(data_discount_order_copy,data_discount_order_edit);
+	//@
+	var data_discount_data_edit = {
+		'user_compare':'<>',
+		'status_store_compare': '<',
+		'status_store_value': ojs_shares_date.get_current_date_now()
+		};
+	//@
+	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);		
+	
+	
+	//res.send( data_discount_ok );	
+	//return;	
+	
 	
 	
 	
@@ -1081,7 +1101,7 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'datas_store':ojs_configs.datas_all,
 		'datas_order': data_order_ok,
 		'datas_note': data_note_ok,
-		'datas_discount': ojs_configs.datas_all
+		'datas_discount': data_discount_ok
 	}
 	
 	//res.send( datas_get_all_list_datas );	
@@ -1101,8 +1121,9 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(get_all_list_datas);
+	//res.send(get_all_list_datas[8]);
 	//return;
+
 
 
 
