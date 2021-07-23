@@ -2,6 +2,11 @@
 /*
 @
 @
+
+1. [send_code_to_phone]
+
+2. [send_code_to_phone_lost_pass]
+
 @
 @
 */
@@ -14,7 +19,7 @@ const ojs_shares_send_code_to_phone = {
 	//@
 	//@
 	//@
-	//@@ send code
+	//@@ 1. [send_code_to_phone]
 	send_code_to_phone : async function(res,code,phone){
 		//@
 		//@
@@ -55,11 +60,61 @@ const ojs_shares_send_code_to_phone = {
 			return;
 		}
 		catch(error){
-			res.send({"message": "chưa gữi dc tin nhắn"});
+			res.send({"message": "chưa gữi được tin nhắn"});
 			return;			
 		}
 
-	}	
+	},
+	//@
+	//@
+	//@
+	//@
+	//@@ 2. [send_code_to_phone_lost_pass]
+	send_code_to_phone_lost_pass : async function(res,code,phone){
+		//@
+		//@
+		//@
+
+		//res.send([phone,code]);
+		//return;	
+
+
+
+		var datas = {     
+			"loginName": "AB25934",
+			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"serviceTypeId": "30",
+			"phoneNumber": phone,
+			"code": code,
+			"brandName": "ABENLA"
+		} 
+		
+		
+		var url = 'http://api.abenla.com/api/SendSms?' + 
+			'loginName=' + datas.loginName + '&' + 
+			'sign=' + datas.sign + '&' +
+			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
+			'phoneNumber=' + datas.phoneNumber + '&' + 
+			'message=DALA mat khau moi cua ban la: ' + datas.code + '&'+
+			'brandName=' + datas.brandName;
+		
+			//res.send(url);
+			//return;	
+		
+		//@
+		//@
+		try{
+			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
+			
+			res.send(get_code_verification);
+			return;
+		}
+		catch(error){
+			res.send({"message": "chưa gữi được tin nhắn"});
+			return;			
+		}
+
+	}		
 	
 }//end of oj_loader
 

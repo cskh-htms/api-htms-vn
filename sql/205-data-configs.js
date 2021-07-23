@@ -39,6 +39,28 @@ var data_user_ok = Object.assign(data_user_order_assign,data_user_data_edit);
 
 
 
+
+
+//@
+//@
+//@
+//@
+//@ product
+var data_product_order_copy = {...ojs_configs.datas_all};	
+var data_product_data_edit = {
+		'status_admin_compare': '=',
+		'status_admin_value': '1',
+		'status_store_compare': '=',
+		'status_store_value': '1',			
+	};
+var data_product_ok = Object.assign(data_product_order_copy,data_product_data_edit);
+
+
+
+
+
+
+
 //@
 //@
 //@

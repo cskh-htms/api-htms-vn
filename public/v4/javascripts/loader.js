@@ -484,7 +484,7 @@ $(document).ready(function($){
 		   // Đóng image loadding (ảnh xoay xoay trên màn hình)
 		},		
 		//load tiny boi dung san pham
-		loadTinyMCE: function(textareaID){
+		loadTinyMCE: function(textareaID,user_id){
 			tinymce.init({
 				selector: '#' + textareaID,
 				menubar: false,
@@ -506,7 +506,7 @@ $(document).ready(function($){
 					formData.append('image',_blobInfo.blob());
 					$.ajax({
 						type : "POST",	  
-						url : ojs_loader.host + "/upload-s3/",
+						url : ojs_loader.host + "/upload-wp/" + user_id,
 						processData: false,
 						contentType: false,
 						data : formData,
@@ -515,7 +515,7 @@ $(document).ready(function($){
 							_failure(error);
 						},
 						success : function(img) {
-							_success(img.url);
+							_success(img.datas[1]);
 						}			 
 					});
 				}

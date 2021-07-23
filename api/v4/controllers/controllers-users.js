@@ -1372,7 +1372,7 @@ async function lost_password(req, res, next) {
 			//@
 			//@gữi đến số điện thoại	
 			try{
-				ojs_shares_send_code_to_phone.send_code_to_phone(res,n_password,datas.email_or_phone);
+				ojs_shares_send_code_to_phone.send_code_to_phone_lost_pass(res,n_password,datas.email_or_phone);
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
