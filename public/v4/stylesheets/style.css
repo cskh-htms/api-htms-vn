@@ -479,7 +479,7 @@ a {
 }
 .table-list tr .user-name {
 	text-align: left;
-	width: 25%;
+	width: 24%;
 }
 .table-list tr .pro-image {
 	width: 5%;
@@ -2157,6 +2157,9 @@ end of van luc 07.04.2021
 	margin: 2px auto;
 }
 .ck {
+	color: #888;
+}
+.ck-ok {
 	color: #F1783A;
 }
 
