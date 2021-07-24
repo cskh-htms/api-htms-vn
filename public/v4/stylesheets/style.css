@@ -2167,21 +2167,51 @@ end of van luc 07.04.2021
 
 
 
+.discount-wrap {
+    display: flex;
+	flex-wrap:wrap;
+}
+
+.discount-box {
+display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    flex-direction: column;
+    box-sizing: border-box;
+	max-width: 30%;
+}
+
+.discount-box .discount-image-wrap {
+	max-width:100%;
+	box-sizing:border-box;
+	text-align:center;
+}
+.discount-box .discount-image-wrap img{
+	max-width:100%;
+	display:block;
+}
+
+.details-box {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.discount-title {
+    margin-top: 15px;
+}
+.product-add {
+    display: flex;
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+.product-add a{
+	display:inline-block;
+	padding:0px 10px;
+}
 
 
 

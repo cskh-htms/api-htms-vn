@@ -11,8 +11,12 @@ ojs_loadding_message_callback = {
 	//
 	//
 	//xoa san pham dac san
-	delete_product:function(datas){
-
+	delete_discount_program_link_id:function(datas){
+		//alert("asdasd");
+		//return;
+		let datas_parse = JSON.parse(datas);
+		let discount_program_link_id = datas_parse.discount_program_link_id;
+		ojs_discount_program_speciality.ajax_delete_discount_link(discount_program_link_id);
 	},//end of xoa san pham dac san
 	//
 	//

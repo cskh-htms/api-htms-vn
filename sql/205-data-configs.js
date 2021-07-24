@@ -7,15 +7,18 @@
 
 
 
+<%= datas[0].discount_program_price_sale %>
 
 
 
+<%= ojs_share.show_price_format(datas[0].discount_program_price_sale,0,",",".","đ") %>
 
 
 
+<%- ojs_share.show_discount_program_time_type(datas[0].discount_program_time_type) -%>
 
 
-
+<%- ojs_share.unCape(datas[0].discount_program_information) -%>
 
 
 

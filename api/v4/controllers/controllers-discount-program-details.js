@@ -113,6 +113,11 @@ async function insert_discount_program_details(req, res, next) {
 			"token":token,
 			"store_id": datas.discount_program_details_store_id
 		}		
+		
+		
+		//res.send(datas_check );	
+		//return;		
+		
 		var check_datas_result;
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
@@ -123,6 +128,11 @@ async function insert_discount_program_details(req, res, next) {
 		res.send({ "error" : "controllers-discount_program_details->insert-> check owner->number_error : 1 ", "message": error_send } ); 
 		return;			
 	}
+	
+	
+	//res.send( check_datas_result );	
+	//return;	
+	
 	
 	
 	//@
@@ -410,6 +420,15 @@ async  function update_discount_program_details(req, res, next) {
 		res.send({ "error" : "controllers-discount_program_details->update->get req -> error_number : 1", "message": error_send } ); 
 		return;			
 	}	
+	
+	
+	
+	//res.send([datas,discount_program_details_id]);
+	//return;	
+	
+	
+	
+	
 	//@
 	//@
 	//@ kiểm tra phân quyền 
@@ -430,6 +449,11 @@ async  function update_discount_program_details(req, res, next) {
 		return;			
 	}
 	
+	
+	//res.send(check_datas_result);
+	//return;	
+	
+	
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
@@ -449,7 +473,8 @@ async  function update_discount_program_details(req, res, next) {
 	// lấy thông tin cua hàng 
 	try {
 		var discount_program_details_check = await models_discount_program_details.get_one_discount_program_details(discount_program_details_id);
-		
+		//res.send([discount_program_details_check]);
+		//return;	
 		//@
 		//@
 		//nếu có lỗi thì tra về lỗi
@@ -489,10 +514,10 @@ async  function update_discount_program_details(req, res, next) {
 	//@
 	// nếu không pahỉ admin - và cửa hàng đã pushlic thì ko  cho xoa
 	if(check_datas_result.user_role != "admin"){
-		if(discount_program_details_check[0].discount_program_details_status == "1"){
+		if(discount_program_details_check[0].discount_program_details_status_admin == "4"){
 			var evn = ojs_configs.evn;
 			//evn = "dev";		
-			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
+			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể update", "Cửa hàng đã pushlist khong thể update" );
 			res.send( { "error": "controllers-discount_program_details->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
 			return;
 		}

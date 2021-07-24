@@ -50,7 +50,7 @@ router.use('/comments', require('../../routes/' + app_config.router_version + '/
 router.use('/reviews', require('../../routes/' + app_config.router_version + '/reviews') );
 router.use('/coupon', require('../../routes/' + app_config.router_version + '/coupon') );
 
-
+router.use('/discount-program', require('../../routes/' + app_config.router_version + '/discount-program') );
 
 router.use('/ho-tro', require('../../routes/' + app_config.router_version + '/ho-tro') );
 

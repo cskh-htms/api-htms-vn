@@ -1,0 +1,250 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
+<% include ../../masterpage/loader %>
+
+<script src="../../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
+
+
+<% //neu admin thi hien muc nay
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled "
+}
+
+%>
+
+
+
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/discount-program/speciality/<%= store_id %>">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Sản phẩm tham gia chương trình khuyến mãi</h1>
+	
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+		
+	
+			<div class="pro_box ten_sp_box">
+				<h3>Sản phẩm tham gia khuyến mãi
+					<span class="giai-thich">
+					<span>
+						Chọn một sản phẩm tham gia khuyến mãi
+					</span>
+					</span>					
+				</h3>
+				
+				<%
+				if(typeof products_list == 'object' && products_list.length > 0){  %>
+				
+					<div class="inside">
+						<select name="cars" id="discount_program_product_link_product_speciality_id">
+							   <%
+							   for(var x in products_list){
+							   if(products_list[x].products_speciality_ID == datas[0].discount_program_product_link_product_speciality_id){
+							   %>
+								<option value="<%= products_list[x].products_speciality_ID %>">
+									<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+								</option>
+							    <%
+								} //end of if
+								} //end of for
+								%>
+						</select>
+					</div>
+				
+				<%
+				}else{
+				%>
+					<h1> Cửa hàng chưa có sản phẩm nào, Hẫy tạo sản phẩm
+				<%
+				}//end of typeof products_list
+				%>
+
+			</div>			
+		
+	
+
+			
+			<div class="pro_box ten_sp_box">
+				<h3>Lời nhắn</h3>
+				<div class="inside">
+					<textarea class=""  id="discount_program_product_link_qoute"  rows="10" cols="100%">
+						<%- ojs_share.unCape(datas[0].discount_program_product_link_qoute) -%>
+					</textarea>
+				</div>
+			</div>				
+			
+			
+		</div>
+		<div class="pro_col02">
+
+			<div class="pro_box ten_sp_box">
+				<h3>Tên chương trình khuyến mãi</h3>
+				<div class="inside">
+					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_program_details_tager[0].discount_program_name) -%>" id=""/>
+				</div>
+				<h3>Giới hạn ngày tham gia </h3>
+				<div class="inside">
+					<input type="text" disabled class= "" value="<%= discount_program_details_tager[0].discount_program_details_limit_day %>" id=""/>
+				</div>				
+				<h3>Giới hạn sản phẩm tham gia</h3>
+				<div class="inside">
+					<input type="text" disabled class= "" value="<%= discount_program_details_tager[0].discount_program_details_limit_product %>" id=""/>
+				</div>	
+				
+			</div>	
+
+			<div class="pro_box trang_thai_box ">
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<span>ADMIN:</span><span class="giai-thich"><span>Yêu cầu tham gia chương trình phải được admin phê duyệt</span></span>
+					<select id="discount_program_product_link_status" <%= enable_text3 %>>
+						<%- ojs_share.show_status_select_share_all(datas[0].discount_program_product_link_status) -%>
+					</select>						
+				</div>
+			</div>	
+		
+		
+		</div>
+	</div>
+	
+	
+	
+
+<div class="btn_box">
+	<a href="/discount-program/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Đăng</button>
+</div>	
+	
+
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+<input type="hidden" id="discount_program_details_id" value="<%= discount_program_details_id %>"/>
+<input type="hidden" id="discount_program_product_link_id" value="<%= discount_program_product_link_id %>"/>
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	
+	var user_id = $('#user_id').val();
+	var store_id = $('#store_id').val();
+	var discount_program_details_id = $('#discount_program_details_id').val();
+	var discount_program_product_link_id = $('#discount_program_product_link_id').val();
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_discount_program_speciality.ajax_update_product(datas,discount_program_product_link_id);	
+	});
+
+
+	
+	
+	function get_datas(){
+		
+		var product_id = $('#discount_program_product_link_product_speciality_id  option:selected').val();
+		var discount_program_product_link_status = $('#discount_program_product_link_status  option:selected').val();
+		
+		var discount_program_product_link_qoute = $('#discount_program_product_link_qoute').val();
+		
+		
+		
+		if(product_id == 0){
+			ojs_message.message_ok_show("chưa chọn sản phẩm");
+			return;
+		}
+		
+		let datas = {
+			"datas":{
+				
+				discount_program_product_link_discount_program_details_id : discount_program_details_id,
+				discount_program_product_link_product_speciality_id : product_id,
+				discount_program_product_link_status : discount_program_product_link_status,
+				discount_program_product_link_qoute : discount_program_product_link_qoute
+				
+			}
+		}
+		
+		return datas;
+	}
+
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../../masterpage/loader-end %>

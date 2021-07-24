@@ -70,7 +70,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "discount_program_price_created as discount_program_price_created, " + 	
 	ojs_configs.db_prefix  + "discount_program_price_sale as discount_program_price_sale, " + 
 	ojs_configs.db_prefix  + "discount_program_type as discount_program_type, " + 
-	
+	ojs_configs.db_prefix  + "discount_program_time_type as discount_program_time_type, " + 
 
 	
 	ojs_configs.db_prefix  + "discount_program_price_one_day as discount_program_price_one_day, " + 	
@@ -92,7 +92,12 @@ var sql_select_all = 	"" +
 //@
 //@from
 var sql_from_default = 	" from " + 
-	ojs_configs.db_prefix + "discount_program "  
+	ojs_configs.db_prefix + "discount_program ";  
+	
+	
+var sql_from_search = 	" from " + 
+	ojs_configs.db_prefix + "view_discount_program ";  	
+	
 	
 	
 var sql_link_default = 	"";	
@@ -102,17 +107,7 @@ var sql_link_default = 	"";
 //@
 //@
 //@link	
-var sql_link_search = 	""  + 
-
-	" LEFT JOIN " + 	
-	ojs_configs.db_prefix + "stores  ON  " + 
-	ojs_configs.db_prefix + "discount_program_store_id_created  = " + 
-	ojs_configs.db_prefix + "stores_ID " +   
-
-	" LEFT JOIN " + 	
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "stores_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " ;
+var sql_link_search = 	"";
 	
 	
 
@@ -147,7 +142,7 @@ var insert_discount_program = async function (datas) {
 			"discount_program_price_created"		: datas.discount_program_price_created,
 			"discount_program_price_sale"			: datas.discount_program_price_sale,
 			"discount_program_type"					: datas.discount_program_type,
-			
+			"discount_program_time_type"			: datas.discount_program_time_type,
 			
 			"discount_program_store_id_created": datas.discount_program_store_id_created,
 			"discount_program_qoute"				: mysql.escape(datas.discount_program_qoute).replace(/^'|'$/gi, ""),			
@@ -382,7 +377,7 @@ const search = async function (datas) {
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search,sql_link_search);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -391,7 +386,11 @@ const search = async function (datas) {
 		res.send({ "error" : "model_discount_program->search->error_number : 2", "message": error_send } ); 
 		return;	
 	}	
-	return get_sql_search_group;
+	
+	
+	//return get_sql_search_group;
+	
+	
 	//@
 	//@
 	//@

@@ -61,9 +61,19 @@
 			return "Không tìm thấy id chương trình";
 		}else if(error.sqlMessage.search("discount_program_product_link_product_speciality_id") >= 0){
 			return " Không tìm thấy id sản phẩm ";
+
+
+		}else if(error.sqlMessage.search("trig_discount_program_product_link_no_owner") >= 0){
+			return " Sản phẩm không thuộc cửa hàng cửa bạn ";
+		}else if(error.sqlMessage.search("trig_discount_program_product_link_double") >= 0){
+			return " sản phẩm đã tham gia khuyến mãi rồi ";			
+
+
+		}else if(error.sqlMessage.search("trig_discount_program_product_link_limit_product") >= 0){
+			return " Số sản phẩm tham gia đã đủ ";
 			
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+			return "Lỗi nhập dữ liệu vui lòng liên hệ admin thêm sản phẩm vào chương trình";
 		}
 	}
 	

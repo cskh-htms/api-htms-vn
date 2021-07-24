@@ -40,7 +40,8 @@ source ./sql/16.views/create_view_discount_program_product.sql;
 source ./sql/16.views/create_view_count_order_by_user.sql;
 
 
-
+-- 07.create_view_discount_program
+source ./sql/16.views/create_view_discount_program.sql;
 
 
 

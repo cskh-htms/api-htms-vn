@@ -12,6 +12,7 @@
 		"discount_program_price_created" : 0,
 		"discount_program_price_sale" : 0,
 		"discount_program_type"  : 0,
+		"discount_program_time_type"  : 0,
 		"discount_program_price_one_day" : 0,
 		"discount_program_price_one_product" : 0,
 		"discount_program_limit_product" : 0,

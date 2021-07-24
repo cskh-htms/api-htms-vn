@@ -17,6 +17,23 @@ SET time_zone = "+07:00";
 
 
 
+
+DROP TABLE IF EXISTS `dala_users_tracking`;
+CREATE TABLE IF NOT EXISTS `dala_users_tracking` (
+  `dala_users_tracking_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_users_tracking_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_users_tracking_action` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'trạng thái',
+  `dala_users_tracking_user_id` int NOT NULL,
+  `dala_users_tracking_info` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dala_users_tracking_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AUTO_INCREMENT=1;
+
+
+
+
+
+
+
 -- --------------------------------------------------------
 
 --
@@ -944,6 +961,7 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program` (
   `dala_discount_program_price_sale` tinyint(1) NOT NULL DEFAULT '0',
   `dala_discount_program_position` tinyint(1) NOT NULL DEFAULT '1', 
   `dala_discount_program_type` tinyint(1) NOT NULL DEFAULT '0'  COMMENT '0: DALA trả tiền, 1: cửa hàng trả tiền' ,    
+  `dala_discount_program_time_type` tinyint(1) NOT NULL DEFAULT '0'  COMMENT '0: Không có thời hạn, 1: có thời hạn' ,   
   `dala_discount_program_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_discount_program_status_update` tinyint(1) NOT NULL DEFAULT '0',   
   `dala_discount_program_price_one_day` double NOT NULL DEFAULT '0',

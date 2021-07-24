@@ -92,8 +92,11 @@ async function insert_discount_program(req, res, next) {
 
 
 
-	//res.send(datas_check );	
+	//res.send(datas);	
 	//return;	 
+	
+	
+	
 	try{
 		var datas_check = {
 			"token":token,

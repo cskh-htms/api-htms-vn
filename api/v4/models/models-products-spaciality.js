@@ -158,7 +158,7 @@ var  sql_link_search_all = 	"" ;
 //@
 //@from search
 var  sql_from_search =" from "  + 
-	 ojs_configs.db_prefix +  "view_products " ;
+	 ojs_configs.db_prefix +  "views_products " ;
 
 //@
 //@

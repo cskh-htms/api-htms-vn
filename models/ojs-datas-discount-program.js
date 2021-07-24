@@ -30,6 +30,17 @@ const ojs_datas_discount_program = {
 	//@ 3.[get_all_list_datas]		
 	get_all_list_datas: function(datas){
 		
+		
+		//@
+		//@
+		//@
+		var data_store_value;
+		if(datas.store_compare == 'in'){
+			data_store_value = [17,datas.store_id];
+		}else{
+			data_store_value = datas.store_id
+		}
+		
 		let datas_return = 	
 		{
 			"datas" :   {
@@ -44,7 +55,9 @@ const ojs_datas_discount_program = {
 				"discount_program_status_admin",
 				"discount_program_status_update",
 				"discount_program_information",
-				"discount_program_type"
+				"discount_program_type",
+				"stores_name",
+				"stores_ID"
 				],
 				"condition" :
 				[				
@@ -53,13 +66,8 @@ const ojs_datas_discount_program = {
 						"where" :
 						[  
 							{   
-								"field"     :"users_ID",
-								"value"     : datas.user_id,
-								"compare" 	: datas.user_compare
-							},
-							{   
 								"field"     :"stores_ID",
-								"value"     : datas.store_id,
+								"value"     : data_store_value,
 								"compare" 	: datas.store_compare
 							},
 							{   
@@ -68,9 +76,9 @@ const ojs_datas_discount_program = {
 								"compare" 	: datas.status_admin_compare
 							},
 							{   
-								"field"     :"discount_program_date_end",
-								"value"     : datas.status_store_value,
-								"compare" 	: datas.status_store_compare
+								"field"     :"discount_program_check_expired",
+								"value"     : datas.discount_program_check_expired_value,
+								"compare" 	: datas.discount_program_check_expired_compare
 							} 								
 						]    
 					}

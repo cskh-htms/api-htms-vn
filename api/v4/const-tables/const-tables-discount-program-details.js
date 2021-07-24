@@ -44,8 +44,17 @@
 		}else if(error.sqlMessage.search("discount_program_details_store_id") >= 0){
 			return " Không tìm thấy cửa hàng ";
 			
+		}else if(error.sqlMessage.search("trig_check_owner_discount_program_no_owner") >= 0){
+			return " Không đủ quyền thao tác ";			
+		}else if(error.sqlMessage.search("trig_check_owner_discount_program_no_discount_program") >= 0){
+			return " Không tìm thấy chương trình giảm giá ";			
+
+		}else if(error.sqlMessage.search("trig_check_owner_discount_program_double") >= 0){
+			return " Đã tham gia chương trình rồi ";		
+			
+			
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+			return "Lỗi nhập dữ liệu vui lòng liên hệ admin, chương trình giảm giá details";
 		}
 	}	
 	//@

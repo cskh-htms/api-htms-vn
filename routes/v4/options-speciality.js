@@ -65,7 +65,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 8. [/ajax-option-list/]
 
-
+8 [/delete/:option_id]
 --------------------------------------------------------------
 */
 

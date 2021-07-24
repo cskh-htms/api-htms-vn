@@ -11,10 +11,120 @@
 	- news  bussiness
 
 
+4.[get_discount_details_data_taget]	
+
+
 ------------------------------------
 */
 
 const ojs_datas_discount_program_store_add = {
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_discount_details_data_taget]		
+	get_discount_details_data_taget: function(datas){
+		//@
+		//@
+		//@
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"discount_program_details_ID",
+				"discount_program_details_discount_program_id",
+				"discount_program_details_store_id",
+				"discount_program_details_status_admin",
+				"discount_program_details_price",
+				"discount_program_details_limit_day",
+				"discount_program_details_limit_product",
+				"discount_program_details_qoute",
+				"discount_program_details_date_created",
+				"discount_program_ID",
+				"discount_program_name"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"discount_program_details_ID",
+								"value"     : datas.id,
+								"compare" 	: '='
+							}								
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},		
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 3.[get_all_list_datas]		
+	get_all_list_datas: function(datas){
+		
+		
+		//@
+		//@
+		//@
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"discount_program_details_ID",
+				"discount_program_details_discount_program_id",
+				"discount_program_details_store_id",
+				"discount_program_details_status_admin",
+				"discount_program_details_price",
+				"discount_program_details_limit_day",
+				"discount_program_details_limit_product",
+				"discount_program_details_qoute",
+				"discount_program_details_date_created"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"discount_program_details_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							}								
+						]    
+					}
+				],
+				"order":datas.order
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 3.[get_all_list_datas]			
+	
 	
 	//@
 	//@

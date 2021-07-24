@@ -13,7 +13,7 @@
 2. [get_data_news_bussiness_menu]
 	news bussiness
 
-
+3.[get_all_list_datas]	
 
 
 
@@ -22,6 +22,62 @@
 */
 
 const ojs_datas_discount_program_product_add = {
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 3.[get_all_list_datas]		
+	get_all_list_datas: function(datas){
+		
+		
+		//@
+		//@
+		//@
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+				"discount_program_product_link_ID",
+				"discount_program_details_ID",
+				"discount_program_ID",
+				"products_speciality_ID",
+				"products_speciality_name",
+				"discount_program_product_link_status",
+				"products_speciality_sale_of_price",
+				"products_speciality_price",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"stores_ID",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"discount_program_product_link_status",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							}								
+						]    
+					}
+				],
+				"order":datas.order
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 3.[get_all_list_datas]		
 	
 	
 	//@

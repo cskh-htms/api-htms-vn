@@ -5,9 +5,9 @@
 -- 
 
 
-DROP VIEW IF EXISTS dala_view_products;
+DROP VIEW IF EXISTS dala_views_products;
 
-CREATE VIEW dala_view_products AS 
+CREATE VIEW dala_views_products AS 
 SELECT 
 
 dala_products_speciality.*,

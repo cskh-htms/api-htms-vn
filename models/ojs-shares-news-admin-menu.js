@@ -429,7 +429,7 @@ const ojs_shares_news_admin_menu = {
 		//@ promise all
 		var result = await Promise.all(promise_all);
 		
-		
+		//return result;
 		//@
 		//@
 		//@

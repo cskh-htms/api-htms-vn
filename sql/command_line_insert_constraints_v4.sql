@@ -173,6 +173,10 @@ source ./sql/16.9.table_coupon_speciality/03.table_coupon_speciality_constraint.
 
 
 
+
+
+
+
 -- 16.10.table_notes
 source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
 
@@ -184,7 +188,8 @@ source ./sql/16.11.table_uploads_infomation/03.table_uploads_infomation_constrai
 
 
 
-
+-- 16.12.table_users_tracking
+source ./sql/16.12.table_users_tracking/03.table_users_tracking_constraint.sql;
 
 
 
