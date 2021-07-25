@@ -3,11 +3,11 @@
 /*
 
 
-1. [insert_users]
+1. 	[insert_users]
 
 2.  [login]
 
-2.1  [login_lost]
+2.1 [login_lost]
 
 3.  [get_all_users]
 
@@ -15,7 +15,7 @@
 
 5.  [update_users]
 
-5.1  [update_lost_password]
+5.1 [update_lost_password]
 
 6.  [search_email]
 
@@ -23,12 +23,16 @@
 
 8.  [search]
 
-8.1. [search_bussiness]
-
+8.1.[search_bussiness]
 
 9.  [get_role]
 
-10.  [delete_users]
+10. [delete_users]
+
+11. [get_user_check_lock]
+
+
+
 
 
 */
@@ -87,6 +91,9 @@ var  sql_select_all = 	"" +
 
 
 	ojs_configs.db_prefix + "users_shipping_status as users_shipping_status, " + 
+	
+	ojs_configs.db_prefix + "users_status as users_status, " + 
+	
 	ojs_configs.db_prefix + "users_verification_status as users_verification_status, " + 
 	ojs_configs.db_prefix + "users_verification_code as users_verification_code, " + 
 	ojs_configs.db_prefix + "users_verification_time as users_verification_time, " +
@@ -157,7 +164,61 @@ var sql_link_search_bussiness = 	" " +
 		ojs_configs.db_prefix +  "users_ID  = " + 
 		ojs_configs.db_prefix +  "stores_user_id  " ;
 	
-		
+	
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+
+//@
+//@
+//@
+//@
+//@ 11. [get_user_check_lock]
+const get_user_check_lock = async function (datas) {
+
+	//@
+	//@
+	// check data user login type
+	//@
+	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
+	var name_check = datas.users_login_name;
+
+	if (regex.test(name_check)) {
+		//@
+		//if data type là email
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			sql_link_default +
+			"where " + ojs_configs.db_prefix + "users_email = '" + name_check + "' " ;
+
+
+	} else {
+		//@
+		//if data type là phone
+		var sql_text = 	"SELECT " + sql_select_all +
+			sql_from_default + 
+			sql_link_default +
+			"where " + ojs_configs.db_prefix + "users_phone = '" + name_check + "' " ;
+	}
+	
+	//return sql_text;
+	//@
+	//@
+	//run sql
+	return new Promise( (resolve,reject) => {
+		connection.query( { sql:sql_text, timeout: 20000 } , ( err , results , fields ) => {
+			if( err ) reject(err);
+			resolve(results);
+		} );
+	} );
+
+};//end of function login
+
+	
 //@@
 //@@
 //@@
@@ -185,7 +246,8 @@ const insert_users = async function (datas) {
 		"users_js_css_version"				: mysql.escape(datas.users_js_css_version).replace(/^'|'$/gi, ""),			
 		"users_api_version"					: mysql.escape(datas.users_api_version).replace(/^'|'$/gi, ""),
 		
-		"users_shipping_status"				: mysql.escape(datas.users_shipping_status).replace(/^'|'$/gi, ""),			
+		"users_shipping_status"				: mysql.escape(datas.users_shipping_status).replace(/^'|'$/gi, ""),	
+		"users_status"						: mysql.escape(datas.users_status).replace(/^'|'$/gi, ""),		
 		"users_verification_status"			: mysql.escape(datas.users_verification_status).replace(/^'|'$/gi, ""),
 		"users_verification_code"			: mysql.escape(datas.users_verification_code).replace(/^'|'$/gi, "")		
 	}
@@ -213,15 +275,12 @@ const insert_users = async function (datas) {
 //1. end of insert_users	
 	
 	
-//
-//@@
-//@@
-//@@@@@@@@@@
-//@@@@@@@@@@
-//@@
-//@@
-//2. [login]
+
 //@
+//@
+//@
+//@
+//2. [login]
 const login = async function (datas) {
 
 	//@
@@ -314,7 +373,7 @@ const login_lost = async function (datas) {
 
 };//end of function login
 
-//2.1 end of [login]
+//2.1 end of [login lost]
 
 
 
@@ -958,5 +1017,6 @@ module.exports = {
 	get_owner_user,
 	update_lost_password,
 	update_users_phone,
-	search_bussiness
+	search_bussiness,
+	get_user_check_lock
 };

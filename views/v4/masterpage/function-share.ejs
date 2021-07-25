@@ -6,10 +6,11 @@
 -------------------------------------------------
 
 1.[show_news_admin_menu_html]  
+
 2.[news_admin_menu_data_config]
 
-
 3.[show_news_bussiness_menu_html]  
+
 4.[news_bussiness_menu_data_config]
 
 5.[show_count_status_order_by_store]
@@ -67,6 +68,43 @@
 
 
 ojs_share = {
+
+
+
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 18. [show_status_discount_detail_html]
+	show_status_discount_detail_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},
+
+
+
+
 
 
 	//@

@@ -7,25 +7,18 @@ content
 <div id="content" class="content login-wrap">
 	<div class="login-box">
 		<div class="logo">
-		<img src="/images/dala-logo.jpg">
+			<img src="/images/dala-logo.jpg">
 		</div>
-	  <h1>Đăng nhập</h1>
-	  <div class="textbox">
-		<i class="fas fa-user"></i>
-		<input type="text" id="users_name" placeholder="Tài khoản">
-	  </div>
-		
-	  <div class="textbox">
-		<i class="fas fa-lock"></i>
-		<input type="password" id="users_password" placeholder="Mật khẩu">
-	  </div>
-
-	  <input type="button" id="dang_nhap" class="btn" value="Đăng nhập">
-	  <div class="lost-pass"><a href="/lost-pass/">Quên mật khẩu ? </a></div>
-	  
-	  <!--<div class="dangky-link">Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></div>-->
+		<br>
+		<div class="input-box">
+			<span>Nhập email hoặc số điện thoại</span>
+			<input type="text" value="" id="user_login_name" />
+		</div>
+		<br>
+		<div class="input-box">
+			<Button id="send">Send</Button>
+		</div>		
 	</div>
-	
 </div>
 <!-- --------------------
 end content
@@ -43,18 +36,18 @@ end content
 
 		//end of test
 		//login
-		$(document).on('click','#dang_nhap',function(e) {
-			let users_name = $('#users_name').val();
-			let users_password = $('#users_password').val();
+		$(document).on('click','#send',function(e) {
+			let user_login_name = $('#user_login_name').val();
+			
 			//check trong du lieu
-			if(users_name == "" || users_password == ""){
+			if(user_login_name == ""){
 				var x = "Vui lòng nhập dữ liệu";
 				ojs_message.message_ok_show(x);
 				return;
 			}
 			//tao data
 			var datas = { 
-				datas:{ users_login_name: users_name, users_password:users_password }
+				datas:{ email_or_phone: user_login_name }
 			};
 			
 			
@@ -65,7 +58,7 @@ end content
 			$.ajax({
 				type : "POST",	  
 				contentType : "application/json",
-				url : ojs_loader.host + "/login",
+				url : ojs_loader.host + "/lost-pass",
 				data : JSON.stringify(datas),
 				dataType : 'json',
 				beforeSend:  function(xhr){
@@ -88,11 +81,7 @@ end content
 						if(result.error.length > 0){
 							ojs_message.message_ok_show(result.message);
 						}else{
-							if(result.datas.user_role != "default"){
-								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
-							}else{
-								ojs_message.message_ok_show("user GUEST");
-							}
+							ojs_message.message_ok_show("đã gữi mật khẩu mới cho bạn","/login");
 						}
 					}	
 				

@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
 ---------------------------------------------- */
 router.use('/users', require('./routers-users'));
 
+router.use('/users-tracking', require('./routers-users-tracking'));
 
 /*------------------------------------------------
 		token

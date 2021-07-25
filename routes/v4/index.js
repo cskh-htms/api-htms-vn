@@ -20,6 +20,7 @@ router.use('/demo1', require('../../routes/' + app_config.router_version + '/dem
 
 
 router.use('/login', require('../../routes/' + app_config.router_version + '/login') );
+router.use('/lost-pass', require('../../routes/' + app_config.router_version + '/lost-pass') );
 router.use('/logout', require('../../routes/' + app_config.router_version + '/logout') );
 router.use('/register', require('../../routes/' + app_config.router_version + '/register') );
 

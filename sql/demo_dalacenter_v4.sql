@@ -22,7 +22,8 @@ DROP TABLE IF EXISTS `dala_users_tracking`;
 CREATE TABLE IF NOT EXISTS `dala_users_tracking` (
   `dala_users_tracking_ID` int NOT NULL AUTO_INCREMENT,
   `dala_users_tracking_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dala_users_tracking_action` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'trạng thái',
+  `dala_users_tracking_action` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'hành động',
+  `dala_users_tracking_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'trạng thái',
   `dala_users_tracking_user_id` int NOT NULL,
   `dala_users_tracking_info` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_users_tracking_ID`)
@@ -823,6 +824,7 @@ CREATE TABLE IF NOT EXISTS `dala_users` (
   `dala_users_js_css_version` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'v1',
   `dala_users_users_type_id` int DEFAULT NULL,
   `dala_users_shipping_status` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_users_status` tinyint(1) NOT NULL DEFAULT '0',
   `dala_users_verification_status` tinyint(1) NOT NULL DEFAULT '0',
   `dala_users_verification_code` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_users_verification_time` datetime DEFAULT NULL,

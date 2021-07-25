@@ -197,7 +197,7 @@ source ./sql/16.9.table_coupon_speciality/02.table_coupon_speciality_update.sql;
 
 
 -- 16.12.table_users_tracking
-
+source ./sql/16.12.table_users_tracking/01.table_users_tracking_insert.sql;
 
 
 

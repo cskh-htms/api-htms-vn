@@ -21,7 +21,8 @@
 		"users_api_version" 	: "v4",
 		"users_users_type_id" 	: "",		
 		
-		"users_shipping_status" 	: 0,
+		"users_shipping_status" : 0,
+		"users_status" 			: 0,
 		"users_verification_status" : 0,
 		"users_verification_code" 	: ""
 		

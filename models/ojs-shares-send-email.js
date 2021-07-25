@@ -19,6 +19,11 @@ const ojs_shares_send_email = {
 	//@
 	//@@ send email lost password
 	send_email_lost_password : function(res,email_to,title,content){
+		
+		
+		//res.send([email_to,title,content]);
+		//return;
+		
 		//@
 		//@
 		//@
@@ -44,12 +49,16 @@ const ojs_shares_send_email = {
 			html: content
 		}
 		
+		//res.send([options]);
+		//return;		
+		
+		
 		transporter.sendMail(options, function(err,info){
 			if (err) {
-				res.send(err);
+				res.send({"error":"function send email 1","message":err});
 				return;
 			} else {
-				res.send('mật khẩu mới đã gữi vào email : ' +  email_to);
+				res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});
 				return;
 			}
 		});		

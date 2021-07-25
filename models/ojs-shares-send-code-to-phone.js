@@ -36,7 +36,7 @@ const ojs_shares_send_code_to_phone = {
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
-			"brandName": "ABENLA"
+			"brandName": "DALA"
 		} 
 		
 		
@@ -55,15 +55,18 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
-			
-			res.send(get_code_verification);
-			return;
+			if(get_code_verification.Message == "Success"){
+				res.send({"error":"","datas":"Đã gữi tin nhắn"});
+				return;				
+			}else{
+				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gữi được tin nhắn"});
+				return;					
+			}
 		}
 		catch(error){
-			res.send({"message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 2","message": "chưa gữi được tin nhắn"});
 			return;			
 		}
-
 	},
 	//@
 	//@
@@ -86,7 +89,7 @@ const ojs_shares_send_code_to_phone = {
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
-			"brandName": "ABENLA"
+			"brandName": "DALA"
 		} 
 		
 		
@@ -105,12 +108,16 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
-			
-			res.send(get_code_verification);
-			return;
+			if(get_code_verification.Message == "Success"){
+				res.send({"error":"","datas":"Đã gữi tin nhắn"});
+				return;				
+			}else{
+				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1","datas":"Chưa gữi được tin nhắn"});
+				return;					
+			}
 		}
 		catch(error){
-			res.send({"message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass ->","message": "chưa gữi được tin nhắn"});
 			return;			
 		}
 

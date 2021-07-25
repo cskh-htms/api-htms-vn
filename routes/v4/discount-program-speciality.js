@@ -3155,8 +3155,8 @@ router.get('/:store_id', async function(req, res, next) {
 	var datas_discount_store_add_data_edit = {
 		'store_compare': '=',
 
-		'status_admin_compare':'=',
-		'status_admin_value': '4',		 
+		'status_admin_compare':'<>',
+		'status_admin_value': '100',		 
 		
 		};
 	var datas_discount_store_add_ok = Object.assign(datas_discount_store_add_order_assign,datas_discount_store_add_data_edit);	
