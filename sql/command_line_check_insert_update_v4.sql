@@ -161,15 +161,15 @@ source ./sql/16.3.table_like_product/02.table_like_product_update.sql;
 
 
 -- 16.4.table_like_store
-source ./sql/16.4.table_like_store/01.table_discount_program_insert.sql;
-source ./sql/16.4.table_like_store/02.table_discount_program_update.sql;
+source ./sql/16.4.table_like_store/01.table_like_store_insert.sql;
+source ./sql/16.4.table_like_store/02.table_like_store_update.sql;
 
 
 
 
 -- 16.6.table_discount_program
-source ./sql/16.6.table_discount_program/01.table_discount_program_details_insert.sql;
-source ./sql/16.6.table_discount_program/02.table_discount_program_details_update.sql;
+source ./sql/16.6.table_discount_program/01.table_discount_program_insert.sql;
+source ./sql/16.6.table_discount_program/02.table_discount_program_update.sql;
 
 
 

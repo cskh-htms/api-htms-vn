@@ -25,9 +25,9 @@ source ./sql/demo_dalacenter_v4.sql;
 
 --
 -- insert all datas
-source ./sql/demo_dalacenter4_datas_only.sql;
+-- source ./sql/demo_dalacenter4_datas_only.sql;
 
-
+source ./sql/dalacenter4_datas_only_20210723_1130.sql;
 
 
 
