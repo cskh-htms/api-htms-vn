@@ -21,6 +21,7 @@ const ojs_shares = require('../../../models/ojs-shares');
 let sql_select_all = 	"" + 
 	ojs_configs.db_prefix + "token_ID as token_ID, " + 
 	ojs_configs.db_prefix + "token_date_created as token_date_created, " + 
+	ojs_configs.db_prefix + "token_type as token_type, " +
 	ojs_configs.db_prefix + "token_key as token_key, " + 
 	ojs_configs.db_prefix + "token_value as token_value " 
 //from table
@@ -78,7 +79,8 @@ var insert_token = async function (datas) {
 	//@
 	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "token  SET ?";
 	let dataGo = {
-			"token_key"						: datas.datas.token_key,	
+			"token_key"						: datas.datas.token_key,
+			"token_type"					: datas.datas.token_type,	
 			"token_value"					: datas.datas.token_value
 	}
 

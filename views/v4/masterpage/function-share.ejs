@@ -53,7 +53,7 @@
 16.[show_status_discount_html]
 
 
-
+17.[show_date_null]
 
 
 --------------------------------------------------
@@ -69,7 +69,23 @@
 ojs_share = {
 
 
-
+	//@
+	//@
+	//@
+	//@
+	//@ 17.[show_date_null]
+	show_date_null: function(date_string){	
+		//
+		let result = "";
+		//
+		if(date_string == 'null' || date_string == null){
+			result = "";
+		}else{
+			result = date_string;
+		}			
+		//	
+		return result;		
+	},
 
 	//@
 	//@

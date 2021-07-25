@@ -115,19 +115,17 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên chương trình khuyến mãi</h3>
 				<div class="inside">
-					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_program_tager[0].discount_program_name) -%>" id=""/>
+					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_program_tager[0].discount_program_name) -%>"/>
 				</div>
 				<h3>ngày bắt đầu</h3>
 				<div class="inside">
-					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_program_tager[0].discount_program_date_star) -%>" id=""/>
+					<input type="text" disabled class= "" value="<%- ojs_share.show_date_null(discount_program_tager[0].discount_program_date_star) -%>"/>
 				</div>				
 				<h3>ngày kết thúc</h3>
 				<div class="inside">
-					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_program_tager[0].discount_program_date_end) -%>" id=""/>
-				</div>	
-				
-			</div>	
-
+					<input type="text" disabled class= "" value="<%- ojs_share.show_date_null(discount_program_tager[0].discount_program_date_end) -%>"/>
+				</div>		
+			</div>
 			<div class="pro_box trang_thai_box ">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
@@ -136,11 +134,7 @@ content
 						<%- ojs_share.show_status_discount_programs(0) -%>
 					</select>						
 				</div>
-			</div>	
-
-
-			
-		
+			</div>				
 		</div>
 	</div>
 	

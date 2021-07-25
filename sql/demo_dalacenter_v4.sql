@@ -777,6 +777,7 @@ DROP TABLE IF EXISTS `dala_token`;
 CREATE TABLE IF NOT EXISTS `dala_token` (
   `dala_token_ID` int NOT NULL AUTO_INCREMENT,
   `dala_token_key` varchar(500) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `dala_token_type` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: user app,1: admin, 2 bussiness',
   `dala_token_value` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_token_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`dala_token_ID`)

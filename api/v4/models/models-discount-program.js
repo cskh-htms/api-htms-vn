@@ -127,7 +127,26 @@ var sql_order_default = " order by " +
 //@
 //@ * 1. [insert_discount_program]
 var insert_discount_program = async function (datas) {
+	//@
+	//@
+	//@	
+	var discount_program_date_star;
+	var discount_program_date_end;
 	
+	if(datas.discount_program_date_star == ''){
+		discount_program_date_star = null;
+	}else{
+		discount_program_date_star = mysql.escape(datas.discount_program_date_star).replace(/^'|'$/gi, "");
+	}
+	
+	//@
+	//@
+	//@
+	if(datas.discount_program_date_end == ''){
+		discount_program_date_end = null;
+	}else{
+		discount_program_date_end = mysql.escape(datas.discount_program_date_end).replace(/^'|'$/gi, "");
+	}		
 	//@
 	//@
 	//@
@@ -155,8 +174,8 @@ var insert_discount_program = async function (datas) {
 			"discount_program_limit_product"		: datas.discount_program_limit_product,
 			"discount_program_limit_day"			: datas.discount_program_limit_day,
 
-			"discount_program_date_star"			: mysql.escape(datas.discount_program_date_star).replace(/^'|'$/gi, ""),
-			"discount_program_date_end"				: mysql.escape(datas.discount_program_date_end).replace(/^'|'$/gi, ""),			
+			"discount_program_date_star"			: discount_program_date_star,
+			"discount_program_date_end"				: discount_program_date_end,			
 			
 			"discount_program_information"			: mysql.escape(datas.discount_program_information).replace(/^'|'$/gi, "")			
 	}

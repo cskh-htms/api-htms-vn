@@ -295,9 +295,10 @@ const login_app = async function (req, res, next) {
 		
 
 		try {	
-			//@
+		//@
 			//@
 			// lấy role text
+			var token_type=0;
 			var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
 			
 			//res.send(role_text);
@@ -314,6 +315,13 @@ const login_app = async function (req, res, next) {
 			if(role_text =="supper-job"){
 				res.send("Lỗi phân quyền -> supper-job users không cần  login ");
 				return;
+			}		
+
+			if(role_text =="admin"){
+				token_type = 1;
+			}
+			if(role_text =="bussiness"){
+				token_type = 2;
 			}				
 			//@
 			//@
@@ -363,6 +371,7 @@ const login_app = async function (req, res, next) {
 			var data_insert = {
 				"datas": {
 					"token_key": token,
+					'token_type':token_type,
 					"token_value": token_database
 				}
 			}
@@ -1438,19 +1447,30 @@ const login = function (req, res, next) {
 				//@
 				//@
 				// lấy role text
+				var token_type=0;
 				var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
-				if(role_text =="customer"){
-					res.send("Lỗi phân quyền -> khách hàng chỉ login trên app");
+				
+				//res.send(role_text);
+				//return;
+				
+				if(role_text =="admin"){
+					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
 					return;
 				}
 				if(role_text =="default"){
 					res.send("Lỗi phân quyền -> guest users không cần  login ");
 					return;
 				}
-				
 				if(role_text =="supper-job"){
-					res.send("Lỗi phân quyền -> job users không cần  login ");
+					res.send("Lỗi phân quyền -> supper-job users không cần  login ");
 					return;
+				}		
+
+				if(role_text =="admin"){
+					token_type = 1;
+				}
+				if(role_text =="bussiness"){
+					token_type = 2;
 				}				
 				//@
 				//@
@@ -1491,6 +1511,7 @@ const login = function (req, res, next) {
 				var data_insert = {
 					"datas": {
 						"token_key": token,
+						'token_type':token_type,
 						"token_value": token_database
 					}
 				}

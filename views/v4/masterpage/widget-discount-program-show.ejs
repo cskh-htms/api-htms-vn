@@ -78,14 +78,6 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 						</span>
 					</div>
 					
-					<div>
-						<span class="trang-thai-tham-gia">Số ngày tham gia : </span>
-						<span class="ngay-tham-gia">
-							<%= discount_program_details_list[y].discount_program_details_store_id %>
-						</span>
-					</div>
-
-					
 					<%
 					if(discount_program_details_list[y].discount_program_details_store_id == store_id 
 					|| user_role == "admin" 

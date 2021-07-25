@@ -8,6 +8,7 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"token_key"		: "",
+		"token_type"	: 0,
 		"token_value"	: ""	
 	}
 	function check_datas (datas){
