@@ -1453,10 +1453,6 @@ const login = function (req, res, next) {
 				//res.send(role_text);
 				//return;
 				
-				if(role_text =="admin"){
-					res.send("Lỗi phân quyền -> Admin chỉ login trên web manage");
-					return;
-				}
 				if(role_text =="default"){
 					res.send("Lỗi phân quyền -> guest users không cần  login ");
 					return;
@@ -1549,7 +1545,7 @@ const login = function (req, res, next) {
 			
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
 			res.send({ "error" : "controller_users->login->error_number : 4", "message": error_send } ); 
 			return;

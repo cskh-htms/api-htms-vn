@@ -30,7 +30,8 @@ router.post('/', async  function(req, res, next) {
 
 		if(datas_users.error == "") { 
 			session_token.token = datas_users.token;
-			res.send( datas_users );			
+			res.send( datas_users );
+			return;			
 		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
