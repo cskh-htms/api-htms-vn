@@ -1107,12 +1107,22 @@ body .ajax-load-bt {
     font-size: 110%;
     text-transform: uppercase;
 }
-.btn_bd_green:hover {
+.btn_bd_green:hover, .btn_bd_green_small:hover {
 	background: #4a914b;
 	color: white;
 }
 .btn_bd_green i {
 	margin-right: 10px;
+}
+.btn_bd_green_small {
+	display: inline-block;
+	background: white;
+    border: 1px solid #4a914b;
+    color: #4a914b;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 110%;
 }
 .btn_green {
 	display: inline-block;
@@ -2055,15 +2065,16 @@ end of van luc 07.04.2021
 
 .news_red {
     color: white;
-    background-color: red;
+    background-color: #ee4d2d;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     padding: 0px;
     border-radius: 50px;
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 22px;
+    min-height: 22px;
     margin-left: 9px;
+	font-size: 14px;
 }
 .news_gray {
     color: white;
@@ -2073,9 +2084,10 @@ end of van luc 07.04.2021
     align-items: center;
     padding: 0px;
     border-radius: 50px;
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 22px;
+    min-height: 22px;
     margin-left: 9px;
+	font-size: 14px;
 }
 .news_line {
     text-decoration: none;
@@ -2213,12 +2225,124 @@ display: flex;
 	padding:0px 10px;
 }
 
-
-
-
-
-
-
+/* ========== ADMIN ============== */
+.admin_content {
+	display: flex;
+	justify-content: space-between;
+}
+.admin_content .admin_col01 {
+	width: 65%;
+}
+.admin_content .admin_col02 {
+	width: 33%;
+}
+.admin_content .store_row_btn {
+	margin-bottom: 50px;
+}
+.admin_content .store_row_btn .store_don_hang {
+	width: 100%;
+}
+.admin_content .white_box {
+	margin-bottom: 50px;
+}
+.admin_content .white_box h2 {
+	background: #4a914b;
+    color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: normal;
+    margin-top: -35px;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 180px;
+    text-align: center;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.admin_thang_nay ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.admin_thang_nay ul li {
+	display: inline-block;
+	vertical-align: middle;
+	width: 30%;
+    padding: 0 10px;
+    border-left: 1px solid lightgray;
+	color: #4a914b;
+}
+.admin_thang_nay ul li:first-child {
+    border-left: none;
+}
+.admin_thang_nay ul li a {
+	text-decoration: none;
+	display: block;
+}
+.admin_thang_nay ul li .number {
+	display: block;
+	font-size: 26px;
+}
+.admin_phe_duyet ul, .admin_thanh_toan ul {
+	padding: 0;
+	margin: 0;
+	max-height: 250px;
+    overflow-y: auto;
+}
+.admin_phe_duyet ul li, .admin_thanh_toan ul li {
+	list-style: none;
+	margin: 0 0 10px;
+	padding: 0 0 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid lightgray;
+}
+.admin_phe_duyet ul li a, .admin_thanh_toan ul li a{
+	text-decoration: none;
+	display: block;
+	color: #555;
+}
+.admin_phe_duyet ul li a:hover, .admin_thanh_toan ul li a:hover {
+	color: #4a914b;
+}
+.admin_phe_duyet ul li h3, .admin_thanh_toan ul li h3 {
+	margin: 0 0 5px;
+}
+.admin_phe_duyet ul li a.duyet_btn {
+	border: 1px solid #4a914b;
+	border-radius: 5px;
+	padding: 5px 8px;
+}
+.admin_phe_duyet ul li a.duyet_btn:hover {
+	background: #4a914b;
+	color: white;
+}
+.admin_phe_duyet ul li a.duyet_btn:hover i {
+	color: white;
+}
+.duyet_sp_km {
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+.slide_km {
+	display: flex;
+	justify-content: space-between;
+}
+.slide_km img {
+	display: block;
+	width: 32%;
+	margin-bottom: 20px;
+}
+.admin_ctkm {
+	position: relative;
+}
+.admin_ctkm .btn_bd_green_small {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	z-index: 2;
+}
 
 
 
