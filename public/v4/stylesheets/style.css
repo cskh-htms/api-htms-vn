@@ -2245,7 +2245,7 @@ display: flex;
 .admin_content .white_box {
 	margin-bottom: 50px;
 }
-.admin_content .white_box h2 {
+.admin_content .white_box h2, .ctkm_content .white_box h2 {
 	background: #4a914b;
     color: white;
     font-size: 18px;
@@ -2346,4 +2346,170 @@ display: flex;
 }
 
 
-
+/* ========== CT Khuyen Mai ============== */
+.ctkm_content {
+	margin-top: 20px;
+}
+.ctkm_content .white_box {
+	position: relative;
+	margin-bottom: 50px;
+}
+.km_slide {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.km_slide_col {
+	width: 32%;
+	background: #D6FAEC;
+    border-radius: 15px;
+    padding: 15px 15px 30px;
+	position: relative;
+	margin-bottom: 15px;
+}
+.km_img {
+	margin-bottom: 10px;
+}
+.km_img img {
+	width: auto;
+	max-width: 100%;
+	border-radius: 15px;
+}
+.km_name {
+	font-size: 120%;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.dk_km {
+	margin-bottom: 15px;
+}
+.km_link {
+	margin-bottom: 15px;
+}
+.sp_tham_gia ul {
+	padding-left: 25px;
+	max-height: 180px;
+	overflow-y: auto;
+}
+.sp_tham_gia ul li {
+	margin-bottom: 12px;
+}
+.sp_tham_gia ul li .name {
+	margin: 0 0 3px;
+}
+.sp_tham_gia ul li .price, .sp_tham_gia ul li .store {
+	font-size: 85%;
+}
+.ctkm_btn {
+	display: flex;
+	position: absolute;
+	z-index: 1;
+	right: 20px;
+	left: auto;
+	top: -22px;
+	bottom: auto;
+	opacity: 0;
+	transition: 0.3s all;
+}
+.km_slide_col .ctkm_btn {
+	right: auto;
+	top: auto;
+	bottom: -20px;
+	left: 50%;
+    transform: translateX(-50%);
+}
+.ctkm_btn_ql {
+	background: white;
+	color: #4a914b;
+	border: 2px solid #4a914b;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	position: relative;
+	text-decoration: none;
+	font-size: 18px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.ctkm_btn_ql:hover {
+	background: #4a914b;
+	color: white;
+}
+.ctkm_btn_ql .news_red {
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	z-index: 1;
+    font-size: 12px;
+    min-width: 18px;
+    min-height: 18px;
+}
+.ctkm_btn_xoa {
+	background: white;
+	color: #777;
+	border: 2px solid #777;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	position: relative;
+	text-decoration: none;
+	font-size: 18px;
+	margin-left: 8px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.ctkm_btn_xoa:hover {
+	color: white;
+	border-color: red;
+	background: red;
+}
+.btn_add_ctkm {
+	background: white;
+    color: #4a914b;
+    border: 2px solid #4a914b;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    line-height: 1;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.ctkm_row {
+	display: flex;
+	justify-content: space-between;
+}
+.ctkm_row .white_box {
+	width: 32%;
+}
+.ctkm_row .white_box:hover .ctkm_btn, .km_slide_col:hover .ctkm_btn  {
+	opacity: 1;
+}
+.ctkm_add {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.ctkm_add a {
+	border: 3px solid;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    text-decoration: none;
+}
