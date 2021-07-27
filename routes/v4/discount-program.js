@@ -11,7 +11,9 @@ const ojs_shares = require('../../models/ojs-shares');
 router.get('/', function(req, res, next) {
 	//
 	let token = req.session.token;
-	res.send("welCom !!!");
+	let data_send = "a";
+	
+	res.render('/v4/discount-program/speciality/admin-show-all', data_send );
 });
 
 

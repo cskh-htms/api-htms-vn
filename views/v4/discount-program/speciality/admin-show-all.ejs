@@ -2,8 +2,6 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality.js"></script>	
-<script src="../../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -14,44 +12,14 @@ page wrap
 <% include ../../masterpage/header %>
 
 
-<script>
-	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
-
-
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách tuỳ chọn</h1>
-	
-	<div class="sap_xep_loc">
-		<div class="sap_xep_wrap">
-		</div>
-		<div class="loc_wrap">
-			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
-				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
-				<option id="refuse" value="[3]">Bị từ chối</option>
-				<option id="checked" value="[1]">Đã duyệt</option>
-			</select>
-		</div>
-	</div>
-	
-	<div id="ajax-wrap">	
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi</h1>
 
-	<% include ../../masterpage/widget-option-show-tables %>
-	</div>
-	
-
-
-
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
 
 
 

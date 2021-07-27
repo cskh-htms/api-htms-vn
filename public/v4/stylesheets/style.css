@@ -2328,6 +2328,7 @@ display: flex;
 .slide_km {
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 .slide_km img {
 	display: block;
