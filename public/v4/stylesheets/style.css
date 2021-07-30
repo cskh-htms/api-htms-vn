@@ -2153,6 +2153,11 @@ end of van luc 07.04.2021
 	margin-bottom: 25px;
 }
 
+.flex_space {
+	display: flex;
+	justify-content: space-between;
+}
+
 .doanhthu {
 	color: #4a914b;
 	font-weight: bold;
@@ -2356,7 +2361,6 @@ display: flex;
 }
 .km_slide {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 }
 .km_slide_col {
@@ -2365,7 +2369,10 @@ display: flex;
     border-radius: 15px;
     padding: 15px 15px 30px;
 	position: relative;
-	margin-bottom: 15px;
+    margin: 0 2% 2% 0;
+}
+.km_slide_col:nth-child(3n) {
+	margin-right: 0;
 }
 .km_img {
 	margin-bottom: 10px;
@@ -2380,25 +2387,64 @@ display: flex;
 	font-weight: bold;
 	margin-bottom: 15px;
 }
-.dk_km {
+.dk_km, .km_ck, .km_time, .km_type {
 	margin-bottom: 15px;
 }
-.km_link {
-	margin-bottom: 15px;
+.ql_sp_tham_gia {
+	display: flex;
+	flex-wrap: nowrap;
 }
+.ql_sp_tham_gia .sp_col {
+	text-align: center;
+	width: 50%;
+}
+.ql_sp_tham_gia .sp_col:first-child {
+	border-right: 1px solid lightgray;
+}
+.ql_sp_tham_gia .sp_col .number {
+	display: block;
+    font-size: 150%;
+	margin-top: 5px;
+	font-weight: bold;
+	color: #4a914b;
+}
+.ql_sp_tham_gia .sp_col:last-child .number {
+	color: #ee4d2d;
+}
+
 .sp_tham_gia ul {
 	padding-left: 25px;
-	max-height: 180px;
+	max-height: 200px;
 	overflow-y: auto;
 }
 .sp_tham_gia ul li {
 	margin-bottom: 12px;
+	position: relative;
+	padding-right: 50px;
 }
 .sp_tham_gia ul li .name {
 	margin: 0 0 3px;
+	display: block;
+	text-decoration: none;
 }
 .sp_tham_gia ul li .price, .sp_tham_gia ul li .store {
 	font-size: 85%;
+}
+.sp_tham_gia ul li .spkm_btn {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	z-index: 1;
+	opacity: 0;
+	transition: 0.2s all;
+}
+.sp_tham_gia ul li:hover .spkm_btn {
+	opacity: 1;
+}
+
+.sp_tham_gia .pro_box {
+	width: 49%;
 }
 .ctkm_btn {
 	display: flex;
@@ -2437,15 +2483,6 @@ display: flex;
 .ctkm_btn_ql:hover {
 	background: #4a914b;
 	color: white;
-}
-.ctkm_btn_ql .news_red {
-	position: absolute;
-	top: -4px;
-	right: -4px;
-	z-index: 1;
-    font-size: 12px;
-    min-width: 18px;
-    min-height: 18px;
 }
 .ctkm_btn_xoa {
 	background: white;
@@ -2512,4 +2549,135 @@ display: flex;
     justify-content: center;
     font-size: 30px;
     text-decoration: none;
+}
+.spkm_btn {
+	display: flex;
+}
+.spkm_btn .ctkm_btn_ql, .spkm_btn .ctkm_btn_xoa {
+	border-width: 1px;
+	width: 28px;
+	height: 28px;
+	padding: 4px;
+	font-size: 14px;
+}
+.kieu_km .inside {
+	display: flex;
+	flex-wrap: wrap;
+}
+.labl {
+    display : block;
+    width: 19%;
+	border-radius: 5px;
+	margin-right: 1%;
+}
+.labl > input{ /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
+}
+.labl > input + div{ /* DIV STYLES */
+    cursor:pointer;
+    border:1px solid lightgray;
+	border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+}
+.labl > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
+    background-color: #D6FAEC;
+    border: 1px solid #4a914b;
+}
+.kieu_km input[type="text"] {
+	width: 35px;
+	margin: 0 5px;
+	min-width: unset;
+}
+
+
+/* ========== COUPON ========== */
+.coupon_content {
+	display: flex;
+	flex-wrap: wrap;
+}
+.coupon_content .coupon {
+	width: 24%;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+	position: relative;
+	margin: 0 1.3% 2% 0;
+}
+.coupon_content .coupon:nth-child(4n) {
+	margin-right: 0;
+}
+.coupon .coupon_title {
+	background: #4a914b;
+	border-radius: 5px 5px 0 0;
+	padding: 10px 20px;
+	color: white;
+	text-align: center;
+}
+.coupon .coupon_title p {
+	margin: 0;
+}
+.coupon .coupon_title .code {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 120%;
+	margin-top: 5px;
+}
+.coupon .coupon_info {
+	padding: 10px 20px 20px;
+}
+.coupon .coupon_info:before {
+	content: '';
+	width: 20px;
+	height: 20px;
+	background: #f1f1f1;
+	position: absolute;
+	left: -10px;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	box-shadow: inset -2px 0px 2px rgb(0 0 0 / 10%);
+}
+.coupon .coupon_info:after {
+	content: '';
+	width: 20px;
+	height: 20px;
+	background: #f1f1f1;
+	position: absolute;
+	right: -10px;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	box-shadow: inset 2px 0px 2px rgb(0 0 0 / 10%);
+}
+.coupon .coupon_info .coupon_giam {
+	font-weight: bold;
+	font-size: 120%;
+	margin-bottom: 5px;
+}
+.coupon .coupon_info .coupon_don_tu {
+	margin-bottom: 5px;
+}
+.coupon .coupon_info .coupon_da_dung, .coupon .coupon_info .coupon_thoi_han {
+	color: #F1783A;
+	margin-bottom: 5px;
+}
+.coupon_btn {
+	display: flex;
+	position: absolute;
+	bottom: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: 0.2s all;
+}
+.coupon:hover .coupon_btn {
+	opacity: 1;
+}
+.coupon_btn a {
+	width: 40px;
+    height: 40px;
+    font-size: 16px;
 }

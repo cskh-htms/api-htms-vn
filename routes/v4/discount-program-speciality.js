@@ -225,6 +225,7 @@ router.get('/', async function(req, res, next) {
 
 
 
+
 //@
 //@
 //@
@@ -705,7 +706,7 @@ router.get('/details/show/:discount_program_details_id/:store_id/:discount_progr
 		//return;
 		
 		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/details-show', data_send );	
+		res.render( ojs_configs.view_version + '/discount-program/speciality/store-show', data_send );	
 	}
 	catch(error){
 		res.send( { "error" : "r_11" , "message" : error } );
@@ -2692,7 +2693,7 @@ router.get('/show/:discount_program_id/:store_id', async function(req, res, next
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version +  '/discount-program/speciality/show', data_send );	
+		res.render( ojs_configs.view_version +  '/discount-program/speciality/admin-show', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -2989,7 +2990,7 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version + '/discount-program/speciality/add', data_send );	
+		res.render( ojs_configs.view_version + '/discount-program/speciality/admin-add', data_send );	
 	}
 	catch(error){
 		res.send( { "error" : "r_11" , "message" : error } );
@@ -3406,7 +3407,7 @@ router.get('/:store_id', async function(req, res, next) {
 		//res.send(data_send);
 		//return;
 		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/show-all', data_send );
+		res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-all', data_send );
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
