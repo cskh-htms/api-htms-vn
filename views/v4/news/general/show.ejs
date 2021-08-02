@@ -50,8 +50,8 @@ if(user_role =="admin"){
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/admin/">admin</a><i class="fas fa-chevron-right"></i>
-	<a href="/news/general/">news</a><i class="fas fa-chevron-right"></i>update tin tức</h1>
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>
+	<a href="/news/general/">Tin tức</a><i class="fas fa-chevron-right"></i>Chỉnh sửa tin tức</h1>
 	
 	
 	
@@ -72,11 +72,13 @@ if(user_role =="admin"){
 			<!-- ------------------
 			//Nội dung
 			------------------- -->
-			<div class="value_row">
+			<div class="pro_box">
 				<h3>Nội dung</h3>
-				<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%">
-					<%- ojs_share.unCape(datas[0].news_contents ) -%>
-				</textarea>
+				<div class="inside">
+					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%">
+						<%- ojs_share.unCape(datas[0].news_contents ) -%>
+					</textarea>
+				</div>
 			</div>
 			<!-- ------------------
 			//Nội dung

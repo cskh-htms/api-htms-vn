@@ -2566,9 +2566,10 @@ display: flex;
 }
 .labl {
     display : block;
-    width: 19%;
-	border-radius: 5px;
-	margin-right: 1%;
+    width: 32%;
+    border-radius: 5px;
+    margin-right: 1%;
+	margin-bottom: 1%;
 }
 .labl > input{ /* HIDE RADIO */
     visibility: hidden; /* Makes input not-clickable */
@@ -2587,7 +2588,7 @@ display: flex;
     border: 1px solid #4a914b;
 }
 .kieu_km input[type="text"] {
-	width: 35px;
+	width: 60px;
 	margin: 0 5px;
 	min-width: unset;
 }
@@ -2615,15 +2616,9 @@ display: flex;
 	padding: 10px 20px;
 	color: white;
 	text-align: center;
-}
-.coupon .coupon_title p {
-	margin: 0;
-}
-.coupon .coupon_title .code {
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 120%;
-	margin-top: 5px;
 }
 .coupon .coupon_info {
 	padding: 10px 20px 20px;
@@ -2680,4 +2675,11 @@ display: flex;
 	width: 40px;
     height: 40px;
     font-size: 16px;
+}
+.coupon_apply .inside {
+	display: flex;
+	justify-content: space-between;
+}
+.coupon_apply .inside .col {
+	width: 32%;
 }

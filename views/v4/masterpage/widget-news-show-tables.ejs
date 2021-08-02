@@ -6,8 +6,8 @@
 	<thead>
 		<tr>
 			<th class="user-name">Tiêu đề</th>
-			<th class="user-name">Ngày đăng</th>
-			<th class="user-name">Trạng thái</th>
+			<th>Ngày đăng</th>
+			<th>Trạng thái</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,8 +23,8 @@
 					<span class="delete"><a href="#" data_news_id="<%= news_list[x].news_ID  %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>			
-			<td class="user-name"><%= news_list[x].news_date_created %></td>
-			<td class="user-name"><%- ojs_share.show_table_status_product(news_list[x].news_status_admin ) %></td>				
+			<td><%= news_list[x].news_date_created %></td>
+			<td><%- ojs_share.show_table_status_product(news_list[x].news_status_admin ) %></td>				
 			
 	   </tr>
 
@@ -35,8 +35,8 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Tiêu đề</th>
-			<th class="user-name">Ngày đăng</th>
-			<th class="user-name">Trạng thái</th>
+			<th>Ngày đăng</th>
+			<th>Trạng thái</th>
 		</tr>
 	</tfoot>
 </table>
