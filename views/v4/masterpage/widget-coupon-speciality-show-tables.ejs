@@ -7,7 +7,6 @@
 			<th class="user-name">Ngày bắt đầu</th>
 			<th class="user-name">Ngày kết thúc</th>
 			<th class="user-name">Tên công thức</th>
-			<th class="user-name">Giá khuyến mãi</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,7 +19,7 @@
 	   <tr>
 			<td class="user-name"><a href="#"><%- coupon_list[x].coupon_speciality_code %></a>
 				<div class="row-actions">
-					<span class="edit"><a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID  %>">Chỉnh sửa</a> | </span>
+					<span class="edit"><a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID  %>/<%= coupon_list[x].stores_ID  %>">Chỉnh sửa</a> | </span>
 					<span class="delete"><a href="#" data_coupon_id="<%= coupon_list[x].coupon_speciality_ID  %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>
@@ -28,7 +27,7 @@
 			<td class="user-name"><%= coupon_list[x].coupon_speciality_date_star %></td>				
 			<td class="user-name"><%= coupon_list[x].coupon_speciality_date_end %></td>	
 			<td class="user-name"><%- ojs_share.show_coupon_formula_table(coupon_list[x].coupon_speciality_formula) %></td>			
-			<td class="user-name"><%= ojs_share.show_price_vnd(coupon_list[x].coupon_speciality_price,0,",",".","đ") %></td>			
+					
 
 	   </tr>
 
@@ -42,8 +41,7 @@
 			<th class="user-name">Mã code</th>
 			<th class="user-name">Ngày bắt đầu</th>
 			<th class="user-name">Ngày kết thúc</th>
-			<th class="user-name">Tên công thức</th>
-			<th class="user-name">Giá khuyến mãi</th>		
+			<th class="user-name">Tên công thức</th>	
 		</tr>
 	</tfoot>
 </table>

@@ -249,6 +249,7 @@ async function get_all_news_general(req, res, next) {
 	check_datas_result.user_role == "admin" 
 	|| check_datas_result.user_role == "supper-job"  
 	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
@@ -345,6 +346,7 @@ async function get_one_news_general(req, res, next) {
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.user_role == "supper-job" 
 	|| check_datas_result.user_role == "default" 	
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -674,7 +676,8 @@ async  function search(req, res, next) {
 	//@ nếu không phải là admin thì out
 	if(check_datas_result.user_role == "admin" 
 	|| check_datas_result.user_role == "supper-job" 
-	|| check_datas_result.user_role == "default"
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";

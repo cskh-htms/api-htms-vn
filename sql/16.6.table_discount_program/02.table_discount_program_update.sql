@@ -32,13 +32,18 @@ IF(NEW.dala_discount_program_name  is null or NEW.dala_discount_program_name = '
 END IF;
 
 
-IF(LENGTH(NEW.dala_discount_program_date_star) > 0  and LENGTH(NEW.dala_discount_program_date_end) > 0) THEN 
+--
+-- 
+-- 
+-- check date
+IF(NEW.dala_discount_program_date_star is null  and  NEW.dala_discount_program_date_end is null) THEN 
+	SIGNAL SQLSTATE '01000';
+ELSE 
 	IF( (UNIX_TIMESTAMP(NEW.dala_discount_program_date_end) - UNIX_TIMESTAMP(NEW.dala_discount_program_date_star)) <= 0 ) THEN 
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_discount_program_date_end_less_star';   
 	END IF;
 END IF;	
-
 
 
 

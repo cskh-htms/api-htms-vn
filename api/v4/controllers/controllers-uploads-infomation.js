@@ -250,7 +250,8 @@ async  function get_all_uploads_infomation(req, res, next) {
 	//kiem tra role
 	if(
 	check_datas_result.user_role == "admin"  
-	|| check_datas_result.user_role == "supper-job"
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
@@ -340,7 +341,8 @@ async  function get_one_uploads_infomation(req, res, next) {
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.owner_uploads_infomation == "1" 
-	|| check_datas_result.user_role == "supper-job"
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -651,7 +653,9 @@ async  function search(req, res, next) {
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
-		|| check_datas_result.user_role == "supper-job"
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer" 
+		
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -662,7 +666,8 @@ async  function search(req, res, next) {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_uploads_infomation == "1" 
 		||  check_datas_result.user_role == "admin" 
-		||  check_datas_result.user_role == "supper-job"
+		||  check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer"  
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

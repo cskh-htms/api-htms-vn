@@ -237,7 +237,10 @@ async  function get_all_stores(req, res, next) {
 	//@
 	//@
 	//kiem tra role
-	if(check_datas_result.user_role == "admin"  || check_datas_result.user_role == "supper-job" ){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer"  
+	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
@@ -319,7 +322,11 @@ async  function get_one_stores(req, res, next) {
 	//@
 	//@
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_store == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_store == "1" 
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -752,7 +759,11 @@ async  function search(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer" 
+		
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
@@ -760,7 +771,12 @@ async  function search(req, res, next) {
 			return;	
 		}		
 	}else if (check_condition_id == 1){
-		if( check_datas_result.owner_store == "1" ||  check_datas_result.user_role == "admin" ||  check_datas_result.user_role == "supper-job"){ }else{
+		if( check_datas_result.owner_store == "1" 
+		||  check_datas_result.user_role == "admin" 
+		||  check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer" 
+		
+		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );

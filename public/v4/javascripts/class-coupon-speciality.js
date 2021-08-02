@@ -26,7 +26,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -34,12 +34,12 @@ $(document).ready(function($){
 						if(result.error.length > 0){
 							if(ojs_loader.evn == "demo"){
 								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được coupon \n xem lỗi ở console");
+								ojs_message.message_ok_show(result.message);
 							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được coupon");
+								ojs_message.message_ok_show(result.message);
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã tạo orders",ojs_loader.host + "/coupon/speciality");
+							ojs_message.message_ok_show(" Đã tạo coupon",ojs_loader.host + "/coupon/speciality");
 						}
 					}				
 					
@@ -50,7 +50,7 @@ $(document).ready(function($){
 		//
 		//load danh muc cua hang
 		ajax_update: function(datas,coupon_id){		
-			//console.log(datas,coupon/coupon_id);
+			//console.log(datas,coupon_id);
 			//return;
 			//goi api
 			 $.ajax({
@@ -67,7 +67,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -75,9 +75,9 @@ $(document).ready(function($){
 						if(result.error.length > 0){
 							if(ojs_loader.evn == "demo"){
 								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được coupon \n xem lỗi ở console");
+								ojs_message.message_ok_show(result.message);
 							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được coupon");
+								ojs_message.message_ok_show(result.message);
 							}
 						}else{
 							ojs_message.message_ok_show(" Đã update ",location.href);
@@ -91,7 +91,7 @@ $(document).ready(function($){
 		//
 		//load danh muc cua hang
 		ajax_delete: function(coupon_id){		
-			//alert(coupon/coupon_id);
+			//alert(coupon_id);
 			//return;
 			//goi api
 			 $.ajax({
@@ -105,7 +105,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				ojs_loader.evn = "demo";
+				//ojs_loader.evn = "dev";
 				if(ojs_loader.evn == "dev"){
 					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 					console.log(result);

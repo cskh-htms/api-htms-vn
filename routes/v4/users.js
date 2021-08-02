@@ -37,6 +37,18 @@ const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
 const ojs_shares_date = require('../../models/ojs-shares-date');
 const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
+const ojs_datas_users = require('../../models/ojs-datas-users.js');
+
+
+
+
+
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -286,8 +298,11 @@ router.get('/show/:user_id', async function(req, res, next) {
 
 	var user_tager;
 	try {
-		user_tager = await ojs_shares_fetch_data.get_data_send_token_get(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/' + user_id,token);
-		if(user_tager.error != "") res.redirect("/login");	
+		user_tager = await ojs_shares_fetch_data.get_data_send_token_post( 
+				ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/search',
+				ojs_datas_users.get_data_user_taget(user_id),
+				token
+			);		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

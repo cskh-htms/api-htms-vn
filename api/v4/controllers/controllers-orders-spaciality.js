@@ -143,7 +143,11 @@ async  function insert_orders_spaciality(req, res, next) {
 	//@
 	//@
 	//kiem tra role
-	if(check_datas_result.owner_user == "1" ||  check_datas_result.user_role == "admin" || check_datas_result.user_role == "default"){}else{
+	if(check_datas_result.owner_user == "1" 
+	||  check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
@@ -265,7 +269,11 @@ async  function get_all_orders_spaciality(req, res, next) {
 	}
 	
 	
-	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"   || check_datas_result.user_role == "default"){}else{
+	if(check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "supper-job"   
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -364,7 +372,8 @@ async  function get_one_orders_spaciality(req, res, next) {
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.owner_order == "1" 
 	|| check_datas_result.user_role == "supper-job"
-	|| check_datas_result.user_role == "default"
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -684,7 +693,9 @@ async  function search(req, res, next) {
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
+		
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -696,7 +707,9 @@ async  function search(req, res, next) {
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
 		|| check_datas_result.user_role == "supper-job"  
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
+		
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -844,7 +857,8 @@ async  function search_customer(req, res, next) {
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -855,7 +869,8 @@ async  function search_customer(req, res, next) {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -1004,7 +1019,8 @@ async  function search_user(req, res, next) {
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -1015,7 +1031,8 @@ async  function search_user(req, res, next) {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -1165,7 +1182,8 @@ async  function search_count_order_by_user(req, res, next) {
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -1176,7 +1194,8 @@ async  function search_count_order_by_user(req, res, next) {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
-		|| check_datas_result.user_role == "default"
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

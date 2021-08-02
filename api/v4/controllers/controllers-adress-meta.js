@@ -263,7 +263,11 @@ async  function get_all_adress_meta(req, res, next) {
 	//kiem tra role
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.user_role == "supper-job" 
-	|| check_datas_result.user_role == "default" ){}else{
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
+	
+	
+	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
@@ -347,7 +351,8 @@ async  function get_one_adress_meta(req, res, next) {
 	//@ nếu không phải admin hoặt chủ sở hữ user thì return error
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.user_role == "default" 
-	|| check_datas_result.user_role == "supper-job"
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -626,6 +631,7 @@ async  function search(req, res, next) {
 	|| check_datas_result.user_role == "supper-job"
 	|| check_datas_result.user_role == "default" 
 	|| check_datas_result.owner_user == "1" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;

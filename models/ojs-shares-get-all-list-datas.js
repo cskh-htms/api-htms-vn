@@ -455,7 +455,26 @@ const ojs_shares_get_all_list_datas = {
 		//@	
 		//@ * 14. [datas_coupon]
 		if(datas.datas_coupon){
-			var fn_datas_coupon = 0;
+
+			var x = {...datas.datas_coupon};
+			var y = {'user_id': datas.user_id,'store_id' : datas.store_id}
+			var z = Object.assign(x,y);
+			var datas_send = z;		
+
+			//return datas_send;
+
+
+			var fn_datas_coupon = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/coupon/speciality/search',
+							ojs_datas_coupon.get_all_list_datas(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});
+
+
 		}else{
 			var fn_datas_coupon = 0;
 		}

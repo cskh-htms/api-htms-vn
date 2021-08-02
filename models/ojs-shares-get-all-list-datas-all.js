@@ -64,7 +64,7 @@ const ojs_datas_discount_program = require('./ojs-datas-discount-program.js');
 const ojs_datas_discount_program_store_add = require('./ojs-datas-discount-program-store-add.js');
 const ojs_datas_discount_program_product_add = require('./ojs-datas-discount-program-product-add.js');
 const ojs_datas_coupon = require('./ojs-datas-coupon.js');
-
+const ojs_datas_news = require('./ojs-datas-news.js');
 
 
 
@@ -451,7 +451,29 @@ const ojs_shares_get_all_list_datas_all = {
 
 
 
+		//@
+		//@
+		//@
+		//@	
+		//@ * 17. [datas_new]
+		if(datas.datas_new){
+			var datas_send = datas.datas_new;
+				
+			//return 	datas_send;
+				
+			var fn_datas_new = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/news/general/search',
+							ojs_datas_news.get_all_list_datas_all(datas_send),
+							datas.token_job
+						);
 
+				resolve(result);
+			});	
+		}else{
+			var fn_datas_new = 0;
+		}
+		promise_all.push(fn_datas_new);
 
 
 
@@ -475,7 +497,8 @@ const ojs_shares_get_all_list_datas_all = {
 			'13': 'datas_review_store',
 			'14': 'datas_coupon',
 			'15': 'datas_note',
-			'16': 'datas_order_customer'			
+			'16': 'datas_order_customer',
+			'17': 'datas_new'			
 		}
 		promise_all.push(note);
 

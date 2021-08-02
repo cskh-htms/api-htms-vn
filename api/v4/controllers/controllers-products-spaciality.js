@@ -260,7 +260,11 @@ async function get_all_products_spaciality(req, res, next) {
 	}
 	
 	
-	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"  || check_datas_result.user_role == "default"){}else{
+	if(check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "supper-job"  
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -356,7 +360,10 @@ async function get_one_products_spaciality(req, res, next) {
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.owner_product == "1" 
 	|| check_datas_result.user_role == "supper-job" 
-	|| check_datas_result.user_role == "default" 	
+	|| check_datas_result.user_role == "default"  
+	|| check_datas_result.user_role == "customer" 	
+	
+	
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -867,7 +874,12 @@ async function search(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" || check_datas_result.user_role == "default"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
+		
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search all" );
@@ -878,7 +890,8 @@ async function search(req, res, next) {
 		if( check_datas_result.owner_product == "1" 
 		||  check_datas_result.user_role == "admin"   
 		|| check_datas_result.user_role == "default"
-		|| check_datas_result.user_role == "supper-job"
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -1041,7 +1054,11 @@ async function search_all(req, res, next) {
 	//@
 	//@ nếu không có lộc theo cat id thì phải là admin
 	if(check_condition_id == 0){
-		if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job" || check_datas_result.user_role == "default"){}else{
+		if(check_datas_result.user_role == "admin" 
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 
+		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có dmin mới search_all all", "Bạn không đủ quyền thao tác, chỉ có dmin mới search_all all" );
@@ -1052,7 +1069,8 @@ async function search_all(req, res, next) {
 		if( check_datas_result.owner_product == "1" 
 		||  check_datas_result.user_role == "admin"   
 		|| check_datas_result.user_role == "default"
-		|| check_datas_result.user_role == "supper-job"
+		|| check_datas_result.user_role == "supper-job" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

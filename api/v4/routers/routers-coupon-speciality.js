@@ -12,9 +12,13 @@
 * 5. [delete_coupon_speciality]
 
 
+* 6. [search]
 
 
+* 7. [search_all]
 
+
+* 8. [checked-coupon]
 
 
 
@@ -96,6 +100,21 @@ router.post('/search', middle_ware, controllers_coupon_speciality.search);
 
 
 
+//@@
+//@@
+//@@
+//7. [search_all] 
+router.post('/search_all', middle_ware, controllers_coupon_speciality.search_all);
+
+
+
+
+
+//@@
+//@@
+//@@
+//8. [checked-coupon] 
+router.post('/checked-coupon', middle_ware, controllers_coupon_speciality.checked_coupon);
 
 
 

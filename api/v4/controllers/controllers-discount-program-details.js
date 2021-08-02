@@ -258,6 +258,7 @@ async  function get_all_discount_program_details(req, res, next) {
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.user_role == "supper-job" 
 	|| check_datas_result.user_role == "default"	
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";
@@ -356,6 +357,7 @@ async  function get_one_discount_program_details(req, res, next) {
 	|| check_datas_result.owner_discount_program_details == "1" 
 	|| check_datas_result.user_role == "supper-job" 
 	|| check_datas_result.user_role == "default"	
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -807,7 +809,8 @@ async  function search(req, res, next) {
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
 		|| check_datas_result.user_role == "default"  	
-		|| check_datas_result.user_role == "bussiness"  		
+		|| check_datas_result.user_role == "bussiness"  	
+		|| check_datas_result.user_role == "customer" 		
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -820,6 +823,7 @@ async  function search(req, res, next) {
 		|| check_datas_result.user_role == "supper-job" 
 		|| check_datas_result.user_role == "default"  	
 		|| check_datas_result.user_role == "bussiness" 
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

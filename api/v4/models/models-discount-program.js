@@ -287,6 +287,21 @@ const get_one_discount_program = async function (discount_program_id) {
 //@* 4. [update_discount_program]
 const update_discount_program = async function (datas,discount_program_id) {
 	
+	
+	
+	if(datas.discount_program_date_star == ''){
+		datas.discount_program_date_star = null
+	}
+	
+	if(datas.discount_program_date_end == ''){
+		datas.discount_program_date_end = null
+	}	
+	
+	
+	
+	
+	
+	
 	var sqlSet = "";
 	
 	//tao arr key

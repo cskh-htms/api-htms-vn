@@ -15,6 +15,20 @@
 
 * 7. [get_owner_coupon_speciality]
 
+
+* 8. [search_all]
+
+
+* 9. [get_store_id]
+
+* 10. [get_all_coupon]
+
+* 11. [get_user_taget]
+
+
+
+
+
 */
 
 
@@ -71,8 +85,11 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "coupon_speciality_condition_value as coupon_speciality_condition_value, " + 
 	ojs_configs.db_prefix  + "coupon_speciality_price_max as coupon_speciality_price_max, " + 
 	
-	ojs_configs.db_prefix  + "coupon_speciality_date_star as coupon_speciality_date_star, " + 	
-	ojs_configs.db_prefix  + "coupon_speciality_date_end as coupon_speciality_date_end, " + 
+	
+	
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "coupon_speciality_date_star,'%Y/%m/%d %H:%i:%s') as coupon_speciality_date_star, " +	
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "coupon_speciality_date_end,'%Y/%m/%d %H:%i:%s') as coupon_speciality_date_end, " +		
+	
 	ojs_configs.db_prefix  + "coupon_speciality_multiple as coupon_speciality_multiple, " + 
 
 	ojs_configs.db_prefix  + "coupon_speciality_status_admin as coupon_speciality_status_admin, " + 
@@ -90,6 +107,15 @@ var sql_select_all = 	"" +
 //@from
 var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "coupon_speciality "  
+	
+	
+//@
+//@
+//@
+//@from
+var sql_from_search_all = 	" from " + 
+	ojs_configs.db_prefix + "view_coupon "  	
+	
 	
 	
 var sql_link_default = 	"";	
@@ -113,6 +139,9 @@ var sql_link_search = 	"" +
 	
 	
 
+
+var sql_link_search_all = 	"" ;
+
 //@
 //@
 //@
@@ -127,8 +156,142 @@ var sql_order_default = " order by " +
 //@
 //@
 //@
+//@
+//@ * 11. [get_user_taget]
+const get_user_taget = async function (user_id) {
+	
+	//return product_id;
+	
+	//create sql text
+	var sql_text = 	"SELECT  " + 
+					ojs_configs.db_prefix + "orders_speciality_user_id " + 
+	
+	
+					"FROM " +   ojs_configs.db_prefix +  "view_orders_customer " + 
+					" where " +  
+					ojs_configs.db_prefix + "orders_speciality_user_id = '" + user_id + "' ";
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_coupon_speciality->get_user-id->error-number : 1", "message" : error } ;
+	}
+};
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 10. [get_all_coupon]
+const get_all_coupon = async function (store_id) {
+	
+	//return product_id;
+	
+	//create sql text
+	var sql_text = 	"SELECT  " + 
+					ojs_configs.db_prefix + "coupon_speciality_condition as coupon_speciality_condition, " + 
+					ojs_configs.db_prefix + "coupon_speciality_condition_value as coupon_speciality_condition_value, " + 
+					ojs_configs.db_prefix + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
+					ojs_configs.db_prefix + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 
+	
+					ojs_configs.db_prefix + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
+					ojs_configs.db_prefix + "coupon_speciality_price_max as coupon_speciality_price_max, " + 
+					ojs_configs.db_prefix + "coupon_speciality_multiple as coupon_speciality_multiple " + 
+	
+	
+					"FROM " +   ojs_configs.db_prefix +  "view_coupon " + 
+					" where " +  
+					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' " + 
+					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_coupon_speciality->get_store-id->error-number : 1", "message" : error } ;
+	}
+};
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 9. [get_store_id]
+const get_store_id = async function (product_id) {
+	
+	//return product_id;
+	
+	//create sql text
+	var sql_text = 	"SELECT " +  ojs_configs.db_prefix +  "products_speciality_store_id " + 
+					"FROM " +   ojs_configs.db_prefix +  "products_speciality " + 
+					" where " +  
+					ojs_configs.db_prefix + "products_speciality_ID = '" + product_id + "' ";				
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_coupon_speciality->get_store-id->error-number : 1", "message" : error } ;
+	}
+};
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
 //@ * 1. [insert_coupon_speciality]
 var insert_coupon_speciality = async function (datas) {
+	
+	
+
+	
+	
+	//return datas;
+	
 	
 	//@
 	//@
@@ -148,8 +311,8 @@ var insert_coupon_speciality = async function (datas) {
 			"coupon_speciality_condition_value"				: datas.coupon_speciality_condition_value,
 			"coupon_speciality_price_max"					: datas.coupon_speciality_price_max,
 
-			"coupon_speciality_date_star"					: mysql.escape(datas.coupon_speciality_date_star).replace(/^'|'$/gi, ""),	
-			"coupon_speciality_date_end"					: mysql.escape(datas.coupon_speciality_date_end).replace(/^'|'$/gi, ""),
+			"coupon_speciality_date_star"					: datas.coupon_speciality_date_star,	
+			"coupon_speciality_date_end"					: datas.coupon_speciality_date_end,
 
 			"coupon_speciality_multiple"					: datas.coupon_speciality_multiple,
 			"coupon_speciality_status_admin"				: datas.coupon_speciality_status_admin,
@@ -160,6 +323,15 @@ var insert_coupon_speciality = async function (datas) {
 
 	}
 	
+	
+	if(dataGo.coupon_speciality_date_star == ''){
+		delete dataGo.coupon_speciality_date_star;
+	}
+	
+	if(dataGo.coupon_speciality_date_end == ''){
+		delete dataGo.coupon_speciality_date_end;
+	}		
+	
 	//@
 	//@
 	//@
@@ -167,6 +339,11 @@ var insert_coupon_speciality = async function (datas) {
 	for(var x in kes){
 		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
 	}
+
+
+	//return dataGo;
+
+	//return  
 
 
 	//@
@@ -266,6 +443,17 @@ const get_one_coupon_speciality = async function (coupon_speciality_id) {
 //@
 //@* 4. [update_coupon_speciality]
 const update_coupon_speciality = async function (datas,coupon_speciality_id) {
+	
+	
+	
+	
+	if(datas.coupon_speciality_date_star == ''){
+		datas.coupon_speciality_date_star = null
+	}
+	
+	if(datas.coupon_speciality_date_end == ''){
+		datas.coupon_speciality_date_end = null
+	}	
 	
 	var sqlSet = "";
 	
@@ -478,6 +666,60 @@ const search = async function (datas) {
 
 
 
+
+//@
+//@
+//@
+//@
+//@* 6. [delete_coupon_speciality]
+const search_all = async function (datas) {
+	//return sql_field;
+	//@
+	//@
+	//@
+	// sql 
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_all,sql_link_search_all);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		res.send({ "error" : "model_coupon_speciality->search_all->error_number : 2", "message": error_send } ); 
+		return;	
+	}	
+	//return get_sql_search_group;
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		res.send({ "error" : "model_coupon_speciality->search_all->error_number : 1", "message": error_send } ); 
+		return;	
+	}
+};
+
+//@* end of 6. [search]
+
+
+
+
+
+
+
+
 //@
 //@
 //@
@@ -527,12 +769,16 @@ const get_owner_coupon_speciality = async function (datas) {
 //export module
 module.exports = {
 			search,
+			search_all,
 			insert_coupon_speciality,
 			get_one_coupon_speciality,
 			update_coupon_speciality,
 			delete_coupon_speciality,
 			get_all_coupon_speciality,
-			get_owner_coupon_speciality
+			get_owner_coupon_speciality,
+			get_store_id,
+			get_all_coupon,
+			get_user_taget
 };
 
 

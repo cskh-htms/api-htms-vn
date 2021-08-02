@@ -105,6 +105,7 @@ async  function get_all_shipping_company(req, res, next) {
 	if(check_datas_result.user_role == "admin"  
 	|| check_datas_result.user_role == "supper-job" 
 	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
 	){}else{
 		var evn = ojs_configs.evn;
 		///evn = "dev";

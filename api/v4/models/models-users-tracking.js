@@ -117,13 +117,29 @@ var sql_order_default = " order by " +
 //@* 10. [unlock_users_tracking]
 const unlock_users_tracking = async function (user_tracking_id) {
 	
-	var sqlSet = ojs_configs.db_prefix + "users_tracking_status = 0 ";
+	sql_text = "START TRANSACTION ; "
 	
-
+	
+	var sqlSet = ojs_configs.db_prefix + "users_tracking_status = 0 ";
 	var table_name  = ojs_configs.db_prefix + "users_tracking ";
 	var field_where  = ojs_configs.db_prefix + "users_tracking_user_id ";
 	//create sql text
-	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_tracking_id + '"';
+	var sql_text1 = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_tracking_id + '";';
+	
+	
+	
+	var sqlSet2 = ojs_configs.db_prefix + "users_status = 0 ";
+	var table_name2  = ojs_configs.db_prefix + "users ";
+	var field_where2  = ojs_configs.db_prefix + "users_ID ";
+	//create sql text
+	var sql_text2 = 'UPDATE ' + table_name2 + ' SET ' + sqlSet2 + ' where ' + field_where2 + ' = "'+ user_tracking_id + '";';	
+	
+	//@
+	//@
+	//@
+	//@
+	sql_text = sql_text + sql_text1 + sql_text2 + " COMMIT;"
+	//return sql_text;
 	
 	try {
 		return new Promise( (resolve,reject) => {

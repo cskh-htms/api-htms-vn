@@ -1,8 +1,11 @@
 
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
 <% include ../../masterpage/loader %>
 
-<script src="../../../javascripts/class-coupon-speciality.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/class-coupon-speciality.js"></script>		
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -11,30 +14,66 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-coupon %>	
+
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
+
+
+<% //neu admin thi hien muc nay
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled "
+}
+
+%>
+
+
+
 
 
 
 <!-- --------------------
 content
 --------------------- -->
-<div id="content" class="content coupon">
-	<h1><%= title %></h1>
+<div id="content" class="content">
+
+	<h1><a href="/coupon/speciality/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="coupon/speciality/add/<%= store_id %>">coupon</a><i class="fas fa-chevron-right"></i>Tạo coupon</h1>
+	
 	<div class="noi_dung_coupon">
-		<div class="thong_tin_coupon">
-			<p><span>Mã coupon</span><input type="text" value="<%= datas[0].coupon_speciality_code %>" id="coupon_speciality_code" /> </p>
+		<div class="thong_tin_coupon">	
+	
+			<p><span>Mã coupon</span><input type="text" value="<%- ojs_share.unCape(datas[0].coupon_speciality_code) -%>" id="coupon_speciality_code" /> </p>
 			<p><span>Ngày bắt đầu</span><input type="text" value="<%= datas[0].coupon_speciality_date_star %>" id="coupon_speciality_date_star" /> </p>
 			<p><span>Ngày kết thúc</span><input type="text" value="<%= datas[0].coupon_speciality_date_end %>" id="coupon_speciality_date_end" /> </p>
 
+
+				
 			<p><span>Loại coupon<span>
 				<select id="coupon_speciality_type">
-					<%- ojs_share.show_coupon_type_select(datas[0].coupon_speciality_type ) %>
+					<%- ojs_share.show_coupon_type_select(datas[0].coupon_speciality_type) %>
 				</select>	
-			</p>
-			
+			</p>		
+				
+
 			<p>
 			<span>Điều kiện<span>
 				<select id="coupon_speciality_condition">
-					<%- ojs_share.show_coupon_condition_select(datas[0].coupon_speciality_condition ) %>
+					<%- ojs_share_coupon.show_coupon_condition_select( datas[0].coupon_speciality_condition ) %>
 					<input 
 						class="number_change" type="text" 
 						data_value="<%= datas[0].coupon_speciality_condition_value %>"
@@ -42,26 +81,27 @@ content
 						id="coupon_speciality_condition_value" 
 					/>
 				</select>	
-			</p>
+			</p>	
 		</div>
 		<div class="cong_thuc_coupon">
 			<p>
 			<span>Tên công thức<span>
-				<select id="coupon_speciality_formula">
-					<%- ojs_share.show_coupon_formula_select(datas[0].coupon_speciality_formula ) %>
+				<select id="coupon_speciality_formula_price">
+					<%- ojs_share_coupon.show_coupon_formula_select(datas[0].coupon_speciality_formula_price ) %>
 				</select>	
 			</p>
+		
 
 			<p><span>Tiền giảm giá </span>
 				<input 
 					class="number_change" type="text" 
-					data_value="<%= datas[0].coupon_speciality_price %>"
-					value="<%= ojs_share.show_price_format(datas[0].coupon_speciality_price,0,",",".","") %>" 
-					id="coupon_speciality_price" 
+					data_value="<%= datas[0].coupon_speciality_formula_price_value %>"
+					value="<%= ojs_share.show_price_format(datas[0].coupon_speciality_formula_price_value,0,",",".","") %>" 
+					id="coupon_speciality_formula_price_value" 
 				/>
 			</p>
-			
-			
+		</div>
+		<div class="cong_thuc_coupon">
 			<p><span>Giảm giá tối đa</span>
 				<input 
 					class="number_change" type="text" 
@@ -74,19 +114,21 @@ content
 			<p><span>Số lượng dùng tối đa</span>
 				<input 
 					class="number_change" type="text" 
-					data_value="<%= datas[0].coupon_speciality_qty %>"
-					value="<%= ojs_share.show_price_format(datas[0].coupon_speciality_qty,0,",",".","") %>" 
-					id="coupon_speciality_qty" 
+					data_value="<%= datas[0].coupon_speciality_limit_user %>"
+					value="<%= ojs_share.show_price_format(datas[0].coupon_speciality_limit_user,0,",",".","") %>" 
+					id="coupon_speciality_limit_user" 
 				/>
 			</p>		
 
 			<p>
 			<span>Dùng chung với mã giảm giá khác<span>
-				<select id="coupon_speciality_multi">
-					<%- ojs_share.show_coupon_multi_select(datas[0].coupon_speciality_multi ) %>
+				<select id="coupon_speciality_multiple">
+					<%- ojs_share.show_coupon_multi_select(datas[0].coupon_speciality_multiple) %>
 				</select>	
-			</p>	
+			</p>
+
 		</div>
+
 	</div>
 	
 	<!-- ------------------
@@ -94,40 +136,63 @@ content
 	------------------- -->
 	<div class="value_row">
 		<span>Mô tả coupon</span>
-		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].coupon_speciality_info) %></textarea>
+		<br>
+		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%">
+		<%- ojs_share.unCape( datas[0].coupon_speciality_info ) -%>
+		</textarea>
 	</div>
 	<!-- ------------------
 	//Mô tả danh mục
-	------------------- -->
+	------------------- -->	
+	
+	<div class="pro_box trang_thai_box ">
+		<h3>Trạng thái admin</h3>
+		<div class="inside">
+			<span>ADMIN:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
+			<select id="coupon_speciality_status_admin" <%= enable_text3 %>>
+				<%- ojs_share.show_status_discount_programs(datas[0].coupon_speciality_status_admin) -%>
+			</select>						
+		</div>
+	</div>		
 	
 	
-	
-	
-	
-	
-	
-	
+	<div class="value_row">
+		<span>quote</span>
+		<br>
+		<textarea class="quote"  id="coupon_speciality_qoute"  rows="10" cols="100%">
+			<%- ojs_share.unCape(datas[0].coupon_speciality_qoute) -%>
+		</textarea>
+	</div>
 	
 	
 	
 
 <div class="btn_box">
-	<a href="/coupon/speciality/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
+	<a href="/coupon/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
+	<%
+	if( datas[0].coupon_speciality_status_admin == "-1" ){
+	%>	
+		<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
+	<%	
+	}
+	%>
+	<button id="btn_save" class="btn_save">Đăng</button>
 </div>	
 	
-<input type="hidden" id="coupon_id" value="<%= coupon_id %>"/>	
-<input type="hidden" id="users_id" value="<%= users_id %>"/>
+
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+<input type="hidden" id="coupon_id" value="<%= coupon_id %>"/>
 
 
 </div>
-
 <!-- --------------------
 end content
 --------------------- -->
-
-
-
 
 
 
@@ -147,79 +212,166 @@ end content
 </div><!-- //pagewrap -->
 
 
-
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
+	
+	var user_id = $('#user_id').val();
+	var store_id = $('#store_id').val();
+	var coupon_id = $('#coupon_id').val();
+	
+	
+	let date_s1 = $('#coupon_speciality_date_star').val();
+	let date_s2 = $('#coupon_speciality_date_end').val();
+		
+	if(date_s1.length > 0){
+		$( "#coupon_speciality_date_star" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		).datepicker ('setDate',  new Date (date_s1));
+	}else{
+		$( "#coupon_speciality_date_star" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		)		
+	}
+	
+	if(date_s2.length > 0){	
+		$( "#coupon_speciality_date_end" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		).datepicker ('setDate',  new Date (date_s2));
+	}else{
+		$( "#coupon_speciality_date_end" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				timeFormat:  "hh:mm:ss",
+				language: 'vi'
+			}
+		)		
+	}
+
+
+	//
 	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	
-	
-	// ajax luu san pham
-	$(document).on('click','#btn_save',function(e) {		
+	ojs_loader.loadTinyMCE('noi_dung',user_id);
+		
+		
+
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_draf',function(e) {		
 		e.preventDefault();
-		//alert("hú hú");
+		var datas = get_datas();	
+		
+		datas.datas.coupon_speciality_status_admin = -1;
+		
+		//console.log(datas);
 		//return;
 		
 
-		//@
-		let coupon_id = $('#coupon_id').val();
-		let coupon_speciality_date_star = $('#coupon_speciality_date_star').val();
-		let coupon_speciality_date_end = $('#coupon_speciality_date_end').val();
+
+		ojs_coupon_speciality.ajax_update(datas,coupon_id);	
+	});
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_coupon_speciality.ajax_update(datas,coupon_id);	
+	});
+
+
+	
+	
+	function get_datas(){
+		
 		
 		let coupon_speciality_code = $('#coupon_speciality_code').val();
+
+		var date_01 = $('#coupon_speciality_date_star').datepicker( "getDate" );
+		var coupon_speciality_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
 		
+		var date_02 = $('#coupon_speciality_date_end').datepicker( "getDate" );
+		var coupon_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		
+		if(coupon_speciality_date_end.length > 0){			
+			coupon_speciality_date_end = coupon_speciality_date_end + " 23:59:59"
+		}
+		
+		if(coupon_speciality_code == "" ){
+			ojs_message.message_ok_show("Chưa nhập mã coupon");
+		}
+
+		
+
+		let coupon_speciality_condition = $('#coupon_speciality_condition  option:selected').val();
 		let coupon_speciality_condition_value = $('#coupon_speciality_condition_value').attr("data_value");
 		
-		let coupon_speciality_price = $('#coupon_speciality_price').attr("data_value");
+		let coupon_speciality_formula_price = $('#coupon_speciality_formula_price  option:selected').val();
+		let coupon_speciality_formula_price_value = $('#coupon_speciality_formula_price_value').attr("data_value");
+		
 		
 		let coupon_speciality_price_max = $('#coupon_speciality_price_max').attr("data_value");
-		
-		let coupon_speciality_qty = $('#coupon_speciality_qty').val();
+		let coupon_speciality_limit_user = $('#coupon_speciality_limit_user').val();
 			
 		//@
 		//@
 		let coupon_speciality_type = $('#coupon_speciality_type  option:selected').val();
-		let coupon_speciality_formula = $('#coupon_speciality_formula  option:selected').val();
-		let coupon_speciality_condition = $('#coupon_speciality_condition  option:selected').val();
-		let coupon_speciality_multi = $('#coupon_speciality_multi  option:selected').val();	
+		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();	
 		//@
 		let coupon_speciality_info = tinymce.get("noi_dung").getContent();
-		//
+
+
+		var coupon_speciality_status_admin = $('#coupon_speciality_status_admin').val();
+
+
+		
 		let datas = {
 			"datas":{
-				coupon_speciality_date_star : coupon_speciality_date_star,
+				coupon_speciality_date_star : coupon_speciality_date_star,				
+				coupon_speciality_date_end : coupon_speciality_date_end,				
+				coupon_speciality_code : coupon_speciality_code,	
 				
-				coupon_speciality_date_end : coupon_speciality_date_end,
+				coupon_speciality_condition : coupon_speciality_condition,				
+				coupon_speciality_condition_value : coupon_speciality_condition_value,	
 				
-				coupon_speciality_code : coupon_speciality_code,
+				coupon_speciality_formula_price : coupon_speciality_formula_price,
+				coupon_speciality_formula_price_value : coupon_speciality_formula_price_value,	
+
 				
-				coupon_speciality_condition_value : coupon_speciality_condition_value,
+				coupon_speciality_price_max : coupon_speciality_price_max,	
+				coupon_speciality_type : coupon_speciality_type,				
+								
+								
+				coupon_speciality_info : coupon_speciality_info,				
+				coupon_speciality_multiple : coupon_speciality_multiple,
+				coupon_speciality_limit_user : coupon_speciality_limit_user,
 				
-				coupon_speciality_price : coupon_speciality_price,
-				
-				coupon_speciality_price_max : coupon_speciality_price_max,
-				
-				coupon_speciality_qty : coupon_speciality_qty,
-				
-				coupon_speciality_type : coupon_speciality_type,
-				
-				coupon_speciality_formula : coupon_speciality_formula,
-				
-				coupon_speciality_condition : coupon_speciality_condition,
-				
-				coupon_speciality_info : coupon_speciality_info,
-				
-				coupon_speciality_multi : coupon_speciality_multi			
+				coupon_speciality_status_admin:coupon_speciality_status_admin,
+				coupon_speciality_stores_id_created:store_id				
 			}
 		}
-		//console.log(datas);		
-		//return;
 		
-		ojs_coupon_speciality.ajax_update(datas,coupon_id);	
-		
-	});//end of save ajax
+		return datas;
+	}
+
 	//
 	//
 ///////////////////////////////////////////////////////
@@ -228,19 +380,4 @@ $(document).ready(function($){
 
 
 
-
-
-
-
-
-
-
-
-
 <% include ../../masterpage/loader-end %>
-
-
-
-
-
-

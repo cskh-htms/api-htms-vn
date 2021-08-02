@@ -2,7 +2,7 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
 
-<script src="../../../javascripts/class-coupon-speciality.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/class-coupon-speciality.js"></script>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -16,22 +16,33 @@ page wrap
 
 
 
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><%= title %></h1>
-
-
-
-	<% include ../../masterpage/widget-coupon-speciality-show-tables %>
-
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>coupon</h1>
+	
 	
 
+	
+	
+	<div id="ajax-wrap">	
+		<% include ../../masterpage/widget-coupon-speciality-show-tables.ejs %>
+	</div>
 
 
-<input type="hidden" id="users_id" value="<%= users_id %>"/>
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
 
 
 
@@ -64,23 +75,46 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
+	
+	//Loc trang thai
+	///////////////////////////
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id	:store_id,
+				status_admin : JSON.parse(status_admin)
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_discount_program_speciality.ajax_load_discount_program(datas);	
+	});
+	
+	
 	//
 	//@
 	//xoa
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let comment_id = $(this).attr("data_comment_id");
+		let coupon_id = $(this).attr("data_coupon_id");
 		//
 		//@
 		let x = "xác nhận xoá";		
-		let y = "delete_comment_speciality";//function name in callback 
-		let z = ' { "comment_id" : "' + comment_id + '" }';
+		let y = "delete_coupon";//function name in callback 
+		let z = ' { "coupon_id" : "' + coupon_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});			
-	//		
-	//	
+	
+	
+	
+	
 	//
 ///////////////////////////////////////////////////////
 });//end of document

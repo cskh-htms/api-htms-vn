@@ -4,11 +4,60 @@
 
 1.[get_data_user_list_add_store]
 
+2.[get_data_user_taget]
+
+
+
+
 
 -------------------------------------
 */
 
 const ojs_datas_users = {
+	
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 2.[get_data_user_taget]		
+	get_data_user_taget: function(user_id){
+		
+		let datas_return = 	
+		{
+			"datas" :   
+			{
+				"select_field" :
+				[
+				"users_ID",
+				"users_full_name",
+				"users_adress",
+				"users_phone",
+				"users_email",
+				"users_type_ID",
+				"users_type_name"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_ID",
+								"value"     : user_id,
+								"compare" 	: "="
+							}							
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@	
+	
 	
 	//@
 	//@
@@ -76,6 +125,7 @@ const ojs_datas_users = {
 				"users_email",
 				"users_type_ID",
 				"users_type_name",
+				"users_status"
 				],
 				"condition" :
 				[				
@@ -292,7 +342,8 @@ const ojs_datas_users = {
 				"brands_stores_id",
 				"brands_status_update",
 				"users_ID",
-				"stores_ID"
+				"stores_ID",
+				"users_status"
 				],
 				"condition" :
 				[				

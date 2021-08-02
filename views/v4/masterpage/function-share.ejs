@@ -56,6 +56,11 @@
 
 17.[show_date_null]
 
+18. [show_status_discount_detail_html]
+
+
+
+
 
 --------------------------------------------------
 */
@@ -69,8 +74,34 @@
 
 ojs_share = {
 
-
-
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 19. [format_date]
+	format_date : function(datas){
+		var time_string = "";
+		var time_add_zone = new Date(datas);
+		//@
+		//@
+		let y = time_add_zone.getFullYear();
+		let m = time_add_zone.getMonth() + 1;
+		let d = time_add_zone.getDate();
+		let h = time_add_zone.getHours();
+		let p = time_add_zone.getMinutes();
+		let g = time_add_zone.getSeconds();
+		
+		
+		//@
+		//@
+		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
+		return time_string ;		
+	},
+	
+	
+	
+	
 	//@
 	//@
 	//@

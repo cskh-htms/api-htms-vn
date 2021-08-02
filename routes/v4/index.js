@@ -55,7 +55,7 @@ router.use('/discount-program', require('../../routes/' + app_config.router_vers
 
 router.use('/ho-tro', require('../../routes/' + app_config.router_version + '/ho-tro') );
 
-
+router.use('/users-tracking', require('../../routes/' + app_config.router_version + '/users-tracking') );
 
 
 module.exports = router;

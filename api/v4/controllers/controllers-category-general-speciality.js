@@ -229,7 +229,12 @@ async function get_all_category_general_speciality(req, res, next) {
 	}
 	
 	
-	if(check_datas_result.user_role == "admin" || check_datas_result.user_role == "supper-job"   || check_datas_result.user_role == "default"){}else{
+	if(check_datas_result.user_role == "admin" 
+	|| check_datas_result.user_role == "supper-job"   
+	|| check_datas_result.user_role == "default" 
+	|| check_datas_result.user_role == "customer" 
+	
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -312,7 +317,12 @@ async function get_one_category_general_speciality(req, res, next) {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_cat == "1" || check_datas_result.user_role == "supper-job"){}else{
+	if(check_datas_result.user_role == "admin"  
+	|| check_datas_result.owner_cat == "1" 
+	|| check_datas_result.user_role == "supper-job" 
+	|| check_datas_result.user_role == "customer" 
+	
+	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
@@ -766,6 +776,8 @@ async  function search(req, res, next) {
 		|| check_datas_result.user_role == "supper-job"   
 		|| check_datas_result.user_role == "default" 
 		|| check_datas_result.user_role == "customer" 
+		|| check_datas_result.user_role == "customer" 
+		
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -778,7 +790,8 @@ async  function search(req, res, next) {
 		||  check_datas_result.user_role == "admin"   
 		|| check_datas_result.user_role == "default"
 		|| check_datas_result.user_role == "supper-job"   
-		|| check_datas_result.user_role == "customer" 		
+		|| check_datas_result.user_role == "customer" 	
+		
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

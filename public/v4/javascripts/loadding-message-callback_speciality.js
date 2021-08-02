@@ -8,6 +8,45 @@ ojs_loadding_message_callback = {
 	callback_test:function(a){
 		alert("hú hú test test");
 	},
+	
+
+
+
+	//
+	//
+	//xoa san pham dac san
+	delete_news:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let news_id = datas_parse.news_id;
+		
+		
+		//alert(coupon_id);
+		//return;
+		
+		ojs_news_general.ajax_delete(news_id);
+		
+	},//end of xoa san pham dac san	
+
+	
+	
+	//
+	//
+	//xoa san pham dac san
+	delete_coupon:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let coupon_id = datas_parse.coupon_id;
+		
+		
+		//alert(coupon_id);
+		//return;
+		
+		ojs_coupon_speciality.ajax_delete(coupon_id);
+		
+	},//end of xoa san pham dac san	
+	
+	
+	
+	
 	//
 	//
 	//xoa san pham dac san

@@ -44,6 +44,9 @@ source ./sql/16.views/create_view_count_order_by_user.sql;
 source ./sql/16.views/create_view_discount_program.sql;
 
 
+-- 08.create_view_coupon
+source ./sql/16.views/create_view_coupon.sql;
+
 
 
 

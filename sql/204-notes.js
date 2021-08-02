@@ -43,7 +43,9 @@ var note = {
 	'12': 'datas_review',	
 	'13': 'datas_review_store',
 	'14': 'datas_coupon'	
-	'15' :'notes'
+	'15' :'notes',
+	'16': 'datas_order_customer',
+	'17': 'datas_new'
 }
 
 //@
