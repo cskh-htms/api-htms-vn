@@ -137,6 +137,65 @@ router.get('/', async  function(req, res, next) {
 
 
 
+
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	
+	//@
+	//@
+	//@ data_order
+	var data_order_copy = {...ojs_configs.orders_all};	
+	var data_order_data_edit = {
+		'status_admin_compare':'<>',
+		'status_admin_value':'1',
+		'user_compare':'<>',
+		'status_payment_compare':'<>',
+		'status_payment_compare':'100',
+		'line_order_compare':'<>',
+		'line_order_value':'100',
+		};
+	var data_order_ok = Object.assign(data_order_copy,data_order_data_edit);
+
+
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : 0,
+		'store_id' : 0,
+		'datas_order': data_order_ok,
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	var get_all_list_datas_all;
+	try{
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas_all);
+	//return;
+
+
+
+
+
+
+
+
+
+
 	datas_info = {
 		'title' 			: 'Admin quản lý dala',
 		'users_type' 		: ojs_shares_others.get_users_type(token),
@@ -146,7 +205,8 @@ router.get('/', async  function(req, res, next) {
 		'menu_taget'		: 'sidebar_tong_quan',
 		'sidebar_type'		:  "",
 		
-		'news_admin_menu' 	: get_datas_news_admin_menu
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'get_all_list_datas_all':get_all_list_datas_all
 	}
 
 
@@ -160,6 +220,7 @@ router.get('/', async  function(req, res, next) {
 		'sidebar_type'		:  "",
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'get_all_list_datas_all':get_all_list_datas_all,
 		'datas_info':datas_info
 	}
 

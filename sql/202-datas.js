@@ -55,7 +55,7 @@
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_brand': ojs_configs.datas_all,
+		'datas_brand': ojs_configs.datas_all_all,
 	}
 	
 	//res.send( datas_get_all_list_datas );	
