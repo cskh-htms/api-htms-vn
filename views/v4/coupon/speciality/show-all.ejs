@@ -29,13 +29,125 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>coupon</h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá</h1>
+	<div class="mb20"><a href="/coupon/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo coupon</a></div>
+	<div class="coupon_content">
+		<div class="coupon">
+			<div class="coupon_title">DALA10</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 10% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">DALA20</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 20% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">DALA10</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 10% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">DALA10</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 10% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">DALA10</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 10% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">DALA10</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 10% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+	</div>
 	
+	<!-- Coupon chờ duyệt -->
+	<hr>
+	<h3>Mã giảm giá đang chờ duyệt:</h3>
+	<div class="coupon_content">
+		<div class="coupon">
+			<div class="coupon_title">DALA0209</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Giảm 50% tối đa 50k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+		<div class="coupon">
+			<div class="coupon_title">FREESHIP20</div>
+			<div class="coupon_info">
+				<div class="coupon_giam">Freeship tối đa 20k</div>
+				<div class="coupon_don_tu">Đơn tối thiểu 100k</div>
+				<div class="coupon_da_dung">Đã dùng: 98/200</div>
+				<div class="coupon_thoi_han">Thời hạn: 02/09/2021</div>
+			</div>
+			<div class="coupon_btn">
+				<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+				<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+	</div>
 	
 
 	
 	
-	<div id="ajax-wrap">	
+	<div id="ajax-wrap" style="display: none;">	
 		<% include ../../masterpage/widget-coupon-speciality-show-tables.ejs %>
 	</div>
 

@@ -99,13 +99,13 @@
 		-->
 		<li id="sidebar_discount_program">
 			<a href="/discount-program/<%= store_list[0].service_type_name %>/<%= store_id %>">
-				<i class="fas fa-box-open"></i>
+				<i class="fas fa-percent"></i>
 				<div class="menu-name">
 					Chương trình khuyến mãi
 					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,8)  -%>					
 				</div>
 			</a>
-			<a href="/discount-program/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a style="display:none" href="/discount-program/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" style="display: none" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>		
 		
 		
@@ -114,7 +114,7 @@
 		-->
 		<li id="sidebar_coupon">
 			<a href="/coupon/<%= store_list[0].service_type_name %>/<%= store_id %>">
-				<i class="fas fa-box-open"></i>
+				<i class="fas fa-ticket-alt"></i>
 				<div class="menu-name">
 					Coupon
 					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,14)  -%>					
