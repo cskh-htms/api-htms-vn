@@ -3407,7 +3407,7 @@ router.get('/:store_id', async function(req, res, next) {
 		//res.send(data_send);
 		//return;
 		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-all', data_send );
+		res.render( ojs_configs.view_version + '/discount-program/speciality/store-show-all', data_send );
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
