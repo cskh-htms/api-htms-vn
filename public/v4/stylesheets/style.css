@@ -63,6 +63,9 @@ a {
 .yellow {
 	color: #ffc800;
 }
+.orange {
+	color: #ee4d2d;
+}
 .status_green, .status_blue, .status_red, .status_yellow, .status_gray {
 	display: block;
 	color: #4a914b;
@@ -2682,4 +2685,28 @@ display: flex;
 }
 .coupon_apply .inside .col {
 	width: 32%;
+}
+.ctkm_store .ctkm_row {
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.ctkm_store .ctkm_row .white_box {
+	margin-right: 2%;
+}
+.ctkm_store .ctkm_row .white_box:nth-child(3n) {
+	margin-right: 0;
+}
+.tham_gia_info {
+	border-top: 1px solid lightgray;
+	padding: 20px 0;
+}
+.tham_gia_info h4 {
+	margin: 0 0 10px;
+}
+.tham_gia_btn {
+	border-top: 1px solid lightgray;
+	padding: 20px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
