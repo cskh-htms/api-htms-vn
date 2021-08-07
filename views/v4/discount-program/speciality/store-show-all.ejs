@@ -29,7 +29,6 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi</h1>
-	<a href="/discount-program/<%= service_type_name %>/show/<%= store_id %>/<%= user_id %>">Xuân lùn bối già</a>
 	<div class="ctkm_content ctkm_store">
 		<div class="ctkm_row">
 			<div class="white_box">
@@ -48,7 +47,7 @@ content
 						2%
 					</div>
 					<div class="tham_gia_info">
-						<h4>Tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
+						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
 						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
 						
 					</div>
@@ -63,7 +62,7 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
 						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
 					</div>
 			</div>
@@ -83,7 +82,7 @@ content
 						2%
 					</div>
 					<div class="tham_gia_info">
-						<h4>Tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
+						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
 						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
 						
 					</div>
@@ -98,7 +97,7 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
 						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
 					</div>
 			</div>
@@ -118,7 +117,7 @@ content
 						2%
 					</div>
 					<div class="tham_gia_info">
-						<h4>Tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
+						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
 						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
 						
 					</div>
@@ -133,7 +132,7 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
 						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
 					</div>
 			</div>
@@ -153,7 +152,7 @@ content
 						1%
 					</div>
 					<div class="tham_gia_btn">
-						<a href="#" class="btn_bd_green">Tham gia</a>
+						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" class="btn_bd_green">Tham gia</a>
 					</div>
 			</div>
 		</div>

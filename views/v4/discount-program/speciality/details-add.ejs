@@ -53,7 +53,107 @@ content
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
 	<a href="/discount-program/speciality/<%= store_id %>">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Cửa hàng tham gia chương trình khuyến mãi</h1>
 	
-	<div class="pro_content_edit">
+	<div class="ctkm_detail">
+		<div class="white_box">
+			<h2>Thông tin chương trình khuyến mãi</h2>
+			<div class="km_img">
+				<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
+			</div>
+			<h3 class="green"><%- ojs_share.unCape(discount_program_tager[0].discount_program_name) -%></h3>
+			<div class="mb10"><b>Loại KM:</b> <span class="orange">Giảm 40%</span></div>
+			<div class="mb10"><b>Chiết khấu: </b> <span class="orange">3%</span>
+				<span class="giai-thich">
+					<span>
+						Chiết khấu thêm % trên mỗi sản phẩm tham gia cho Dala, % chiết khấu sẽ được tính trên giá đã giảm của SP và chỉ khi bán được SP mới bị tính phí.
+					</span>
+					</span>	
+			</div>
+			<div class="mb10"><b>Thời gian diễn ra CTKM:</b> Từ <span class="orange"><%- ojs_share.show_date_null(discount_program_tager[0].discount_program_date_star) -%></span>
+			Đến <span class="orange"><%- ojs_share.show_date_null(discount_program_tager[0].discount_program_date_end) -%></span></div>
+			<div><b>Mô tả:</b> Đây là chương trình khuyến mãi dâu tây, giảm 40% trên các sản phẩm tham gia chương trình. Banner được đặt
+			ở phần slider trên trang chủ app Dala. Các cửa hàng tham gia sẽ đăng ký sản phẩm và chấp nhận mức chiết khấu 3% trên mỗi SP</div>
+		</div>
+		<div class="white_box">
+			<h2>Tham gia CTKM</h2>
+			<div class="dong_y_box">
+				<input type="checkbox" id="giamgia" name="giamgia" value="giamgia">
+				<label for="giamgia">Tôi đồng ý giảm 40% cho các sản phẩm tham gia CTKM</label><br>
+				<input type="checkbox" id="chietkhau" name="chietkhau" value="chietkhau">
+				<label for="chietkhau">Tôi đồng ý chiết khấu 3% cho Dala trên mỗi sản phẩm tham gia CTKM</label>
+			</div>
+			<div class="time_tham_gia">
+				<p>Bạn muốn tham gia chương trình: </p>
+				<p>Từ <input type="text" value="" id="discount_program_date_star" /> đến <input type="text" value="" id="discount_program_date_end" /> </p>
+			</div>
+			<div class="qlsp_tham_gia">
+				<div class="qlsp_box">
+					<h3>Sản phẩm của bạn</h3>
+					<ul>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p>65.000đ</p>
+							<a href="#" title"Thêm"><i class="fas fa-plus"></i></a>
+						</li>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p>65.000đ</p>
+							<a href="#" title"Thêm"><i class="fas fa-plus"></i></a>
+						</li>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p>65.000đ</p>
+							<a href="#" title"Thêm"><i class="fas fa-plus"></i></a>
+						</li>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p>65.000đ</p>
+							<a href="#" title"Thêm"><i class="fas fa-plus"></i></a>
+						</li>
+					</ul>
+				</div>
+				<div class="qlsp_box">
+					<h3>Sản phẩm tham gia CTKM</h3>
+					<ul>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p class="orange">65.000đ <i class="fas fa-long-arrow-alt-right"></i> 39.000đ</p>
+							<a href="" title"Thêm" class="orange"><i class="fas fa-times"></i></a>
+						</li>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100gram</h4>
+							<p class="orange">105.000đ <i class="fas fa-long-arrow-alt-right"></i> 99.000đ</p>
+							<a href="" title"Thêm" class="orange"><i class="fas fa-times"></i></a>
+						</li>
+						<li>
+							<img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg">
+							<h4>Vỏ bưởi mật ong sấy dẻo-100g (tặng gói 50g)</h4>
+							<p class="orange">129.000đ</p>
+							<a href="" title"Thêm" class="orange"><i class="fas fa-times"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="pro_content_edit" style="display: none">
 		<div class="pro_col01">
 		
 	
@@ -143,7 +243,7 @@ content
 
 <div class="btn_box">
 	<a href="/discount-program/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Đăng</button>
+	<button id="btn_save" class="btn_save">Lưu</button>
 </div>	
 	
 
@@ -183,6 +283,31 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
+	
+	
+	$( "#discount_program_date_star" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( "#discount_program_date_end" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( ".dong_y_box input" ).click(function() {
+		if($('input#giamgia').is(':checked') && $('input#chietkhau').is(':checked'))
+		{
+		  $('.time_tham_gia').addClass('active');
+		  $('.qlsp_tham_gia').addClass('active');
+		}else
+		{
+			$('.time_tham_gia').removeClass('active');
+		  $('.qlsp_tham_gia').removeClass('active');
+		}
+	});
 	
 	var user_id = $('#user_id').val();
 	var store_id = $('#store_id').val();

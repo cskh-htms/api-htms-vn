@@ -2379,6 +2379,7 @@ display: flex;
 }
 .km_img {
 	margin-bottom: 10px;
+	text-align: center;
 }
 .km_img img {
 	width: auto;
@@ -2709,4 +2710,118 @@ display: flex;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.ctkm_detail {
+	display: flex;
+	justify-content: space-between;
+}
+.ctkm_detail .white_box {
+	width: 60%;
+	margin-top: 20px;
+}
+.ctkm_detail .white_box:first-child {
+	width: 38%;
+}
+.ctkm_detail .white_box h2 {
+	background: #4a914b;
+    color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: normal;
+    margin-top: -35px;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 180px;
+    text-align: center;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.ctkm_detail .dong_y_box {
+	line-height: 1.8;
+	margin-bottom: 20px;
+}
+.ctkm_detail .time_tham_gia {
+	margin-bottom: 20px;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: 0.2s all;
+}
+.ctkm_detail .time_tham_gia p {
+	margin: 0 0 10px;
+}
+.ctkm_detail .time_tham_gia.active {
+	height: 58px;
+	opacity: 1;
+}
+.qlsp_tham_gia {
+	display: flex;
+	justify-content: space-between;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+    padding-top: 10px;
+    box-sizing: border-box;
+	transition: 0.2s all;
+}
+.qlsp_tham_gia.active {
+	height: 310px;
+	opacity: 1;
+}
+.qlsp_tham_gia .qlsp_box {
+	width: 49%;
+	position: relative;
+}
+.qlsp_box h3 {
+	background: white;
+    position: absolute;
+	z-index: 1;
+    top: -10px;
+    left: 10px;
+    margin: 0;
+    padding: 0 8px;
+}
+.qlsp_box ul {
+	margin: 0;
+	list-style: none;
+	padding: 20px 10px 10px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	max-height: 300px;
+	overflow-y: auto;
+}
+.qlsp_box ul li {
+	position: relative;
+	clear: both;
+    padding: 5px;
+    margin-bottom: 12px;
+	border-radius: 5px;
+}
+.qlsp_box ul li:hover {
+	background: #e3f3ea;
+}
+.qlsp_box ul li img {
+	max-width: 40px;
+    border-radius: 5px;
+    margin-right: 8px;
+	float: left;
+}
+.qlsp_box ul li h4 {
+	margin: 0 0 5px;
+}
+.qlsp_box ul li p {
+	margin: 0;
+}
+.qlsp_box ul li a {
+	position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+	padding: 2px 4px;
+	opacity: 0;
+	transition: 0.2s all;
+}
+.qlsp_box ul li:hover a {
+	opacity: 1;
 }
