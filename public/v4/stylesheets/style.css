@@ -1318,6 +1318,10 @@ body .ajax-load-bt {
 	margin: 0 10px 0 0;
 	border-radius: 3px;
 }
+.store_col ul li .sp_img img {
+	display: block;
+	max-width: 100%;
+}
 .store_col ul li h3 {
 	font-size: 16px;
     font-weight: normal;
@@ -2824,4 +2828,10 @@ display: flex;
 }
 .qlsp_box ul li:hover a {
 	opacity: 1;
+}
+.qlsp_box ul li > i {
+    position: absolute;
+    top: 0;
+    left: 35px;
+    z-index: 1;
 }
