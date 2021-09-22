@@ -70,11 +70,9 @@ router.get('/', async  function(req, res, next) {
 	//@
 	//@
 	//@
-	//@
-	//@	
 	//lấy token
 	try {
-		var token = req.session.token;
+		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
 			res.redirect("/login");
@@ -85,7 +83,7 @@ router.get('/', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "1", "message": error_send } ); 
 		return;			
 	}
 	

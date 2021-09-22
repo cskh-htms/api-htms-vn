@@ -13,7 +13,8 @@
 -- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ
 
 
-
+-- git hub
+-- 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
 
 --
 -- one script
@@ -34,7 +35,7 @@ source ./sql/demo_dalacenter_v4.sql;
 
 --
 -- insert all datas
-source ./sql/dalacenter4_datas_only_20210726_0200.sql;
+source ./sql/dalacenter4_datas_only_20210802_0940.sql;
 
 
 

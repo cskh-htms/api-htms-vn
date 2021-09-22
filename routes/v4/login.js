@@ -19,10 +19,16 @@ router.get('/', async  function(req, res, next) {
 //chức năng : login
 //@@
 router.post('/', async  function(req, res, next) {
-	let datas = req.body.datas;
-	let session_token = req.session;
-	let send_datas = { datas : datas }
-	//
+	var datas = req.body.datas;
+	var session_token = req.session;
+	
+	
+	var send_datas = { datas : datas }
+	
+	
+	//@
+	//@
+	//@
 	try {
 		var datas_users = await ojs_shares_fetch_data.get_data_no_token_post(ojs_configs.domain + '/api/v4/users/login', send_datas);
 		//res.send( datas_users );
@@ -35,17 +41,18 @@ router.post('/', async  function(req, res, next) {
 		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
-			res.send({ "error" : "1_router_login_app->catch", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn, datas_users.message , datas_users.message  );
+			res.send({ "error" : "1", "position" : "rt-login", "message": error_send } ); 
 			return;				
 		}
+
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "1_router_login_app->catch", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi login, vui lòng liên hệ Kỹ thuật dala" );
+		res.send({ "error" : "2", "position" : "rt-login" , "message": error_send } ); 
 		return;			
 	}
 });

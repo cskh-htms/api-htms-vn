@@ -1626,47 +1626,47 @@ const login = async function (req, res, next) {
 		//@
 		if(check_lock.length > 0){
 			if(check_lock[0].users_status == 1){
-				res.send({ "error" : "controller_users->login->check_lock->error_number : 1", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA" });
+				res.send({ "error" : "1", "position":"ctl-users->login","message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA" });
 				return;					
 			}			
 		}else{
-			res.send({ "error" : "controller_users->login->check_lock->error_number : 1", "message": "Không tìm thấy tài khoản trong hệ thống dala" });
+			res.send({ "error" : "2","position":"ctl-users->login","message": "Không tìm thấy tài khoản trong hệ thống dala, kiểm tra lại Email hoặc số điện thoại" });
 			return;				
 		}
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controller_users->login->error_number : 100", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check stauts lock, lấy trạng thái admin, Đây là lỗi hệ thống vui lòng liên hệ kỹ thuật DALA" );
+		res.send({ "error" : "3", "position":"ctl-users->login->check_lock" , "message": error_send } ); 
 		return;	
 	}	
 	
 	//@
 	//@
 	//@
-	//@
+	//@ login bằng mật khẩu user
 	try{
 		var login_one = await models_users.login(datas);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controller_users->login->error_number : 1", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi login, đây là lỗi hệ thống login, vui lòng liên hệ kỹ thuật" );
+		res.send({ "error" : "4", "position":"ctl-users->login->login_one" , "message": error_send } ); 
 		return;	
 	}	
 	
 	
 	//@
 	//@
-	//@
+	//@ logn bằng mật khẩu lost pass
 	try{
 		var login_one_lost = await models_users.login_lost(datas);	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controller_users->login->error_number : 1", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi login, đây là lỗi hệ thống login . vuilòng liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-users->login->login_one_lost" ,  "message": error_send } ); 
 		return;	
 	}		
 	
@@ -1732,8 +1732,8 @@ const login = async function (req, res, next) {
 		catch (error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
-			res.send({ "error" : "controller_users->login->error_number : 6", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt role_text, liên hệ CSKH DALA" );
+			res.send({ "error" : "6","position":"ctl-users->login->role_text" , "message": error_send } ); 
 			return;	
 		}
 		
@@ -1774,8 +1774,8 @@ const login = async function (req, res, next) {
 		catch (error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
-			res.send({ "error" : "controller_users->login->error_number : 7", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt token_database, liên hệ CSKH DALA" );
+			res.send({ "error" : "7","position":"ctl-users->login->token_database" , "message": error_send } ); 
 			return;	
 		}
 
@@ -1795,8 +1795,8 @@ const login = async function (req, res, next) {
 		catch (error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
-			res.send({ "error" : "controller_users->login->error_number : 7", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi update lost pass, liên hệ CSKH DALA" );
+			res.send({ "error" : "8","position":"ctl-users->login->update_lost", "message": error_send } ); 
 			return;	
 		}
 
@@ -1813,7 +1813,7 @@ const login = async function (req, res, next) {
 				var evn = ojs_configs.evn;
 				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert token database, Liên hệ CSKH DALA" );
-				res.send({ "error" : "controller_users->login->error_number : 3", "message": error_send } ); 
+				res.send({ "error" : "9", "position":"ctl-users->login->insert_token","message": error_send } ); 
 				return;
 			});
 		}
@@ -1821,7 +1821,7 @@ const login = async function (req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi đăng nhập users, liên hệ CSKH DALA" );
-			res.send({ "error" : "controller_users->login->error_number : 8", "message": error_send } ); 
+			res.send({ "error" : "10", "position":"ctl-users->login->insert_token_catch", "message": error_send } ); 
 			return;	
 		}	
 		
@@ -1845,7 +1845,7 @@ const login = async function (req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
-		res.send({ "error" : "controller_users->login->error_number : 4", "message": error_send } ); 
+		res.send({ "error" : "11", "position":"ctl-users->login->insert_users_tracking", "message": error_send } ); 
 		return;		
 	}
 	

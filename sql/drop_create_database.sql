@@ -16,6 +16,6 @@
 -- 
 -- 
 -- 
-drop database dalacenter4;
-create database dalacenter4;
-use dalacenter4;
+drop database dalacenter4_demo;
+create database dalacenter4_demo;
+use dalacenter4_demo;

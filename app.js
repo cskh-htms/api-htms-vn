@@ -24,6 +24,8 @@ app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: t
 
 // tao server localhost
 
+
+
 var localHttp = require('http');
 var localServer = localHttp.createServer(app);
 localServer.listen(2021,'localhost');

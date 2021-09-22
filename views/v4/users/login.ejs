@@ -87,11 +87,16 @@ end content
 					}else{
 						if(result.error.length > 0){
 							ojs_message.message_ok_show(result.message);
+							//console.log("1");
 						}else{
-							if(result.datas.user_role != "default"){
-								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
+							if( 
+							result.datas.user_role == "default"  
+							|| result.datas.user_role == "supper-job" 
+							|| result.datas.user_role == "shipping" 
+							){
+								ojs_message.message_ok_show("user GUEST, Shipping  hoặc user supper job  không thể login trên web");
 							}else{
-								ojs_message.message_ok_show("user GUEST");
+								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
 							}
 						}
 					}	
