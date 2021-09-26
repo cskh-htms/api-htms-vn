@@ -181,6 +181,43 @@ const ojs_shares_sql = {
 					}
 
 
+
+
+					//@
+					//@
+					//@
+					//@[like] condition
+					if(
+						condition_arr[x].where[s].compare == "like" 
+						|| condition_arr[x].where[s].compare == "LIKE" 
+						|| condition_arr[x].where[s].compare == "not like" 
+						|| condition_arr[x].where[s].compare == "NOT LIKE" 
+					){
+						let arr_value =  condition_arr[x].where[s].value.split(' ');
+						let txt_value = "";
+						
+						//return arr_value;
+						
+						if(arr_value.length > 0){
+							for (let x in arr_value){
+								txt_value = txt_value + '%' + arr_value[x];
+							}
+							
+							txt_value =  txt_value + '%';
+							//return txt_value;
+							
+							consition_value = "'" + txt_value + "'";
+							consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field ;		
+						}else{
+							consition_value = "'%" + condition_arr[x].where[s].value + "%'";
+							consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field ;
+						}
+					}	
+
+
+
+
+
 		
 					var relation = condition_arr[x].relation;
 					

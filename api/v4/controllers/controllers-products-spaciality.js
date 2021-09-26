@@ -1093,7 +1093,7 @@ async function search_all(req, res, next) {
 				var evn = ojs_configs.evn;
 				evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-				res.send({ "error" : "controllers-products-speciality->search_all->run model -> error_number : 1", "message": error_send } ); 
+				res.send({ "error" : "1", "position":"ctl-products-spaciality-run","message": error_send } ); 
 				return;	
 		});
 	}
@@ -1101,7 +1101,7 @@ async function search_all(req, res, next) {
 		var evn = ojs_configs.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : "controllers-products-speciality->search_all->run model -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-products-spaciality-run","message": error_send } );  
 		return;	
 	}
 
