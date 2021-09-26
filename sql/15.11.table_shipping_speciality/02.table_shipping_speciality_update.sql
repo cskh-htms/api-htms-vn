@@ -42,7 +42,7 @@ IF(NEW.dala_shipping_speciality_parent_id > 0 ) THEN
 	
 	SET @checkID = (select dala_shipping_speciality_ID   
 	from dala_shipping_speciality  
-	where dala_shipping_speciality_parent_id = NEW.dala_shipping_speciality_parent_id);
+	where dala_shipping_speciality_code = NEW.dala_shipping_speciality_parent_id);
 	IF (@checkID is null or @checkID = '' or @checkID = 'null' ) THEN  
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_shipping_speciality_insert_no_parent'; 

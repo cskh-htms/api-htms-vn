@@ -1617,6 +1617,7 @@ const login = async function (req, res, next) {
 	//@
 	//@
 	//@ check login lock	
+	//@ nếu bị kháo thì trả về
 	try{
 		var check_lock = await models_users.get_user_check_lock(datas);
 		//res.send(check_lock);
@@ -1716,6 +1717,9 @@ const login = async function (req, res, next) {
 				token_type = 2;
 			}		
 
+			if(role_text =="shipping"){
+				token_type = 3;
+			}
 
 			
 			//@

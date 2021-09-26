@@ -412,7 +412,23 @@ const get_condition = function(condition_arr){
 					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field + " IS ";
 				}				
 				
-				
+	
+
+				//@
+				//@
+				//@
+				//@[like] condition
+				if(
+					condition_arr[x].where[s].compare == "like" 
+					|| condition_arr[x].where[s].compare == "LIKE" 
+					|| condition_arr[x].where[s].compare == "not like" 
+					|| condition_arr[x].where[s].compare == "NOT LIKE" 
+				){
+					consition_value = "%" + condition_arr[x].where[s].value + "%";
+					consition_field = ojs_configs.db_prefix + condition_arr[x].where[s].field ;
+				}		
+
+	
 				
 				
 				//

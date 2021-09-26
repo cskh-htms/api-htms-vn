@@ -27,7 +27,7 @@ source ./sql/demo_dalacenter_v4.sql;
 -- insert all datas
 -- source ./sql/demo_dalacenter4_datas_only.sql;
 
-source ./sql/dalacenter4_datas_only_20210726_0200.sql;
+source ./sql/demo_dalacenter4_datas_only.sql;
 
 
 
@@ -39,7 +39,7 @@ source ./sql/command_line_check_insert_update_v4.sql;
 
 --
 --  insert constraints all
-source ./sql/command_line_insert_constraints_v4.sql;
+source ./sql/demo_constraints_full.sql;
 
 
 

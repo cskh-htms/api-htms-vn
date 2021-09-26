@@ -16,6 +16,7 @@ dala_orders_details_speciality_qty * dala_orders_details_speciality_price as dal
 
 dala_products_speciality_ID, 
 dala_products_speciality_name,
+dala_products_speciality_featured_image,
 
 dala_users_ID,
 dala_users_full_name,

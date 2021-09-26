@@ -728,12 +728,13 @@ DROP TABLE IF EXISTS `dala_shipping_speciality`;
 CREATE TABLE IF NOT EXISTS `dala_shipping_speciality` (
   `dala_shipping_speciality_ID` int NOT NULL AUTO_INCREMENT,
   `dala_shipping_speciality_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_shipping_speciality_code` INT NOT NULL   COMMENT 'mã vùng, lấy theo datas array. ví dụ : 01,02,03.....' ,  
   `dala_shipping_speciality_parent_id` int NOT NULL DEFAULT '0',
   `dala_shipping_speciality_information` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_shipping_speciality_price` float DEFAULT NULL,
-  `dala_shipping_speciality_show` int NOT NULL DEFAULT '0',
+  `dala_shipping_speciality_price` float DEFAULT '0' ,
+  `dala_shipping_speciality_show` int NOT NULL DEFAULT '0'  COMMENT 'cột này chưa dùng' ,
   PRIMARY KEY (`dala_shipping_speciality_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1  COMMENT='Bảng giá shipping từng khu vực nhập vào';
 
 -- --------------------------------------------------------
 
