@@ -269,10 +269,17 @@ const update_shipping_spaciality = async function (datas,shipping_speciality_id)
 	});		
 
 
-	var table_name  = ojs_configs.db_prefix + "shipping_spaciality ";
+	var table_name  = ojs_configs.db_prefix + "shipping_speciality ";
 	var field_where  = ojs_configs.db_prefix + "shipping_speciality_id ";
 	//create sql text
 	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ shipping_speciality_id + '"';
+	
+	
+	
+	
+	
+	
+	
 	
 	try {
 		return new Promise( (resolve,reject) => {
@@ -299,7 +306,7 @@ const update_shipping_spaciality = async function (datas,shipping_speciality_id)
 //@* 5. [delete_shipping_spaciality]
 const delete_shipping_spaciality = async function (shipping_speciality_id) {
 
-	var table_name  = ojs_configs.db_prefix + "shipping_spaciality ";
+	var table_name  = ojs_configs.db_prefix + "shipping_speciality ";
 	var field_where  = ojs_configs.db_prefix + "shipping_speciality_id ";
 	//create sql text
 	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ shipping_speciality_id + '"';
