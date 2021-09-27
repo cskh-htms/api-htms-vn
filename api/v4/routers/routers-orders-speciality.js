@@ -128,15 +128,6 @@ router.post('/search-count-order-by-user', middle_ware, controllers_orders_spaci
 
 
 
-//@
-//@
-//@
-//@
-//@
-//@* . [push-shipping-dala]
-router.post('/push-shipping-dala', middle_ware, controllers_orders_spaciality.push_shipping_dala);
-
-
 
 
 

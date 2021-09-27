@@ -1243,100 +1243,6 @@ async  function search_count_order_by_user(req, res, next) {
 
 
 
-//@
-//@
-//@
-//@
-//@ 9. [push_shipping_dala]
-async  function push_shipping_dala(req, res, next) {
-	
-	//@
-	//@
-	//@
-	//@	get datas req
-	try {
-		var datas = req.body.datas;
-		var token = req.headers['token'];
-		//@
-		//@
-		//@
-
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "1", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
-		return;			
-	}	
-
-
-
-	res.send({ "error" : "", "position":"ctl-orders-spaciality->push_shipping_dala","message": datas } );
-	return;	
-
-
-	//@
-	//@
-	//@
-	//@ kiểm tra phân quyền 
-	try{
-		var datas_check = {
-			"token":token,
-		}	
-		
-		var check_datas_result;		
-		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
-		
-
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "2", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
-		return;			
-	}
-
-
-
-
-
-	
-	//@
-	//@
-	//@
-	//@
-	try {
-		models_option_speciality.search(datas).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-			return;
-		}, error => {
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
-			res.send({ "error" : "3", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } );
-			return;	
-		});
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
-		res.send({ "error" : "4", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
-		return;	
-	}
-
-}
-
-
-
-
-
-
-
-
-
 
 /*
 @@@@
@@ -1353,8 +1259,7 @@ module.exports = {
 	search,
 	search_customer,
 	search_user,
-	search_count_order_by_user,
-	push_shipping_dala
+	search_count_order_by_user
 };
 
 /*

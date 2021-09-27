@@ -11,6 +11,13 @@
 
 * 5. [delete_shipping_tracking]
 
+* 6. [search]
+
+* 7. [push-shipping-dala]
+
+* 7. [push-shipping-dala-shipper]
+
+* 9. [push-shipping-ghtk]
 
 */
 
@@ -97,6 +104,35 @@ router.post('/search', middle_ware, controllers_shipping_tracking.search);
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@* 7. [push-shipping-dala]
+router.post('/push-shipping-dala', middle_ware, controllers_shipping_tracking.push_shipping_dala);
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 8. [push-shipping-dala-shipper]
+router.post('/push-shipping-dala-shipper', middle_ware, controllers_shipping_tracking.push_shipping_dala_shipper);
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 9. [push-shipping-ghtk]
+router.post('/push-shipping-ghtk', middle_ware, controllers_shipping_tracking.push_shipping_ghtk);
 
 
 

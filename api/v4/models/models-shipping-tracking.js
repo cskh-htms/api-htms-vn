@@ -20,6 +20,16 @@
 
 * 9. [shipping_tracking_order_check]
 
+* 10. [push_shipping_dala]
+
+* 11. [push_shipping_ghtk]
+
+* 12. [get_orders_details]
+
+* 13. [get_orders]
+
+* 14. [get_stores]
+
 
 
 */
@@ -525,6 +535,74 @@ const shipping_tracking_order_check = async function (tracking_id) {
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@ 10. [push_shipping_dala]
+const push_shipping_dala = async function (datas) {
+	//return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	var dataGo = {
+		
+			"shipping_tracking_users_id"					: datas.shipping_tracking_users_id,
+			"shipping_tracking_orders_id"					: datas.shipping_tracking_orders_id,			
+			"shipping_tracking_orders_status"				: datas.shipping_tracking_orders_status,			
+
+			"shipping_tracking_infomation"					: mysql.escape(datas.shipping_tracking_infomation).replace(/^'|'$/gi, ""),		
+			"shipping_tracking_qoute"						: mysql.escape(datas.shipping_tracking_qoute).replace(/^'|'$/gi, "")	
+	}
+	
+	//@
+	//@
+	//@
+	var kes = Object.keys(dataGo);
+	for(var x in kes){
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+	}	
+	
+	
+	
+	sql_text = "START TRANSACTION ; "
+	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "shipping_tracking  SET ? ; ";
+	sql_text = sql_text + "UPDATE " + ojs_configs.db_prefix + "orders_speciality  SET  " + 
+				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status + 
+				" WHERE " + ojs_configs.db_prefix + "orders_speciality_ID = " + datas.shipping_tracking_orders_id  + " ;" ;
+	
+	
+	sql_text = sql_text + " COMMIT;"
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->push_shipping_dala", "message" : error } ;
+	}
+};
+
+// 10. [push_shipping_dala]
 
 
 
@@ -532,10 +610,249 @@ const shipping_tracking_order_check = async function (tracking_id) {
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@ 11. [push_shipping_ghtk]
+const push_shipping_ghtk = async function (datas) {
+	return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	var dataGo = {
+		
+			"shipping_tracking_users_id"					: datas.shipping_tracking_users_id,
+			"shipping_tracking_orders_id"					: datas.shipping_tracking_orders_id,			
+			"shipping_tracking_orders_status"				: datas.shipping_tracking_orders_status,			
+
+			"shipping_tracking_infomation"					: mysql.escape(datas.shipping_tracking_infomation).replace(/^'|'$/gi, ""),		
+			"shipping_tracking_qoute"						: mysql.escape(datas.shipping_tracking_qoute).replace(/^'|'$/gi, "")	
+	}
+	
+	//@
+	//@
+	//@
+	var kes = Object.keys(dataGo);
+	for(var x in kes){
+		dataGo = ojs_shares_others.rename_key(dataGo, kes[x], ojs_configs.db_prefix + kes[x] );
+	}	
+	
+	
+	
+	sql_text = "START TRANSACTION ; "
+	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "shipping_tracking  SET ? ; ";
+	sql_text = sql_text + "UPDATE " + ojs_configs.db_prefix + "orders_speciality  SET  " + 
+				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status + 
+				" WHERE " + ojs_configs.db_prefix + "orders_speciality_ID = " + datas.shipping_tracking_orders_id  + " ;" ;
+	
+	
+	sql_text = sql_text + " COMMIT;"
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->push_shipping_dala", "message" : error } ;
+	}
+};
+
+// 11. [push_shipping_ghtk]
 
 
 
 
+
+//@
+//@
+//@
+//@
+//@
+//@ 12. [get_orders_details]
+const get_orders_details = async function (order_id) {
+	//return order_id;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+	sql_text = sql_text + "SELECT " + 
+				ojs_configs.db_prefix + "products_speciality_ID as products_speciality_ID, " + 
+				ojs_configs.db_prefix + "products_speciality_name as products_speciality_name, " + 
+				ojs_configs.db_prefix + "orders_details_speciality_qty as orders_details_speciality_qty, " + 
+				ojs_configs.db_prefix + "products_speciality_weight as products_speciality_weight " + 
+	
+				" FROM " + ojs_configs.db_prefix + "view_orders_customer  WHERE  " + 
+				ojs_configs.db_prefix + "orders_speciality_ID = '" + order_id + "' AND " + 
+				ojs_configs.db_prefix + "orders_details_speciality_line_order = 'product' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_orders_details", "message" : error } ;
+	}
+};
+
+// 12. [get_orders_details]
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 13. [get_orders]
+const get_orders = async function (order_id) {
+	//return order_id;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+	sql_text = sql_text + "SELECT  " + 
+		ojs_configs.db_prefix  + "orders_speciality_ID as orders_speciality_ID, " + 
+		ojs_configs.db_prefix  + "orders_speciality_user_id  as orders_speciality_user_id , " +		
+		ojs_configs.db_prefix  + "orders_speciality_status_orders as orders_speciality_status_orders, " + 
+		ojs_configs.db_prefix  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 	
+		
+		ojs_configs.db_prefix  + "orders_speciality_phone as orders_speciality_phone, " + 
+		ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " + 
+		ojs_configs.db_prefix  + "orders_speciality_notes as orders_speciality_notes, " + 
+		ojs_configs.db_prefix  + "orders_speciality_email as orders_speciality_email, " +	
+		ojs_configs.db_prefix  + "orders_speciality_shipping_code as orders_speciality_shipping_code " + 
+	
+		" FROM " + ojs_configs.db_prefix + "orders_speciality  WHERE  " + 
+		ojs_configs.db_prefix + "orders_speciality_ID = '" + order_id + "' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_orders", "message" : error } ;
+	}
+};
+
+// 13. [get_orders]
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 14. [get_stores]
+const get_stores = async function (datas) {
+	//return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+	sql_text = sql_text + "SELECT  " + 
+		ojs_configs.db_prefix  + "stores_province as stores_province, " + 
+		ojs_configs.db_prefix  + "stores_district  as stores_district , " +		
+		ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
+		ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 			
+		ojs_configs.db_prefix  + "stores_name as stores_name " + 
+		
+		" FROM " + ojs_configs.db_prefix + "products_speciality " + 
+		" LEFT JOIN " + 
+		ojs_configs.db_prefix + "stores  ON  " + 
+		ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+		ojs_configs.db_prefix + "stores_ID " +    
+		
+		" WHERE " + ojs_configs.db_prefix + "products_speciality_ID = '" + datas[0].product_code + "' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_stores", "message" : error } ;
+	}
+};
+
+// 14. [get_stores]
 
 
 
@@ -555,7 +872,12 @@ module.exports = {
 			get_all_shipping_tracking,
 			get_owner_tracking,
 			get_owner_order_tracking,
-			shipping_tracking_order_check
+			shipping_tracking_order_check,
+			push_shipping_dala,
+			push_shipping_ghtk,
+			get_orders_details,
+			get_orders,
+			get_stores
 };
 
 
