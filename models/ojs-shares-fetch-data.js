@@ -22,6 +22,23 @@ const ojs_shares_fetch_data = {
 		});
 		return response.json();
 	},	
+	
+	//
+	//gọi api kèm token (phương thức get dùng cho ghtk)
+	get_data_send_token_get_ghtk : async function (url, token) {
+		//return [url,token];
+		const response = await fetch(encodeURI(url), {
+			method: 'GET', 			
+			headers: {
+			  'Token' : token,
+			  'Content-Type' : 'aplication/json'
+			}
+		});;
+
+		return response.json();		
+		
+		
+	},		
 	//
 	//
 	//

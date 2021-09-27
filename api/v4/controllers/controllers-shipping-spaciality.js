@@ -13,7 +13,7 @@
 
 * 6. [search]
 
-
+* 7. [caution]
 
 */
 
@@ -46,7 +46,7 @@ const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../models/ojs-shares-others');
 const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
-
+const ojs_shares_fetch_data = require('../../../models/ojs-shares-fetch-data');
 
 
 
@@ -591,6 +591,274 @@ async  function search(req, res, next) {
 
 
 
+//@@
+//@@
+//@@
+//@@ 7. [caution] 
+async  function caution(req, res, next) {
+try{	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+		return;			
+	}	
+
+
+	//@
+	//@
+	//@ kiểm tra data gữi lên đúng chuẩn hay chưa
+	//@ nếu không đúng thì return
+	if(!datas.adress || !datas.orders_details || !datas.type){
+		res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->caution", "message" : "đata gữi lên bị thiếu, vui lòng xem hướng dẫn api"}); 
+		return;			
+	}
+
+
+	//@
+	//@
+	//@ kiểm tra type 
+	//@ nếu type = dala thì tính giá theo shipping speciality
+	// @ nếu type = ghtk thì tính giá = giao hàng tiết kiệm
+	if(datas.type == "dala"){
+		//@
+		//@ nếu có phường thì tính giá theo phường
+		if(datas.adress.Wards && datas.adress.Wards.length > 0){
+			try{
+				var price_caution = await models_shipping_spaciality.caution(datas.adress.Wards);
+				//res.send(price_caution); 
+				//return;					
+				
+				if( Array.isArray(price_caution)){
+					
+					if(price_caution.length > 0){
+						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						return;	
+					}else{
+						res.send({ "error" : "3" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
+						return;	
+					}
+				}else{
+					var evn = ojs_configs.evn;
+					evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( evn, price_caution, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+					res.send({ "error" : "4" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+					return;							
+				}
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+				res.send({ "error" : "5" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+				return;					
+			}
+		}
+		
+		//@
+		//@ nếu có quận thì tính giá theo quận
+		if(datas.adress.Districts && datas.adress.Districts.length > 0){
+			try{
+				var price_caution = await models_shipping_spaciality.caution(datas.adress.Districts);
+				//res.send(price_caution); 
+				//return;					
+				
+				if( Array.isArray(price_caution)){
+					
+					if(price_caution.length > 0){
+						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						return;	
+					}else{
+						res.send({ "error" : "6" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
+						return;	
+					}
+				}else{
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( evn, price_caution, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+					res.send({ "error" : "7" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+					return;							
+				}
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+				res.send({ "error" : "8" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+				return;					
+			}			
+		}		
+		
+		
+		//@
+		//@ nếu có tỉnh thì tính giá theo tỉnh
+		if(datas.adress.province && datas.adress.province.length > 0){
+			try{
+				var price_caution = await models_shipping_spaciality.caution(datas.adress.province);
+				//res.send(price_caution); 
+				//return;					
+				
+				if( Array.isArray(price_caution)){
+					
+					if(price_caution.length > 0){
+						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						return;	
+					}else{
+						res.send({ "error" : "9" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
+						return;	
+					}
+				}else{
+					var evn = ojs_configs.evn;
+					evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( evn, price_caution, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+					res.send({ "error" : "10" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+					return;							
+				}
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+				res.send({ "error" : "11" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+				return;					
+			}				
+		}		
+
+		res.send({ "error" : "12" ,"position":"ctl-shipping_spaciality->caution", "message" : "dữ liệu gữi lên không hợp lệ"}); 
+		return;			
+		
+	}else if(datas.type == "ghtk"){
+		//@
+		//@
+		//@ 
+		//@ lấy id sản phẩm lưu vào mảng arr_id
+		//@ lấy giá sản phẩm theo id arr_id (select in (arr_id)) -> price_list
+		//@ loop qua price_list cộng tổng ía sản phẩm đưa vào weight_sum
+		//@ xong xui gữi lên ghtk lấy giá vận chuyển
+		let arr_id = [];
+		let weight_sum = 0;
+		
+		for(let x in datas.orders_details){
+			arr_id.push(datas.orders_details[x].orders_details_speciality_product_id);
+		}
+		//@
+		//@		
+		try{
+			var price_list = await models_shipping_spaciality.caution_get_price_list(arr_id);
+			if( Array.isArray(price_list) ){
+				if(price_list.length > 0){
+					
+					for(let x in price_list){
+						for(let y in datas.orders_details){
+							if(price_list[x].products_speciality_ID == datas.orders_details[y].orders_details_speciality_product_id){
+								weight_sum = weight_sum + ( price_list[x].products_speciality_weight * datas.orders_details[y].orders_details_speciality_qty)
+							}
+						}
+						
+					}
+					
+					//res.send({ "error" : "" , "datas" : weight_sum}); 
+					//return;	
+
+					
+					//@
+					//@	
+					try {	
+						//Lấy danh sách loại danh mục
+						let url = ojs_configs.domain_ghtk + 
+						"pick_province=" + ojs_configs.province + "&" + 
+						"pick_district=" + ojs_configs.Districts + "&" +  
+						"province=" + datas.adress.province + "&" + 
+						"district=" + datas.adress.Districts + "&" + 
+						"weight=" + weight_sum + "&" + 
+						"deliver_option=none";							
+						
+						let token = ojs_configs.token_ghtk;
+						//res.send({ "error" : "" , "datas" : [url,token]}); 
+						//return;							
+						
+						
+						var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,token);
+						if(result.fee.fee){
+							res.send({ "error" : "" , "datas" : result.fee.fee}); 	
+							return;
+						}else{
+							var evn = ojs_configs.evn;
+							//evn = "dev";
+							var error_send = ojs_shares.show_error( evn, "Không tìm thấy giá của khu vực này", "Không tìm thấy giá của khu vực này" );
+							res.send({ "error" : "13" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send }); 
+							return;								
+						}
+
+					}
+					catch(error){
+						var evn = ojs_configs.evn;
+						evn = "dev";
+						var error_send = ojs_shares.show_error( evn, error, "Lỗi lưu data. liên hệ admin" );
+						res.send({ "error" : "14" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy giá ghtk"}); 
+						return;	
+					}	
+
+
+	
+					res.send({ "error" : "" , "datas" : weight_sum}); 
+					return;	
+				}else{
+					res.send({ "error" : "15" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy giá sản phẩm"}); 
+					return;	
+				}				
+			}else{
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get pfice caution list , vui lòng liên hệ admin" );					
+				res.send({ "error" : "16" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+				return;					
+			}
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Không tìm thấy giá của khu vực này , vui lòng liên hệ admin" );					
+			res.send({ "error" : "17" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+			return;			
+		}
+	}else{
+		res.send({ "error" : "18" ,"position":"ctl-shipping_spaciality->caution", "message" : "Chưa có type này, chỉ có dala và ghtk"}); 
+		return;			
+	}
+
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get pfice caution , vui lòng liên hệ admin" );					
+	res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+	return;		
+}
+
+
+
+
+}
+
+//end of 7. [search] 
+
+
+
+
 
 
 
@@ -601,7 +869,8 @@ module.exports = {
 		get_one_shipping_spaciality,
 		update_shipping_spaciality,
 		delete_shipping_spaciality,
-		get_all_shipping_spaciality
+		get_all_shipping_spaciality,
+		caution
 };
 
 

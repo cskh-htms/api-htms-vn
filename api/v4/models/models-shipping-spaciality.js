@@ -14,9 +14,9 @@
 
 * 6. [search]
 
-* 7. [get_owner_tracking]
+* 7. [caution]
 
-
+* 8. [caution_get_price_list]
 
 */
 
@@ -381,6 +381,91 @@ const search = async function (datas) {
 
 
 
+//@
+//@
+//@
+//@
+//@* 7. [caution]
+const caution = async function (datas) {
+	//return datas;
+	try {
+		var table_name  = ojs_configs.db_prefix + "shipping_speciality ";
+		var field_where  = ojs_configs.db_prefix + "shipping_speciality_name ";
+		var field_select  = ojs_configs.db_prefix + "shipping_speciality_price as  shipping_speciality_price ";
+	}
+	catch(error){
+		return  { "error" : "1", "position" : "md-shipping_spaciality->caution", "message" : error } ; 		
+	}
+	//create sql text
+	var sql_text = 'SELECT  ' + field_select + ' FROM ' + table_name + ' where ' + field_where + ' = "'+ datas + '"';
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject({ "error" : "2", "position" : "md-shipping_spaciality->caution", "message" : err });
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "3", "position" : "md-shipping_spaciality->caution", "message" : error } ; 
+	}	
+	
+
+};
+
+//@* end of 6. [search]
+
+
+
+
+//@
+//@
+//@
+//@
+//@* 8. [caution_get_price_list]
+const caution_get_price_list = async function (datas) {
+	//return datas;
+	try {
+		var table_name  	= 	ojs_configs.db_prefix + "views_products ";
+		var field_where 	= 	ojs_configs.db_prefix + "products_speciality_ID ";
+		var field_select  	= 	ojs_configs.db_prefix + "products_speciality_ID as  products_speciality_ID , " + 
+								ojs_configs.db_prefix + "products_speciality_weight as  products_speciality_weight , " + 
+								ojs_configs.db_prefix + "products_speciality_price_caution as  products_speciality_price_caution  " ; 
+	}
+	catch(error){
+		return  { "error" : "1", "position" : "md-shipping_spaciality->caution_get_price_list", "message" : error } ; 		
+	}
+	
+	
+	//return datas;
+	//create sql text
+	var sql_text = 'SELECT DISTINCT ' + field_select + ' FROM ' + table_name + ' where ' + field_where + ' IN('+ datas + ')';
+	
+	
+	//return sql_text;
+	
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject({ "error" : "2", "position" : "md-shipping_spaciality->caution_get_price_list", "message" : err });
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "3", "position" : "md-shipping_spaciality->caution_get_price_list", "message" : error } ; 
+	}	
+	
+
+};
+
+//@* end of 8. [caution_get_price_list]
+
+
+
+
 
 
 
@@ -395,7 +480,9 @@ module.exports = {
 			get_one_shipping_spaciality,
 			update_shipping_spaciality,
 			delete_shipping_spaciality,
-			get_all_shipping_spaciality
+			get_all_shipping_spaciality,
+			caution,
+			caution_get_price_list
 };
 
 

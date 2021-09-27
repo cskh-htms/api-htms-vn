@@ -44,8 +44,12 @@ const ojs_config_app = {
 	//domain : "https://appdala.com",
 
 	
-	
-	
+	//@
+	//@ cấu hình giao hàng tiết kiệm
+	domain_ghtk : "https://services.giaohangtietkiem.vn/services/shipment/fee?",
+	token_ghtk 	: "b483402A0E97BF9906883F8DE5133D07DB4279Dc",	
+	province 	: "Tỉnh Lâm Đồng",
+	Districts 	: "Thành phố Đà Lạt",	
 	
 	//@
 	//@

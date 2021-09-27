@@ -858,157 +858,14 @@ const search_all = async function (datas) {
 	//@
 	//@
 	//@ select field
-	
-	//return datas;
-	
-	var sql_field;
-	try {
-		if(datas.select_field){
-			sql_field = default_field.get_select_fields(datas.select_field, sql_select_all)
-		}else{
-			sql_field = "";
-		}			
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search,sql_link_search_all);
+					
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
-		return;	
-	}		
-			
-			
-	//return 	sql_field;
-			
-			
-			
-	//@
-	//@
-	//@
-	//@ get_order_text	
-	var sql_order;
-	try {
-		if(datas.order){
-			sql_order = default_field.get_order_text(datas.order)
-		}else{
-			sql_order = "";
-		}			
+		return  { "error" : "1","position":"md-products-spaciality", "message" : error } ;
 	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 2", "message": error_send } ); 
-		return;	
-	}		
-		
-	//return sql_order;
-	
-	//@
-	//@
-	//@
-	//@ get_condition	
-	
-	//return datas.condition;
-	var sql_condition;
-	try {
-		if(datas.condition){
-			sql_condition = default_field.get_condition(datas.condition)
-		}else{
-			sql_condition = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 3", "message": error_send } ); 
-		return;	
-	}		
-		
-			
-	//return sql_condition;		
-	
-	//@
-	//@
-	//@
-	//@ get_having	
-	var sql_having;
-	try {
-		if(datas.having){
-			sql_having = default_field.get_having(datas.having)
-		}else{
-			sql_having = "";
-		}			
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 4", "message": error_send } ); 
-		return;	
-	}		
-				
-		
-		
-	
-		
-	//@
-	//@
-	//@
-	//@ghep data	
-	let get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-	//return get_sql_search;
-	
-	
-	//@
-	//@
-	//@	
-	//@
-	let get_sql_search_1 = {...get_sql_search};
-	Object.assign(get_sql_search_1, { 'sql_select_fields' : sql_field });
-	//@
-	
-
-	
-	
-	//@
-	//@
-	//@	
-	//@
-	let get_sql_search_2 = {...get_sql_search_1};
-	Object.assign(get_sql_search_2, { 'sql_order' : sql_order } );	
-
-	//return get_sql_search_2;	
-
-
-	//@
-	//@
-	//@	
-	//@
-	let get_sql_search_3 = {...get_sql_search_2};
-	Object.assign(get_sql_search_3, { 'sql_conditions' : sql_condition });		
-	//@
-	
-
-	
-	//@
-	//@
-	//@	
-	//@
-	let get_sql_search_4 = {...get_sql_search_3};
-	Object.assign(get_sql_search_4, { 'sql_having' : sql_having });		
-				
-		
-	//return get_sql_search;	
-		
-	//@
-	//@
-	//@	
-	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_4,sql_from_search,sql_link_search_all);	
-
-	//return get_sql_search_group;
 
 
 	//@
@@ -1021,7 +878,7 @@ const search_all = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model product speciality, -> search -> products speciality->error : 5", "message" : error } ;
+		return  { "error" : "2", "position":"md-products-spaciality", "message" : error } ;
 	}
 };
 	

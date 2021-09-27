@@ -12,6 +12,142 @@ SELECT
 
 dala_products_speciality.*,
 
+
+
+(CASE 
+		WHEN    
+			dala_products_speciality_sale_of_price IS NULL   
+		THEN   
+			dala_products_speciality_price  
+		WHEN  
+			dala_products_speciality_date_start IS NULL and 
+			dala_products_speciality_date_end IS NULL  
+		THEN  
+			dala_products_speciality_sale_of_price 			
+		WHEN   
+			dala_products_speciality_date_start IS NOT NULL and 
+			dala_products_speciality_date_end IS NULL and  
+			UNIX_TIMESTAMP(NOW()) - 
+			UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0 
+		THEN  
+			dala_products_speciality_sale_of_price 		
+			
+			
+			
+		WHEN  
+			dala_products_speciality_date_start IS NULL and  
+			dala_products_speciality_date_end IS NOT NULL and 
+			UNIX_TIMESTAMP(NOW()) - 
+			UNIX_TIMESTAMP(dala_products_speciality_date_end ) < 0 
+		THEN  
+			dala_products_speciality_sale_of_price 																
+		WHEN   
+			dala_products_speciality_date_start IS NOT NULL and 
+			dala_products_speciality_date_end IS NOT NULL and 
+			UNIX_TIMESTAMP(NOW()) - 
+			UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0  and 
+			UNIX_TIMESTAMP(NOW()) - 
+			UNIX_TIMESTAMP(dala_products_speciality_date_end ) < 0 								
+		THEN  
+			dala_products_speciality_sale_of_price 		
+		ELSE  
+			dala_products_speciality_price 
+	END )  as dala_products_speciality_price_caution,
+
+
+
+
+
+(CASE 
+	WHEN 
+		dala_products_speciality_sale_of_price IS NULL 
+	THEN 
+		'0'
+		
+	-- date_star = null 	
+	-- date_end = null 
+	WHEN  
+		dala_products_speciality_date_start IS NULL and 
+		dala_products_speciality_date_end IS NULL 
+	THEN 
+		'1'	
+		
+	-- date_star = yes 	
+	-- date_end = null 
+	-- date_now - date_star > 0 (da toi han khuyen mai)
+	WHEN  
+		dala_products_speciality_date_start IS NOT NULL and 
+		dala_products_speciality_date_end IS NULL and 
+		UNIX_TIMESTAMP(NOW()) - 
+		UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0 
+	THEN 
+		'1' 	
+
+	--  date_star = yes 	
+	--  date_end = null 
+	--  date_now - date_star > 0 (da toi han khuyen mai)
+	WHEN    
+		dala_products_speciality_date_start IS NOT NULL and   
+		dala_products_speciality_date_end IS NULL and   
+		UNIX_TIMESTAMP(NOW()) -   
+		UNIX_TIMESTAMP(dala_products_speciality_date_start ) < 0   
+	THEN   
+		 '2'    
+
+		
+	--  date_star = null 	
+	--  date_end = yes 
+	--  date_now - date_end  < 0 (da toi han khuyen mai chưa het han khuyen mai)
+	WHEN    
+		dala_products_speciality_date_start IS NULL and   
+		dala_products_speciality_date_end IS NOT NULL and   
+		UNIX_TIMESTAMP(NOW()) -   
+		UNIX_TIMESTAMP(dala_products_speciality_date_end ) > 0   
+	THEN   
+		 '3'   																	
+		
+		
+	--  date_star = yes 	
+	--  date_end = yes 
+	--  date_now - date_star > 0 (da toi han khuyen mai)
+	--  date_now - date_star > 0 (da toi han khuyen mai)
+	WHEN    
+		dala_products_speciality_date_start IS NOT NULL and   
+		dala_products_speciality_date_end IS NOT NULL and   
+		UNIX_TIMESTAMP(NOW()) -   
+		UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0  and   
+		UNIX_TIMESTAMP(NOW()) -   
+		UNIX_TIMESTAMP(dala_products_speciality_date_end ) > 0    								
+	THEN   
+		 '3'   		
+
+	--  date_star = yes 	
+	--  date_end = yes 
+	--  date_now - date_star < 0 (da toi han khuyen mai)
+	--  date_now - date_star > 0 (da toi han khuyen mai)
+	WHEN    
+		dala_products_speciality_date_start IS NOT NULL and   
+		dala_products_speciality_date_end IS NOT NULL and   
+		UNIX_TIMESTAMP(NOW()) -   
+		UNIX_TIMESTAMP(dala_products_speciality_date_start ) < 0    								
+	THEN   
+		 '2'   	
+	ELSE    
+		 '4'   
+END )  as dala_products_speciality_sale_of_price_time_check, 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
 dala_users_ID,
 dala_users_full_name,
 
