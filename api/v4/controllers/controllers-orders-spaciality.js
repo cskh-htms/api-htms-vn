@@ -79,6 +79,7 @@ const models_orders_spaciality = require('../models/models-orders-spaciality');
 //@
 //@* 1. [insert_ordres_spaciality]
 async  function insert_orders_spaciality(req, res, next) {
+try{
 	//@
 	//@
 	//@
@@ -103,7 +104,7 @@ async  function insert_orders_spaciality(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers_orders_speciality->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->insert","message": error_send } );  
 		return;	
 	}	
 
@@ -132,7 +133,7 @@ async  function insert_orders_spaciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers_orders_speciality->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
 		return;			
 	}
 	
@@ -155,7 +156,7 @@ async  function insert_orders_spaciality(req, res, next) {
 			"Không đủ quyền truy cập dữ liệu, vui lòng đăng nhập user khác", 
 			"Không đủ quyền truy cập dữ liệu, vui lòng đăng nhập user khác" 
 		);
-		res.send({ "error" : "controllers_orders_speciality->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
 		return;			
 	}		
 	
@@ -179,7 +180,7 @@ async  function insert_orders_spaciality(req, res, next) {
 		let data_check = await default_field.check_datas(datas_assign);
 		
 		if(data_check != 0){
-			res.send({"error" : "controllers_orders_speciality->insert-> check-data ->number_error : 1", "message" : data_check } );
+			res.send({ "error" : "4", "position":"ctl-orders-spaciality->insert","message": data_check } ); 
 			return;
 		}
 	}
@@ -187,7 +188,8 @@ async  function insert_orders_spaciality(req, res, next) {
 		env = ojs_configs.api_evn;
 		//env = "dev";
 		var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi truy xuất database" );
-		res.send( { "error": "controllers_orders_speciality->insert-> check-data ->number_error : 2", "message" : error_send  } );	
+		res.send({ "error" : "5", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
+		return		
 	}	
 		
 	
@@ -208,7 +210,7 @@ async  function insert_orders_spaciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "controllers-orders-spaciality->run model->insert-> error_number : 1  ", "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
 			return;	
 		});
 	}
@@ -216,8 +218,18 @@ async  function insert_orders_spaciality(req, res, next) {
 		env = ojs_configs.api_evn;
 		//env = "dev";
 		var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi truy xuất database" );
-		res.send( { "error": "controllers_orders_speciality->insert-> run ->number_error : 2", "message" : error_send  } );	
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
+		return		
 	}	
+	
+}//error all
+catch (error){
+	env = ojs_configs.api_evn;
+	//env = "dev";
+	var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi code, vui lòng liên hệ dala admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->insert","message": error_send } ); 
+	return		
+}
 }
 //@
 //@* end of 1. [insert_ordres_spaciality]

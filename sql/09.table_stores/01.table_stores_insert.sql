@@ -31,9 +31,43 @@ BEGIN
 --
 -- check store name
 IF(NEW.dala_stores_name is null or NEW.dala_stores_name = '') THEN 
-	SIGNAL SQLSTATE '12345' 
+	SIGNAL SQLSTATE '12301' 
 	SET MESSAGE_TEXT = 'trig_stores_name_empty';   
 END IF;
+
+
+
+
+-- 
+-- 
+-- check phone type and empty
+IF(NEW.dala_stores_phone is null or NEW.dala_stores_phone = '') THEN 
+	SIGNAL SQLSTATE '12302' 
+	SET MESSAGE_TEXT = 'trig_stores_phone_empty';   
+ELSE 
+	IF (NEW.dala_stores_phone REGEXP '^[0-9]{10,11}$' ) = 0 THEN 
+		SIGNAL SQLSTATE '12303' 
+		SET MESSAGE_TEXT = 'trig_stores_phone_data_type';   
+	END IF;   
+END IF;
+
+
+
+-- 
+-- 
+-- check dia chỉ  empty
+IF( 
+	(NEW.dala_stores_province is null or  NEW.dala_stores_province = '' ) or 
+	(NEW.dala_stores_district is null or  NEW.dala_stores_district = '' ) or 
+	(NEW.dala_stores_wards  is null or  NEW.dala_stores_wards = '' ) or 
+	(NEW.dala_stores_adress is null or  NEW.dala_stores_adress = '' ) 
+) THEN 	
+	SIGNAL SQLSTATE '12303' 
+	SET MESSAGE_TEXT = 'trig_stores_insert_adress_empty';   
+END IF;
+
+
+
 
 
 -- 
@@ -44,6 +78,10 @@ IF (@checkID > 0) THEN
 	SIGNAL SQLSTATE '12345' 
 	SET MESSAGE_TEXT = 'trig_check_store_double'; 
 END IF;	
+
+
+
+
 
 
 -- 

@@ -68,6 +68,14 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "stores_district as stores_district, " + 
 	ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
 	
+	
+	
+	ojs_configs.db_prefix  + "stores_phone as stores_phone, " + 
+	ojs_configs.db_prefix  + "stores_logo_image as stores_logo_image, " + 
+	ojs_configs.db_prefix  + "stores_banner_image as stores_banner_image, " + 	
+	ojs_configs.db_prefix  + "stores_information as stores_information, " +
+
+	
 	ojs_configs.db_prefix  + "stores_status_admin as stores_status_admin, " + 	
 	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
 	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
@@ -157,6 +165,13 @@ var insert_stores = async function (datas) {
 			"stores_province"					: mysql.escape(datas.stores_province).replace(/^'|'$/gi, ""),
 			"stores_district"					: mysql.escape(datas.stores_district).replace(/^'|'$/gi, ""),
 			"stores_wards"						: mysql.escape(datas.stores_wards).replace(/^'|'$/gi, ""),
+			
+			
+			"stores_phone"						: mysql.escape(datas.stores_phone).replace(/^'|'$/gi, ""),
+			"stores_logo_image"					: mysql.escape(datas.stores_logo_image).replace(/^'|'$/gi, ""),
+			"stores_banner_image"				: mysql.escape(datas.stores_banner_image).replace(/^'|'$/gi, ""),
+			"stores_information"				: mysql.escape(datas.stores_information).replace(/^'|'$/gi, ""),			
+			
 
 			"stores_status_admin"				: datas.stores_status_admin,	
 			"stores_status_stores"				: datas.stores_status_stores,	

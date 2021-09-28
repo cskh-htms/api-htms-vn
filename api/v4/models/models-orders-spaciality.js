@@ -78,6 +78,14 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " + 
 	ojs_configs.db_prefix  + "orders_speciality_notes as orders_speciality_notes, " + 
 	ojs_configs.db_prefix  + "orders_speciality_email as orders_speciality_email, " +	
+	
+	
+	ojs_configs.db_prefix  + "orders_speciality_province as orders_speciality_province, " + 
+	ojs_configs.db_prefix  + "orders_speciality_district as orders_speciality_district, " + 
+	ojs_configs.db_prefix  + "orders_speciality_wards as orders_speciality_wards, " + 
+	ojs_configs.db_prefix  + "orders_speciality_name as orders_speciality_name, " +		
+	
+	
 	ojs_configs.db_prefix  + "orders_speciality_shipping_code as orders_speciality_shipping_code ";
 	
 	
@@ -140,10 +148,19 @@ const insert_orders_spaciality = async function (datas,data_details) {
 	var sql_text = "";
 	var dataGo = {
 			"orders_speciality_user_id"					: datas.orders_speciality_user_id,
+			
 			"orders_speciality_adress"					: mysql.escape(datas.orders_speciality_adress).replace(/^'|'$/gi, ""),		
 			"orders_speciality_phone"					: mysql.escape(datas.orders_speciality_phone).replace(/^'|'$/gi, ""),	
 			"orders_speciality_email"					: mysql.escape(datas.orders_speciality_email).replace(/^'|'$/gi, ""),
 			"orders_speciality_notes"					: mysql.escape(datas.orders_speciality_notes).replace(/^'|'$/gi, ""),
+			
+			
+			"orders_speciality_province"				: mysql.escape(datas.orders_speciality_province).replace(/^'|'$/gi, ""),		
+			"orders_speciality_district"				: mysql.escape(datas.orders_speciality_district).replace(/^'|'$/gi, ""),	
+			"orders_speciality_wards"					: mysql.escape(datas.orders_speciality_wards).replace(/^'|'$/gi, ""),
+			"orders_speciality_name"					: mysql.escape(datas.orders_speciality_name).replace(/^'|'$/gi, ""),			
+			
+			
 			"orders_speciality_status_orders"			: datas.orders_speciality_status_orders,
 			"orders_speciality_status_payment"			: datas.orders_speciality_status_payment,
 			"orders_speciality_shipping_code"			: mysql.escape(datas.orders_speciality_shipping_code).replace(/^'|'$/gi, "")			

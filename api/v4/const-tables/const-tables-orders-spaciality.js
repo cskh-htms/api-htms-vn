@@ -19,6 +19,14 @@
 		"orders_speciality_notes"				: "",
 		"orders_speciality_phone"				: "",
 		"orders_speciality_email"				: "",
+		
+		
+		"orders_speciality_province"			: "",
+		"orders_speciality_district"			: "",
+		"orders_speciality_wards"				: "",
+		"orders_speciality_name"				: "",
+
+		
 		"orders_speciality_shipping_code"		:""
 	}
 	
@@ -71,6 +79,20 @@
 			
 		}else if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0){
 			return " Không tìm thấy đơn hàng ";	
+			
+		}else if(error.sqlMessage.search("trig_dala_orders_speciality_adress_empty") >= 0){
+			return " Vui lòng điền đầy đủ thông tin địa chỉ nhận hàng ";				
+			
+		}else if(error.sqlMessage.search("trig_dala_orders_speciality_name_empty") >= 0){
+			return " Vui lòng điền đầy đủ tên gười nhận  ";				
+			
+			
+			
+			
+			
+			
+			
+			
 			
 		}else{
 			return "Lỗi nhập liệu vui lòng liên hệ bộ phận cskh," + 

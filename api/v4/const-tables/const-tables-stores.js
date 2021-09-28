@@ -15,6 +15,13 @@
 		"stores_province"			: "",
 		"stores_district"			: "",
 		"stores_wards"				: "",
+		
+		"stores_phone"				: "",
+		"stores_logo_image"			: "",
+		"stores_banner_image"		: "",
+		"stores_information"		: "",
+		
+		
 
 		"stores_status_admin" 		: 0	,
 		"stores_status_stores" 		: 0	,
@@ -70,6 +77,16 @@
 			return "  Cửa hàng đã có liên kết, không thể xoá  ";
 
 
+		}else if(error.sqlMessage.search("trig_stores_phone_empty") >= 0){
+			return "  Vui lòng nhập số điện thoại ";
+	
+		}else if(error.sqlMessage.search("trig_stores_phone_data_type") >= 0){
+			return "  số điện thoại không hợp lệ ";
+
+		}else if(error.sqlMessage.search("trig_stores_insert_adress_empty") >= 0){
+			return "  vui lòng nhập đầu đủ địa chỉ ";
+
+			
 	
 		}else{
 			return "Lỗi liên quan đến datas cửa hàng, vui lòng liên hệ admin dala";
