@@ -48,24 +48,24 @@ const jwt = require('jsonwebtoken');
 //@@
 //@@ 5. [caution_price]
 const caution_price = async function(datas){
-	return datas;
+	//return datas;
 	
 	
 	var date_return = 0;
 	if(datas.formula == 0){
 		
-		date_return =  0;
-		//date_return = await price_percen(datas.datas, datas.value);
+		//date_return =  0;
+		date_return = await price_percen(datas.datas, datas.value);
 		
 	}else if(datas.formula == 1){
 		
-		date_return =  1;
-		//date_return = await price_fixed(datas.datas, datas.value);
+		//date_return =  1;
+		date_return = await price_fixed(datas.datas, datas.value);
 
 	}else if(datas.formula == 2){
 		
-		date_return =  2;
-		//date_return = await free_shipping(datas.datas, datas.value);
+		//date_return =  2;
+		date_return = await free_shipping(datas.datas, datas.value);
 		
 	}else{
 		date_return = 555;

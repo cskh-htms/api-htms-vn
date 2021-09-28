@@ -15,7 +15,6 @@
 
 * 7. [search_all]
 
-
  9. [checked_coupon]
 
 */
@@ -79,6 +78,7 @@ const ojs_share_coupon = require('../function-shares/ojs-shares-coupon');
 //@@
 //@* 9. [checked_coupon]
 async  function checked_coupon(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
@@ -88,7 +88,7 @@ async  function checked_coupon(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->checked_coupon->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } );
 		return;	
 	}	
 	
@@ -107,7 +107,7 @@ async  function checked_coupon(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->checked_coupon--> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } );
 		return;			
 	}
 	
@@ -125,11 +125,15 @@ async  function checked_coupon(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->checked_coupon-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } );
 		return;			
 	}			
 	
 	
+	
+	//@
+	//@ 
+	//@ nếu có data
 	if(datas.length > 0){
 		//res.send("ok");
 		//return;
@@ -138,7 +142,9 @@ async  function checked_coupon(req, res, next) {
 		//res.send([product_id]);
 		//return;		
 		
-		
+		//@
+		//@
+		//@ lấy id cửa ah2ng của đơn hàng
 		try{
 			var get_store_id = await models_coupon_speciality.get_store_id(product_id);
 			if(get_store_id.length > 0){
@@ -150,7 +156,7 @@ async  function checked_coupon(req, res, next) {
 				var evn = ojs_configs.evn;
 				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, "Không tìm thấy cửa hàng", "Không tìm thấy cửa hàng" );
-				res.send({ "error" : "controllers-store->checked_coupon-> tìm cửa ah2ng->number_error : 2 ", "message": error_send } ); 
+				res.send({ "error" : "4", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } ); 
 				return;	
 			}
 		}
@@ -158,7 +164,7 @@ async  function checked_coupon(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lổi tìm cửa hàng" );
-			res.send({ "error" : "controllers-store->checked_coupon-> tìm cửa hàng->number_error : 2 ", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } );
 			return;				
 		}
 		
@@ -173,14 +179,14 @@ async  function checked_coupon(req, res, next) {
 			if(get_all_coupon.length > 0){
 				
 				var coupon_list = get_all_coupon;
-				//res.send(get_all_coupon);
+				//res.send(coupon_list);
 				//return;				
 				
 			}else{
 				var evn = ojs_configs.evn;
 				//evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, "Không có coupon", "Không có coupon" );
-				res.send({ "error" : "controllers-store->checked_coupon-> tìm cửa hàng->number_error : 3 ", "message": error_send } ); 
+				res.send({ "error" : "6", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } );
 				return;	
 			}
 		}
@@ -188,7 +194,7 @@ async  function checked_coupon(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Không có coupon" );
-			res.send({ "error" : "controllers-store->checked_coupon-> tìm cửa hàng->number_error : 4 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } ); 
 			return;				
 		}		
 		
@@ -219,23 +225,29 @@ async  function checked_coupon(req, res, next) {
 			if(check_condition > 0){
 				var caution_price = await ojs_share_coupon.caution_price(datas_check);
 				
+				let line_data = {
+					"coupon_speciality_ID": coupon_list[x].coupon_speciality_ID,
+					"coupon_speciality_code": coupon_list[x].coupon_speciality_code,
+					"coupon_price_caution": caution_price
+				}
+				coupon_ok.push(line_data);
 			}
-			
-			coupon_ok.push(caution_price);
 		}
 		
 		res.send(coupon_ok);
 		return;			
-		
-		
-		
-
 	}else{
-		res.send("Không có data");
+		res.send({ "error" : "8", "position":"ctl-coupon-speciality->check_coupon", "message": "không có coupon" } );
 		return;		
 	}
-	
-
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi code, vui lòng liên hệ admin " );
+	res.send({ "error" : "113", "position":"ctl-coupon-speciality->check_coupon", "message": error_send } ); 
+	return;				
+}	
 	
 	
 }
@@ -252,6 +264,7 @@ async  function checked_coupon(req, res, next) {
 //@
 //@ 1. [insert_coupon_speciality]
 async function insert_coupon_speciality(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -265,7 +278,11 @@ async function insert_coupon_speciality(req, res, next) {
 		//@
 		//* nếu chưa có mã cữa hàng thì out
 		if(!datas.coupon_speciality_stores_id_created){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id cửa hàng ( coupon_speciality_stores_id_created ) " });
+			res.send({ 
+			"error" : "1", 
+			"position":"ctl-coupon-speciality->insert", 
+			"message": " Chưa nhập id cửa hàng ( coupon_speciality_stores_id_created ) "
+			});
 			return;
 		}
 		//res.send([datas,token]);
@@ -274,7 +291,7 @@ async function insert_coupon_speciality(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-coupon_speciality->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->insert", "message": error_send } ); 
 		return;	
 	}	
 
@@ -294,7 +311,7 @@ async function insert_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-coupon_speciality->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->insert", "message": error_send } ); 
 		return;			
 	}
 	
@@ -311,7 +328,7 @@ async function insert_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-coupon_speciality->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-coupon-speciality->insert", "message": error_send } );  
 		return;			
 	}		
 	
@@ -330,7 +347,7 @@ async function insert_coupon_speciality(req, res, next) {
 		let data_check = default_field.check_datas(datas_assign);
 		
 		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
+			res.send({"error" : "5", "position":"ctl-coupon-speciality->insert", "message" : data_check } );
 			return;
 		}
 	}
@@ -338,7 +355,7 @@ async function insert_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-coupon_speciality->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-coupon-speciality->insert", "message": error_send } ); 
 		return;	
 	}			
 	
@@ -359,7 +376,7 @@ async function insert_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-coupon_speciality->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->insert", "message": error_send } ); 
 			return;
 		});
 	}
@@ -367,9 +384,18 @@ async function insert_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert coupon_speciality , Liên hệ admin" );
-		res.send({ "error" : "controllers-coupon_speciality->insert->model-run->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "8", "position":"ctl-coupon-speciality->insert", "message": error_send } );  
 		return;
-	}		
+	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert coupon_speciality , Liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-coupon-speciality->insert", "message": error_send } );  
+	return;
+}	
+	
 }
 
 
@@ -387,6 +413,7 @@ async function insert_coupon_speciality(req, res, next) {
 //@@
 //@* 2. [get_all_coupon_speciality_store]
 async  function get_all_coupon_speciality(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
@@ -394,7 +421,7 @@ async  function get_all_coupon_speciality(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->get all", "message": error_send } ); 
 		return;	
 	}	
 	
@@ -413,7 +440,7 @@ async  function get_all_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->get all", "message": error_send } ); 
 		return;			
 	}
 	
@@ -431,7 +458,7 @@ async  function get_all_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->get all", "message": error_send } ); 
 		return;			
 	}			
 	
@@ -448,15 +475,27 @@ async  function get_all_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list coupon_speciality" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->get all", "message": error_send } );
+			return;			
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list coupon_speciality" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-coupon-speciality->get all", "message": error_send } ); 
+		return;
 	}	
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list coupon_speciality" );
+	res.send({ "error" : "113", "position":"ctl-coupon-speciality->get all", "message": error_send } ); 
+	return;
+}	
+	
 }
 
 //@ end of * 2. [get_all_coupon_speciality_store]
@@ -473,6 +512,7 @@ async  function get_all_coupon_speciality(req, res, next) {
 //@@
 //@@ * 3. [get_one_coupon_speciality]
 async  function get_one_coupon_speciality(req, res, next) {
+try {
 	//@
 	//@	get datas req
 	try {
@@ -483,7 +523,7 @@ async  function get_one_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->get one", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -508,7 +548,7 @@ async  function get_one_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->get one", "message": error_send } ); 
 		return;			
 	}
 	
@@ -524,7 +564,7 @@ async  function get_one_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-coupon_speciality->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->get one", "message": error_send } );
 		return;			
 	}	
 	
@@ -542,7 +582,7 @@ async  function get_one_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-coupon_speciality->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->get one", "message": error_send } );
 			return;	
 
 		});
@@ -551,9 +591,18 @@ async  function get_one_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-coupon_speciality->get_one->model-run -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->get one", "message": error_send } );
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->get one", "message": error_send } );
+		return;	
+}		
+	
 }
 
 //@ end of * 3. [get_one_coupon_speciality]
@@ -570,6 +619,7 @@ async  function get_one_coupon_speciality(req, res, next) {
 //@@
 //@@ * 4. [update_coupon_speciality]
 async  function update_coupon_speciality(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -581,7 +631,7 @@ async  function update_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->update", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -600,7 +650,7 @@ async  function update_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->update", "message": error_send } );
 		return;			
 	}
 	
@@ -613,7 +663,7 @@ async  function update_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-coupon_speciality->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->update", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -632,8 +682,11 @@ async  function update_coupon_speciality(req, res, next) {
 		if(coupon_speciality_check.error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, coupon_speciality_check.error, "lỗi truy xuất database coupon_speciality, liên hệ admin dala" );
-			res.send( { "error": "controllers-coupon_speciality->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			coupon_speciality_check.error, 
+			"lỗi truy xuất database coupon_speciality, liên hệ admin dala" );
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->update", "message": error_send } );
 			return;			
 		}
 		//@
@@ -643,7 +696,7 @@ async  function update_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
 			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-coupon_speciality>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->update", "message": error_send } );	
 			return;			
 		}		
 	
@@ -652,7 +705,7 @@ async  function update_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database coupon_speciality" );
-		res.send( { "error": "controllers-coupon_speciality->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-coupon-speciality->update", "message": error_send } );
 		return;
 	}			
 	
@@ -663,7 +716,10 @@ async  function update_coupon_speciality(req, res, next) {
 	try{
 		
 		if(check_datas_result.user_role != "admin" && coupon_speciality_check[0].coupon_speciality_status_admin == "1"){
-			res.send({ "error" : "controllers-coupon_speciality->update->loc datas -> error_number : 1", "message": "coupon đã chạy không update" } ); 
+			var evn = ojs_configs.evn;
+			//evn = "dev";		
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "coupon đã chạy không update" );
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->update", "message": error_send } );
 			return;			
 		}
 		
@@ -684,7 +740,7 @@ async  function update_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi xoá status, liên hệ admin","Lỗi xoá status, liên hệ admin" );
-		res.send({ "error" : "controllers-coupon_speciality->update->loc datas -> error_number : 4", "message": error_send } ); 
+		res.send({ "error" : "8", "position":"ctl-coupon-speciality->update", "message": error_send } );
 		return;
 	}
 
@@ -702,7 +758,7 @@ async  function update_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_coupon->models_coupon_speciality.update_coupon_speciality->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-coupon-speciality->update", "message": error_send } );
 			return;
 		});
 	}
@@ -710,9 +766,18 @@ async  function update_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_coupon_speciality.update_coupon_speciality->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "10", "position":"ctl-coupon-speciality->update", "message": error_send } );
 			return;
-	}	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi code, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->update", "message": error_send } );
+		return;
+}
+	
 }
 
 //@@ * end of  4. [update_coupon_speciality]
@@ -725,6 +790,7 @@ async  function update_coupon_speciality(req, res, next) {
 //@@
 //@* 5. [delete_coupon_speciality]
 async  function delete_coupon_speciality(req, res, next) {
+try {	
 	//@
 	//@
 	//@	get datas req
@@ -736,7 +802,7 @@ async  function delete_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->delete->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->delete", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -755,7 +821,7 @@ async  function delete_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->delete", "message": error_send } ); 
 		return;			
 	}
 
@@ -768,7 +834,7 @@ async  function delete_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-coupon_speciality->delete->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->delete", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -787,8 +853,12 @@ async  function delete_coupon_speciality(req, res, next) {
 		if(coupon_speciality_check.error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
-			var error_send = ojs_shares_show_errors.show_error( evn, coupon_speciality_check.error, "lỗi truy xuất database coupon_speciality, liên hệ admin dala" );
-			res.send( { "error": "controllers-coupon_speciality->delete->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			coupon_speciality_check.error, 
+			"lỗi truy xuất database coupon_speciality, liên hệ admin dala" );
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->delete", "message": error_send } );	
+			return;			
 		}
 		//@
 		//@
@@ -797,7 +867,7 @@ async  function delete_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
 			var error_send = ojs_shares_show_errors.show_error( evn, "Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-coupon_speciality>delete->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->delete", "message": error_send } );	
 			return;			
 		}		
 	
@@ -806,7 +876,7 @@ async  function delete_coupon_speciality(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database coupon_speciality" );
-		res.send( { "error": "controllers-coupon_speciality->delete->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-coupon-speciality->delete", "message": error_send } );
 		return;
 	}			
 	
@@ -821,7 +891,7 @@ async  function delete_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";		
 			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
-			res.send( { "error": "controllers-coupon_speciality->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->delete", "message": error_send } );
 			return;
 		}
 	}		
@@ -842,7 +912,7 @@ async  function delete_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-coupon_speciality->delete ", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-coupon-speciality->delete", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -850,9 +920,19 @@ async  function delete_coupon_speciality(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->coupon_speciality/delete ", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-coupon-speciality->delete", "message": error_send } );
 			return;	
 	}	
+	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->delete", "message": error_send } );
+		return;	
+}		
+	
 }
 //@* end of  5. [delete_coupon_speciality]
 
@@ -866,7 +946,7 @@ async  function delete_coupon_speciality(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -883,7 +963,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_coupon_speciality>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->search", "message": error_send } );
 		return;			
 	}	
 
@@ -920,7 +1000,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controller_coupon_speciality>search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->search", "message": error_send } );
 		return;			
 	}		
 	
@@ -943,7 +1023,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->search->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->search", "message": error_send } );
 		return;			
 	}
 
@@ -961,8 +1041,12 @@ async  function search(req, res, next) {
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-			res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all", 
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all" 
+			);
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->search", "message": error_send } );
 			return;	
 		}		
 	}else if (check_condition_id == 1){
@@ -976,8 +1060,11 @@ async  function search(req, res, next) {
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-coupon_speciality->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->search", "message": error_send } ); 
 			return;			
 		}			
 	}	
@@ -996,7 +1083,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_coupon->search -> 1", "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-coupon-speciality->search", "message": error_send } );
 			return;	
 		});
 	}
@@ -1004,9 +1091,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_coupon->search-> 2", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->search", "message": error_send } );
 			return;	
 	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->search", "message": error_send } );
+		return;	
+}	
 
 }
 
@@ -1020,7 +1115,7 @@ async  function search(req, res, next) {
 //@@
 //6. [search] 
 async  function search_all(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -1037,7 +1132,7 @@ async  function search_all(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_coupon_speciality>search_all>get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->search_all", "message": error_send } ); 
 		return;			
 	}	
 
@@ -1074,7 +1169,7 @@ async  function search_all(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controller_coupon_speciality>search_all>check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-coupon-speciality->search_all", "message": error_send } );  
 		return;			
 	}		
 	
@@ -1097,7 +1192,7 @@ async  function search_all(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-coupon_speciality->search_all>check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-coupon-speciality->search_all", "message": error_send } ); 
 		return;			
 	}
 
@@ -1115,8 +1210,11 @@ async  function search_all(req, res, next) {
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-			res.send({ "error" : "controllers-store->search_all->check_condition_id -> error_number : 1", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all",
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all"
+			);
+			res.send({ "error" : "4", "position":"ctl-coupon-speciality->search_all", "message": error_send } ); 
 			return;	
 		}		
 	}else if (check_condition_id == 1){
@@ -1130,8 +1228,10 @@ async  function search_all(req, res, next) {
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-coupon_speciality->search_all->check_condition_id -> error_number : 2", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error(
+			evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "5", "position":"ctl-coupon-speciality->search_all", "message": error_send } );  
 			return;			
 		}			
 	}	
@@ -1150,7 +1250,7 @@ async  function search_all(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_coupon->search_all -> 1", "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-coupon-speciality->search_all", "message": error_send } );  
 			return;	
 		});
 	}
@@ -1158,10 +1258,18 @@ async  function search_all(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_coupon->search_all-> 2", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->search_all", "message": error_send } );  
 			return;	
 	}
 
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->search_all", "message": error_send } );  
+		return;	
+}
 }
 
 //end of 6. [search_all] 

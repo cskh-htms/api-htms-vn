@@ -145,7 +145,7 @@ const insert_adress_meta = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_adress_meta_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-adress-meta->insert", "message" : error } ;
 	}
 
 };
@@ -180,7 +180,7 @@ const get_all_adress_meta = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_adress_meta_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-adress-meta->get all", "message" : error } ;
 	}
 };
 
@@ -216,7 +216,7 @@ const get_one_adress_meta = async function (adress_meta_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_adress_meta->get_one_adress_meta->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-adress-meta->get one", "message" : error } ;
 	}
 };
 
@@ -283,7 +283,7 @@ const update_adress_meta = async function (datas,adress_meta_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->adress_meta->update->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-adress-meta->update", "message" : error } ;
 	}
 };
 
@@ -313,11 +313,7 @@ const delete_adress_meta = async function (adress_meta_id) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_adress_meta->delete->error_numbaer : 1 ", "message": error_send } ); 
-		return;	
+		return  { "error" : "1", "position":"md-adress-meta->delete", "message" : error } ;
 	}
 };
 
@@ -343,11 +339,7 @@ const search = async function (datas) {
 		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_adress_meta->search->error_number : 2", "message": error_send } ); 
-		return;	
+		return  { "error" : "1", "position":"md-adress-meta->search", "message" : error } ;
 	}	
 	//return get_sql_search;
 	//@
@@ -363,11 +355,7 @@ const search = async function (datas) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_adress_meta->search->error_number : 1", "message": error_send } ); 
-		return;	
+		return  { "error" : "2", "position":"md-adress-meta->search", "message" : error } ;
 	}
 };
 
@@ -405,21 +393,11 @@ const get_owner_adress = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_adress_meta->get_owner_adress->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-adress-meta->get_owner", "message" : error } ;
 	}
 };
 
 // 7. [get_owner_adress]
-
-
-
-
-
-
-
-
-
-
 
 
 

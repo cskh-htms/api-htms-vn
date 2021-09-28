@@ -183,7 +183,7 @@ const get_user_taget = async function (user_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality->get_user-id->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get_user_taget", "message" : error } ;
 	}
 };
 
@@ -204,6 +204,9 @@ const get_all_coupon = async function (store_id) {
 					ojs_configs.db_prefix + "coupon_speciality_condition_value as coupon_speciality_condition_value, " + 
 					ojs_configs.db_prefix + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
 					ojs_configs.db_prefix + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 
+	
+					ojs_configs.db_prefix + "coupon_speciality_ID as coupon_speciality_ID, " + 
+					ojs_configs.db_prefix + "coupon_speciality_code as coupon_speciality_code, " + 	
 	
 					ojs_configs.db_prefix + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
 					ojs_configs.db_prefix + "coupon_speciality_price_max as coupon_speciality_price_max, " + 
@@ -227,7 +230,7 @@ const get_all_coupon = async function (store_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality->get_store-id->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get_all", "message" : error } ;
 	}
 };
 
@@ -266,7 +269,7 @@ const get_store_id = async function (product_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality->get_store-id->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get_store_id", "message" : error } ;
 	}
 };
 
@@ -358,7 +361,7 @@ var insert_coupon_speciality = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->insert", "message" : error } ;
 	}
 
 };
@@ -393,7 +396,7 @@ var get_all_coupon_speciality = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get all", "message" : error } ;
 	}
 };
 
@@ -429,7 +432,7 @@ const get_one_coupon_speciality = async function (coupon_speciality_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_coupon_speciality->get_one_coupon_speciality->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get one", "message" : error } ;
 	}
 };
 
@@ -507,7 +510,7 @@ const update_coupon_speciality = async function (datas,coupon_speciality_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->coupon_speciality->update->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->update", "message" : error } ;
 	}
 };
 
@@ -537,11 +540,7 @@ const delete_coupon_speciality = async function (coupon_speciality_id) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_coupon_speciality->delete->error_numbaer : 1 ", "message": error_send } ); 
-		return;	
+		return  { "error" : "1", "position":"md-coupon_speciality->delete", "message" : error } ;
 	}
 };
 
@@ -574,11 +573,7 @@ const search = async function (datas) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get fields" );
-		res.send({ "error" : "models_coupon_speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
-		return;	
+		return  { "error" : "1", "position":"md-coupon_speciality->search", "message" : error } ;
 	}	
 
 
@@ -595,11 +590,7 @@ const search = async function (datas) {
 		}			
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get having " );
-		res.send({ "error" : "model coupon speciality, -> search -> products speciality->error : 2", "message": error_send } ); 
-		return;	
+		return  { "error" : "2", "position":"md-coupon_speciality->search", "message" : error } ; 
 	}		
 		
 
@@ -632,11 +623,7 @@ const search = async function (datas) {
 		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_2,sql_from_default,sql_link_search);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_coupon_speciality->search->error_number : 2", "message": error_send } ); 
-		return;	
+		return  { "error" : "3", "position":"md-coupon_speciality->search", "message" : error } ;  
 	}	
 	//return get_sql_search_group;
 	//@
@@ -652,11 +639,7 @@ const search = async function (datas) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_coupon_speciality->search->error_number : 1", "message": error_send } ); 
-		return;	
+		return  { "error" : "4", "position":"md-coupon_speciality->search", "message" : error } ; 
 	}
 };
 
@@ -683,11 +666,7 @@ const search_all = async function (datas) {
 		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_all,sql_link_search_all);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_coupon_speciality->search_all->error_number : 2", "message": error_send } ); 
-		return;	
+		return  { "error" : "1", "position":"md-coupon_speciality->search_all", "message" : error } ; 
 	}	
 	//return get_sql_search_group;
 	//@
@@ -703,11 +682,7 @@ const search_all = async function (datas) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_coupon_speciality->search_all->error_number : 1", "message": error_send } ); 
-		return;	
+		return  { "error" : "2", "position":"md-coupon_speciality->search_all", "message" : error } ; 
 	}
 };
 
@@ -748,7 +723,7 @@ const get_owner_coupon_speciality = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_coupon_speciality->get_owner_product->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-coupon_speciality->get_owner", "message" : error } ; 
 	}
 };
 

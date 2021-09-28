@@ -67,6 +67,7 @@ const models_category_news_general = require('../models/models-category-news-gen
 //@
 //@ *  1. [insert_category_news_general] 
 async  function insert_category_news_general(req, res, next) {
+try {
 	//@
 	//@
 	//@
@@ -81,7 +82,7 @@ async  function insert_category_news_general(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-category-news-speciality->insert_category_general_speciality->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-category-news-general->insert", "message": error_send } );
 		return;	
 	}	
 
@@ -100,7 +101,7 @@ async  function insert_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-category-news-speciality->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-category-news-general->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -113,7 +114,7 @@ async  function insert_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-category-news-speciality->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-category-news-general->insert", "message": error_send } );
 		return;			
 	}	
 
@@ -138,7 +139,7 @@ async  function insert_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
-		res.send({ "error" : "controllers-category-news-speciality->insert-> check data ->number_error : 1", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-category-news-general->insert", "message": error_send } );
 		return;	
 	}			
 	
@@ -154,9 +155,9 @@ async  function insert_category_news_general(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 			
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "controllers-category-news-speciality->insert-> run ->number_error : 1", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-category-news-general->insert", "message": error_send } );
 			return;	
 		});
 	}
@@ -164,9 +165,19 @@ async  function insert_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
-		res.send({ "error" : "controllers-category-news-speciality->insert-> run ->number_error : 2", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-category-news-general->insert", "message": error_send } ); 
 		return;	
-	}	
+	}
+
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi không xác định , liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-category-news-general->insert", "message": error_send } ); 
+	return;	
+}	
+	
 }
 //@
 //@ * end of   1. [insert_category_news_general] 
@@ -185,6 +196,7 @@ async  function insert_category_news_general(req, res, next) {
 //@
 //@ *  2. [get_all_category_news_general] 
 async  function get_all_category_news_general(req, res, next) {
+try {
 	//@
 	//@	get datas req
 	try {
@@ -194,7 +206,7 @@ async  function get_all_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->get_all->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-category-news-general->get all", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -213,7 +225,7 @@ async  function get_all_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->check-role->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-category-news-general->get all", "message": error_send } );  
 		return;			
 	}
 	
@@ -226,7 +238,7 @@ async  function get_all_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-category-news-speciality->get_all->check-role -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-category-news-general->get all", "message": error_send } ); 
 		return;				
 	}
 	
@@ -243,7 +255,7 @@ async  function get_all_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy data news" );
-			res.send({ "error" : "controllers-category-news-speciality->get_all->run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-category-news-general->get all", "message": error_send } );  
 			return;		
 		});
 	}
@@ -251,9 +263,19 @@ async  function get_all_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy data news" );
-		res.send({ "error" : "controllers-category-news-speciality->get_all->run -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "5", "position":"ctl-category-news-general->get all", "message": error_send } );  
 		return;	
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy data news" );
+	res.send({ "error" : "113", "position":"ctl-category-news-general->get all", "message": error_send } );  
+	return;	
+}		
+	
+	
 }
 //@
 //@ * end of  2. [get_all_category_news_general] 
@@ -269,6 +291,7 @@ async  function get_all_category_news_general(req, res, next) {
 //@
 //@ * 3. [get_one_category_news_general] 
 async  function get_one_category_news_general(req, res, next) {
+try {
 	//@
 	//@	get datas req
 	try {
@@ -279,7 +302,7 @@ async  function get_one_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->get_one_category_general_speciality->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-category-news-general->get_one", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -297,7 +320,7 @@ async  function get_one_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->get_one_category_general_speciality->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-category-news-general->get_one", "message": error_send } ); 
 		return;			
 	}
 	
@@ -312,7 +335,7 @@ async  function get_one_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-category-news-speciality->get_one_category_general_speciality->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-category-news-general->get_one", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -332,7 +355,7 @@ async  function get_one_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;			
 			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "controllers-category-news-speciality->model-run -> error_number : 1", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-category-news-general->get_one", "message": error_send } ); 	
 			return;
 		});
 	}
@@ -340,9 +363,17 @@ async  function get_one_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;			
 			let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
-			res.send( { "error": "controllers-category-news-speciality->model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-category-news-general->get_one", "message": error_send } ); 	
 			return;
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;			
+		let error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database" );
+		res.send({ "error" : "113", "position":"ctl-category-news-general->get_one", "message": error_send } ); 	
+		return;
+}		
 }
 //@
 //@ * end of  3. [get_one_category_news_general] 
@@ -360,6 +391,7 @@ async  function get_one_category_news_general(req, res, next) {
 //@
 //@ * 4. [update_category_news_general] 
 async  function update_category_news_general(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -371,7 +403,7 @@ async  function update_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->update_category_general_speciality->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-category-news-general->update", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -389,7 +421,7 @@ async  function update_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->update_category_general_speciality->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-category-news-general->update", "message": error_send } ); 
 		return;			
 	}
 	
@@ -400,7 +432,7 @@ async  function update_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-category-news-speciality->update_category_general_speciality->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-category-news-general->update", "message": error_send } ); 
 		return;			
 	}			
 	
@@ -430,7 +462,7 @@ async  function update_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi check data" );
-		res.send({ "error" : "controllers-category-news-speciality->update->check-data-> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-category-news-general->update", "message": error_send } ); 
 		return;
 	}			
 
@@ -449,7 +481,7 @@ async  function update_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update datas" );
-			res.send({ "error" : "controllers-category-news-speciality->update->run-> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-category-news-general->update", "message": error_send } );  
 			return;		
 		});
 	}
@@ -457,9 +489,18 @@ async  function update_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update datas" );
-		res.send({ "error" : "controllers-category-news-speciality->update->run-> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-category-news-general->update", "message": error_send } ); 
 		return;		
 	}	
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update datas" );
+	res.send({ "error" : "113", "position":"ctl-category-news-general->update", "message": error_send } ); 
+	return;		
+}	
 }
 //@
 //@ end of  * 4. [update_category_news_general] 
@@ -478,6 +519,7 @@ async  function update_category_news_general(req, res, next) {
 //@
 //@  * 5. [delete_category_news_general] 
 async function delete_category_news_general(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -488,7 +530,7 @@ async function delete_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->delete->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "7", "position":"ctl-category-news-general->delete", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -506,7 +548,7 @@ async function delete_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->delete_category_general_speciality->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "8", "position":"ctl-category-news-general->delete", "message": error_send } ); 
 		return;			
 	}
 	
@@ -522,7 +564,7 @@ async function delete_category_news_general(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-category-news-speciality->delete_category_general_speciality->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "9", "position":"ctl-category-news-general->delete", "message": error_send } ); 
 		return;			
 	}		
 		
@@ -551,7 +593,7 @@ async function delete_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete datas" );
-			res.send({ "error" : "1.33.controllers-category-news-speciality->delete ", "message": error_send } ); 
+			res.send({ "error" : "10", "position":"ctl-category-news-general->delete", "message": error_send } );  
 			return;	
 		});
 	}
@@ -559,9 +601,19 @@ async function delete_category_news_general(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete datas" );
-			res.send({ "error" : "1.333.controllers-category-news-speciality->delete ", "message": error_send } ); 
+			res.send({ "error" : "11", "position":"ctl-category-news-general->delete", "message": error_send } );   
 			return;	
 	}	
+	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete datas" );
+		res.send({ "error" : "113", "position":"ctl-category-news-general->delete", "message": error_send } );  
+		return;	
+}	
+	
 }
 //@
 //@ end of  * 5. [delete_category_news_general] 
@@ -576,6 +628,7 @@ async function delete_category_news_general(req, res, next) {
 //@
 //@ * 6. [search] 
 async  function search(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -588,7 +641,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-category-news-speciality->search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-category-news-general->search", "message": error_send } ); 
 		return;			
 	}	
 
@@ -608,7 +661,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-category-general-speciality->search->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-category-news-general->search", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -626,7 +679,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-category-news-speciality->search->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-category-news-general->search", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -645,7 +698,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
-			res.send({ "error" : "controllers-category-news-speciality->search->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-category-news-general->search", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -653,10 +706,17 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
-		res.send({ "error" : "controllers-category-news-speciality->search->model-run -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "5", "position":"ctl-category-news-general->search", "message": error_send } );  
 		return;	
 	}
-
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
+	res.send({ "error" : "113", "position":"ctl-category-news-general->search", "message": error_send } );  
+	return;	
+}
 }
 //@
 //@ end of * 6. [search] 

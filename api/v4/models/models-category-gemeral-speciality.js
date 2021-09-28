@@ -185,7 +185,7 @@ const insert_category_general_speciality = async function (datas) {
 
 	}
 	catch(error){
-		return  { "error" : "model_category_general_speciality->insert_category->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->insert", "message" : error } ;
 	}
 	
 	//@
@@ -198,7 +198,7 @@ const insert_category_general_speciality = async function (datas) {
 		}	
 	}
 	catch(error){
-		return  { "error" : "model_category_general_speciality->insert_category->error_number : 2", "message" : error } ;
+		return  { "error" : "2", "position":"md-category_general_speciality->insert", "message" : error } ;
 	}		
 	//@
 	//@
@@ -213,7 +213,7 @@ const insert_category_general_speciality = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_category_general_speciality->insert_category->error_number : 2", "message" : error } ;
+		return  { "error" : "3", "position":"md-category_general_speciality->insert", "message" : error } ;
 	}
 
 };
@@ -252,7 +252,7 @@ const get_owner_store = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_category_general_speciality->get_owner_store->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->get owner store", "message" : error } ;
 	}
 };
 
@@ -286,7 +286,7 @@ const get_all_category_general_speciality = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-category-specialyti->get all->number_error : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->get all", "message" : error } ;
 	}
 };
 
@@ -335,7 +335,7 @@ const get_owner_cat = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_category_general_speciality->get_owner_cat->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->get owner cat", "message" : error } ;
 	}
 };
 
@@ -367,7 +367,7 @@ const get_one_category_general_speciality = async function (cat_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_category_general_speciality->get_one->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->get one", "message" : error } ;
 	}
 };
 
@@ -435,7 +435,7 @@ const  update_category_general_speciality = async function (datas,cat_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-category-general-speciality->update->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->update", "message" : error } ;
 	}
 };
 
@@ -467,7 +467,7 @@ const delete_category_general_speciality = async function (cat_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-category-general-speciality->delete>error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_general_speciality->delete", "message" : error } ;
 	}
 };
 
@@ -500,10 +500,7 @@ var search = async function (datas) {
 		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		return { "error" : "model_category_general_speciality->search->error_number : 1", "message": error_send } ; 
+		return  { "error" : "1", "position":"md-category_general_speciality->search", "message" : error } ;
 	}	
 
 	//return get_sql_search_group;
@@ -521,10 +518,7 @@ var search = async function (datas) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		return { "error" : "model_category_general_speciality->search->error_number : 2", "message": error_send } ; 
+		return  { "error" : "2", "position":"md-category_general_speciality->search", "message" : error } ;
 	}
 };
 	

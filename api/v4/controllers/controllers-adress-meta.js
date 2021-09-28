@@ -2,11 +2,6 @@
 /*
 
 
-
-
-
-
-
 * 1. [insert_adress_meta]
 
 * 2. [get_all_adress_meta]
@@ -81,6 +76,7 @@ const models_adress_meta = require('../models/models-adress-meta');
 //@
 //@ 1. [insert_adress_meta]
 async function insert_adress_meta(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -90,14 +86,11 @@ async function insert_adress_meta(req, res, next) {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
 		
-		//res.send(datas);
-		//return;
-		
 		//@
 		//@
-		//* nếu chưa có mã cữa hàng thì out
+		//* nếu chưa có mã user thì out
 		if(!datas.adress_meta_user_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id users (adress_meta_user_id) " });
+			res.send({ "error" : "1", "position":"ctl-adress-meta->insert", "message": " vui lòng nhập mã user " } ); 
 			return;
 		}
 		//res.send([datas,token]);
@@ -106,7 +99,7 @@ async function insert_adress_meta(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-adress_meta->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->insert", "message": error_send } );
 		return;	
 	}	
 
@@ -126,7 +119,7 @@ async function insert_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-adress_meta->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -139,21 +132,14 @@ async function insert_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-adress_meta->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-adress-meta->insert", "message": error_send } );
 		return;			
 	}		
 	
 	
-	
-	
 	//res.send(check_datas_result);
 	//return;	
-	
-	
-	
-	
-	
-	
+
 	
 	//@
 	//@
@@ -169,15 +155,15 @@ async function insert_adress_meta(req, res, next) {
 		let data_check = default_field.check_datas(datas_assign);
 		
 		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
+			res.send({"error" : "5", "position":"ctl-adress-meta->insert", "message" : data_check } );
 			return;
 		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-adress_meta->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-adress-meta->insert", "message": error_send } );
 		return;	
 	}			
 	
@@ -196,19 +182,27 @@ async function insert_adress_meta(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-adress_meta->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-adress-meta->insert", "message": error_send } ); 
 			return;
 		});
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
-			evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert adress_meta , Liên hệ admin" );
-			res.send({ "error" : "controllers-adress_meta->insert->model-run->number_error : 2 ", "message": error_send } ); 
-			return;
-	}		
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert adress_meta , Liên hệ admin" );
+		res.send({ "error" : "8", "position":"ctl-adress-meta->insert", "message": error_send } );
+		return;
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert adress_meta , Liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-adress-meta->insert", "message": error_send } );
+	return;
+}		
 }
 
 
@@ -226,6 +220,7 @@ async function insert_adress_meta(req, res, next) {
 //@@
 //@* 2. [get_all_adress_meta_store]
 async  function get_all_adress_meta(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
@@ -233,7 +228,7 @@ async  function get_all_adress_meta(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-adress-meta->get_all", "message": error_send } );
 		return;	
 	}	
 	
@@ -252,7 +247,7 @@ async  function get_all_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->get_all", "message": error_send } ); 
 		return;			
 	}
 	
@@ -271,7 +266,7 @@ async  function get_all_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->get_all", "message": error_send } );
 		return;			
 	}			
 	
@@ -286,17 +281,28 @@ async  function get_all_adress_meta(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";			
+			//evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list adress_meta" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-adress-meta->get_all", "message": error_send } );	
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";			
+		//evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list adress_meta" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-adress-meta->get_all", "message": error_send } );
+		return;
 	}	
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list adress_meta" );
+	res.send({ "error" : "113", "position":"ctl-adress-meta->get_all", "message": error_send } );
+	return;
+}		
 }
 
 //@ end of * 2. [get_all_adress_meta_store]
@@ -313,6 +319,7 @@ async  function get_all_adress_meta(req, res, next) {
 //@@
 //@@ * 3. [get_one_adress_meta]
 async  function get_one_adress_meta(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -323,7 +330,7 @@ async  function get_one_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-adress-meta->get_one", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -342,7 +349,7 @@ async  function get_one_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->get_one", "message": error_send } ); 
 		return;			
 	}
 	
@@ -357,7 +364,7 @@ async  function get_one_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-adress_meta->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->get_one", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -375,7 +382,7 @@ async  function get_one_adress_meta(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-adress_meta->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-adress-meta->get_one", "message": error_send } ); 
 			return;	
 
 		});
@@ -384,9 +391,17 @@ async  function get_one_adress_meta(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-adress_meta->get_one->model-run -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-adress-meta->get_one", "message": error_send } );  
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-adress-meta->get_one", "message": error_send } );  
+		return;	
+}		
 }
 
 //@ end of * 3. [get_one_adress_meta]
@@ -403,6 +418,7 @@ async  function get_one_adress_meta(req, res, next) {
 //@@
 //@@ * 4. [update_adress_meta]
 async  function update_adress_meta(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -414,7 +430,7 @@ async  function update_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-adress-meta->update", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -436,9 +452,9 @@ async  function update_adress_meta(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->update", "message": error_send } );  
 		return;			
 	}
 	
@@ -449,7 +465,7 @@ async  function update_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-adress_meta->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->update", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -468,9 +484,9 @@ async  function update_adress_meta(req, res, next) {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_adress_meta.update_adress_meta->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-adress-meta->update", "message": error_send } ); 
 			return;
 		});
 	}
@@ -478,9 +494,17 @@ async  function update_adress_meta(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_adress_meta.update_adress_meta->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-adress-meta->update", "message": error_send } ); 
 			return;
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-adress-meta->update", "message": error_send } ); 
+		return;
+}	
 }
 
 //@@ * end of  4. [update_adress_meta]
@@ -493,6 +517,7 @@ async  function update_adress_meta(req, res, next) {
 //@@
 //@* 5. [delete_adress_meta]
 async  function delete_adress_meta(req, res, next) {
+try {	
 	//@
 	//@
 	//@	get datas req
@@ -504,7 +529,7 @@ async  function delete_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->delete->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-adress-meta->delete", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -523,7 +548,7 @@ async  function delete_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->delete", "message": error_send } ); 
 		return;			
 	}
 
@@ -536,7 +561,7 @@ async  function delete_adress_meta(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-adress_meta->delete->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->delete", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -556,17 +581,25 @@ async  function delete_adress_meta(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-adress_meta->delete ", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-adress-meta->delete", "message": error_send } );  
 			return;	
 		});
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->adress_meta/delete ", "message": error_send } ); 
-			return;	
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-adress-meta->delete", "message": error_send } ); 
+		return;	
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-adress-meta->delete", "message": error_send } ); 
+	return;	
+}	
 }
 //@* end of  5. [delete_adress_meta]
 
@@ -580,7 +613,7 @@ async  function delete_adress_meta(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -600,7 +633,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_adress_meta>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-adress-meta->search", "message": error_send } ); 
 		return;			
 	}	
 
@@ -621,7 +654,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-adress_meta->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-adress-meta->search", "message": error_send } );  
 		return;			
 	}
 
@@ -636,7 +669,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-		res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-adress-meta->search", "message": error_send } ); 
 		return;	
 	}		
 
@@ -655,7 +688,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-adress-meta->search", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -663,10 +696,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-adress-meta->search", "message": error_send } ); 
 			return;	
 	}
-
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-adress-meta->search", "message": error_send } ); 
+		return;	
+}
 }
 
 //end of 6. [search] 

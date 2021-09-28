@@ -155,7 +155,7 @@ const insert_brands = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->brands->insert->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->insert", "message" : error } ;
 	}
 
 };
@@ -192,7 +192,7 @@ const get_all_brands = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-brands->get-all->error-nymber : 2", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->get all", "message" : error } ;
 	}
 };
 
@@ -231,7 +231,7 @@ const get_owner_brand = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_brands->get_owner_option->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->get_owner", "message" : error } ;
 	}
 };
 
@@ -263,7 +263,7 @@ var get_one_brands = async function (option_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-brands->get_one->error-nymber : 2", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->get all", "message" : error } ;
 	}
 };
 //@
@@ -329,7 +329,7 @@ const update_brands = async function (datas,option_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-brands->update->error-nymber : 2", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->update", "message" : error } ;
 	}
 };
 
@@ -370,7 +370,7 @@ const delete_brands = async function (brand_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-brands->delete->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->delete", "message" : error };
 	}
 };
 //@
@@ -399,7 +399,7 @@ const search = async function (datas) {
 					
 	}
 	catch(error){
-		return  { "error" : "model-brands->search->error-nymber : 3", "message" : error } ;
+		return  { "error" : "1", "position":"md-brands->search", "message" : error };
 	}
 					
 	//@
@@ -413,7 +413,7 @@ const search = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-brands->search->error-nymber : 2", "message" : error } ;
+		return  { "error" : "2", "position":"md-brands->search", "message" : error };
 	}
 
 };

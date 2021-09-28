@@ -116,7 +116,7 @@ const insert_category_news_general = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->category_news->insert->number: 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_news->insert", "message" : error } ;
 	}
 
 };
@@ -149,7 +149,7 @@ const get_all_category_news_general = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->category_news->get all>number: 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_news->get all", "message" : error } ;
 	}
 };
 //@
@@ -183,7 +183,7 @@ var get_one_category_news_general = async function (category_news_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->category_news->get one>number: 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_news->get one", "message" : error } ;
 	}
 };
 //@
@@ -253,7 +253,7 @@ const update_category_news_general = async function (datas,category_news_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->category_news->update->number: 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_news->update", "message" : error } ;
 	}
 };
 //@
@@ -289,7 +289,7 @@ const delete_category_news_general = async function (category_news_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "m_13", "message" : error } ;
+		return  { "error" : "1", "position":"md-category_news->delete", "message" : error } ;
 	}
 };
 //@
@@ -321,10 +321,7 @@ const search = async function (datas) {
 		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		return { "error" : "model_category_news_general->search->error_number : 1", "message": error_send } ; 
+		return  { "error" : "1", "position":"md-category_news->search", "message" : error } ;
 	}	
 	
 	
@@ -342,7 +339,7 @@ const search = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_category_news_general->search->error_number : 2", "message" : error } ;
+		return  { "error" : "2", "position":"md-category_news->search", "message" : error } ;
 	}
 
 };
