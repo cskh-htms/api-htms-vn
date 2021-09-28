@@ -50,6 +50,10 @@ const ojs_config_app = {
 	token_ghtk 	: "b483402A0E97BF9906883F8DE5133D07DB4279Dc",	
 	province 	: "Tỉnh Lâm Đồng",
 	Districts 	: "Thành phố Đà Lạt",	
+	domain_ghtk_push_order : "https://services.ghtklab.com/services/shipment/order/?ver=1.5",
+	
+	
+	
 	
 	//@
 	//@

@@ -476,6 +476,7 @@ DROP TABLE IF EXISTS `dala_orders_speciality`;
 CREATE TABLE IF NOT EXISTS `dala_orders_speciality` (
   `dala_orders_speciality_ID` int NOT NULL AUTO_INCREMENT,
   `dala_orders_speciality_user_id` int NOT NULL,
+  `dala_orders_speciality_shipper_id` int NOT NULL,
   `dala_orders_speciality_date_orders` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dala_orders_speciality_status_orders` tinyint(1) NOT NULL DEFAULT '0',
   `dala_orders_speciality_status_payment` tinyint(1) NOT NULL DEFAULT '0',

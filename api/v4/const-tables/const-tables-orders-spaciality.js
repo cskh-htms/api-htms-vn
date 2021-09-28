@@ -87,7 +87,8 @@
 			return " Vui lòng điền đầy đủ tên gười nhận  ";				
 			
 			
-			
+		}else if(error.sqlMessage.search("trig_dala_orders_speciality_sipper_refer") >= 0){
+			return " Shipper không có trong hệ thống  ";					
 			
 			
 			

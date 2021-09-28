@@ -80,6 +80,24 @@ END IF;
 
 
 
+-- 
+--
+-- check shipper
+IF(NEW.dala_orders_speciality_shipper_id is not null AND  NEW.dala_orders_speciality_shipper_id > 0) THEN 
+	SET @checkID = (select dala_users_ID from dala_users where dala_users_ID = NEW.dala_orders_speciality_shipper_id);
+	IF (@checkID > 0) THEN  
+		SIGNAL SQLSTATE '01000'; 
+	ELSE 
+		SIGNAL SQLSTATE '12305' 
+		SET MESSAGE_TEXT = 'trig_dala_orders_speciality_sipper_refer'; 
+	END IF;	
+END IF;
+
+
+
+
+
+
 END $$ 
 DELIMITER ;
 

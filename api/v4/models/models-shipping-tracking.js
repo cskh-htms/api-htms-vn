@@ -573,7 +573,8 @@ const push_shipping_dala = async function (datas) {
 	sql_text = "START TRANSACTION ; "
 	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "shipping_tracking  SET ? ; ";
 	sql_text = sql_text + "UPDATE " + ojs_configs.db_prefix + "orders_speciality  SET  " + 
-				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status + 
+				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status +  ", " + 
+				ojs_configs.db_prefix + "orders_speciality_shipper_id = " + datas.shipping_tracking_users_id + 
 				" WHERE " + ojs_configs.db_prefix + "orders_speciality_ID = " + datas.shipping_tracking_orders_id  + " ;" ;
 	
 	
@@ -616,8 +617,8 @@ const push_shipping_dala = async function (datas) {
 //@
 //@
 //@ 11. [push_shipping_ghtk]
-const push_shipping_ghtk = async function (datas) {
-	return datas;
+const push_shipping_ghtk = async function (datas,tracking) {
+	//return datas;
 	//create sql text
 	
 	
@@ -648,7 +649,10 @@ const push_shipping_ghtk = async function (datas) {
 	sql_text = "START TRANSACTION ; "
 	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "shipping_tracking  SET ? ; ";
 	sql_text = sql_text + "UPDATE " + ojs_configs.db_prefix + "orders_speciality  SET  " + 
-				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status + 
+				ojs_configs.db_prefix + "orders_speciality_status_orders = " + datas.shipping_tracking_orders_status + ", " + 
+				ojs_configs.db_prefix + "orders_speciality_shipper_id = " + datas.shipping_tracking_users_id + ", " + 
+				ojs_configs.db_prefix + "orders_speciality_shipping_code = '" + tracking +  "'" + 
+				
 				" WHERE " + ojs_configs.db_prefix + "orders_speciality_ID = " + datas.shipping_tracking_orders_id  + " ;" ;
 	
 	
@@ -673,7 +677,7 @@ const push_shipping_ghtk = async function (datas) {
 		} );		
 	}
 	catch(error){
-		return  { "error" : "1","position":"md-shipping_tracking->push_shipping_dala", "message" : error } ;
+		return  { "error" : "1","position":"md-shipping_tracking->push_shipping_ghtk", "message" : error } ;
 	}
 };
 
@@ -704,11 +708,14 @@ const get_orders_details = async function (order_id) {
 				ojs_configs.db_prefix + "products_speciality_ID as products_speciality_ID, " + 
 				ojs_configs.db_prefix + "products_speciality_name as products_speciality_name, " + 
 				ojs_configs.db_prefix + "orders_details_speciality_qty as orders_details_speciality_qty, " + 
+				ojs_configs.db_prefix + "orders_details_speciality_line_order as orders_details_speciality_line_order, " + 
+				ojs_configs.db_prefix + "orders_details_speciality_price as orders_details_speciality_price, " + 
+				
+				
 				ojs_configs.db_prefix + "products_speciality_weight as products_speciality_weight " + 
 	
 				" FROM " + ojs_configs.db_prefix + "view_orders_customer  WHERE  " + 
-				ojs_configs.db_prefix + "orders_speciality_ID = '" + order_id + "' AND " + 
-				ojs_configs.db_prefix + "orders_details_speciality_line_order = 'product' " ;
+				ojs_configs.db_prefix + "orders_speciality_ID = '" + order_id + "'" ;
 	
 	//return sql_text;
 	//@
@@ -760,8 +767,17 @@ const get_orders = async function (order_id) {
 		ojs_configs.db_prefix  + "orders_speciality_status_orders as orders_speciality_status_orders, " + 
 		ojs_configs.db_prefix  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 	
 		
+		ojs_configs.db_prefix  + "orders_speciality_province as orders_speciality_province, " + 
+		ojs_configs.db_prefix  + "orders_speciality_district as orders_speciality_district, " + 
+		ojs_configs.db_prefix  + "orders_speciality_wards as orders_speciality_wards, " + 
+		ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " +		
+		ojs_configs.db_prefix  + "orders_speciality_name as orders_speciality_name, " +			
+		ojs_configs.db_prefix  + "orders_speciality_notes as orders_speciality_notes, " +	
+		
+		
+		
+		
 		ojs_configs.db_prefix  + "orders_speciality_phone as orders_speciality_phone, " + 
-		ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " + 
 		ojs_configs.db_prefix  + "orders_speciality_notes as orders_speciality_notes, " + 
 		ojs_configs.db_prefix  + "orders_speciality_email as orders_speciality_email, " +	
 		ojs_configs.db_prefix  + "orders_speciality_shipping_code as orders_speciality_shipping_code " + 
@@ -819,7 +835,8 @@ const get_stores = async function (datas) {
 		ojs_configs.db_prefix  + "stores_district  as stores_district , " +		
 		ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
 		ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 			
-		ojs_configs.db_prefix  + "stores_name as stores_name " + 
+		ojs_configs.db_prefix  + "stores_name as stores_name, " + 
+		ojs_configs.db_prefix  + "stores_phone as stores_phone " + 
 		
 		" FROM " + ojs_configs.db_prefix + "products_speciality " + 
 		" LEFT JOIN " + 

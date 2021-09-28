@@ -38,7 +38,31 @@ const ojs_shares_fetch_data = {
 		return response.json();		
 		
 		
-	},		
+	},
+
+	//
+	//
+	//
+	//	
+	//@@@@@@@@@@@@@@@@		
+	//gọi api kèm token (phương thức post)
+	get_data_send_token_post_ghtk : async function (url, data, token) {
+		const response = await fetch(url, {
+			method: 'POST', 
+			mode: 'cors', 
+			cache: 'no-cache', 
+			credentials: 'same-origin', 
+			headers: {
+			  'Content-Type': 'application/json',
+			  'Token' : token
+			},
+			redirect: 'follow', 
+			referrerPolicy: 'no-referrer',
+			body: JSON.stringify(data) 
+		});
+		return response.json();
+	},	
+	
 	//
 	//
 	//

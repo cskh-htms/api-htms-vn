@@ -770,17 +770,44 @@ try{
 						
 					}
 					
-					//res.send({ "error" : "" , "datas" : weight_sum}); 
+					//res.send({ "error" : "" , "datas" : price_list}); 
 					//return;	
 
+					//@
+					//@
+					//@ lấy thông tin cửa hàng
+					try{
+						var stores_info = await models_shipping_spaciality.get_stores(price_list);
+						//res.send([stores_info]); 
+						//return;					
+						
+						if( Array.isArray(stores_info)){
+						}else{
+							var evn = ojs_configs.evn;
+							evn = "dev";
+							var error_send = ojs_shares_show_errors.show_error( evn, stores_info, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
+							res.send({ "error" : "122" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+							return;							
+						}
+					}
+					catch(error){
+						var evn = ojs_configs.evn;
+						//evn = "dev";
+						var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
+						res.send({ "error" : "133" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+						return;					
+					}
+
+					//res.send({ "error" : "asdasd" , "datas" : stores_info}); 
+					//return;
 					
 					//@
 					//@	
 					try {	
 						//Lấy danh sách loại danh mục
 						let url = ojs_configs.domain_ghtk + 
-						"pick_province=" + ojs_configs.province + "&" + 
-						"pick_district=" + ojs_configs.Districts + "&" +  
+						"pick_province=" + stores_info[0].stores_province + "&" + 
+						"pick_district=" + stores_info[0].stores_district + "&" +  
 						"province=" + datas.adress.province + "&" + 
 						"district=" + datas.adress.Districts + "&" + 
 						"weight=" + weight_sum + "&" + 

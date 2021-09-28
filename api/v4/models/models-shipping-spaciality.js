@@ -18,6 +18,9 @@
 
 * 8. [caution_get_price_list]
 
+* 9. [get_stores]
+
+
 */
 
 
@@ -467,7 +470,63 @@ const caution_get_price_list = async function (datas) {
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@ 9. [get_stores]
+const get_stores = async function (datas) {
+	//return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+	sql_text = sql_text + "SELECT  " + 
+		ojs_configs.db_prefix  + "stores_province as stores_province, " + 
+		ojs_configs.db_prefix  + "stores_district  as stores_district , " +		
+		ojs_configs.db_prefix  + "stores_wards as stores_wards, " + 
+		ojs_configs.db_prefix  + "stores_adress as stores_adress, " + 			
+		ojs_configs.db_prefix  + "stores_name as stores_name, " + 
+		ojs_configs.db_prefix  + "stores_phone as stores_phone " + 
+		
+		" FROM " + ojs_configs.db_prefix + "products_speciality " + 
+		" LEFT JOIN " + 
+		ojs_configs.db_prefix + "stores  ON  " + 
+		ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+		ojs_configs.db_prefix + "stores_ID " +    
+		
+		" WHERE " + ojs_configs.db_prefix + "products_speciality_ID = '" + datas[0].products_speciality_ID + "' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_stores", "message" : error } ;
+	}
+};
 
+// 9. [get_stores]
 
 
 
@@ -482,7 +541,8 @@ module.exports = {
 			delete_shipping_spaciality,
 			get_all_shipping_spaciality,
 			caution,
-			caution_get_price_list
+			caution_get_price_list,
+			get_stores
 };
 
 

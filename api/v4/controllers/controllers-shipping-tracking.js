@@ -52,7 +52,7 @@ const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../models/ojs-shares-others');
 const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
-
+const ojs_shares_fetch_data = require('../../../models/ojs-shares-fetch-data');
 
 
 
@@ -1296,13 +1296,15 @@ async  function push_shipping_ghtk(req, res, next) {
 			if(orders_details.length > 0){
 				
 				for(let x in orders_details){
-					let x_ojb =  {
-						"name":orders_details[x].products_speciality_name,
-						"weight":orders_details[x].products_speciality_weight/ 1000,
-						"quantity":orders_details[x].orders_details_speciality_qty,
-						"product_code":orders_details[x].products_speciality_ID
+					if(orders_details[x].orders_details_speciality_line_order == "product"){
+						let x_ojb =  {
+							"name":orders_details[x].products_speciality_name,
+							"weight":orders_details[x].products_speciality_weight/ 1000,
+							"quantity":orders_details[x].orders_details_speciality_qty,
+							"product_code":orders_details[x].products_speciality_ID
+						}
+						arr_product.push(x_ojb);
 					}
-					arr_product.push(x_ojb);
 				}
 			}else{
 				res.send({ "error" : "7" ,"position":"ctl-shipping_spaciality->push_shipping_ghtk", "message" : "không tìm thấy sản phẩm"}); 
@@ -1332,6 +1334,56 @@ async  function push_shipping_ghtk(req, res, next) {
 	//@
 	//@
 	//@
+	//@ tính tiền tổng đơn hàng
+	var price_sum = 0;
+	var add = 0;
+	var reduce = 0;
+	var shipping = 0;
+	var coupon = 0;
+	var tax = 0;
+	try{
+		for(let x in orders_details){
+			if(orders_details[x].orders_details_speciality_line_order == "product"){
+				let price = orders_details[x].orders_details_speciality_price * orders_details[x].orders_details_speciality_qty;
+				price_sum = price_sum + price;
+			}else if(orders_details[x].orders_details_speciality_line_order == "shipping"){
+				shipping = shipping + orders_details[x].orders_details_speciality_price; 
+				
+			}else if(orders_details[x].orders_details_speciality_line_order == "coupon"){
+				coupon = coupon + orders_details[x].orders_details_speciality_price; 
+				
+			}else if(orders_details[x].orders_details_speciality_line_order == "add"){
+				add = add + orders_details[x].orders_details_speciality_price; 					
+				
+			}else if(orders_details[x].orders_details_speciality_line_order == "reduce"){
+				reduce = reduce + orders_details[x].orders_details_speciality_price; 	
+
+			}else if(orders_details[x].orders_details_speciality_line_order == "tax"){
+				tax = tax + orders_details[x].orders_details_speciality_price; 
+				
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" );					
+		res.send({ "error" : "11" ,"position":"ctl-shipping_spaciality->push_shipping_ghtk", "message" : error_send}); 
+		return;					
+	}
+
+	var price_order = (price_sum + add + tax + shipping) - coupon - reduce;
+
+	//res.send({ "error" : "" , "datas" : [price_sum,add,reduce,shipping,coupon,tax ,price_order]}); 
+	//return;	
+
+
+
+
+
+	//@
+	//@
+	//@
 	//@ lấy thông tin đơn hàng đơn hàng
 	try{
 		var orders_info = await models_shipping_tracking.get_orders(datas.shipping_tracking_orders_id);
@@ -1355,7 +1407,7 @@ async  function push_shipping_ghtk(req, res, next) {
 		return;					
 	}
 
-	//res.send({ "error" : "" , "datas" : arr_product}); 
+	//res.send({ "error" : "" , "datas" : orders_info}); 
 	//return;	
 
 
@@ -1368,8 +1420,8 @@ async  function push_shipping_ghtk(req, res, next) {
 	//@ lấy thông tin cửa hàng
 	try{
 		var stores_info = await models_shipping_tracking.get_stores(arr_product);
-		res.send([stores_info]); 
-		return;					
+		//res.send([stores_info]); 
+		//return;					
 		
 		if( Array.isArray(stores_info)){
 		}else{
@@ -1388,34 +1440,139 @@ async  function push_shipping_ghtk(req, res, next) {
 		return;					
 	}
 
-	//res.send({ "error" : "" , "datas" : arr_product}); 
+	//res.send({ "error" : "" , "datas" : stores_info}); 
 	//return;
 
 	
 	
+	
 	//@
 	//@
 	//@
 	//@
-	try {
-		models_shipping_tracking.push_shipping_ghtk(datas_assign).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-			return;
-		}, error => {
+	//@	push lên GHTK
+	try {	
+		//Lấy danh sách loại danh mục
+		let url = ojs_configs.domain_ghtk_push_order;		
+		let token = ojs_configs.token_ghtk;
+		//@
+		//@
+		//@
+		let order = 	    
+			{
+				"id": "av_" + datas.shipping_tracking_orders_id,
+				"pick_name": stores_info[0].stores_name,
+				"pick_address": stores_info[0].stores_adress,
+				"pick_province": stores_info[0].stores_province,
+				"pick_district": stores_info[0].stores_district,
+				"pick_ward": stores_info[0].stores_wards,
+				"pick_tel": stores_info[0].stores_phone,
+				"tel": orders_info[0].orders_speciality_phone,
+				"name": orders_info[0].orders_speciality_name,
+				"address": orders_info[0].orders_speciality_adress,
+				"province": orders_info[0].orders_speciality_province,
+				"district": orders_info[0].orders_speciality_district,
+				"ward": orders_info[0].orders_speciality_wards,
+				"hamlet": "Khác",
+				"is_freeship": "1",
+				"pick_money": price_order,
+				"note": orders_info[0].orders_speciality_notes,
+				"value": price_order,
+				"pick_option":"cod",
+				"deliver_option" : "none"
+		}		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		let datas_send = 
+			{
+				"products": arr_product,
+				"order": order
+			}	
+
+		//res.send({ "error" : "" , "datas" : datas_send}); 
+		//return;							
+		
+		
+		var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
+		//res.send({ "error" : "asd" , "datas" : result_ghtk}); 
+		//return;
+		if(result_ghtk.success){
+
+			//@
+			//@
+			
+			//@
+			//@
+			//@
+			//@ check data type
+			try {
+				var datas_assign;
+				//gop voi data drfault field in mysql database
+				datas_assign = Object.assign(default_field.default_fields, datas);
+				
+				//neu data không hợp lệ thì return loi;
+				
+				let data_check = default_field.check_datas(datas_assign);
+				
+				if(data_check != 0){
+					res.send({"error" : "1", "message" : data_check } );
+					return;
+				}
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
+				res.send({ "error" : "133","position":"ctl-shipping-tracking->push_shipping_ghtk", "message": error_send } );
+				return;	
+			}				
+			
+
+			//@
+			//@
+			//@ lưu vào dhipping trackking
+			//@ update trạng thái đơn hàng
+			var tracking = "0";
+			if(result_ghtk.order.tracking_id){ tracking  = result_ghtk.order.tracking_id};
+			try {
+				models_shipping_tracking.push_shipping_ghtk(datas_assign,tracking).then( results => {
+					res.send( { "error" : "", "datas" : results } );
+					return;
+				}, error => {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+					res.send({ "error" : "134", "position":"ctl-orders-spaciality->push_shipping_ghtk","message": error_send } );
+					return;	
+				});
+			}
+			catch(error){
+				var evn = ojs_configs.evn;
+				//evn = "dev";;
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+				res.send({ "error" : "135", "position":"ctl-orders-spaciality->push_shipping_ghtk","message": error_send } ); 
+				return;	
+			}			
+
+		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
-			res.send({ "error" : "14", "position":"ctl-orders-spaciality->push_shipping_ghtk","message": error_send } );
-			return;	
-		});
+			var error_send = ojs_shares_show_errors.show_error( evn, "push đơn hàng không thành công, vui lòng thao tác lại", "push đơn hàng không thành công, vui lòng thao tác lại" );
+			res.send({ "error" : "14" ,"position":"ctl-shipping_spaciality->push order ghtk", "message" : error_send }); 
+			return;					
+		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
-		res.send({ "error" : "15", "position":"ctl-orders-spaciality->push_shipping_ghtk","message": error_send } ); 
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lưu data. liên hệ admin" );
+		res.send({ "error" : "15" ,"position":"ctl-shipping_spaciality->ghtk", "message" : "không tìm thấy giá ghtk"}); 
 		return;	
-	}
+	}		
 
 }
 
