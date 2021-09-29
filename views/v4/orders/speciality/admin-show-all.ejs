@@ -17,6 +17,7 @@ if (typeof order_sum == 'number' && order_sum) {
 
 <% include ../../masterpage/loader %>
 
+
 <script src="../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>	
 
 
@@ -27,7 +28,7 @@ if (typeof order_sum == 'number' && order_sum) {
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
-
+<% include ../../masterpage/function-share-orders %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -37,6 +38,7 @@ page wrap
 <!-- --------------------
 content
 --------------------- -->
+
 <div id="content" class="content">
 
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i><%= title %></h1>
@@ -44,9 +46,15 @@ content
 
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
+		
+
 			
 			<div class="ul-wrap">
-				<ul class="status_box">
+				<Select id="select_status" style="margin-bottom:30px;">
+					<%- ojs_share_orders.show_order_status_select_fitter();	-%>			
+				</Select>	
+				<br>				
+				<ul class="status_box" style="display:none;">
 			
 					<li>
 						<a href="#"  data_send="[0,1,2,3,4,5,6,7,8,9,10]" class="status_link   status_active"> Tất cả </a>
@@ -78,8 +86,13 @@ content
 			</div>
 			<ul class="report_link_box">
 			
+			
 				<li class="one report_link">
-					<a href="#"  class="report_active"  data_send="thang_nay">Tháng này</a>
+					<a href="#"  class="report_active"  data_send="tat_ca">Tất cả</a>
+				</li>			
+			
+				<li class="one report_link">
+					<a href="#"  class=""  data_send="thang_nay">Tháng này</a>
 				</li>
 				
 				<li class="one report_link">
@@ -194,7 +207,7 @@ $(document).ready(function($){
 		var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
 		date_02_ok = date_02_ok + " 23:59:59";
 
-		var data_status = $('.status_box').find('.status_active').attr("data_send");
+		var data_status = $('#select_status').val();
 		
 		//
 		var datas = {
@@ -237,7 +250,7 @@ $(document).ready(function($){
 		
 		//
 		//lấy atatus
-		var data_status = $('.status_box').find('.status_active').attr("data_send");
+		var data_status = $('#select_status').val();
 				
 		
 		var datas = {
@@ -311,7 +324,7 @@ $(document).ready(function($){
 		
 		//
 		//@
-		var data_status = $(this).attr("data_send");
+		var data_status = $('#select_status').val();
 			
 		//@
 		var datas = {
@@ -333,6 +346,83 @@ $(document).ready(function($){
 	});			
 	//		
 	//		
+	
+	
+	//
+	//@
+	//search theo ngày giờ set class
+	$(document).on('change','#select_status',function(e) {	
+		//@
+		e.preventDefault();	
+		//alert($(this).val());
+		
+		var check_day = $('.report_link_box').find('.report_active');
+		//
+		if($("#btn_date").hasClass( "report_active" ) == false && check_day.length == 0){
+			var date_star = "2020/01/01 00:00:00";
+			var date_end = ojs_loader.get_date_end('hom_nay');	
+		}else{
+			var date_star="";
+			var date_end="";
+			//@@
+			if($("#btn_date").hasClass( "report_active" )){
+				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+
+			
+				if(date_01 == null || date_02 == null){
+					ojs_message.message_ok_show("vui lòng chọn ngày");
+					return;
+				}
+			
+				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+				var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+				date_star = date_01_ok + " 00:00:00";
+				//@
+				//@
+				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+				var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+				date_end = date_02_ok  + " 23:59:59";			
+			}else{
+			//lay thòi gian
+				var date_send = $('.report_link_box').find('.report_active').attr("data_send");
+				var date_star = ojs_loader.get_date_star(date_send);
+				var date_end = ojs_loader.get_date_end(date_send);			
+			}
+		}
+		//
+		//
+		
+		$(this).parents('.status_box').find("a").removeClass("status_active");
+		$(this).addClass("status_active");
+				
+		
+		//
+		//@
+		var data_status = $(this).val();
+			
+		//@
+		var datas = {
+			"datas":{
+				date_star 	: date_star,
+				date_end 	: date_end,
+				status_send : data_status
+			}
+		}	
+		
+		
+		
+		//console.log(datas);
+		//return;
+		
+		
+		ojs_orders.ajax_load_order(datas);			
+		
+	});			
+	//		
+	//		
+	
+	
 	
 	//
 	//

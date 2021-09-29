@@ -209,7 +209,9 @@ content
 	<div class="pro_box">
 		<h3>Logo cửa hàng</h3>	
 		<div class="inside l-ed">
-			<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+			<input type="text" value="" id="featured_image"
+			data_value="<%-  ojs_share.unCape( datas[0].stores_logo_image ) %>"
+			style="display:none;" />
 			<input type="button" value="Thêm ảnh" id="btn_featured_image">
 			<div id="img_box_dai_dien"></div>
 			<input type='file' accept="image/*" id='upload_image' style="display:none;">

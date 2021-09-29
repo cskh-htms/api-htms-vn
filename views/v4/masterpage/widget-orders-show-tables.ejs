@@ -42,7 +42,7 @@ if(datas.length == 0){
 				<td class="user-name"><%- datas[x].orders_speciality_adress %></td>
 				<td class="user-name"><%- datas[x].orders_speciality_notes %></td>
 				<td class="user-name"><%- ojs_share.show_status_orders_checkout(datas[x].orders_speciality_status_payment) %></td>				
-				<td class="user-name"><%- ojs_share.show_status_orders_complate(datas[x].orders_speciality_status_orders) %></td>
+				<td class="user-name"><%- ojs_share_orders.show_order_status_html(datas[x].orders_speciality_status_orders) %></td>
 			
 				
 				

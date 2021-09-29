@@ -37,14 +37,19 @@
 		//@
 		//@		
 		//@ category-name			
-		if(error.sqlMessage.search("trig_news_title_name_empty") >= 0 ){
+		if(error.sqlMessage.search("trig_category_news_name_empty") >= 0 ){
 			return "Tên Danh mục không được để trống";
+
+		}else if(error.sqlMessage.search("trig_check_category_news_no_parent") >= 0 ){
+			return "T không tìm thấy danh mục cha";
+
 			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
 		}
 
 	}
+	
 	
 	//@
 	//@

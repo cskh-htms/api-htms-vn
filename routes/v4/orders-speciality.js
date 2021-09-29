@@ -913,9 +913,10 @@ router.get('/', async function(req, res, next) {
 		'store_compare':'<>',
 		'user_compare': '<>',
 		'status_admin_compare':'<>',
-		'status_admin_value':'100',
+		'status_admin_value':'1000',
+		'date_star':'2021/01/01 00:00:00',
 		'status_payment_compare':'<>',
-		'status_payment_value':'100',		
+		'status_payment_value':'1000',		
 		};
 	//@
 	var data_order_ok = Object.assign(data_order_order_assign,data_order_data_edit);		
