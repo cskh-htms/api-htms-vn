@@ -11,8 +11,6 @@ START TRANSACTION;
 
 
 -- 
-
-
 -- 
 -- 
 -- check products_speciality_name update
@@ -32,6 +30,16 @@ BEGIN
 IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 	SIGNAL SQLSTATE '12345' 
 	SET MESSAGE_TEXT = 'trig_products_speciality_update_name_empty';   
+END IF;	
+
+
+-- 
+--
+-- check weight
+-- nếu chưa có weight thì bắt buộc nhập
+IF(NEW.dala_products_speciality_weight  is null or NEW.dala_products_speciality_weight = '') THEN 
+	SIGNAL SQLSTATE '12301' 
+	SET MESSAGE_TEXT = 'trig_products_speciality_insert_weight_empty';   
 END IF;	
 
 

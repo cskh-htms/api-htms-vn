@@ -603,6 +603,8 @@ function get_message_error(error){
 	}else if(error.sqlMessage.search("a foreign key constraint fails") >= 0 ){
 		return " Danh mục hoặc option id không tìm thấy ";		
 		
+	}else if(error.sqlMessage.search("trig_products_speciality_insert_weight_empty") >= 0 ){
+		return " vui lòng nhập cân nặng của sản phẩm, có thể ước lượng khoảng 200 gram ";			
 		
 		
 		

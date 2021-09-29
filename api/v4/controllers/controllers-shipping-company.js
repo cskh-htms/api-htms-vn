@@ -61,7 +61,7 @@ const models_shipping_company = require('../models/models-shipping-company');
 //@@
 //@* 1. [get_all_shipping_company]
 async  function get_all_shipping_company(req, res, next) {
-	
+try {	
 	//res.send(["adasdasd"]);
 	//return;
 	//@
@@ -74,7 +74,7 @@ async  function get_all_shipping_company(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-shipping-company->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-company->insert", "message": error_send } );
 		return;	
 	}	
 	
@@ -93,7 +93,7 @@ async  function get_all_shipping_company(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-shipping-company->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-company->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -110,7 +110,7 @@ async  function get_all_shipping_company(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-shipping-company->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-shipping-company->insert", "message": error_send } );
 		return;			
 	}			
 	
@@ -125,17 +125,28 @@ async  function get_all_shipping_company(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";			
+			//evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
-			res.send( { "error": "controllers-shipping-company->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-shipping-company->insert", "message": error_send } );
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";			
+		//evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
-		res.send( { "error": "controllers-shipping-company->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-shipping-company->insert", "message": error_send } );
+		return;
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
+	res.send({ "error" : "113", "position":"ctl-shipping-company->insert", "message": error_send } );
+	return;
+}		
+	
 }
 
 //@ end of * 1. [get_all_shipping_company]

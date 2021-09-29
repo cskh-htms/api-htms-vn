@@ -75,7 +75,7 @@ const models_shipping_tracking = require('../models/models-shipping-tracking');
 //@
 //@ 1. [insert_shipping_tracking]
 async function insert_shipping_tracking(req, res, next) {
-	
+try {	
 	
 	//res.send(["ok"]);
 	//return;
@@ -92,11 +92,13 @@ async function insert_shipping_tracking(req, res, next) {
 		//@
 		//* nếu chưa có mã cữa hàng thì out
 		if(!datas.shipping_tracking_users_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id shipping (shipping_tracking_users_id) " });
+			res.send({ "error" : "1", "position":"ctl-shipping-tracking->insert", 
+			"message": " Chưa nhập id shipping (shipping_tracking_users_id) " } );
 			return;
 		}
 		if(!datas.shipping_tracking_orders_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id đơn hàng (shipping_tracking_orders_id) " });
+			res.send({ "error" : "2", "position":"ctl-shipping-tracking->insert", 
+			"message": " Chưa nhập id đơn hàng (shipping_tracking_orders_id) "} );
 			return;
 		}		
 		//res.send([datas,token]);
@@ -104,8 +106,9 @@ async function insert_shipping_tracking(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-shipping_tracking->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-shipping-tracking->insert", "message": error_send } );
 		return;	
 	}	
 
@@ -140,7 +143,7 @@ async function insert_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-shipping_tracking->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-shipping-tracking->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -161,7 +164,7 @@ async function insert_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-shipping_tracking->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "5", "position":"ctl-shipping-tracking->insert", "message": error_send } );
 		return;			
 	}		
 	
@@ -189,7 +192,7 @@ async function insert_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-shipping_tracking->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-shipping-tracking->insert", "message": error_send } );
 		return;	
 	}			
 	
@@ -210,7 +213,7 @@ async function insert_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-shipping_tracking->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-shipping-tracking->insert", "message": error_send } );
 			return;
 		});
 	}
@@ -218,9 +221,18 @@ async function insert_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert shipping_tracking , Liên hệ admin" );
-			res.send({ "error" : "controllers-shipping_tracking->insert->model-run->number_error : 2 ", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-shipping-tracking->insert", "message": error_send } ); 
 			return;
-	}		
+	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert shipping_tracking , Liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-shipping-tracking->insert", "message": error_send } ); 
+		return;
+}	
+	
 }
 
 
@@ -238,14 +250,16 @@ async function insert_shipping_tracking(req, res, next) {
 //@@
 //@* 2. [get_all_shipping_tracking_store]
 async  function get_all_shipping_tracking(req, res, next) {
+try {
 	// lấy data request
 	try {
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-tracking->get all", "message": error_send } );
 		return;	
 	}	
 	
@@ -264,7 +278,7 @@ async  function get_all_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-tracking->get all", "message": error_send } );
 		return;			
 	}
 	
@@ -281,7 +295,7 @@ async  function get_all_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-shipping-tracking->get all", "message": error_send } );
 		return;			
 	}			
 	
@@ -296,17 +310,27 @@ async  function get_all_shipping_tracking(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";			
+			//evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list shipping_tracking" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-shipping-tracking->get all", "message": error_send } );
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list shipping_tracking" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-shipping-tracking->get all", "message": error_send } );
+		return;
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list shipping_tracking" );
+	res.send({ "error" : "113", "position":"ctl-shipping-tracking->get all", "message": error_send } );
+	return;
+}	
 }
 
 //@ end of * 2. [get_all_shipping_tracking_store]
@@ -323,6 +347,7 @@ async  function get_all_shipping_tracking(req, res, next) {
 //@@
 //@@ * 3. [get_one_shipping_tracking]
 async  function get_one_shipping_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -333,7 +358,7 @@ async  function get_one_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-tracking->get one", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -352,7 +377,7 @@ async  function get_one_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-tracking->get one", "message": error_send } );
 		return;			
 	}
 	
@@ -368,7 +393,7 @@ async  function get_one_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-shipping_tracking->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-shipping-tracking->get one", "message": error_send } );
 		return;			
 	}	
 	
@@ -386,18 +411,26 @@ async  function get_one_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-shipping_tracking->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-shipping-tracking->get one", "message": error_send } );
 			return;	
 
 		});
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-shipping_tracking->get_one->model-run -> error_number : 2", "message": error_send } ); 
-			return;	
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-shipping-tracking->get one", "message": error_send } );
+		return;	
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-shipping-tracking->get one", "message": error_send } );
+	return;	
+}	
 }
 
 //@ end of * 3. [get_one_shipping_tracking]
@@ -414,6 +447,7 @@ async  function get_one_shipping_tracking(req, res, next) {
 //@@
 //@@ * 4. [update_shipping_tracking]
 async  function update_shipping_tracking(req, res, next) {
+try {
 	//@
 	//@	get datas req
 	try {
@@ -431,7 +465,7 @@ async  function update_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-tracking->update", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -450,7 +484,7 @@ async  function update_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-tracking->update", "message": error_send } ); 
 		return;			
 	}
 	
@@ -478,8 +512,11 @@ async  function update_shipping_tracking(req, res, next) {
 		if(shipping_tracking_order_check.error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, shipping_tracking_order_check.error, "lỗi truy xuất database shipping_tracking, liên hệ admin dala" );
-			res.send( { "error": "controllers-shipping_tracking->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			shipping_tracking_order_check.error, 
+			"lỗi truy xuất database shipping_tracking, liên hệ admin dala" );
+			res.send({ "error" : "3", "position":"ctl-shipping-tracking->update", "message": error_send } ); 
 			return;			
 		}
 		//@
@@ -489,7 +526,7 @@ async  function update_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
 			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có đơn hàng này" );
-			res.send( { "error": "controllers-shipping_tracking>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-shipping-tracking->update", "message": error_send } ); 	
 			return;			
 		}		
 	
@@ -498,7 +535,7 @@ async  function update_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database shipping_tracking" );
-		res.send( { "error": "controllers-shipping_tracking->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-shipping-tracking->update", "message": error_send } ); 
 		return;
 	}			
 	
@@ -526,7 +563,7 @@ async  function update_shipping_tracking(req, res, next) {
 				"Bạn không đủ quyền thao tác, hoặc đơn hàng đã hoàn thành , không thể update", 
 				"Bạn không đủ quyền thao tác" 
 			);
-			res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 3", "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-shipping-tracking->update", "message": error_send } ); 
 			return;		
 		}			
 	}		
@@ -553,7 +590,7 @@ async  function update_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_shipping_tracking.update_shipping_tracking->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-shipping-tracking->update", "message": error_send } );  
 			return;
 		});
 	}
@@ -561,9 +598,17 @@ async  function update_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_shipping_tracking.update_shipping_tracking->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-shipping-tracking->update", "message": error_send } );  
 			return;
-	}	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-shipping-tracking->update", "message": error_send } );  
+		return;
+}		
 }
 
 //@@ * end of  4. [update_shipping_tracking]
@@ -576,6 +621,7 @@ async  function update_shipping_tracking(req, res, next) {
 //@@
 //@* 5. [delete_shipping_tracking]
 async  function delete_shipping_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -591,7 +637,7 @@ async  function delete_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 		return;			
 	}	
 	//@
@@ -610,7 +656,7 @@ async  function delete_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 		return;			
 	}
 	
@@ -638,8 +684,11 @@ async  function delete_shipping_tracking(req, res, next) {
 		if(shipping_tracking_order_check.error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
-			var error_send = ojs_shares_show_errors.show_error( evn, shipping_tracking_order_check.error, "lỗi truy xuất database shipping_tracking, liên hệ admin dala" );
-			res.send( { "error": "controllers-shipping_tracking->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			shipping_tracking_order_check.error,
+			"lỗi truy xuất database shipping_tracking, liên hệ admin dala" );
+			res.send({ "error" : "3", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 			return;			
 		}
 		//@
@@ -649,7 +698,7 @@ async  function delete_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
 			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có đơn hàng này" );
-			res.send( { "error": "controllers-shipping_tracking>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-shipping-tracking->delete", "message": error_send } );  	
 			return;			
 		}		
 	
@@ -658,7 +707,7 @@ async  function delete_shipping_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database shipping_tracking" );
-		res.send( { "error": "controllers-shipping_tracking->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 		return;
 	}			
 	
@@ -686,7 +735,7 @@ async  function delete_shipping_tracking(req, res, next) {
 				"Bạn không đủ quyền thao tác, hoặc đơn hàng đã hoàn thành , không thể update", 
 				"Bạn không đủ quyền thao tác" 
 			);
-			res.send({ "error" : "controllers-shipping_tracking->update->get req -> error_number : 3", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 			return;		
 		}			
 	}		
@@ -715,7 +764,7 @@ async  function delete_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-shipping_tracking->delete ", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 			return;	
 		});
 	}
@@ -723,9 +772,17 @@ async  function delete_shipping_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->shipping_tracking/delete ", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-shipping-tracking->delete", "message": error_send } );  
+		return;	
+}		
 }
 //@* end of  5. [delete_shipping_tracking]
 
@@ -739,7 +796,7 @@ async  function delete_shipping_tracking(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -756,7 +813,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_shipping_tracking>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-shipping-tracking->search", "message": error_send } );   
 		return;			
 	}	
 
@@ -793,7 +850,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controller_shipping_tracking>search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -816,7 +873,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-shipping_tracking->search->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 		return;			
 	}
 
@@ -841,8 +898,11 @@ async  function search(req, res, next) {
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-			res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all",
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
+			res.send({ "error" : "4", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 			return;	
 		}		
 	}else if (check_condition_id == 1){
@@ -855,8 +915,11 @@ async  function search(req, res, next) {
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-shipping_tracking->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "5", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 			return;			
 		}			
 	}	
@@ -875,7 +938,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -883,10 +946,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
 			return;	
 	}
-
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-shipping-tracking->search", "message": error_send } ); 
+		return;	
+}
 }
 
 //end of 6. [search] 
@@ -901,7 +971,7 @@ async  function search(req, res, next) {
 //@
 //@ 7. [push_shipping_dala]
 async  function push_shipping_dala(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -1025,7 +1095,14 @@ async  function push_shipping_dala(req, res, next) {
 		res.send({ "error" : "7", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
 		return;	
 	}
-
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
+	return;	
+}
 }
 
 
@@ -1037,8 +1114,7 @@ async  function push_shipping_dala(req, res, next) {
 //@
 //@ 8. [push_shipping_dala_shipper]
 async  function push_shipping_dala_shipper(req, res, next) {
-	
-	
+try {		
 	//@
 	//@
 	//@
@@ -1162,7 +1238,14 @@ async  function push_shipping_dala_shipper(req, res, next) {
 		res.send({ "error" : "7", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
 		return;	
 	}
-
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->push_shipping_dala","message": error_send } ); 
+	return;	
+}
 }
 
 
@@ -1172,7 +1255,7 @@ async  function push_shipping_dala_shipper(req, res, next) {
 //@
 //@ 7. [push_shipping_ghtk]
 async  function push_shipping_ghtk(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -1573,7 +1656,14 @@ async  function push_shipping_ghtk(req, res, next) {
 		res.send({ "error" : "15" ,"position":"ctl-shipping_spaciality->ghtk", "message" : "không tìm thấy giá ghtk"}); 
 		return;	
 	}		
-
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lưu data. liên hệ admin" );
+	res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->ghtk", "message" : "không tìm thấy giá ghtk"}); 
+	return;	
+}	
 }
 
 

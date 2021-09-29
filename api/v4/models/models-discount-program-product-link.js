@@ -174,7 +174,7 @@ var insert_discount_program_product_link = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program_product_link_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount-program-product-link->insert", "message" : error } ;
 	}
 
 };
@@ -209,7 +209,7 @@ var get_all_discount_program_product_link = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program_product_link_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount-program-product-link->get all", "message" : error } ;
 	}
 };
 
@@ -245,7 +245,7 @@ const get_one_discount_program_product_link = async function (discount_program_p
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program_product_link->get_one_discount_program_product_link->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount-program-product-link->get one", "message" : error } ;
 	}
 };
 
@@ -312,7 +312,7 @@ const update_discount_program_product_link = async function (datas,discount_prog
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->discount_program_product_link->update->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount-program-product-link->update", "message" : error } ;
 	}
 };
 
@@ -345,7 +345,7 @@ const delete_discount_program_product_link = async function (discount_program_pr
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_discount_program_product_link->delete->error_numbaer : 1 ", "message": error_send } ); 
+		return  { "error" : "1", "position":"md-discount-program-product-link->delete", "message" : error } ;
 		return;	
 	}
 };
@@ -381,7 +381,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao táo lại" );
-		res.send({ "error" : "model product speciality, -> search -> products speciality->error : 1", "message": error_send } ); 
+		return  { "error" : "1", "position":"md-discount-program-product-link->search", "message" : error } ;
 		return;	
 	}		
 			
@@ -412,7 +412,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_discount_program_product_link->search->error_number : 2", "message": error_send } ); 
+		return  { "error" : "2", "position":"md-discount-program-product-link->search", "message" : error } ;
 		return;	
 	}	
 	//return get_sql_search;
@@ -432,7 +432,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_discount_program_product_link->search->error_number : 1", "message": error_send } ); 
+		return  { "error" : "3", "position":"md-discount-program-product-link->search", "message" : error } ;
 		return;	
 	}
 };
@@ -469,7 +469,7 @@ const get_owner_discount_program_product_link = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_products->get_owner_discount_program_product_link->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount-program-product-link->get owner", "message" : error } ;
 	}
 };
 

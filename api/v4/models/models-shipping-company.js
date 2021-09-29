@@ -111,7 +111,7 @@ const get_all_shipping_company = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_shipping_company_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-shipping_company->insert", "message" : error } ;
 	}
 };
 

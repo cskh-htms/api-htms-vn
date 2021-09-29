@@ -70,6 +70,7 @@ const models_stores = require('../models/models-stores');
 //@
 //@ 1. [insert_stores]
 async function insert_stores(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -83,7 +84,7 @@ async function insert_stores(req, res, next) {
 		//@
 		//* nếu chưa có mã cữa hàng thì out
 		if(!datas.stores_user_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id uders bussiness (stores_user_id) " });
+			res.send({ "error" : "1", "position":"ctl-stores->insert", "message": " Chưa nhập id uders bussiness (stores_user_id) " } );
 			return;
 		}
 		//res.send([datas,token]);
@@ -91,15 +92,16 @@ async function insert_stores(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-stores->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->insert", "message": error_send } );
 		return;	
 	}	
 
 
-
 	//res.send(datas_check );	
 	//return;	 
+	
 	try{
 		var datas_check = {
 			"token":token,
@@ -112,10 +114,9 @@ async function insert_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-stores->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->insert", "message": error_send } );
 		return;			
 	}
-	
 	
 	//@
 	//@
@@ -125,7 +126,7 @@ async function insert_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-stores->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-stores->insert", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -145,7 +146,7 @@ async function insert_stores(req, res, next) {
 		let data_check = default_field.check_datas(datas_assign);
 		
 		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
+			res.send({ "error" : "5", "position":"ctl-stores->insert", "message": data_check } );
 			return;
 		}
 	}
@@ -153,7 +154,7 @@ async function insert_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-stores->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-stores->insert", "message": error_send } ); 
 		return;	
 	}			
 	
@@ -174,7 +175,7 @@ async function insert_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-stores->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-stores->insert", "message": error_send } ); 
 			return;
 		});
 	}
@@ -182,9 +183,17 @@ async function insert_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert stores , Liên hệ admin" );
-		res.send({ "error" : "controllers-stores->insert->model-run->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "8", "position":"ctl-stores->insert", "message": error_send } ); 
 		return;
-	}		
+	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	////evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert stores , Liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-stores->insert", "message": error_send } ); 
+	return;
+}		
 }
 
 
@@ -202,14 +211,16 @@ async function insert_stores(req, res, next) {
 //@@
 //@* 2. [get_all_stores_store]
 async  function get_all_stores(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-stores->get all", "message": error_send } ); 
 		return;	
 	}	
 	
@@ -228,7 +239,7 @@ async  function get_all_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->get all", "message": error_send } );
 		return;			
 	}
 	
@@ -244,7 +255,7 @@ async  function get_all_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->get all", "message": error_send } );
 		return;			
 	}			
 	
@@ -261,15 +272,25 @@ async  function get_all_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-stores->get all", "message": error_send } );
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
-	}	
+		res.send({ "error" : "5", "position":"ctl-stores->get all", "message": error_send } );
+		return;
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
+	res.send({ "error" : "113", "position":"ctl-stores->get all", "message": error_send } );
+	return;
+}		
 }
 
 //@ end of * 2. [get_all_stores_store]
@@ -286,6 +307,7 @@ async  function get_all_stores(req, res, next) {
 //@@
 //@@ * 3. [get_one_stores]
 async  function get_one_stores(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -296,7 +318,7 @@ async  function get_one_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-stores->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-stores->get one", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -315,7 +337,7 @@ async  function get_one_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-stores->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->get one", "message": error_send } );
 		return;			
 	}
 	
@@ -330,7 +352,7 @@ async  function get_one_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-stores->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->get one", "message": error_send } );
 		return;			
 	}	
 	
@@ -348,7 +370,7 @@ async  function get_one_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-stores->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-stores->get one", "message": error_send } );
 			return;	
 
 		});
@@ -357,9 +379,17 @@ async  function get_one_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-stores->get_one->model-run -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-stores->get one", "message": error_send } );
 			return;	
-	}	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-stores->get one", "message": error_send } );
+		return;	
+}		
 }
 
 //@ end of * 3. [get_one_stores]
@@ -376,6 +406,7 @@ async  function get_one_stores(req, res, next) {
 //@@
 //@@ * 4. [update_stores]
 async  function update_stores(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -387,7 +418,7 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-stores->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-stores->delete", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -406,7 +437,7 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-stores->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->delete", "message": error_send } ); 
 		return;			
 	}
 	
@@ -417,7 +448,7 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-stores->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->delete", "message": error_send } ); 
 		return;			
 	}		
 	
@@ -437,7 +468,7 @@ async  function update_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
 			var error_send = ojs_shares_show_errors.show_error( evn, stores_check.error, "lỗi truy xuất database stores, liên hệ admin dala" );
-			res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			res.send({ "error" : "4", "position":"ctl-stores->delete", "message": error_send } ); 
 			return;			
 		}
 		//@
@@ -447,7 +478,7 @@ async  function update_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
 			var error_send = ojs_shares_show_errors.show_error( evn,"Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-stores>check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-stores->delete", "message": error_send } ); 
 			return;			
 		}		
 	
@@ -456,7 +487,7 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database stores" );
-		res.send( { "error": "controllers-stores->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-stores->delete", "message": error_send } ); 
 		return;
 	}			
 	
@@ -490,7 +521,7 @@ async  function update_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi xoá status, liên hệ admin","Lỗi xoá status, liên hệ admin" );
-		res.send({ "error" : "controllers-stores->update->loc datas -> error_number : 4", "message": error_send } ); 
+		res.send({ "error" : "7", "position":"ctl-stores->delete", "message": error_send } ); 
 		return;
 	}
 
@@ -508,7 +539,7 @@ async  function update_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_stores.update_stores->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-stores->delete", "message": error_send } ); 
 			return;
 		});
 	}
@@ -516,9 +547,18 @@ async  function update_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_stores.update_stores->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-stores->delete", "message": error_send } ); 		
 			return;
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-stores->delete", "message": error_send } ); 
+		return;
+}	
+	
 }
 
 //@@ * end of  4. [update_stores]
@@ -531,6 +571,7 @@ async  function update_stores(req, res, next) {
 //@@
 //@* 5. [delete_stores]
 async  function delete_stores(req, res, next) {
+try {
 	//@
 	//@
 	//@	get datas req
@@ -542,7 +583,7 @@ async  function delete_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-stores->delete", "message": error_send } );  
 		return;			
 	}	
 	//@
@@ -561,7 +602,7 @@ async  function delete_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->delete", "message": error_send } );  
 		return;			
 	}
 
@@ -574,7 +615,7 @@ async  function delete_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-stores->delete->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->delete", "message": error_send } );  
 		return;			
 	}		
 	
@@ -594,7 +635,8 @@ async  function delete_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";			
 			var error_send = ojs_shares_show_errors.show_error( evn, stores_check.error, "lỗi truy xuất database stores, liên hệ admin dala" );
-			res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );			
+			res.send({ "error" : "4", "position":"ctl-stores->delete", "message": error_send } );  
+			return;
 		}
 		//@
 		//@
@@ -603,7 +645,7 @@ async  function delete_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";				
 			var error_send = ojs_shares_show_errors.show_error( evn, "Không có cửa hàng", "Không có cửa hàng" );
-			res.send( { "error": "controllers-stores>delete->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-stores->delete", "message": error_send } );  
 			return;			
 		}		
 	
@@ -612,7 +654,7 @@ async  function delete_stores(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( ojs_configs.api_evn, error, "lỗi truy xuất database stores" );
-		res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 3", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-stores->delete", "message": error_send } );  
 		return;
 	}			
 	
@@ -627,7 +669,7 @@ async  function delete_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";		
 			var error_send = ojs_shares_show_errors.show_error( evn, " Cửa hàng đã pushlist khong thể xoá", "Cửa hàng đã pushlist khong thể xoá" );
-			res.send( { "error": "controllers-stores->delete->check-pushplic -> model-run -> error_number : 5", "message" : error_send  } );
+			res.send({ "error" : "7", "position":"ctl-stores->delete", "message": error_send } );  
 			return;
 		}
 	}		
@@ -648,7 +690,7 @@ async  function delete_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-stores->delete ", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-stores->delete", "message": error_send } );  
 			return;	
 		});
 	}
@@ -656,9 +698,17 @@ async  function delete_stores(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->stores/delete ", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-stores->delete", "message": error_send } );  
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-stores->delete", "message": error_send } );  
+		return;	
+}		
 }
 //@* end of  5. [delete_stores]
 
@@ -672,7 +722,7 @@ async  function delete_stores(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -689,7 +739,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_stores>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-stores->search", "message": error_send } );  
 		return;			
 	}	
 
@@ -726,7 +776,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controller_stores>search->check_condition_id -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-stores->search", "message": error_send } );  
 		return;			
 	}		
 	
@@ -749,7 +799,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-stores->search->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-stores->search", "message": error_send } );  
 		return;			
 	}
 
@@ -766,8 +816,10 @@ async  function search(req, res, next) {
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-			res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn, 
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all",
+			"Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
+			res.send({ "error" : "4", "position":"ctl-stores->search", "message": error_send } );  
 			return;	
 		}		
 	}else if (check_condition_id == 1){
@@ -779,8 +831,10 @@ async  function search(req, res, next) {
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user", "Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
-			res.send({ "error" : "controllers-stores->search->check_condition_id -> error_number : 2", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn, 
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user",
+			"Bạn không đủ quyền thao tác, bạn không phải chủ sở hữu user" );
+			res.send({ "error" : "5", "position":"ctl-stores->search", "message": error_send } );  
 			return;			
 		}			
 	}	
@@ -799,7 +853,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-stores->search", "message": error_send } );  
 			return;	
 		});
 	}
@@ -807,9 +861,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-stores->search", "message": error_send } );  
 			return;	
 	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-stores->search", "message": error_send } );  
+		return;	
+}	
 
 }
 

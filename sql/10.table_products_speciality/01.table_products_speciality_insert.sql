@@ -35,6 +35,22 @@ IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_na
 END IF;	
 
 
+
+
+
+-- 
+--
+-- check weight
+-- nếu chưa có weight thì bắt buộc nhập
+IF(NEW.dala_products_speciality_weight  is null or NEW.dala_products_speciality_weight = '') THEN 
+	SIGNAL SQLSTATE '12301' 
+	SET MESSAGE_TEXT = 'trig_products_speciality_insert_weight_empty';   
+END IF;	
+
+
+
+
+
 -- 
 --
 -- date less then
@@ -73,6 +89,14 @@ IF( LENGTH(NEW.dala_products_speciality_parent_id) > 0 AND NEW.dala_products_spe
 		SET MESSAGE_TEXT = 'trig_products_speciality_insert_parent_id_no_refe_insert'; 
 	END IF;	
 END IF;
+
+
+
+
+
+
+
+
 
 
 

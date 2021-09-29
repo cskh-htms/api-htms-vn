@@ -201,7 +201,7 @@ var insert_discount_program = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program_insert-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount_program->indert", "message" : error } ;
 	}
 
 };
@@ -236,7 +236,7 @@ var get_all_discount_program = async function () {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program_insert->get_all-> error_nymber : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount_program->get all", "message" : error } ;
 	}
 };
 
@@ -272,7 +272,7 @@ const get_one_discount_program = async function (discount_program_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model_discount_program->get_one_discount_program->error-number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount_program->get one", "message" : error } ;
 	}
 };
 
@@ -354,7 +354,7 @@ const update_discount_program = async function (datas,discount_program_id) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "model->discount_program->update->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount_program->update", "message" : error } ;
 	}
 };
 
@@ -387,7 +387,7 @@ const delete_discount_program = async function (discount_program_id) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete cử hàng, liên hệ admin" );
-		res.send({ "error" : "model_discount_program->delete->error_numbaer : 1 ", "message": error_send } ); 
+		return  { "error" : "1", "position":"md-discount_program->delete", "message" : error } ;
 		return;	
 	}
 };
@@ -417,7 +417,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_discount_program->search->error_number : 2", "message": error_send } ); 
+		return  { "error" : "1", "position":"md-discount_program->search", "message" : error } ;
 		return;	
 	}	
 	
@@ -442,7 +442,7 @@ const search = async function (datas) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
-		res.send({ "error" : "model_discount_program->search->error_number : 1", "message": error_send } ); 
+		return  { "error" : "2", "position":"md-discount_program->search", "message" : error } ;
 		return;	
 	}
 };
@@ -490,7 +490,7 @@ const get_owner_discount_program = async function (datas) {
 		} );
 	}
 	catch(error){
-		return  { "error" : "models_discount_program->get_owner_discount_program->error_number : 1", "message" : error } ;
+		return  { "error" : "1", "position":"md-discount_program->get owner", "message" : error } ;
 	}
 };
 

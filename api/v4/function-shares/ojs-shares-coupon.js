@@ -9,6 +9,8 @@
 	- 3. [check_qty]
 
 	- 4. [check_first_sale]
+	
+	- 16. [check_price_percen]
 
 5. [caution_price]
 
@@ -55,17 +57,17 @@ const caution_price = async function(datas){
 	if(datas.formula == 0){
 		
 		//date_return =  0;
-		date_return = await price_percen(datas.datas, datas.value);
+		date_return = await price_percen(datas.datas, datas.price,datas.price_max);
 		
 	}else if(datas.formula == 1){
 		
 		//date_return =  1;
-		date_return = await price_fixed(datas.datas, datas.value);
+		date_return = await price_fixed(datas.datas, datas.price,datas.price_max);
 
 	}else if(datas.formula == 2){
 		
 		//date_return =  2;
-		date_return = await free_shipping(datas.datas, datas.value);
+		date_return = await free_shipping(datas.datas, datas.price,datas.price_max);
 		
 	}else{
 		date_return = 555;
@@ -81,27 +83,18 @@ const caution_price = async function(datas){
 
 //@@
 //@@ 8. [free_shipping]
-const free_shipping = async function(datas,value){
+const free_shipping = async function(datas,value,max){
 	
-	var data_sum = 0;
-	var data_return = 0;
-	
-	for(x in datas){
-		var line_sum = datas[x].orders_details_speciality_qty * datas[x].orders_details_speciality_price;
-		data_sum = data_sum + line_sum;
-	}
-	
-	if(data_sum >= value){
-		data_return = 1;
-	}
-	
+	var data_return = max;
 	return data_return;
+	
+	
 }	
 
 
 //@@
 //@@ 6. [price_percen]
-const price_percen = async function(datas,value){
+const price_percen = async function(datas,value,max){
 	
 	var data_sum = 0;
 	var data_return = 0;
@@ -111,8 +104,16 @@ const price_percen = async function(datas,value){
 		data_sum = data_sum + line_sum;
 	}
 	
-	if(data_sum >= value){
-		data_return = 1;
+	var percen_return = data_sum * value / 100;
+	
+	
+	data_return = percen_return;
+	if(max > 0){
+		if(percen_return >= max){
+			data_return = max;
+		}else{
+			data_return = percen_return;
+		}
 	}
 	
 	return data_return;
@@ -121,18 +122,17 @@ const price_percen = async function(datas,value){
 
 //@@
 //@@ 7. [price_fixed]
-const price_fixed = async function(datas,value){
+const price_fixed = async function(datas,value,max){
 	
-	var data_sum = 0;
 	var data_return = 0;
+	data_return = value;
 	
-	for(x in datas){
-		var line_sum = datas[x].orders_details_speciality_qty * datas[x].orders_details_speciality_price;
-		data_sum = data_sum + line_sum;
-	}
-	
-	if(data_sum >= value){
-		data_return = 1;
+	if(max > 0){
+		if(value >= max){
+			data_return = max;
+		}else{
+			data_return = value;
+		}
 	}
 	
 	return data_return;
@@ -151,7 +151,7 @@ const check_coupon_condition = async function(datas){
 	//return datas;
 	var date_return = 0;
 	if(datas.consition == 0){
-		date_return = await price_percen(datas.datas, datas.value);
+		date_return = await  check_price_percen(datas.datas, datas.value);
 		
 	}else if(datas.consition == 1){
 		date_return = await check_qty(datas.datas, datas.value);
@@ -198,7 +198,24 @@ const check_first_sale = async function(datas,value,user_id){
 
 
 
-
+//@@
+//@@ 16. [price_percen]
+const check_price_percen = async function(datas,value){
+	
+	var data_sum = 0;
+	var data_return = 0;
+	
+	for(x in datas){
+		var line_sum = datas[x].orders_details_speciality_qty * datas[x].orders_details_speciality_price;
+		data_sum = data_sum + line_sum;
+	}
+	
+	if(data_sum >= value){
+		data_return = 1;
+	}
+	
+	return data_return;
+}
 
 
 

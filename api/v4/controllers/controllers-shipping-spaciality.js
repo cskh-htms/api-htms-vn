@@ -70,7 +70,7 @@ const models_shipping_spaciality = require('../models/models-shipping-spaciality
 //@
 //@ 1. [insert_shipping_spaciality]
 async function insert_shipping_spaciality(req, res, next) {
-	
+try {	
 	
 	//res.send(["ok"]);
 	//return;
@@ -95,6 +95,7 @@ async function insert_shipping_spaciality(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->insert", "message" : error_send });
 		return;	
@@ -187,7 +188,10 @@ async function insert_shipping_spaciality(req, res, next) {
 				var message_error = default_field.get_message_error(error);
 			}
 			catch(error){
-				res.send({ "error" : "77" ,"position":"ctl-shipping_spaciality->insert->run", "message" : "lỗi get_message_error, lỗi này do code function, vui lòng liên hệ ADMIN " });
+				res.send({ 
+				"error" : "77" ,
+				"position":"ctl-shipping_spaciality->insert->run", 
+				"message" : "lỗi get_message_error, lỗi này do code function, vui lòng liên hệ ADMIN " });
 				return;				
 			}
 			
@@ -206,6 +210,16 @@ async function insert_shipping_spaciality(req, res, next) {
 			res.send({ "error" : "8" ,"position":"ctl-shipping_spaciality->insert->run->catch", "message" : error_send });
 			return;
 	}		
+	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert shipping_spaciality , Liên hệ admin" );
+		res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->insert->run->catch", "message" : error_send });
+		return;
+}		
+	
 }
 
 
@@ -223,6 +237,7 @@ async function insert_shipping_spaciality(req, res, next) {
 //@@
 //@* 2. [get_all_shipping_spaciality_store]
 async  function get_all_shipping_spaciality(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
@@ -259,6 +274,14 @@ async  function get_all_shipping_spaciality(req, res, next) {
 		return;	
 	}	
 }
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list shipping_spaciality" );
+	res.send({ "error" : "3" ,"position":"ctl-shipping_spaciality->get all", "message" : error_send });
+	return;	
+}			
+}
 
 //@ end of * 2. [get_all_shipping_spaciality_store]
 
@@ -274,6 +297,7 @@ async  function get_all_shipping_spaciality(req, res, next) {
 //@@
 //@@ * 3. [get_one_shipping_spaciality]
 async  function get_one_shipping_spaciality(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -315,6 +339,14 @@ async  function get_one_shipping_spaciality(req, res, next) {
 			return;	
 	}	
 }
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get one shipping, liên hệ admin" );
+		res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->get one", "message" : error_send });
+		return;	
+}		
+}
 
 //@ end of * 3. [get_one_shipping_spaciality]
 
@@ -330,6 +362,7 @@ async  function get_one_shipping_spaciality(req, res, next) {
 //@@
 //@@ * 4. [update_shipping_spaciality]
 async  function update_shipping_spaciality(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -422,6 +455,15 @@ async  function update_shipping_spaciality(req, res, next) {
 			return;	
 	}	
 }
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->update->run", "message" : error_send});
+		return;	
+}		
+	
+}
 
 //@@ * end of  4. [update_shipping_spaciality]
 
@@ -433,6 +475,7 @@ async  function update_shipping_spaciality(req, res, next) {
 //@@
 //@* 5. [delete_shipping_spaciality]
 async  function delete_shipping_spaciality(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -524,6 +567,14 @@ async  function delete_shipping_spaciality(req, res, next) {
 			return;	
 	}	
 }
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->delete->run", "message" : error_send}); 
+		return;	
+}		
+}
 //@* end of  5. [delete_shipping_spaciality]
 
 
@@ -536,7 +587,7 @@ async  function delete_shipping_spaciality(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -571,7 +622,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->search", "message" : error_send}); 
 			return;	
 		});
 	}
@@ -579,10 +630,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "3" ,"position":"ctl-shipping_spaciality->search", "message" : error_send}); 
 			return;	
 	}
-
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113" ,"position":"ctl-shipping_spaciality->search", "message" : error_send}); 
+		return;	
+}		
 }
 
 //end of 6. [search] 

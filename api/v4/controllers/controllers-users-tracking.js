@@ -71,6 +71,7 @@ const models_users_tracking = require('../models/models-users-tracking');
 //@@
 //@@ * 7. [unlock_users_tracking]
 async  function unlock_users_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -87,7 +88,7 @@ async  function unlock_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->unlock->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->unlock", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -105,7 +106,7 @@ async  function unlock_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->unlock->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->unlock", "message": error_send } );
 		return;			
 	}
 	
@@ -131,7 +132,7 @@ async  function unlock_users_tracking(req, res, next) {
 			"Bạn không đủ quyền thao tác, hoặc đơn hàng đã hoàn thành , không thể update", 
 			"Bạn không đủ quyền thao tác" 
 		);
-		res.send({ "error" : "controllers-users_tracking->unlock->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->unlock", "message": error_send } );
 		return;		
 		
 	}		
@@ -158,7 +159,7 @@ async  function unlock_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_users_tracking.unlock_users_tracking->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-users-tracking->unlock", "message": error_send } ); 
 			return;
 		});
 	}
@@ -166,9 +167,17 @@ async  function unlock_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_users_tracking.unlock_users_tracking->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-users-tracking->unlock", "message": error_send } );
 			return;
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->unlock", "message": error_send } );
+		return;
+}		
 }
 
 //@@ * end of  4. [update_users_tracking]
@@ -179,7 +188,7 @@ async  function unlock_users_tracking(req, res, next) {
 //@ 1. [insert_users_tracking]
 async function insert_users_tracking(req, res, next) {
 	
-	
+try {	
 	//res.send(["ok"]);
 	//return;
 	//@
@@ -195,7 +204,9 @@ async function insert_users_tracking(req, res, next) {
 		//@
 		//* nếu chưa có mã cữa hàng thì out
 		if(!datas.users_tracking_user_id){
-			res.send({ "error" : "1" , "message" : " Chưa nhập id user (users_tracking_users_id) " });
+			res.send({ "error" : "1",
+			"position":"ctl-users-tracking->insert",
+			"message":  " Chưa nhập id user (users_tracking_users_id) "} );			
 			return;
 		}
 	
@@ -204,41 +215,25 @@ async function insert_users_tracking(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-users_tracking->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->insert", "message": error_send } );
 		return;	
 	}	
-
-
-
 	//res.send(datas_check );	
 	//return;	 
 	try{
 		var datas_check = {
 			"token"				:	token
 		}		
-		
-		
-		
-		//res.send( datas_check ); 
-		//return;
-		
-		
-		
 		var check_datas_result;
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
-		
-		
-		//res.send({check_datas_result} ); 
-		//return;			
-		
-		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-users_tracking->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -257,7 +252,7 @@ async function insert_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-users_tracking->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-users-tracking->insert", "message": error_send } );
 		return;			
 	}		
 	
@@ -277,7 +272,7 @@ async function insert_users_tracking(req, res, next) {
 		let data_check = default_field.check_datas(datas_assign);
 		
 		if(data_check != 0){
-			res.send({"error" : "1", "message" : data_check } );
+			res.send({ "error" : "5", "position":"ctl-users-tracking->insert", "message": data_check } );			
 			return;
 		}
 	}
@@ -285,7 +280,7 @@ async function insert_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-users_tracking->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "6", "position":"ctl-users-tracking->insert", "message": error_send } );
 		return;	
 	}			
 	
@@ -306,7 +301,7 @@ async function insert_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-users_tracking->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "7", "position":"ctl-users-tracking->insert", "message": error_send } );
 			return;
 		});
 	}
@@ -314,9 +309,17 @@ async function insert_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert users_tracking , Liên hệ admin" );
-			res.send({ "error" : "controllers-users_tracking->insert->model-run->number_error : 2 ", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-users-tracking->insert", "message": error_send } );
 			return;
 	}		
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert users_tracking , Liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->insert", "message": error_send } );
+		return;
+}		
 }
 
 
@@ -334,14 +337,16 @@ async function insert_users_tracking(req, res, next) {
 //@@
 //@* 2. [get_all_users_tracking_store]
 async  function get_all_users_tracking(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->get all", "message": error_send } );
 		return;	
 	}	
 	
@@ -360,7 +365,7 @@ async  function get_all_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->get all", "message": error_send } );
 		return;			
 	}
 	
@@ -377,9 +382,9 @@ async  function get_all_users_tracking(req, res, next) {
 	
 	){}else{
 		var evn = ojs_configs.evn;
-		///evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->get all", "message": error_send } );
 		return;			
 	}			
 	
@@ -394,17 +399,27 @@ async  function get_all_users_tracking(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";			
+			//evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list users_tracking" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-users-tracking->get all", "message": error_send } );
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";			
+		//evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list users_tracking" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "4", "position":"ctl-users-tracking->get all", "message": error_send } );
+		return;
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list users_tracking" );
+	res.send({ "error" : "113", "position":"ctl-users-tracking->get all", "message": error_send } );
+	return;
+}		
 }
 
 //@ end of * 2. [get_all_users_tracking_store]
@@ -421,6 +436,7 @@ async  function get_all_users_tracking(req, res, next) {
 //@@
 //@@ * 3. [get_one_users_tracking]
 async  function get_one_users_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -431,7 +447,7 @@ async  function get_one_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->get one", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -449,7 +465,7 @@ async  function get_one_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->get one", "message": error_send } ); 
 		return;			
 	}
 	
@@ -466,7 +482,7 @@ async  function get_one_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-users_tracking->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->get one", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -484,7 +500,7 @@ async  function get_one_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-users_tracking->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-users-tracking->get one", "message": error_send } ); 
 			return;	
 
 		});
@@ -493,9 +509,17 @@ async  function get_one_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-users_tracking->get_one->model-run -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-users-tracking->get one", "message": error_send } ); 
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->get one", "message": error_send } ); 
+		return;	
+}	
 }
 
 //@ end of * 3. [get_one_users_tracking]
@@ -512,6 +536,7 @@ async  function get_one_users_tracking(req, res, next) {
 //@@
 //@@ * 4. [update_users_tracking]
 async  function update_users_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -529,7 +554,7 @@ async  function update_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->update", "message": error_send } ); 
 		return;			
 	}	
 	//@
@@ -547,7 +572,7 @@ async  function update_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->update", "message": error_send } );
 		return;			
 	}
 	
@@ -573,7 +598,7 @@ async  function update_users_tracking(req, res, next) {
 			"Bạn không đủ quyền thao tác, hoặc đơn hàng đã hoàn thành , không thể update", 
 			"Bạn không đủ quyền thao tác" 
 		);
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->update", "message": error_send } ); 
 		return;		
 		
 	}		
@@ -600,7 +625,7 @@ async  function update_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_users_tracking.update_users_tracking->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-users-tracking->update", "message": error_send } ); 
 			return;
 		});
 	}
@@ -608,9 +633,17 @@ async  function update_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_users_tracking.update_users_tracking->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-users-tracking->update", "message": error_send } );
 			return;
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->update", "message": error_send } );
+		return;
+}		
 }
 
 //@@ * end of  4. [update_users_tracking]
@@ -623,6 +656,7 @@ async  function update_users_tracking(req, res, next) {
 //@@
 //@* 5. [delete_users_tracking]
 async  function delete_users_tracking(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -638,7 +672,7 @@ async  function delete_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->delete", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -656,7 +690,7 @@ async  function delete_users_tracking(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->delete", "message": error_send } );
 		return;			
 	}
 	
@@ -684,7 +718,7 @@ async  function delete_users_tracking(req, res, next) {
 			"Bạn không đủ quyền thao tác, hoặc đơn hàng đã hoàn thành , không thể update", 
 			"Bạn không đủ quyền thao tác" 
 		);
-		res.send({ "error" : "controllers-users_tracking->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-users-tracking->delete", "message": error_send } );
 		return;		
 		
 	}		
@@ -713,7 +747,7 @@ async  function delete_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-users_tracking->delete ", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-users-tracking->delete", "message": error_send } );
 			return;	
 		});
 	}
@@ -721,9 +755,17 @@ async  function delete_users_tracking(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->users_tracking/delete ", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-users-tracking->delete", "message": error_send } );
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->delete", "message": error_send } );
+		return;	
+}	
 }
 //@* end of  5. [delete_users_tracking]
 
@@ -737,7 +779,7 @@ async  function delete_users_tracking(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -754,7 +796,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_users_tracking>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-users-tracking->search", "message": error_send } ); 
 		return;			
 	}	
 
@@ -776,7 +818,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-users_tracking->search->check-role -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-users-tracking->search", "message": error_send } ); 
 		return;			
 	}
 
@@ -798,8 +840,10 @@ async  function search(req, res, next) {
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-		res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, 
+		"Bạn không đủ quyền thao tác, chỉ có admin mới search all", 
+		"Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
+		res.send({ "error" : "3", "position":"ctl-users-tracking->search", "message": error_send } ); 
 		return;	
 	}		
 
@@ -818,7 +862,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-users-tracking->search", "message": error_send } ); 
 			return;	
 		});
 	}
@@ -826,10 +870,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-users-tracking->search", "message": error_send } ); 
 			return;	
 	}
-
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-users-tracking->search", "message": error_send } ); 
+		return;	
+}
 }
 
 //end of 6. [search] 

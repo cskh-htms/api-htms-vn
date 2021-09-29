@@ -70,6 +70,7 @@ const models_discount_program = require('../models/models-discount-program');
 //@
 //@ 1. [insert_discount_program]
 async function insert_discount_program(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -79,14 +80,15 @@ async function insert_discount_program(req, res, next) {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
 		if(!datas.discount_program_store_id_created){
-			res.send({"error": "controllers-discount_program->insert->data-request->error_number : 1","message":"Chưa có id cửa hàng"});
+			res.send({ "error" : "1", "position":"ctl-discount-program->insert", "message": "Chưa có id cửa hàng"} );
 			return;			
 		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-discount_program->insert->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->insert", "message": error_send } );
 		return;	
 	}	
 
@@ -109,7 +111,7 @@ async function insert_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-discount_program->insert-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-discount-program->insert", "message": error_send } );
 		return;			
 	}
 	
@@ -125,7 +127,7 @@ async function insert_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-discount_program->insert-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "4", "position":"ctl-discount-program->insert", "message": error_send } );
 		return;			
 	}		
 	
@@ -162,7 +164,7 @@ async function insert_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
-		res.send({ "error" : "controllers-discount_program->insert->check data->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "5", "position":"ctl-discount-program->insert", "message": error_send } );
 		return;	
 	}			
 	
@@ -183,7 +185,7 @@ async function insert_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controllers-discount_program->insert->model-run->number_error : 1 ", "message": error_send } ); 
+			res.send({ "error" : "6", "position":"ctl-discount-program->insert", "message": error_send } );
 			return;
 		});
 	}
@@ -191,9 +193,18 @@ async function insert_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert discount_program , Liên hệ admin" );
-		res.send({ "error" : "controllers-discount_program->insert->model-run->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "7", "position":"ctl-discount-program->insert", "message": error_send } );
 		return;
 	}		
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	////evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert discount_program , Liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-discount-program->insert", "message": error_send } );
+	return;
+}	
 }
 
 
@@ -211,6 +222,7 @@ async function insert_discount_program(req, res, next) {
 //@@
 //@* 2. [get_all_discount_program_store]
 async  function get_all_discount_program(req, res, next) {
+try {	
 	// lấy data request
 	try {
 		var token = req.headers['token'];
@@ -218,7 +230,7 @@ async  function get_all_discount_program(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "controllers-store->get_all->request->error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-discount-program->get all", "message": error_send } );
 		return;	
 	}	
 	
@@ -237,7 +249,7 @@ async  function get_all_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 1 ", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->get all", "message": error_send } );
 		return;			
 	}
 	
@@ -255,7 +267,7 @@ async  function get_all_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		///evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "controllers-store->get_all-> check owner->number_error : 2 ", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-discount-program->get all", "message": error_send } );
 		return;			
 	}			
 	
@@ -270,17 +282,27 @@ async  function get_all_discount_program(req, res, next) {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			evn = "dev";			
+			//evn = "dev";			
 			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list discount_program" );
-			res.send( { "error": "controllers-store->get_all-> check owner->number_error : 2", "message" : error_send  } );	
+			res.send({ "error" : "4", "position":"ctl-discount-program->get all", "message": error_send } );
+			return;
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list discount_program" );
-		res.send( { "error": "controllers-store->get_all-> check owner->number_error : 3", "message" : error_send  } );
+		res.send({ "error" : "5", "position":"ctl-discount-program->get all", "message": error_send } );
+		return;
 	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";			
+	let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list discount_program" );
+	res.send({ "error" : "113", "position":"ctl-discount-program->get all", "message": error_send } );
+	return;
+}	
 }
 
 //@ end of * 2. [get_all_discount_program_store]
@@ -297,6 +319,7 @@ async  function get_all_discount_program(req, res, next) {
 //@@
 //@@ * 3. [get_one_discount_program]
 async  function get_one_discount_program(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -307,7 +330,7 @@ async  function get_one_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->get_one->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-discount-program->get one", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -325,7 +348,7 @@ async  function get_one_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->get_one->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->get one", "message": error_send } ); 
 		return;			
 	}
 	
@@ -342,7 +365,7 @@ async  function get_one_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-discount_program->get_one->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-discount-program->get one", "message": error_send } );
 		return;			
 	}	
 	
@@ -360,7 +383,7 @@ async  function get_one_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-discount_program->get_one->model-run -> error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-discount-program->get one", "message": error_send } ); 
 			return;	
 
 		});
@@ -369,9 +392,17 @@ async  function get_one_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "controllers-discount_program->get_one->model-run -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-discount-program->get one", "message": error_send } ); 
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-discount-program->get one", "message": error_send } ); 
+		return;	
+}		
 }
 
 //@ end of * 3. [get_one_discount_program]
@@ -388,6 +419,7 @@ async  function get_one_discount_program(req, res, next) {
 //@@
 //@@ * 4. [update_discount_program]
 async  function update_discount_program(req, res, next) {
+try {	
 	//@
 	//@	get datas req
 	try {
@@ -399,7 +431,7 @@ async  function update_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->update->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-discount-program->update", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -418,7 +450,7 @@ async  function update_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->update->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->update", "message": error_send } ); 
 		return;			
 	}
 	
@@ -438,7 +470,7 @@ async  function update_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-discount_program->update->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-discount-program->update", "message": error_send } );
 		return;			
 	}		
 	
@@ -458,7 +490,7 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
-			res.send( { "error": "controllers-discount_program->check-pushplic -> model-run -> error_number : 1", "message" : error_send  } );
+			res.send({ "error" : "4", "position":"ctl-discount-program->update", "message": error_send } );
 			return;			
 		}
 		//@
@@ -468,7 +500,7 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "Không có danh mục " ,"Không có danh mục" );
-			res.send( { "error": "controllers-discount_program->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-discount-program->update", "message": error_send } );
 			return;
 		}		
 	
@@ -477,7 +509,7 @@ async  function update_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
-		res.send( { "error": "controllers-discount_program->check-pushplic -> model-run -> error_number : 2", "message" : error_send  } );
+		res.send({ "error" : "6", "position":"ctl-discount-program->update", "message": error_send } );
 		return;
 	}			
 	
@@ -492,7 +524,7 @@ async  function update_discount_program(req, res, next) {
 		//@
 		//@
 		if(push_check[0].discount_program_status_admin == "1" && check_datas_result.user_role != "admin" ){
-			res.send({ "error" : "controllers-discount-program->program running->-> error_number : 1", "message": "Chương trình đang chạy không thể update" } ); 
+			res.send({ "error" : "7", "position":"ctl-discount-program->update", "message": "Chương trình đang chạy không thể update" } );
 			return;			
 		}
 
@@ -501,7 +533,7 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "controllers-discount-program->program running->xac minh update -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "8", "position":"ctl-discount-program->update", "message": error_send } );
 			return;
 	}			
 		
@@ -535,7 +567,7 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "controllers-category-general-speciality->update_category_general_speciality->xac minh update -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-discount-program->update", "message": error_send } ); 
 			return;
 	}			
 	
@@ -557,7 +589,7 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
-			res.send({ "error" : "controller_store->models_discount_program.update_discount_program->error_number : 1", "message": error_send } ); 
+			res.send({ "error" : "10", "position":"ctl-discount-program->update", "message": error_send } ); 
 			return;
 		});
 	}
@@ -565,9 +597,18 @@ async  function update_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
-			res.send({ "error" : "controller_store->models_discount_program.update_discount_program->error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "11", "position":"ctl-discount-program->update", "message": error_send } );
 			return;
 	}	
+	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi update store, vui lòng liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-discount-program->update", "message": error_send } );
+		return;
+}	
 }
 
 //@@ * end of  4. [update_discount_program]
@@ -580,6 +621,7 @@ async  function update_discount_program(req, res, next) {
 //@@
 //@* 5. [delete_discount_program]
 async  function delete_discount_program(req, res, next) {
+try {	
 	//@
 	//@
 	//@	get datas req
@@ -591,7 +633,7 @@ async  function delete_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->delete->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-discount-program->delete", "message": error_send } );
 		return;			
 	}	
 	//@
@@ -610,7 +652,7 @@ async  function delete_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->delete", "message": error_send } ); 
 		return;			
 	}
 
@@ -626,7 +668,7 @@ async  function delete_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "controllers-discount_program->delete->get req -> error_number : 3", "message": error_send } ); 
+		res.send({ "error" : "3", "position":"ctl-discount-program->delete", "message": error_send } );
 		return;			
 	}		
 	
@@ -646,7 +688,7 @@ async  function delete_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, push_check.error, "lỗi truy xuất database, liên hệ admin dala" );
-			res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 1", "message" : error_send  } );
+			res.send({ "error" : "4", "position":"ctl-discount-program->delete", "message": error_send } );
 			return;			
 		}
 		//@
@@ -656,7 +698,7 @@ async  function delete_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "Không có danh mục " ,"Không có danh mục" );
-			res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 2", "message" : error_send  } );	
+			res.send({ "error" : "5", "position":"ctl-discount-program->delete", "message": error_send } );
 			return;
 		}		
 	
@@ -665,7 +707,7 @@ async  function delete_discount_program(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";		
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database danh mục" );
-		res.send( { "error": "controllers-discount_program->delete -> model-run -> error_number : 2", "message" : error_send  } );
+		res.send({ "error" : "7", "position":"ctl-discount-program->delete", "message": error_send } );
 		return;
 	}			
 	
@@ -680,7 +722,7 @@ async  function delete_discount_program(req, res, next) {
 		//@
 		//@
 		if(push_check[0].discount_program_status_admin == "1" && check_datas_result.user_role != "admin" ){
-			res.send({ "error" : "controllers-discount-program->delete->-> error_number : 1", "message": "Chương trình đang chạy không thể update" } ); 
+			res.send({ "error" : "8", "position":"ctl-discount-program->delete", "message":  "Chương trình đang chạy không thể update" } );
 			return;			
 		}
 
@@ -689,7 +731,7 @@ async  function delete_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "controllers-discount-program->delete->xac minh update -> error_number : 2", "message": error_send } ); 
+			res.send({ "error" : "9", "position":"ctl-discount-program->delete", "message": error_send } );
 			return;
 	}			
 			
@@ -711,7 +753,7 @@ async  function delete_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ "error" : "1.4.controllers-discount_program->delete ", "message": error_send } ); 
+			res.send({ "error" : "10", "position":"ctl-discount-program->delete", "message": error_send } );
 			return;	
 		});
 	}
@@ -719,9 +761,19 @@ async  function delete_discount_program(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
-			res.send({ "error" : "2.6.model_sotres->discount_program/delete ", "message": error_send } ); 
+			res.send({ "error" : "11", "position":"ctl-discount-program->delete", "message": error_send } );
 			return;	
 	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi delete data - liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-discount-program->delete", "message": error_send } );
+		return;	
+}	
+	
+	
 }
 //@* end of  5. [delete_discount_program]
 
@@ -735,7 +787,7 @@ async  function delete_discount_program(req, res, next) {
 //@@
 //6. [search] 
 async  function search(req, res, next) {
-	
+try {	
 	//@
 	//@
 	//@
@@ -752,7 +804,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
-		res.send({ "error" : "controller_discount_program>search->get req -> error_number : 1", "message": error_send } ); 
+		res.send({ "error" : "1", "position":"ctl-discount-program->search", "message": error_send } );
 		return;			
 	}	
 
@@ -774,7 +826,7 @@ async  function search(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "controllers-discount_program->delete->get req -> error_number : 2", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"ctl-discount-program->search", "message": error_send } ); 
 		return;			
 	}
 
@@ -796,8 +848,11 @@ async  function search(req, res, next) {
 	){}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác, chỉ có admin mới search all", "Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
-		res.send({ "error" : "controllers-store->search->check_condition_id -> error_number : 1", "message": error_send } ); 
+		var error_send = ojs_shares_show_errors.show_error( 
+		evn, 
+		"Bạn không đủ quyền thao tác, chỉ có admin mới search all", 
+		"Bạn không đủ quyền thao tác, chỉ có admin mới search all" );
+		res.send({ "error" : "3", "position":"ctl-discount-program->search", "message": error_send } );
 		return;	
 	}		
 
@@ -816,7 +871,7 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : error, "message": error_send } ); 
+			res.send({ "error" : "4", "position":"ctl-discount-program->search", "message": error_send } );
 			return;	
 		});
 	}
@@ -824,10 +879,17 @@ async  function search(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "2_controller_store->search", "message": error_send } ); 
+			res.send({ "error" : "5", "position":"ctl-discount-program->search", "message": error_send } );
 			return;	
 	}
-
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-discount-program->search", "message": error_send } );
+		return;	
+}	
 }
 
 //end of 6. [search] 
