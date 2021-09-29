@@ -34,16 +34,16 @@ content
 		<div class="select-box-tinh-thanh">
 		<span>Tỉnh thành</span>
 		<select id="select_stores_province">
-			<option value="0"></option>
+			<option value=""></option>
 		</select>
 		<p style="display:none"><span>Tỉnh thành</span><input type="text" data_value="" value="" id="stores_province"/></p>
 		</div>
 		
 		</br>
 		<div class="select-box-tinh-thanh">
-		<span>Tỉnh thành</span>
+		<span>Quận huyện</span>
 		<select id="select_stores_district">
-			<option value="0"></option>
+			<option value=""></option>
 		</select>	
 		<p style="display:none"><span>Quận huyện</span><input type="text" data_value="" value="" id="stores_district"/></p>
 		</div>
@@ -53,13 +53,21 @@ content
 		<div class="select-box-tinh-thanh">
 		<span>Phường xã</span>
 		<select id="select_stores_wards">
-			<option value="0"></option>
+			<option value=""></option>
 		</select>		
 		<p style="display:none"><span>Phường xã</span><input type="text" data_value="" value="" id="stores_wards"/></p>
 		</div>
-		
-		
 		<p><span>Số nhà, tên đường</span><input type="text" class= "" value="" id="stores_adress"/></p>
+	
+		<p>
+			<span>Điện thoại liên hệ</span><input type="text" class= "" value="" id="stores_phone"/>
+			<span class="giai-thich"><span>Điện thoại để shipper liên hệ lấy hàng đi giao</span></span>
+		</p>
+		<br>	
+		
+		
+		
+		
 		<p><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
 		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
 		<p><span>Tọa độ y</span><input type="text" class= "" value="" id="stores_local_y"/></p>
@@ -141,6 +149,26 @@ content
 		</p> 
 		-->
 	</div>
+	
+	
+	<!-- ------------------
+	//hình đại diện 
+	------------------- -->
+	<div class="pro_box">
+		<h3>Logo cửa hàng</h3>	
+		<div class="inside l-ed">
+			<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+			<input type="button" value="Thêm ảnh" id="btn_featured_image">
+			<div id="img_box_dai_dien"></div>
+			<input type='file' accept="image/*" id='upload_image' style="display:none;">
+		</div>
+	</div>
+	<!-- ------------------
+	// end of hình đại diện 
+	------------------- -->	
+	
+	
+	
 	</div>
 	
 	
@@ -191,6 +219,65 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 
+	var user_id = $('#user_id').val();
+	//
+	//@
+	//ojs_loader.loadTinyMCE('noi_dung');
+	//
+	//@
+		
+		
+	
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
+	
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
+	//		
+	//	
+	
 	
 	
 	// ajax luu san pham
@@ -206,9 +293,11 @@ $(document).ready(function($){
 			
 		//@
 		var stores_name = $('#stores_name').val();
+		var stores_phone = $('#stores_phone').val();
 		var stores_user_id = $('#stores_user_id  option:selected').val();
 		
 		
+		var stores_logo_image = $('#featured_image').attr('data_value');
 		
 		
 		var stores_info_banking = $('#stores_info_banking').val();
@@ -251,6 +340,8 @@ $(document).ready(function($){
 		var datas = {
 			"datas":{
 				stores_name : stores_name,
+				stores_phone :stores_phone,
+				stores_logo_image : stores_logo_image,
 				stores_user_id: stores_user_id,
 				stores_service_type_id : stores_service_type_id,
 				stores_province : stores_province,
@@ -262,7 +353,6 @@ $(document).ready(function($){
 				stores_local_adress : stores_local_adress,		
 				stores_payment_limit : stores_payment_limit,
 				stores_info_banking : stores_info_banking,
-				stores_qoute : stores_qoute,
 				stores_status_admin : stores_status_admin,
 				stores_status_stores : 1,
 			}
@@ -300,7 +390,7 @@ $(document).ready(function($){
 		var quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
 		
 		$('#select_stores_district').html(quan_huyen);
-		$('#select_stores_wards').html('<option value="0"></option>');
+		$('#select_stores_wards').html('<option value=""></option>');
 		
 		//@
 		//@		

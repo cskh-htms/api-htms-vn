@@ -56,6 +56,8 @@ content
 				</div>
 			</div>
 		
+		
+		
 			<!-- ------------------
 			thông tin mô tả
 			------------------- -->
@@ -67,10 +69,17 @@ content
 			//thông tin mô tả
 			------------------- -->
 			
+			
+			
+			
+			
+			
+			
+			
 			<!-- ------------------
 			thông tin mô tả
 			------------------- -->
-			<div class="pro_box" style="display: none;">
+			<div class="pro_box"">
 				<h3>Chi tiết thương hiệu</h3>
 				
 					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%"></textarea>
@@ -81,9 +90,9 @@ content
 			<!-- ------------------
 			//hình đại diện 
 			------------------- -->
-			<div class="pro_box" style="display: none;">
+			<div class="pro_box">
 				<h3>Ảnh đại diện</h3>	
-				<div class="inside">	
+				<div class="inside">
 					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
 					<div id="img_box_dai_dien"></div>
@@ -91,7 +100,7 @@ content
 				</div>
 			</div>
 			<!-- ------------------
-			//end of hình đại diện 	
+			// end of hình đại diện 
 			------------------- -->
 			
 			<!--
@@ -165,12 +174,57 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 
+	ojs_loader.loadTinyMCE('noi_dung');
+	var user_id = $('#user_id').val();
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");	
+	//@
+	//@
 	
-
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
 	
 	//@
-	//@
-	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
+	//		
+	//	
 	//@
 	//@
 	//@	ajax luu san pham draf
@@ -182,6 +236,13 @@ $(document).ready(function($){
 		var brands_name = $('#brands_name').val();	
 		var store_id = $('#store_id').val();
 		var brands_qoute =$("#brands_qoute").val();
+		
+		
+		
+		var brands_featured_image = $('#featured_image').attr('data_value');
+		let brands_information = tinymce.get("noi_dung").getContent();
+		
+		
 		
 		
 		if(brands_name == ""){
@@ -196,6 +257,8 @@ $(document).ready(function($){
 		var datas = {
 			"datas":{
 				brands_name : brands_name,
+				brands_featured_image : brands_featured_image,
+				brands_information : brands_information,
 				brands_stores_id : store_id,
 				brands_qoute : brands_qoute,
 				brands_status_stores : 0
@@ -220,6 +283,8 @@ $(document).ready(function($){
 		var store_id = $('#store_id').val();
 		var brands_qoute =$("#brands_qoute").val();
 		
+		var brands_featured_image = $('#featured_image').attr('data_value');
+		let brands_information = tinymce.get("noi_dung").getContent();
 		
 		if(brands_name == ""){
 			ojs_message.message_ok_show("Nhập tên thương hiệu");
@@ -233,6 +298,8 @@ $(document).ready(function($){
 		var datas = {
 			"datas":{
 				brands_name : brands_name,
+				brands_featured_image : brands_featured_image,
+				brands_information : brands_information,
 				brands_stores_id : store_id,
 				brands_qoute : brands_qoute,
 				brands_status_stores : 1

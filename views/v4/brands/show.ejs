@@ -80,7 +80,7 @@ content
 			<!-- ------------------
 			//hình đại diện 
 			------------------- -->
-			<div class="pro_box" style="display: none;">
+			<div class="pro_box"">
 				<h3>Ảnh đại diện</h3>	
 				<div class="inside">
 					<input type="text" value="" id="featured_image" data_value="<%- ojs_share.unCape(datas[0].brands_featured_image ) %>" style="display:none;" />
@@ -117,8 +117,8 @@ content
 	<!-- ------------------
 	thông tin mô tả
 	------------------- -->
-	<div style="display:none;" class="value_row">
-		<span>Mô tả ngắn</span><br>
+	<div class="value_row" style="display:none;>
+		<span>Thông tin thương hiệu</span><br>
 		<textarea  class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"><%- ojs_share.unCape(datas[0].brands_excerpt) %></textarea>
 	</div>
 	<!-- ------------------
@@ -128,7 +128,7 @@ content
 	<!-- ------------------
 	thông tin mô tả
 	------------------- -->
-	<div class="value_row" style="display:none;">
+	<div class="value_row" ">
 		<span>Chi tiết thương hiệu</span><br>
 		<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share.unCape(datas[0].brands_information ) %></textarea>
 	</div>
@@ -198,7 +198,55 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	
+	ojs_loader.loadTinyMCE('noi_dung');
+	var user_id = $('#user_id').val();
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");	
+	//@
+	//@
 	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
+	
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
 	
 	//@
 	//@
@@ -253,13 +301,16 @@ function get_datas(){
 		var brands_status_admin = $('#brands_status_admin  option:selected').val();	
 		
 		
-		
+		var brands_featured_image = $('#featured_image').attr('data_value');
+		let brands_information = tinymce.get("noi_dung").getContent();		
 		
 		
 		//
 		var datas = {
 			"datas":{
 				brands_name : brands_name,
+				brands_featured_image : brands_featured_image,
+				brands_information : brands_information,				
 				brands_qoute : brands_qoute,
 				brands_status_stores : brands_status_stores,
 				brands_status_admin : brands_status_admin

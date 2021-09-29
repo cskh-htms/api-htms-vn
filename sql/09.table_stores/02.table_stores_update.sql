@@ -69,21 +69,6 @@ END IF;
 
 
 
-
--- 
---
--- check store exists
-SET @checkID = (select dala_stores_ID from dala_stores where dala_stores_user_id = NEW.dala_stores_user_id);
-IF (@checkID > 0) THEN  
-	SIGNAL SQLSTATE '12345' 
-	SET MESSAGE_TEXT = 'trig_check_store_double'; 
-END IF;	
-
-
-
-
-
-
 -- 
 -- 
 -- check exit

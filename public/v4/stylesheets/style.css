@@ -2835,3 +2835,12 @@ display: flex;
     left: 35px;
     z-index: 1;
 }
+
+
+.l-ed .img_box .xoaAnhDaiDien {
+    min-width: 30px !important;
+    display: flex !important;
+}
+
+
+

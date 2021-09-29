@@ -728,7 +728,7 @@ $(document).ready(function($){
 	get_tinh_thanh:function(datas){
 		let data_return = "";
 		let i;
-		let txt_for = '<option value="0"></option>';
+		let txt_for = '<option value=""></option>';
 		for(i = 0; i < datas.length ; i ++ ){
 			txt_for = txt_for + '<option value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
 		}
@@ -743,7 +743,7 @@ $(document).ready(function($){
 		let data_return = "";
 		
 		let i;
-		let txt_for = '<option value="0"></option>';
+		let txt_for = '<option value=""></option>';
 		
 		//@
 		//@
@@ -774,7 +774,7 @@ $(document).ready(function($){
 		
 		
 		let i;
-		let txt_for = '<option value="0"></option>';
+		let txt_for = '<option value=""></option>';
 		
 		//@
 		//@
