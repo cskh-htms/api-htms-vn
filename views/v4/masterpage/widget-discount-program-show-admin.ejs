@@ -1,0 +1,50 @@
+<%		
+if(typeof discount_program_list == 'object' && discount_program_list.length > 0){ %>		
+		
+	<div class="discount-wrap">
+		<% 
+		for( var  x in discount_program_list ) { 
+		%>
+			<div class="discount-box">
+				<div class="discount-image-wrap">
+					<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+				</div>
+			
+				<div class="discount-title">
+					<span>Tên chương trình : </span><div><strong>
+					<%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong>
+					</div>
+					<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>
+					/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>
+				</div>
+			
+			
+				<div class="discount-status">
+					<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
+				</div>
+				
+				<div class="discount-store-name">
+					Cửa hàng tạo : [ <%- ojs_share.unCape(discount_program_list[x].stores_name) -%> ]
+				</div>				
+			
+			
+			</div>	
+		<%
+		} //end of for
+		%>
+		
+	</div>		
+		
+<%
+} else{
+%>
+	<h1> Không có chương trình khuyến mãi nào</h1>
+<%
+} //end of discount_program_list.length
+%>		
+		
+		
+		
+		
+		
+	

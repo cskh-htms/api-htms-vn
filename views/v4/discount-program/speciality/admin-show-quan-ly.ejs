@@ -1,0 +1,139 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../masterpage/loader %>
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Quản lý chương trình khuyến mãi</h1>
+
+
+	<div class="sap_xep_loc">
+		<div class="loc_wrap">
+			<select id="loc_trang_thai">
+				<option id="dis-new" value="[0]">Các chương trình mới tạo, cần phê duyệt</option>
+				<option id="details-new" value="[0]">Cửa hàng yêu cầu tham gia chương trình cần phê duyệt </option>
+				<option id="pro-new" value="[0]">Sản phẩm yêu cầu tham gia chươgn trình, cần phê duyệt</option>
+			</select>
+		</div>
+	</div>	
+	
+	
+	<div id="ajax-wrap">	
+		<% include ../../masterpage/widget-discount-program-show-admin %>
+	</div>
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	
+	//Loc trang thai
+	///////////////////////////
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		var status_id = $('#loc_trang_thai  option:selected').attr('id');
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				status_admin : JSON.parse(status_admin)
+			}
+		}	
+		//console.log(datas);
+		//return;
+		//ojs_discount_program_speciality.ajax_load_discount_program(datas);	
+		
+		if(status_id == "dis-new"){
+			location.href = "/discount-program/speciality/quan-ly";
+		}else if(status_id == "details-new"){
+			location.href = "/discount-program/speciality/store-active";
+		}else if(status_id == "pro-new"){
+			location.href = "/discount-program/speciality/product-active";			
+		}		
+	});
+	
+	
+	//
+	//@
+	//xoa
+	$(document).on('click','.submitdelete',function(e) {	
+		//@
+		e.preventDefault();		
+		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_discount_program_link_id";//function name in callback 
+		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	
+	
+	
+	
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+<% include ../../masterpage/loader-end %>

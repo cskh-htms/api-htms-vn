@@ -41,6 +41,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 
 const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-discount-program-store-add.js');
+const ojs_datas_discount_program_product_add = require('../../models/ojs-datas-discount-program-product-add.js');
 
 
 
@@ -55,6 +56,12 @@ const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-dis
 ---------------------------------------------------------------
 
 0 [/]
+
+0 [/quan-ly]
+
+0 [/store-active]
+
+0 [/demo]
 
 1 [/:store_id]
 
@@ -86,11 +93,983 @@ const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-dis
 
 13. [/details/show/:discount_program_details_id/:store_id/:discount_program_id]
 
+14. [product-active]
+
+
 --------------------------------------------------------------
 */
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 15. [product-active]
+router.get('/product-active', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);		
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}	
+	
+	//res.send( [user_id] );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;	
+
+
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;
+
+
+
+
+
+	//--------------------------------------------------
+	//    discount_program_list
+	// -------------------------------------------------
+	//Lấy option tager
+	var discount_program_list;
+	try {
+		discount_program_list = await ojs_shares_fetch_data.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-product-link/search',
+			ojs_datas_discount_program_product_add.get_all_id_product_active(),
+			ojs_configs.token_supper_job
+		);		
+
+		//res.send( discount_program_list );	
+		//return;
+		if(discount_program_list.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_list.error, "Lỗi lấy option taget" );
+			res.send({ "error" : "35.router_discount_program_speciality(web)->product-active", "message": error_send } ); 
+			return;				
+		}	
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_list.error, "Lỗi lấy option taget - catch" );
+			res.send({ "error" : "36.router_discount_program_speciality(web)->product-active", "message": error_send } ); 
+			return;		
+	}
+
+	//res.send( discount_program_list );	
+	//return;	
+
+
+
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	
+		
+	//@
+	//@
+	//@ data_discount
+	var data_discount_order = [{'field':'discount_program_date_created','compare':'DESC'}];
+	var data_discount_order_edit = {'order':data_discount_order};
+	var data_discount_order_copy = {...ojs_configs.datas_all};	
+	var data_discount_order_assign = Object.assign(data_discount_order_copy,data_discount_order_edit);
+	//@
+	var data_discount_data_edit = {
+			'status_admin_compare':'in',
+			'status_admin_value':[0],
+			'store_compare':'<>'
+		};
+	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
+	
+	
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' :0,
+		'store_id' : 0,
+		'datas_discount_product_add': data_discount_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;
+
+
+
+	datas_info = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_list' : discount_program_list.datas,
+		'discount_program_product_add_list' : get_all_list_datas[10].datas
+	}
+
+
+	data_send = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_list' : discount_program_list.datas,
+		'discount_program_product_add_list' : get_all_list_datas[10].datas,
+		'datas_info':datas_info
+	}
+
+
+	
+	//res.send(data_send);
+	//return;	
+	//cua bao admin-show-all
+	
+	res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-product-active', data_send );	
+
+});
+//@
+//@
+//@
+//@
+
+
+
+
+
+
+
+
+
+//@ 
+//@
+//@
+//@
+//@
+//@ 14. [/details/show-admin/:discount_program_details_id]
+router.get('/details/show-admin/:discount_program_id/:discount_program_details_id', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var discount_program_id = req.params.discount_program_id;
+		var discount_program_details_id = req.params.discount_program_details_id;
+		
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "router_discount_program_speciality web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	
+	//@
+	//@
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);		
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}	
+	
+	//res.send( [user_id] );	
+	//return;		
+		
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;	
+
+
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;
+
+
+
+
+	// ------------------------------------------
+			//discount_program_tager
+	//-------------------------------------------
+
+	//Lấy option tager
+	var discount_program_tager;
+	try {
+		discount_program_tager = await ojs_shares_fetch_data.get_data_send_token_get(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/' + discount_program_id,token);
+		//res.send( discount_program_tager );	
+		//return;
+		if(discount_program_tager.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy option taget" );
+			res.send({ "error" : "35.router_discount_program_speciality(app)->show", "message": error_send } ); 
+			return;				
+		}	
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy option taget - catch" );
+			res.send({ "error" : "36.router_discount_program_speciality(app)->show", "message": error_send } ); 
+			return;		
+	}
+
+	//res.send( discount_program_tager );	
+	//return;	
+
+
+
+
+
+
+
+
+
+
+	// ------------------------------------------
+			//discount_program_details_tager
+	//-------------------------------------------
+
+	//Lấy option tager
+	var discount_program_details_tager;
+	try {
+		var datas = {
+			'id':discount_program_details_id
+		}
+		discount_program_details_tager = await ojs_shares_fetch_data.get_data_send_token_post( 
+					ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-details/search',
+					ojs_datas_discount_program_store_add.get_discount_details_data_taget(datas),
+					ojs_configs.token_supper_job
+				);		
+		
+		
+		
+		//res.send( discount_program_details_tager );	
+		//return;
+		if(discount_program_details_tager.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager.error, "Lỗi lấy option taget" );
+			res.send({ "error" : "35.router_discount_program_speciality(web)->show-admin", "message": error_send } ); 
+			return;				
+		}	
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager.error, "Lỗi lấy option taget - catch" );
+			res.send({ "error" : "36.router_discount_program_speciality(web)->show-admin", "message": error_send } ); 
+			return;		
+	}
+
+
+	//res.send( discount_program_details_tager );	
+	//return;	
+
+
+
+
+
+	datas_info = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_id' : discount_program_id,
+		'discount_program_details_id' : discount_program_details_id,
+		'datas' : discount_program_details_tager.datas,
+		'discount_program_tager' : discount_program_tager.datas,
+	}
+
+
+	data_send = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_id' : discount_program_id,
+		'discount_program_details_id' : discount_program_details_id,		
+		'datas' : discount_program_details_tager.datas,
+		'discount_program_tager' : discount_program_tager.datas,		
+		'datas_info':datas_info
+	}
+	
+	//res.send(data_send);
+	//return;
+	res.render( ojs_configs.view_version + '/discount-program/speciality/details-show-admin', data_send );	
+
+	
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 0. [/store-active]
+router.get('/store-active', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);		
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}	
+	
+	//res.send( [user_id] );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;	
+
+
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;
+
+
+
+
+
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	
+		
+	//@
+	//@
+	//@ data_discount
+	var data_discount_order = [{'field':'discount_program_date_created','compare':'DESC'}];
+	var data_discount_order_edit = {'order':data_discount_order};
+	var data_discount_order_copy = {...ojs_configs.datas_all};	
+	var data_discount_order_assign = Object.assign(data_discount_order_copy,data_discount_order_edit);
+	//@
+	var data_discount_data_edit = {
+			'status_admin_compare':'in',
+			'status_admin_value':[0],
+			'user_compare':'<>',
+			'store_compare':'<>'
+		};
+	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
+	
+	
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' :0,
+		'store_id' : 0,
+		'datas_discount_store_add': data_discount_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;
+
+
+
+	datas_info = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_store_add_list' : get_all_list_datas[9].datas
+	}
+
+
+	data_send = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_store_add_list' : get_all_list_datas[9].datas,
+		'datas_info':datas_info
+	}
+
+
+	
+	//res.send(data_send);
+	//return;	
+	//cua bao admin-show-all
+	
+	res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-store-active', data_send );	
+
+});
+//@
+//@
+//@
+//@
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 0. [/quan-ly]
+router.get('/quan-ly', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);		
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}	
+	
+	//res.send( [user_id] );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;	
+
+
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;
+
+
+
+
+
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	
+		
+	//@
+	//@
+	//@ data_discount
+	var data_discount_order = [{'field':'discount_program_date_created','compare':'DESC'}];
+	var data_discount_order_edit = {'order':data_discount_order};
+	var data_discount_order_copy = {...ojs_configs.datas_all};	
+	var data_discount_order_assign = Object.assign(data_discount_order_copy,data_discount_order_edit);
+	//@
+	var data_discount_data_edit = {
+			'status_admin_compare':'in',
+			'status_admin_value':[0],
+			'user_compare':'<>',
+			'store_compare':'<>',
+			'discount_program_check_expired_compare':'in',
+			'discount_program_check_expired_value': [1],
+		};
+	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
+	
+	
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' :0,
+		'store_id' : 0,
+		'datas_discount': data_discount_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;
+
+
+
+	datas_info = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_list' : get_all_list_datas[8].datas
+	}
+
+
+	data_send = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'discount_program_list' : get_all_list_datas[8].datas,
+		'datas_info':datas_info
+	}
+
+
+	
+	//res.send(data_send);
+	//return;	
+	//cua bao admin-show-all
+	
+	res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-quan-ly', data_send );	
+
+});
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 0. [/]
+router.get('/demo', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	var  user_id = ojs_shares_others.get_users_id(token);		
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}	
+	
+	//res.send( [store_id] );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ check new
+	var datas_check_news_admin_menu = {
+		'res':res,
+		'token':token,
+		'news_order': 'news_order',
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_product': 'news_product',
+		'news_brand': 'news_brand',
+		'news_comment': 'news_comment',
+		'news_review': 'news_review',
+		'news_discount': 'news_discount',
+		'news_discount_store_add' : 'news_discount_store_add',
+		'news_discount_product_add' : 'news_discount_product_add',
+		'news_review_store' : 'news_review_store',
+		'news_coupon' : 'news_coupon'
+	}
+	
+	//res.send( datas_check_news_admin_menu );	
+	//return;	
+
+
+	
+	var get_datas_news_admin_menu;
+	try{
+		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
+		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_datas_news_admin_menu);
+	//return;
+
+
+
+	datas_info = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu
+	}
+
+
+	data_send = {
+		'title' 			: 'Quản lý chương trình khuyến mãi',
+		'users_type' 		: ojs_shares_others.get_users_type(token),
+		'user_id' 			: ojs_shares_others.get_users_id(token),
+		'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+		'js_css_version'	: ojs_configs.js_css_version,
+		'menu_taget'		: 'sidebar_discount_program',
+		'sidebar_type'		:  "",
+		
+		'news_admin_menu' 	: get_datas_news_admin_menu,
+		'datas_info':datas_info
+	}
+
+
+	
+	//res.send(data_send);
+	//return;	
+	//cua bao admin-show-all
+	
+	res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-all-demo', data_send );	
+
+});
 
 //@
 //@
@@ -213,7 +1192,7 @@ router.get('/', async function(req, res, next) {
 	
 	//res.send(data_send);
 	//return;	
-	
+	//cua bao admin-show-all
 	
 	res.render( ojs_configs.view_version + '/discount-program/speciality/admin-show-all', data_send );	
 
@@ -706,7 +1685,7 @@ router.get('/details/show/:discount_program_details_id/:store_id/:discount_progr
 		//return;
 		
 		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/store-show', data_send );	
+		res.render( ojs_configs.view_version + '/discount-program/speciality/details-show', data_send );	
 	}
 	catch(error){
 		res.send( { "error" : "r_11" , "message" : error } );
@@ -2693,7 +3672,8 @@ router.get('/show/:discount_program_id/:store_id', async function(req, res, next
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version +  '/discount-program/speciality/admin-show', data_send );	
+		//của bảo admin-show
+		res.render( ojs_configs.view_version +  '/discount-program/speciality/show', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -2990,7 +3970,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version + '/discount-program/speciality/admin-add', data_send );	
+		//của bảo admin-add
+		res.render( ojs_configs.view_version + '/discount-program/speciality/add', data_send );	
 	}
 	catch(error){
 		res.send( { "error" : "r_11" , "message" : error } );
@@ -3406,8 +4387,8 @@ router.get('/:store_id', async function(req, res, next) {
 		}
 		//res.send(data_send);
 		//return;
-		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/store-show-all', data_send );
+		// cua bao store-show-all
+		res.render( ojs_configs.view_version + '/discount-program/speciality/show-all', data_send );
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

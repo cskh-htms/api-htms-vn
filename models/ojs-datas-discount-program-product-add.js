@@ -28,6 +28,43 @@ const ojs_datas_discount_program_product_add = {
 	//@
 	//@
 	//@ 
+	//@ 4.[get_all_id_product_active]		
+	get_all_id_product_active: function(){	
+		//@
+		//@
+		//@
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_type":"DISTINCT",
+				"select_field" :
+				[ 
+					"discount_program_ID",
+					"discount_program_featured_image",
+					"discount_program_name"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"discount_program_product_link_status",
+							"value"     : "0",
+							"compare" : "="
+						}
+						]    
+					}         
+				]  
+			}
+		}
+		return datas_return;		
+	},
+
+	//@
+	//@
+	//@ 
 	//@ 3.[get_all_list_datas]		
 	get_all_list_datas: function(datas){
 		
@@ -48,7 +85,10 @@ const ojs_datas_discount_program_product_add = {
 				"discount_program_product_link_status",
 				"products_speciality_sale_of_price",
 				"products_speciality_price",
-				"stores_ID"
+				"stores_ID",
+				"stores_name",
+				"discount_program_name",
+				"discount_program_featured_image"
 				],
 				"condition" :
 				[				

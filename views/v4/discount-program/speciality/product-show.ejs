@@ -71,17 +71,9 @@ content
 				
 					<div class="inside">
 						<select name="cars" id="discount_program_product_link_product_speciality_id">
-							   <%
-							   for(var x in products_list){
-							   if(products_list[x].products_speciality_ID == datas[0].discount_program_product_link_product_speciality_id){
-							   %>
-								<option value="<%= products_list[x].products_speciality_ID %>">
-									<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
-								</option>
-							    <%
-								} //end of if
-								} //end of for
-								%>
+							<option value="<%= products_list[x].products_speciality_ID %>">
+								<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+							</option>
 						</select>
 					</div>
 				
