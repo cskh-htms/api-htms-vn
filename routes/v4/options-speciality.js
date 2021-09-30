@@ -66,6 +66,10 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 8. [/ajax-option-list/]
 
 8 [/delete/:option_id]
+
+
+
+
 --------------------------------------------------------------
 */
 
@@ -178,10 +182,11 @@ router.post('/ajax-option-list/', async function(req, res, next) {
 	try {	
 		data_send = {
 			'options_list' : get_all_list_datas_all[5].datas,
-			'user_id':0,
+			'user_id':user_id,
+			'store_id' : store_id,
 			'user_role'	: ojs_shares_others.get_users_type(token),
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-option-show-tables-no', data_send );		
+		res.render( ojs_configs.view_version + '/masterpage/widget-option-show-tables', data_send );		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -1761,7 +1766,7 @@ router.get('/:store_id', async function(req, res, next) {
 	var data_option_order_copy = {...ojs_configs.datas_all};	
 	var data_option_order_assign = Object.assign(data_option_order_copy,data_option_order_edit);
 	//@
-	var data_option_data_edit = {'user_compare':'='};
+	var data_option_data_edit = {'user_compare':'=','status_admin_compare':'<>','status_admin_value':'1000'};
 	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
 
 	
@@ -1777,7 +1782,7 @@ router.get('/:store_id', async function(req, res, next) {
 	//return;		
 	var get_all_list_datas_all;
 	try{
-		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas_all);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -2071,168 +2076,9 @@ router.get('/devare/:option_id', async function(req, res, next) {
 //@@
 //@@
 //	
-	
-	
-	
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
 
-//lay danh sach danh muc
-
-
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@	
-	
-	
-	
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-
-//
-router.post('/ajax-option-list/', async function(req, res, next) {
-	//
-	var token = req.session.token;	
-	var datas  = req.body.datas;
 	
 
-	//
-	//neu chua co token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login")
-	}
-
-
-	//
-	//@@
-	//@@lấy version
-	var datas_check = {
-		"token":token
-	}
-	//@
-	//@
-	var check_datas_result;	
-	try{
-		check_datas_result = await ojs_shares.get_check_data(datas_check);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "20.router_option_speciality(app)->ajax-option-list", "message": error_send } ); 
-		return;			
-	}
-	
-	//@
-	//@
-	//@neu phan quyen khong du thi tro ra login
-	if(check_datas_result.error == ""){
-	}else{
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
-		res.send({ "error" : "21.router_option_speciality(app)->ajax-option-list", "message": error_send } ); 
-		return;			
-	}	
-	//@
-	//@	
-	//@	
-	
-	
-	var options_list_datas;
-	//@
-	//@
-	//neu admin thi lay datas kieu admin ko thì lấy datas kiểu bussiness
-	//admin thì status = 0, show = 0, status store = 1	
-	if(check_datas_result.user_role == "admin"){
-		options_list_datas = ojs_datas_option.get_data_option_list_admin_ajax(datas);
-	}else{
-		options_list_datas = ojs_datas_option.get_data_option_list_bussiness_ajax(datas);
-	}	
-	
-	
-	//
-	//Lấy danh sách các options
-	var options_list;
-	try {
-
-		
-		options_list = await ojs_shares.get_data_send_token_post(
-			ojs_configs.domain + '/api/' + check_datas_result.api_version  + '/options/speciality/search', 
-			options_list_datas, 
-			token
-		);	
-		
-		if(options_list.error != ""){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn,options_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "33.router_option_speciality(app)->ajax-option-list", "message": error_send } ); 
-			return;				
-		}	
-		
-	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "34.router_option_speciality(app)->ajax-option-list", "message": error_send } ); 
-			return;		
-	}
-	//
-	//@
-	//
-	//send web
-	//@sidebar_type -- loại sibar 
-	//@'users_type' : loai user
-	//@
-	try {	
-		//
-		//@
-		var user_id = ojs_shares.get_users_id(token);	
-		data_send = {
-			'options_list' : options_list.datas,
-			'user_id':user_id,
-			'user_role': check_datas_result.user_role
-		}
-		//res.send(data_send);
-		//return;
-		res.render( check_datas_result.view_version + '/masterpage/widget-option-show-tables', data_send );		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
-		res.send({ "error" : "32.router_option_speciality(app)->ajax-option-list", "message": error_send } ); 
-		return;	
-	}
-
-});
-
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@	
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-
-//
-
-
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@		
 		
 	
 	

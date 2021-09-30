@@ -67,8 +67,142 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 9. [/delete/:cat_id]
 
+10. [ajax-category-list-world]
+
+
+
+
 --------------------------------------------------------------
 */
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 10. [ajax-category-list-world]
+router.post('/ajax-category-list-world/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;	
+		var user_id = datas.user_id;	
+		var store_id  = datas.store_id;
+
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	
+	//res.send( [token,store_id] );	
+	//return;		
+	
+
+	//--------------------------------------------------
+	//             list-datas-bussiness
+	// -------------------------------------------------
+	
+	
+
+	//@
+	//@
+	//@ datas_brand
+	var data_cat_order = [{'field':'category_general_speciality_date_created','compare':'DESC'}];
+	var data_cat_order_edit = {'order':data_cat_order};
+	var data_cat_order_copy = {...ojs_configs.datas_all};	
+	var data_cat_order_assign = Object.assign(data_cat_order_copy,data_cat_order_edit);
+
+	//@
+	var data_cat_data_edit = {
+		'status_admin_compare':'in',
+		'status_admin_value':datas.status_admin,
+		'store_compare': '<>',
+		'status_store_compare':'in',
+		'status_store_value':[0,1],	
+		};
+	var data_cat_ok = Object.assign(data_cat_order_assign,data_cat_data_edit);
+
+
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : 0,
+		'datas_cat': data_cat_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;
+
+
+
+	//@
+	//@
+	//@
+	//@
+	try {	
+		data_send = {
+			'datas_category_general' : get_all_list_datas[4].datas,
+			'user_id':user_id,
+			'user_role' : ojs_shares_others.get_users_type(token),
+			'store_id' : store_id
+		}
+		//res.send(data_send);
+		//return;
+		res.render(ojs_configs.view_version + '/masterpage/widget-category-general-show-tables', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_category_speciality(app)->ajax-category-list", "message": error_send } ); 
+		return;	
+	}
+
+});
+
+
+
 
 
 //@
@@ -1778,7 +1912,9 @@ router.get('/:store_id', async function(req, res, next) {
 	var data_cat_order_copy = {...ojs_configs.datas_all};	
 	var data_cat_order_assign = Object.assign(data_cat_order_copy,data_cat_order_edit);
 
-
+	//@
+	var data_cat_order_data_edit = {'user_compare':'=','status_admin_compare': '<>','status_admin_value': '1000'};
+	var data_cat_order_ok = Object.assign(data_cat_order_assign,data_cat_order_data_edit);	
 	//@
 	//@
 	//@
@@ -1788,14 +1924,14 @@ router.get('/:store_id', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_cat': data_cat_order_assign,
+		'datas_cat': data_cat_order_ok,
 	}
 	
 	//res.send( datas_get_all_list_datas );	
 	//return;		
 	var get_all_list_datas_all;
 	try{
-		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas_all);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

@@ -10,12 +10,11 @@
 
 3. [ajax_load_order_bussiness_store]
 
-
 4. [ajax_load_products]	
 
+100. [ajax_load_category_world]	
 
-
-
+120. [ajax_load_brand_world]
 
 ----------------------------------------------------------------
 */
@@ -136,6 +135,7 @@ $(document).ready(function($){
 		//@
 		//@ 2. [ajax_load_category_no]			
 		ajax_load_category_no	: function(datas){		
+			//alert("no");
 			//console.log(datas);
 			//return;
 			//goi api
@@ -160,7 +160,38 @@ $(document).ready(function($){
 			});	//end of ajax
 		},//end of ajax save			
 		
-		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@ 100. [ajax_load_category_world]			
+		ajax_load_category_world	: function(datas){	
+			//alert("world");
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/categorys/general/speciality/ajax-category-list-world/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
 		
 		
 		//@
@@ -298,6 +329,34 @@ $(document).ready(function($){
 		//		
 		//
 		//
+		//120. [ajax_load_brand_world]
+		ajax_load_brand_world	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/brands/ajax-brand-list-world/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save				
+		//		
+		//	
+		//
 		//load products bussiness
 		ajax_load_category	: function(datas){		
 			//console.log(datas);
@@ -389,8 +448,8 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//console.log(result);
-					$('#ajax-wrap').html(result);
+					console.log(result);
+					//$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;
 			  }//end of success			  

@@ -716,7 +716,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 
 	
 	var datas_orders_edit = {
-		'date_star':ojs_shares_date.get_current_month_now(),
+		'date_star':"2021/01/01 00:00:00",
 		'date_end':ojs_shares_date.get_current_date_end(),
 		'store_compare' : '=',
 		'status_admin_compare': 'in',

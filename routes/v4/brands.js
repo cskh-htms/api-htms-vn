@@ -58,7 +58,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 4. [/:store_id]
 
 
-5. [ajax_load_brand]
+5. [ajax-brand-list]
 
 
 6. [/show/:brand_id/:store_id]
@@ -75,6 +75,136 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 --------------------------------------------------------------------
 */
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 10. [ajax-brand-list-world]
+router.post('/ajax-brand-list-world/', async function(req, res, next) {
+
+	//@
+	//@
+	//@
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		var user_id = datas.user_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	//res.send( datas );	
+	//return;		
+
+	
+	//@
+	//@
+	//@ datas_brand
+	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+	var data_brand_order_edit = {'order':data_brand_order};
+	var data_brand_order_copy = {...ojs_configs.datas_all};	
+	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+	//@
+	var data_brand_data_edit = {
+		'store_compare':'<>',
+		'user_compare':'<>',
+		'status_admin_compare':'in',
+		'status_admin_value':JSON.parse(datas.status_admin),
+		'status_store_compare':'in',
+		'status_store_value':[0,1],	
+		};
+	var data_brand_ok = Object.assign(data_brand_order_assign,data_brand_data_edit);	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : 0,
+		'store_id' : 0,
+		'datas_brand': data_brand_ok
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas);
+	//return;	
+	
+	
+	//@
+	//@
+	//@
+	try {	
+		//
+		//@
+		data_send = {
+			'list_datas' : get_all_list_datas[6].datas,
+			'users_type' : ojs_shares_others.get_users_type(token),
+			'user_role'  : ojs_shares_others.get_users_type(token),
+			'user_id' 	: user_id	
+		}
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/masterpage/widget-brand-show-tables', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_brand(app)->ajax", "message": error_send } ); 
+		return;	
+	}
+
+});
+//@
+//@
+//@
+//@ 10. [ajax_load_brand_world]
+
+
+
+
+
+
+
+
 
 
 
@@ -902,7 +1032,7 @@ router.get('/show/:brand_id/:store_id', async function(req, res, next) {
 //@
 //@
 //@
-//@ 5. [ajax_load_brand]
+//@ 5. [ajax-brand-list]
 router.post('/ajax-brand-list/', async function(req, res, next) {
 
 	//@
@@ -1292,15 +1422,26 @@ router.get('/:store_id', async function(req, res, next) {
 				//list_datas_all
 	//------------------------------------------------------
 
-
+	//res.send( [user_id, store_id]);	
+	//return;	
 
 	//@
 	//@
 	//@ datas_brand
 	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
 	var data_brand_order_edit = {'order':data_brand_order};
-	var data_brand_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_brand_order_copy = {...ojs_configs.datas_all};	
 	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+	
+	var data_brand_order_data_edit = {
+		'status_admin_compare':'<>',
+		'status_admin_value':'1000',
+		'status_store_compare':'<>'	,	
+		'status_store_value':'1000',
+		
+		};
+	var data_brand_order_ok = Object.assign(data_brand_order_assign,data_brand_order_data_edit);	
+	
 
 	//@
 	//@
@@ -1311,14 +1452,16 @@ router.get('/:store_id', async function(req, res, next) {
 		'token_job':ojs_configs.token_supper_job,
 		'user_id' : user_id,
 		'store_id' : store_id,
-		'datas_brand': data_brand_order_assign,
+		'datas_brand': data_brand_order_ok,
 	}
 	
-	//res.send( datas_get_all_list_datas );	
-	//return;		
+	//res.send( datas_get_all_list_datas_all );	
+	//return;	
+
+	
 	var get_all_list_datas_all;
 	try{
-		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas_all);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -1781,107 +1924,12 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//@
-//@
-//@@@@@@@@@@@@
-//@@@@@@@@@@@@
-//@@
-//@
-//danh sách
-
-
-	
-//
 //@@
 //@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//
-
-	
-//
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//
-
-	
-//
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//update
-
-	
-	
-//
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//
-
-		
-	
-	
-	
-//
-//@@
-//@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//
-
-	
-	
-	
-
-
-//
-//@@
-
-	
-	
-	
-	
+//@@	
+//@@	
+//@@	
+//@@	
 	
 	
 module.exports = router;
