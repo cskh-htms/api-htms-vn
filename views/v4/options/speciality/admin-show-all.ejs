@@ -37,7 +37,6 @@ content
 				<option id="checking" value="[0]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
-				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
 	</div>
@@ -129,7 +128,15 @@ $(document).ready(function($){
 		}	
 		///console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_option(datas);	
+			
+		
+		if(status_admin == "[0,1,2,3]"){
+			location.reload();
+		}else{
+			ojs_bussiness.ajax_load_option(datas);
+		}		
+		
+		
 	});
 	
 	/*

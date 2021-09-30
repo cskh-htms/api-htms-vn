@@ -1006,7 +1006,13 @@ router.get('/:store_id', async function(req, res, next) {
 	var data_product_order_copy = {...ojs_configs.datas_all};	
 	var data_product_order_assign = Object.assign(data_product_order_copy,data_product_order_edit);
 	//@
-	var data_product_data_edit = {'user_compare':'=','status_admin_compare': '<>','status_admin_value': '1000'};
+	var data_product_data_edit = {
+		'user_compare':'=',
+		'status_admin_compare': '<>',
+		'status_admin_value': '1000',
+		'status_store_compare': '<>',
+		'status_store_value': '1000'		
+		};
 	var data_product_ok = Object.assign(data_product_order_assign,data_product_data_edit);	
 	
 	
@@ -1907,7 +1913,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		"datas":{
 			"products_speciality_name":"draf",
 			"products_speciality_store_id":store_id,
-			"products_speciality_price":0
+			"products_speciality_price":0,
+			"products_speciality_weight": 100
 		}
 	}		
 	
