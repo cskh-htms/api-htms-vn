@@ -133,7 +133,12 @@ const ojs_datas_coupon = {
 								"field"     :"coupon_speciality_status_admin",
 								"value"     : datas.status_admin_value,
 								"compare" 	: datas.status_admin_compare
-							}								
+							},
+							{   
+								"field"     :"check_expired",
+								"value"     : datas.status_check_value,
+								"compare" 	: datas.status_check_compare
+							}
 						]    
 					}
 				],

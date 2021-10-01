@@ -1,0 +1,66 @@
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Giá</th>
+		</tr>
+	</thead>
+	<tbody>
+	   <tr>
+			<td class="user-name">
+				<a href="#" class="pro-img"><img src="<%- datas[0].products_speciality_featured_image  %>" /></a>
+				<a href="#"><%- datas[0].products_speciality_name %></a>
+			</td>
+
+			<% if( datas[0].products_speciality_sale_of_price != null ){ %>
+				<td class="pro-price">
+					<%- ojs_share.show_han_km(datas[0].products_speciality_sale_of_price_time_check) %>
+					<span class="price-off"><%= datas[0].products_speciality_price %></span><%= datas[0].products_speciality_sale_of_price %>
+				</td>
+			<% } else { %>
+				<td class="pro-price"><%= datas[0].products_speciality_price %></td>		
+			<% } %>
+	
+	   </tr>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Giá</th>
+		</tr>
+	</tfoot>
+</table>
+
+
+<div class="content-product">
+	<%- datas[0].products_speciality_contents -%>
+</div>
+
+</div>
+
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+
+
+
+
+

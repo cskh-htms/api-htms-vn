@@ -17,6 +17,11 @@
 
 6. [ajax_update_details]
 
+7. [show_content_product]
+
+8. [add_product_to_discount]
+
+9. [no_product_to_discount]
 
 
 
@@ -33,8 +38,125 @@ $(document).ready(function($){
 
 	ojs_discount_program_speciality = {	
 	
+		//@
+		//@	
+		//@
+		//@
+		//@ 9.[no_product_to_discount]
+		no_product_to_discount: function(datas,link_id){		
+			//alert(datas,link_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/discount-program/speciality/no_product_to_discount/" + link_id,
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									ojs_message.message_ok_show(result.message);
+								}else{
+									ojs_message.message_ok_show(result.message);
+								}
+						}else{
+							ojs_message.message_ok_show(" Đã từ chối sản phẩm tham gia chương trình ",location.href);
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
 	
-	
+		
+		//@
+		//@	
+		//@
+		//@
+		//@ 8.[add_product_to_discount]
+		add_product_to_discount: function(link_id){		
+			//alert(link_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/discount-program/speciality/add_product_to_discount/" + link_id,
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									ojs_message.message_ok_show(result.message);
+								}else{
+									ojs_message.message_ok_show(result.message);
+								}
+						}else{
+							ojs_message.message_ok_show(" Đã phê suyệt sản phẩm ",location.href);
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
+
+		//@
+		//@	
+		//@
+		//@
+		//@ 7.[show_content_product]
+		show_content_product: function(product_id){		
+			//alert(product_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  url : ojs_loader.host + "/discount-program/speciality/show-product/" + product_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						ojs_loadding.ajax_show_content(result);
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
 		//@
 		//@	
 		//@

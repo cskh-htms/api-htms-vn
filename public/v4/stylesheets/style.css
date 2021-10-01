@@ -2842,5 +2842,44 @@ display: flex;
     display: flex !important;
 }
 
+.btn-design {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #b1d2b2;
+    padding: 0px 5px;
+    border-radius: 5px;
+    color: #656565;
+}
+
+.btn-design:hover {
+	opacity:0.6;
+}
+
+.ajax-box-inner {
+    background-color: white;
+    padding: 30px;
+}
+
+.content-product {
+    background-color: white;
+    padding: 0px 30px;
+    padding-bottom: 60px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

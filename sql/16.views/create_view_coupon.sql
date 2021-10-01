@@ -11,6 +11,11 @@ CREATE VIEW dala_view_coupon AS
 SELECT 
 
 dala_coupon_speciality.*,
+dala_stores_ID,
+dala_stores_name,
+
+
+
 
 (CASE 
 	WHEN (dala_coupon_speciality_date_star is null and dala_coupon_speciality_date_end is null ) THEN  
@@ -45,6 +50,30 @@ END) as dala_check_expired
 
 
 FROM  
-dala_coupon_speciality ;
+dala_coupon_speciality 
 
+LEFT JOIN dala_stores  ON 
+dala_coupon_speciality_stores_id_created  = dala_stores_ID  
 
+LEFT JOIN dala_users  ON  
+dala_stores_user_id  = 	dala_users_ID ;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

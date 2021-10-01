@@ -11,7 +11,7 @@ page wrap
 --------------------- -->
 <% include ../../masterpage/header %>
 
-
+<script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -124,7 +124,82 @@ $(document).ready(function($){
 	});			
 	
 	
+	//
+	//@
+	//xem
+	$(document).on('click','.btn-xem',function(e) {	
+		//@
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_id");
+		ojs_discount_program_speciality.show_content_product(product_id);
+		//@
+	});		
+	//
+	//@
+	//duyệt
+	$(document).on('click','.btn-duyet',function(e) {	
+		//@
+		e.preventDefault();		
+		var link_add_id = $(this).attr("data_product_add_id");
+		//ojs_discount_program_speciality.add_product_to_discount(link_add_id);
+		
+		
+		
+				//@
+		let x = "xác nhận phê duyệt";		
+		let y = "discount_add";//function name in callback 
+		let z = ' { "link_add_id" : "' + link_add_id + '"}';
+		ojs_message.message_yes_no_show(x,y,z);	
+
+		//@
+	});		
 	
+	//
+	//@
+	//duyệt
+	$(document).on('click','.btn-tu-choi',function(e) {	
+		//@
+		e.preventDefault();	
+		var link_no_id = $(this).attr("data_product_no_id");
+		let html = "" + 
+		'<div class="ajax-box">' + 
+			'<div class="ajax-box-inner">' + 
+				'<h1> lý do từ chối</h1>' + 
+				'<textarea rows="10" cols="50" id="tu-choi-content"></textarea>' + 
+				'<div class="btn-tu-choi-go" style="text-align:right">' + 
+					'<span id="btn-tu-choi-go" data_product_no_id="' + link_no_id + '" class="btn-design">save</span>' + 
+				'</div>' + 
+			'</div>';	
+		'</div>';
+		
+		
+		ojs_loadding.ajax_show_content( html);
+		//@
+	});		
+	
+	//
+	//@
+	//duyệt
+	$(document).on('click','#btn-tu-choi-go',function(e) {	
+		//@
+		e.preventDefault();		
+		var link_no_id = $(this).attr("data_product_no_id");
+		var content = $('#tu-choi-content').val();
+		
+		var datas = {
+			"datas": {   
+				"discount_program_product_link_status" :"2",
+				"discount_program_product_link_qoute":content
+			}
+		}
+		
+		
+		//alert(content);
+		//return;
+
+		ojs_discount_program_speciality.no_product_to_discount(datas,link_no_id);
+		//@
+	});			
 	
 	//
 ///////////////////////////////////////////////////////

@@ -10,7 +10,16 @@ ojs_loadding_message_callback = {
 	},
 	
 
-
+	//
+	//
+	//xoa san pham dac san
+	discount_add:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let link_add_id = datas_parse.link_add_id;
+		
+		ojs_discount_program_speciality.add_product_to_discount(link_add_id);
+		
+	},//end of xoa san pham dac san	
 
 	//
 	//
