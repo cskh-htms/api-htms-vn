@@ -606,13 +606,17 @@ function get_message_error(error){
 	}else if(error.sqlMessage.search("trig_products_speciality_insert_weight_empty") >= 0 ){
 		return " vui lòng nhập cân nặng của sản phẩm, có thể ước lượng khoảng 200 gram ";			
 		
-		
-		
-		
+	}else if(error.sqlMessage.search("trig_products_speciality_update_date_end_less_star") >= 0 ){
+		return " ngày khuyến mãi không hợp lệ ";			
+	
+	}else if(error.sqlMessage.search("trig_products_speciality_insert_peice_less_then") >= 0 ){
+		return " giá khuyến mãi không hợp lệ ";
+	
+	
 		
 		
 	}else{
-		return "Lỗi máy chủ vui lòng thao tác lại hoặc liên hệ admin";
+		return "Lỗi data type insert, xem lại dữ liệu gữi lên";
 	}
 }	//
 //

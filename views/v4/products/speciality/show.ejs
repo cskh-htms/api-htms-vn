@@ -27,7 +27,7 @@ if(users_type == "admin"){
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
-
+<% include ../../masterpage/function-share-all %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -70,7 +70,7 @@ content
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_weight %>" 						
 						type="text" 
-						value="<%= datas[0].products_speciality_weight %>" 
+						value="<%- ojs_share_all.show_price_format(datas[0].products_speciality_weight,0,",",".","") %>" 
 						id="products_speciality_weight" 
 						/> 
 					</p>
@@ -117,21 +117,21 @@ content
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_price %>" 
 						type="text" 
-						value="<%= datas[0].products_speciality_price %>" 
+						value="<%- ojs_share_all.show_price_format(datas[0].products_speciality_price,0,",",".","") %>" 
 						id="products_speciality_price" /> 
 					</p>
 					
-					<p style="display: none;"><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
+					<p><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
 						<input 
 						class="number_change_empty" 
 						data_value="<%= datas[0].products_speciality_sale_of_price %>" 						
 						type="text" 
-						value="<%= datas[0].products_speciality_sale_of_price %>" 
+						value=" <%- ojs_share_all.show_price_format(datas[0].products_speciality_sale_of_price,0,",",".","") %>" 
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p style="display: none;"><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p style="display: none;"><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
+					<p><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
 					
 					
 				</div>

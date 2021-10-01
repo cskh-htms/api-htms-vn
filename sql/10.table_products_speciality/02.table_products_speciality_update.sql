@@ -43,6 +43,33 @@ IF(NEW.dala_products_speciality_weight  is null or NEW.dala_products_speciality_
 END IF;	
 
 
+
+-- 
+--
+-- price less then
+IF( 
+(NEW.dala_products_speciality_sale_of_price is not null OR  NEW.dala_products_speciality_sale_of_price  > 0) AND
+(NEW.dala_products_speciality_price is not null OR  NEW.dala_products_speciality_price  > 0) 
+ ) THEN 
+	IF ( NEW.dala_products_speciality_sale_of_price >= NEW.dala_products_speciality_price ) THEN   
+		SIGNAL SQLSTATE '12305' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_peice_less_then'; 
+	END IF;	
+ELSEIF ( NEW.dala_products_speciality_sale_of_price is not null OR  NEW.dala_products_speciality_sale_of_price  > 0 ) THEN 
+	SET @checkID = (select dala_products_speciality_price  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_ID );
+	IF ( NEW.dala_products_speciality_sale_of_price >= @checkID ) THEN   
+		SIGNAL SQLSTATE '12304' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_peice_less_then'; 
+	END IF;	
+ELSEIF ( NEW.dala_products_speciality_price is not null OR  NEW.dala_products_speciality_price  > 0 ) THEN 
+	SET @checkID = (select dala_products_speciality_sale_of_price  from dala_products_speciality where dala_products_speciality_ID  = NEW.dala_products_speciality_ID );
+	IF ( NEW.dala_products_speciality_price <= @checkID ) THEN   
+		SIGNAL SQLSTATE '12304' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_insert_peice_less_then'; 
+	END IF;		
+END IF;
+
+
 -- 
 --
 -- date less then
