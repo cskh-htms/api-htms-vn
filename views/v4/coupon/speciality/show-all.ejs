@@ -30,7 +30,7 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá</h1>
-	<div class="mb20"><a href="/coupon/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo coupon</a></div>
+	<div class="mb20" style="text-align:right;"><a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">quản lý</a></div>
 	<div class="coupon_content">
 		<div class="coupon">
 			<div class="coupon_title">DALA10</div>
@@ -146,12 +146,6 @@ content
 	
 
 	
-	
-	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-coupon-speciality-show-tables.ejs %>
-	</div>
-
-
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="store_id" value="<%= store_id %>"/>

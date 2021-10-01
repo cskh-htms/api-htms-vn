@@ -32,6 +32,7 @@
 		"coupon_speciality_status_admin"		: 0,
 		"coupon_speciality_status_update"		: 0,
 		"coupon_speciality_limit_user"			: 0,
+		"coupon_speciality_limit_number"		: 0,		
 		"coupon_speciality_qoute":""
 	}
 	
@@ -69,6 +70,11 @@
 			return "Chưa nhập code";
 		}else if(error.sqlMessage.search("coupon_speciality_stores_id_created") >= 0){
 			return " Không tìm thấy cửa hàng ";
+			
+		}else if(error.sqlMessage.search("trig_coupon_speciality_code_date_end_less_star") >= 0){
+			return " ngày tháng không hợp lệ ";			
+			
+			
 			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";

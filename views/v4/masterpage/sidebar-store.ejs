@@ -1,4 +1,8 @@
 
+<% include function-share-sidebar %>
+
+
+
 <div id="sidebar" class="sidebar">
 	<ul class="admin-menu">
 		<!-- //admin -->	
@@ -59,7 +63,8 @@
 				<i class="fas fa-archive"></i>
 				<div class="menu-name">
 				Danh mục
-				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,4)  -%>	
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,4)  -%>
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,4)  -%>				
 				</div>
 			</a>
 			<a href="/categorys/general/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
@@ -73,7 +78,8 @@
 				<i class="fas fa-filter"></i>
 				<div class="menu-name">
 				Tùy chọn
-				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,5)  -%>				
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,5)  -%>	
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,5)  -%>					
 				</div>
 			</a>
 			<a href="/options/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>

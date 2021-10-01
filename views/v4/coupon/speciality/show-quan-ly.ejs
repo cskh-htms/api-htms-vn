@@ -1,0 +1,257 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../masterpage/loader %>
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-coupon %>
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+	<h1>
+		<a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a>
+		<i class="fas fa-chevron-right"></i><a href="/coupon/speciality/<%= store_id %>">coupon</a>
+		<i class="fas fa-chevron-right"></i>quản lý coupon
+	</h1>
+
+
+	<div id="ajax-wrap">	
+		<% include ../../masterpage/widget-coupon-speciality-show-tables-admin.ejs %>
+	</div>
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	//@
+	//xoa
+	$(document).on('click','.submitdelete',function(e) {	
+		//@
+		e.preventDefault();		
+		let option_id = $(this).attr("data_option_id");
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_option_speciality";//function name in callback 
+		let z = ' { "option_id" : "' + option_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	//		
+		
+	//
+	//@
+	//add class active
+	$(document).on('click','.btn_add_store',function(e) {	
+		e.preventDefault();
+		$('.store_row').find('.btn_add_store').removeClass('active');
+		$(this).addClass('active');
+	});//end of function	
+	//@
+	//@	
+	
+	//Loc trang thai
+	///////////////////////////
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: 0,
+				store_id	:0,
+				status_admin : JSON.parse(status_admin)
+			}
+		}	
+		///console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option(datas);	
+	});
+	
+	/*
+	//@
+	//goi ajax
+	$(document).on('click','#all',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let status_admin = [0,1,2,3];
+		
+		var datas = {
+			"datas":{
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_bussiness(datas);	
+
+	});//end of function		
+
+	//@
+	//goi ajax
+	$(document).on('click','#complate',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [1]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#new',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [0]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+	//@
+	//goi ajax
+	$(document).on('click','#update',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [2]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function
+
+
+	//@
+	//goi ajax
+	$(document).on('click','#not',function(e) {	
+		e.preventDefault();
+		//@
+		//@
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_admin = [3]
+		
+		var datas = {
+			"datas":{
+				user_id 	: user_id,
+				store_id 	: store_id,
+				status_admin : status_admin
+			}
+		}	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_option_no(datas);	
+
+	});//end of function	
+	
+	*/
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+<% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

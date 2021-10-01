@@ -1913,7 +1913,13 @@ router.get('/:store_id', async function(req, res, next) {
 	var data_cat_order_assign = Object.assign(data_cat_order_copy,data_cat_order_edit);
 
 	//@
-	var data_cat_order_data_edit = {'user_compare':'=','status_admin_compare': '<>','status_admin_value': '1000'};
+	var data_cat_order_data_edit = {
+		'user_compare':'=',
+		'status_admin_compare': '<>',
+		'status_admin_value': '1000',
+		'status_store_compare': '<>',
+		'status_store_value': '1000'		
+		};
 	var data_cat_order_ok = Object.assign(data_cat_order_assign,data_cat_order_data_edit);	
 	//@
 	//@

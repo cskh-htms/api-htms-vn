@@ -49,6 +49,7 @@ const ojs_datas_coupon = {
 				"coupon_speciality_multiple",
 				"coupon_speciality_status_admin",
 				"coupon_speciality_limit_user",
+				"coupon_speciality_limit_number",
 				"coupon_speciality_qoute",
 				"stores_ID",
 				"stores_name"

@@ -95,6 +95,9 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "coupon_speciality_status_admin as coupon_speciality_status_admin, " + 
 	ojs_configs.db_prefix  + "coupon_speciality_status_update as coupon_speciality_status_update, " + 
 	ojs_configs.db_prefix  + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
+	ojs_configs.db_prefix  + "coupon_speciality_limit_number as coupon_speciality_limit_number, " + 
+	
+	
 	
 	
 	ojs_configs.db_prefix  + "coupon_speciality_qoute as coupon_speciality_qoute "  ;
@@ -321,6 +324,7 @@ var insert_coupon_speciality = async function (datas) {
 			"coupon_speciality_status_admin"				: datas.coupon_speciality_status_admin,
 			"coupon_speciality_status_update"				: datas.coupon_speciality_status_update,
 			"coupon_speciality_limit_user"					: datas.coupon_speciality_limit_user,
+			"coupon_speciality_limit_number"				: datas.coupon_speciality_limit_number,
 
 			"coupon_speciality_qoute"						: mysql.escape(datas.coupon_speciality_qoute).replace(/^'|'$/gi, "")
 

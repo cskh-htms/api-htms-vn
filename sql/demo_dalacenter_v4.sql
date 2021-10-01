@@ -302,6 +302,7 @@ CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_status_update` tinyint(1) NOT NULL DEFAULT '0',
   `dala_coupon_speciality_limit_user` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_coupon_speciality_limit_number` int(1) NOT NULL DEFAULT '0'  COMMENT 'giới hạn số lượng dùng code',
   `dala_coupon_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_coupon_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

@@ -83,6 +83,10 @@ const ojs_config_app = {
 		
 		'status_store_compare':'=',
 		'status_store_value':1,
+		
+		'status_check_compare':"in",
+		'status_check_value':[0,1],	
+		
 		'order' : []
 	},	
 	//@
@@ -122,9 +126,6 @@ const ojs_config_app = {
 		'line_order_compare':'=',
 		'line_order_value':'product',		
 		
-		'status_check_compare':"in",
-		'status_check_value':[0,1],			
-
 		'date_star':ojs_shares_date.get_current_month_now(),
 		'date_end':ojs_shares_date.get_current_date_end(),
 		'order' : []	

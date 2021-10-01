@@ -1766,7 +1766,13 @@ router.get('/:store_id', async function(req, res, next) {
 	var data_option_order_copy = {...ojs_configs.datas_all};	
 	var data_option_order_assign = Object.assign(data_option_order_copy,data_option_order_edit);
 	//@
-	var data_option_data_edit = {'user_compare':'=','status_admin_compare':'<>','status_admin_value':'1000'};
+	var data_option_data_edit = {
+		'user_compare':'=',
+		'status_admin_compare':'<>',
+		'status_store_value':'1000',
+		'status_store_compare':'<>',
+		'status_admin_value':'1000'		
+		};
 	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
 
 	

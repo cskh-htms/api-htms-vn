@@ -1,0 +1,98 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+
+1. [show_count_store_menu_html]
+
+
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_sidebar = {
+	//@
+	//@ 
+	//@ 
+	//@
+	//@
+	//@ tạo html hiển thị count span
+	//@ 9.[show_count_bussiness_menu_html]	
+	show_count_store_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_red" title="danh mục bị từ chối">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	}
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

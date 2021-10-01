@@ -374,7 +374,7 @@ try {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "7", "position":"ctl-coupon-speciality->insert", "message": error_send } ); 
 			return;
