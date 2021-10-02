@@ -3,11 +3,11 @@
 
 
 
-<div id="sidebar" class="sidebar">
+<div id="sidebar" class="sidebar store">
 	<ul class="admin-menu">
 		<!-- //admin -->	
 		<% if(users_type == "admin"){ %>		
-		<li>
+		<li class="admin-back">
 			<a href="/admin/">
 				<i class="fas fa-tachometer-alt"></i>
 				<div class="menu-name">Admin</div>
@@ -93,7 +93,8 @@
 				<i class="fas fa-award"></i>
 				<div class="menu-name">
 					Thương hiệu
-					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,6)  -%>				
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,6)  -%>	
+					<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,6)  -%>					
 				</div>
 			</a>
 			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>

@@ -38,7 +38,6 @@ content
 		</div>
 		<div class="loc_wrap">
 			<select id="loc_trang_thai">
-				<option id="no" value="[100]">Chọn lọc</option>
 				<option id="all" value="[0,1,2,3,4]">Tất cả trạng thái</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
 				<option id="checked" value="[1]">Đã duyệt</option>
@@ -51,7 +50,7 @@ content
 	
 	
 	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-discount-program-show %>
+		<% include ../../masterpage/widget-discount-program-show-no %>
 	</div>
 
 
@@ -114,20 +113,58 @@ $(document).ready(function($){
 	//
 	//@
 	//xoa
+	$(document).on('click','.btn_discount_delete',function(e) {	
+		//@
+		e.preventDefault();		
+		let discount_program_id = $(this).attr("data_discount_program_id");
+		//alert(discount_program_id);
+		//return;
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_discount_program_id";//function name in callback 
+		let z = ' { "discount_program_id" : "' + discount_program_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	
+	
+	//
+	//@
+	//xoa
+	$(document).on('click','.btn-huy-tham-gia',function(e) {	
+		//@
+		e.preventDefault();		
+		let discount_detail_id = $(this).attr("data_discount_detail_id");
+		//alert(discount_detail_id);
+		//return;
+		//
+		//@
+		let x = "Xác nhận huỷ";		
+		let y = "huy_tham_gia_discount";//function name in callback 
+		let z = ' { "discount_detail_id" : "' + discount_detail_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	
+	
+	
+	//
+	//@
+	//xoa
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
 		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
 		//
 		//@
-		let x = "xác nhận xoá";		
+		let x = "xác nhận huỷ tham gia sản phẩm";		
 		let y = "delete_discount_program_link_id";//function name in callback 
 		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});			
-	
-	
+		
 	
 	
 	//

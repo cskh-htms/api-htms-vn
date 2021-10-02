@@ -1121,18 +1121,18 @@ router.post('/ajax-brand-list/', async function(req, res, next) {
 		//
 		//@
 		data_send = {
-			'list_datas' : get_all_list_datas[6].datas,
+			'datas' : get_all_list_datas[6].datas,
 			'users_type' : ojs_shares_others.get_users_type(token),
 			'user_role'  : ojs_shares_others.get_users_type(token),
 			'user_id' : user_id	
 		}
 		//res.send(data_send);
 		//return;
-		res.render( ojs_configs.view_version + '/masterpage/widget-brand-show-tables', data_send );		
+		res.render( ojs_configs.view_version + '/masterpage/widget-brand-show-tables-no', data_send );		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
 		res.send({ "error" : "32.router_brand(app)->ajax", "message": error_send } ); 
 		return;	
@@ -1438,7 +1438,7 @@ router.get('/:store_id', async function(req, res, next) {
 		'status_admin_value':'1000',
 		'status_store_compare':'<>'	,	
 		'status_store_value':'1000',
-		
+		'store_compare':'=',
 		};
 	var data_brand_order_ok = Object.assign(data_brand_order_assign,data_brand_order_data_edit);	
 	
@@ -1483,6 +1483,27 @@ router.get('/:store_id', async function(req, res, next) {
 	//@
 	//@	
 	try {	
+		data_info = {
+			'title' 				: 'Danh sách thương hiệu',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id'				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_thuong_hieu',
+			'menu_taget_child'		:'sidebar_add_thuong_hieu',			
+			
+			'store_list' 			: get_all_list_datas[2].datas,
+			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
+			'list_data_count' 		: get_all_list_datas_count,
+			'service_type_name' : get_all_list_datas[2].datas[0].service_type_name,
+			'datas' : get_all_list_datas_all[6].datas,
+			'store_name' : get_all_list_datas[2].datas[0].stores_name			
+			
+		}
+		
 		data_send = {
 			'title' 				: 'Danh sách thương hiệu',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
@@ -1499,10 +1520,13 @@ router.get('/:store_id', async function(req, res, next) {
 			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
 			'list_data_count' 		: get_all_list_datas_count,
 			'service_type_name' : get_all_list_datas[2].datas[0].service_type_name,
-			'list_datas' : get_all_list_datas_all[6].datas,
-			'store_name' : get_all_list_datas[2].datas[0].stores_name			
+			'datas' : get_all_list_datas_all[6].datas,
+			'store_name' : get_all_list_datas[2].datas[0].stores_name,
+			'data_info' : 		data_info
 			
-		}
+		}		
+		
+		
 		//res.send(data_send);
 		//return;
 		res.render( ojs_configs.view_version + '/brands/show-all', data_send );

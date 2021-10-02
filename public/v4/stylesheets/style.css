@@ -215,6 +215,19 @@ a {
 	left: 0;
 	z-index: 1;
 }
+
+
+#sidebar.admin {
+    background-color: #df94bb;
+}
+#sidebar.store .admin-back {
+    background-color: #df94bb;
+    margin-right: 25px;
+    border-radius: 10px;
+}
+
+
+
 #sidebar .admin-menu .sidebar_name {
 	margin-bottom: 25px;
 	color: white;
@@ -998,7 +1011,7 @@ body .ajax-load-bt {
     text-decoration: none;
     padding: 8px 35px;
     border-radius: 5px;
-    background: #4a914b;		  
+    background:#4a914b;		  
     color: white;
     font-size: 120%;
 	text-transform: uppercase;
@@ -1051,7 +1064,7 @@ body .ajax-load-bt {
     border-radius: 5px;
 }
 .store_box_content .store_thang_nay {
-	background: #4a914b;
+	background:#4a914b;
     color: rgba(255,255,255,0.8);
 	text-align: center;
 }

@@ -17,18 +17,27 @@
 	for(var  x in options_list) { %>
 		<tr>
 			<td class="user-name"><a href="#"><%= options_list[x].options_product_speciality_name %></a>
-				<div class="row-actions">
-					<span class="edit">
-						<a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= options_list[x].options_product_speciality_stores_id %>">
-							Chỉnh sửa</a> | 
-					</span>
-					<span class="delete">
-						<a href="#" data_option_id="<%= options_list[x].options_product_speciality_ID %>" class="submitdelete">
-							Xóa
-						</a>
-					</span>
+				<% //neu nếu đã chấp nhận thì ko cho update nua
+				if( options_list[x].options_product_speciality_status_admin != "1" ){ 
+				%>
+			
+			
+					<div class="row-actions">
+						<span class="edit">
+							<a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= options_list[x].options_product_speciality_stores_id %>">
+								Chỉnh sửa</a> | 
+						</span>
+						<span class="delete">
+							<a href="#" data_option_id="<%= options_list[x].options_product_speciality_ID %>" class="submitdelete">
+								Xóa
+							</a>
+						</span>
+						
+					</div>
+				<%
+				}
+				%>				
 					
-				</div>
 			</td>
 
 			<td class="user-name"><%- ojs_share.show_status_table_share_all(options_list[x].options_product_speciality_status_admin) %></td>

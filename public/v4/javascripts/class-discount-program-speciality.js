@@ -11,9 +11,7 @@
 
 4. [ajax_update_product]
 
-
 5. [ajax_delete_discount_link]
-
 
 6. [ajax_update_details]
 
@@ -22,6 +20,11 @@
 8. [add_product_to_discount]
 
 9. [no_product_to_discount]
+
+10.[delete_discount_program]
+
+11. [huy_tham_gia_discount]
+
 
 
 
@@ -37,6 +40,96 @@
 $(document).ready(function($){
 
 	ojs_discount_program_speciality = {	
+	
+	
+	
+		//@
+		//@	
+		//@
+		//@
+		//@ 11. [huy_tham_gia_discount]
+		huy_tham_gia_discount: function(discount_detail_id){		
+			//alert(discount_program_product_link_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "GET",	  
+			  url : ojs_loader.host + "/discount-program/speciality/ajax-huy-tham-gia-discount/" + discount_detail_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				//ojs_loader.evn = "dev";
+				if(ojs_loader.evn == "dev"){
+					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+					console.log(result);
+				}else{
+					if(result.error.length > 0){
+								if(ojs_loader.evn == "dev"){
+									console.log(result);
+									ojs_message.message_ok_show(result.message);
+								}else{
+									ojs_message.message_ok_show(result.message);
+								}
+					}else{
+						ojs_message.message_ok_show(" Đã huỷ tham gia chương trình",location.href);
+					}
+				}				
+				ojs_loadding.ajax_hide_loadding();	
+			  }			  
+			});	
+		},//end of ajax save	
+	
+	
+	
+		//@
+		//@	
+		//@
+		//@
+		//@ 10. [delete_discount_program]
+		delete_discount_program: function(discount_program_id){		
+			//alert(discount_program_product_link_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "GET",	  
+			  url : ojs_loader.host + "/discount-program/speciality/discount-delete/" + discount_program_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				//ojs_loader.evn = "dev";
+				if(ojs_loader.evn == "dev"){
+					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+					console.log(result);
+				}else{
+					if(result.error.length > 0){
+								if(ojs_loader.evn == "dev"){
+									console.log(result);
+									ojs_message.message_ok_show(result.message);
+								}else{
+									ojs_message.message_ok_show(result.message);
+								}
+					}else{
+						ojs_message.message_ok_show(" Đã xoá chương trình",location.href);
+					}
+				}				
+				ojs_loadding.ajax_hide_loadding();	
+			  }			  
+			});	
+		},//end of ajax save	
+	
+	
+	
+	
 	
 		//@
 		//@	

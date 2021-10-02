@@ -14,35 +14,22 @@
 
 	<% 
 	for(var  x in datas) { %>
-	
-			<% //nếu chủ cữa hàng thì hiện màu đỏ
-			if(datas[x].users_ID == user_id  &&  user_role != "admin"){ 		
-				var ex1 = 'my_store';
-			}else{
-				var ex1 = '';
-			}
-			%>				
-	
-	
-		   <tr class="<%= ex1 %>">
+		   <tr>
 			<td class="user-name"><a href="#"><%= datas[x].brands_name %></a>
+				<% //neu nếu đã chấp nhận thì ko cho update nua
+				if( datas[x].brands_status_admin != "1" ){ 
+				%>
+			
 				<div class="row-actions">
-					<% //nếu là admin thì hiển thị update
-					if(user_role == "admin" ||  datas[x].users_ID == user_id){ %>
-						<% //neu nếu đã chấp nhận thì ko cho update nua
-						if( datas[x].brands_status_update != "1"   || user_role == "admin"){ %>				
-							<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= datas[x].users_ID %>">Chỉnh sửa</a> | </span>
-							<span class="delete"><a href="#" data_brand_id="<%= datas[x].brands_ID %>" class="submitdelete">Xóa</a></span>
-						<% //enf of if
-						}
-						%>	
-					<% //enf of if
-					}
-					%>
-					
+						<span class="edit"><a href="/brands/show/<%= datas[x].brands_ID %>/<%= datas[x].stores_ID %>">Chỉnh sửa</a> | </span>
+						<span class="delete"><a href="#" data_brand_id="<%= datas[x].brands_ID %>" class="submitdelete">Xóa</a></span>
 				</div>
-			</td>
 				
+				<%
+				}
+				%>					
+
+			</td>
 			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas[x].brands_status_admin) %></td>
 			<td class="user-name"><%- ojs_share.show_status_table_share_all(datas[x].brands_status_stores) %></td>
 

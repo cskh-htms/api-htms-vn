@@ -1,3 +1,37 @@
+
+
+
+
+
+/*
+
+---------------------------------------------------------
+1. DISCOUNT
+	* 1.1 [huy_tham_gia_discount]
+
+
+
+
+
+----------------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function($){
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10,6 +44,48 @@ ojs_loadding_message_callback = {
 	},
 	
 
+
+
+
+
+
+	//@
+	//@
+	/*---------------------------------------
+	          1. DISCOUNT
+	// -------------------------------------*/
+	//@
+	//@
+	//@ 1.1 [huy_tham_gia_discount]
+	huy_tham_gia_discount:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let discount_detail_id = datas_parse.discount_detail_id;
+		
+		//alert(discount_detail_id);
+		//return;
+		
+		ojs_discount_program_speciality.huy_tham_gia_discount(discount_detail_id);
+		
+	},//huy_tham_gia_discount
+
+
+
+	//
+	//
+	//xoa discount program
+	delete_discount_program_id:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let discount_program_id = datas_parse.discount_program_id;
+		
+		//alert(discount_program_id);
+		//return;
+		
+		ojs_discount_program_speciality.delete_discount_program(discount_program_id);
+		
+	},//end of xoa san pham dac san	
+
+
+
 	//
 	//
 	//xoa san pham dac san
@@ -20,6 +96,21 @@ ojs_loadding_message_callback = {
 		ojs_discount_program_speciality.add_product_to_discount(link_add_id);
 		
 	},//end of xoa san pham dac san	
+
+
+
+	//@
+	//@
+	/*---------------------------------------
+	          end of 1. DISCOUNT
+	// -------------------------------------*/
+	//@
+	//@
+
+
+
+
+
 
 	//
 	//

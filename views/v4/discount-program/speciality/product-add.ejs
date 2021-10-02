@@ -196,8 +196,10 @@ $(document).ready(function($){
 		e.preventDefault();
 		var datas = get_datas();	
 		
-		//console.log(datas);
-		//return;
+		if(datas.product_id == 0){
+			ojs_message.message_ok_show("chưa chọn sản phẩm");
+			return;
+		}		
 		
 		ojs_discount_program_speciality.ajax_save_product(datas);	
 	});
@@ -210,12 +212,6 @@ $(document).ready(function($){
 		var product_id = $('#discount_program_product_link_product_speciality_id  option:selected').val();
 		var discount_program_product_link_status = $('#discount_program_product_link_status  option:selected').val();
 		var discount_program_product_link_qoute = $('#discount_program_product_link_qoute').val();
-		
-		
-		if(product_id == 0){
-			ojs_message.message_ok_show("chưa chọn sản phẩm");
-			return;
-		}
 		
 		let datas = {
 			"datas":{
