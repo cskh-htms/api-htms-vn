@@ -352,7 +352,25 @@ const ojs_shares_get_all_list_datas_count = {
 		//@	
 		//@ * 1.8. [datas_discount]
 		if(datas.datas_discount){
-			var fn_datas_discount = 0;
+			
+			var datas_send = {
+				'store_id' : datas.store_id,
+				'store_compare': datas.datas_discount.store_compare,	
+				
+				'status_admin_compare' : "=",
+				'status_admin_value' : "4"			
+			}			
+			
+			
+			var fn_datas_discount = new Promise((resolve, reject) => {
+				var result = ojs_shares_fetch_data.get_data_send_token_post( 
+							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/search',
+							ojs_datas_discount_program.get_all_list_datas_count(datas_send),
+							datas.token_job
+						);
+
+				resolve(result);
+			});	
 		}else{
 			var fn_datas_discount = 0;
 		}

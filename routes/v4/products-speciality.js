@@ -67,10 +67,210 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 6. [/devare/:product_id/]
 
+7. [/show-content-product/:product_id]
+
+8. [/duyet/:product_id]
+
+9. [/tu-choi/:product_id]
+
+
 --------------------------------------------------------------
 */
 
+//@
+//@
+//@
+//@
+//@ 9. [/tu-choi/:product_id]
+router.post('/tu-choi/:product_id', async function(req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body;
+		var product_id = req.params.product_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers products seciality web -> duyệt -> get req -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/' + product_id,datas, token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi update products" );
+		res.send({ "error" : "100.models-product_speciality->duyệt", "message": error_send } ); 
+		return;		
+	}			
+});
 
+//@
+//@
+//@
+//@
+//@ 8. [/duyet/:product_id]
+router.post('/duyet/:product_id', async function(req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body;
+		var product_id = req.params.product_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers products seciality web -> duyệt -> get req -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/' + product_id,datas, token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi update products" );
+		res.send({ "error" : "100.models-product_speciality->duyệt", "message": error_send } ); 
+		return;		
+	}			
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 7. [/show-content-product/:product_id]
+router.post('/show-content-product/:product_id', async function(req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var product_id = req.params.product_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers products seciality web -> show-product -> get req -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var datas_get = await ojs_shares_fetch_data.get_data_send_token_get(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/' + product_id,token);
+		if(datas_get.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu product", "Lỗi lấy dữ liệu product" );
+			res.send({ "error" : "31.router_option_speciality(app)->ajax-show product", "message": error_send } ); 
+			return;		
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi show products" );
+		res.send({ "error" : "100.models-product_speciality->show-product", "message": error_send } ); 
+		return;		
+	}	
+
+
+	//res.send({ "error" : "00.router_option_speciality(app)->ajax-show product", "message": datas_get } ); 
+	//return;	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		data_send = {
+			'datas' : datas_get.datas
+		}
+		//res.send(data_send ); 
+		//return;			
+		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-show-product', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_option_speciality(app)->ajax-show product", "message": error_send } ); 
+		return;	
+	}
+});
 
 //@ 
 //@ 

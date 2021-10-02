@@ -30,8 +30,13 @@ for(var  x in datas) { %>
 		if(datas[x].notes_status == '0'){ %>
 			<span class="news_note">chưa xem</span>			
 		<%	
+		}else{
+		%>
+			<span class="news_note" style="color:blue;">đã xem</span>	
+		<%	
 		}
-		%></td>
+		%>		
+		</td>
 	</tr>
 
 <%

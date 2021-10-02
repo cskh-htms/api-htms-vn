@@ -137,7 +137,7 @@ $(document).ready(function($){
 		//@
 		//@ 9.[no_product_to_discount]
 		no_product_to_discount: function(datas,link_id){		
-			//alert(datas,link_id);
+			//alert(link_id);
 			//return;
 			//goi api
 			 $.ajax({

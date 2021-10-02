@@ -12,7 +12,7 @@
 
 2. [get_data_news_bussiness_menu]
 	- news bussiness
-
+ 5.[get_all_list_datas_count]
 
 
 
@@ -21,6 +21,55 @@
 */
 
 const ojs_datas_discount_program = {
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_count]		
+	get_all_list_datas_count: function(datas){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"count(discount_program_ID)"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"discount_program_store_id_created",
+								"value"     : datas.store_id,
+								"compare" 	: datas.store_compare
+							},
+							{   
+								"field"     :"discount_program_status_admin",
+								"value"     : datas.status_admin_value,
+								"compare" 	: datas.status_admin_compare
+							}							
+						]    
+					}
+				],
+				"group_by" :
+				[
+					"users_ID"
+				],
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 5.[get_all_list_datas_count]		
+	
+	
 	
 	
 	

@@ -112,6 +112,59 @@ const ojs_datas_discount_program_product_add = require('../../models/ojs-datas-d
 
 
 
+//@
+//@
+//@
+//@
+//@ 17. [/no_product_to_discount/:link_id]
+router.post('/no_product_to_discount/:link_id', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas = req.body;
+		var link_id = req.params.link_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers discount-program web -> ajax-huy-tham-gia-discount -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-product-link/' + link_id,datas, token);
+		res.send(active_update);	
+		return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi update products" );
+		res.send({ "error" : "100.models-product_speciality->no_product_to_discount", "message": error_send } ); 
+		return;		
+	}		
+});
+
+
+
+
+
+
 
 //@
 //@
@@ -378,7 +431,8 @@ router.get('/store-quan-ly/:store_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	
@@ -715,7 +769,7 @@ router.post('/show-product/:product_id', async function(req, res, next) {
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares.show_error( evn, error, "Lỗi update products" );
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi show products" );
 		res.send({ "error" : "100.models-product_speciality->show-product", "message": error_send } ); 
 		return;		
 	}	
@@ -2124,7 +2178,8 @@ router.get('/details/show/:discount_program_details_id/:store_id/:discount_progr
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all			
 
 	}
 	
@@ -2655,7 +2710,8 @@ router.get('/product-show/:discount_program_product_link_id/:store_id/:discount_
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	
@@ -3121,7 +3177,8 @@ router.get('/product/add/:discount_program_details_id/:store_id/:user_id', async
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -3540,7 +3597,8 @@ router.get('/details/add/:discount_program_id/:store_id/:user_id', async functio
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -4215,7 +4273,8 @@ router.get('/show/:discount_program_id/:store_id', async function(req, res, next
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	
@@ -4542,7 +4601,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -4886,7 +4946,8 @@ router.get('/:store_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -4952,7 +5013,8 @@ router.get('/:store_id', async function(req, res, next) {
 		'datas_option':ojs_configs.datas_all,
 		'datas_brand':ojs_configs.datas_all,
 		'datas_product':ojs_configs.datas_all,	
-		'datas_note' : datas_note_send_s
+		'datas_note' : datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all
 	}
 	
 	//res.send( datas_get_all_list_datas_count );	

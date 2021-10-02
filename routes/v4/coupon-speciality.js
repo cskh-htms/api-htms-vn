@@ -71,8 +71,274 @@ const ojs_datas_coupon = require('../../models/ojs-datas-coupon.js');
 
 9. [/store-quan-ly/:store_id]
 
+9. [/quan-ly]
+
+10. [/ajax-load-no]
+
+11. [/ajax-load-admin]
+
 --------------------------------------------------------------
 */
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 10. [/ajax-load-admin]
+router.post('/ajax-load-admin', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas = req.body.datas;
+		var store_id = datas.store_id;
+		var user_id = datas.user_id;
+		var status_admin = datas.status_admin;		
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> ajax-load-no -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//res.send( [datas,store_id,status_admin] );	
+	//return;
+
+	
+
+	//--------------------------------------------------
+	//             list-datas-bussiness
+	// -------------------------------------------------
+	//@
+	//@
+	//@ datas_coupon
+	var datas_coupon_order = [{'field':'coupon_speciality_date_created','compare':'DESC'}];
+	var datas_coupon_order_edit = {'order':datas_coupon_order};
+	var datas_coupon_order_copy = {...ojs_configs.datas_all};	
+	var datas_coupon_order_assign = Object.assign(datas_coupon_order_copy,datas_coupon_order_edit);
+	//@
+	var datas_coupon_data_edit = {
+		'store_compare':'<>',
+		'user_compare':'<>',
+		'status_admin_compare':'in',
+		'status_admin_value': status_admin,
+		'status_check_compare':"in",
+		'status_check_value':[0,1]			
+		};
+	var datas_coupon_ok = Object.assign(datas_coupon_order_assign,datas_coupon_data_edit);	
+	
+	//res.send( datas_coupon_ok );	
+	//return;	
+	
+	
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_coupon':datas_coupon_ok	
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers-coupon web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas[14]);
+	//return;
+
+
+
+
+
+	
+
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+	
+		let data_send = {
+			'user_id' 		: user_id,
+			'store_id'		: store_id,
+			'coupon_list' 	: get_all_list_datas[14].datas,
+		}
+		
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/masterpage/widget-coupon-speciality-show-tables-admin', data_send );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "100.1.router_coupon_speciality(app)->ge", "message": error_send } ); 
+		return;	
+	}	
+});
+//@
+//@
+//@
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 10. [/ajax-load-no]
+router.post('/ajax-load-no', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas = req.body.datas;
+		var store_id = datas.store_id;
+		var user_id = datas.user_id;
+		var status_admin = datas.status_admin;		
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> ajax-load-no -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+
+	//res.send( [datas,store_id,status_admin] );	
+	//return;
+
+	
+
+	//--------------------------------------------------
+	//             list-datas-bussiness
+	// -------------------------------------------------
+	//@
+	//@
+	//@ datas_coupon
+	var datas_coupon_order = [{'field':'coupon_speciality_date_created','compare':'DESC'}];
+	var datas_coupon_order_edit = {'order':datas_coupon_order};
+	var datas_coupon_order_copy = {...ojs_configs.datas_all};	
+	var datas_coupon_order_assign = Object.assign(datas_coupon_order_copy,datas_coupon_order_edit);
+	//@
+	var datas_coupon_data_edit = {
+		'store_compare':'=',
+		'status_admin_compare':'in',
+		'status_admin_value': status_admin,
+		'status_check_compare':"in",
+		'status_check_value':[0,1],			
+		};
+	var datas_coupon_ok = Object.assign(datas_coupon_order_assign,datas_coupon_data_edit);	
+	
+	//res.send( datas_coupon_ok );	
+	//return;	
+	
+	
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_coupon':datas_coupon_ok	
+	}
+	
+	//res.send( datas_get_all_list_datas );	
+	//return;		
+	
+	
+	var get_all_list_datas;
+	try{
+		get_all_list_datas = await ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers-coupon web -> get_all_list_datas -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send(get_all_list_datas[14]);
+	//return;
+
+
+
+
+
+	
+
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+	
+		let data_send = {
+			'user_id' 		: user_id,
+			'store_id'		: store_id,
+			'coupon_list' 	: get_all_list_datas[14].datas,
+		}
+		
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/masterpage/widget-coupon-speciality-show-tables-no', data_send );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "100.1.router_coupon_speciality(app)->ge", "message": error_send } ); 
+		return;	
+	}	
+});
+//@
+//@
+//@
+
+
+
 
 //@
 //@
@@ -213,7 +479,8 @@ router.get('/store-quan-ly/:store_id/', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all			
 
 	}
 	
@@ -341,7 +608,7 @@ router.get('/store-quan-ly/:store_id/', async function(req, res, next) {
 	var datas_coupon_data_edit = {
 		'store_compare':'=',
 		'status_admin_compare':'in',
-		'status_admin_value': [0,1,2,3],
+		'status_admin_value': [0,1,2,3,4],
 		'status_check_compare':"in",
 		'status_check_value':[0,1],			
 		};
@@ -567,7 +834,7 @@ router.get('/quan-ly', async function(req, res, next) {
 		'store_compare':'<>',
 		'user_compare':'<>',
 		'status_admin_compare':'in',
-		'status_admin_value': [0,1,2,3],
+		'status_admin_value': [0,1,2,3,4],
 		'status_check_compare':"in",
 		'status_check_value':[1],		
 		};
@@ -904,7 +1171,8 @@ router.get('/show/:coupon_id/:store_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	
@@ -1298,7 +1566,8 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	
@@ -1647,7 +1916,8 @@ router.get('/:store_id', async function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all		
 
 	}
 	

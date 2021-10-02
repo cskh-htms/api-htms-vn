@@ -95,7 +95,7 @@ $(document).ready(function($){
 	//
 	//@
 	//xoa
-	$(document).on('click','.submitdelete',function(e) {	
+	$(document).on('click','.submifgdfgdftdelete',function(e) {	
 		//@
 		e.preventDefault();		
 		let product_id = $(this).attr("data_product_id");
@@ -179,6 +179,108 @@ $(document).ready(function($){
 		//return;
 		ojs_bussiness.ajax_load_products_admin(datas);	
 	});
+	
+	
+	
+	
+	//
+	//@
+	//xem
+	$(document).on('click','.btn-xem',function(e) {	
+		//@
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_id");
+		//alert(product_id);
+		//return;
+		ojs_products_speciality.show_content_product(product_id);
+		//@
+	});		
+	//
+	//@	
+	
+	
+	//
+	//@
+	//xem
+	$(document).on('click','.btn-duyet',function(e) {	
+		//@
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_id");
+		//alert(product_id);
+		//return;
+		var datas = {
+			"datas": {
+				"products_speciality_status_admin":"1"
+			}
+		}
+
+		ojs_products_speciality.ajax_duyet(datas,product_id);
+		//@
+	});		
+	//
+	//@	
+		
+	
+	//
+	//@
+	//duyệt
+	$(document).on('click','.btn-tu-choi',function(e) {	
+		//@
+		e.preventDefault();	
+		var product_id = $(this).attr("data_product_id");
+		//alert(product_id);
+		//return;		
+		
+
+		let html = "" + 
+		'<div class="ajax-box">' + 
+			'<div class="ajax-box-inner">' + 
+				'<h1> lý do từ chối</h1>' + 
+				'<textarea rows="10" cols="50" id="tu-choi-content"></textarea>' + 
+				'<div class="btn-tu-choi-go" style="text-align:right">' + 
+					'<span id="btn-tu-choi-go" data_product_no_id="' + product_id + '" class="btn-design">save</span>' + 
+				'</div>' + 
+			'</div>';	
+		'</div>';
+		
+		
+		ojs_loadding.ajax_show_content( html);
+		//@
+	});			
+	
+	
+	
+	//
+	//@
+	//duyệt
+	$(document).on('click','#btn-tu-choi-go',function(e) {	
+		//@
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_no_id");
+		var content = $('#tu-choi-content').val();
+		
+		//alert(product_id);
+		//return;		
+		
+		var datas = {
+			"datas": {   
+				"products_speciality_status_admin" :"3",
+				"products_speciality_qoute":content
+			}
+		}
+		
+		
+		//alert(content);
+		//return;
+
+		ojs_products_speciality.ajax_tu_choi(datas,product_id);
+		//@
+	});			
+	
+	
+	
+	
+	
 	
 	/*
 	//@

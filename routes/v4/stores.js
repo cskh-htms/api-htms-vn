@@ -553,7 +553,8 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -946,7 +947,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'news_option': 'news_option',
 		'news_brand': 'news_brand',
 		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all	
 
 	}
 	
@@ -1012,7 +1014,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'datas_option':ojs_configs.datas_all,
 		'datas_brand':ojs_configs.datas_all,
 		'datas_product':ojs_configs.datas_all,	
-		'datas_note' : datas_note_send_s
+		'news_note':datas_note_send_s,
+		'datas_discount':ojs_configs.datas_all
 	}
 	
 	//res.send( datas_get_all_list_datas_count );	
@@ -1193,64 +1196,6 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 //@
 //@ end of 
 //@ 1. [/manage/:store_id/:user_id]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//get
-//appdala.com/admin
-//@@@@@@@@@@@@@@
-//@@@@@@@@@@@@@@
-
-//end of get admin
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-
-
-
-
-
-
-
-
-
-//get
-//appdala.com/admin
-//@@@@@@@@@@@@@@
-//@@@@@@@@@@@@@@
-
-//end of get admin
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-
-//get
-//appdala.com/admin
-//@@@@@@@@@@@@@@
-//@@@@@@@@@@@@@@
-
-//end of get admin
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 

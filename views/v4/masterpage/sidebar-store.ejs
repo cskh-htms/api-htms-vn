@@ -49,7 +49,8 @@
 				<i class="fas fa-box-open"></i>
 				<div class="menu-name">
 					Sản phẩm
-					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,7)  -%>					
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,7)  -%>	
+					<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,7)  -%>						
 				</div>
 			</a>
 			<a href="/products/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
@@ -108,8 +109,7 @@
 			<a href="/discount-program/<%= store_list[0].service_type_name %>/<%= store_id %>">
 				<i class="fas fa-percent"></i>
 				<div class="menu-name">
-					Chương trình khuyến mãi
-					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,8)  -%>					
+					Chương Trình khuyến mãi										
 				</div>
 			</a>
 			<a  href="/discount-program/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
@@ -140,7 +140,8 @@
 				<i class="fas fa-comment"></i>
 				<div class="menu-name">
 				Tin nhắn 
-				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,15)  -%>				
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,15)  -%>	
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,15)  -%>				
 				</div>
 			</a>
 		</li>
