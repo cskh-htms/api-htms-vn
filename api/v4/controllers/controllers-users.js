@@ -1832,6 +1832,7 @@ try {
 				"message":"Lỗi phân quyền -> supper-job users không cần  login "} );	
 				return;
 			}		
+			
 
 			if(role_text =="admin"){
 				token_type = 1;

@@ -29,10 +29,6 @@ REFERENCES `dala_stores`(`dala_stores_ID`)
 ON DELETE RESTRICT ON UPDATE RESTRICT; 
 
 
-
-
-
-
 --
 --
 --

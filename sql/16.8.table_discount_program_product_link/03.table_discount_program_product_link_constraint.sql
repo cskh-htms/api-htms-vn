@@ -29,10 +29,6 @@ REFERENCES `dala_products_speciality`(`dala_products_speciality_ID`)
 ON DELETE RESTRICT ON UPDATE RESTRICT; 
 
 
-
-
-
-
 --
 --
 --

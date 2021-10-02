@@ -309,7 +309,11 @@ router.get('/', async function(req, res, next) {
 	//@
 	var data_option_data_edit = {
 			'user_compare':'<>',
-			'store_compare':'<>'	
+			'store_compare':'<>',
+			'status_admin_compare':'<>',
+			'status_admin_value':'1000',
+			'status_store_compare':'in',
+			'status_store_value':[1]		
 		};
 	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);
 

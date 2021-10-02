@@ -30,27 +30,25 @@ content
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi</h1>
 	<div class="mb20" style="text-align:right;"><a href="/discount-program/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">quản lý</a></div>
-	<div class="ctkm_content ctkm_store">
-		<div class="ctkm_row">
-			<div class="white_box">
-				<h2>Slider</h2>
+
+	<div class="ctkm_content">
+		<div class="white_box">
+			<h2>Slide</h2>
+			<a href="/discount-program/speciality/add/17/51" class="btn_add_ctkm">Thêm chương trình</a>
+			<div class="km_slide">
+				<div class="km_slide_col">
 					<div class="km_img">
 						<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
 					</div>
-					<div class="km_name">Dâu tây giảm 40%</div>
+					<div class="km_name">Dâu tây giảm giá 40%</div>
 					<div class="km_type"><b>Kiểu KM:</b>
 						Giảm 40%
 					</div>
 					<div class="km_time"><b>Thời gian:</b>
-						Vô thời hạn
+						Từ 28/07/2021 đến 02/09/2021
 					</div>
 					<div class="km_ck"><b>Chiết khấu:</b>
-						2%
-					</div>
-					<div class="tham_gia_info">
-						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
-						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
-						
+						4%
 					</div>
 					<div class="ql_sp_tham_gia">
 						<div class="sp_col">
@@ -63,10 +61,71 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
 					</div>
+				</div>
+				<div class="km_slide_col">
+					<div class="km_img">
+						<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
+					</div>
+					<div class="km_name">Dâu tây giảm giá 40%</div>
+					<div class="km_type"><b>Kiểu KM:</b>
+						Giảm 40%
+					</div>
+					<div class="km_time"><b>Thời gian:</b>
+						Từ 28/07/2021 đến 02/09/2021
+					</div>
+					<div class="km_ck"><b>Chiết khấu:</b>
+						4%
+					</div>
+					<div class="ql_sp_tham_gia">
+						<div class="sp_col">
+							SP đang tham gia
+							<span class="number">35</span>
+						</div>
+						<div class="sp_col">
+							SP chờ duyệt
+							<span class="number">6</span><!-- Hiện số sp chờ phê duyệt vào KM -->
+						</div>
+					</div>
+					<div class="ctkm_btn">
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+					</div>
+				</div>
+				<div class="km_slide_col">
+					<div class="km_img">
+						<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
+					</div>
+					<div class="km_name">Dâu tây giảm giá 40%</div>
+					<div class="km_type"><b>Kiểu KM:</b>
+						Giảm 40%
+					</div>
+					<div class="km_time"><b>Thời gian:</b>
+						Từ 28/07/2021 đến 02/09/2021
+					</div>
+					<div class="km_ck"><b>Chiết khấu:</b>
+						4%
+					</div>
+					<div class="ql_sp_tham_gia">
+						<div class="sp_col">
+							SP đang tham gia
+							<span class="number">35</span>
+						</div>
+						<div class="sp_col">
+							SP chờ duyệt
+							<span class="number">6</span><!-- Hiện số sp chờ phê duyệt vào KM -->
+						</div>
+					</div>
+					<div class="ctkm_btn">
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+					</div>
+				</div>
 			</div>
+		</div>
+		<div class="ctkm_row">
 			<div class="white_box">
 				<h2>Flashsale</h2>
 					<div class="km_img">
@@ -82,11 +141,6 @@ content
 					<div class="km_ck"><b>Chiết khấu:</b>
 						2%
 					</div>
-					<div class="tham_gia_info">
-						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
-						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
-						
-					</div>
 					<div class="ql_sp_tham_gia">
 						<div class="sp_col">
 							SP đang tham gia
@@ -98,8 +152,8 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
 					</div>
 			</div>
 			<div class="white_box">
@@ -117,11 +171,6 @@ content
 					<div class="km_ck"><b>Chiết khấu:</b>
 						2%
 					</div>
-					<div class="tham_gia_info">
-						<h4>Đang tham gia <i class="fas fa-check-circle green" title="Đang tham gia CTKM"></i></h4>
-						<div>Từ <span class="orange">05/08/2021</span> đến <span class="orange">05/09/2021</span></div>
-						
-					</div>
 					<div class="ql_sp_tham_gia">
 						<div class="sp_col">
 							SP đang tham gia
@@ -133,8 +182,8 @@ content
 						</div>
 					</div>
 					<div class="ctkm_btn">
-						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-						<a href="#" title="Hủy tham gia" class="ctkm_btn_xoa"><i class="fas fa-times"></i></a>
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
 					</div>
 			</div>
 			<div class="white_box">
@@ -152,15 +201,94 @@ content
 					<div class="km_ck"><b>Chiết khấu:</b>
 						1%
 					</div>
-					<div class="tham_gia_btn">
-						<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" class="btn_bd_green">Tham gia</a>
+					<div class="ql_sp_tham_gia">
+						<div class="sp_col">
+							SP đang tham gia
+							<span class="number">35</span>
+						</div>
+						<div class="sp_col">
+							SP chờ duyệt
+							<span class="number">6</span><!-- Hiện số sp chờ phê duyệt vào KM -->
+						</div>
+					</div>
+					<div class="ctkm_btn">
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
 					</div>
 			</div>
 		</div>
-	</div>
-
-
-
+		<div class="ctkm_row">
+			<div class="white_box">
+				<h2>Banner vuông 1</h2>
+					<div class="km_img">
+						<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
+					</div>
+					<div class="km_name">Đồng giá 99k</div>
+					<div class="km_type"><b>Kiểu KM:</b>
+						Đồng giá 99k
+					</div>
+					<div class="km_time"><b>Thời gian:</b>
+						Từ 28/07/2021 đến 02/09/2021
+					</div>
+					<div class="km_ck"><b>Chiết khấu:</b>
+						2%
+					</div>
+					<div class="ql_sp_tham_gia">
+						<div class="sp_col">
+							SP đang tham gia
+							<span class="number">35</span>
+						</div>
+						<div class="sp_col">
+							SP chờ duyệt
+							<span class="number">6</span><!-- Hiện số sp chờ phê duyệt vào KM -->
+						</div>
+					</div>
+					<div class="ctkm_btn">
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+					</div>
+			</div>
+			<div class="white_box">
+				<h2>Banner vuông 2</h2>
+					<div class="km_img">
+						<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg">
+					</div>
+					<div class="km_name">Đồng giá 59k</div>
+					<div class="km_type"><b>Kiểu KM:</b>
+						Đồng giá 59k
+					</div>
+					<div class="km_time"><b>Thời gian:</b>
+						Từ 28/07/2021 đến 02/09/2021
+					</div>
+					<div class="km_ck"><b>Chiết khấu:</b>
+						2%
+					</div>
+					<div class="ql_sp_tham_gia">
+						<div class="sp_col">
+							SP đang tham gia
+							<span class="number">35</span>
+						</div>
+						<div class="sp_col">
+							SP chờ duyệt
+							<span class="number">6</span><!-- Hiện số sp chờ phê duyệt vào KM -->
+						</div>
+					</div>
+					<div class="ctkm_btn">
+						<a href="/discount-program/speciality/show/4/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
+						<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+					</div>
+			</div>
+			<div class="white_box">
+				<h2>Banner vuông 3</h2>
+				<!-- Nếu vị trí nào chưa có CT thì hiện nút add -->
+					<div class="ctkm_add">
+						<a href="/discount-program/speciality/add/17/51">
+							<i class="fas fa-plus"></i>
+						</a>
+					</div>
+			</div>
+		</div>
+	</div>	
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="store_id" value="<%= store_id %>"/>
