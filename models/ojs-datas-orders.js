@@ -87,7 +87,8 @@ const ojs_datas_orders = {
 					"stores_name",
 					"users_full_name",
 					"orders_speciality_notes",
-					"orders_speciality_adress"
+					"orders_speciality_adress",
+					"orders_speciality_status_payment"
 				],
 				"condition" :
 				[
@@ -157,7 +158,8 @@ const ojs_datas_orders = {
 					"stores_name",
 					"users_full_name",
 					"orders_speciality_notes",
-					"orders_speciality_adress"
+					"orders_speciality_adress",
+					"orders_speciality_status_payment"
 				],
 				"condition" :
 				[
@@ -506,7 +508,8 @@ const ojs_datas_orders = {
 					"orders_speciality_date_orders",
 					"orders_speciality_status_orders",
 					"stores_ID",
-					"stores_name"
+					"stores_name",
+					"orders_speciality_status_payment"
 				],
 				"condition" :
 				[
@@ -967,6 +970,7 @@ const ojs_datas_orders = {
 				"stores_name",
 				"users_first_name",
 				"users_last_name",
+				"orders_speciality_status_payment",
 				"orders_speciality_phone",
 				"orders_speciality_status_orders",
 				"orders_speciality_status_payment",
@@ -1040,6 +1044,7 @@ const ojs_datas_orders = {
             "orders_speciality_adress",
             "orders_speciality_notes",
             "orders_speciality_email",
+			"orders_speciality_status_payment",
 			"stores_name"
 			],
 			"condition" :
@@ -1085,7 +1090,8 @@ const ojs_datas_orders = {
 					"orders_speciality_status_orders",
 					"orders_speciality_status_payment",
 					"orders_speciality_adress",
-					"orders_speciality_notes",			
+					"orders_speciality_notes",		
+					"orders_speciality_status_payment",					
 					"orders_details_speciality_qty_sum"		
 				],
 				"condition" :
@@ -1132,7 +1138,8 @@ const ojs_datas_orders = {
 					"orders_speciality_status_orders",
 					"orders_speciality_status_payment",
 					"orders_speciality_adress",
-					"orders_speciality_notes",	
+					"orders_speciality_notes",
+					"orders_speciality_status_payment",					
 				],
 				"having" :
 				[
@@ -1175,6 +1182,7 @@ const ojs_datas_orders = {
 					"orders_details_medium_text",
 					"orders_speciality_date_orders",
 					"stores_name",
+					"orders_speciality_status_payment",
 					"orders_speciality_status_orders"				
 				],
 				"condition" :

@@ -31,6 +31,30 @@
 
 
 ojs_share_orders = {
+	
+	
+	
+	//@
+	//@ hiển thị trạng thái thanh toán
+	show_status_orders_checkout: function(status){
+		//
+		let result = "";
+		//
+		if(status == "0" || status == null || status == "NULL"){
+			result = "" +
+			'<span class="demo">Chưa thanh toán</span>'
+		}else{
+			result = "" + 
+			'<span class="status_green">Đã thanh toán</span>'
+		}		
+		//	
+		return result;	
+	},
+	//@	
+	
+	
+	
+	
 	//@
 	//@
 	//@

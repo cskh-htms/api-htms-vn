@@ -63,14 +63,24 @@ content
 						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_email) %>" id="orders_speciality_email"/>
 					</div>	
 					
+					
+					
 					<div class="value_row">
 						<span>Địa chỉ giao hàng</span>
-						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_adress) %>" id="orders_speciality_adress"/>
-					</div>		
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_province) %>" id="orders_speciality_province"/>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_district) %>" id="orders_speciality_district"/>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_wards) %>" id="orders_speciality_wards"/>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_adress) %>" id="orders_speciality_adress"/>
+					</div>	
+
+					<div class="value_row">
+						<span>người nhận hàng</span>
+						<input type="text" disabled class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_name) %>" id="orders_speciality_name"/>
+					</div>						
 					
 					<div class="value_row">
 						<span>Ghi chú giao hàng</span>
-						<input type="text"  class= "" value="<%- ojs_share.unCape(datas[0].orders_speciality_notes) %>" id="orders_speciality_notes"/>
+						<textarea rows="4" cols="50" id="orders_speciality_notes"><%- ojs_share.unCape(datas[0].orders_speciality_notes) %></textarea>
 					</div>	
 
 				</div>
@@ -83,10 +93,14 @@ content
 					<select id="orders_speciality_status_payment">
 						<%- ojs_share.show_status_checkout(datas[0].orders_speciality_status_payment) %>
 					</select>	
-					<span>Hoàn thành:</span>	
+					<span>Trạng thái</span>	
 					<select id="orders_speciality_status_orders">
-						<%- ojs_share.show_status_orders(datas[0].orders_speciality_status_orders) %>
+						<%- ojs_share_orders.show_order_status_select_update(datas[0].orders_speciality_status_orders) %>
 					</select>
+				<br>
+					
+					
+					
 				</div>
 			</div>	
 		</div>
@@ -316,12 +330,13 @@ $(document).ready(function($){
 		let order_id = $('#orders_speciality_ID').val();	
 		//@
 		let orders_speciality_phone = $('#orders_speciality_phone').val();
+		let orders_speciality_province = $('#orders_speciality_province').val();
+		let orders_speciality_district = $('#orders_speciality_district').val();
+		let orders_speciality_wards = $('#orders_speciality_wards').val();
 		let orders_speciality_adress = $('#orders_speciality_adress').val();
-		
-		
-		
 		//@
 		let orders_speciality_email = $('#orders_speciality_email').val();
+		let orders_speciality_name = $('#orders_speciality_name').val();
 		//@
 		//@
 		let orders_speciality_notes = $('#orders_speciality_notes').val();
@@ -335,7 +350,11 @@ $(document).ready(function($){
 		var datas = {
 			"datas":{
 				orders_speciality_phone : orders_speciality_phone,
+				orders_speciality_name : orders_speciality_name,
 				orders_speciality_adress : orders_speciality_adress,
+				orders_speciality_province : orders_speciality_province,
+				orders_speciality_district : orders_speciality_district,
+				orders_speciality_wards : orders_speciality_wards,
 				orders_speciality_email : orders_speciality_email,
 				orders_speciality_notes : orders_speciality_notes,
 				orders_speciality_status_payment : orders_speciality_status_payment,

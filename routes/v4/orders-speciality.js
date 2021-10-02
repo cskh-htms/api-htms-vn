@@ -1044,7 +1044,7 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 		return;			
 	}	
 	
-	//res.send("dasdasdasd");
+	//res.send(order_id);
 	//return;
 
 	
@@ -1055,8 +1055,12 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 			orders_list = await ojs_shares_fetch_data.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search_user', 
 			ojs_datas_orders.get_data_orders_detail_bussiness(order_id),
-			token
+			ojs_configs.token_supper_job
 		);
+		
+		//res.send(orders_list);
+		//return;	
+		
 		
 		if(orders_list.error != ""){
 			var evn = ojs_configs.evn;
@@ -1092,7 +1096,7 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 			orders_list_taget = await ojs_shares_fetch_data.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search', 
 			ojs_datas_orders.get_data_orders_detail_bussiness_taget(order_id),
-			token
+			ojs_configs.token_supper_job
 		);
 		
 		//res.send( orders_list_taget );
