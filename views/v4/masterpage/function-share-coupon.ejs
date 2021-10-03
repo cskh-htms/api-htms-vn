@@ -10,6 +10,12 @@
 
 2. [show_coupon_condition_select]
 
+3. [show_status_discount_detail_html]
+
+4. [show_name_formula_coupon]
+
+5. [show_name_formula_condition_coupon]
+
 
 
 --------------------------------------------------
@@ -23,6 +29,54 @@
 
 
 ojs_share_coupon = {
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 5. [show_name_formula_condition_coupon]
+	show_name_formula_condition_coupon: function(formula,price){
+		if(formula == 0 || formula == null){
+			result = "" + 
+			'điều kiện : chấp nhận moại điều kiện ';
+		}else if(formula == 1){
+			result = "" + 
+			'điều kiện : Tổng đơn hàng lớn hơn ' + price;
+		}else if(formula == 2){
+			result = "" + 
+			'điều kiện : Tổng số sản phẩm lớn hơn ' + price;
+		}else if(formula == 3){
+			result = "" + 
+			'điều kiện : áp dụng cho đơn hàng đầu tiên';
+		}else{			
+			result = "" + 
+			'error';
+		}
+		return result;	
+	},	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 4. [show_name_formula_coupon]
+	show_name_formula_coupon: function(formula,price){
+		if(formula == 0 || formula == null){
+			result = "" + 
+			'giảm ' + price + '% theo đơn hàng '
+		}else if(formula == 1){
+			result = "" + 
+			'giảm ngay ' + price + 'đ';
+		}else if(formula == 2){
+			result = "" + 
+			'Miễn phí vận chuyển';
+		}else{
+			result = "" + 
+			'error';
+		}
+		return result;	
+	},
 
 	//@
 	//@

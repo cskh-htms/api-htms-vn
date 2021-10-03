@@ -52,7 +52,17 @@ const ojs_datas_discount_program_product_add = {
 						{   
 							"field"     :"discount_program_product_link_status",
 							"value"     : "0",
-							"compare" : "="
+							"compare" : "="							
+						},
+						{   
+							"field"     :"discount_program_status_admin",
+							"value"     : "4",
+							"compare" : "="							
+						},
+						{   
+							"field"     :"discount_program_details_status_admin",
+							"value"     : "4",
+							"compare" : "="							
 						}
 						]    
 					}         
@@ -83,6 +93,7 @@ const ojs_datas_discount_program_product_add = {
 				"products_speciality_ID",
 				"products_speciality_name",
 				"discount_program_product_link_status",
+				"discount_program_details_status_admin",
 				"products_speciality_sale_of_price",
 				"products_speciality_price",
 				"stores_ID",

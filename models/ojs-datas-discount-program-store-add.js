@@ -96,6 +96,7 @@ const ojs_datas_discount_program_store_add = {
 				"discount_program_details_qoute",
 				"discount_program_details_date_created",
 				"stores_name",
+				"stores_ID",
 				"discount_program_name",
 				"discount_program_featured_image",
 				"discount_program_ID",

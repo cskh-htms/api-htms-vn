@@ -30,7 +30,8 @@ content
 	<div class="sap_xep_loc">
 		<div class="loc_wrap">
 			<select id="loc_trang_thai">
-				<option id="dis-new" value="[0]">Các chương trình mới tạo, cần phê duyệt</option>
+				<option id="dis-new" value="[0]"  selected>Các chương trình mới tạo, cần phê duyệt</option>
+				<option id="dis-all" value="[0]">Tất cả Các chương trình đang chạy</option>
 				<option id="details-new" value="[0]">Cửa hàng yêu cầu tham gia chương trình cần phê duyệt </option>
 				<option id="pro-new" value="[0]">Sản phẩm yêu cầu tham gia chươgn trình, cần phê duyệt</option>
 			</select>
@@ -100,7 +101,9 @@ $(document).ready(function($){
 		}else if(status_id == "details-new"){
 			location.href = "/discount-program/speciality/store-active";
 		}else if(status_id == "pro-new"){
-			location.href = "/discount-program/speciality/product-active";			
+			location.href = "/discount-program/speciality/product-active";	
+		}else if(status_id == "dis-all"){
+			location.href = "/discount-program/speciality/quan-ly-show-all";				
 		}		
 	});
 	
