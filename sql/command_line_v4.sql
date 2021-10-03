@@ -14,6 +14,43 @@
 -- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vyc19JRCI6NjIsInVzZXJzX2Z1bGxfbmFtZSI6InN1cHBlci1qb2IiLCJ1c2VyX3JvbGUiOiJzdXBwZXItam9iIiwiaWF0IjoxNjIzNTUxNTE3fQ.lPM-4c93GPDnmwHwayVp94AXPtG0Zn7oyt5U8djJVwQ
 
 
+
+
+/*
+const HOST_NAME2 = "103.110.86.240"; //server remote
+const HOST_IP2 = "localhost"; // server user remote
+const DATABASE_USER2 = "remote1";
+const DATABASE_PASS2 = "Vanluc@2003!@#$%^";
+const DATABASE_NAME2 = "dalacenter4";
+
+
+
+
+Tỉnh Lâm Đồng
+Thành phố Đà Lạt
+Phường 7
+
+Tỉnh Đồng Nai
+Thành phố Biên Hòa
+Phường Tân Phong
+
+
+
+
+68 Nguyễn Huệ 
+Phường Bến Nghé 
+Quận 1 
+Thành phố Hồ Chí Minh
+
+
+
+
+
+
+*/
+
+
+
 -- git hub
 -- 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
 
