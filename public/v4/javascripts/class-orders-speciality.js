@@ -3,8 +3,90 @@ $(document).ready(function($){
 
 	ojs_orders = {	
 	
-	
-	
+		//
+		//
+		//load danh muc cua hang
+		push_ghtk: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/push-ghtk/",
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+							if(ojs_loader.evn == "demo"){
+								console.log(result);
+								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee \n xem lỗi ở console");
+							}else{
+								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee");
+							}
+						}else{
+							ojs_message.message_ok_show(" Đã push đơn hàng lên ghtk",location.href);
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
+		//
+		//
+		//load danh muc cua hang
+		push_dala: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/orders/speciality/push-data/",
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+							if(ojs_loader.evn == "demo"){
+								console.log(result);
+								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee \n xem lỗi ở console");
+							}else{
+								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee");
+							}
+						}else{
+							ojs_message.message_ok_show(" Đã gữi thông báo cho shipper",location.href);
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save				
+		//
+		//		
 		//ojs_orders.ajax_add_fee(datas,order_id);
 		//
 		//

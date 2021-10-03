@@ -9,24 +9,12 @@
 1. DISCOUNT
 	* 1.1 [huy_tham_gia_discount]
 
-
-
-
+2. ORDER
+	* 2.1 [push_dala]
+	* 2.2 [push_ghtk]
 
 ----------------------------------------------------------
 */
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -43,6 +31,54 @@ ojs_loadding_message_callback = {
 		alert("hú hú test test");
 	},
 	
+
+
+
+
+
+	//@
+	//@
+	/*---------------------------------------
+	          1. ORDER
+	// -------------------------------------*/
+	//@
+	//@
+	//@ 1.1 [push_dala]
+	push_dala:function(datas){
+		let datas_parse = JSON.parse(datas);
+		//let sipper_id = datas_parse.shipper_id;
+		//let datas = datas_parse.datas;
+		
+		//console.log(datas_parse);
+		//return;
+		
+		ojs_orders.push_dala(datas_parse);
+		
+	},//huy_tham_gia_discount
+
+
+	//@
+	//@
+	//@ 1.2 [push_ghtk]
+	push_ghtk:function(datas){
+		let datas_parse = JSON.parse(datas);
+		//let sipper_id = datas_parse.shipper_id;
+		//let datas = datas_parse.datas;
+		
+		//console.log(datas_parse);
+		//return;
+		
+		ojs_orders.push_ghtk(datas_parse);
+		
+	},//huy_tham_gia_discount
+
+
+
+
+
+
+
+
 
 	//@
 	//@

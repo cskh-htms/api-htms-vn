@@ -99,9 +99,36 @@ content
 					</select>
 				<br>
 					
+				</div>
+				
+				<%
+				if(datas[0].orders_speciality_status_orders == "0"){
+				%>
+				<div class="inside">
+					<div id="push_ghtk" class="btn_save" style="margin-bottom: 10px;text-align: center;">Push ghtk</div>
+					<div id="push_dala" class="btn_save" style="text-align: center;">Push DALA</div>
+					<select id="shipper_select">
+						<option value="0">chọn một shipper</option>
+						<%
+						for(let x in shipper_list ){
+						%>
+							<option value="<%= shipper_list[x].users_ID  %>">
+							<%- ojs_share.unCape(shipper_list[x].users_full_name) + "( " + ojs_share.unCape(shipper_list[x].users_phone) + " )" -%>
+							</option>
+						<%
+						}
+						%>
+					</select>
 					
 					
 				</div>
+				
+				<%
+				}
+				%>
+				
+				<br>			
+				
 			</div>	
 		</div>
 	<% 
@@ -315,6 +342,69 @@ $(document).ready(function($){
 	
 		
 	
+	//
+	//@
+	//duyệt
+	$(document).on('click','#push_dala',function(e) {	
+		//@
+		e.preventDefault();	
+
+		let shipper_id = $('#shipper_select  option:selected').val();
+		let shipper_name = $('#shipper_select  option:selected').text();
+		if(shipper_id == 0){
+			ojs_message.message_ok_show("vui lòng chọn 1 shipper");
+			return;
+		}
+		
+		var order_id = $('#orders_speciality_ID').val();
+		var datas = 
+			{
+				"datas" :   {
+					"shipping_tracking_users_id" : shipper_id,
+					"shipping_tracking_orders_id" : order_id,
+					"shipping_tracking_orders_status" :1
+				}
+			}	
+		
+		//@
+		//@
+		var x = "Xác nhận giao đơn hàng cho shipper " + shipper_name;
+		var y = "push_dala";
+		var z = ' { "datas":' + JSON.stringify(datas) + ' }';
+		//console.log(z);
+		//return;
+		ojs_message.message_yes_no_show(x,y,z)
+		//@
+	});			
+	
+	
+	//
+	//@
+	//duyệt
+	$(document).on('click','#push_ghtk',function(e) {	
+		//@
+		e.preventDefault();	
+		
+		var order_id = $('#orders_speciality_ID').val();
+		var datas = 
+			{
+				"datas" :   {
+					"shipping_tracking_users_id" : 90,
+					"shipping_tracking_orders_id" : order_id,
+					"shipping_tracking_orders_status" :1
+				}
+			}	
+		
+		//@
+		//@
+		var x = "Xác nhận giao đơn hàng cho ghtk";
+		var y = "push_ghtk";
+		var z = ' { "datas":' + JSON.stringify(datas) + ' }';
+		//console.log(z);
+		//return;
+		ojs_message.message_yes_no_show(x,y,z)
+		//@
+	});			
 	
 	
 	

@@ -31,7 +31,8 @@ const ojs_shares_fetch_data = {
 			method: 'GET', 			
 			headers: {
 			  'Token' : token,
-			  'Content-Type' : 'aplication/json'
+			  'Content-Type' : 'aplication/json',
+			  'Accept': 'application/json, text/plain'
 			}
 		});;
 
@@ -49,12 +50,10 @@ const ojs_shares_fetch_data = {
 	get_data_send_token_post_ghtk : async function (url, data, token) {
 		const response = await fetch(url, {
 			method: 'POST', 
-			mode: 'cors', 
-			cache: 'no-cache', 
-			credentials: 'same-origin', 
 			headers: {
 			  'Content-Type': 'application/json',
-			  'Token' : token
+			  'Token' : token,
+			  'Accept': 'application/json, text/plain' 
 			},
 			redirect: 'follow', 
 			referrerPolicy: 'no-referrer',

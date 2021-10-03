@@ -43,7 +43,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 const ojs_datas_category = require('../../models/ojs-datas-category');
 
 const ojs_datas_orders = require('../../models/ojs-datas-orders');
-
+const ojs_datas_users = require('../../models/ojs-datas-users');
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,6 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 3. [/]
-	- orders 
 
 
 4. [/load/]
@@ -79,15 +78,122 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 10. [/update/:order_id]
 
 
+11. [push-dala]
 
 
-
-
+12. [push-ghtk]
 
 
 
 --------------------------------------------------------------
 */
+
+//@
+//@
+//@
+//@
+//@
+//@ 11. [push-ghtk]
+router.post('/push-ghtk/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> push-ghtk-> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	//res.send( [token,datas] );	
+	//return;		
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/shipping-tracking/push-shipping-ghtk', datas,token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update, vui lòng liên hệ admin" );
+		res.send({ "error" : "333.router_app->router_app->orders-speciality->push-ghtk", "message": error_send } ); 
+		return;		
+	}		
+});
+	
+//@
+//@
+//@
+//@
+//@
+//@ 11. [push-dala]
+router.post('/push-data/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	//res.send( [token,datas] );	
+	//return;		
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/shipping-tracking/push-shipping-dala/', datas,token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi update, vui lòng liên hệ admin", "Lỗi update, vui lòng liên hệ admin" );
+		res.send({ "error" : "333.router_app->router_app->orders-speciality->push-dala", "message": error_send } ); 
+		return;		
+	}		
+});
+	
+
+
 
 //@
 //@
@@ -615,6 +721,39 @@ router.get('/show/:order_id', async function(req, res, next) {
 	}
 	
 	
+	
+	
+	//Lấy danh sách shipper
+	var shipper_list;
+	try {
+		shipper_list = await ojs_shares_fetch_data.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/search',
+			ojs_datas_users.get_data_shipper(),
+			ojs_configs.token_supper_job
+		);		
+		
+		if(shipper_list.error != "" ){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy data order taget", "Lỗi lấy data order taget" );
+			res.send({ "error" : "33.router_app->router_app->orders-speciality->show->shipper list", "message": error_send } ); 
+			return;			
+		}	
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,  "Lỗi lấy data order taget", "Lỗi lấy data order taget" );
+		res.send({ "error" : "55.router_app->router_app->orders-speciality->show->shipper list", "message": error_send } ); 
+		return;		
+	}	
+	
+	
+	
+	
+	
+	
 	//res.send(orders_detail);
 	//return;
 	
@@ -638,7 +777,8 @@ router.get('/show/:order_id', async function(req, res, next) {
 			'news_admin_menu' 	: get_datas_news_admin_menu,
 			'sidebar_type'		: "",			
 			'datas' : orders_tager.datas,
-			'orders_detail' : orders_detail.datas,					
+			'orders_detail' : orders_detail.datas,	
+			'shipper_list' : shipper_list.datas
 		}
 		
 
@@ -659,6 +799,7 @@ router.get('/show/:order_id', async function(req, res, next) {
 			'sidebar_type'		: "",			
 			'datas' : orders_tager.datas,
 			'orders_detail' : orders_detail.datas,	
+			'shipper_list' : shipper_list.datas,
 			'datas_info'	: datas_info			
 		}
 		

@@ -10,6 +10,11 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-coupon %>
+<% include ../../masterpage/function-share-all %>
+
+
+
 
 
 <script>
@@ -43,8 +48,8 @@ content
 					) -%></div>
 					<div class="coupon_don_tu">
 						<%- ojs_share_coupon.show_name_formula_condition_coupon(
-						0,
-						1
+						coupon_list[x].coupon_speciality_condition,
+						coupon_list[x].coupon_speciality_condition_value
 						) -%>					
 					
 					</div>

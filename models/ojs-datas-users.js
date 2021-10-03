@@ -21,6 +21,54 @@ const ojs_datas_users = {
 	//@
 	//@
 	//@ 
+	//@ 3.[get_data_shipper]		
+	get_data_shipper: function(){
+		
+		let datas_return = 	
+		{
+			"datas" :   
+			{
+				"select_field" :
+				[
+				"users_ID",
+				"users_full_name",
+				"users_adress",
+				"users_phone",
+				"users_email",
+				"users_type_ID",
+				"users_type_name"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"users_users_type_id",
+								"value"     : "18",
+								"compare" : "="
+							},
+							{   
+							"field"     :"users_full_name",
+							"value"     : "shipping_ghtk",
+							"compare" : "<>"
+							}     						
+						]    
+					}
+				]
+			}
+		}
+		return datas_return;
+	},	
+	//@		
+	
+	
+	
+	
+	//@
+	//@
+	//@ 
 	//@ 2.[get_data_user_taget]		
 	get_data_user_taget: function(user_id){
 		
