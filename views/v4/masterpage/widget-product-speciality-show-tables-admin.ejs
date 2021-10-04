@@ -7,8 +7,6 @@
 		<tr>
 			<th class="user-name">Sản phẩm</th>
 			<th>Giá</th>
-			<th>Danh mục</th>
-			<th>Đã bán</th>
 			<th>Cửa hàng</th>
 			<th>Cửa hàng duyệt</th>
 			<th>Admin duyệt</th>
@@ -41,8 +39,6 @@
 				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
 			<% } %>	
 
-			<td>Mứt dâu</td>
-			<td>158</td>
 			<td><%= products_list[x].stores_name %></td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>
@@ -57,8 +53,6 @@
 		<tr>
 			<th class="user-name">Sản phẩm</th>
 			<th>Giá</th>
-			<th>Danh mục</th>
-			<th>Đã bán</th>
 			<th>Cửa hàng</th>
 			<th>Cửa hàng duyệt</th>
 			<th>Admin duyệt</th>
