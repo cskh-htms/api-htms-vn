@@ -201,7 +201,7 @@ const ojs_datas_discount_program_store_add = {
 						[  
 							{
 								"field" : "discount_program_details_status_admin" ,
-								"value" : [2],
+								"value" : [4],
 								"compare" : "not in"
 							}						
 						]    

@@ -1562,22 +1562,6 @@ router.get('/:store_id', async function(req, res, next) {
 //@
 //@
 //@
-//@ 1. [/]
-router.get('/', async function(req, res, next) {
-	//
-	res.send("welcom !!");
-	return;
-
-});
-
-
-
-
-
-//@
-//@
-//@
-//@
 //@
 //@
 //@

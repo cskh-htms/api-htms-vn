@@ -28,7 +28,7 @@
 		<li id="sidebar_quan_ly">
 			<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
 				<i class="fas fa-tachometer-alt"></i>
-				<div class="menu-name">Tổng quan  <%-  ojs_share.show_news_bussiness_menu_sum(news_bussiness_menu)  -%></div>
+				<div class="menu-name">Tổng quan  <%-  ojs_share_sidebar.show_news_bussiness_menu_sum(news_bussiness_menu)  -%></div>
 			</a>
 		</li>
 		<!--
@@ -38,6 +38,7 @@
 			<a href="/stores/manage/orders/<%= store_id %>/all">
 				<i class="fas fa-clipboard-list"></i>
 				<div class="menu-name">Đơn hàng <%-  ojs_share.show_count_bussiness_menu_html(list_data_count,3)  -%></div>
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,3)  -%>
 			</a>
 		</li>		
 		

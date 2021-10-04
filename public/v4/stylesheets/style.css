@@ -2879,7 +2879,9 @@ display: flex;
     padding-bottom: 60px;
 }
 
-
+.status_ok {
+    color: #23ca3f;
+}
 
 
 

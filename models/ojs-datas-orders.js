@@ -448,11 +448,6 @@ const ojs_datas_orders = {
 								"value" 	: datas.user_id,
 								"compare" 	: datas.user_compare
 							},
-							{	
-								"field"		:"orders_details_speciality_line_order",
-								"value" 	: datas.line_order_value,
-								"compare" 	: datas.line_order_compare
-							},
 							{
 								"field" 	: "orders_speciality_date_orders" ,
 								"value" 	: datas.date_star,
@@ -467,12 +462,7 @@ const ojs_datas_orders = {
 								"field" : "orders_speciality_status_orders" ,
 								"value" : datas.status_admin_value,
 								"compare" : datas.status_admin_compare
-							},
-							{
-								"field" : "orders_speciality_status_payment" ,
-								"value" : datas.status_payment_value,
-								"compare" : datas.status_payment_compare
-							}				
+							}			
 						]    
 					}          
 				],
@@ -574,7 +564,7 @@ const ojs_datas_orders = {
 		let datas_return = 	
 		{		
 			"datas" :   {
-				"select_type" : "",
+				"select_type" : "DISTINCT",
 				"select_field" :
 				[ 
 					
@@ -593,11 +583,6 @@ const ojs_datas_orders = {
 								"value" 	: datas.user_id,
 								"compare" 	: datas.user_compare
 							},
-							{	
-								"field"		:"orders_details_speciality_line_order",
-								"value" 	: datas.line_order_value,
-								"compare" 	: datas.line_order_compare
-							},
 							{
 								"field" 	: "orders_speciality_date_orders" ,
 								"value" 	: datas.date_star,
@@ -615,13 +600,7 @@ const ojs_datas_orders = {
 							}						
 						]    
 					}          
-				],
-				"group_by" :	
-				[
-					"stores_ID",
-					"orders_speciality_status_orders",
-					"orders_speciality_date_orders"
-				]			
+				]		
 			}
 		}	
 		return datas_return;			
@@ -675,12 +654,7 @@ const ojs_datas_orders = {
 								"field" : "users_ID" ,
 								"value" : datas.user_id,
 								"compare" : datas.user_compare
-							},
-							{
-								"field" : "stores_ID" ,
-								"value" : datas.store_id,
-								"compare" : datas.store_compare
-							}									
+							}								
 						]    
 					}         
 				]

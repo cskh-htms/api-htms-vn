@@ -705,7 +705,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 
 	
 	if(status_int == 'all'){
-		var status_admin = [0,1,2,3,4,5,6,7,8,9,10];
+		var status_admin = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100];
 	}else{
 		var status_admin_string = "[" + status_int + "]";
 		var status_admin = JSON.parse(status_admin_string);		
@@ -1132,6 +1132,83 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 
 
 
+
+	//--------------------------------------------------
+	//             datas-orders
+	// -------------------------------------------------
+	
+	
+	//@
+	//@
+	//@
+	//@ get_orders_datas
+	
+
+	/*
+	if(status_int == 'all'){
+		var status_admin = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100];
+	}else{
+		var status_admin_string = "[" + status_int + "]";
+		var status_admin = JSON.parse(status_admin_string);		
+	}
+	
+	//res.send( status_admin );	
+	//return;
+	*/
+
+	
+	var datas_orders_edit = {
+		'date_star':"2021/01/01 00:00:00",
+		'date_end':ojs_shares_date.get_current_date_end(),
+		'status_admin_compare': 'in',
+		'status_admin_value':[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410],
+	}	
+	var datas_orders_edit_x = {...ojs_configs.orders_all};
+	var datas_orders_edit_s = Object.assign(datas_orders_edit_x,datas_orders_edit);	
+	
+
+	
+	//res.send( datas_orders_edit2_s );	
+	//return;
+	
+	var datas_get_orders_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,		
+		'order_list_by_user' : datas_orders_edit_s
+	}
+	
+	//res.send( datas_get_orders_datas );	
+	//return;	
+
+	//@
+	//@
+	//@	
+	//@
+	var get_orders_datas;
+	try{
+		get_orders_datas = await ojs_shares_get_orders_datas.get_orders_datas(datas_get_orders_datas);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers store web -> get_orders_datas -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send(get_orders_datas);
+	//return;	
+
+
+
+
+
+
+
+
 	//@
 	//@
 	//@
@@ -1153,7 +1230,9 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'list_data_count' 		: get_all_list_datas_count,
 			'store_list' 			: get_all_list_datas[2].datas,
 			'order_list' 			: get_all_list_datas[3].datas,
-			'notes_list' 			: get_all_list_datas[15].datas
+			'order_list_count' 		: get_orders_datas[3].datas,
+			'notes_list' 			: get_all_list_datas[15].datas,
+			
 			
 		}	
 	
@@ -1172,6 +1251,7 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 			'list_data_count' 		: get_all_list_datas_count,
 			'store_list' 			: get_all_list_datas[2].datas,
 			'order_list' 			: get_all_list_datas[3].datas,
+			'order_list_count' 		: get_orders_datas[3].datas,
 			'notes_list' 			: get_all_list_datas[15].datas,
 			'datas_info':datas_info
 			

@@ -67,8 +67,7 @@ const ojs_datas_coupon = {
 							}							
 						]    
 					}
-				],
-				"order":datas.order
+				]
 			}
 		}
 		return datas_return;
@@ -176,7 +175,7 @@ const ojs_datas_coupon = {
 						[  
 							{
 								"field" : "coupon_speciality_status_admin" ,
-								"value" : [1],
+								"value" : [4],
 								"compare" : "not in"
 							}						
 						]    

@@ -1073,6 +1073,11 @@ router.get('/show/:coupon_id/:store_id', async function(req, res, next) {
 		return;			
 	}
 	
+	
+	//res.send( [coupon_id] );	
+	//return;		
+	
+	
 	//@
 	//@
 	//@
@@ -1325,12 +1330,14 @@ router.get('/show/:coupon_id/:store_id', async function(req, res, next) {
 	try {
 		coupon_taget = await ojs_shares_fetch_data.get_data_send_token_post( 
 					ojs_configs.domain + '/api/' + ojs_configs.api_version + '/coupon/speciality/search',
-					ojs_datas_coupon.get_coupon_taget(coupon_id),token
+					ojs_datas_coupon.get_coupon_taget(coupon_id),ojs_configs.token_supper_job
 				);		
 		
 		
 		//res.send( coupon_taget );	
 		//return;
+		
+		
 		if(coupon_taget.error != ""){
 			var evn = ojs_configs.evn;
 			//evn = "dev";

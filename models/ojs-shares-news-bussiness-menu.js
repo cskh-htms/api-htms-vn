@@ -140,7 +140,7 @@ const ojs_shares_news_bussiness_menu = {
 			var data_send = {
 				'date_star':date_star,
 				'date_end':date_end,
-				'status_number':[1],
+				'status_number':[100],
 				'user_id':datas.user_id,
 				'user_compare':datas.compare.user_compare,
 				'store_id':datas.store_id,

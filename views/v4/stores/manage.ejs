@@ -16,7 +16,7 @@ page wrap
 --------------------- -->
 
 <% include ../masterpage/header %>
-
+<% include ../masterpage/function-share-orders %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -42,43 +42,39 @@ content
 	<div class="store_row_btn">
 		<ul class="store_don_hang">
 			<li>
-				<a href="">
+				<a href="/stores/manage/orders/<%= store_id %>/all">
 					<span class="number">
-						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,0) %>
+						<%= ojs_share_orders.show_count_status_order_by_store(order_list_count,store_list[0].stores_ID,[0]) %>
 					</span>Chờ xác nhận
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="/stores/manage/orders/<%= store_id %>/all">
 					<span class="number">
-						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,2) %>
+						<%= ojs_share_orders.show_count_status_order_by_store(
+							order_list_count,store_list[0].stores_ID,[1]
+						) %>
 					</span>Chờ lấy hàng
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="/stores/manage/orders/<%= store_id %>/all">
 					<span class="number">
-						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,3) %>
+						<%= ojs_share_orders.show_count_status_order_by_store(order_list_count,store_list[0].stores_ID,[2,3,4,5,6,7,8,9,10,11,12,13,123,127,128,45,49,410]) %>
 					</span>Đang giao
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="/stores/manage/orders/<%= store_id %>/all">
 					<span class="number">
-						<%= ojs_share.show_count_status_order_by_store(order_list,store_list[0].stores_ID,4) %>
+						<%= ojs_share_orders.show_count_status_order_by_store(order_list_count,store_list[0].stores_ID,[20,21]) %>
 					</span>Đổi trả
 				</a>
 			</li>
-			<li style="display: none">
-				<a href="">
-					<span class="number">
-						<%-  list_data_count[3] %>
-					</span>Đã hoàn thành
-				</a>
-			</li>
-			<li class="tu_choi_btn"><a href=""><span class="number">1</span>Bị từ chối</a>
+
+			<li class="tu_choi_btn"><a href=""><span class="number"><%= ojs_share_orders.show_count_status_order_by_store(order_list_count,store_list[0].stores_ID,[-1]) %></span>Bị huỷ</a>
 				<div class="store_thong_bao_wrap">
-					<div class="store_thong_bao">
+					<div class="store_thong_bao" style="display:none;">
 						<h2>Thông báo từ admin</h2>
 						<ul>
 							<li>

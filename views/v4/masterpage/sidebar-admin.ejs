@@ -1,4 +1,4 @@
-
+<% include function-share-sidebar %>
 
 
 <% 
@@ -171,7 +171,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/discount-program/speciality/">
 					<i class="fas fa-percent"></i>
 					<div class="menu-name">
-						CT khuyến mãi													
+						CT khuyến mãi	<%- ojs_share_sidebar.show_count_status_order_by_store(news_admin_menu,[8,9,10]); -%>												
 					</div>
 				</a>
 				<a href="/discount-program/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
@@ -187,7 +187,7 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/coupon/speciality/">
 					<i class="fas fa-ticket-alt"></i>
 					<div class="menu-name">
-						Mã giảm giá													
+						Mã giảm giá	<%- ojs_share.show_news_admin_menu_html(news_admin_menu,14); -%>												
 					</div>
 				</a>
 				<a href="/coupon/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
@@ -208,6 +208,23 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/news/general/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>			
 			
+		
+		
+		<!-- --------------------------------
+			// shipping
+		--------------------------------- -->	
+	
+			<li id="sidebar_shipping">
+				<a href="/shipping/speciality/">
+					<i class="fas fa-newspaper"></i>
+					<div class="menu-name">
+						Shipping												
+					</div>
+				</a>
+				<a href="/shipping/speciality/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			</li>			
+		
+		
 		
 		<!-- 
 		//cửa hàng

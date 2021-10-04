@@ -37,7 +37,7 @@
 				<a href="#" class="view_detail" data_order_id="<%= orders_list[x].orders_speciality_ID %>">    #     <%= orders_list[x].orders_speciality_ID %>      </a>
 			</td>	
 			<td>
-				<%- ojs_share.show_status_orders_complate(orders_list[x].orders_speciality_status_orders) %>
+				<%- ojs_share_orders.show_order_status_html(orders_list[x].orders_speciality_status_orders) %>
 			</td>	
 			<td class="qty_box">
 				<%- orders_list[x].orders_speciality_date_orders %>

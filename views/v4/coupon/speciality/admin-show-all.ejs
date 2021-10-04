@@ -57,6 +57,15 @@ content
 						Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
 					</div>					
 					
+					<%
+					if(coupon_list[x].stores_ID != "17"){
+					%>
+						<p> <span> chỉ dùng cho cửa hàng : </span>	
+							<span><%- ojs_share.unCape(coupon_list[x].stores_name ) %> </span>
+						</p>	
+					<%
+					}
+					%>
 					
 					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>

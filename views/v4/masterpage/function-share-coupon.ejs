@@ -153,29 +153,29 @@ ojs_share_coupon = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>Tổng đơn hàng tối thiểu </option>' + 
-			'<option value="1">Số lượng đơn hàng tối thiểu</option>' + 
-			'<option value="2">Mọi điều kiện</option>' + 
+			'<option value="0"  selected>Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng đơn hàng tối thiểu</option>' + 
 			'<option value="3">Mua hàng lần đầu</option>'
 		}else if(status == 1){
 			result = "" + 
-			'<option value="0">Tổng đơn hàng tối thiểu</option>' + 
-			'<option value="1" selected>Số lượng đơn hàng tối thiểu</option>' + 
-			'<option value="2">Mọi điều kiện</option>' +
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1" selected>Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng đơn hàng tối thiểu</option>' + 
 			'<option value="3">Mua hàng lần đầu</option>'
 		}else if(status == 2){
 			result = "" + 
-			'<option value="0">Tổng đơn hàng tối thiểu</option>' + 
-			'<option value="1" >Số lượng đơn hàng tối thiểu</option>' + 
-			'<option value="2" selected>Mọi điều kiện</option>' + 
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2"  selected>Số lượng đơn hàng tối thiểu</option>' + 
 			'<option value="3">Mua hàng lần đầu</option>'
 	
 		}else if(status == 3){
 			result = "" + 
-			'<option value="0">Tổng đơn hàng tối thiểu</option>' + 
-			'<option value="1" >Số lượng đơn hàng tối thiểu</option>' + 
-			'<option value="2" >Mọi điều kiện</option>' + 
-			'<option value="3" selected>Mua hàng lần đầu</option>'
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng đơn hàng tối thiểu</option>' + 
+			'<option value="3"  selected>Mua hàng lần đầu</option>'
 		}		
 		//	
 		return result;	

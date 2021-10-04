@@ -33,6 +33,35 @@
 ojs_share_orders = {
 	
 	
+	//@
+	//@
+	//@ 
+	//@ 3.[show_count_status_order_by_store]
+	//@ - hiển thị số đơn hàng theo status	
+	show_count_status_order_by_store : function (datas,store_id,status_numbet){
+		
+		var data_return = 0;
+		datas.map(value => {
+			for(let x in status_numbet){
+				if(value.stores_ID == store_id && value.orders_speciality_status_orders == status_numbet[x]){
+					data_return ++;
+				}
+			}
+		})
+		
+		
+		return data_return;		
+	},
+	//@
+	//@
+	//@ 
+	//@ 5.[show_count_status_order_by_store]
+	//@ - end of	
+	
+	
+	
+	
+	
 	
 	//@
 	//@ hiển thị trạng thái thanh toán

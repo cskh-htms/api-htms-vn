@@ -1,0 +1,23 @@
+<% 
+for(var  x in shipping_list) { 
+%>
+	<% 
+	if(shipping_list[x].shipping_speciality_parent_id == 0) { 
+	%>
+		<%
+		if(datas[0].shipping_speciality_parent_id == shipping_list[x].shipping_speciality_ID){
+		%>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>" selected><%= shipping_list[x].shipping_speciality_name %></option>
+		<%
+		}else{
+		%>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>" selected><%= shipping_list[x].shipping_speciality_name %></option>
+		<%
+		}
+		%>		
+   <% 
+   } //if parrent 0
+   %>
+<% 
+} //for all
+%>
