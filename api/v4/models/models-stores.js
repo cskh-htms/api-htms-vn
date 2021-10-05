@@ -79,7 +79,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "stores_status_admin as stores_status_admin, " + 	
 	ojs_configs.db_prefix  + "stores_status_stores as stores_status_stores, " + 
 	ojs_configs.db_prefix  + "stores_info_banking as stores_info_banking, " + 
-
+	ojs_configs.db_prefix  + "stores_discount_price as stores_discount_price, " + 
 
 
 	ojs_configs.db_prefix  + "stores_local_x as stores_local_x, " + 
@@ -175,6 +175,7 @@ var insert_stores = async function (datas) {
 
 			"stores_status_admin"				: datas.stores_status_admin,	
 			"stores_status_stores"				: datas.stores_status_stores,	
+			"stores_discount_price"				: datas.stores_discount_price,
 			"stores_info_banking" 				: mysql.escape(datas.stores_info_banking).replace(/^'|'$/gi, ""),			
 			
 			"stores_local_x"					: mysql.escape(datas.stores_local_x).replace(/^'|'$/gi, ""),

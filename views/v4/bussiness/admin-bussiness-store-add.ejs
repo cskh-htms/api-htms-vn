@@ -106,7 +106,10 @@ content
 			<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" placeholder="Nhập số tài khoản, ngân hàng và tên chủ tài khoản."></textarea>
 		</p>	
 		
-		
+		<p>
+			<span>% Chiết khấu DALA</span>
+			<input type="text"  id="stores_discount_price" value="0"/>
+		</p>		
 		
 		<p>
 		<span>Trạng thái cửa hàng:</span>
@@ -305,7 +308,8 @@ $(document).ready(function($){
 		
 		var stores_status_admin = $('#stores_status_admin  option:selected').val();
 		
-		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");		
+		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");	
+		var stores_discount_price = $('#stores_discount_price').val();		
 		
 		
 		var stores_province = $('#stores_province').attr("data_value");
@@ -355,6 +359,7 @@ $(document).ready(function($){
 				stores_info_banking : stores_info_banking,
 				stores_status_admin : stores_status_admin,
 				stores_status_stores : 1,
+				stores_discount_price : stores_discount_price
 			}
 		}
 		

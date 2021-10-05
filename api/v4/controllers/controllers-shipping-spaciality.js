@@ -684,6 +684,43 @@ try{
 		res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->caution", "message" : "đata gữi lên bị thiếu, vui lòng xem hướng dẫn api"}); 
 		return;			
 	}
+	
+	if(datas.orders_details[0].orders_details_speciality_product_id){
+		//@
+		//@
+		//@ lấy thông tin cửa hàng
+		try{
+			var stores_id_get = await models_shipping_spaciality.get_stores_id(datas.orders_details[0].orders_details_speciality_product_id);
+			var store_id = stores_id_get[0].store_id; 
+			//res.send([stores_info]); 
+			//return;					
+			
+			if( Array.isArray(stores_id_get)){
+			}else{
+				var evn = ojs_configs.evn;
+				evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, stores_id_get, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
+				res.send({ "error" : "1222" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+				return;							
+			}
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
+			res.send({ "error" : "1333" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+			return;					
+		}
+	}else{
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1000" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+		return;			
+	}
+	
+
+	
 
 
 	//@
@@ -703,7 +740,7 @@ try{
 				if( Array.isArray(price_caution)){
 					
 					if(price_caution.length > 0){
-						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						res.send({ "error" : "" , "store_id": store_id,"datas" : price_caution[0].shipping_speciality_price}); 
 						return;	
 					}else{
 						res.send({ "error" : "3" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
@@ -737,7 +774,7 @@ try{
 				if( Array.isArray(price_caution)){
 					
 					if(price_caution.length > 0){
-						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						res.send({ "error" : "" , "store_id": store_id,"datas" : price_caution[0].shipping_speciality_price}); 
 						return;	
 					}else{
 						res.send({ "error" : "6" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
@@ -772,7 +809,7 @@ try{
 				if( Array.isArray(price_caution)){
 					
 					if(price_caution.length > 0){
-						res.send({ "error" : "" , "datas" : price_caution[0].shipping_speciality_price}); 
+						res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price}); 
 						return;	
 					}else{
 						res.send({ "error" : "9" ,"position":"ctl-shipping_spaciality->caution", "message" : "không tìm thấy khu vực"}); 
@@ -878,7 +915,7 @@ try{
 						
 						var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,token);
 						if(result.fee.fee){
-							res.send({ "error" : "" , "datas" : result.fee.fee}); 	
+							res.send({ "error" : "" ,"store_id": store_id, "datas" : result.fee.fee}); 	
 							return;
 						}else{
 							var evn = ojs_configs.evn;

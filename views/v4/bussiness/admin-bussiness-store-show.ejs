@@ -174,6 +174,14 @@ content
 			<span>Thông tin chuyển khoản</span>
 			<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" placeholder="Nhập số tài khoản, ngân hàng và tên chủ tài khoản." ><%- ojs_share.unCape(datas[0].stores_info_banking) %></textarea>
 		</p>	
+		
+		
+		<p>
+			<span>% Chiết khấu DALA</span>
+			<input type="text"  id="stores_discount_price" value="<%= datas[0].stores_discount_price %>"/>
+		</p>		
+		
+		
 		<!-- 
 		<p>
 			<span>Số tiền cần thanh toán</span>
@@ -362,7 +370,7 @@ $(document).ready(function($){
 		
 		
 		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");
-		
+		var stores_discount_price = $('#stores_discount_price').val();			
 		var store_id = $('#store_id').val();
 		var stores_status_update = $('#stores_status_update').val();
 	
@@ -395,7 +403,8 @@ $(document).ready(function($){
 				stores_info_banking : stores_info_banking,
 				stores_status_admin : stores_status_admin,
 				stores_upload_limit_day :stores_upload_limit_day,
-				stores_upload_limit_month : stores_upload_limit_month	
+				stores_upload_limit_month : stores_upload_limit_month,
+				stores_discount_price : stores_discount_price
 			}
 		}
 		

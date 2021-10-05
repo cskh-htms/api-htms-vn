@@ -20,6 +20,9 @@
 
 * 9. [get_stores]
 
+10. [get_stores_id]
+
+
 
 */
 
@@ -531,6 +534,59 @@ const get_stores = async function (datas) {
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@ 10. [get_stores_id]
+const get_stores_id = async function (product_id) {
+	//return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+		sql_text = sql_text + "SELECT  " + 
+		ojs_configs.db_prefix + "products_speciality_store_id as store_id " + 
+		" FROM " + ojs_configs.db_prefix + "products_speciality " + 
+		
+		" WHERE " + ojs_configs.db_prefix + "products_speciality_ID = '" + product_id + "' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_stores_id", "message" : error } ;
+	}
+};
+
+// 10. [get_stores_id]
+
+
+
+
+
+
 
 //export module
 module.exports = {
@@ -542,7 +598,8 @@ module.exports = {
 			get_all_shipping_spaciality,
 			caution,
 			caution_get_price_list,
-			get_stores
+			get_stores,
+			get_stores_id
 };
 
 
