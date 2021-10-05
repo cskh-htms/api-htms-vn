@@ -57,6 +57,6 @@ router.use('/ho-tro', require('../../routes/' + app_config.router_version + '/ho
 
 router.use('/users-tracking', require('../../routes/' + app_config.router_version + '/users-tracking') );
 
-//router.use('/shipper', require('../../routes/' + app_config.router_version + '/shipper') );
+router.use('/shipper', require('../../routes/' + app_config.router_version + '/shipper') );
 
 module.exports = router;

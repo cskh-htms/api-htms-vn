@@ -23,7 +23,16 @@ dala_users_ID,
 dala_users_full_name,
 
 dala_stores_ID,
-dala_stores_name
+dala_stores_name,
+dala_stores_province,
+dala_stores_district,
+dala_stores_wards,
+dala_stores_adress,
+dala_stores_phone
+
+
+
+
 
 FROM  
 dala_orders_details_speciality  

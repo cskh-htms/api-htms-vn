@@ -1,29 +1,76 @@
 <% include ../masterpage/loader %>
 
 
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content login-wrap">
-	<div class="login-box">
+	<div class="login-box" style="min-width:680px;">
+	
 		<div class="logo">
 		<img src="/images/dala-logo.jpg">
 		</div>
-	  <h1>Đăng nhập</h1>
-	  <div class="textbox">
-		<i class="fas fa-user"></i>
-		<input type="text" id="users_name" placeholder="Tài khoản">
-	  </div>
-		
-	  <div class="textbox">
-		<i class="fas fa-lock"></i>
-		<input type="password" id="users_password" placeholder="Mật khẩu">
-	  </div>
 
-	  <input type="button" id="dang_nhap" class="btn" value="Đăng nhập">
-	  <div class="lost-pass"><a href="/lost-pass/">Quên mật khẩu ? </a></div>
-	  
-	  <!--<div class="dangky-link">Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></div>-->
+		<div class="hello-shiper"><h2> chào shiper <%- shipper_taget[0].users_full_name -%> </h2>
+
+
+
+
+		<br>
+		<h3> Danh sách đơn hàng cần giao của bạn</div>
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th class="user-name">Đơn hàng</th>
+					<th>Cửa hàng</th>
+					<th>ngày gữi</th>
+					<th>tạng thái</th>		
+					<th>action</th>	
+				</tr>
+			</thead>
+			<tbody>
+
+			<% 
+			if(orders_tracking_list.length > 0){
+			for(var  x in orders_tracking_list) { %>
+				<tr class="">
+	
+					<td><%= orders_tracking_list[x].shipping_tracking_orders_id %></td>
+					<td>asdasd</td>
+					<td>dasd</td>
+					<td>asdasd</td>
+					<td>asdasd</td>
+
+				</tr>
+			<% 
+			} 
+			%>
+			<% 
+			} 
+			%>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th class="user-name">Đơn hàng</th>
+					<th>Cửa hàng</th>
+					<th>ngày gữi</th>
+					<th>tạng thái</th>		
+					<th>action</th>				
+				</tr>
+			</tfoot>
+		</table>
+
+
+
+
 	</div>
 	
 </div>

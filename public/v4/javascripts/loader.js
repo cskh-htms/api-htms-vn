@@ -166,6 +166,8 @@ $(document).ready(function($){
 				window.location.href  = ojs_loader.host + "/admin";
 			}else if(user_type_id == "bussiness"){
 				window.location.href  = ojs_loader.host + "/bussiness/" + user_id;		
+			}else if(user_type_id == "shipping"){
+				window.location.href  = ojs_loader.host + "/shipper/" + user_id;				
 			}else if(user_type_id == "customer"){		
 				window.location.href  = ojs_loader.host + "/customer";
 			}
