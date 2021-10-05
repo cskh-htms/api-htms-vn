@@ -20,7 +20,7 @@
 
 * 8. [checked-coupon]
 
-
+* 9. [checked-coupon-dala]
 
 */
 
@@ -118,7 +118,11 @@ router.post('/checked-coupon', middle_ware, controllers_coupon_speciality.checke
 
 
 
-
+//@@
+//@@
+//@@
+//8. [checked-coupon-dala] 
+router.post('/checked-coupon-dala', middle_ware, controllers_coupon_speciality.checked_coupon_dala);
 
 
 

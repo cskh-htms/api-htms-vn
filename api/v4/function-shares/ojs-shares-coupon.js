@@ -150,16 +150,16 @@ const price_fixed = async function(datas,value,max){
 const check_coupon_condition = async function(datas){
 	//return datas;
 	var date_return = 0;
-	if(datas.consition == 0){
+	if(datas.condition == 0){
+		date_return = 1;
+		
+	}else if(datas.condition == 1){
 		date_return = await  check_price_percen(datas.datas, datas.value);
 		
-	}else if(datas.consition == 1){
-		date_return = await check_qty(datas.datas, datas.value);
+	}else if(datas.condition == 2){
+		date_return = await check_qty(datas.datas, datas.value);	
 		
-	}else if(datas.consition == 2){
-		date_return = 1;	
-	
-	}else if(datas.consition == 3){
+	}else if(datas.condition == 3){
 		date_return = await check_first_sale(datas.datas, datas.value,datas.user_id);	
 	
 	}else{

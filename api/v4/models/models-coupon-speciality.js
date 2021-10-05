@@ -213,10 +213,13 @@ const get_all_coupon = async function (store_id) {
 	
 					ojs_configs.db_prefix + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
 					ojs_configs.db_prefix + "coupon_speciality_price_max as coupon_speciality_price_max, " + 
-					ojs_configs.db_prefix + "coupon_speciality_multiple as coupon_speciality_multiple " + 
+					ojs_configs.db_prefix + "coupon_speciality_multiple as coupon_speciality_multiple " +
 	
 	
-					"FROM " +   ojs_configs.db_prefix +  "view_coupon " + 
+	
+	
+	
+					"FROM " +   ojs_configs.db_prefix + "view_coupon " + 
 					" where " +  
 					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' " + 
 					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
