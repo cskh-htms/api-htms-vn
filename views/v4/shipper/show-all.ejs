@@ -1,4 +1,10 @@
 <% include ../masterpage/loader %>
+<% include ../masterpage/function-share-all %>
+<% include ../masterpage/function-share-orders %>
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-shipping-speciality.js"></script>
 
 
 <script>
@@ -19,60 +25,148 @@ content
 		<img src="/images/dala-logo.jpg">
 		</div>
 
-		<div class="hello-shiper"><h2> chào shiper <%- shipper_taget[0].users_full_name -%> </h2>
-
-
-
-
+		<div class="hello-shipper"><h2> Chào shipper <%- shipper_taget[0].users_full_name -%> </h2>
 		<br>
+		<hr>
 		<h3> Danh sách đơn hàng cần giao của bạn</div>
-		<table class="table-list">
-			<thead>
-				<tr>
-					<th class="user-name">Đơn hàng</th>
-					<th>Cửa hàng</th>
-					<th>ngày gữi</th>
-					<th>tạng thái</th>		
-					<th>action</th>	
-				</tr>
-			</thead>
-			<tbody>
 
-			<% 
-			if(orders_tracking_list.length > 0){
-			for(var  x in orders_tracking_list) { %>
-				<tr class="">
+
+
+		<!-- ------------------------------
+		// shipper
+		---------------------------------->
+		
+		<div class="shipper-box">
+		<div class="shipper-box-inner">
+		<%
+		for(let x in orders_tracking_list){
+		%>
+			<div class="tab">
+				<div class="shipper-div">
+					<h3 class="shipper-title">Mã đơn hàng</h3>
+					<div class="shipper-content">[ #<%= orders_tracking_list[x].shipping_tracking_orders_id %> ]</div>
+				</div>	
+				
+				<div class="shipper-div">
+					<h3 class="shipper-title">Ngày push</h3>
+					<div class="shipper-content">
+						<%
+						for(let xx in orders_tracking_infor){
+						if(
+						orders_tracking_infor[xx].shipping_tracking_orders_id == orders_tracking_list[x].shipping_tracking_orders_id  
+						&& 
+						orders_tracking_infor[xx].shipping_tracking_orders_status == "1"  
+						){							
+						%>	
+							<%= ojs_share_all.format_date(orders_tracking_infor[xx].shipping_tracking_date_created) %>
+						<%
+						}
+						}
+						%>						
+					</div>
+				</div>					
+				
+				
+				<div class="shipper-div">
+					<h3 class="shipper-title">Cửa hàng</h3>
+					<div class="shipper-content">
+						<%
+						for(let xxx in orders_list){
+						if(
+						orders_list[xxx].orders_speciality_ID == orders_tracking_list[x].shipping_tracking_orders_id
+						){							
+						%>	
+							<%- orders_list[xxx].stores_name -%>
+						<%
+						}
+						}
+						%>						
+					</div>
+				</div>
+
+					
+					
+				<div class="shipper-div">
+					<h3 class="shipper-title">trạng thái</h3>
+					<div class="shipper-content">
+						<%
+						for(let xxxx in orders_list){
+						if(
+						orders_list[xxxx].orders_speciality_ID == orders_tracking_list[x].shipping_tracking_orders_id
+						){							
+						%>	
+							<%- ojs_share_orders.show_order_status_html(orders_list[xxxx].orders_speciality_status_orders) -%>
+						<%
+						}
+						}
+						%>						
+					</div>
+				</div>					
+					
+					
+					
+				<div class="shipper-div cap-nhap-order-box">
+					<div class="shipper-content">
+					<select class="update_status_order">
+						<%- ojs_share_orders.show_order_status_select_insert() -%>
+					</select>
+					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >cập nhật</div>
+					</div>
+				</div>			
+
+
+
+				<div class="shipper-div">
+					<div class="shipper-content" style="background-color: #b1d2b2;padding: 10px;margin: 5px;">
+					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Chi tiết đơn hàng</div>
+					</div>
+				</div>	
+
+
+				<div class="shipper-div">
+					<div class="shipper-content" style="background-color: #b1d2b2;padding: 10px;margin: 5px;">
+					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Lịch sử giao nhận</div>
+					</div>
+				</div>					
+					
+					
+				<div class="shipper-div order-content-box" style="display:none;">
+					<div class="shipper-content">
+						<h1>Thông tin đơn hàng</div>
+						<div class="div-box">
+							<h3>Thông tin lấy hàng</h3>
+							<div>adasdasdasdas</div>
+						</div>
+						
+						<div class="div-box">
+							<h3>Thông tin giao hàng hàng</h3>
+							<div>adasdasdasdas</div>
+						</div>						
+						
+					</div>
+				</div>						
+					
+					
+			</div>
+
+		<%
+		}
+		%>
+
+
+		</div>
+		</div>
+		<!-- ------------------------------
+		// shipper
+		---------------------------------->
+
+
 	
-					<td><%= orders_tracking_list[x].shipping_tracking_orders_id %></td>
-					<td>asdasd</td>
-					<td>dasd</td>
-					<td>asdasd</td>
-					<td>asdasd</td>
-
-				</tr>
-			<% 
-			} 
-			%>
-			<% 
-			} 
-			%>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th class="user-name">Đơn hàng</th>
-					<th>Cửa hàng</th>
-					<th>ngày gữi</th>
-					<th>tạng thái</th>		
-					<th>action</th>				
-				</tr>
-			</tfoot>
-		</table>
-
-
-
 
 	</div>
 	
+	
+<input type="hidden" value="<%= shipper_id %>" id="shipper_id"/>	
 </div>
 <!-- --------------------
 end content
@@ -87,70 +181,40 @@ end content
 <script>
 	$(document).ready(function(){
 	
-
-		//end of test
-		//login
-		$(document).on('click','#dang_nhap',function(e) {
-			let users_name = $('#users_name').val();
-			let users_password = $('#users_password').val();
-			//check trong du lieu
-			if(users_name == "" || users_password == ""){
-				var x = "Vui lòng nhập dữ liệu";
-				ojs_message.message_ok_show(x);
-				return;
+	//
+	//
+	//@
+	//xoa
+	$(document).on('click','.btn-action',function(e) {	
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("data_order_id");
+		let shipper_id = $('#shipper_id').val();
+		let status_number = $(this).prev('.update_status_order').val();
+		
+		var datas = 
+		{
+			"datas" :   {
+				"shipping_tracking_users_id" : shipper_id,
+				"shipping_tracking_orders_id" : order_id,
+				"shipping_tracking_orders_status" :status_number
 			}
-			//tao data
-			var datas = { 
-				datas:{ users_login_name: users_name, users_password:users_password }
-			};
-			
-			
-			//console.log(datas);
-			//return;
-			
-			//goi api
-			$.ajax({
-				type : "POST",	  
-				contentType : "application/json",
-				url : ojs_loader.host + "/login",
-				data : JSON.stringify(datas),
-				dataType : 'json',
-				beforeSend:  function(xhr){
-					ojs_loadding.ajax_show_loadding();
-				},			  
-				error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-				},
-				success : function(result) {
-					//console.log(result);
-					//ojs_loadding.ajax_hide_loadding();
-					//return;
-					
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
-					}else{
-						if(result.error.length > 0){
-							ojs_message.message_ok_show(result.message);
-							//console.log("1");
-						}else{
-							if( 
-							result.datas.user_role == "default"  
-							|| result.datas.user_role == "supper-job"
-							){
-								ojs_message.message_ok_show("user GUEST, Shipping  hoặc user supper job  không thể login trên web");
-							}else{
-								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
-							}
-						}
-					}	
-				
-					ojs_loadding.ajax_hide_loadding();
-				}			  
-			});
-		});
+		}
+
+		//console.log(datas);
+		//return;
+
+		//
+		//@
+		let x = "xác nhận cập nhật";		
+		let y = "shipper_cap_nhat_order";//function name in callback 
+		let z = ' { "datas" :' + JSON.stringify(datas) + '}';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});			
+	//		
+	//	
+
 	});
 </script>	
 

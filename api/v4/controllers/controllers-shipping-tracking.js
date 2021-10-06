@@ -19,7 +19,7 @@
 
 * 9. [push_shipping_ghtk]
 
-
+* 10. [shipper_cap_nhat_order]
 
 */
 
@@ -65,6 +65,164 @@ const models_shipping_tracking = require('../models/models-shipping-tracking');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 10. [shipper_cap_nhat_order]
+async function shipper_cap_nhat_order(req, res, next) {
+try {	
+	
+	//@
+	//@
+	//@
+	//@
+	// lấy data request
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		
+		//res.send([datas,token]);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "3", "position":"ctl-shipping-tracking->insert", "message": error_send } );
+		return;	
+	}	
+
+
+
+	//res.send(datas_check );	
+	//return;	 
+	try{
+		var datas_check = {
+			"token"				:	token
+		}		
+		
+		
+		
+		//res.send( datas_check ); 
+		//return;
+		
+		
+		
+		var check_datas_result;
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+		
+		
+		//res.send({check_datas_result} ); 
+		//return;			
+		
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "4", "position":"ctl-shipping-tracking->insert", "message": error_send } );
+		return;			
+	}
+	
+	
+	//res.send(check_datas_result);
+	//return;
+	
+	
+	
+	//@
+	//@
+	//@
+	//kiem tra role
+	if(
+	check_datas_result.user_role == "admin" 
+	|| ( check_datas_result.user_role == "shipping" && check_datas_result.owner_order_tracking == "1" && check_datas_result.owner_user == "1") 
+	){}else{
+		var evn = ojs_configs.evn;
+		///evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, "Không đủ quyền truy cập dữ liệu", "Không đủ quyền truy cập dữ liệu" );
+		res.send({ "error" : "5", "position":"ctl-shipping-tracking->insert", "message": error_send } );
+		return;			
+	}		
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ check data type
+	try {
+		var datas_assign;
+		//gop voi data drfault field in mysql database
+		datas_assign = Object.assign(default_field.default_fields, datas);
+		
+		//neu data không hợp lệ thì return loi;
+		
+		let data_check = default_field.check_datas(datas_assign);
+		
+		if(data_check != 0){
+			res.send({"error" : "1", "message" : data_check } );
+			return;
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi check data type, liên hệ admin dala" );
+		res.send({ "error" : "6", "position":"ctl-shipping-tracking->insert", "message": error_send } );
+		return;	
+	}			
+	
+
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_shipping_tracking.insert_shipping_tracking(datas_assign).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			//@trích thông tin lỗi hiễn thị cho khách hàng
+			var message_error = default_field.get_message_error(error);
+
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
+			res.send({ "error" : "7", "position":"ctl-shipping-tracking->insert", "message": error_send } );
+			return;
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert shipping_tracking , Liên hệ admin" );
+			res.send({ "error" : "8", "position":"ctl-shipping-tracking->insert", "message": error_send } ); 
+			return;
+	}	
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert shipping_tracking , Liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-shipping-tracking->insert", "message": error_send } ); 
+		return;
+}	
+	
+}
+
+
+//@ end of 1. [insert_shipping_tracking]
+
+
 
 
 
@@ -1748,7 +1906,8 @@ module.exports = {
 		get_all_shipping_tracking,
 		push_shipping_dala,
 		push_shipping_dala_shipper,
-		push_shipping_ghtk
+		push_shipping_ghtk,
+		shipper_cap_nhat_order
 };
 
 

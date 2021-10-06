@@ -19,6 +19,9 @@
 
 * 9. [push-shipping-ghtk]
 
+10.  [shipper-cap-nhat-order]
+
+
 */
 
 
@@ -134,6 +137,16 @@ router.post('/push-shipping-dala-shipper', middle_ware, controllers_shipping_tra
 //@* 9. [push-shipping-ghtk]
 router.post('/push-shipping-ghtk', middle_ware, controllers_shipping_tracking.push_shipping_ghtk);
 
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 10. [shipper-cap-nhat-order]
+router.post('/shipper-cap-nhat-order', middle_ware, controllers_shipping_tracking.shipper_cap_nhat_order);
 
 
 

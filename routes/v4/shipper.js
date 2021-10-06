@@ -46,9 +46,59 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 1. [/]
 
 
+3. [/shipper-cap-nhat-order/]
+
+
+
 --------------------------------------------------------------------
 */
 
+//@
+//@
+//@
+//@
+//@
+//@ 3. [/shipper-cap-nhat-order/]
+router.post('/shipper-cap-nhat-order/', async function(req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	//@
+	//@
+	//@
+	//@ go
+	try {	
+		var active_save = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/shipping-tracking/push-shipping-dala-shipper/',datas, token);
+		res.send(active_save);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "2.4.router_notes(app)->save", "message": error_send } ); 
+		return;		
+	}			
+});
 
 
 
@@ -62,6 +112,9 @@ router.get('/', async function(req, res, next) {
 	return;	
 	
 })	
+	
+	
+	
 	
 	
 //@
@@ -189,6 +242,58 @@ try {
 	//res.send(  order_arr );
 	//return;	
 	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//@ Lấy option tager
+	var orders_tracking_infor;
+	try {
+		
+		//res.send(brand_id);
+		//return;
+		
+		var datas_send = ojs_data_shipping_tracking.get_orders_list_infor(shipper_id);
+		orders_tracking_infor = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/shipping-tracking/search',datas_send,ojs_configs.token_supper_job);
+		
+		//res.send(orders_tracking_infor);
+		//return;
+	
+		if(orders_tracking_infor.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, orders_tracking_infor.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		if(orders_tracking_infor.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			return;				
+		}
+	}	
+	
+	var order_arr = [];
+	if(orders_tracking_infor.datas.length > 0){
+		for(let x in orders_tracking_infor.datas){
+			order_arr.push(orders_tracking_infor.datas[x].shipping_tracking_orders_id);
+		}
+	}
+	
+	//res.send(  orders_tracking_infor );
+	//return;		
+	
+	
+	
+	
 	//@
 	//@
 	//@
@@ -265,7 +370,7 @@ try {
 		}
 	}	
 	
-	//res.send(  orders_list_details );
+	///res.send(  orders_list_details );
 	//return;		
 		
 	
@@ -287,7 +392,8 @@ try {
 			'shipper_taget'			: shipper_taget.datas,
 			'orders_tracking_list'	: orders_tracking_list.datas,
 			'orders_list'			: orders_list.datas,
-			'orders_list_details'	: orders_list_details.datas
+			'orders_list_details'	: orders_list_details.datas,
+			"orders_tracking_infor" : orders_tracking_infor.datas
 		}	
 	
 		data_send = {
@@ -301,6 +407,7 @@ try {
 			'orders_tracking_list'	: orders_tracking_list.datas,
 			'orders_list'			: orders_list.datas,
 			'orders_list_details'	: orders_list_details.datas,
+			"orders_tracking_infor" : orders_tracking_infor.datas,
 			'datas_info':datas_info
 		}
 		//res.send(data_send);

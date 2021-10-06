@@ -2886,6 +2886,60 @@ display: flex;
 
 
 
+/*
+shipper
+*/
+.shipper-box *{
+	box-sizing:border-box;
+}
+.shipper-box-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ecefeb;
+    margin-bottom: 20px;
+    padding: 15px;
+	flex-wrap:wrap;
+}
+
+
+.shipper-div {
+    width: 50%;
+}
+
+.shipper-div.cap-nhap-order-box {
+    width: 100%;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+
+
+
+
+/*
+//shipper
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

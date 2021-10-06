@@ -13,6 +13,11 @@
 	* 2.1 [push_dala]
 	* 2.2 [push_ghtk]
 
+
+3. SHIPPER
+	* 3.1 [shipper_cap_nhat_order]
+
+
 ----------------------------------------------------------
 */
 
@@ -31,6 +36,32 @@ ojs_loadding_message_callback = {
 		alert("hú hú test test");
 	},
 	
+
+
+
+	//@
+	//@
+	/*---------------------------------------
+	          3. SHIPPER
+	// -------------------------------------*/
+	//@
+	//@
+	//@
+	//@
+	//@ 3.1 [shipper_cap_nhat_order]
+	shipper_cap_nhat_order:function(datas){
+		let datas_parse = JSON.parse(datas);
+		//let sipper_id = datas_parse.shipper_id;
+		//let datas = datas_parse.datas;
+		
+		//console.log(datas_parse);
+		//return;
+		
+		ojs_shipping_speciality.shipper_cap_nhat_order(datas_parse);
+		
+	},//huy_tham_gia_discount
+
+
 
 
 
@@ -71,9 +102,6 @@ ojs_loadding_message_callback = {
 		ojs_orders.push_ghtk(datas_parse);
 		
 	},//huy_tham_gia_discount
-
-
-
 
 
 
