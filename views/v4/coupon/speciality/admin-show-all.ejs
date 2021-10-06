@@ -28,7 +28,7 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Mã giảm giá</h1>
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>asdasda Mã giảm giá</h1>
 	<div class="mb20" style="text-align:right;"><a href="/coupon/speciality/quan-ly" class="btn_green">quản lý</a></div>
 	
 	<div class="coupon_content">
@@ -58,14 +58,25 @@ content
 					</div>					
 					
 					<%
-					if(coupon_list[x].stores_ID != "17"){
+					if(coupon_list[x].coupon_speciality_type == "1"){
 					%>
+						<p> <span style="color:blue;"> Dùng cho mọi cửa hàng </span></p>	
+					<%
+					}else{
+					%>
+					
+					
 						<p> <span> chỉ dùng cho cửa hàng : </span>	
 							<span><%- ojs_share.unCape(coupon_list[x].stores_name ) %> </span>
-						</p>	
+						</p>						
+					
 					<%
 					}
-					%>
+					%>					
+					
+					
+					
+					
 					
 					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>

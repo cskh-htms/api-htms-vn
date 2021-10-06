@@ -117,9 +117,10 @@ a {
 .login-wrap {
 	background: linear-gradient(to bottom right, #72bf44 0%, #4a914b 100%);
 	display: flex;
-    align-items: center;
-    justify-content: center;
-	height: 100vh;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	padding: 5%;
 }
 .login-box {
     text-align: center;
@@ -128,6 +129,7 @@ a {
 	background: white;
 	max-width: 450px;
 	margin: 0 auto;
+	margin: 0px 5%;
 }
 .login-box h1{
   float: left;

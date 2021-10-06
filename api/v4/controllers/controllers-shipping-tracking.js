@@ -60,7 +60,7 @@ const ojs_shares_fetch_data = require('../../../models/ojs-shares-fetch-data');
 //@
 //model
 const models_shipping_tracking = require('../models/models-shipping-tracking');
-
+const ojs_shares_send_code_to_phone = require('../../../models/ojs-shares-send-code-to-phone');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1236,6 +1236,7 @@ try {
 	//@
 	try {
 		models_shipping_tracking.push_shipping_dala(datas_assign).then( results => {
+			ojs_shares_send_code_to_phone.send_code_to_phone_shipper(res,"demo","0948036018");			
 			res.send( { "error" : "", "datas" : results } );
 			return;
 		}, error => {

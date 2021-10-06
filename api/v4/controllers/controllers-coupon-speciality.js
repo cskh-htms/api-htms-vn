@@ -17,6 +17,8 @@
 
  9. [checked_coupon]
 
+ 9. [checked_coupon_dala]
+
 */
 
 
@@ -148,8 +150,9 @@ try {
 		try{
 			var get_store_id = await models_coupon_speciality.get_store_id(product_id);
 			if(get_store_id.length > 0){
-				var store_id = get_store_id[0].dala_products_speciality_store_id;
-				//res.send([store_id]);
+				var store_id = get_store_id[0].products_speciality_store_id;
+				var store_name = get_store_id[0].stores_name;
+				//res.send([store_name]);
 				//return;				
 				
 			}else{
@@ -235,6 +238,7 @@ try {
 					"coupon_speciality_code": coupon_list[x].coupon_speciality_code,
 					"coupon_price_caution": caution_price,
 					"store_id":store_id,
+					"store_name":store_name,
 					"coupon_speciality_multiple":coupon_list[x].coupon_speciality_multiple,
 					"coupon_speciality_limit_number":coupon_list[x].coupon_speciality_limit_number,
 					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user
@@ -339,7 +343,7 @@ try {
 		//@
 		//@ lấy danh sách coupon còn hạng theo cửa hàng
 		try{
-			var get_all_coupon = await models_coupon_speciality.get_all_coupon(store_id);
+			var get_all_coupon = await models_coupon_speciality.get_all_coupon_dala(store_id);
 			if(get_all_coupon.length > 0){
 				
 				var coupon_list = get_all_coupon;
@@ -398,7 +402,7 @@ try {
 					"coupon_speciality_ID": coupon_list[x].coupon_speciality_ID,
 					"coupon_speciality_code": coupon_list[x].coupon_speciality_code,
 					"coupon_price_caution": caution_price,
-					"store_id":store_id,
+					"store_id":0,
 					"coupon_speciality_multiple":coupon_list[x].coupon_speciality_multiple,
 					"coupon_speciality_limit_number":coupon_list[x].coupon_speciality_limit_number,
 					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user

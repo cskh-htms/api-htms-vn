@@ -23,6 +23,8 @@
 
 * 10. [get_all_coupon]
 
+* 100. [get_all_coupon]
+
 * 11. [get_user_taget]
 
 
@@ -221,7 +223,64 @@ const get_all_coupon = async function (store_id) {
 	
 					"FROM " +   ojs_configs.db_prefix + "view_coupon " + 
 					" where " +  
-					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' " + 
+					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' and  " + 
+					ojs_configs.db_prefix + "coupon_speciality_type = 0 " +
+					
+					
+					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-coupon_speciality->get_all", "message" : error } ;
+	}
+};
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 100. [get_all_coupon_dala]
+const get_all_coupon_dala = async function (store_id) {
+	
+	//return product_id;
+	
+	//create sql text
+	var sql_text = 	"SELECT  " + 
+					ojs_configs.db_prefix + "coupon_speciality_condition as coupon_speciality_condition, " + 
+					ojs_configs.db_prefix + "coupon_speciality_condition_value as coupon_speciality_condition_value, " + 
+					ojs_configs.db_prefix + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
+					ojs_configs.db_prefix + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 
+	
+					ojs_configs.db_prefix + "coupon_speciality_ID as coupon_speciality_ID, " + 
+					ojs_configs.db_prefix + "coupon_speciality_code as coupon_speciality_code, " + 	
+	
+					ojs_configs.db_prefix + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
+					ojs_configs.db_prefix + "coupon_speciality_price_max as coupon_speciality_price_max, " + 
+					ojs_configs.db_prefix + "coupon_speciality_multiple as coupon_speciality_multiple " +
+	
+	
+	
+	
+	
+					"FROM " +   ojs_configs.db_prefix + "view_coupon " + 
+					" where " +  
+					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' and  " + 
+					ojs_configs.db_prefix + "coupon_speciality_type = 1 " +
+					
+					
 					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
 	
 	//return sql_text;
@@ -243,10 +302,6 @@ const get_all_coupon = async function (store_id) {
 
 
 
-
-
-
-
 //@
 //@
 //@
@@ -258,8 +313,18 @@ const get_store_id = async function (product_id) {
 	//return product_id;
 	
 	//create sql text
-	var sql_text = 	"SELECT " +  ojs_configs.db_prefix +  "products_speciality_store_id " + 
-					"FROM " +   ojs_configs.db_prefix +  "products_speciality " + 
+	var sql_text = 	"SELECT " +  
+					ojs_configs.db_prefix +  "products_speciality_store_id as products_speciality_store_id, " + 
+					ojs_configs.db_prefix +  "stores_name as stores_name " + 
+					
+					"FROM " +   ojs_configs.db_prefix +  "products_speciality  " + 
+					
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "stores  ON  " + 
+					ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+					ojs_configs.db_prefix + "stores_ID " +   
+					
+					
 					" where " +  
 					ojs_configs.db_prefix + "products_speciality_ID = '" + product_id + "' ";				
 	
@@ -760,7 +825,8 @@ module.exports = {
 			get_owner_coupon_speciality,
 			get_store_id,
 			get_all_coupon,
-			get_user_taget
+			get_user_taget,
+			get_all_coupon_dala
 };
 
 

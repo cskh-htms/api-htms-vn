@@ -27,7 +27,7 @@ source ./sql/demo_dalacenter_v4.sql;
 -- insert all datas
 -- source ./sql/demo_dalacenter4_datas_only.sql;
 
-source ./sql/demo_dalacenter4_datas_only.sql;
+ source ./sql/dalacenter4_data_only_local_server.sql;
 
 
 
@@ -35,7 +35,7 @@ source ./sql/demo_dalacenter4_datas_only.sql;
 -- insert all datas table
 -- source ./sql/demo_dalacenter4_datas_only.sql;
 
-source ./sql/demo_dalacenter4_datas_table.sql;
+-- source ./sql/demo_dalacenter4_datas_table.sql;
 
 
 --

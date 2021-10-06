@@ -778,7 +778,8 @@ try {
 	if(check_condition_id == 0){
 		if(check_datas_result.user_role == "admin" 
 		|| check_datas_result.user_role == "supper-job" 
-		|| check_datas_result.user_role == "default" 	
+		|| check_datas_result.user_role == "default" 
+		|| check_datas_result.user_role == "customer" 		
 		){}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;
@@ -794,6 +795,7 @@ try {
 		||  check_datas_result.user_role == "admin" 
 		||  check_datas_result.user_role == "supper-job" 
 		||  check_datas_result.user_role == "default"  
+		|| check_datas_result.user_role == "customer" 
 		){ }else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";;

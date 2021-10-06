@@ -29,7 +29,7 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá</h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i> asasd Mã giảm giá</h1>
 	<div class="mb20" style="text-align:right;"><a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">quản lý</a></div>
 	<div class="coupon_content">
 	
@@ -38,6 +38,8 @@ content
 	%>
 		<%
 		for(x in coupon_list ){
+		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type != "1" ){	
+		}else{
 		%>	
 			<div class="coupon">
 				<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
@@ -57,7 +59,6 @@ content
 						Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
 					</div>					
 					
-					
 					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 				</div>
@@ -67,6 +68,7 @@ content
 				</div>
 			</div>
 		<%
+		}
 		}
 		%>
 	<%
