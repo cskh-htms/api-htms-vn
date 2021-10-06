@@ -17,7 +17,7 @@
 
 4. [show_order_status_html]
 
-
+4.[tong_tien_don_hang]
 
 
 --------------------------------------------------
@@ -32,6 +32,55 @@
 
 ojs_share_orders = {
 	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 4.[tong_tien_don_hang]
+	tong_tien_don_hang_theo_id : function (datas,order_id){
+		
+		var data_return = 0;
+		
+		var line_product = 0;
+		var coupon = 0;
+		var add = 0;
+		var reduce = 0;
+		var shipping = 0;
+		
+		if(datas.length > 0){
+			for(let x in datas){
+				if(datas[x].orders_speciality_ID == order_id){
+					
+					if(datas[x].orders_details_speciality_line_order == "product"){
+						line_product = line_product + datas[x].price_caution
+					}else if(datas[x].orders_details_speciality_line_order == "coupon"){
+						coupon = coupon + datas[x].orders_details_speciality_price		
+
+					}else if(datas[x].orders_details_speciality_line_order == "add"){
+						add = add + datas[x].orders_details_speciality_price
+
+					}else if(datas[x].orders_details_speciality_line_order == "tax"){
+						tax = tax + datas[x].orders_details_speciality_price
+						
+					}else if(datas[x].orders_details_speciality_line_order == "reduce"){
+						reduce = reduce + datas[x].orders_details_speciality_price
+						
+					}else if(datas[x].orders_details_speciality_line_order == "shipping"){
+						shipping = shipping + datas[x].orders_details_speciality_price		
+						
+					}
+				}
+			}
+		}
+		data_return = line_product + add + shipping -( coupon + reduce )
+		return data_return;		
+	},
+	//@
+	//@
+	//@ 
+	//@ 5.[show_count_status_order_by_store]
+	//@ - end of		
 	
 	//@
 	//@

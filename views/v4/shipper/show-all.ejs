@@ -19,7 +19,7 @@
 content
 --------------------- -->
 <div id="content" class="content login-wrap">
-	<div class="login-box" style="min-width:680px;">
+	<div class="login-box" style="width:100%;max-width:680px;padding: 2%;">
 	
 		<div class="logo">
 		<img src="/images/dala-logo.jpg">
@@ -28,6 +28,13 @@ content
 		<div class="hello-shipper"><h2> Chào shipper <%- shipper_taget[0].users_full_name -%> </h2>
 		<br>
 		<hr>
+		
+		
+		
+		
+		<%
+		if(orders_tracking_list.length > 0){
+		%>
 		<h3> Danh sách đơn hàng cần giao của bạn</div>
 
 
@@ -38,7 +45,7 @@ content
 		
 		<div class="shipper-box">
 		<div class="shipper-box-inner">
-		<%
+		<%		
 		for(let x in orders_tracking_list){
 		%>
 			<div class="tab">
@@ -107,10 +114,10 @@ content
 					
 				<div class="shipper-div cap-nhap-order-box">
 					<div class="shipper-content">
-					<select class="update_status_order">
+					<select class="update_status_order" style="background-color: #ecefeb;border: 1px solid #e1e3e1;">
 						<%- ojs_share_orders.show_order_status_select_insert() -%>
 					</select>
-					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >cập nhật</div>
+					<div style="padding: 10px 20px;margin-top: 11px;" class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >cập nhật</div>
 					</div>
 				</div>			
 
@@ -118,41 +125,205 @@ content
 
 				<div class="shipper-div">
 					<div class="shipper-content" style="background-color: #b1d2b2;padding: 10px;margin: 5px;">
-					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Chi tiết đơn hàng</div>
+					<div class="btn-view btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Chi tiết đơn hàng</div>
 					</div>
 				</div>	
 
 
 				<div class="shipper-div">
 					<div class="shipper-content" style="background-color: #b1d2b2;padding: 10px;margin: 5px;">
-					<div class="btn-action btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Lịch sử giao nhận</div>
+					<div class="btn-review btn-design" data_order_id="<%= orders_tracking_list[x].shipping_tracking_orders_id %>" >Lịch sử giao nhận</div>
 					</div>
 				</div>					
 					
 					
-				<div class="shipper-div order-content-box" style="display:none;">
+					
+					
+				<!-- ------------------------------
+				// content 1
+				---------------------------------->					
+					
+					
+				<div class="shipper-div order-content-box" id="view-<%= orders_tracking_list[x].shipping_tracking_orders_id %>" style="display:none;">
+					<div class="ajax-box" style="background-color: white; padding: 5%; width: 100%; max-width: 93%; border-radius: 10px;">
 					<div class="shipper-content">
 						<h1>Thông tin đơn hàng</div>
-						<div class="div-box">
+						<hr>
+						<div class="div-box" >
 							<h3>Thông tin lấy hàng</h3>
-							<div>adasdasdasdas</div>
+							<div>
+								<%
+								for(let o in orders_list){
+								if(
+								orders_list[o].orders_speciality_ID == orders_tracking_list[x].shipping_tracking_orders_id
+								){							
+								%>	
+									<p>Địa chỉ : 
+										<span><%= orders_list[o].stores_adress %>, </span>
+										<span><%= orders_list[o].stores_wards %>, </span>
+										<span><%= orders_list[o].stores_district %>, </span>
+										<span><%= orders_list[o].stores_province %> </span>									
+									</p>
+									
+									<p>Điện thoại liên hệ : 
+										<span><%= orders_list[o].stores_phone %>, </span>								
+									</p>	
+									<p>Người liên hệ : 
+										<span><%= orders_list[o].stores_name %>, </span>								
+									</p>										
+								<%
+								}
+								}
+								%>	
+							</div>
 						</div>
-						
+						<hr>
 						<div class="div-box">
 							<h3>Thông tin giao hàng hàng</h3>
-							<div>adasdasdasdas</div>
+							<div>
+								<%
+								for(let o in orders_list){
+								if(
+								orders_list[o].orders_speciality_ID == orders_tracking_list[x].shipping_tracking_orders_id
+								){							
+								%>	
+									<p>Địa chỉ : 
+										<span><%= orders_list[o].orders_speciality_adress %>, </span>
+										<span><%= orders_list[o].orders_speciality_wards %>, </span>
+										<span><%= orders_list[o].orders_speciality_district %>, </span>
+										<span><%= orders_list[o].orders_speciality_province %> </span>									
+									</p>
+									
+									<p>Điện thoại liên hệ : 
+										<span><%= orders_list[o].orders_speciality_phone %>, </span>								
+									</p>	
+									<p>Người liên hệ : 
+										<span><%= orders_list[o].users_full_name %>, </span>								
+									</p>
+
+									<p>Ghi chú giao hàng : 
+										<span><%= orders_list[o].orders_speciality_notes %>, </span>								
+									</p>
+									
+								<%
+								}
+								}
+								%>	
+							</div>
 						</div>						
+						<hr>
+						<div class="div-box">
+							<h3>Thông tin sản phẩm</h3>
+							<div>
+								<%
+								let i = 1;
+								for(let os in orders_list_details){
+								
+								
+								if(
+								orders_list_details[os].orders_speciality_ID == orders_tracking_list[x].shipping_tracking_orders_id && 
+								orders_list_details[os].orders_details_speciality_line_order == "product"
+								){				
+								
+								%>	
+									<p>
+									[<%= i %>] --  <span> 
+									<%= orders_list_details[os].products_speciality_name %> x 
+									<%= orders_list_details[os].orders_details_speciality_qty %>								
+									</span>										
+									</p>
+
+								<%
+								i++;
+								}
+								}
+								
+								%>	
+							</div>
+						</div>							
 						
+						<hr>
+						<div class="div-box">
+							<h3>Tiền thu hộ </h3>
+							<div>
+								<%- ojs_share_all.show_price_vnd(
+								ojs_share_orders.tong_tien_don_hang_theo_id(orders_list_details,orders_tracking_list[x].shipping_tracking_orders_id),0,",",".","đ"
+								) %>
+							</div>
+						</div>							
+						
+					</div>
 					</div>
 				</div>						
 					
 					
-			</div>
+					
+					
+				<!-- ------------------------------
+				// end of content 1
+				---------------------------------->						
+					
+					
+					
+					
+				<!-- ------------------------------
+				// content 2
+				---------------------------------->							
+					
+				
+					
+				<div class="shipper-div order-content-box" id="review-<%= orders_tracking_list[x].shipping_tracking_orders_id %>" style="display:none;">
+					<div class="ajax-box"  style="background-color: white; padding: 5%; width: 100%; max-width: 93%; border-radius: 10px;">
+					<div class="shipper-content">
+						<h1>Lịch sử giao hàng</div>
+						<div class="div-box" >
+							<div>
+								<%
+								for(let o in orders_tracking_infor){
+								if(
+								orders_tracking_infor[o].shipping_tracking_orders_id == orders_tracking_list[x].shipping_tracking_orders_id
+								){							
+								%>	
+									<div style="background-color: #ccc;display: flex;padding: 10px;align-items: center;justify-content: center;font-weight: bold;margin-top: 15px;">Ngày  : 
+										<span><%- ojs_share_all.format_date(orders_tracking_infor[o].shipping_tracking_date_created) -%> </span>							
+									</div>
+									<div  style="display: flex;padding: 10px;align-items: center;justify-content: center;">Trạng thái  : 
+										<span><%- ojs_share_orders.show_order_status_html(orders_tracking_infor[o].shipping_tracking_orders_status) -%> </span>							
+									</div>										
+								<%
+								}
+								}
+								%>	
+							</div>
+						</div>
+				
+					</div>		
+					</div>						
+				</div>
+				
+				
+				
+				
+				
+				<!-- ------------------------------
+				// content 2
+				---------------------------------->						
 
 		<%
-		}
+		}//end of for one
 		%>
-
+		<%
+		}else{ //else datas main
+		%>
+			<br>
+			<h3 style="text-align:center;">Bạn chưa có đơn hàng nào cần giao</h3>
+		<%
+		}
+		%>		
+		
+		
+		
+		
 
 		</div>
 		</div>
@@ -214,6 +385,52 @@ end content
 	});			
 	//		
 	//	
+
+
+	//
+	//@
+	//xoa
+	$(document).on('click','.btn-view',function(e) {	
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("data_order_id");
+		let html  = $('#view-' + order_id).html();
+		//console.log(html);
+		//return;
+		
+		ojs_loadding.ajax_show_content(html);
+		
+		
+		//@
+	});			
+	//		
+	//	
+	//
+	//@
+	//xoa
+	$(document).on('click','.btn-review',function(e) {	
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("data_order_id");
+		let html  = $('#review-' + order_id).html();
+		//console.log(html);
+		//return;
+		ojs_loadding.ajax_show_content(html);
+		
+		
+		//@
+	});			
+	//		
+	//	
+
+
+
+
+
+
+
+
+
 
 	});
 </script>	

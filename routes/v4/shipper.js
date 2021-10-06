@@ -176,7 +176,7 @@ try {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, shipper_taget.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -185,7 +185,7 @@ try {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -218,7 +218,7 @@ try {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_tracking_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -227,7 +227,7 @@ try {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}	
@@ -237,6 +237,8 @@ try {
 		for(let x in orders_tracking_list.datas){
 			order_arr.push(orders_tracking_list.datas[x].shipping_tracking_orders_id);
 		}
+	}else{
+		order_arr.push(0);
 	}
 	
 	//res.send(  order_arr );
@@ -267,7 +269,7 @@ try {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_tracking_infor.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -276,17 +278,10 @@ try {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}	
-	
-	var order_arr = [];
-	if(orders_tracking_infor.datas.length > 0){
-		for(let x in orders_tracking_infor.datas){
-			order_arr.push(orders_tracking_infor.datas[x].shipping_tracking_orders_id);
-		}
-	}
 	
 	//res.send(  orders_tracking_infor );
 	//return;		
@@ -316,7 +311,7 @@ try {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->get->orders_list", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -325,7 +320,7 @@ try {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->get->orders_list", "message": error_send } ); 
 			return;				
 		}
 	}	
@@ -356,7 +351,7 @@ try {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_list_details.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}
@@ -365,12 +360,12 @@ try {
 			var evn = ojs_configs.evn;
 			////evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "31.router_app->barnd->show", "message": error_send } ); 
+			res.send({ "error" : "31.router_app->shipper->show", "message": error_send } ); 
 			return;				
 		}
 	}	
 	
-	///res.send(  orders_list_details );
+	//res.send(  orders_list_details );
 	//return;		
 		
 	

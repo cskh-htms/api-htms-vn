@@ -69,7 +69,7 @@ const ojs_datas_shipping_tracking = {
 	//@
 	//@
 	//@ 
-	//@ 2.[get_orders_list_arr]		
+	//@ 2.[get_orders_list_details]		
 	get_orders_list_details: function(order_arr){
 		
 		let datas_return = 	
@@ -95,12 +95,7 @@ const ojs_datas_shipping_tracking = {
 							"field"     :"orders_speciality_ID",
 							"value"     : order_arr,
 							"compare" : "in"
-						},  
-						{   
-							"field"     :"stores_name",
-							"value"     : "",
-							"compare" : "not null"
-						}                                       
+						}                                      
 						]    
 					}         
 				]
