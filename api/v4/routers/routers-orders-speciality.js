@@ -20,6 +20,10 @@
 
 * 7. [search_user]
 
+10. [send-order-sms]
+
+
+
 */
 
 const express = require('express');
@@ -113,7 +117,7 @@ router.post('/search_customer', middle_ware, controllers_orders_spaciality.searc
 //@
 //@
 //@
-//@* 7. [search_user]
+//@* 8. [search_user]
 router.post('/search_user', middle_ware, controllers_orders_spaciality.search_user);
 
 
@@ -123,8 +127,19 @@ router.post('/search_user', middle_ware, controllers_orders_spaciality.search_us
 //@
 //@
 //@
-//@* . [search_count_order_by_user]
+//@* 9. [search_count_order_by_user]
 router.post('/search-count-order-by-user', middle_ware, controllers_orders_spaciality.search_count_order_by_user);
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 10. [send-order-sms]
+router.post('/send-order-sms', middle_ware, controllers_orders_spaciality.send_order_sms);
 
 
 

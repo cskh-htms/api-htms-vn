@@ -1203,6 +1203,33 @@ try {
 		res.send({ "error" : "5","position":"ctl-shipping-tracking->push_shipping_dala", "message": error_send } ); 
 		return;			
 	}	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	try {
+		var shipper_infor = await models_shipping_tracking.get_shipper(datas.shipping_tracking_users_id);
+		//res.send( shipper_infor );
+		//return;
+		shipper_phone = shipper_infor[0].users_phone;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+		res.send({ "error" : "7", "position":"ctl-shipping_tracking->push_shipping_dala->shipper_infor","message": error_send } ); 
+		return;	
+	}	
+	
+	
+	//res.send( shipper_phone );
+	//return;
+	
 
 	//@
 	//@
@@ -1236,12 +1263,12 @@ try {
 	//@
 	try {
 		models_shipping_tracking.push_shipping_dala(datas_assign).then( results => {
-			ojs_shares_send_code_to_phone.send_code_to_phone_shipper(res,"demo","0948036018");			
+			ojs_shares_send_code_to_phone.send_code_to_phone_shipper(res,"1234",shipper_phone);			
 			res.send( { "error" : "", "datas" : results } );
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
 			res.send({ "error" : "6", "position":"ctl-shipping_tracking->push_shipping_dala","message": error_send } );
 			return;	

@@ -19,7 +19,7 @@
 
 * 8. [search_user]
 
-
+* 9. [send_order_sms]
 
 */
 
@@ -62,13 +62,91 @@ const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
 //@
 //model
 const models_orders_spaciality = require('../models/models-orders-spaciality');
-
+const ojs_shares_send_code_to_phone = require('../../../models/ojs-shares-send-code-to-phone');
 
 
 
 
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 8. [send_order_sms]
+async  function send_order_sms(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->send_order_sms", "message":  error_send  } ); 
+		return;			
+	}	
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+
+	//res.send([datas.order_id,datas.phone_number]);
+	//return;
+
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		var send_result = await ojs_shares_send_code_to_phone.send_code_to_phone_order(res,datas.order_id,datas.phone_number);
+		res.send(send_result);
+		return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->send_order_sms", "message":  error_send  } );  
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->send_order_sms", "message":  error_send  } );  
+	return;	
+}
+}
+//@
+//@ * end of 8. [send_order_sms]
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1357,7 +1435,8 @@ module.exports = {
 	search,
 	search_customer,
 	search_user,
-	search_count_order_by_user
+	search_count_order_by_user,
+	send_order_sms
 };
 
 /*

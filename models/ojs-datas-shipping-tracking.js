@@ -150,6 +150,11 @@ const ojs_datas_shipping_tracking = {
 							"field"     :"stores_name",
 							"value"     : "",
 							"compare" : "not null"
+						},  
+						{   
+							"field"     :"orders_details_speciality_line_order",
+							"value"     : "product",
+							"compare" : "="
 						}                                       
 						]    
 					}         

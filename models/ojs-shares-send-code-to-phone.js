@@ -19,7 +19,58 @@ const ojs_shares_fetch_data = require('./ojs-shares-fetch-data');
 const ojs_shares_send_code_to_phone = {
 	
 	
-	
+	//@
+	//@
+	//@
+	//@
+	//@@ 4. [send_code_to_phone_order]
+	send_code_to_phone_order : async function(res,code,phone){
+		//@
+		//@
+		//@
+
+		//res.send([phone,code]);
+		//return;	
+
+		var datas = {     
+			"loginName": "AB25934",
+			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"serviceTypeId": "30",
+			"phoneNumber": phone,
+			"code": 1234,
+			"brandName": "DALA"
+		} 
+		
+		
+		var url = 'http://api.abenla.com/api/SendSms?' + 
+			'loginName=' + datas.loginName + '&' + 
+			'sign=' + datas.sign + '&' +
+			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
+			'phoneNumber=' + datas.phoneNumber + '&' + 
+			'message=DALA mat khau moi cua ban la: ' + datas.code + '&'+
+			'brandName=' + datas.brandName;
+		
+			//res.send(url);
+			//return;	
+		
+		//@
+		//@
+		try{
+			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
+			if(get_code_verification.Message == "Success"){
+				res.send({"error":"","datas":get_code_verification});
+				return;				
+			}else{
+				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
+				return;					
+			}
+		}
+		catch(error){
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gữi được tin nhắn"});
+			return;			
+		}
+
+	},		
 	//@
 	//@
 	//@
@@ -33,14 +84,12 @@ const ojs_shares_send_code_to_phone = {
 		//res.send([phone,code]);
 		//return;	
 
-
-
 		var datas = {     
 			"loginName": "AB25934",
 			"sign": "158237f5bf43931e398b679fb5cfb636",
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
-			"code": code,
+			"code": 1234,
 			"brandName": "DALA"
 		} 
 		
@@ -50,7 +99,7 @@ const ojs_shares_send_code_to_phone = {
 			'sign=' + datas.sign + '&' +
 			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
 			'phoneNumber=' + datas.phoneNumber + '&' + 
-			'message=DALA ma xac nhan cua ban la: ' + datas.code + '&'+
+			'message=DALA mat khau moi cua ban la: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
 			//res.send(url);
@@ -64,12 +113,12 @@ const ojs_shares_send_code_to_phone = {
 				res.send({"error":"","datas":"Đã gữi tin nhắn"});
 				return;				
 			}else{
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_shipper -> 1","datas":"Chưa gữi được tin nhắn"});
+				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
 				return;					
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_shipper ->","message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gữi được tin nhắn"});
 			return;			
 		}
 

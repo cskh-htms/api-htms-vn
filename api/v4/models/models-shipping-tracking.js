@@ -30,7 +30,7 @@
 
 * 14. [get_stores]
 
-
+* 15.get_shipper
 
 */
 
@@ -872,7 +872,54 @@ const get_stores = async function (datas) {
 // 14. [get_stores]
 
 
+//@
+//@
+//@
+//@
+//@
+//@ 15. [get_shipper]
+const get_shipper = async function (shipper_id) {
+	//return datas;
+	//create sql text
+	
+	
+	//@
+	//@
+	//@
+	//@
+	
+	var sql_text = "";
+	sql_text = sql_text + " SELECT " + 
+		ojs_configs.db_prefix  + "users_phone as users_phone " + 
+		
+		" FROM " + ojs_configs.db_prefix + "users " + 
+		
+		" WHERE " + ojs_configs.db_prefix + "users_ID = '" + shipper_id + "' " ;
+	
+	//return sql_text;
+	//@
+	//@
+	//@
+	//commit
+		
+	
+	
+	//return sql_text;
+	
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } ,  ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );		
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-shipping_tracking->get_shipper", "message" : error } ;
+	}
+};
 
+// 15. [get_shipper]
 
 
 
@@ -894,7 +941,8 @@ module.exports = {
 			push_shipping_ghtk,
 			get_orders_details,
 			get_orders,
-			get_stores
+			get_stores,
+			get_shipper
 };
 
 
