@@ -222,11 +222,6 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
-	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	//
-	//@
 		
 		
 	
@@ -315,7 +310,7 @@ $(document).ready(function($){
 		//@
 		let options_product_speciality_parent_id = $('#options_product_speciality_parent_id  option:selected').val();
 		//@
-		let options_product_speciality_information = tinymce.get("noi_dung").getContent();
+		let options_product_speciality_information = $('#noi_dung').val();	
 		
 		let options_product_speciality_qoute = $('#options_product_speciality_qoute').val();
 		

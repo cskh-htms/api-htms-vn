@@ -384,16 +384,6 @@ $(document).ready(function($){
 	}
 
 
-	//
-	//@
-	ojs_loader.loadTinyMCE('noi_dung',user_id);
-	//
-	//@
-	ojs_loader.loadTinyMCE('excerpt',user_id);
-	
-		
-	
-	
 	
 	//@
 	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
@@ -611,8 +601,8 @@ $(document).ready(function($){
 		var products_speciality_featured_image = $('#featured_image').attr("data_value");
 		var products_speciality_image_slider = $('#slider_image').attr("data_value");			
 		
-		var products_speciality_contents = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");
-		var products_speciality_excerpt = tinymce.get("excerpt").getContent().replace(/&nbsp;/gi, "");
+		var products_speciality_contents = $('#noi_dung').val();
+		var products_speciality_excerpt = $('#excerpt').val();
 		
 		
 		var products_speciality_qoute = $('#products_speciality_qoute').val();

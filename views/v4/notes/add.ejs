@@ -111,11 +111,6 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 
-		//
-	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	//
-
 	
 	
 	// ajax luu san pham
@@ -126,7 +121,7 @@ $(document).ready(function($){
 		
 		var notes_title = $('#notes_title').val();	
 		var notes_user_id = $('#user_id').val();
-		var notes_contents = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");
+		var notes_contents = $('#noi_dung').val();
 		
 		
 		if(notes_title == ""){

@@ -18,7 +18,7 @@
 
 * 9. [search_user]
 
-
+11. [get_store_id]
 
 */
 
@@ -70,6 +70,7 @@ const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors')
 var sql_select_all = 	"" + 	
 	ojs_configs.db_prefix  + "orders_speciality_ID as orders_speciality_ID, " + 
 	ojs_configs.db_prefix  + "orders_speciality_user_id  as orders_speciality_user_id , " +	
+	ojs_configs.db_prefix  + "orders_speciality_store_id  as orders_speciality_store_id , " +
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "orders_speciality_date_orders," + "'%Y/%m/%d %H:%i:%s'"  + ") as orders_speciality_date_orders, " + 		
 	ojs_configs.db_prefix  + "orders_speciality_status_orders as orders_speciality_status_orders, " + 
 	ojs_configs.db_prefix  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 	
@@ -148,6 +149,7 @@ const insert_orders_spaciality = async function (datas,data_details) {
 	var sql_text = "";
 	var dataGo = {
 			"orders_speciality_user_id"					: datas.orders_speciality_user_id,
+			"orders_speciality_store_id"				: datas.orders_speciality_store_id,
 			
 			"orders_speciality_adress"					: mysql.escape(datas.orders_speciality_adress).replace(/^'|'$/gi, ""),		
 			"orders_speciality_phone"					: mysql.escape(datas.orders_speciality_phone).replace(/^'|'$/gi, ""),	
@@ -624,7 +626,47 @@ const search_count_order_by_user = async function (datas) {
 
 
 
-
+//@
+//@
+//@
+//@
+//@
+//@ * 11. [get_store_id]
+const get_store_id = async function (product_id) {
+	
+	//return product_id;
+	
+	//create sql text
+	var sql_text = 	"SELECT " +  
+					ojs_configs.db_prefix +  "products_speciality_store_id as products_speciality_store_id, " + 
+					ojs_configs.db_prefix +  "stores_name as stores_name " + 
+					
+					"FROM " +   ojs_configs.db_prefix +  "products_speciality  " + 
+					
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "stores  ON  " + 
+					ojs_configs.db_prefix + "products_speciality_store_id  = " + 
+					ojs_configs.db_prefix + "stores_ID " +   
+					
+					
+					" where " +  
+					ojs_configs.db_prefix + "products_speciality_ID = '" + product_id + "' ";				
+	
+	//return sql_text;
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-coupon_speciality->get_store_id", "message" : error } ;
+	}
+};
 
 
 
@@ -658,7 +700,8 @@ module.exports = {
 	search_customer,
 	search_user,
 	get_owner_order,
-	search_count_order_by_user
+	search_count_order_by_user,
+	get_store_id
 };
 
 

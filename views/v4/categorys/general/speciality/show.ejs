@@ -222,9 +222,6 @@ $(document).ready(function($){
 	
 	//
 	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	//
-	//@
 		
 		
 	
@@ -321,7 +318,7 @@ $(document).ready(function($){
 		let category_general_speciality_category_parent_id = $('#category_general_speciality_category_parent_id  option:selected').val();
 		let category_general_speciality_show = $('#category_general_speciality_show  option:selected').val();		
 		//@
-		let category_general_speciality_infomation = tinymce.get("noi_dung").getContent();
+		let category_general_speciality_infomation = $('#noi_dung').val();
 		
 		let category_general_speciality_admin_status = $('#category_general_speciality_admin_status  option:selected').val();
 		let category_general_speciality_stores_status = $('#category_general_speciality_stores_status  option:selected').val();

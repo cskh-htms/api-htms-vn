@@ -178,6 +178,10 @@ try{
 			res.send({ "error" : "1", "position":"ctl-orders-spaciality->insert", "message":  " Chưa nhập mã khách hàng "} );
 			return;
 		}
+		if(!datas.orders_detail){
+			res.send({ "error" : "1111", "position":"ctl-orders-spaciality->insert", "message":  " Chưa có data order "} );
+			return;
+		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -216,7 +220,51 @@ try{
 		return;			
 	}
 	
-
+	var product_id = 0;
+	for(let x  in datas.orders_detail){
+		if(datas.orders_detail[x].orders_details_speciality_line_order == "product"){
+			product_id = datas.orders_detail[x].orders_details_speciality_product_id
+		}		
+	}
+		
+		
+	if(product_id == 0){
+		res.send({ "error" : "12111", "position":"ctl-orders-spaciality->insert", "message":  " không tìm thấy sản phẩm đã mua "} );
+		return;
+	}			
+		
+	//res.send(check_datas_result);
+	//return;			
+	
+	try{
+		var get_store_id = await models_orders_spaciality.get_store_id(product_id);
+		if(get_store_id.length > 0){
+			var store_id = get_store_id[0].products_speciality_store_id;
+			var store_name = get_store_id[0].stores_name;
+			//res.send([store_name]);
+			//return;				
+			
+		}else{
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, "Không tìm thấy cửa hàng", "Không tìm thấy cửa hàng" );
+			res.send({ "error" : "4", "position":"ctl-orders-speciality-insert", "message": error_send } ); 
+			return;	
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lổi tìm cửa hàng" );
+		res.send({ "error" : "5", "position":"ctl-orders-speciality-insert", "message": error_send } );
+		return;				
+	}		
+	
+	datas.orders.orders_speciality_store_id = store_id;
+	
+	//res.send([datas.orders]);
+	//return;	
+	
 	
 	
 	//@

@@ -95,8 +95,6 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	
 	
 	// ajax luu san pham
 	$(document).on('click','#btn_save',function(e) {		
@@ -113,7 +111,7 @@ $(document).ready(function($){
 		let comments_speciality_status_store = $('#comments_speciality_status_store  option:selected').val();
 		let comments_speciality_status_admin = $('#comments_speciality_status_admin  option:selected').val();
 		//@
-		let comments_speciality_contents = tinymce.get("noi_dung").getContent();
+		let comments_speciality_contents = $('#noi_dung').val();
 		
 		//
 		let datas = {

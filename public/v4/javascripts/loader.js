@@ -486,6 +486,7 @@ $(document).ready(function($){
 		   // Đóng image loadding (ảnh xoay xoay trên màn hình)
 		},		
 		//load tiny boi dung san pham
+		/*
 		loadTinyMCE: function(textareaID,user_id){
 			tinymce.init({
 				selector: '#' + textareaID,
@@ -523,7 +524,7 @@ $(document).ready(function($){
 				}
 			});	
 		},	
-	
+		*/
 		//
 		//show anh dai dien loader
 

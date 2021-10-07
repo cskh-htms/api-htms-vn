@@ -144,11 +144,6 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-
-	
-	//@
-	//@
 	//@
 	//@
 	$(document).on('click','#btn_draf',function(e) {		
@@ -186,7 +181,7 @@ $(document).ready(function($){
 		
 		let news_title = $('#news_title').val();
 		let news_status_admin = $('#news_status_admin  option:selected').val();
-		let news_contents = tinymce.get("noi_dung").getContent();
+		let news_contents = $('#noi_dung').val();
 		
 		let datas = {
 			"datas":{

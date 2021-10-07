@@ -140,9 +140,28 @@ try {
 		//res.send("ok");
 		//return;
 		
-		var product_id = datas[0].orders_details_speciality_product_id;
+		//var product_id = datas[0].orders_details_speciality_product_id;
 		//res.send([product_id]);
 		//return;		
+		
+		
+		var product_id = 0;
+		for(let x  in datas){
+			if(datas[x].orders_details_speciality_line_order == "product"){
+				product_id = datas[x].orders_details_speciality_product_id
+			}		
+		}
+			
+			
+		if(product_id == 0){
+			res.send({ "error" : "12111",  "position":"ctl-coupon-speciality->check_coupon", "message":  " không tìm thấy sản phẩm đã mua "} );
+			return;
+		}		
+		
+		
+		
+		
+		
 		
 		//@
 		//@

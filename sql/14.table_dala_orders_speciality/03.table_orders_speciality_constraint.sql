@@ -21,6 +21,14 @@ ON DELETE RESTRICT ON UPDATE RESTRICT;
  
 
  
+ALTER TABLE `dala_orders_speciality` 
+ADD CONSTRAINT `orders_speciality_store_id` 
+FOREIGN KEY (`dala_orders_speciality_store_id`) 
+REFERENCES `dala_stores`(`dala_stores_ID`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT; 
+ 
+ 
+ 
  
 --
 --

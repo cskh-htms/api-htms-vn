@@ -5,12 +5,120 @@
 * file này viết ojs dùng chung 
 * các hàm dùng chung 
 @export : Ojs_users
+
+
+
+
+ 1.[get_orders_list_bussiness] 
+	* lấy danh sách line orders của cửa hàng bằng user
+	* dùng ở trang bussiness/user_id
+
+2.[get_store_by_user_id]	
+	* lấy thông tin cửa ah2ng của user
+
+
+
 */
 
 const ojs_datas_bussiness = {
 	//
 	//
 	//
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 2.[get_store_by_user_id]	
+	get_store_by_user_id:function(users_id){
+		let datas_return = 		
+			{
+
+				"datas" :   {
+				   "select_field" :
+					[
+						"stores_ID",
+						"stores_name" ,
+						"stores_adress",
+						"stores_province",
+						"stores_district",
+						"stores_wards" ,
+						"stores_payment_limit"						
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"stores_user_id",
+								"value"     : users_id,
+								"compare" : "="
+							}           
+							]    
+						}         
+					]   
+				}
+			}	
+		return datas_return;	
+	},//@ end of [get_orders_list_bussiness]
+	
+		
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 1.[get_orders_list_bussiness]
+	get_orders_list_bussiness:function(users_id){
+		let datas_return = 	
+		{
+			"datas" : 
+			{
+				"select_field" :
+				[ 
+					"stores_ID",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_qty" ,
+					"orders_details_speciality_price",
+					"price_caution"					
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"users_ID",
+							"value" 	: users_id,
+							"compare" : "="
+						}						
+						]	
+					}				
+				]					
+			}//data
+		}	
+		return datas_return;		
+		
+	},//@ end of [get_orders_list_bussiness]
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ 
 	get_data_store_list: function(users_id){
 		
 		let datas_return = 	
@@ -49,17 +157,6 @@ const ojs_datas_bussiness = {
 						}						
 						]	
 					}				
-				],
-				"order" : 
-				[	
-					{	
-						"field"	: "service_type_name",
-						"compare" : "ASC"
-					},
-					{	
-						"field"	: "stores_date_created",
-						"compare" : "DESC"
-					}						
 				]
 			}//data
 		}	

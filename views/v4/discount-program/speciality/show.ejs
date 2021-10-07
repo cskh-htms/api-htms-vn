@@ -158,8 +158,8 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Lời nhắn</h3>
 				<div class="inside">
-					<textarea class=""  id="discount_program_qoute"  rows="10" cols="100%">
-						<%- ojs_share.unCape(datas[0].discount_program_qoute) -%>
+					<textarea class="asd"  id="discount_program_qoute"  rows="10" cols="100%">
+						<%- datas[0].discount_program_qoute -%>
 					</textarea>
 				</div>
 			</div>	
@@ -358,12 +358,7 @@ $(document).ready(function($){
 		}
 	);
 
-	//
-	//@
-	ojs_loader.loadTinyMCE('noi_dung',user_id);
-		
-		
-	
+
 	//@
 	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
@@ -462,7 +457,7 @@ $(document).ready(function($){
 		var discount_program_status_admin = $('#discount_program_status_admin').val();
 		
 		
-		var discount_program_information = tinymce.get("noi_dung").getContent().replace(/&nbsp;/gi, "");		
+		var discount_program_information = $('#noi_dung').val();		
 		var discount_program_featured_image = $('#featured_image').attr("data_value");		
 		
 		

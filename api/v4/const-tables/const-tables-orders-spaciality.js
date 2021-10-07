@@ -13,6 +13,7 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"orders_speciality_user_id"				: "",
+		"orders_speciality_store_id"			: "",
 		"orders_speciality_status_orders"		: 0,	
 		"orders_speciality_status_payment"		: 0,	
 		"orders_speciality_adress"			    : "",
@@ -90,7 +91,8 @@
 		}else if(error.sqlMessage.search("trig_dala_orders_speciality_sipper_refer") >= 0){
 			return " Shipper không có trong hệ thống  ";					
 			
-			
+		}else if(error.sqlMessage.search("orders_speciality_store_id") >= 0){
+			return " Không tìm thấy cửa hàng ";				
 			
 			
 			

@@ -1,6 +1,10 @@
 
 -- git clone https://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@github.com/htmsgroup/v4.02.git
 
+-- <script src="/uploads/files/tinymce.min.js"></script>
+
+-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 
 
 --vVSOdTd3P7rVjjp

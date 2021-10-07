@@ -198,7 +198,6 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	
-	ojs_loader.loadTinyMCE('noi_dung');
 	var user_id = $('#user_id').val();
 	//@
 	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");	
@@ -302,7 +301,7 @@ function get_datas(){
 		
 		
 		var brands_featured_image = $('#featured_image').attr('data_value');
-		let brands_information = tinymce.get("noi_dung").getContent();		
+		let brands_information = $('#noi_dung').val();		
 		
 		
 		//
