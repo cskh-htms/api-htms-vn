@@ -9,7 +9,7 @@
 
 --
 -- drop and create database
-source ./sql/drop_create_database.sql;
+source ./sql/drop_create_database_demo.sql;
 
 
 
@@ -27,7 +27,7 @@ source ./sql/demo_dalacenter_v4.sql;
 -- insert all datas
 -- source ./sql/demo_dalacenter4_datas_only.sql;
 
- source ./sql/dalacenter4_data_only_local_to_server_20211007_1430.sql;
+-- source ./sql/dalacenter4_data_only_local_to_server_20211007_1430.sql;
 
 
 

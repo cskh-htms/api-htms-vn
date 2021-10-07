@@ -67,6 +67,13 @@ Thành phố Hồ Chí Minh
 -- one script
 source ./sql/command_script_v4.sql;
 
+source ./sql/command_script_v4_demo_structe.sql;
+
+source ./sql/command_script_v4_demo_data.sql;
+
+
+
+
 
 --
 -- drop and create database
