@@ -21,6 +21,9 @@
 
 * 9. [send_order_sms]
 
+* 10. [search_order_product_count]
+
+
 */
 
 //@
@@ -1463,6 +1466,73 @@ catch(error){
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 10. [search_order_product_count]
+async  function search_order_product_count(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } ); 
+		return;			
+	}	
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_orders_spaciality.search_order_product_count(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
+			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } ); 
+			return;				
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } );  
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } );  
+	return;	
+}
+}
+//@
+//@ * end of 10. [search_order_product_count]
 
 
 
@@ -1484,7 +1554,8 @@ module.exports = {
 	search_customer,
 	search_user,
 	search_count_order_by_user,
-	send_order_sms
+	send_order_sms,
+	search_order_product_count
 };
 
 /*

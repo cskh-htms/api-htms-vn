@@ -16,7 +16,14 @@
 2.[get_store_by_user_id]	
 	* lấy thông tin cửa ah2ng của user
 
+3.[get_product_by_user_id]	
+	* lấy danh sách sản phẩm đang khuyến mãi
 
+4.[get_product_order_by_user_id]
+	* lấy danh sách sản phẩm bán chạy theo  user (chi lấy id)
+
+5.[get_product_by_user_id_max_details]	
+	* lấy danh sách sản phẩm bán chạy theo  user lấy details
 
 */
 
@@ -24,10 +31,109 @@ const ojs_datas_bussiness = {
 	//
 	//
 	//
+	//@
+	//@
+	//@
+	//@
+	//@ 5.[get_product_by_user_id_max_details]	
+	get_product_by_user_id_max_details:function(users_id){
+		let datas_return = 		
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+				  "products_speciality_ID",
+				  "products_speciality_name",
+				  "products_speciality_price",
+				  "products_speciality_sale_of_price",
+				  "products_speciality_featured_image",
+				  "products_speciality_price_caution"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "users_ID",
+						"value": users_id,
+						"compare": "="
+					  }         
+					]
+				  }
+				]
+			  }
+			}	
+		return datas_return;	
+	},//@ end of [get_orders_list_bussiness]	
 	
-	
-	
-	
+	//@
+	//@
+	//@
+	//@
+	//@ 4.[get_product_order_by_user_id]	
+	get_product_order_by_user_id:function(users_id){
+		let datas_return = 		
+			{
+			  "datas": {
+				"select_field": [
+				  "orders_details_speciality_product_id",
+				  "orders_details_speciality_qty"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "users_ID",
+						"value": users_id,
+						"compare": "="
+					  }         
+					]
+				  }
+				]
+			  }
+			}	
+		return datas_return;	
+	},//@ end of [get_orders_list_bussiness]	
+	//@
+	//@
+	//@
+	//@
+	//@ 3.[get_product_by_user_id]	
+	get_product_by_user_id:function(users_id){
+		let datas_return = 		
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+				  "products_speciality_ID",
+				  "products_speciality_name",
+				  "products_speciality_price",
+				  "products_speciality_sale_of_price",
+				  "products_speciality_featured_image"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "users_ID",
+						"value": users_id,
+						"compare": "="
+					  },
+					  {
+						"field": "products_speciality_sale_of_price",
+						"value": 0,
+						"compare": ">"
+					  }          
+					]
+				  }
+				]
+			  }
+			}	
+		return datas_return;	
+	},//@ end of [get_orders_list_bussiness]
+		
 	//@
 	//@
 	//@
@@ -46,7 +152,8 @@ const ojs_datas_bussiness = {
 						"stores_province",
 						"stores_district",
 						"stores_wards" ,
-						"stores_payment_limit"						
+						"stores_payment_limit",
+						"stores_discount_price"						
 					],
 					"condition" :
 					[
@@ -89,6 +196,7 @@ const ojs_datas_bussiness = {
 					"orders_details_speciality_line_order",
 					"orders_details_speciality_qty" ,
 					"orders_details_speciality_price",
+					"coupon_speciality_type",
 					"price_caution"					
 				],
 				"condition" : 
@@ -99,7 +207,11 @@ const ojs_datas_bussiness = {
 						{	"field"		:"users_ID",
 							"value" 	: users_id,
 							"compare" : "="
-						}						
+						},
+						{	"field"		:"orders_speciality_status_orders",
+							"value" 	: 100,
+							"compare" : "="
+						}
 						]	
 					}				
 				]					

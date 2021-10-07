@@ -20,6 +20,10 @@
 
 11. [get_store_id]
 
+100. [search_order_product_count]
+
+
+
 */
 
 
@@ -121,6 +125,10 @@ var sql_from_search_customer = 	" from " + ojs_configs.db_prefix + "view_orders_
 var sql_from_search_user = " from " + ojs_configs.db_prefix + "view_orders_users " ;
 
 var sql_from_search_count_order_by_user = " from " + ojs_configs.db_prefix + "view_count_order_by_user" ;
+
+
+var sql_from_search_order_product_count = " from " + ojs_configs.db_prefix + "view_order_count_product" ;
+
 
 
 
@@ -625,6 +633,58 @@ const search_count_order_by_user = async function (datas) {
 //@ end of * 10. [search_count_order_by_user]	
 
 
+//@	
+//@	
+//@	
+//@	
+//@	
+//@ * 100. [search_order_product_count]
+const search_order_product_count = async function (datas) {
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_order_product_count,sql_link_search_view);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_order_product_count->error-nymber : 1", "message" : error } ;
+	}
+	
+	
+	
+	//return get_sql_search_group;
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_order_product_count : 2", "message" : error } ;
+	}
+};
+//@	
+//@ end of * 100. [search_order_product_count]	
+
+
+
+
+
+
+
+
+
+
+
 
 //@
 //@
@@ -701,7 +761,8 @@ module.exports = {
 	search_user,
 	get_owner_order,
 	search_count_order_by_user,
-	get_store_id
+	get_store_id,
+	search_order_product_count
 };
 
 

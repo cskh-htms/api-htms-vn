@@ -900,6 +900,113 @@ try {
 	
 	
 	
+	var product_sale;
+	try {
+		var data_send = ojs_datas_bussiness.get_product_by_user_id(user_id);
+		//res.send( data_send );
+		//return;		
+
+		product_sale = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all/',data_send,ojs_configs.token_supper_job);
+		//res.send( product_sale );
+		//return;	
+
+
+
+		if(product_sale.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, product_sale.error, "Lỗi lấy dữ liệu product_sale" );
+			res.send({ "error" : "301.router_bussiness(app)->bussiness", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy dữ liệu product_sale" );
+			res.send({ "error" : "302.router_bussiness(app)->bussiness", "message": error_send } ); 
+			return;		
+	}
+			
+	//res.send( product_sale );
+	//return;		
+		
+	
+	
+	var product_sale_max;
+	try {
+		var data_send = ojs_datas_bussiness.get_product_order_by_user_id(user_id);
+		//res.send( data_send );
+		//return;		
+
+		product_sale_max = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search-order-product-count/',data_send,ojs_configs.token_supper_job);
+		//res.send( product_sale_max );
+		//return;	
+
+
+
+		if(product_sale_max.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, product_sale_max.error, "Lỗi lấy dữ liệu product_sale" );
+			res.send({ "error" : "301.router_bussiness(app)->product_sale_max", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy dữ liệu product_sale" );
+			res.send({ "error" : "302.router_bussiness(app)->product_sale_max", "message": error_send } ); 
+			return;		
+	}
+			
+	//res.send( product_sale_max );
+	//return;			
+	
+	
+	
+	
+	var product_max_detail;
+	try {
+		var data_send = ojs_datas_bussiness.get_product_by_user_id_max_details(user_id);
+		//res.send( data_send );
+		//return;		
+
+		product_max_detail = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/products/speciality/search_all/',data_send,ojs_configs.token_supper_job);
+		//res.send( product_max_detail );
+		//return;	
+
+
+
+		if(product_max_detail.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, product_max_detail.error, "Lỗi lấy dữ liệu product_max_detail" );
+			res.send({ "error" : "301.router_bussiness(app)->bussiness", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi lấy dữ liệu product_max_detail" );
+			res.send({ "error" : "302.router_bussiness(app)->bussiness", "message": error_send } ); 
+			return;		
+	}
+			
+	//res.send( product_max_detail );
+	//return;		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//@
 	//@
@@ -966,7 +1073,10 @@ try {
 			
 			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
 			'orders_list' 			: orders_list.datas,
-			'datas'					: stores_tager.datas
+			'product_sale'			: product_sale.datas,
+			'datas'					: stores_tager.datas,
+			'product_sale_max'		: product_sale_max.datas,
+			'product_max_detail' 	:	product_max_detail.datas
 			
 		}
 
@@ -984,6 +1094,9 @@ try {
 			'news_bussiness_menu' 	: get_datas_news_bussiness_menu,
 			'orders_list' 			: orders_list.datas,
 			'datas'					: stores_tager.datas,
+			'product_sale'			: product_sale.datas,
+			'product_sale_max'		: product_sale_max.datas,
+			'product_max_detail' 	:	product_max_detail.datas,
 			'datas_info'			: datas_info
 			
 		}

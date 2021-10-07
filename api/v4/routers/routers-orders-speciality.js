@@ -22,7 +22,7 @@
 
 10. [send-order-sms]
 
-
+11. [search-order-product-count]
 
 */
 
@@ -142,7 +142,13 @@ router.post('/search-count-order-by-user', middle_ware, controllers_orders_spaci
 router.post('/send-order-sms', middle_ware, controllers_orders_spaciality.send_order_sms);
 
 
-
+//@
+//@
+//@
+//@
+//@
+//@* 11. [search-order-product-count]
+router.post('/search-order-product-count', middle_ware, controllers_orders_spaciality.search_order_product_count);
 
 
 

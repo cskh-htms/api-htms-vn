@@ -1,5 +1,6 @@
 
 <% include ../masterpage/loader %>
+
 <script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
 
@@ -12,8 +13,8 @@
 page wrap 
 --------------------- -->
 <% include ../masterpage/header %>
-
-
+<% include ../masterpage/function-share-orders %>
+<% include ../masterpage/function-share-all %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -48,8 +49,7 @@ content
 	--------------------- -->
 
 
-
-
+	
 
 	<!-- --------------------
 		// 2. hiển thị cửa hàng
@@ -89,97 +89,208 @@ content
 		//2. end of hiển thị cửa hàng
 	--------------------- -->
 	
-	
-	
-	
+
 
 
 
 	<!-- --------------------
 	//doanh thu
 	--------------------- -->
+	<%
+	var data_sum = 0;
+	var line_product = 0;
+	var coupon = 0;
+	var coupon_of = 0;
+	var add = 0;
+	var reduce = 0;
+	var shipping = 0;
+	var tax = 0;
+	var percen = 0;
+	var qty = 0;
+	var chiec_khau = 0;
+	var pull_price = 0;
+
+	if(orders_list.length > 0){
+		for(let x in orders_list){
+				
+			if(orders_list[x].orders_details_speciality_line_order == "product"){
+				line_product = line_product + orders_list[x].price_caution;
+				qty = qty + orders_list[x].orders_details_speciality_qty;
+				
+			}else if(orders_list[x].orders_details_speciality_line_order == "coupon" ){
+				
+				if(orders_list[x].coupon_speciality_type = '0'){
+					coupon_of = coupon_of + orders_list[x].orders_details_speciality_price
+				}else{
+					coupon = coupon + orders_list[x].orders_details_speciality_price	
+				}				
+
+			}else if(orders_list[x].orders_details_speciality_line_order == "add"){
+				add = add + orders_list[x].orders_details_speciality_price
+
+			}else if(orders_list[x].orders_details_speciality_line_order == "tax"){
+				tax = tax + orders_list[x].orders_details_speciality_price
+				
+			}else if(orders_list[x].orders_details_speciality_line_order == "reduce"){
+				reduce = reduce + orders_list[x].orders_details_speciality_price
+				
+			}else if(orders_list[x].orders_details_speciality_line_order == "shipping"){
+				shipping = shipping + orders_list[x].orders_details_speciality_price		
+				
+			}
+
+		}
+		//@
+		//@
+		data_sum = line_product + add + tax + shipping -( coupon + reduce );
+		percen = line_product * 100 / datas[0].stores_payment_limit;
+	}
+
+
+	chiec_khau = line_product *  datas[0].stores_discount_price / 100;
+	pull_price = line_product - chiec_khau - coupon_of;
+	%>
+	
 	
 	<div class="store_row">
 		<!-- /* Neu cửa hàng chọn thanh toán hạn mức thì hiện cái này */ -->
 		<div class="store_col doanh_thu_han_muc">
-			<h2>Doanh thu</h2>
-			<a href="#" class="btn_bd_green">Yêu cầu thanh toán</a>
+			<h2 style="text-align:center;">Tổng doanh thu</h2>
+			<!--
+				<a href="#" class="btn_bd_green">Yêu cầu thanh toán</a>
+			-->
 			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
 				<circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-				<circle class="circle-chart__circle" stroke="#4a914b" stroke-width="2" stroke-dasharray="62.9,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<circle class="circle-chart__circle" stroke="#4a914b" stroke-width="2" 
+				stroke-dasharray="<%= percen  %>,100" 
+				stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
 				<g class="circle-chart__info">
-					<text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="4.5">12.580.000đ</text>
-					<text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Hạn mức 20.000.000đ</text>
+				
+					<text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="4.5">
+						<%- 
+						ojs_share_all.show_price_vnd(line_product ,0,",",".","đ")    						
+						-%>
+					</text>
+					
+					<text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">
+					Hạn mức <%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>
+					</text>
 				</g>
 			</svg>
-			<p>70 sản phẩm bán ra. Tổng tiền nhận được <span class="orange"><b>11.250.000đ</b></span></p>
+			<p>Sản phẩm bán ra :<b> [ <%= qty  %> ]</b></span></p>
+			<p>Mã giảm giá (coupon) : <span class="orange"><b>
+				<%- 
+				ojs_share_all.show_price_vnd(coupon_of ,0,",",".","đ")    						
+				-%>
+			</b></span></p>
+			<p>chiếc khấu DALA : <span class="orange"><b>
+				<%- 
+				ojs_share_all.show_price_vnd(chiec_khau ,0,",",".","đ")    						
+				-%>
+			</b></span></p>			
 		</div>
+		
+		
+		
+		<!-- -----------------------------------
+		// sản pham đang khuyen mai 
+		--------------------------------------->		
 		
 		
 		<div class="store_col store_sp_km">
 			<h2>Sản phẩm đang khuyến mãi</h2>
 			<ul>
+			<% 
+			if(product_sale.length > 0){
+			for(let x in product_sale){	
+			%>			
 				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="orange">65.000đ <i class="fas fa-long-arrow-alt-right"></i> 39.000đ</div>
+					<a href="/products/speciality/show/<%= product_sale[x].products_speciality_ID %>/<%= store_id %>">
+						<div class="sp_img"><img src="<%- ojs_share.unCape(product_sale[x].products_speciality_featured_image) %>"></div>
+						<h3><%- ojs_share.unCape(product_sale[x].products_speciality_name) %></h3>
+						<div class="orange">
+						<%- ojs_share_all.show_price_vnd(product_sale[x].products_speciality_price ,0,",",".","đ") %>
+						<i class="fas fa-long-arrow-alt-right"></i>
+						<%- ojs_share_all.show_price_vnd(product_sale[x].products_speciality_sale_of_price ,0,",",".","đ") %></div>
 					</a>
 				</li>
-				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="orange">65.000đ <i class="fas fa-long-arrow-alt-right"></i> 39.000đ</div>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="orange">105.000đ <i class="fas fa-long-arrow-alt-right"></i> 99.000đ</div>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="orange">129.000đ</div>
-					</a>
-				</li>
+			<% 
+			}
+			}	
+			%>					
 			</ul>
+		
+			
 		</div>
+		
+		
+		
+		<!-- -----------------------------------
+		// sản pham đang khuyen mai 
+		--------------------------------------->		
+		
+		
+		<!-- -----------------------------------
+		// sản pham ban chay
+		--------------------------------------->
+
+		
+		
 		<div class="store_col store_sp_ban_chay">
 			<h2>Sản phẩm bán chạy</h2>
 			<ul>
+			<% 
+			if(product_sale_max.length > 0){
+			for(let x in product_sale_max){	
+			%>				
+			
 				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="sp_price">90.000đ</div>
+					<a href="/products/speciality/show/<%= product_sale_max[x].orders_details_speciality_product_id %>/<%= store_id %>">
+						<% 
+						if(product_max_detail.length > 0){
+						for(let xx in product_max_detail){
+						if(product_max_detail[xx].products_speciality_ID == product_sale_max[x].orders_details_speciality_product_id ){
+						%>						
+						
+						<div class="sp_img"><img src="<%- product_max_detail[xx].products_speciality_featured_image  %>"></div>
+						<h3>						
+						<%- product_max_detail[xx].products_speciality_name  %>						
+						</h3>
+						<div class="sp_price">
+							<%- ojs_share_all.show_price_vnd(product_max_detail[xx].products_speciality_price_caution ,0,",",".","đ") %> 
+							(<%= product_sale_max[x].orders_details_speciality_qty %>) sản phẩm 
+						</div>
+						<% 
+						}
+						}	
+						}
+						%>							
+						
+						
+						
 					</a>
 				</li>
-				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="sp_price">90.000đ</div>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<div class="sp_img"><img src="https://appdala.net/wp-content/uploads/vo-buoi-mat-ong.jpg"></div>
-						<h3>Mứt dâu tây lọ 200g</h3>
-						<div class="sp_price">90.000đ</div>
-					</a>
-				</li>
+			<% 
+			}
+			}	
+			%>					
+				
 			</ul>
 		</div>
 	</div>
 	
+	
+		<!-- -----------------------------------
+		// sản pham ban chay
+		--------------------------------------->	
+	
+	
+	
+	
 	<div class="store_box_content">
 		<div class="store_thang_nay">
-
+			<p>Tiền được rút về tài khoản ngân hàng</p>
+			<p style="font-size:22px;"><strong><%- ojs_share_all.show_price_vnd(pull_price ,0,",",".","đ") %> </strong></p>
 		</div>
 	</div>		
 
