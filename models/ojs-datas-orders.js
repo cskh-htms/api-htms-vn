@@ -54,6 +54,16 @@
 	
 	
 	
+13.[get_orders_arr_admin]	
+	- lấy arr order yêu cầu thanh toán	
+	
+14.[get_stores_arr_admin]	
+	- lấy arr order yêu cầu thanh toán	 detail theo arr
+	
+15.[get_stores_details_admin]
+	- lấy danh sách detial theo order arr (admin)
+
+	
 */
 
 
@@ -63,6 +73,147 @@
 
 
 const ojs_datas_orders = {
+	
+	
+	
+	//@
+	//@	
+	//@	
+	//@
+	//@	15.[get_stores_details_admin]
+	get_stores_details_admin : function(){
+		let datas_return = 			
+			{
+				"datas" :   {
+					"select_field" :
+					[
+					"orders_speciality_ID",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"orders_details_speciality_price",
+					"price_caution",
+					"coupon_speciality_type"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[  
+								{
+									"field" : "orders_speciality_status_pull_money" ,
+									"value" : 2,
+									"compare" : "="
+								}					
+							]    
+						}         
+					]
+				}
+			}	
+		return datas_return;			
+	},		
+	//@
+	//@	
+	//@	
+	//@
+	//@	
+	
+	//@
+	//@	
+	//@	
+	//@
+	//@	
+	//@	14.[get_stores_arr_admin]	
+	get_stores_arr_admin : function(){
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_type" : "DISTINCT",
+					"select_field" :
+					[
+					"stores_name",
+                    "stores_phone",
+                    "stores_adress",
+                    "stores_province",
+                    "stores_district",
+                    "stores_wards",					
+					"orders_speciality_store_id",
+					"stores_discount_price"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[  
+								{
+									"field" : "orders_speciality_status_pull_money" ,
+									"value" : 2,
+									"compare" : "="
+								}					
+							]    
+						}         
+					]
+				}
+			}		
+		return datas_return;			
+	},		
+	//@
+	//@	
+	//@	
+	//@
+	//@			
+	
+	
+	//@
+	//@	
+	//@	
+	//@
+	//@	
+	//@	13.[get_orders_arr_admin]	
+	get_orders_arr_admin : function(){
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_type" : "DISTINCT",
+					"select_field" :
+					[
+					"orders_speciality_store_id",
+					"orders_speciality_ID"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[  
+								{
+									"field" : "orders_speciality_status_pull_money" ,
+									"value" : 2,
+									"compare" : "="
+								}					
+							]    
+						}         
+					]
+				}
+			}	
+		return datas_return;			
+	},		
+	//@
+	//@	
+	//@	
+	//@
+	//@		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//@

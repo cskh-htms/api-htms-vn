@@ -1,0 +1,253 @@
+
+<% 
+if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
+if( typeof js_css_version == 'string' && js_css_version  && js_css_version.length > 0){} else{ js_css_version="" } 
+%>
+
+
+<% include ../masterpage/loader %>
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-admins.js"></script>	
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../masterpage/header %>
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><%= title %></h1>
+	<div class="admin_content">
+		<div class="admin_col01">
+			<div class="store_row_btn">
+				<ul class="store_don_hang">	
+					<li>
+						<a href="">
+							<span class="number">
+								3
+							</span>Chờ xác nhận
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="number">
+								2
+							</span>Chờ lấy hàng
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="number">
+								6
+							</span>Đang giao
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="number">
+								1
+							</span>Đổi trả
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="admin_thang_nay white_box">
+				<h2>Tháng này</h2>
+				<ul>	
+					<li>
+						<a href="/orders/speciality/">
+							<span class="number">
+								120
+							</span>Đơn hàng
+						</a>
+					</li>
+					<li>
+							<span class="number">
+								5.000.000đ
+							</span>Doanh thu
+						
+					</li>
+					<li>
+							<span class="number">
+								500.000đ
+							</span>Lợi nhuận
+					</li>
+				</ul>
+			</div>
+			<div class="admin_ctkm white_box">
+				<h2>CT khuyến mãi</h2>
+				<div class="duyet_sp_km">Sản phẩm chờ duyệt: <span class="green">4</span></div>
+				<a href="/discount-program/" class="btn_bd_green_small">Xem tất cả</a>
+				<div class="slide_km">
+					<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg" />
+					<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg" />
+					<img src="https://appdala.net/wp-content/uploads/muc-day-giam-gia_03.jpg" />
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="admin_col02">
+			<div class="admin_phe_duyet white_box">
+				<h2>Chờ phê duyệt</h2>
+				<ul>
+					<li>
+						<a href="#">
+							<h3>Mứt dâu tây lọ 200g</h3>
+							<div class="li_type">Sản phẩm</div>
+						</a>
+						<a href="#" class="duyet_btn">
+							<i class="fas fa-check-circle green"></i>
+							Duyệt
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<h3>Cà phê rang xay</h3>
+							<div class="li_type">Danh mục</div>
+						</a>
+						<a href="#" class="duyet_btn">
+							<i class="fas fa-check-circle green"></i>
+							Duyệt
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<h3>Highland</h3>
+							<div class="li_type">Thương hiệu</div>
+						</a>
+						<a href="#" class="duyet_btn">
+							<i class="fas fa-check-circle green"></i>
+							Duyệt
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="admin_thanh_toan white_box">
+				<h2>Chờ thanh toán</h2>
+				<ul>
+					<li>
+						<a href="#">
+							<h3>Đặc sản Bảo Bảo</h3>
+							<div>Số tiền: 1.500.000đ</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<h3>Đặc sản Văn Lực</h3>
+							<div>Số tiền: 2.500.000đ</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<h3>Đặc sản Quốc Vương</h3>
+							<div>Số tiền: 3.500.000đ</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- ---------
+	//thong ke theo cua hang
+	---------- -->
+		
+		<h1>Thống kê doanh thu theo cửa hàng</h1>
+		<div class="report_wrap report_wrap_payment" id="report_wrap_payment">
+			<div class="report_bock report_bock_payment">
+				<ul class="report_link_box report_bock_payment">
+					<li class="one report_link">
+						<a href="#" class="" data_send="hom_nay">Hôm nay</a>
+					</li>
+					<li class="one report_link" >
+						<a href="#"  data_send="hom_qua">Hôm qua</a>
+					</li>				
+					<li class="one report_link">
+						<a href="#" data_send="tuan_nay">Tuần này</a>
+					</li>
+					<li class="one report_link">
+						<a href="#"  data_send="thang_nay" >tháng này</a>
+					</li>		
+					<li class="one report_link">
+						<a href="#"  data_send="thang_truoc" class="">tháng trước</a>
+					</li>	
+					<li class="one report_link">
+						<a href="#"  data_send="view_all" class="report_active">Tất cả</a>
+					</li>					
+				</ul>
+			</div>
+			<div class="custom_date">Từ ngày: <input type="text" id="datepicker_payment"> đến ngày <input type="text" id="datepicker2_payment"><button id="btn_date_payment"  class="btn_date">Xem</button></div>
+		</div>	
+		
+		<div id="ajax_load_payment" class="ajax_load"">
+		<% include ../masterpage/widget-bussiness-report-stores %>		
+		</div>	
+
+			
+	<!-- ---------
+	//end of thong ke theo cua hang
+	---------- -->	
+	
+	
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+	
+	
+	
+	<!--
+	<%- ojs_share.show_news_admin_menu_home_page(news_admin_menu); -%>
+	-->
+	
+	
+	
+	
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+<script>
+	$(document).ready(function(){
+	//////////////////////////////////////////////
+		
+		
+	/////////////////////////////////////////////////		
+	});
+</script>	
+
+
+
+
+
+
+
+<% include ../masterpage/loader-end %>

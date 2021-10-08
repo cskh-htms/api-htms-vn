@@ -149,6 +149,7 @@ content
 
 	chiec_khau = line_product *  datas[0].stores_discount_price / 100;
 	pull_price = line_product - chiec_khau - coupon_of;
+	tong_dt = line_product;
 	%>
 	
 	
@@ -403,7 +404,7 @@ content
 					</div>	
 					
 					<%
-					if(order_arr_pull[s] == 0){
+					if(order_arr_pull[s] == 0  && tong_dt > datas[0].stores_payment_limit ){
 					%>	
 					
 						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
@@ -414,19 +415,27 @@ content
 					}else if(order_arr_pull[s] == 1){
 					%>	
 						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
-							<div class="btn-no-pull btn-design"  style="padding:5px;color:gray;" dala_order_id="<%= order_arr[s] %>" >Yêu cầu rút tiền</div>
+							<div class="btn-no-pull btn-design"  style="padding:5px;background-color: #ccc;pointer-events: none;" dala_order_id="<%= order_arr[s] %>" >Yêu cầu rút tiền</div>
 						</div>
 						
 					<%
 					}else if(order_arr_pull[s] == 2){
 					%>							
 						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
-							<div class="btn-ok-pull btn-design"  style="padding:5px;color:blue;" dala_order_id="<%= order_arr[s] %>" >Đã yêu cầu rút tiền</div>
+							<div class="btn-ok-pull btn-design"  style="padding:5px;background-color: #ccc;pointer-events: none;" dala_order_id="<%= order_arr[s] %>" >Đã yêu cầu rút tiền</div>
 						</div>						
 						
 					<%
-					}
+					}else{
 					%>	
+					
+						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
+							<div class="btn-pull-x btn-design " style="padding:5px;background-color: #ccc;pointer-events: none;" dala_order_id="<%= order_arr[s] %>" >Chưa đủ hạn mức</div>
+						</div>					
+					<%
+					}
+					%>						
+					
 
 				</div>
 				

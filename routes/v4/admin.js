@@ -38,6 +38,10 @@ const ojs_shares_date = require('../../models/ojs-shares-date');
 const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 
+
+const ojs_datas_orders = require('../../models/ojs-datas-orders');
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -67,6 +71,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 //@
 //@ 1. [/]
 router.get('/', async  function(req, res, next) {
+try {	
 	//@
 	//@
 	//@
@@ -140,56 +145,121 @@ router.get('/', async  function(req, res, next) {
 	//             list-datas-all
 	// -------------------------------------------------
 	
-	//@
-	//@
-	//@ data_order
-	var data_order_copy = {...ojs_configs.orders_all};	
-	var data_order_data_edit = {
-		'status_admin_compare':'<>',
-		'status_admin_value':'1',
-		'user_compare':'<>',
-		'status_payment_compare':'<>',
-		'status_payment_compare':'100',
-		'line_order_compare':'<>',
-		'line_order_value':'100',
-		};
-	var data_order_ok = Object.assign(data_order_copy,data_order_data_edit);
-
 
 	//@
 	//@
-	//@
-	//@ datas brand
-	var datas_get_all_list_datas_all = {
-		'token':token,
-		'token_job':ojs_configs.token_supper_job,
-		'user_id' : 0,
-		'store_id' : 0,
-		'datas_order': data_order_ok,
-	}
+	//@	
+	//@ Lấy option tager
+	var store_arr;
+	try {
+		
+		var datas_send = ojs_datas_orders.get_stores_arr_admin();
+		//res.send( datas_send );
+		//return;
+		store_arr = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user/',datas_send,ojs_configs.token_supper_job);
+		
+		//res.send(store_arr);
+		//return;
 	
-	//res.send( datas_get_all_list_datas );	
-	//return;		
-	var get_all_list_datas_all;
-	try{
-		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		if(store_arr.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, store_arr.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins-store_arr", "message": error_send } ); 
+			return;				
+		}
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//res.send(get_all_list_datas_all);
+		if(store_arr.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins-store_arr", "message": error_send } ); 
+			return;				
+		}
+	}	
+
+
+	//res.send(store_arr);
 	//return;
 
 
 
 
+	//@
+	//@
+	//@	
+	//@ Lấy option tager
+	var orders_arr;
+	try {
+		
+		var datas_send = ojs_datas_orders.get_orders_arr_admin();
+		//res.send( datas_send );
+		//return;
+		orders_arr = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user/',datas_send,ojs_configs.token_supper_job);
+		
+		//res.send(orders_arr);
+		//return;
+	
+		if(orders_arr.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, orders_arr.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins-orders_arr", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		if(orders_arr.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins-orders_arr", "message": error_send } ); 
+			return;				
+		}
+	}	
 
 
+	//res.send(orders_arr);
+	//return;
+
+
+	//@
+	//@
+	//@	
+	//@ Lấy option tager
+	var orders_details;
+	try {
+		
+		var datas_send = ojs_datas_orders.get_stores_details_admin();
+		//res.send( datas_send );
+		//return;
+		orders_details = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search_user/',datas_send,ojs_configs.token_supper_job);
+		
+		//res.send(orders_details);
+		//return;
+	
+		if(orders_details.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, orders_details.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins->orders_details", "message": error_send } ); 
+			return;				
+		}
+	}
+	catch(error){
+		if(orders_details.error != ""){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "31.router_app->admins-orders_details", "message": error_send } ); 
+			return;				
+		}
+	}	
+
+
+	//res.send(orders_details);
+	//return;
 
 
 
@@ -204,7 +274,9 @@ router.get('/', async  function(req, res, next) {
 		'sidebar_type'		:  "",
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu,
-		'get_all_list_datas_all':get_all_list_datas_all
+		'store_arr'			: store_arr.datas,
+		"orders_arr"		: orders_arr.datas,
+		'orders_details'	: orders_details.datas
 	}
 
 
@@ -218,7 +290,9 @@ router.get('/', async  function(req, res, next) {
 		'sidebar_type'		:  "",
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu,
-		'get_all_list_datas_all':get_all_list_datas_all,
+		'store_arr'			: store_arr.datas,
+		"orders_arr"		: orders_arr.datas,
+		'orders_details'	: orders_details.datas,
 		'datas_info':datas_info
 	}
 
@@ -229,6 +303,18 @@ router.get('/', async  function(req, res, next) {
 	
 	
 	res.render( ojs_configs.view_version + '/users/admin', data_send );	
+
+
+}
+catch(error){
+	if(orders_list.error != ""){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "113.router_app->admins", "message": error_send } ); 
+		return;				
+	}
+}	
 
 });
 //end of get admin

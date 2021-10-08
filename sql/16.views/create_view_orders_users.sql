@@ -10,17 +10,15 @@ SELECT
 dala_orders_speciality.* , 
 dala_orders_details_speciality.* , 
 dala_coupon_speciality.*,
-
+dala_stores.*,
 dala_orders_details_speciality_qty * dala_orders_details_speciality_price as dala_price_caution,
 
 dala_products_speciality_ID, 
 dala_products_speciality_name,
 
 dala_users_ID,
-dala_users_full_name,
+dala_users_full_name
 
-dala_stores_ID,
-dala_stores_name
 
 FROM  
 dala_orders_details_speciality   

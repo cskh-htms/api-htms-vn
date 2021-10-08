@@ -28,7 +28,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "dev";
+					//ojs_loader.evn = "dev";
 					//console.log(result);
 					//ojs_loadding.ajax_hide_loadding();	
 					//return;
