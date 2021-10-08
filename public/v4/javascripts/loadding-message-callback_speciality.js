@@ -13,6 +13,7 @@
 	* 2.1 [push_dala]
 	* 2.2 [push_ghtk]
 	* 2.3 [yeu_cau_rut_tien]
+	* 2.4 [thanh_toan_yeu_cau_rut_tien]	
 
 3. SHIPPER
 	* 3.1 [shipper_cap_nhat_order]
@@ -119,7 +120,20 @@ ojs_loadding_message_callback = {
 		
 	},//huy_tham_gia_discount
 
-
+	//@
+	//@
+	//@ 2.4 [thanh_toan_yeu_cau_rut_tien]
+	thanh_toan_yeu_cau_rut_tien:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let order_id = datas_parse.order_id;
+		let datas_send = datas_parse.datas;
+		
+		//console.log(datas_send);
+		//return;
+		
+		ojs_orders.thanh_toan_yeu_cau_rut_tien(datas_send,order_id);
+		
+	},//huy_tham_gia_discount
 
 	//@
 	//@

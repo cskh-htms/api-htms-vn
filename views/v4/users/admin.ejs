@@ -8,7 +8,7 @@ if( typeof js_css_version == 'string' && js_css_version  && js_css_version.lengt
 <% include ../masterpage/loader %>
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-admins.js"></script>	
-
+<script src="../../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -202,7 +202,35 @@ end content
 	$(document).ready(function(){
 	//////////////////////////////////////////////
 		
-		
+	//@
+	//@
+	//@
+	$(document).on('click','.btn-pull',function(e) {	
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("dala_order_id");
+		var datas={
+			"datas":
+				{
+					"orders_speciality_status_pull_money":1
+				}
+		}
+		//alert(order_id);
+		//return;
+		//
+		//@
+		let x = "xác nhận thanh toan tiền cho cửa hàng";		
+		let y = "thanh_toan_yeu_cau_rut_tien";//function name in callback 
+		let z = ' { "order_id" : "' + order_id + '", "datas":' + JSON.stringify(datas) + ' }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});	
+
+
+
+
+
+	
 	/////////////////////////////////////////////////		
 	});
 </script>	
