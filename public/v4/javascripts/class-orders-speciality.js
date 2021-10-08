@@ -44,7 +44,7 @@ $(document).ready(function($){
 								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được orders");
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã update orders",location.href);
+							ojs_message.message_ok_show(" Đã gữi yêu cầu rút tiền tới DALA ",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
