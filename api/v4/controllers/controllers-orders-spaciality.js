@@ -23,6 +23,8 @@
 
 * 10. [search_order_product_count]
 
+* 11. [yeu_cau_rut_tien]
+
 
 */
 
@@ -1489,15 +1491,11 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
 		res.send({ "error" : "1", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } ); 
 		return;			
 	}	
-
-
-
-
 
 	//@
 	//@
@@ -1509,7 +1507,7 @@ try {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
 			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } ); 
 			return;				
@@ -1517,7 +1515,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
 		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_order_product_count", "message":  error_send  } );  
 		return;	
@@ -1533,6 +1531,109 @@ catch(error){
 }
 //@
 //@ * end of 10. [search_order_product_count]
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ 11.[yeu_cau_rut_tien]
+async function yeu_cau_rut_tien(req, res, next) {
+try {
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var order_id = req.params.order_id;
+		var token = req.headers['token'];
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->yeu_cau_rut_tien", "message":  error_send  } );
+		return;			
+	}		
+	
+	//@
+	//@	
+	//@
+	//@
+	//@ kiểm tra phân quyền 
+	try{
+		var datas_check = {
+			"token":token,
+			"order_id":order_id
+		}		
+		
+		var check_datas_result;		
+		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy phân quyền user, Liên hệ bộ phận HTKT dala" );
+		res.send({ "error" : "2", "position":"ctl-orders-spaciality->yeu_cau_rut_tien", "message":  error_send  } );
+		return;			
+	}
+	
+	//res.send(check_datas_result);
+	//return;			
+	
+	
+		
+	//@
+	//@
+	//@	
+	//@
+	try {
+		models_orders_spaciality.yeu_cau_rut_tien(datas,order_id).then( results => {
+			res.send( {"error" : "", "datas" : results} );
+			return;
+		}, error => {
+			var message_error = default_field.get_message_error(error);
+			
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
+			res.send({ "error" : "4", "position":"ctl-orders-spaciality->yeu_cau_rut_tien", "message":  error_send  } ); 
+			return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, check_datas_result.error, "Lỗi yeu_cau_rut_tien , vui lòng liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-orders-spaciality->yeu_cau_rut_tien", "message":  error_send  } );
+		return;	
+	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn, check_datas_result.error, "Lỗi yeu_cau_rut_tien , vui lòng liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->yeu_cau_rut_tien", "message":  error_send  } );
+	return;	
+}		
+}
+//@
+//@
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1555,7 +1656,8 @@ module.exports = {
 	search_user,
 	search_count_order_by_user,
 	send_order_sms,
-	search_order_product_count
+	search_order_product_count,
+	yeu_cau_rut_tien
 };
 
 /*

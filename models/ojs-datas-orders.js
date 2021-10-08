@@ -880,7 +880,7 @@ const ojs_datas_orders = {
 							},
 							{
 								"field" : "orders_speciality_status_orders" ,
-								"value" : [status_number],
+								"value" : [100],
 								"compare" : "not in"
 							}							
 						]    

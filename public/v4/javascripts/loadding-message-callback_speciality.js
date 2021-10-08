@@ -12,7 +12,7 @@
 2. ORDER
 	* 2.1 [push_dala]
 	* 2.2 [push_ghtk]
-
+	* 2.3 [yeu_cau_rut_tien]
 
 3. SHIPPER
 	* 3.1 [shipper_cap_nhat_order]
@@ -70,11 +70,11 @@ ojs_loadding_message_callback = {
 	//@
 	//@
 	/*---------------------------------------
-	          1. ORDER
+	         2. ORDER
 	// -------------------------------------*/
 	//@
 	//@
-	//@ 1.1 [push_dala]
+	//@ 2.1 [push_dala]
 	push_dala:function(datas){
 		let datas_parse = JSON.parse(datas);
 		//let sipper_id = datas_parse.shipper_id;
@@ -90,7 +90,7 @@ ojs_loadding_message_callback = {
 
 	//@
 	//@
-	//@ 1.2 [push_ghtk]
+	//@ 2.2 [push_ghtk]
 	push_ghtk:function(datas){
 		let datas_parse = JSON.parse(datas);
 		//let sipper_id = datas_parse.shipper_id;
@@ -104,7 +104,20 @@ ojs_loadding_message_callback = {
 	},//huy_tham_gia_discount
 
 
-
+	//@
+	//@
+	//@ 2.3 [yeu_cau_rut_tien]
+	yeu_cau_rut_tien:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let order_id = datas_parse.order_id;
+		let datas_send = datas_parse.datas;
+		
+		//console.log(datas_send);
+		//return;
+		
+		ojs_orders.yeu_cau_rut_tien(datas_send,order_id);
+		
+	},//huy_tham_gia_discount
 
 
 

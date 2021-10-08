@@ -2,7 +2,7 @@
 <% include ../masterpage/loader %>
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
-
+<script src="../../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>
 
 
 
@@ -286,12 +286,168 @@ content
 	
 	
 	
+
+		<!-- -----------------------------------
+		// thanh toan
+		--------------------------------------->
+
 	
 	<div class="store_box_content">
 		<div class="store_thang_nay">
-			<p>Tiền được rút về tài khoản ngân hàng</p>
+			<p>Tiền được rút về</p>
 			<p style="font-size:22px;"><strong><%- ojs_share_all.show_price_vnd(pull_price ,0,",",".","đ") %> </strong></p>
 		</div>
+		
+		<div class="store_thang_nay" style="width: 66%;background-color: transparent;border: 1px solid #ccc;color: #000;">
+			<% 
+			//@
+			//@
+			//@
+			//@tao arr order
+			var order_arr = [];
+			var order_arr_pull = [];
+			
+			var order_line = 0;	
+			for(let x in orders_list){	
+				if(order_line == 0 ){ 
+					order_line = orders_list[x].orders_speciality_ID;
+					order_arr.push(order_line);
+					order_arr_pull.push(orders_list[x].orders_speciality_status_pull_money);
+				}else{
+					if(order_line > 0 &&  orders_list[x].orders_speciality_ID != order_line){
+						order_arr.push(orders_list[x].orders_speciality_ID);
+						order_arr_pull.push(orders_list[x].orders_speciality_status_pull_money);
+					}
+					order_line = orders_list[x].orders_speciality_ID;
+					
+				}
+			}	
+			%>	
+			
+			
+			<% 
+			//@
+			//@
+			//@
+			//@show order line
+			for(let s in order_arr){	
+				let data_sum = 0;
+				let line_product = 0;
+				let coupon = 0;
+				let coupon_of = 0;
+				let add = 0;
+				let reduce = 0;
+				let shipping = 0;
+				let tax = 0;
+				let percen = 0;
+				let qty = 0;
+				let chiec_khau = 0;
+				let pull_price = 0;	
+				
+				for(let x in orders_list){	
+					if(orders_list[x].orders_speciality_ID == order_arr[s]){
+						
+						if(orders_list[x].orders_details_speciality_line_order == "product"){
+							line_product = line_product + orders_list[x].price_caution;
+							qty = qty + orders_list[x].orders_details_speciality_qty;
+							
+						}else if(orders_list[x].orders_details_speciality_line_order == "coupon" ){
+							
+							if(orders_list[x].coupon_speciality_type = '0'){
+								coupon_of = coupon_of + orders_list[x].orders_details_speciality_price
+							}else{
+								coupon = coupon + orders_list[x].orders_details_speciality_price	
+							}				
+
+						}else if(orders_list[x].orders_details_speciality_line_order == "add"){
+							add = add + orders_list[x].orders_details_speciality_price
+
+						}else if(orders_list[x].orders_details_speciality_line_order == "tax"){
+							tax = tax + orders_list[x].orders_details_speciality_price
+							
+						}else if(orders_list[x].orders_details_speciality_line_order == "reduce"){
+							reduce = reduce + orders_list[x].orders_details_speciality_price
+							
+						}else if(orders_list[x].orders_details_speciality_line_order == "shipping"){
+							shipping = shipping + orders_list[x].orders_details_speciality_price		
+							
+						}
+						
+					}
+				}//enf of for orders_list	
+				chiec_khau = line_product *  datas[0].stores_discount_price / 100;
+				pull_price = line_product - chiec_khau - coupon_of;
+				%>
+				
+				<div class="line-box" style="display: flex;justify-content: space-between;">
+					<div class="inner">
+						<p><strong>Mã đơn hàng</strong></p>
+						<p>[ #<%= order_arr[s] %> ]</p>
+					</div>
+					<div class="inner">
+						<p><strong>Tổng tiền</strong></p>
+						<p><%- ojs_share_all.show_price_vnd( line_product ,0,",",".","đ")  -%></p>
+					</div>		
+					<div class="inner">
+						<p><strong>coupon</strong></p>
+						<p><%- ojs_share_all.show_price_vnd( coupon_of ,0,",",".","đ")  -%></p>
+					</div>						
+					<div class="inner">
+						<p><strong>chiếc khấu</strong></p>
+						<p><%- ojs_share_all.show_price_vnd( chiec_khau ,0,",",".","đ")  -%></p>
+					</div>		
+
+					<div class="inner">
+						<p><strong>Tiền nhận</strong></p>
+						<p><%- ojs_share_all.show_price_vnd( pull_price ,0,",",".","đ")  -%></p>
+					</div>	
+					
+					<%
+					if(order_arr_pull[s] == 0){
+					%>	
+					
+						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
+							<div class="btn-pull btn-design no-pull" style="padding:5px;" dala_order_id="<%= order_arr[s] %>" >Yêu cầu rút tiền</div>
+						</div>
+					
+					<%
+					}else if(order_arr_pull[s] == 1){
+					%>	
+						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
+							<div class="btn-no-pull btn-design"  style="padding:5px;color:gray;" dala_order_id="<%= order_arr[s] %>" >Yêu cầu rút tiền</div>
+						</div>
+						
+					<%
+					}else if(order_arr_pull[s] == 2){
+					%>							
+						<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
+							<div class="btn-ok-pull btn-design"  style="padding:5px;color:blue;" dala_order_id="<%= order_arr[s] %>" >Đã yêu cầu rút tiền</div>
+						</div>						
+						
+					<%
+					}
+					%>	
+
+				</div>
+				
+				
+				<%				
+			} //enf of for show order line	
+			%>		
+			
+			
+
+			
+		</div>		
+		
+		
+		
+		<!-- -----------------------------------
+		// end of thanh toan
+		--------------------------------------->		
+		
+		
+		
 	</div>		
 
 	</div>	
@@ -342,7 +498,48 @@ end content
 	$(document).ready(function(){
 	//////////////////////////////////////////////
 
-		
+	//@
+	//@
+	//@
+	$(document).on('click','.btn-pull',function(e) {	
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("dala_order_id");
+		var datas={
+			"datas":
+				{
+					"orders_speciality_status_pull_money":2
+				}
+		}
+		//alert(order_id);
+		//return;
+		//
+		//@
+		let x = "xác nhận rút tiền";		
+		let y = "yeu_cau_rut_tien";//function name in callback 
+		let z = ' { "order_id" : "' + order_id + '", "datas":' + JSON.stringify(datas) + ' }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});		
+
+	//@
+	//@
+	//@
+	$(document).on('click','.btn-no-pull',function(e) {	
+		//@
+		e.preventDefault();	
+		ojs_message.message_ok_show("Chưa đủ hạn mức rút tiền");
+		return;
+	});		
+	//@
+	//@
+	//@
+	$(document).on('click','.btn-ok-pull',function(e) {	
+		//@
+		e.preventDefault();	
+		ojs_message.message_ok_show(" Đã yêu cầu rút tiền rồi");
+		return;
+	});		
 	/////////////////////////////////////////////////		
 	});
 </script>	

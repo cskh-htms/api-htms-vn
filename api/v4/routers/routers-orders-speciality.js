@@ -24,6 +24,9 @@
 
 11. [search-order-product-count]
 
+12. [yeu-cau-rut-tien]
+
+
 */
 
 const express = require('express');
@@ -152,7 +155,13 @@ router.post('/search-order-product-count', middle_ware, controllers_orders_spaci
 
 
 
-
+//@
+//@
+//@
+//@
+//@
+//@* 12. [yeu-cau-rut-tien]
+router.put('/yeu-cau-rut-tien/:order_id', middle_ware, controllers_orders_spaciality.yeu_cau_rut_tien);
 
 
 

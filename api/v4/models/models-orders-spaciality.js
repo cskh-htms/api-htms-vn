@@ -20,9 +20,9 @@
 
 11. [get_store_id]
 
-100. [search_order_product_count]
+12. [yeu_cau_rut_tien]
 
-
+13. [search_order_product_count]
 
 */
 
@@ -77,7 +77,11 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "orders_speciality_store_id  as orders_speciality_store_id , " +
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "orders_speciality_date_orders," + "'%Y/%m/%d %H:%i:%s'"  + ") as orders_speciality_date_orders, " + 		
 	ojs_configs.db_prefix  + "orders_speciality_status_orders as orders_speciality_status_orders, " + 
-	ojs_configs.db_prefix  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 	
+	ojs_configs.db_prefix  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 
+	ojs_configs.db_prefix  + "orders_speciality_company as orders_speciality_company, " + 
+
+
+	
 	
 	ojs_configs.db_prefix  + "orders_speciality_phone as orders_speciality_phone, " + 
 	ojs_configs.db_prefix  + "orders_speciality_adress as orders_speciality_adress, " + 
@@ -125,11 +129,7 @@ var sql_from_search_customer = 	" from " + ojs_configs.db_prefix + "view_orders_
 var sql_from_search_user = " from " + ojs_configs.db_prefix + "view_orders_users " ;
 
 var sql_from_search_count_order_by_user = " from " + ojs_configs.db_prefix + "view_count_order_by_user" ;
-
-
-var sql_from_search_order_product_count = " from " + ojs_configs.db_prefix + "view_order_count_product" ;
-
-
+var sql_from_view_order_count_product = " from " + ojs_configs.db_prefix + "view_order_count_product" ;
 
 
 
@@ -165,6 +165,8 @@ const insert_orders_spaciality = async function (datas,data_details) {
 			"orders_speciality_notes"					: mysql.escape(datas.orders_speciality_notes).replace(/^'|'$/gi, ""),
 			
 			
+			
+			
 			"orders_speciality_province"				: mysql.escape(datas.orders_speciality_province).replace(/^'|'$/gi, ""),		
 			"orders_speciality_district"				: mysql.escape(datas.orders_speciality_district).replace(/^'|'$/gi, ""),	
 			"orders_speciality_wards"					: mysql.escape(datas.orders_speciality_wards).replace(/^'|'$/gi, ""),
@@ -173,6 +175,7 @@ const insert_orders_spaciality = async function (datas,data_details) {
 			
 			"orders_speciality_status_orders"			: datas.orders_speciality_status_orders,
 			"orders_speciality_status_payment"			: datas.orders_speciality_status_payment,
+			"orders_speciality_company"					: datas.orders_speciality_company,
 			"orders_speciality_shipping_code"			: mysql.escape(datas.orders_speciality_shipping_code).replace(/^'|'$/gi, "")			
 	}
 
@@ -633,58 +636,6 @@ const search_count_order_by_user = async function (datas) {
 //@ end of * 10. [search_count_order_by_user]	
 
 
-//@	
-//@	
-//@	
-//@	
-//@	
-//@ * 100. [search_order_product_count]
-const search_order_product_count = async function (datas) {
-	//@
-	//@
-	//@
-	try {	
-		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_order_product_count,sql_link_search_view);
-					
-	}
-	catch(error){
-		return  { "error" : "model-orders-spaciality->search_order_product_count->error-nymber : 1", "message" : error } ;
-	}
-	
-	
-	
-	//return get_sql_search_group;
-	
-	//@
-	//@
-	//@
-	//@
-	try {	
-		return new Promise( (resolve,reject) => {
-			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
-				resolve(results);
-			} );
-		} );
-	}
-	catch(error){
-		return  { "error" : "01.model_orders_speciality->search_order_product_count : 2", "message" : error } ;
-	}
-};
-//@	
-//@ end of * 100. [search_order_product_count]	
-
-
-
-
-
-
-
-
-
-
-
 
 //@
 //@
@@ -734,11 +685,79 @@ const get_store_id = async function (product_id) {
 
 
 
-
-
-
-
-
+//@
+//@
+//@
+//@ 12. [yeu_cau_rut_tien]
+const yeu_cau_rut_tien = async function (datas,order_id) {
+	///sql_text = "START TRANSACTION ;"
+	///sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "products_speciality  SET ? ;";
+	///sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";
+	///sql_text = sql_text + " COMMIT;"
+		
+	//create sql text
+	let sql_text = 'UPDATE ' + 
+				ojs_configs.db_prefix +  "orders_speciality   SET " + 
+				ojs_configs.db_prefix + "orders_speciality_status_pull_money = " + datas.orders_speciality_status_pull_money + 
+				" WHERE " + ojs_configs.db_prefix + "orders_speciality_ID = " + order_id + " ";				
+					
+					
+	//return 		sql_text;		
+					
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_orders_speciality>update->error : 1", "message" : error } ;
+	}
+};	
+//@	
+//@ end of 4. [yeu_cau_rut_tien]
+	
+	
+//@
+//@
+//@	
+//@ 13.[search_order_product_count]
+const search_order_product_count = async function (datas) {
+	
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view_order_count_product,sql_link_search_view);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_order_product_count : 1", "message" : error } ;
+	}
+	
+	
+	
+	//return get_sql_search_group;
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_order_product_count : 2", "message" : error } ;
+	}
+};
 
 
 
@@ -762,7 +781,8 @@ module.exports = {
 	get_owner_order,
 	search_count_order_by_user,
 	get_store_id,
-	search_order_product_count
+	search_order_product_count,
+	yeu_cau_rut_tien
 };
 
 

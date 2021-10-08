@@ -193,11 +193,13 @@ const ojs_datas_bussiness = {
 				"select_field" :
 				[ 
 					"stores_ID",
+					"orders_speciality_ID",
 					"orders_details_speciality_line_order",
 					"orders_details_speciality_qty" ,
 					"orders_details_speciality_price",
 					"coupon_speciality_type",
-					"price_caution"					
+					"price_caution",
+					"orders_speciality_status_pull_money"
 				],
 				"condition" : 
 				[
@@ -211,6 +213,10 @@ const ojs_datas_bussiness = {
 						{	"field"		:"orders_speciality_status_orders",
 							"value" 	: 100,
 							"compare" : "="
+						},
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 1,
+							"compare" : "<>"
 						}
 						]	
 					}				

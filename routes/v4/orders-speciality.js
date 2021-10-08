@@ -83,10 +83,76 @@ const ojs_datas_users = require('../../models/ojs-datas-users');
 
 12. [push-ghtk]
 
-
+13. [/yeu_cau_rut_tien/:order_id]
 
 --------------------------------------------------------------
 */
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 13. [/yeu_cau_rut_tien/:order_id]
+router.post('/yeu-cau-rut-tien/:order_id', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var order_id = req.params.order_id;
+		var datas = req.body;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "orders-speciality -> yeu-cau-rut-tien-> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//@
+	//@
+	//res.send( datas  ); 
+	//return;	
+	
+	try {	
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/yeu-cau-rut-tien/' + order_id,datas, token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update cửa hàng. vui lòng liên hệ admin" );
+		res.send({ "error" : "5.1.router_bussiness(app)->yeu-cau - rut -tien_update ", "message": error_send } ); 
+		return;	
+	}		
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //@
 //@
@@ -115,7 +181,7 @@ router.post('/push-ghtk/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> push-ghtk-> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> push-ghtk-> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	//res.send( [token,datas] );	
@@ -167,7 +233,7 @@ router.post('/push-data/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	//res.send( [token,datas] );	
@@ -223,7 +289,7 @@ router.post('/update/:order_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -295,7 +361,7 @@ router.post('/detail/update/:detail_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -373,7 +439,7 @@ router.get('/detail/delete/:detail_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -448,7 +514,7 @@ router.get('/delete/:order_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -517,7 +583,7 @@ router.post('/save_fee', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -593,7 +659,7 @@ router.get('/show/:order_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -842,7 +908,7 @@ router.post('/load/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -970,7 +1036,7 @@ router.get('/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -1181,7 +1247,7 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}	
 	
@@ -1314,7 +1380,7 @@ router.post('/ajax_load_order_bussiness_store/', async  function(req, res, next)
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "orders-speciality -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	

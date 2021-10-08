@@ -20,6 +20,7 @@
 		"orders_speciality_notes"				: "",
 		"orders_speciality_phone"				: "",
 		"orders_speciality_email"				: "",
+		"orders_speciality_company"				: 0,
 		
 		
 		"orders_speciality_province"			: "",
