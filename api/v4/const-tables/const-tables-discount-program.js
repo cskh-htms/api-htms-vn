@@ -51,7 +51,7 @@
 		}else if(error.sqlMessage.search("discount_program_name_store_id_created") >= 0){
 			return "Không tìm thấy cửa hàng";
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+			return "Có lỗi thao tác. nếu bạn muốn xoá chương trình thì hãy xoá các cửa hàng tham gia trước, nếu bạn đang tạo chương trình mới hãy kiểm tra lại dữ liệu. nếu không hãy thông báo admin DALA";
 		}
 	}	
 	//@

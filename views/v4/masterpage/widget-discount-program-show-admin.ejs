@@ -14,9 +14,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 					<span>Tên chương trình : </span><div><strong>
 					<%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong>
 					</div>
-					<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>
-					/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>
-				</div>
+					<a href="/admin/discount/show/<%= discount_program_list[x].discount_program_ID %>/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a></div>
 			
 			
 				<div class="discount-status">

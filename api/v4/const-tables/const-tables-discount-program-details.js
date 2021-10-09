@@ -54,7 +54,7 @@
 			
 			
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin, chương trình giảm giá details";
+			return "Có lỗi thao tác. nếu bạn muốn xoá cửa hàng tham gia chương trình thì hãy xoá các sản phẩm tham gia trước, nếu bạn đang tạo chương trình mới hãy kiểm tra lại dữ liệu. nếu không hãy thông báo admin DALA";
 		}
 	}	
 	//@

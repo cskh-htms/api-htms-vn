@@ -1,0 +1,360 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../../masterpage/loader %>
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality.js"></script>	
+
+
+
+
+
+
+
+
+
+<% //neu admin thi hien muc nay
+sidebar_type = 3;
+menu_taget = "sidebar_category";
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled "
+}
+
+%>
+
+
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../../masterpage/header %>
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content category">
+
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+	<a href="/categorys/general/speciality/<%= store_id %>">Danh mục</a><i class="fas fa-chevron-right"></i>Sửa danh mục</h1>
+
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<div class="pro_box ten_sp_box">
+				<h3>Tên danh mục</h3>
+				<div class="inside">
+					<input type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
+				</div>
+			</div>
+			
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
+			<div class="pro_box" style="display: none">
+				<h3>Mô tả danh mục</h3>
+				<div class="inside">
+					<textarea  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
+					<%- ojs_share.unCape(datas[0].category_general_speciality_infomation) %>
+					</textarea>
+				</div>
+			</div>
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea  id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
+				</div>
+			</div>	
+
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//danh muc chung
+			------------------- -->
+			<div id="category_general_wrap" class="value_row pro_box">
+				<h3>Danh mục cha</h3>
+				<div id="category_general_box" class="inside">
+					<select name="category_general" id="category_general_speciality_category_parent_id" >
+						<% include ../../../masterpage/widget-category-general-check-box %>
+					</select>
+				</div>
+			</div>
+			<!-- ------------------
+			//danh muc chung
+			------------------- -->
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share.unCape( datas[0].category_general_speciality_featured_image ) %>" 
+						style="display:none;" 
+					/>
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//sap xep 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Sắp xếp<span class="giai-thich"><span>Để sắp xếp thứ tự danh mục trong cửa hàng, ưu tiên số thấp(muốn danh mục đứng đầu nhập '0')</span></span></h3>
+				<div class="inside">
+					<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" id="category_general_speciality_sort_order" />
+				</div>
+			</div>
+			
+			<div class="pro_box">
+				<h3>Ẩn hiện danh mục</h3>
+				<div class="select-wrap inside">
+					<select id="category_general_speciality_show" <%- enable_text3 %>>
+						<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
+					</select>		
+				</div>
+			</div>
+			
+
+			<div class="pro_box">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="category_general_speciality_stores_status"  <%- enable_text3 + " " + enable_text2 %> >
+						<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
+					</select>
+				</div>
+			</div>
+
+			
+			<div class="pro_box">
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<select id="category_general_speciality_admin_status" <%- enable_text3 %>>
+						<%- ojs_share.show_status_select_share_all(datas[0].category_general_speciality_admin_status ) %>
+					</select>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+
+
+
+	<div class="btn_box">
+		<a href="/categorys/general/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
+		<%
+		if( datas[0].category_general_speciality_stores_status == "0" ){
+		%>	
+			<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
+		<%	
+		}
+		%>			
+
+		<button id="btn_save" class="btn_save">Lưu</button>
+	</div>	
+		
+
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="cat_id" value="<%= cat_id %>"/>
+	<input type="hidden" id="store_id" value="<%= datas[0].category_general_speciality_stores_id %>"/>
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	
+	var user_id = $('#user_id').val();
+	
+	//
+	//@
+		
+		
+	
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
+	});			
+	//		
+	//	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	var store_id = $('#store_id').val();	
+	var cat_id = $('#cat_id').val();	
+	$(document).on('click','#btn_draf',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		
+		datas.datas.category_general_speciality_stores_status = 0;
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_category_general_speciality.ajax_update(datas,cat_id);
+	});
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		datas.datas.category_general_speciality_stores_status = 1;
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_category_general_speciality.ajax_update(datas,cat_id);
+	});	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function get_datas(){
+		let category_general_speciality_name = $('#category_general_speciality_name').val();
+		let category_general_speciality_sort_order = $('#category_general_speciality_sort_order').val();
+	
+
+		//@
+		let category_general_speciality_featured_image = $('#featured_image').attr('data_value');
+		//@
+		let category_general_speciality_category_parent_id = $('#category_general_speciality_category_parent_id  option:selected').val();
+		let category_general_speciality_show = $('#category_general_speciality_show  option:selected').val();		
+		//@
+		let category_general_speciality_infomation = $('#noi_dung').val();
+		
+		let category_general_speciality_admin_status = $('#category_general_speciality_admin_status  option:selected').val();
+		let category_general_speciality_stores_status = $('#category_general_speciality_stores_status  option:selected').val();
+		
+		
+		let category_general_speciality_qoute = $('#category_general_speciality_qoute').val();
+		
+		
+			
+		
+		//
+		let datas = {
+			"datas":{
+				category_general_speciality_name : category_general_speciality_name,
+				category_general_speciality_category_parent_id :  category_general_speciality_category_parent_id,
+				category_general_speciality_infomation : category_general_speciality_infomation,
+				category_general_speciality_featured_image : category_general_speciality_featured_image,
+				category_general_speciality_sort_order : category_general_speciality_sort_order,
+				category_general_speciality_show : category_general_speciality_show,
+				category_general_speciality_stores_id : store_id,
+				category_general_speciality_qoute : category_general_speciality_qoute,
+				category_general_speciality_admin_status : category_general_speciality_admin_status,
+				category_general_speciality_stores_status: category_general_speciality_stores_status
+			}
+		}
+		
+		
+		return datas;
+	}
+		
+			
+		
+
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../../../masterpage/loader-end %>
