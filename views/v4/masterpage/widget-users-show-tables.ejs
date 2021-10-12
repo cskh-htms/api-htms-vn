@@ -29,17 +29,10 @@
 					<span class="edit"><a href="/users/show/<%= users_list[x].users_ID %>">Chỉnh sửa</a> | </span>
 					<span class="edit"><a href="/notes/add/<%= users_list[x].users_ID %>">Gửi tin nhắn</a> | </span>
 					
-					<%
-					if(users_list[x].users_status == '1'){
-					%>
-					
+			
 					<span class="edit"><a href="/users-tracking/unlock/<%= users_list[x].users_ID %>">unlock</a> | </span>
 					
-					<%
-					}
-					%>
-					
-					
+
 					
 					<%
 					if(users_type == "admin"  && users_list[x].users_type_name == "bussiness"){

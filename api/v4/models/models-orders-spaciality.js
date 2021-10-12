@@ -234,7 +234,7 @@ const insert_orders_spaciality = async function (datas,data_details) {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
-			} );
+			});
 		} );		
 	}
 	catch(error){

@@ -37,7 +37,7 @@ const ojs_shares_send_code_to_phone = {
 			"sign": "158237f5bf43931e398b679fb5cfb636",
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
-			"code": 1234,
+			"code": code,
 			"brandName": "DALA"
 		} 
 		
@@ -47,7 +47,7 @@ const ojs_shares_send_code_to_phone = {
 			'sign=' + datas.sign + '&' +
 			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
 			'phoneNumber=' + datas.phoneNumber + '&' + 
-			'message=DALA mat khau moi cua ban la: ' + datas.code + '&'+
+			'message=Quy khach da dat hang thanh cong tai DALA. Don hang so: [' +  code +  ' ]. Cam on quy khach da mua hang tai DALA' + '&' +
 			'brandName=' + datas.brandName;
 		
 			//res.send(url);

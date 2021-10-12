@@ -333,6 +333,9 @@ try{
 	//@
 	try {
 		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail).then( results => {
+			
+			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+						
 			res.send( {"error" : "", "datas" : results} );
 			return;
 			//
@@ -597,6 +600,7 @@ try {
 		res.send({ "error" : "1", "position":"ctl-orders-spaciality->update", "message":  error_send  } );
 		return;			
 	}		
+	
 	
 	//@
 	//@	
