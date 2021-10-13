@@ -33,14 +33,18 @@ var	enable_text = " disabled " ;
 var	enable_text2 = " " ;
 var	enable_text3 = " disabled " ;
 
+
+var admin_view = " admin_hide ";
+
+
+
 if(user_role =="admin"){ 
 	enable_text3 = "" ;
-	enable_text2 = " disabled "
+	enable_text2 = " disabled ";
+	admin_view = " admin_show "
 }
 
 %>
-
-
 
 
 
@@ -69,7 +73,7 @@ content
 			
 			
 			
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box" style="display:none;" >
 				<h3>Phí tham gia 
 					<span class="giai-thich">
 					<span>
@@ -86,7 +90,7 @@ content
 			</div>			
 			
 		
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Phí trên mỗi sản phẩm bán ra
 					<span class="giai-thich">
 					<span>
@@ -106,10 +110,10 @@ content
 		
 		
 			
-			<div class="pro_box trang_thai_box ">
-				<h3>Đơn vị thanh toán</h3>
+			<div class="pro_box trang_thai_box " >
+				<h3>Loại chương trình khuyến mãi</h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Cửa hàng hay DALA chịu trả tiền khuyến mãi</span></span>
+					<span>Hướng dẫn : </span><span class="giai-thich"><span>Dùng cho chỉ cửa hàng tạo hay tất cả các cửa hàng</span></span>
 					<select id="discount_program_type">
 						<%- ojs_share.show_ddiscount_program_type(datas[0].discount_program_type) -%>
 					</select>						
@@ -129,7 +133,9 @@ content
 			</div>	
 			
 			
-			
+			<% 
+			if(user_role == "admin"){
+			%>	
 			<div class="pro_box trang_thai_box ">
 				<h3>Vị trí chương trình khuyến mãi</h3>
 				<div class="inside">
@@ -140,12 +146,29 @@ content
 				</div>
 			</div>				
 			
+			<%
+			}else{
+			%>
+			
+			<div class="pro_box trang_thai_box <%= admin_view %>">
+				<h3>Vị trí chương trình khuyến mãi</h3>
+				<div class="inside">
+					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị trên trang chủ app</span></span>
+					<select id="discount_program_position">
+						<option value="0" selected="">vị trí trên cùng slider</option>
+					</select>						
+				</div>
+			</div>				
+			
+			<%
+			}
+			%>
 			
 			<!-- ------------------
 			//thông tin danh mục
 			------------------- -->
 			<div class="value_row">
-				<span>Nội dung chương trình</span>
+				<span>Nội dung chương trình</span><br>
 				<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%">
 				<%- ojs_share.unCape(datas[0].discount_program_information) -%>
 				</textarea>
@@ -155,14 +178,7 @@ content
 			------------------- -->			
 			
 			
-			<div class="pro_box ten_sp_box">
-				<h3>Lời nhắn</h3>
-				<div class="inside">
-					<textarea class="asd"  id="discount_program_qoute"  rows="10" cols="100%">
-						<%- datas[0].discount_program_qoute -%>
-					</textarea>
-				</div>
-			</div>	
+
 
 
 			
@@ -191,7 +207,7 @@ content
 			------------------- -->		
 		
 		
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Giá tính mỗi ngày
 					<span class="giai-thich">
 					<span>
@@ -209,7 +225,7 @@ content
 			</div>			
 		
 		
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Giá tính mỗi sản phẩm
 					<span class="giai-thich">
 					<span>
@@ -227,7 +243,7 @@ content
 			</div>			
 		
 		
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Giới hạn sản phẩm mỗi cửa hàng
 					<span class="giai-thich">
 					<span>
@@ -242,7 +258,7 @@ content
 			</div>			
 		
 	
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Giới hạn ngày tham gia mỗi cửa hàng
 					<span class="giai-thich">
 					<span>
@@ -271,8 +287,19 @@ content
 		
 		
 		
+			<div class="pro_box ten_sp_box">
+				<h3>Lời nhắn</h3>
+				<div class="inside">
+					<textarea class="asd"  id="discount_program_qoute"  rows="10" cols="100%">
+						<%- datas[0].discount_program_qoute -%>
+					</textarea>
+				</div>
+			</div>	
+
+
+			
 		
-			<div class="pro_box trang_thai_box ">
+			<div class="pro_box trang_thai_box <%= admin_view %>">   
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
 					<span>ADMIN:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>

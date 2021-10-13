@@ -32,10 +32,14 @@ page wrap
 var	enable_text = " disabled " ;
 var	enable_text2 = " " ;
 var	enable_text3 = " disabled " ;
+var admin_view = " admin_hide ";
+
+
 
 if(user_role =="admin"){ 
 	enable_text3 = "" ;
 	enable_text2 = " disabled "
+	admin_view = " admin_show "
 }
 
 %>
@@ -191,7 +195,7 @@ content
 	
 	
 
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box"  style="display:none;" >
 				<h3>Tổng phí tham gia
 					<span class="giai-thich">
 					<span>
@@ -229,7 +233,7 @@ content
 					<input type="text" disabled class= "" value="<%- ojs_share.show_date_null(discount_program_tager[0].discount_program_date_end) -%>"/>
 				</div>		
 			</div>
-			<div class="pro_box trang_thai_box ">
+			<div class="pro_box trang_thai_box <%= admin_view %> ">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
 					<span>ADMIN:</span><span class="giai-thich"><span>Yêu cầu tham gia chương trình phải được admin phê duyệt</span></span>
