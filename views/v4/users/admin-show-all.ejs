@@ -37,21 +37,23 @@ content
 		</div>
 		<div class="loc_wrap">
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả phân quyền</option>
-				<option id="checking" value="[0]">Defaul</option>
-				<option id="edit" value="[2]">Supper job</option>
-				<option id="refuse" value="[3]">Shiper</option>
-				<option id="checked" value="[1]">Customer</option>
-				<option id="checked" value="[1]">Business</option>
-				<option id="checked" value="[1]">Admin</option>
+				<option id="all" value="[13,14,15,16,17,18]">Tất cả phân quyền</option>
+				<option id="checking" value="[16]">Defaul</option>
+				<option id="edit" value="[17]">Supper job</option>
+				<option id="refuse" value="[18]">Shipper</option>
+				<option id="checked" value="[15]">Customer</option>
+				<option id="checked" value="[14]">Business</option>
+				<option id="checked" value="[13]">Admin</option>
 			</select>
 		</div>
 	</div>	
 	
 	
-	<% 
-	include ../masterpage/widget-users-show-tables 
-	%>
+	<div id="ajax-wrap">
+	<div class="ajax-inner">
+			<% include ../masterpage/widget-users-show-tables 	%>
+	</div>
+	</div>
 
 	
 
@@ -102,9 +104,12 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
 	//@
-	//xoa
+	//@
+	//@
+	//@
+	//@
+	//@	
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
@@ -117,9 +122,35 @@ $(document).ready(function($){
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});			
-	//		
-	//	
-	//
+
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@	
+	$("#loc_trang_thai").change(function() {
+		let user_id = $('#user_id').val();
+		let status_admin = $('#loc_trang_thai').val();
+		
+		var datas = {
+			"datas":{
+				user_id 	: 0,
+				status_admin : JSON.parse(status_admin)
+			}
+		}	
+		//console.log(datas);
+		//return;
+
+		ojs_users.ajax_load_users_list(datas);
+	});
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////
 });//end of document
 </script>

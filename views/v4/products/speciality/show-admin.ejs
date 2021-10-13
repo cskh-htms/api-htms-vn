@@ -58,7 +58,7 @@ content
 				<div class="inside">
 					<p><span>Mã sku</span>
 						<input type="text" value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
-					<p><span>Tồn kho</span>
+					<p  style="display:none;" ><span>Tồn kho</span>
 						<input  
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_stock %>"  
@@ -76,7 +76,16 @@ content
 						id="products_speciality_weight" 
 						/> 
 					</p>
-					<p><span>Chiều dài(cm)</span>
+					<p><span>Giá bán</span>
+						<input 
+						class="number_change" 
+						data_value="<%= datas[0].products_speciality_price %>" 
+						type="text" 
+						value="<%- ojs_share_all.show_price_format(datas[0].products_speciality_price,0,",",".","") %>" 
+						id="products_speciality_price" /> 
+					</p>					
+					
+					<p  style="display:none;" ><span>Chiều dài(cm)</span>
 						<input 
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_length %>" 							
@@ -85,7 +94,7 @@ content
 						id="products_speciality_length" 
 						/> 
 					</p>
-					<p><span>Chiều rộng(cm)</span>
+					<p style="display:none;" ><span>Chiều rộng(cm)</span>
 						<input 
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_width %>" 							
@@ -94,7 +103,7 @@ content
 						id="products_speciality_width" 
 						/> 
 					</p>
-					<p><span>Chiều cao(cm)</span>
+					<p style="display:none;" ><span>Chiều cao(cm)</span>
 						<input 
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_height %>" 							
@@ -111,17 +120,10 @@ content
 				</div>
 			</div>
 			
-			<div class="pro_box gia_box">
+			<div class="pro_box gia_box"  style="display:none;" >
 				<h3>Giá sản phẩm</h3>
 				<div class="inside">
-					<p><span>Giá bán</span>
-						<input 
-						class="number_change" 
-						data_value="<%= datas[0].products_speciality_price %>" 
-						type="text" 
-						value="<%- ojs_share_all.show_price_format(datas[0].products_speciality_price,0,",",".","") %>" 
-						id="products_speciality_price" /> 
-					</p>
+
 					
 					<p><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
 						<input 

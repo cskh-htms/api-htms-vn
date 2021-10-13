@@ -19,6 +19,23 @@ page wrap
 
 
 
+
+<% //neu admin thi hien muc nay
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled "
+}
+
+%>
+
+
+
+
+
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
 </script>	
@@ -44,7 +61,7 @@ content
 			<div class="pro_box thuoc_tinh_box">
 				<h3>Thuộc tính</h3>
 				<div class="inside">
-					<p><span>Mã sku</span><input type="text" disabled value="" id="products_speciality_sku" /> </p>	
+					<p><span>Mã sku</span><input type="text" <%= enable_text3 %> value="" id="products_speciality_sku" /> </p>	
 					<p><span>Tồn kho</span><input class="number_change" data_value="" type="text" value="" id="products_speciality_stock" /> </p>
 					<p><span>Cân nặng(g)</span><input  class="number_change" data_value="0"  type="text" value="500" id="products_speciality_weight" /> </p>
 					<p><span>Chiều dài(cm)</span><input class="number_change" data_value=""  type="text" value="" id="products_speciality_length" /> </p>

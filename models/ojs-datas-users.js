@@ -182,7 +182,7 @@ const ojs_datas_users = {
 						"where" :
 						[  
 							{   
-								"field"     :"users_type_name",
+								"field"     :"users_users_type_id",
 								"value"     : datas.status_admin_value,
 								"compare" 	: datas.status_admin_compare
 							},

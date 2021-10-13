@@ -28,9 +28,37 @@ content
 	<div class="store_content">
 	<div class="white_box">
 		<p><span>Tên cửa hàng</span><input type="text" class= "" value="" id="stores_name"/></p>
-		<br>
+	
 		
-		</br>
+		<!-- -----------
+		//chon user
+		-------------- -->
+		
+		<p>
+		<span>Chọn TK doanh nghiệp</span>
+		<select id="stores_user_id">
+			<option value="0">Tài khoản đăng nhập</option>
+		<%
+		for(var i = 0; i < users_list.length; i ++){ %>
+			<option value="<%= users_list[i].users_ID %>"><%= users_list[i].users_full_name %></option>
+		<%	
+		}
+		%>
+		
+		
+		</select>
+		<span class="giai-thich"><span>Tài khoản quản lý cửa hàng</span></span>
+		</p>		
+		
+		
+		<!-- -----------
+		//chon user
+		-------------- -->			
+		
+		
+		
+		<br>		
+		<br>
 		<div class="select-box-tinh-thanh">
 		<span>Tỉnh thành</span>
 		<select id="select_stores_province">
@@ -68,9 +96,9 @@ content
 		
 		
 		
-		<p><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
+		<p style="display:none;"><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
 		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
-		<p><span>Tọa độ y</span><input type="text" class= "" value="" id="stores_local_y"/></p>
+		<p style="display:none;"><span>Tọa độ y</span><input type="text" class= "" value="" id="stores_local_y"/></p>
 		<p style="display:none"><span>Local address</span><input type="text" class= "" value="" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
 		<br>
 		<br>
@@ -80,7 +108,7 @@ content
 	<div class="white_box">
 
 
-		<div id="loai_service_wrap">
+		<div id="loai_service_wrap" style="display:none;">
 		<span>Loại dịch vụ</span>
 		<select name="stores_service_type_id" id="stores_service_type_id">
 			<option value="0">Chọn dịch vụ</option>
@@ -111,39 +139,16 @@ content
 			<input type="text"  id="stores_discount_price" value="0"/>
 		</p>		
 		
-		<p>
+		<p style="display:none;">
 		<span>Trạng thái cửa hàng:</span>
-		<select id="stores_status_admin">
+		<select id="stores_status_admin" style="display:none;">
 			<%- ojs_share.show_status_product() %>
 		</select>
 		<span class="giai-thich"><span>Cửa hàng đã kích hoạt hay chưa, chọn "đã phê duyệt" để hiển kích hoạt cửa hàng.</span></span>
 		</p>
 		
 		
-		<!-- -----------
-		//chon user
-		-------------- -->
-		
-		<p>
-		<span>Chọn TK doanh nghiệp</span>
-		<select id="stores_user_id">
-			<option value="0">Chọn một tài khoản</option>
-		<%
-		for(var i = 0; i < users_list.length; i ++){ %>
-			<option value="<%= users_list[i].users_ID %>"><%= users_list[i].users_full_name %></option>
-		<%	
-		}
-		%>
-		
-		
-		</select>
-		<span class="giai-thich"><span>Tài khoản doanh nghiệp</span></span>
-		</p>		
-		
-		
-		<!-- -----------
-		//chon user
-		-------------- -->		
+	
 		
 		<!--
 		<p>
@@ -178,7 +183,7 @@ content
 	
 
 <div class="btn_box">
-	<button id="btn_save" class="btn_save">Lưu</button>
+	<button id="btn_save" class="btn_save">Tạo cửa hàng</button>
 </div>	
 	
 
@@ -318,10 +323,7 @@ $(document).ready(function($){
 		
 		
 		var stores_service_type_id = $('#stores_service_type_id  option:selected').val();		
-		if(stores_service_type_id == 0  || stores_service_type_id == "0"){
-			ojs_message.message_ok_show("chọn loại service");
-			return;
-		}
+
 		
 		if(stores_user_id == 0  || stores_user_id == "0"){
 			ojs_message.message_ok_show("chọn một tài khoản doanh nghiệp");
@@ -340,7 +342,7 @@ $(document).ready(function($){
 				stores_phone :stores_phone,
 				stores_logo_image : stores_logo_image,
 				stores_user_id: stores_user_id,
-				stores_service_type_id : stores_service_type_id,
+				stores_service_type_id : 3,
 				stores_province : stores_province,
 				stores_district : stores_district,
 				stores_wards : stores_wards,
@@ -350,7 +352,7 @@ $(document).ready(function($){
 				stores_local_adress : stores_local_adress,		
 				stores_payment_limit : stores_payment_limit,
 				stores_info_banking : stores_info_banking,
-				stores_status_admin : stores_status_admin,
+				stores_status_admin : 1,
 				stores_status_stores : 1,
 				stores_discount_price : stores_discount_price
 			}

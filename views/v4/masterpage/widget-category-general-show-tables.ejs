@@ -40,7 +40,7 @@
 							
 								<% //neu nếu đã chấp nhận thì ko cho update nua
 								if( datas_category_general[x].category_general_speciality_update_status != "1"   || user_role == "admin"){ %>							
-									<span class="edit"><a href="/admin/category/<%= datas_category_general[x].category_general_speciality_ID %>/<%= datas_category_general[x].stores_ID %>">Chỉnh sửa</a> | </span>
+									<span class="edit"><a href="/admin/category/show/<%= datas_category_general[x].category_general_speciality_ID %>/<%= datas_category_general[x].stores_ID %>">Chỉnh sửa</a> | </span>
 									<span class="delete"><a href="#" data_cat_id="<%= datas_category_general[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
 								<% //enf of if
 								}
@@ -76,7 +76,7 @@
 
 										<% //neu nếu đã chấp nhận thì ko cho update nua
 										if( datas_category_general[y].category_general_speciality_update_status != "1"   || user_role == "admin"){ %>										
-											<span class="edit"><a href="/admin/category/show/<%= datas_category_general[y].category_general_speciality_ID %>/<%= datas_category_general[y].stores_ID %>"">Chỉnh sửa</a> | </span>
+											<span class="edit"><a href="/admin/category/show/<%= datas_category_general[y].category_general_speciality_ID %>/<%= datas_category_general[y].stores_ID %>">Chỉnh sửa</a> | </span>
 											<span class="delete"><a  data_cat_id="<%= datas_category_general[y].category_general_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
 									
 										<% //enf of if
@@ -112,7 +112,7 @@
 
 												<% //neu nếu đã chấp nhận thì ko cho update nua
 												if( datas_category_general[z].category_general_speciality_update_status != "1"   || user_role == "admin"){ %>										
-													<span class="edit"><a href="/admin/category/show/<%= datas_category_general[z].category_general_speciality_ID %>/<%= datas_category_general[z].stores_ID %>"">Chỉnh sửa</a> | </span>
+													<span class="edit"><a href="/admin/category/show/<%= datas_category_general[z].category_general_speciality_ID %>/<%= datas_category_general[z].stores_ID %>">Chỉnh sửa</a> | </span>
 													<span class="delete"><a href="#"  data_cat_id="<%= datas_category_general[z].category_general_speciality_ID %>"  class="submitdelete">Xóa</a></span>
 												<% //enf of if
 												}

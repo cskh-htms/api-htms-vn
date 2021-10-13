@@ -71,10 +71,146 @@ const ojs_datas_users = require('../../models/ojs-datas-users.js');
 
 6. [/delete]
 
+7. [/ajax-users-list/]
 
 --------------------------------------------------------------
 */
 
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 7 [/ajax-users-list/]
+router.post('/ajax-users-list/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		var user_id = datas.user_id;	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	
+	
+	
+	
+	
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	//@
+	//@
+	//@
+	//@ datas_user_all
+	var data_user_order = [{'field':'users_date_created','compare':'DESC'}];
+	var data_user_order_edit = {'order':data_user_order};
+	var data_user_order_copy = {...ojs_configs.datas_all_admin};	
+	var data_user_order_assign = Object.assign(data_user_order_copy,data_user_order_edit);
+	//@
+	var data_user_data_edit = {
+		'status_admin_compare':'in',
+		'status_admin_value':datas.status_admin,
+		'status_store_compare':'<>',
+		'status_store_value':'1000'
+		};
+	//@
+	var data_user_ok = Object.assign(data_user_order_assign,data_user_data_edit);
+	
+
+	
+	
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'datas_user': data_user_ok,
+	}
+	
+	//res.send( datas_get_all_list_datas_all );	
+	//return;		
+	
+	
+	var get_all_list_datas_all;
+	try{
+		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
+		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	
+	
+	//res.send( get_all_list_datas_all );	
+	//return;	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		data_send = {
+			'users_list' 		: get_all_list_datas_all[1].datas,
+			'user_id':user_id,
+			'user_role'	: ojs_shares_others.get_users_type(token),
+			'users_type' : ojs_shares_others.get_users_type(token)
+		}
+		res.render( ojs_configs.view_version + '/masterpage/widget-users-show-tables', data_send );	
+
+		//res.send( data_send );	
+		//return;	
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu users", "Lỗi lấy dữ liệu users" );
+		res.send({ "error" : "32.router_users(app)->ajax-users_list", "message": error_send } ); 
+		return;	
+	}
+
+});
+//@
+//@ end of
+//@ 3 [/ajax-option-list-no/]
 
 
 //@
@@ -101,7 +237,7 @@ router.get('/delete/:user_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -166,7 +302,7 @@ router.post('/update/:user_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -233,7 +369,7 @@ router.get('/show/:user_id', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -388,7 +524,7 @@ router.post('/save', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -452,7 +588,7 @@ router.get('/add', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	
@@ -581,7 +717,7 @@ router.get('/', async function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
 	

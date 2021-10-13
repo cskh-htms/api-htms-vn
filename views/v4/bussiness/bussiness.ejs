@@ -27,8 +27,16 @@ content
 --------------------- -->
 <div id="content" class="content">
 
+
+<%
+if(store_id > 0 ){
+%>	
+
+
 	<h1><%= title %></h1>
 
+
+	
 
 
 	<!-- --------------------
@@ -79,11 +87,15 @@ content
 			<%- ojs_share.unCape(datas[0].stores_province) %></span></p>
 			<p>Hạn mức: <span><%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %></span></p>
 		</div>	
+		
+		
+		<div>
+		<a id="change_pass" style="right: 175px;" class="store_btn_ql" href="<%= user_id %>">Thay đổi mật khẩu</a>
 		<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= user_id %>">
 			Quản lý
 			<span><%= go_sum %></span>
 		</a>
-
+		</div>
 
 	<!-- --------------------
 		//2. end of hiển thị cửa hàng
@@ -466,6 +478,22 @@ content
 	--------------------- -->
 
 
+<%
+}else{
+%>
+<br>
+<br>
+<br>
+<h1 style="text-align:center;width:100%;">Chưa có cửa hàng</h1>
+<%
+}
+%>
+
+
+
+
+
+
 
 
 </div>
@@ -549,6 +577,62 @@ end content
 		ojs_message.message_ok_show(" Đã yêu cầu rút tiền rồi");
 		return;
 	});		
+	
+	
+
+
+	//@
+	//@
+	//@
+	//@ 
+	$(document).on('click','#change_pass',function(e) {	
+		//@
+		e.preventDefault();	
+		var user_id = $('#change_pass').attr('href');
+		let html = "" + 
+		'<div class="ajax-box">' + 
+			'<div class="ajax-box-inner">' + 
+				'<h1> Nhập mật khẩu mới </h1>' + 
+				'<textarea rows="10" cols="50" id="tu-choi-content"></textarea>' + 
+				'<div class="btn-tu-choi-go" style="text-align:right">' + 
+					'<span id="send" data_user_id="' + user_id + '" class="btn-design">save</span>' + 
+				'</div>' + 
+			'</div>';	
+		'</div>';
+		
+		
+		ojs_loadding.ajax_show_content( html );
+		//@
+	});		
+	
+	
+	//@
+	//@
+	//@
+	//@ 	
+	$(document).on('click','#send',function(e) {	
+		//@
+		e.preventDefault();		
+		var user_id = $(this).attr("data_user_id");
+		var content = $('#tu-choi-content').val();
+		
+		var datas = {
+			"datas": {   
+				"user_id" : user_id ,
+				"user_pass":content
+			}
+		}
+		//console.log( datas );
+		//return;
+
+		ojs_bussiness.change_pass(datas);
+		//@
+	});		
+	
+	
+	
+	
+	
 	/////////////////////////////////////////////////		
 	});
 </script>	
@@ -576,3 +660,21 @@ end content
 
 
 <% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

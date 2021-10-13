@@ -71,9 +71,9 @@ content
 	<div class="store_content">
 	<div class="white_box">
 		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
-		<div id="loai_service_wrap">
-			<span>Loại dịch vụ </span>
-			<select name="stores_service_type_id" id="stores_service_type_id">
+		<div id="loai_service_wrap"  style="display:none;" >
+			<span >Loại dịch vụ </span>
+			<select name="stores_service_type_id" id="stores_service_type_id" style="display:none;" >
 				<option value="0">Chọn service</option>
 				<% include ../masterpage/widget-service-type %>
 			</select>
@@ -142,9 +142,9 @@ content
 		
 		
 		
-		<p><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
+		<p  style="display:none;" ><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
 		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
-		<p><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
+		<p  style="display:none;" ><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
 		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
 	</div>
 
@@ -154,9 +154,9 @@ content
 	---------------------------- -->
 
 
-	<div class="white_box">
-		<p><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
-		<p><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
+	<div class="white_box" >
+		<p  style="display:none;" ><span>giới hạn upload hình trong ngày</span><input  <%- status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_day  %>" id="stores_upload_limit_day"/></p>
+		<p  style="display:none;" ><span>giới hạn upload hình trong tháng</span><input  <%-  status_disebale %> type="text" class= "" value="<%= datas[0].stores_upload_limit_month  %>" id="stores_upload_limit_month"/></p>
 		
 		<p>
 			<span>Hạn mức thanh toán</span>
@@ -205,7 +205,8 @@ content
 		<p>
 			<span>Lời nhắn</span>
 			<textarea id="stores_qoute" class="area365" rows="10" cols="100%" placeholder="Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây." ><%- ojs_share.unCape(datas[0].stores_qoute) %></textarea>
-		</p>	-->	
+		</p>	
+		-->	
 	</div>
 
 	<!-- --------------------------
