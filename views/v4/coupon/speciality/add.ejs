@@ -34,9 +34,15 @@ var	enable_text = " disabled " ;
 var	enable_text2 = " " ;
 var	enable_text3 = " disabled " ;
 
+
+var admin_view = " admin_hide ";
+
+
+
 if(user_role =="admin"){ 
 	enable_text3 = "" ;
-	enable_text2 = " disabled "
+	enable_text2 = " disabled ";
+	admin_view = " admin_show "
 }
 
 %>
@@ -68,25 +74,42 @@ content
 			<div class="noi_dung_coupon">
 				<div class="thong_tin_coupon">	
 
-					<p><span>Loại coupon<span>
+					<p style="" class="<%= admin_view %>"><span>Loại coupon<span><br>
 						<select id="coupon_speciality_type">
 							<%- ojs_share.show_coupon_type_select(0) %>
-						</select>	
+						</select>
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/lo%E1%BA%A1i-coupon"  target="_blank"  class="giai_thich_link">
+						<span class="giai-thich"><span>Chọn loại coupon chỉ dành cho cửa ah2ng hay tất cả cửa hàng được dùng</span></span>	
+						</a>						
 					</p>		
 						
 
 					<p>
-					<span>Điều kiện<span>
+					<span>Điều kiện<span><br>
 						<select id="coupon_speciality_condition">
 							<%- ojs_share_coupon.show_coupon_condition_select( 0 ) %>
-							<input 
-								class="number_change" type="text" 
-								data_value="0"
-								value="0" 
-								id="coupon_speciality_condition_value" 
-							/>
 						</select>	
-					</p>	
+						
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Điều kiện để sử dụng mã giảm giá này</span></span>	
+						</a>			
+						
+					<p>
+					<span>Giá trị điều kiện<span><br>
+					<input 
+						class="number_change" type="text" 
+						data_value="0"
+						value="0" 
+						id="coupon_speciality_condition_value" 
+					/>			
+
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span>	
+						</a>
+					
+					</p>
+					
+					
 				</div>
 				<div class="cong_thuc_coupon">
 					<p>
@@ -94,6 +117,11 @@ content
 						<select id="coupon_speciality_formula_price">
 							<%- ojs_share_coupon.show_coupon_formula_select() %>
 						</select>	
+						
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Công thức tình tiền mã giảm giá</span></span>	
+						</a>
+						
 					</p>
 				
 
@@ -104,6 +132,9 @@ content
 							value="0" 
 							id="coupon_speciality_formula_price_value" 
 						/>
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Giá trị công thức tính tiền mã giảm giá</span></span>	
+						</a>						
 					</p>
 				</div>
 				
@@ -115,6 +146,11 @@ content
 							value="" 
 							id="coupon_speciality_price_max" 
 						/>
+						
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/giam-gia-toi-da"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Giá trị giảm giá tối đa cho chương trình khuyến mãi</span></span>	
+						</a>						
+						
 					</p>	
 						
 
@@ -257,7 +293,7 @@ content
 			</div>
 			
 			<!-- Số lượng coupon -->
-			<div class="pro_box">
+			<div class="pro_box"  style="display:none;">
 				<h3>Số lượng coupon</h3>
 				<div class="inside">
 					<input type="text" value="" id="coupon_speciality_limit_number" />
@@ -272,10 +308,14 @@ content
 						<%- ojs_share.show_coupon_multi_select(0) %>
 					</select>	
 				</div>
+				
+				<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dung-chung-ma-giam-gia"  target="_blank" class="giai_thich_link">
+				<span class="giai-thich"><span>Dùng chung với mã giảm giá khác</span></span>	
+				</a>					
 			</div>
 			
 			<!-- KH dùng tối đa -->
-			<div class="pro_box">
+			<div class="pro_box"   style="display:none;">
 				<h3>Mỗi khách dùng tối đa bao nhiêu lần?</h3>
 				<div class="inside">
 					<input 
@@ -293,10 +333,15 @@ content
 				<div class="inside">
 					<textarea class="quote"  id="coupon_speciality_qoute"  rows="10" cols="100%"></textarea>					
 				</div>
+				
+				
+				<span class="giai-thich"><span>Gữi tin nhắn tới admin duyệt sản phẩm</span></span>	
+	
+				
 			</div>	
 			
 			<!-- Trạng thái admin -->
-			<div class="pro_box trang_thai_box ">
+			<div class="pro_box trang_thai_box <%= admin_view %>">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
 					<select id="coupon_speciality_status_admin" <%= enable_text3 %>>

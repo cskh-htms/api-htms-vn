@@ -2927,9 +2927,15 @@ shipper
 }
 
 
-
-
-
+.admin_show{
+	display:block;
+}
+.admin_hide{
+	display:none;
+}
+.giai_thich_link{
+	text-decoration:none;
+}
 /*
 //shipper
 */

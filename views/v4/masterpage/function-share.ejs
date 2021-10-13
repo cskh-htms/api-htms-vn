@@ -222,11 +222,11 @@ ojs_share = {
 		//
 		if(status == 0){
 			result = "" +
-			'<option value="0" selected >DALA trả tiền khuyến mãi</option>' + 
-			'<option value="1"> Cửa hàng trả tiền khuyến mãi</option>';	
+			'<option value="0" selected > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1"> Dùng cho tất cả mọi cửa hàng </option>';	
 		}else if(status == 1){
-			'<option value="0" >DALA trả tiền khuyến mãi</option>' + 
-			'<option value="1" selected> Cửa hàng trả tiền khuyến mãi</option>';				
+			'<option value="0" > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';				
 		
 		}else{
 			result = "" + 
@@ -1064,12 +1064,12 @@ ojs_share = {
 		//
 		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0"  selected>Loại thường</option>' + 
-			'<option value="1">Loại multiline code</option>'
+			'<option value="0"  selected>Chỉ dùng cho cửa hàng tạo</option>' + 
+			'<option value="1">Dùng cho mọi cửa hàng</option>'
 		}else{
 			result = "" + 
-			'<option value="0">selected>Loại thường</option>' + 
-			'<option value="1" selected>Loại multiline code</option>'
+			'<option value="0">selected>Chỉ dùng cho cửa hàng tạo</option>' + 
+			'<option value="1" selected>Dùng cho mọi cửa hàng</option>'
 		}		
 		//	
 		return result;	
