@@ -48,7 +48,8 @@ const ojs_datas_discount_program_store_add = {
 				"discount_program_details_qoute",
 				"discount_program_details_date_created",
 				"discount_program_ID",
-				"discount_program_name"
+				"discount_program_name",
+				"check_date"
 				],
 				"condition" :
 				[				
@@ -100,6 +101,7 @@ const ojs_datas_discount_program_store_add = {
 				"discount_program_name",
 				"discount_program_featured_image",
 				"discount_program_ID",
+				"check_date"
 				],
 				"condition" :
 				[				
@@ -201,7 +203,7 @@ const ojs_datas_discount_program_store_add = {
 						[  
 							{
 								"field" : "discount_program_details_status_admin" ,
-								"value" : [4],
+								"value" : [4,3],
 								"compare" : "not in"
 							}						
 						]    

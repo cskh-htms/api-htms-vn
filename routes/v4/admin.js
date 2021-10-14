@@ -1016,6 +1016,7 @@ router.get('/discount-details/show-admin/:discount_program_id/:discount_program_
 //@
 //@ 6. [/discount-details/show/:discount_program_details_id/:store_id/:discount_program_id]
 router.get('/discount-details/show/:discount_program_details_id/:store_id/:discount_program_id', async function(req, res, next) {
+try {
 	//@
 	//@
 	//@
@@ -1038,22 +1039,11 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "router_discount_program_speciality web -> show all -> get req -> 1", "message": error_send } ); 
+		res.send({ "error" : "1","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 		return;			
 	}
 	
 	
-	//res.send( [discount_program_id,discount_program_details_id] );	
-	//return;	
-	
-	
-	
-	
-	//@
-	//@
-	//var  user_id = ojs_shares_others.get_users_id(token);	
-	
-	//@
 	//@
 	//@
 	//@
@@ -1094,7 +1084,7 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas_store -> 1", "message": error_send } ); 
+		res.send({ "error" : "2","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 		return;			
 	}
 	
@@ -1157,7 +1147,7 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
-		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
+		res.send({ "error" : "3","posittion":"r-w-admin->/discount-details/show/", "message": error_send } );  
 		return;			
 	}
 	
@@ -1203,7 +1193,7 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
+		res.send({ "error" : "4","posittion":"r-w-admin->/discount-details/show/", "message": error_send } );  
 		return;			
 	}
 	
@@ -1218,7 +1208,7 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 	
 	
 	
-	//Lấy option tager
+	//Lấy discount_program_tager
 	var discount_program_tager;
 	try {
 		discount_program_tager = await ojs_shares_fetch_data.get_data_send_token_get(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/' + discount_program_id,token);
@@ -1227,16 +1217,16 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		if(discount_program_tager.error != ""){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy option taget" );
-			res.send({ "error" : "35.router_discount_program_speciality(app)->show", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy discount_program_tager" );
+			res.send({ "error" : "5","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 			return;				
 		}	
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy option taget - catch" );
-			res.send({ "error" : "36.router_discount_program_speciality(app)->show", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_tager.error, "Lỗi lấy discount_program_tager - catch" );
+			res.send({ "error" : "6","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 			return;		
 	}
 
@@ -1248,7 +1238,7 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 
 	
 	
-	//Lấy option tager
+	//Lấy discount_program_details_tager
 	var discount_program_details_tager;
 	try {
 		var datas = {
@@ -1263,24 +1253,19 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 					ojs_datas_discount_program_store_add.get_discount_details_data_taget(datas),
 					ojs_configs.token_supper_job
 				);		
-		
-		
-		
-		//res.send( discount_program_details_tager );	
-		//return;
 		if(discount_program_details_tager.error != ""){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager.error, "Lỗi lấy option taget" );
-			res.send({ "error" : "35.router_discount_program_speciality(web)->show", "message": error_send } ); 
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager, "Lỗi lấy discount_program_details_tager" );
+			res.send({ "error" : "7","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 			return;				
 		}	
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager.error, "Lỗi lấy option taget - catch" );
-			res.send({ "error" : "36.router_discount_program_speciality(web)->show", "message": error_send } ); 
+			var error_send = ojs_shares_show_errors.show_error( evn,discount_program_details_tager.error, "Lỗi lấy discount_program_details_tager - catch" );
+			res.send({ "error" : "8","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
 			return;		
 	}
 
@@ -1341,9 +1326,20 @@ router.get('/discount-details/show/:discount_program_details_id/:store_id/:disco
 		res.render( ojs_configs.view_version + '/discount-program/speciality/admin-details-show', data_send );	
 	}
 	catch(error){
-		res.send( { "error" : "r_11" , "message" : error } );
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi không xác định, vui lòng liên hệ admin DALA" );
+		res.send({ "error" : "9","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
+		return;	
 	}	
-	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi không xác định, vui lòng liên hệ admin DALA" );
+	res.send({ "error" : "113","posittion":"r-w-admin->/discount-details/show/", "message": error_send } ); 
+	return;	
+}		
 	
 });
 

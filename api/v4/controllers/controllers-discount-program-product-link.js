@@ -820,7 +820,7 @@ try {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
 			res.send({ "error" : "6", "position":"ctl-discount-program-product-link>search", "message": error_send } ); 
 			return;	

@@ -19,12 +19,30 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				</div>
 			
 			
+				<div class="discount-posittiom">
+					<span> Vị trí khuyến mãi : <%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %></span>
+				</div>	
+
+				
 				<div class="discount-status">
 					<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
 				</div>
 				
 				<div class="discount-store-name">
-					Cửa hàng tạo : [ <%- ojs_share.unCape(discount_program_list[x].stores_name) -%> ]
+					<%
+					if(discount_program_list[x].discount_program_type == "0"){
+					%>	
+						Chỉ dùng cho cửa hàng : [ <%- ojs_share.unCape(discount_program_list[x].stores_name) -%> ]
+					<%
+					}else{
+					%>	
+						<p>Dùng cho tất cả cửa hàng</p>
+					<%
+					}
+					%>						
+					
+					
+					
 				</div>				
 				
 			<br>
@@ -59,7 +77,81 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 			
 			<!-- ---------------------------
 				//details
-			------------------------------ -->				
+			------------------------------ -->		
+
+
+
+			<!-- //-------------------------
+				// details products add
+			//-------------------------   -->
+			<hr>
+			<p>Sản phẩm tham gia</p>
+			<div class="product-box" style="overflow: auto;height: 180px;font-size: 10px;">
+			<%
+			for( var y in discount_program_product_add_list ) { 
+			%>
+				<%
+				if( 
+				discount_program_product_add_list[y].discount_program_ID == 
+				discount_program_list[x].discount_program_ID
+				){
+					var p_id = discount_program_product_add_list[y].products_speciality_ID;
+					var s_id = discount_program_product_add_list[y].stores_ID;
+					var s_name = discount_program_product_add_list[y].stores_name;
+					var p_name = discount_program_product_add_list[y].products_speciality_name;
+					var dis_id = discount_program_product_add_list[y].discount_program_ID;
+					var dis_de_id = discount_program_product_add_list[y].discount_program_details_ID;
+					var link_id = discount_program_product_add_list[y].discount_program_product_link_ID;
+					var p_status = discount_program_product_add_list[y].discount_program_product_link_status;
+					var d_status = discount_program_product_add_list[y].discount_program_details_status_admin;
+				%>
+					<div class="product-line">
+						<%
+						if(d_status == "4"){
+						%>
+							<div class="product-name">
+								<span>
+									<%- p_name -%>
+								</span>							
+								<%- ojs_share.show_status_discount_detail_html(p_status) -%>
+								<span class="btn-xem  btn-design" data_product_id="<%= p_id %>">xem</span>
+							</div>
+							
+							<div class="store-name">
+								<%- s_name -%>
+							</div>
+							<div class="product-action">
+								<span class="btn-duyet  btn-design" data_product_add_id="<%= link_id %>">Duyệt</span>
+								<span class="btn-tu-choi  btn-design"  data_product_no_id="<%= link_id %>">Từ chối</span>
+							</div>
+							
+							<hr>
+							<br>
+						<%
+						}
+						%>
+					</div>			
+				<%
+				} //end if
+				%>			
+			<%
+			} //end of for
+			%>
+			
+			</div>
+			<!-- //-------------------------
+				// end of details products add
+			//-------------------------   -->
+
+
+
+
+
+
+
+
+
+			
 			</div>
 		<%
 		} //end of for

@@ -14,7 +14,8 @@ dala_users_full_name,
 dala_stores_ID,
 dala_stores_name,
 
-sum(dala_orders_details_speciality_qty) as dala_orders_details_speciality_qty 
+sum(dala_orders_details_speciality_qty) as dala_orders_details_speciality_qty,
+sum(dala_price_caution) as  dala_price_caution 
 
 FROM  
 dala_view_orders_users 

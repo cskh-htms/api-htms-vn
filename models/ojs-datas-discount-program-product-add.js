@@ -51,8 +51,8 @@ const ojs_datas_discount_program_product_add = {
 						[
 						{   
 							"field"     :"discount_program_product_link_status",
-							"value"     : "0",
-							"compare" : "="							
+							"value"     : [0,2],
+							"compare" : "in"							
 						},
 						{   
 							"field"     :"discount_program_status_admin",
@@ -116,7 +116,17 @@ const ojs_datas_discount_program_product_add = {
 								"field"     :"discount_program_product_link_status",
 								"value"     : datas.status_admin_value,
 								"compare" 	: datas.status_admin_compare
-							}								
+							},
+							{   
+								"field"     :"check_expired",
+								"value"     : datas.discount_program_check_expired_value,
+								"compare" 	: datas.discount_program_check_expired_compare
+							},
+							{   
+								"field"     :"check_date",
+								"value"     : datas.discount_program_check_date_value,
+								"compare" 	: datas.discount_program_check_date_compare
+							}	
 						]    
 					}
 				],
@@ -209,7 +219,7 @@ const ojs_datas_discount_program_product_add = {
 						[  
 							{
 								"field" : "discount_program_product_link_status" ,
-								"value" : [1],
+								"value" : [1,3],
 								"compare" : "not in"
 							}						
 						]    

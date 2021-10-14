@@ -844,8 +844,8 @@ try {
 		return;			
 	}		
 	
-
-
+	//res.send([discount_program_details_id]);
+	//return;
 	//@
 	//@
 	//@
@@ -867,7 +867,8 @@ try {
 		return;			
 	}
 
-
+	//res.send(check_datas_result);
+	//return;	
 
 	//@
 	//@
@@ -905,6 +906,7 @@ try {
 			return;			
 		}			
 	}	
+	
 	
 	
 	

@@ -74,6 +74,8 @@ const ojs_config_app = {
 	//@
 	//@ tạo data cho get_all_list_datas
 	//@ 3.[datas_all]	
+	//@ * [discount_program_check_expired_compare] check hạn chương trình khuyến mãi
+	//@ * [discount_program_check_date_compare] check số lượng ngày tham gia khuyến mãi
 	datas_all : {
 		'user_compare': '=',
 		'store_compare':'=',
@@ -86,6 +88,11 @@ const ojs_config_app = {
 		
 		'status_check_compare':"in",
 		'status_check_value':[0,1],	
+
+		'discount_program_check_expired_compare':'<>',
+		'discount_program_check_expired_value': "100",
+		'discount_program_check_date_compare':'<>',
+		'discount_program_check_date_value': "-2",			
 		
 		'order' : []
 	},	

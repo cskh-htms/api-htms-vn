@@ -11,6 +11,8 @@ CREATE VIEW dala_view_discount_program AS
 SELECT 
 
 dala_discount_program.*,
+dala_stores.*,
+dala_users.*,
 
 (CASE 
 	WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
@@ -21,15 +23,8 @@ dala_discount_program.*,
 		
 	ELSE   
 		0
-END) as dala_discount_program_check_expired,
+END) as dala_check_expired 
 
-
-dala_users_ID,
-dala_users_full_name,
-
-dala_stores_ID,
-dala_stores_name,
-dala_stores_status_admin 
 
 
 FROM  

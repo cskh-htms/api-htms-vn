@@ -246,6 +246,32 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
 	
 	
+	//----------product-----------------------
+	
+	
+	
+	//@
+	//@
+	//@ data_discount
+	var data_discount_product_order = [{'field':'stores_ID','compare':'ASC'}];
+	var data_discount_product_edit = {'order':data_discount_product_order};
+	var data_discount_product_copy = {...ojs_configs.datas_all};	
+	var data_discount_product_assign = Object.assign(data_discount_product_copy,data_discount_product_edit);	
+	
+	var data_discount_product_data = {
+			'status_admin_compare':'in',
+			'status_admin_value':[0,1,2,4],		
+			'user_compare':'<>',
+			'store_compare':'<>',
+			'discount_program_check_expired_compare':'in',
+			'discount_program_check_expired_value': [1],
+			'discount_program_check_date_compare':'<',
+			'discount_program_check_date_value': "0",			
+		};	
+	
+	var data_discount_product_ok = Object.assign(data_discount_product_assign,data_discount_product_data);	
+	
+	
 	//@
 	//@
 	//@ datas brand
@@ -255,10 +281,11 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 		'user_id' :0,
 		'store_id' : 0,
 		'datas_discount': data_discount_ok,
-		'datas_discount_store_add': data_discount_details_ok
+		'datas_discount_store_add': data_discount_details_ok,
+		'datas_discount_product_add': data_discount_product_ok
 	}
 	
-	//res.send( datas_get_all_list_datas );	
+	//res.send( data_discount_product_ok );	
 	//return;		
 	
 	
@@ -274,7 +301,7 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 		return;			
 	}
 	
-	//res.send(get_all_list_datas);
+	//res.send(get_all_list_datas[10]);
 	//return;
 
 
@@ -291,7 +318,8 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 		
 		'news_admin_menu' 	: get_datas_news_admin_menu,
 		'discount_program_list' : get_all_list_datas[8].datas,
-		'discount_program_details_list' : get_all_list_datas[9].datas
+		'discount_program_details_list' : get_all_list_datas[9].datas,
+		'discount_program_product_add_list' : get_all_list_datas[10].datas
 	}
 
 
@@ -307,6 +335,7 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 		'news_admin_menu' 	: get_datas_news_admin_menu,
 		'discount_program_list' : get_all_list_datas[8].datas,
 		'discount_program_details_list' : get_all_list_datas[9].datas,
+		'discount_program_product_add_list' : get_all_list_datas[10].datas,
 		'datas_info':datas_info
 	}
 
@@ -1218,7 +1247,7 @@ router.get('/product-active', async function(req, res, next) {
 	//@
 	var data_discount_data_edit = {
 			'status_admin_compare':'in',
-			'status_admin_value':[0],
+			'status_admin_value':[0,2],
 			'store_compare':'<>'
 		};
 	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
@@ -1431,6 +1460,7 @@ router.get('/details/show-admin/:discount_program_id/:discount_program_details_i
 
 	//res.send( discount_program_tager );	
 	//return;	
+
 
 
 

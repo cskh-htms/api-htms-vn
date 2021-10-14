@@ -51,9 +51,11 @@ Phường Bến Nghé
 Quận 1 
 Thành phố Hồ Chí Minh
 
+source ./create_view_discount_program.sql;
 
+source ./create_view_discount_program_details.sql;
 
-
+source ./create_view_discount_program_product.sql;
 
 
 */

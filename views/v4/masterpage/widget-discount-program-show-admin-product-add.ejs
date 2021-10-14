@@ -43,49 +43,43 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 						var p_status = discount_program_product_add_list[y].discount_program_product_link_status;
 						var d_status = discount_program_product_add_list[y].discount_program_details_status_admin;
 					%>
-					
-					<div class="product-line">
-						<%
-						if(d_status == "4"){
+						<div class="product-line">
+							<%
+							if(d_status == "4"){
 							%>
-							<div class="product-name">
-								<span>
-									<%- p_name -%>
-								</span>							
-								<%- ojs_share.show_status_discount_detail_html(p_status) -%>
-								<span class="btn-xem  btn-design" data_product_id="<%= p_id %>">xem</span>
-							</div>
-							
-							<div class="store-name">
-								<%- s_name -%>
-							</div>
-							<div class="product-action">
-								<span class="btn-duyet  btn-design" data_product_add_id="<%= link_id %>">Duyệt</span>
-								<span class="btn-tu-choi  btn-design"  data_product_no_id="<%= link_id %>">Từ chối</span>
-							</div>
-							
-							<hr>
-							<br>
-						<%
-						}
-						%>
-					</div>			
-				
-				
+								<div class="product-name">
+									<span>
+										<%- p_name -%>
+									</span>							
+									<%- ojs_share.show_status_discount_detail_html(p_status) -%>
+									<span class="btn-xem  btn-design" data_product_id="<%= p_id %>">xem</span>
+								</div>
+								
+								<div class="store-name">
+									<%- s_name -%>
+								</div>
+								<div class="product-action">
+									<span class="btn-duyet  btn-design" data_product_add_id="<%= link_id %>">Duyệt</span>
+									<span class="btn-tu-choi  btn-design"  data_product_no_id="<%= link_id %>">Từ chối</span>
+								</div>
+								
+								<hr>
+								<br>
+							<%
+							}
+							%>
+						</div>			
 					<%
 					} //end if
 					%>			
-			
-			
-			
 				<%
 				} //end of for
 				%>
-			</div><!-- //discount-box -->
-			
-			<!-- //-------------------------
-				// end of details products add
-			//-------------------------   -->			
+				</div><!-- //discount-box -->
+				
+				<!-- //-------------------------
+					// end of details products add
+				//-------------------------   -->			
 			
 			
 			

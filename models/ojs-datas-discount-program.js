@@ -125,7 +125,7 @@ const ojs_datas_discount_program = {
 								"compare" 	: datas.status_admin_compare
 							},
 							{   
-								"field"     :"discount_program_check_expired",
+								"field"     :"check_expired",
 								"value"     : datas.discount_program_check_expired_value,
 								"compare" 	: datas.discount_program_check_expired_compare
 							} 								
@@ -224,7 +224,7 @@ const ojs_datas_discount_program = {
 						[  
 							{
 								"field" : "discount_program_status_admin" ,
-								"value" : [4],
+								"value" : [4,3],
 								"compare" : "not in"
 							}						
 						]    

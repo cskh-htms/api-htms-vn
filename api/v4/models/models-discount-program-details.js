@@ -88,23 +88,9 @@ var sql_link_default = 	"";
 //@
 //@
 //@link	
-var sql_link_search = 	"" + 
-
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "stores  ON  " + 
-	ojs_configs.db_prefix + "discount_program_details_store_id  = " + 
-	ojs_configs.db_prefix + "stores_ID " +    
-	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "users  ON  " + 
-	ojs_configs.db_prefix + "stores_user_id  = " + 
-	ojs_configs.db_prefix + "users_ID " +    	
-	
-	
-	" LEFT JOIN " + 
-	ojs_configs.db_prefix + "discount_program  ON  " + 
-	ojs_configs.db_prefix + "discount_program_details_discount_program_id  = " + 
-	ojs_configs.db_prefix + "discount_program_ID " 	  
+var sql_from_search = 	" from " + 
+	ojs_configs.db_prefix + "view_discount_program_details " ; 
+var sql_link_search = 	"";
 	
 	
 
@@ -359,7 +345,7 @@ const search = async function (datas) {
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search,sql_link_search);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -409,7 +395,7 @@ const get_owner_discount_program_details = async function (datas) {
 	//return datas;
 	//create sql text
 	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "discount_program_details_ID  "  + 
-					sql_from_default + 
+					sql_from_search + 
 					sql_link_search + 
 					" WHERE " +  
 							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
