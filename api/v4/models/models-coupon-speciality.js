@@ -227,7 +227,8 @@ const get_all_coupon = async function (store_id) {
 					ojs_configs.db_prefix + "coupon_speciality_type = 0 " +
 					
 					
-					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
+					"and " + ojs_configs.db_prefix + "check_expired = 1 " + 
+					"and " + ojs_configs.db_prefix + "coupon_speciality_status_admin = 4 "; 
 	
 	//return sql_text;
 	
@@ -281,7 +282,8 @@ const get_all_coupon_dala = async function (store_id) {
 					ojs_configs.db_prefix + "coupon_speciality_type = 1 " +
 					
 					
-					"and " + ojs_configs.db_prefix + "check_expired = 1 "; 
+					"and " + ojs_configs.db_prefix + "check_expired = 1 " + 
+					"and " + ojs_configs.db_prefix + "coupon_speciality_status_admin = 4 ";  
 	
 	//return sql_text;
 	

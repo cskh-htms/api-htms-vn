@@ -398,7 +398,7 @@ const get_owner_discount_program_details = async function (datas) {
 					sql_from_search + 
 					sql_link_search + 
 					" WHERE " +  
-							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
+							ojs_configs.db_prefix + "discount_program_details_users_id = '" + datas.datas.user_id + "' "  + 
 							" AND " + 
 							ojs_configs.db_prefix + "discount_program_details_ID  = '" + datas.datas.discount_program_details_id + "' " 
 	

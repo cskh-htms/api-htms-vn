@@ -79,7 +79,7 @@ content
 				</div>
 			</div>			
 		
-	
+			
 			<div class="pro_box ten_sp_box">
 				<h3>Số ngày tham gia
 					<span class="giai-thich">
@@ -89,11 +89,30 @@ content
 					</span>
 					</span>					
 				</h3>
-				<div class="inside">
-					<input type="text" class= "" 
-					value="<%= datas[0].discount_program_details_limit_day %>" 
-					id="discount_program_details_limit_day"/>
-				</div>
+				
+				<%
+				if(user_role == "admin"){
+				%>
+					<div class="inside">
+						<input type="text" class= "" disabled 
+						value="<%= datas[0].discount_program_details_limit_day %>" 
+						id="discount_program_details_limit_day"/>
+					</div>
+				<%
+				}else{
+				%>		
+					<div class="inside">
+						<input type="text" class= "" 
+						value="<%= datas[0].discount_program_details_limit_day %>" 
+						id="discount_program_details_limit_day"/>
+					</div>
+
+				<%
+				}
+				%>	
+
+
+				
 			</div>		
 	
 	

@@ -121,6 +121,12 @@ try {
 			"token":token,
 			"discount_program_details_id": datas.discount_program_product_link_discount_program_details_id
 		}		
+		
+		//res.send({ datas_check } );
+		//return;			
+		
+		
+		
 		var check_datas_result;
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
 	}
@@ -131,6 +137,10 @@ try {
 		res.send({ "error" : "4", "position":"ctl-discount-program-product-link->insert", "message": error_send } ); 
 		return;			
 	}
+	
+	
+	//res.send({ check_datas_result } );
+	//return;	
 	
 	
 	//@

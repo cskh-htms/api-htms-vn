@@ -96,6 +96,8 @@ const ojs_datas_discount_program_store_add = {
 				"discount_program_details_limit_product",
 				"discount_program_details_qoute",
 				"discount_program_details_date_created",
+				"discount_program_details_stores_name",
+				"discount_program_details_stores_id",				
 				"stores_name",
 				"stores_ID",
 				"discount_program_name",
@@ -110,7 +112,7 @@ const ojs_datas_discount_program_store_add = {
 						"where" :
 						[  
 							{   
-								"field"     :"stores_ID",
+								"field"     :"discount_program_details_store_id",
 								"value"     : datas.store_id,
 								"compare" 	: datas.store_compare
 							},
@@ -118,7 +120,17 @@ const ojs_datas_discount_program_store_add = {
 								"field"     :"discount_program_details_status_admin",
 								"value"     : datas.status_admin_value,
 								"compare" 	: datas.status_admin_compare
-							}								
+							},
+							{   
+								"field"     :"check_expired",
+								"value"     : datas.discount_program_check_expired_value,
+								"compare" 	: datas.discount_program_check_expired_compare
+							},
+							{   
+								"field"     :"check_date",
+								"value"     : datas.discount_program_check_date_value,
+								"compare" 	: datas.discount_program_check_date_compare
+							}									
 						]    
 					}
 				],

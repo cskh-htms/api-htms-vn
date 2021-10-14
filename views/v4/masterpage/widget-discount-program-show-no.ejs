@@ -5,6 +5,13 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 	<% 
 	for( var  x in discount_program_list ) { 
 	%>
+
+		<% 
+		if(store_id == "17"){
+		%>	
+		<!-- -----------------------------------
+		//cua hang 17
+		 ------------------------------------ -->		
 		<div class="discount-box">
 			<div class="discount-image-wrap">
 				<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
@@ -59,9 +66,9 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				
 				
 				<div>
-					<span class="trang-thai-tham-gia"> Ngày tham gia</span>
+					<span class="trang-thai-tham-gia"> Ngày tham gia : </span>
 					<span class="ngay-tham-gia">
-						<%- ojs_share.unCape(discount_program_details_list[y].discount_program_details_date_created) -%>
+						[ <%- ojs_share_all.format_date(discount_program_details_list[y].discount_program_details_date_created) -%> ]
 					</span>
 				</div>
 				
@@ -78,6 +85,17 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 						<%= discount_program_details_list[y].discount_program_details_limit_day %>
 					</span>
 				</div>
+				
+				<%
+				if(discount_program_details_list[y].check_date >= 0){
+				%>	
+				<div>
+					<span class="trang-thai-tham-gia" style="color:red"> Đã hết hạn tham gia </span>
+				</div>				
+				<%
+				}
+				%>	
+				
 				
 				<%
 				if(
@@ -202,6 +220,242 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 
 			</div>				
 		</div>	
+		<!-- -----------------------------------
+		//end if cua hang 17
+		 ------------------------------------ -->			
+		<%		
+		}else{
+		%>	
+		<%
+		if(discount_program_list[x].stores_ID == "17" && discount_program_list[x].discount_program_type == "0"){
+		}else{
+		%>
+		
+		<!-- -----------------------------------
+		//all cua hang
+		 ------------------------------------ -->
+		 
+		<div class="discount-box">
+			<div class="discount-image-wrap">
+				<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+			</div>
+			<div class="discount-title">
+				<span>Tên chương trình : </span><div><strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> </div>
+				<% 
+				if(
+				discount_program_list[x].discount_program_status_admin != "4" && 
+				discount_program_list[x].discount_program_status_admin != "1" 
+				){
+				%>
+					<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>" clas="btn_update">update</a>
+					<a href="#" data_discount_program_id ="<%= discount_program_list[x].discount_program_ID %>" class="btn_discount_delete">delete</a>
+				<% 
+				}
+				%>
+			</div>
+			
+			<div class="discount-status">
+			
+				<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
+			</div>
+			
+			
+			
+			
+			<!- -----------------------------------
+			//details/
+			------------------------------------- -->
+			
+			<%
+			//check trạng thái tham gia
+			var join_check = 0;
+			var details_id = 0;
+			if(typeof discount_program_details_list == 'object' && discount_program_details_list.length > 0){ 
+			for( var  y in discount_program_details_list ) { 
+			if(
+			discount_program_list[x].discount_program_ID ==  
+			discount_program_details_list[y].discount_program_details_discount_program_id)
+			{ 
+			join_check = 1 ;
+			details_id = discount_program_details_list[y].discount_program_details_ID;
+			%>
+				<div class="details-box">
+				<div>
+					<span class="trang-thai-tham-gia">Trạng thái tham gia : </span>
+					<span class="da-tham-gia">
+					    <%- ojs_share.show_status_discount_detail_html(discount_program_details_list[y].discount_program_details_status_admin) -%>
+					</span>
+				</div>
+				
+				
+				<div>
+					<span class="trang-thai-tham-gia"> Ngày tham gia : </span>
+					<span class="ngay-tham-gia">
+						[ <%- ojs_share_all.format_date(discount_program_details_list[y].discount_program_details_date_created) -%> ]
+					</span>
+				</div>
+				
+				<div>
+					<span class="trang-thai-tham-gia">số sản phẩm tối đa : </span>
+					<span class="ngay-tham-gia">
+						<%= discount_program_details_list[y].discount_program_details_limit_product %>
+					</span>
+				</div>
+
+				<div>
+					<span class="trang-thai-tham-gia">Số ngày tham gia : </span>
+					<span class="ngay-tham-gia">
+						<%= discount_program_details_list[y].discount_program_details_limit_day %>
+					</span>
+				</div>
+				
+				<%
+				if(discount_program_details_list[y].check_date >= 0){
+				%>	
+				<div>
+					<span class="trang-thai-tham-gia" style="color:red"> Đã hết hạn tham gia </span>
+				</div>				
+				<%
+				}
+				%>	
+				
+				
+				<%
+				if(
+				discount_program_details_list[y].discount_program_details_status_admin == "4" ||   
+				discount_program_details_list[y].discount_program_details_status_admin == "1"
+				){ %>
+					<a href="#" data_discount_detail_id="<%= details_id %>" class="btn-huy-tham-gia">huỷ tham gia</a>
+				<% 
+				}else{
+				%>	
+					<a href="/discount-program/speciality/details/show/<%= details_id %>/<%= store_id %>/<%= discount_program_list[x].discount_program_ID %>/" id="btn-tham-gia">update</a>
+					<a href="#" data_discount_detail_id="<%= details_id %>" class="btn-huy-tham-gia">delete</a>
+				<% 
+				}
+				%>					
+				
+				
+				
+				
+				</div>
+
+			<% 
+			}//end if
+			}//end if
+			}//end for
+			%>				
+
+
+
+			<!- -----------------------------------
+			//end of details
+			------------------------------------- -->
+			
+			
+
+
+			<!- -----------------------------------
+			//product
+			------------------------------------- -->
+			<div class="details-box">
+			<div class="add-box">Sản phẩm đã tham gia </div>
+			<%
+			//check trạng thái tham gia
+
+			if(typeof discount_program_product_list == 'object' && discount_program_product_list.length > 0){ %>
+				
+				<%
+				var product_count = 0;
+				for( var  z in discount_program_product_list ) { 
+				if(
+				discount_program_list[x].discount_program_ID ==  
+				discount_program_product_list[z].discount_program_ID)
+				{ 
+				product_count = product_count + 1;
+				%>
+
+					
+					<div class="product-add">
+						<span class="ngay-tham-gia">
+							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>
+						</span>
+						<span class="ngay-tham-gia">
+							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
+						</span>	
+
+						<%
+						if(
+						discount_program_product_list[z].stores_ID == store_id	
+						|| user_role == "admin" 
+						){ %>
+							<a href="#" data_discount_program_link_id="<%= discount_program_product_list[z].discount_program_product_link_ID %>" class="submitdelete">delete</a>
+						<%
+						}
+						%>
+
+						
+					</div>
+				<% 
+				}//end if
+				}//end for
+				%>
+				<%
+				if(product_count == 0){ %>
+					<div class="add-box">Chưa có sản phẩm tham gia</div>
+				<%	
+				}
+				%>
+			<%	
+			}else{//else if
+			%>		
+				<div class="add-box">Chưa có sản phẩm tham gia</div>
+			<% 
+			}//end if
+			%>	
+
+			
+			
+			</div>
+
+
+			<!- -----------------------------------
+			//end of product
+			------------------------------------- -->
+
+
+			
+			
+			<div class="discount-action" style="padding-top:20px; text-align:right;">
+				<%
+				if(join_check == 0 && discount_program_list[x].discount_program_status_admin == "4"){ %>
+					<a href="/discount-program/speciality/details/add/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>/<%= user_id %>" id="btn-tham-gia">Tham gia</a>
+				<% 
+				}
+				%>
+				
+				<%
+				if(join_check == 1){ %>
+					<a href="/discount-program/speciality/product/add/<%= details_id %>/<%= store_id %>/<%= user_id %>" id="btn-tham-gia">Thêm sản phẩm</a>
+				<% 
+				}
+				%>					
+
+			</div>				
+		</div>
+		<%
+		} //end of if store all
+		%>			
+		<!-- -----------------------------------
+		//end of all cua hang
+		 ------------------------------------ -->
+			
+			
+		<%
+		} //end of if store 17
+		%>	
+
+	
 	<%
 	} //end of for
 	%>

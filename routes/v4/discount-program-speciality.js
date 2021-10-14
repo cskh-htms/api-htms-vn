@@ -218,7 +218,11 @@ router.get('/quan-ly-show-all', async function(req, res, next) {
 			'status_admin_compare':'in',
 			'status_admin_value':[1,4],
 			'user_compare':'<>',
-			'store_compare':'<>'
+			'store_compare':'<>',
+			'discount_program_check_expired_compare':'in',
+			'discount_program_check_expired_value': [1],
+			'discount_program_check_date_compare':'<',
+			'discount_program_check_date_value': "0",				
 		};
 	var data_discount_details_ok = Object.assign(data_discount_details_order_assign,data_discount_details_data_edit);	
 
@@ -1080,10 +1084,7 @@ router.post('/add_product_to_discount/:link_id', async function(req, res, next) 
 		return;			
 	}	
 	
-	
-	
-	
-	//@
+
 	//@
 	//@
 	//@
@@ -5087,16 +5088,6 @@ router.get('/:store_id', async function(req, res, next) {
 	//@
 	var  user_id = 0;	
 	
-	
-	
-	//res.send( [store_id] );	
-	//return;		
-	
-	
-	
-	
-	
-	
 	//--------------------------------------------------
 	//           lấy user_id store
 	// -------------------------------------------------
@@ -5326,9 +5317,7 @@ router.get('/:store_id', async function(req, res, next) {
 		'status_admin_value': '4',
 		
 		'discount_program_check_expired_compare':'=',
-		'discount_program_check_expired_value': '1',		
-		 
-		
+		'discount_program_check_expired_value': '1'
 		};
 	var data_discount_ok = Object.assign(data_discount_order_assign,data_discount_data_edit);	
 	
