@@ -75,13 +75,34 @@ content
 							   <%
 							   for(var x in products_list){
 							   %>
-								<option value="<%= products_list[x].products_speciality_ID %>">
+								<option 
+								value="<%= products_list[x].products_speciality_ID %>" 
+								data_price="<%= products_list[x].products_speciality_price %>" 
+								data_sale_of_price="<%= products_list[x].products_speciality_sale_of_price %>" 
+								>
 									<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
 								</option>
 							    <%
 								} //end of for
 								%>
 						</select>
+					</div>
+					<div id="price-wrap" style="display:none;">
+					<div class="inside">
+						<span>Giá gốc</span><br>
+						<input id="products_speciality_price"  disabled 
+						type="text" class="number_change" 
+						data_value="" 
+						value=""/>
+					</div>					
+					
+					<div class="inside">
+						<span>Giá khuyến mãi</span><br>
+						<input id="products_speciality_sale_of_price" 
+						type="text" class="number_change" 
+						data_value="" 
+						value=""/>
+					</div>	
 					</div>
 				
 				<%
@@ -195,37 +216,96 @@ $(document).ready(function($){
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
+		var price = $('#products_speciality_price').attr('data_value');
 		
-		if(datas.product_id == 0){
+		
+		
+
+		
+	
+
+		if(
+		datas.datas.discount_program_product_link_sale_of_price > 0  
+		&& datas.datas.discount_program_product_link_sale_of_price >=  price
+		){
+			ojs_message.message_ok_show("giá giảm không hợp lệ");
+			return;			
+		}
+		
+		
+		if(datas.datas.discount_program_product_link_product_speciality_id == 0){
 			ojs_message.message_ok_show("chưa chọn sản phẩm");
 			return;
-		}		
-		
+		}
+
+		//console.log(datas);
+		//return;
+	
 		ojs_discount_program_speciality.ajax_save_product(datas);	
 	});
 
 
 	
-	
+	//@
+	//@
+	//@
+	//@	
 	function get_datas(){
 		
 		var product_id = $('#discount_program_product_link_product_speciality_id  option:selected').val();
 		var discount_program_product_link_status = $('#discount_program_product_link_status  option:selected').val();
 		var discount_program_product_link_qoute = $('#discount_program_product_link_qoute').val();
 		
-		let datas = {
+		var discount_program_product_link_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value");
+		
+		var datas = {
 			"datas":{
 				
 				discount_program_product_link_discount_program_details_id : discount_program_details_id,
 				discount_program_product_link_product_speciality_id : product_id,
 				discount_program_product_link_status : discount_program_product_link_status,
-				discount_program_product_link_qoute : discount_program_product_link_qoute
+				discount_program_product_link_qoute : discount_program_product_link_qoute,
+				discount_program_product_link_sale_of_price : discount_program_product_link_sale_of_price
 				
 			}
 		}
 		
 		return datas;
 	}
+	
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('change','#discount_program_product_link_product_speciality_id',function(e) {		
+		e.preventDefault();
+		var product_id = $(this).find('option:selected').val();	
+		var product_price = $(this).find('option:selected').attr("data_price");	
+		var product_sale_of_price = $(this).find('option:selected').attr("data_sale_of_price");	
+		
+		console.log([ product_id,product_price,product_sale_of_price ]);
+		
+		
+		if( product_id == 0 ){
+			$('#products_speciality_price').attr('data_value','');
+			$('#products_speciality_sale_of_price').attr('data_value','');
+			$('#price-wrap').css('display','none');
+		}else{
+			$('#price-wrap').css('display','block');
+			$('#products_speciality_price').attr('data_value',product_price);
+			$('#products_speciality_price').val(ojs_loader.show_price_format(product_price,0,",",".",""));
+			
+			$('#products_speciality_sale_of_price').attr('data_value',product_sale_of_price);
+			$('#products_speciality_sale_of_price').val(ojs_loader.show_price_format(product_sale_of_price,0,",",".",""));
+		}
+	});
+	
+	
+	
+	
+	
+	
 
 	//
 	//

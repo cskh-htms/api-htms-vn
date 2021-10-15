@@ -68,8 +68,7 @@ BEGIN
 		--
 		SET @checkID2 = (select dala_discount_program_product_link_ID  
 			from dala_discount_program_product_link  
-			where dala_discount_program_product_link_discount_program_details_id  = NEW.dala_discount_program_product_link_discount_program_details_id  
-			and dala_discount_program_product_link_product_speciality_id = NEW.dala_discount_program_product_link_product_speciality_id);	
+			where dala_discount_program_product_link_product_speciality_id = NEW.dala_discount_program_product_link_product_speciality_id);	
 		IF (@checkID2 > 0) THEN  
 			SIGNAL SQLSTATE '12345' 
 			SET MESSAGE_TEXT = 'trig_discount_program_product_link_double'; 	

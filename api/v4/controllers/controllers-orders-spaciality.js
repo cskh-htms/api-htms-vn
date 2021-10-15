@@ -328,6 +328,17 @@ try{
 	//res.send(datas_assign);
 	//return;	
 	
+	//@
+	//@
+	//@
+	//@ tao datas cho meta adress
+	var meta_adress= {
+		"adress_meta_user_id"		: datas.orders.orders_speciality_user_id,	
+		"adress_meta_province"		: datas.orders.orders_speciality_province,	
+		"adress_meta_district"		: datas.orders.orders_speciality_district,
+		"adress_meta_wards"			: datas.orders.orders_speciality_wards,
+		"adress_meta_street"		: datas.orders.orders_speciality_adress
+	}	
 	
 	
 	//@
@@ -335,6 +346,7 @@ try{
 		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail).then( results => {
 			
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			models_orders_spaciality.save_meta_adress(meta_adress);
 						
 			res.send( {"error" : "", "datas" : results} );
 			return;

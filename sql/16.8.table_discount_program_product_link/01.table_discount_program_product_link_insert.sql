@@ -23,7 +23,7 @@ CREATE TRIGGER trig_discount_program_product_link_insert BEFORE INSERT ON dala_d
 FOR EACH ROW  
 BEGIN  
 
-IF(LENGTH(NEW.dala_discount_program_product_link_discount_program_details_id) > 0 and  LENGTH(NEW.dala_discount_program_product_link_product_speciality_id) > 0 ) THEN 
+IF(LENGTH(NEW.dala_discount_program_product_link_discount_program_details_id ) > 0 and  LENGTH(NEW.dala_discount_program_product_link_product_speciality_id) > 0 ) THEN 
 	-- 
 	-- kiểm tra sản phẩm này có thuộc cửa hàng tham gia chương trình này không
 	-- 	
@@ -48,8 +48,7 @@ IF(LENGTH(NEW.dala_discount_program_product_link_discount_program_details_id) > 
 	--
 	SET @checkID2 = (select dala_discount_program_product_link_ID  
 		from dala_discount_program_product_link  
-		where dala_discount_program_product_link_discount_program_details_id  = NEW.dala_discount_program_product_link_discount_program_details_id  
-		and dala_discount_program_product_link_product_speciality_id = NEW.dala_discount_program_product_link_product_speciality_id);	
+		where dala_discount_program_product_link_product_speciality_id = NEW.dala_discount_program_product_link_product_speciality_id);	
 	IF (@checkID2 > 0) THEN  
 		SIGNAL SQLSTATE '12345' 
 		SET MESSAGE_TEXT = 'trig_discount_program_product_link_double'; 	

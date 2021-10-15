@@ -35,6 +35,9 @@
 		if(error.sqlMessage.search("adress_meta_user_id") >= 0 ){
 			return " Chưa nhập tên cửa hàng ";
 	
+		}else if(error.sqlMessage.search("trig_adress_meta_insert_douple") >= 0 ){
+			return " Địa chỉ đã có rồi ";	
+	
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
 		}

@@ -57,6 +57,16 @@ source ./create_view_discount_program_details.sql;
 
 source ./create_view_discount_program_product.sql;
 
+source ./create_view_discount_program_details.sql;
+
+source ./01.table_discount_program_product_link_insert.sql;
+
+source ./02.table_discount_program_product_link_update.sql;
+
+source ./01.table_adress_meta_insert.sql;
+
+
+
 
 */
 

@@ -230,49 +230,33 @@ const get_one_adress_meta = async function (adress_meta_id) {
 //@
 //@* 4. [update_adress_meta]
 const update_adress_meta = async function (datas,adress_meta_id) {
-	
-	var sqlSet = "";
-	
-	//tao arr key
-	var arrDatas = Object.keys(datas);
-	
-	//tao arr value 
-	var arrValueDatas = [];
-	var x;
-	for (x in datas){
-		arrValueDatas.push(datas[x]);
-	}	
-	
-	
-	
-	//return  arrValueDatas;
-	
-	//tao sqlset 
-	var i = 0;
-	arrDatas.forEach(function(item) {
-		//
-		if(arrValueDatas[i]== null){
-			if(sqlSet.length == 0){
-				sqlSet = ojs_configs.db_prefix + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
-			}else{
-				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
-			}
-		}else{
-			if(sqlSet.length == 0){
-				sqlSet = ojs_configs.db_prefix + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
-			}else{
-				sqlSet = sqlSet + ',' + ojs_configs.db_prefix + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
-			}		
-		}
-
-		i = i + 1 ;
-	});		
-
-
+	var sql_text = "";
+	///sql_text = "START TRANSACTION ;"
+	///sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "products_speciality  SET ? ;";
+	///sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";
+	///sql_text = sql_text + " COMMIT;"		
 	var table_name  = ojs_configs.db_prefix + "adress_meta ";
-	var field_where  = ojs_configs.db_prefix + "adress_meta_ID ";
-	//create sql text
-	var sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ adress_meta_id + '"';
+
+
+
+	sql_text = sql_text + "START TRANSACTION ;"
+	sql_text = sql_text +  	" UPDATE " + table_name +
+							" SET " + 
+							ojs_configs.db_prefix + "adress_meta_status = 0 " + 
+							" where " + 
+							ojs_configs.db_prefix + "adress_meta_user_id = " + datas.adress_meta_user_id + "; ";
+	
+	
+	sql_text = sql_text +  	" UPDATE " + table_name +
+							" SET " + 
+							ojs_configs.db_prefix + "adress_meta_status = 1 " + 
+							" where " + 
+							ojs_configs.db_prefix + "adress_meta_ID = " + adress_meta_id + "; ";	
+
+	sql_text = sql_text + " COMMIT;"	
+
+
+	//return sql_text;
 	
 	try {
 		return new Promise( (resolve,reject) => {

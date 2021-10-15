@@ -425,6 +425,12 @@ try {
 		var datas = req.body.datas;
 		var adress_id = req.params.adress_id;
 		var token = req.headers['token'];
+		
+		if(!datas.adress_meta_user_id){
+			res.send({ "error" : "1000", "position":"ctl-adress-meta->update", "message": "Vui lòng gữi user_id" } ); 
+			return;	
+		}
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -468,6 +474,10 @@ try {
 		res.send({ "error" : "3", "position":"ctl-adress-meta->update", "message": error_send } ); 
 		return;			
 	}		
+	
+
+	//res.send(check_datas_result);
+	//return;
 	
 	
 	//@
