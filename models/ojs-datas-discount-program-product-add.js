@@ -63,7 +63,12 @@ const ojs_datas_discount_program_product_add = {
 							"field"     :"discount_program_details_status_admin",
 							"value"     : "4",
 							"compare" : "="							
-						}
+						},
+						{   
+							"field"     :"products_speciality_status_admin",
+							"value"     : "1",
+							"compare" 	: "="
+						}	
 						]    
 					}         
 				]  
@@ -129,7 +134,12 @@ const ojs_datas_discount_program_product_add = {
 								"field"     :"check_date",
 								"value"     : datas.discount_program_check_date_value,
 								"compare" 	: datas.discount_program_check_date_compare
-							}	
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : "1",
+								"compare" 	: "="
+							}							
 						]    
 					}
 				],

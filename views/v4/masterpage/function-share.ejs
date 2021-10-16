@@ -220,13 +220,14 @@ ojs_share = {
 		//
 		let result = "";
 		//
-		if(status == 0){
+		if(status == '0'){
 			result = "" +
 			'<option value="0" selected > Chỉ dùng cho cửa hàng tạo ra </option>' + 
 			'<option value="1"> Dùng cho tất cả mọi cửa hàng </option>';	
-		}else if(status == 1){
-			'<option value="0" > Chỉ dùng cho cửa hàng tạo ra </option>' + 
-			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';				
+		}else if(status == '1'){
+			result = "" +
+			'<option value="0"  > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';					
 		
 		}else{
 			result = "" + 

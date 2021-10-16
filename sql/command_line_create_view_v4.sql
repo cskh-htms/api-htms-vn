@@ -14,16 +14,13 @@ source ./sql/16.views/create_view_orders_customer.sql;
 
 
 
---
--- 02.create_view_orders_report.sql
-source ./sql/16.views/create_view_orders_report.sql;
-
-
-
-
 -- 03.create_view_orders_users.sql
 source ./sql/16.views/create_view_orders_users.sql;
 
+
+--
+-- 02.create_view_orders_report.sql
+source ./sql/16.views/create_view_orders_report.sql;
 
 
 

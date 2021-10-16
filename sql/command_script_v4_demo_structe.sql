@@ -40,7 +40,7 @@ source ./sql/demo_dalacenter_v4.sql;
 
 --
 -- check insert update all
-source ./sql/command_line_check_insert_update_v4.sql;
+source ./sql/command_line_check_insert_update_delete_v4.sql;
 
 
 

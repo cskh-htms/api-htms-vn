@@ -29,7 +29,7 @@ source ./sql/demo_dalacenter_v4.sql;
 
 -- source ./sql/dalacenter4_data_only_local_server.sql;
 
-source ./sql/dalacenter4_data_only_local_to_server_20211007_1430.sql;
+ source ./sql/dalacenter4_data_only_server_to_local.sql;
 
 --
 -- insert all datas table
@@ -40,7 +40,7 @@ source ./sql/dalacenter4_data_only_local_to_server_20211007_1430.sql;
 
 --
 -- check insert update all
-source ./sql/command_line_check_insert_update_v4.sql;
+source ./sql/command_line_check_insert_update_delete_v4.sql;
 
 
 

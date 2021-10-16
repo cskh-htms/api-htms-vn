@@ -481,6 +481,7 @@ CREATE TABLE IF NOT EXISTS `dala_orders_speciality` (
   `dala_orders_speciality_shipper_id` int NOT NULL,
   `dala_orders_speciality_date_orders` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dala_orders_speciality_status_orders` tinyint(1) NOT NULL DEFAULT '0',
+  `dala_orders_speciality_company` tinyint(1) NOT NULL DEFAULT '0',  
   `dala_orders_speciality_status_pull_money` TINYINT NOT NULL DEFAULT '0'  COMMENT 'Trạng thái rút tiền về tìa khoản',
   `dala_orders_speciality_status_payment` tinyint(1) NOT NULL DEFAULT '0',
   `dala_orders_speciality_province` char(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

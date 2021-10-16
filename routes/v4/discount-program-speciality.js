@@ -276,8 +276,10 @@ try {
 		data_send = {
 			'datas' : datas_get.datas
 		}
+		
 		//res.send(data_send ); 
-		//return;			
+		//return;	
+		
 		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-view-discount', data_send );		
 	}
 	catch(error){

@@ -101,7 +101,10 @@ source ./sql/14.1.table_orders_details_speciality/03.table_orders_details_specia
 source ./sql/15.0.table_shipping_tracking/03.table_shipping_tracking_constraint.sql;
 
 
+source ./sql/15.1.table_shipping_company/03.table_shipping_company_constraint.sql;
 
+
+source ./sql/15.11.table_shipping_speciality/03.table_shipping_speciality_constraint.sql;
 
 
 
@@ -123,7 +126,19 @@ source ./sql/16.0.table_reviews_store/03.table_reviews_store_constraint.sql;
 -- 16.1.table_reviews
 source ./sql/16.1.table_reviews/03.table_reviews_constraint.sql;
 
+-- 16.10.table_notes
+source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
 
+
+
+
+-- 16.11.table_uploads_infomation
+source ./sql/16.11.table_uploads_infomation/03.table_uploads_infomation_constraint.sql;
+
+
+
+-- 16.12.table_users_tracking
+source ./sql/16.12.table_users_tracking/03.table_users_tracking_constraint.sql;
 
 
 
@@ -143,6 +158,10 @@ source ./sql/16.3.table_like_product/03.table_like_product_constraint.sql;
 -- 16.4.table_store
 source ./sql/16.4.table_like_store/03.table_like_store_constraint.sql;
 
+
+
+
+source ./sql/16.5.table_view_product/03.table_view_product_constraint.sql;
 
 
 
@@ -177,19 +196,6 @@ source ./sql/16.9.table_coupon_speciality/03.table_coupon_speciality_constraint.
 
 
 
--- 16.10.table_notes
-source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
-
-
-
-
--- 16.11.table_uploads_infomation
-source ./sql/16.11.table_uploads_infomation/03.table_uploads_infomation_constraint.sql;
-
-
-
--- 16.12.table_users_tracking
-source ./sql/16.12.table_users_tracking/03.table_users_tracking_constraint.sql;
 
 
 

@@ -18,14 +18,33 @@ content
 		<br>
 	</div>
 	<hr>
-	
+
 	<div class="content-date">
 		<span> thời gian </span><br>
-		<%- ojs_share_discount.format_date_discount(datas[0].discount_program_date_star ) -%>
+		
+		<%
+		var star;
+		var end;
+		if(!datas[0].discount_program_date_star){
+			star = "Không có hạn";
+		}else{
+			star = ojs_share_discount.format_date_discount(datas[0].discount_program_date_star);
+		}
+		if(!datas[0].discount_program_date_end){
+			end = "Không có hạn";
+		}else{
+			end = ojs_share_discount.format_date_discount(datas[0].discount_program_date_end);
+		}		
+		%>
+		
+		<%- star %>
 		- 
-		<%- ojs_share_discount.format_date_discount(datas[0].discount_program_date_end ) -%>
+		<%- end %>
 		
 	</div>
+
+
+
 	<hr>	
 	
 	
@@ -36,6 +55,10 @@ content
 		<br>
 		<%- datas[0].discount_program_information -%>
 	</div>
+
+
+
+
 
 
 
