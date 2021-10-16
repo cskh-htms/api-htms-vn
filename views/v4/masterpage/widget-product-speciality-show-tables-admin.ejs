@@ -33,10 +33,12 @@
 			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
 				<td class="pro-price">
 					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
-					<span class="price-off"><%= products_list[x].products_speciality_price %></span><%= products_list[x].products_speciality_sale_of_price %>
+					<span class="price-off">
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
 				</td>
 			<% } else { %>
-				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
+				<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
 			<% } %>	
 
 			<td><%= products_list[x].stores_name %></td>	

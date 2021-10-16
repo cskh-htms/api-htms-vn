@@ -149,7 +149,37 @@ $(document).ready(function($){
 	});			
 		
 	
+	//
+	//@
+	//xem
+	$(document).on('click','.view-discount',function(e) {	
+		//@
+		e.preventDefault();		
+		var discount_id = $(this).attr("data_id");
+		
+		//alert(discount_id);
+		//return;
+		
+		ojs_discount_program_speciality.view_discount(discount_id);
+		//@
+	});		
 	
+	//
+	//@
+	//xem
+	$(document).on('click','.view-store',function(e) {	
+		//@
+		e.preventDefault();		
+		var store_id = $(this).attr("data_id");
+		
+		//alert(store_id);
+		//return;
+		
+		ojs_discount_program_speciality.view_store(store_id);
+		//@
+	});		
+	//
+	//@	
 	//
 ///////////////////////////////////////////////////////
 });//end of document

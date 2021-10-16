@@ -11,6 +11,8 @@
 2. [caution_date_product_add]
 	* tính ngày thêm vào
 
+3. [format_date_discount]
+
 
 --------------------------------------------------
 */
@@ -24,6 +26,37 @@
 
 ojs_share_discount = {
 	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 3. [format_date_discount]
+	format_date_discount : function(datas){
+		
+		//return datas;
+		
+		if(datas == ""  || datas == null || datas == "NULL"){
+			return "Không có thời hạn";
+		}
+		
+		var time_string = "";
+		var time_add_zone = new Date(datas);
+		//@
+		//@
+		let y = time_add_zone.getFullYear();
+		let m = time_add_zone.getMonth() + 1;
+		let d = time_add_zone.getDate();
+		let h = time_add_zone.getHours();
+		let p = time_add_zone.getMinutes();
+		let g = time_add_zone.getSeconds();
+		
+		
+		//@
+		//@
+		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
+		return time_string ;		
+	},	
 	
 	//@
 	//@

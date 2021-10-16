@@ -1133,25 +1133,6 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	// -------------------------------------------------
 	
 	
-	//@
-	//@
-	//@
-	//@ get_orders_datas
-	
-
-	/*
-	if(status_int == 'all'){
-		var status_admin = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100];
-	}else{
-		var status_admin_string = "[" + status_int + "]";
-		var status_admin = JSON.parse(status_admin_string);		
-	}
-	
-	//res.send( status_admin );	
-	//return;
-	*/
-
-	
 	var datas_orders_edit = {
 		'date_star':"2021/01/01 00:00:00",
 		'date_end':ojs_shares_date.get_current_date_end(),
@@ -1196,8 +1177,6 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 	
 	//res.send(get_orders_datas);
 	//return;	
-
-
 
 
 

@@ -7,11 +7,11 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 		%>
 			<div class="discount-box">
 				<div class="discount-image-wrap">
-					<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+					<img  style="cursor: pointer;"   class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
 				</div>
 			
 				<div class="discount-title">
-					<span>Tên chương trình : </span><div><strong>
+					<span >Tên chương trình : </span><div style="cursor: pointer;"  class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
 					<%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong>
 					</div>
 					<a href="/admin/discount/show/<%= discount_program_list[x].discount_program_ID %>
@@ -58,7 +58,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				){
 				%>
 				<div class="discount-title">					
-					<strong><%- ojs_share.unCape(discount_program_details_list[y].discount_program_details_stores_name ) -%></strong>
+					<strong   style="cursor: pointer;"   class="view-store" data_id="<%= discount_program_details_list[y].discount_program_details_stores_id %>" ><%- ojs_share.unCape(discount_program_details_list[y].discount_program_details_stores_name ) -%></strong>
 					<a href="/admin/discount-details/show/<%= discount_program_details_list[y].discount_program_details_ID %>/<%= discount_program_details_list[y].stores_ID %>/<%= discount_program_details_list[y].discount_program_ID %>/" 
 					clas="btn_update">update</a>					
 				</div>				
@@ -104,7 +104,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 						if(d_status == "4"){
 						%>
 							<div class="product-name">
-								<span>
+								<span  class="btn-xem"  style="cursor: pointer;"  data_product_id="<%= p_id %>" >
 									<%- p_name -%>
 								</span>	
 
@@ -126,7 +126,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 
 								
 								<%- ojs_share.show_status_discount_detail_html(p_status) -%>
-								<span class="btn-xem  btn-design" data_product_id="<%= p_id %>">xem</span>
+								
 							</div>
 							
 							<div class="store-name">

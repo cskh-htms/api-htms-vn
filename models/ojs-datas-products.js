@@ -29,12 +29,65 @@
 
 7.[get_category_link_datas]	
 
+8.[get_product_by_user_id]	
+
+
+
 
 -------------------------------------------
 */
 
 const ojs_datas_products = {
 	
+
+
+	//@
+	//@
+	//@ 
+	//@ 8.[get_product_by_user_id]
+	get_product_by_user_id: function(user_id){
+		
+		let datas_return = 	
+			{
+				"datas": 
+				{
+					"select_field": [
+					  "orders_details_speciality_product_id",
+					  "orders_details_speciality_qty",
+					  "stores_ID"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"users_ID",
+								"value"     : user_id,
+								"compare" : "="
+							}                                      
+							]    
+						}         
+					]
+				}
+			}		
+
+		return datas_return;
+	},	
+	//@
+	//@	
+
+
+
+
+
+
+
+
+
+
+
 	
 	//@
 	//@

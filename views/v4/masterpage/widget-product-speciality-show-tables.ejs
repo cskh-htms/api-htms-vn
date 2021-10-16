@@ -30,25 +30,32 @@
 				</div>
 			</td>
 			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
+			
 			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
 				<td class="pro-price">
 					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
-					<span class="price-off"><%= products_list[x].products_speciality_price %></span><%= products_list[x].products_speciality_sale_of_price %>
+					<span class="price-off">
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
 				</td>
 			<% } else { %>
-				<td class="pro-price"><%= products_list[x].products_speciality_price %></td>		
-			<% } %>
+				<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+			<% } %>	
 			
 			
 			<%
 			// -----------
 			// tính số lượng bán
 			var p_sale = 0;
-			for( var  v in product_list_sale ) { 
-				if(product_list_sale[v].products_speciality_ID == products_list[x].products_speciality_ID){
-					p_sale = product_list_sale[v].sum_orders_details_speciality_qty;
+			
+			for( var  o in product_sale ) { 
+				if(product_sale[o].orders_details_speciality_product_id == products_list[x].products_speciality_ID){
+					p_sale = product_sale[o].orders_details_speciality_qty;
 				}
-			}
+			}			
+			
+			
+			
 			
 			%>
 			<td><%= 	p_sale		%> </td>	

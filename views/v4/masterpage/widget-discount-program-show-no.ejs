@@ -14,10 +14,17 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 		 ------------------------------------ -->		
 		<div class="discount-box">
 			<div class="discount-image-wrap">
-				<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+				<img 
+				style="cursor: pointer;" 
+				class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" 
+				src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"
+				/>
 			</div>
 			<div class="discount-title">
-				<span>Tên chương trình : </span><div><strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> </div>
+				<span>Tên chương trình : </span>
+				<div style="cursor: pointer;" class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" >
+				<strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> 
+				</div>
 				<% 
 				if(
 				discount_program_list[x].discount_program_status_admin != "4" && 
@@ -255,10 +262,16 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 		 
 		<div class="discount-box">
 			<div class="discount-image-wrap">
-				<img src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+				<img 
+				style="cursor: pointer;" 
+				class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" 				
+				src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
 			</div>
 			<div class="discount-title">
-				<span>Tên chương trình : </span><div><strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> </div>
+				<span>Tên chương trình : </span>
+				<div style="cursor: pointer;" class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" >
+				<strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> 
+				</div>
 				<% 
 				if(
 				discount_program_list[x].discount_program_status_admin != "4" && 

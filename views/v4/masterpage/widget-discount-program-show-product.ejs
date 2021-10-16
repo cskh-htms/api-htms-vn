@@ -4,52 +4,36 @@
 <!-- --------------------
 content
 --------------------- -->
-<div id="content" class="content">
+<div id="content" class="content" style="width: 100%;max-width: 480px; padding: 30px; background-color: white; border-radius: 10px;">
+<div id="content-inner">
 
 
 
 
-<table class="table-list">
-	<thead>
-		<tr>
-			<th class="user-name">Sản phẩm</th>
-			<th>Giá</th>
-		</tr>
-	</thead>
-	<tbody>
-	   <tr>
-			<td class="user-name">
-				<a href="#" class="pro-img"><img src="<%- datas[0].products_speciality_featured_image  %>" /></a>
-				<a href="#"><%- datas[0].products_speciality_name %></a>
-			</td>
-
-			<% if( datas[0].products_speciality_sale_of_price != null ){ %>
-				<td class="pro-price">
-					<%- ojs_share.show_han_km(datas[0].products_speciality_sale_of_price_time_check) %>
-					<span class="price-off"><%= datas[0].products_speciality_price %></span><%= datas[0].products_speciality_sale_of_price %>
-				</td>
-			<% } else { %>
-				<td class="pro-price"><%= datas[0].products_speciality_price %></td>		
-			<% } %>
+	<div class="content-image">
+		<img src="<%- datas[0].products_speciality_featured_image -%>" style="max-width:100%;"/>
+	</div>
+	<br>
+	<div class="content-name">
+		<span><strong> <%- datas[0].products_speciality_name -%></strong></span>
+	</div>
+	<br>
+	<div class="content-price">
+		<span> Giá bán : </span>
+		<td class="pro-price"><%= ojs_share_all.show_price_vnd(datas[0].products_speciality_price,0,",",".","đ") %></td>		
+	</div>
 	
-	   </tr>
-	
-	</tbody>
-	<tfoot>
-		<tr>
-			<th class="user-name">Sản phẩm</th>
-			<th>Giá</th>
-		</tr>
-	</tfoot>
-</table>
 
 
+
+<br>
+<hr>
 <div class="content-product">
-	<%- datas[0].products_speciality_contents -%>
+	<%- ojs_share.unCape(datas[0].products_speciality_contents) -%>
 </div>
 
 </div>
-
+</div>
 <!-- --------------------
 end content
 --------------------- -->

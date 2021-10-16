@@ -12,15 +12,24 @@
 
 2. [get_data_news_bussiness_menu]
 	- news bussiness
- 5.[get_all_list_datas_count]
+	
+5.[get_all_list_datas_count]
 
 
+6.[get_discount_for_view]
+	* hiển thị view ajax
+
+7.[get_store_for_view]
+	* hiển thị view ajax
 
 
 ------------------------------------
 */
 
 const ojs_datas_discount_program = {
+	
+	
+	
 	
 	
 	
@@ -67,7 +76,110 @@ const ojs_datas_discount_program = {
 	//@
 	//@
 	//@ 
-	//@ 5.[get_all_list_datas_count]		
+	//@ 5.[get_all_list_datas_count]	
+	
+	
+	
+	
+	
+
+	//@
+	//@
+	//@ 
+	//@ 7.[get_store_for_view]		
+	get_store_for_view: function(store_id){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"stores_ID",
+					"stores_name",
+					"stores_adress",
+					"stores_logo_image",
+					"stores_information",
+					"stores_province",
+					"stores_district",
+					"stores_wards",
+					"stores_phone",
+					"stores_discount_price",
+					"stores_info_banking",
+					"stores_payment_limit"
+					
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" 	: "="
+							}							
+						]    
+					}
+				],
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 6.[get_discount_for_view]	
+
+
+	
+	//@
+	//@
+	//@ 
+	//@ 6.[get_discount_for_view]		
+	get_discount_for_view: function(discount_id){
+		
+		let datas_return = 	
+		{
+			"datas" :   {
+				"select_field" :
+				[
+					"discount_program_ID",
+					"discount_program_name",
+					"discount_program_featured_image",
+					"discount_program_position",
+					"discount_program_type",
+					"discount_program_date_star",
+					"discount_program_date_end",
+					"discount_program_information",
+					"discount_program_status_admin",
+					"stores_ID",
+					"stores_name",
+					"discount_program_ID",
+					
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"discount_program_ID",
+								"value"     : discount_id,
+								"compare" 	: "="
+							}							
+						]    
+					}
+				],
+			}
+		}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 
+	//@ 6.[get_discount_for_view]		
 	
 	
 	

@@ -42,7 +42,7 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-discount-program-store-add.js');
 const ojs_datas_discount_program_product_add = require('../../models/ojs-datas-discount-program-product-add.js');
-
+const ojs_datas_discount_program = require('../../models/ojs-datas-discount-program.js');
 
 
 
@@ -107,9 +107,206 @@ const ojs_datas_discount_program_product_add = require('../../models/ojs-datas-d
 
 20	[/ajax-huy-tham-gia-discount/:discount_id]
 
+21. [/view-discount/:discount_id]
+
+22. [/view-store/:store_id]
+
 
 --------------------------------------------------------------
 */
+
+//@
+//@
+//@
+//@
+//@ 22. [/view-store/:store_id]
+router.get('/view-store/:store_id', async function(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var store_id = req.params.store_id;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers products seciality web -> view-store -> get req -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send("sdfsdfsdfsdf"); 
+	//return;		
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var datas_send = ojs_datas_discount_program.get_store_for_view(store_id);
+		
+		//res.send(datas_send); 
+		//return;		
+		
+		
+		var datas_get = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search/',datas_send,ojs_configs.token_supper_job);
+		if(datas_get.error != ""){
+			var evn = ojs_configs.evn;
+			evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu product", "Lỗi lấy dữ liệu product" );
+			res.send({ "error" : "31.router_option_speciality(app)->view-store", "message": error_send } ); 
+			return;		
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi show products" );
+		res.send({ "error" : "100.models-product_speciality->view-store", "message": error_send } ); 
+		return;		
+	}	
+	//res.send([ datas_get ]); 
+	//return;	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		data_send = {
+			'datas' : datas_get.datas
+		}
+		//res.send(data_send ); 
+		//return;			
+		
+		
+		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-view-store', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_option_speciality(app)->view-store", "message": error_send } ); 
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares.show_error( evn, "Lỗi không xác định, Vui lòng liên hệ DALA", "Lỗi không xác định, Vui lòng liên hệ DALA" );
+	res.send({ "error" : "113", "position":"rw-discount-program->view-store","message": error_send } ); 
+}	
+});
+
+
+//@
+//@
+//@
+//@
+//@ 21. [/view-discount/:discount_id]
+router.get('/view-discount/:discount_id', async function(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var discount_id = req.params.discount_id;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers products seciality web -> view-discount -> get req -> 1", "message": error_send } ); 
+		return;			
+	}	
+	
+	
+	//res.send("sdfsdfsdfsdf"); 
+	//return;		
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var datas_send = ojs_datas_discount_program.get_discount_for_view(discount_id);
+		
+		//res.send(datas_send); 
+		//return;		
+		
+		
+		var datas_get = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program/search/',datas_send,ojs_configs.token_supper_job);
+		if(datas_get.error != ""){
+			var evn = ojs_configs.evn;
+			evn = "dev";;
+			var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu product", "Lỗi lấy dữ liệu product" );
+			res.send({ "error" : "31.router_option_speciality(app)->view-discount", "message": error_send } ); 
+			return;		
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi show products" );
+		res.send({ "error" : "100.models-product_speciality->view-discount", "message": error_send } ); 
+		return;		
+	}	
+	//res.send([ datas_get ]); 
+	//return;	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		data_send = {
+			'datas' : datas_get.datas
+		}
+		//res.send(data_send ); 
+		//return;			
+		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-view-discount', data_send );		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, "Lỗi lấy dữ liệu service_type_id_result", "Lỗi lấy dữ liệu service_type_id_result" );
+		res.send({ "error" : "32.router_option_speciality(app)->view-discount", "message": error_send } ); 
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares.show_error( evn, "Lỗi không xác định, Vui lòng liên hệ DALA", "Lỗi không xác định, Vui lòng liên hệ DALA" );
+	res.send({ "error" : "113", "position":"rw-discount-program->view-discount","message": error_send } ); 
+}	
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 //@
 //@

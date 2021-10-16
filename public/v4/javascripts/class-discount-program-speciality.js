@@ -25,8 +25,9 @@
 
 11. [huy_tham_gia_discount]
 
+12.[view_discount]
 
-
+13.[view_store]
 
 */
 
@@ -41,8 +42,76 @@ $(document).ready(function($){
 
 	ojs_discount_program_speciality = {	
 	
-	
-	
+		//@
+		//@	
+		//@
+		//@
+		//@ 12.[view_store]
+		view_store: function(store_id){		
+			//alert(store_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "GET",	  
+			  url : ojs_loader.host + "/discount-program/speciality/view-store/" + store_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					console.log(result);
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						ojs_loadding.ajax_show_content(result);
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		//@
+		//@	
+		//@		
+		//@
+		//@	
+		//@
+		//@
+		//@ 12.[view_discount]
+		view_discount: function(discount_id){		
+			//alert(discount_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "GET",	  
+			  url : ojs_loader.host + "/discount-program/speciality/view-discount/" + discount_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					console.log(result);
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						ojs_loadding.ajax_show_content(result);
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		//@
+		//@	
+		//@	
 		//@
 		//@	
 		//@

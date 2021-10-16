@@ -1,0 +1,58 @@
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content" style="width: 100%;max-width: 480px; padding: 30px; background-color: white; border-radius: 10px;">
+<div id="content-inner">
+
+
+	<div class="content-image">
+		<img src="<%- datas[0].discount_program_featured_image -%>" style="max-width:100%;"/>
+	</div>
+
+	<div class="content-title">
+		<span> chương trình khuyến mãi</span>
+		<strong>[ <%- datas[0].discount_program_name -%> ]</strong>
+		<br>
+	</div>
+	<hr>
+	
+	<div class="content-date">
+		<span> thời gian </span><br>
+		<%- ojs_share_discount.format_date_discount(datas[0].discount_program_date_star ) -%>
+		- 
+		<%- ojs_share_discount.format_date_discount(datas[0].discount_program_date_end ) -%>
+		
+	</div>
+	<hr>	
+	
+	
+	
+	<div class="content-information">
+		<strong><span> Nôi dung </span></strong>
+		<br>
+		<br>
+		<%- datas[0].discount_program_information -%>
+	</div>
+
+
+
+</div>
+</div>
+
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+
+
+
+
+
