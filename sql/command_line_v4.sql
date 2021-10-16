@@ -5,7 +5,7 @@
 
 -- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-
+-- 
 
 --vVSOdTd3P7rVjjp
 
@@ -63,7 +63,9 @@ source ./01.table_discount_program_product_link_insert.sql;
 
 source ./02.table_discount_program_product_link_update.sql;
 
-source ./01.table_adress_meta_insert.sql;
+source ./02.table_discount_program_product_link_update.sql;
+
+source ./05.table_discount_program_product_link_delete.sql;
 
 
 

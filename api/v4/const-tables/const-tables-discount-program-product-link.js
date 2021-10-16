@@ -29,7 +29,9 @@
 		"discount_program_product_link_product_speciality_id"			: "",	
 		"discount_program_product_link_status"							: 0,
 		"discount_program_product_link_qoute"							: "",
-		"discount_program_product_link_sale_of_price"					: 0
+		"discount_program_product_link_sale_of_price"					: 0,
+		"discount_program_product_link_date_star"						: "",
+		"discount_program_product_link_date_end"						: ""
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);

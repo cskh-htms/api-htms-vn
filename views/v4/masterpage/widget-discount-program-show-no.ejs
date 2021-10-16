@@ -46,6 +46,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 			<%
 			//check trạng thái tham gia
 			var join_check = 0;
+			var details_check = 0;
 			var details_id = 0;
 			if(typeof discount_program_details_list == 'object' && discount_program_details_list.length > 0){ 
 			for( var  y in discount_program_details_list ) { 
@@ -55,6 +56,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 			{ 
 			join_check = 1 ;
 			details_id = discount_program_details_list[y].discount_program_details_ID;
+			details_check = discount_program_details_list[y].discount_program_details_status_admin ;
 			%>
 				<div class="details-box">
 				<div>
@@ -153,17 +155,33 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				%>
 
 					
-					<div class="product-add">
+					<div class="product-add"  style="flex-wrap: wrap;">
 						<span class="ngay-tham-gia">
 							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>
 						</span>
+						
+						
+						<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
+						( <%- ojs_share_all.show_price_format(discount_program_product_list[z].products_speciality_price,0,",",".","đ") -%>
+						</span>						
+						
+						
+						<span class="p-price-sale"  style="font-size:10px;">
+							- <%- ojs_share_all.show_price_format(discount_program_product_list[z].discount_program_product_link_sale_of_price,0,",",".","đ") -%>
+						 )
+						</span>	
+						
+
+
+						
+						
 						<span class="ngay-tham-gia">
 							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
 						</span>	
 
 						<%
 						if(
-						discount_program_product_list[z].stores_ID == store_id	
+						discount_program_product_list[z].discount_program_details_store_id == store_id	
 						|| user_role == "admin" 
 						){ %>
 							<a href="#" data_discount_program_link_id="<%= discount_program_product_list[z].discount_program_product_link_ID %>" class="submitdelete">delete</a>
@@ -212,7 +230,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				%>
 				
 				<%
-				if(join_check == 1){ %>
+				if(details_check == 4){ %>
 					<a href="/discount-program/speciality/product/add/<%= details_id %>/<%= store_id %>/<%= user_id %>" id="btn-tham-gia">Thêm sản phẩm</a>
 				<% 
 				}
@@ -270,6 +288,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 			//check trạng thái tham gia
 			var join_check = 0;
 			var details_id = 0;
+			var details_check = 0;
 			if(typeof discount_program_details_list == 'object' && discount_program_details_list.length > 0){ 
 			for( var  y in discount_program_details_list ) { 
 			if(
@@ -278,6 +297,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 			{ 
 			join_check = 1 ;
 			details_id = discount_program_details_list[y].discount_program_details_ID;
+			details_check = discount_program_details_list[y].discount_program_details_status_admin ;
 			%>
 				<div class="details-box">
 				<div>
@@ -376,17 +396,30 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				%>
 
 					
-					<div class="product-add">
+					<div class="product-add" style="flex-wrap: wrap;" >
 						<span class="ngay-tham-gia">
 							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>
 						</span>
+						<br>
+						<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
+						( <%- ojs_share_all.show_price_format(discount_program_product_list[z].products_speciality_price,0,",",".","đ") -%>
+						</span>						
+						
+						
+						<span class="p-price-sale"  style="font-size:10px;">
+							- <%- ojs_share_all.show_price_format(discount_program_product_list[z].discount_program_product_link_sale_of_price,0,",",".","đ") -%>
+						 )
+						</span>							
+						
+						
+						
 						<span class="ngay-tham-gia">
 							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
 						</span>	
 
 						<%
 						if(
-						discount_program_product_list[z].stores_ID == store_id	
+						discount_program_product_list[z].discount_program_details_store_id == store_id	
 						|| user_role == "admin" 
 						){ %>
 							<a href="#" data_discount_program_link_id="<%= discount_program_product_list[z].discount_program_product_link_ID %>" class="submitdelete">delete</a>
@@ -435,7 +468,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				%>
 				
 				<%
-				if(join_check == 1){ %>
+				if(details_check == 4){ %>
 					<a href="/discount-program/speciality/product/add/<%= details_id %>/<%= store_id %>/<%= user_id %>" id="btn-tham-gia">Thêm sản phẩm</a>
 				<% 
 				}

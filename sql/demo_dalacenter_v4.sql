@@ -1041,6 +1041,8 @@ CREATE TABLE IF NOT EXISTS `dala_discount_program_product_link` (
   `dala_discount_program_product_link_status` TINYINT(1) NOT NULL DEFAULT '0',
   `dala_discount_program_product_link_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, 
   `dala_discount_program_product_link_sale_of_price` DOUBLE NOT NULL DEFAULT '0',  
+  `dala_discount_program_product_link_date_star` DATETIME NULL DEFAULT NULL COMMENT 'ngày bắt đầu khuyến mãi', 
+  `dala_discount_program_product_link_date_end` DATETIME NULL DEFAULT NULL COMMENT 'ngày kết thúc khuyến mãi', 
   PRIMARY KEY (`dala_discount_program_product_link_ID`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 

@@ -99,7 +99,10 @@ const ojs_datas_discount_program_product_add = {
 				"stores_ID",
 				"stores_name",
 				"discount_program_name",
-				"discount_program_featured_image"
+				"discount_program_featured_image",
+				"discount_program_product_link_sale_of_price",
+				"discount_program_details_store_id",
+				"discount_program_details_stores_name"
 				],
 				"condition" :
 				[				
@@ -108,7 +111,7 @@ const ojs_datas_discount_program_product_add = {
 						"where" :
 						[  
 							{   
-								"field"     :"stores_ID",
+								"field"     :"discount_program_details_store_id",
 								"value"     : datas.store_id,
 								"compare" 	: datas.store_compare
 							},

@@ -14,8 +14,8 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
-
-
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-discount %>
 
 
 <script>
@@ -92,16 +92,16 @@ content
 						<span>Giá gốc</span><br>
 						<input id="products_speciality_price"  disabled 
 						type="text" class="number_change" 
-						data_value="" 
-						value=""/>
+						data_value="0" 
+						value="0"/>
 					</div>					
 					
 					<div class="inside">
 						<span>Giá khuyến mãi</span><br>
 						<input id="products_speciality_sale_of_price" 
 						type="text" class="number_change" 
-						data_value="" 
-						value=""/>
+						data_value="0" 
+						value="0"/>
 					</div>	
 					</div>
 				
@@ -159,8 +159,25 @@ content
 		</div>
 	</div>
 	
+	<input 
+		type="hidden"
+		id="discount_program_product_link_date_star" 
+		value="<%= ojs_share_all.format_date( discount_program_details_tager[0].discount_program_details_date_created ) %>"
+	/>
+	
+	<% 
+		var date_end = ojs_share_discount.caution_date_product_add(
+			discount_program_details_tager[0].discount_program_details_date_created,
+			discount_program_details_tager[0].discount_program_details_limit_day
+		) 
+	%>
 	
 	
+	<input 
+		type="hidden" 
+		id="discount_program_product_link_date_end" 
+		value="<%= ojs_share_all.format_date(date_end) %>"
+	/>
 
 <div class="btn_box">
 	<a href="/discount-program/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
@@ -216,30 +233,30 @@ $(document).ready(function($){
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
-		var price = $('#products_speciality_price').attr('data_value');
-		
-		
-		
+		var price = parseInt($('#products_speciality_price').attr('data_value'));
+
+
+		console.log(price);
+		console.log(datas);
 
 		
-	
 
 		if(
-		datas.datas.discount_program_product_link_sale_of_price > 0  
-		&& datas.datas.discount_program_product_link_sale_of_price >=  price
+		parseInt(datas.datas.discount_program_product_link_sale_of_price) == 0 
+		|| datas.datas.discount_program_product_link_sale_of_price == ""  
+		|| parseInt(datas.datas.discount_program_product_link_sale_of_price) >=  price 
 		){
 			ojs_message.message_ok_show("giá giảm không hợp lệ");
 			return;			
 		}
 		
+	
 		
 		if(datas.datas.discount_program_product_link_product_speciality_id == 0){
 			ojs_message.message_ok_show("chưa chọn sản phẩm");
 			return;
 		}
 
-		//console.log(datas);
-		//return;
 	
 		ojs_discount_program_speciality.ajax_save_product(datas);	
 	});
@@ -256,6 +273,11 @@ $(document).ready(function($){
 		var discount_program_product_link_status = $('#discount_program_product_link_status  option:selected').val();
 		var discount_program_product_link_qoute = $('#discount_program_product_link_qoute').val();
 		
+		var discount_program_product_link_date_star = $('#discount_program_product_link_date_star').val();
+		var discount_program_product_link_date_end = $('#discount_program_product_link_date_end').val();
+		
+		
+		
 		var discount_program_product_link_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value");
 		
 		var datas = {
@@ -265,7 +287,9 @@ $(document).ready(function($){
 				discount_program_product_link_product_speciality_id : product_id,
 				discount_program_product_link_status : discount_program_product_link_status,
 				discount_program_product_link_qoute : discount_program_product_link_qoute,
-				discount_program_product_link_sale_of_price : discount_program_product_link_sale_of_price
+				discount_program_product_link_sale_of_price : discount_program_product_link_sale_of_price,
+				discount_program_product_link_date_star : discount_program_product_link_date_star,
+				discount_program_product_link_date_end : discount_program_product_link_date_end
 				
 			}
 		}
@@ -288,8 +312,11 @@ $(document).ready(function($){
 		
 		
 		if( product_id == 0 ){
-			$('#products_speciality_price').attr('data_value','');
-			$('#products_speciality_sale_of_price').attr('data_value','');
+			$('#products_speciality_price').attr('data_value','0');
+			$('#products_speciality_price').val('0');
+			
+			$('#products_speciality_sale_of_price').attr('data_value','0');
+			$('#products_speciality_sale_of_price').val('0');
 			$('#price-wrap').css('display','none');
 		}else{
 			$('#price-wrap').css('display','block');

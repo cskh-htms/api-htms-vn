@@ -91,7 +91,7 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 				){
 					var p_id = discount_program_product_add_list[y].products_speciality_ID;
 					var s_id = discount_program_product_add_list[y].stores_ID;
-					var s_name = discount_program_product_add_list[y].stores_name;
+					var s_name = discount_program_product_add_list[y].discount_program_details_stores_name;
 					var p_name = discount_program_product_add_list[y].products_speciality_name;
 					var dis_id = discount_program_product_add_list[y].discount_program_ID;
 					var dis_de_id = discount_program_product_add_list[y].discount_program_details_ID;
@@ -106,7 +106,25 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 							<div class="product-name">
 								<span>
 									<%- p_name -%>
-								</span>							
+								</span>	
+
+
+
+								<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
+								( <%- ojs_share_all.show_price_format(discount_program_product_add_list[y].products_speciality_price,0,",",".","đ") -%>
+								</span>						
+								
+								
+								<span class="p-price-sale"  style="font-size:10px;">
+									- <%- ojs_share_all.show_price_format(discount_program_product_add_list[y].discount_program_product_link_sale_of_price,0,",",".","đ") -%>
+								 )
+								</span>	
+
+
+
+
+
+								
 								<%- ojs_share.show_status_discount_detail_html(p_status) -%>
 								<span class="btn-xem  btn-design" data_product_id="<%= p_id %>">xem</span>
 							</div>
@@ -114,6 +132,11 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 							<div class="store-name">
 								<%- s_name -%>
 							</div>
+							
+							
+							<%
+							if(p_status != "1"){
+							%>	
 							<div class="product-action">
 								<span class="btn-duyet  btn-design" data_product_add_id="<%= link_id %>">Duyệt</span>
 								<span class="btn-tu-choi  btn-design"  data_product_no_id="<%= link_id %>">Từ chối</span>
@@ -121,6 +144,11 @@ if(typeof discount_program_list == 'object' && discount_program_list.length > 0)
 							
 							<hr>
 							<br>
+							
+							<%
+							}
+							%>								
+							
 						<%
 						}
 						%>

@@ -8,6 +8,9 @@
 
 1. [show_discount_position_html]
 
+2. [caution_date_product_add]
+	* tính ngày thêm vào
+
 
 --------------------------------------------------
 */
@@ -20,6 +23,28 @@
 
 
 ojs_share_discount = {
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 2. [caution_date_product_add]
+	//@ * tính ngày thêm vào
+	caution_date_product_add: function(ojb_date,day_add){
+		//
+		let result = "";
+		var x = new Date(ojb_date);
+		var xx = x.getTime();
+		var xxx = xx + (day_add * 24 * 60 * 60 * 1000);
+		
+		
+		result = new Date(xxx);
+		
+		//	
+		return result;	
+	},	
+	
 	//@
 	//@
 	//@ 

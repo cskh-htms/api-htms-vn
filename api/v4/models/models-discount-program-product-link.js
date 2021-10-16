@@ -64,7 +64,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "discount_program_product_link_status as discount_program_product_link_status, " + 	
 	
 	ojs_configs.db_prefix  + "discount_program_product_link_sale_of_price as discount_program_product_link_sale_of_price, " +
-	
+	ojs_configs.db_prefix  + "discount_program_product_link_date_star as discount_program_product_link_date_star, " +
+	ojs_configs.db_prefix  + "discount_program_product_link_date_end as discount_program_product_link_date_end, " +
 	
 	ojs_configs.db_prefix  + "discount_program_product_link_qoute as discount_program_product_link_qoute ";
 
@@ -151,6 +152,9 @@ var insert_discount_program_product_link = async function (datas) {
 			"discount_program_product_link_product_speciality_id"	: datas.discount_program_product_link_product_speciality_id,			
 			"discount_program_product_link_status"	: datas.discount_program_product_link_status,	
 			"discount_program_product_link_sale_of_price"	: datas.discount_program_product_link_sale_of_price,
+			"discount_program_product_link_date_star"	: datas.discount_program_product_link_date_star,
+			"discount_program_product_link_date_end"	: datas.discount_program_product_link_date_end,
+			
 			"discount_program_product_link_qoute"	: mysql.escape(datas.discount_program_product_link_qoute).replace(/^'|'$/gi, "")
 	}
 	

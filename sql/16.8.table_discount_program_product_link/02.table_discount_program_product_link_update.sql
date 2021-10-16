@@ -72,7 +72,9 @@ BEGIN
 		IF (@checkID2 > 0) THEN  
 			SIGNAL SQLSTATE '12345' 
 			SET MESSAGE_TEXT = 'trig_discount_program_product_link_double'; 	
-		END IF;				
+		END IF;		
+
+		
 	END IF;
 
 
@@ -87,6 +89,38 @@ DELIMITER ;
 --        end of 
 -- 
 
+
+--
+-- *data type
+DROP TRIGGER  IF EXISTS  trig_discount_program_product_link_update_after;
+--
+
+DELIMITER $$ 
+CREATE TRIGGER trig_discount_program_product_link_update_after AFTER UPDATE ON dala_discount_program_product_link 
+FOR EACH ROW  
+BEGIN  
+
+	IF(NEW.dala_discount_program_product_link_status = 1) THEN 
+	
+		UPDATE dala_products_speciality 
+		SET dala_products_speciality_sale_of_price = NEW.dala_discount_program_product_link_sale_of_price,  
+			dala_products_speciality_date_start = NEW.dala_discount_program_product_link_date_star,  
+			dala_products_speciality_date_end = NEW.dala_discount_program_product_link_date_end  
+			
+		WHERE dala_products_speciality_ID = NEW.dala_discount_program_product_link_product_speciality_id ;
+		
+	END IF;
+
+END $$
+DELIMITER ;
+
+
+
+
+
+-- 
+--        end of 
+-- 
 
 
 --
