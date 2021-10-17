@@ -80,6 +80,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "coupon_speciality_info as coupon_speciality_info, " + 
 	
 	ojs_configs.db_prefix  + "coupon_speciality_type as coupon_speciality_type, " + 
+	ojs_configs.db_prefix  + "coupon_speciality_featured_image as coupon_speciality_featured_image, " + 
+	
 	ojs_configs.db_prefix  + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
 	ojs_configs.db_prefix  + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 	
 	
@@ -211,6 +213,10 @@ const get_all_coupon = async function (store_id) {
 					ojs_configs.db_prefix + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 
 	
 					ojs_configs.db_prefix + "coupon_speciality_ID as coupon_speciality_ID, " + 
+					ojs_configs.db_prefix + "coupon_speciality_featured_image as coupon_speciality_featured_image, " + 
+					
+					
+					
 					ojs_configs.db_prefix + "coupon_speciality_code as coupon_speciality_code, " + 	
 	
 					ojs_configs.db_prefix + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
@@ -264,6 +270,8 @@ const get_all_coupon_dala = async function (store_id) {
 					ojs_configs.db_prefix + "coupon_speciality_condition_value as coupon_speciality_condition_value, " + 
 					ojs_configs.db_prefix + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
 					ojs_configs.db_prefix + "coupon_speciality_formula_price_value as coupon_speciality_formula_price_value, " + 
+	
+					ojs_configs.db_prefix + "coupon_speciality_featured_image as coupon_speciality_featured_image, " + 
 	
 					ojs_configs.db_prefix + "coupon_speciality_ID as coupon_speciality_ID, " + 
 					ojs_configs.db_prefix + "coupon_speciality_code as coupon_speciality_code, " + 	
@@ -385,6 +393,10 @@ var insert_coupon_speciality = async function (datas) {
 			"coupon_speciality_condition"					: datas.coupon_speciality_condition,
 
 			"coupon_speciality_condition_value"				: datas.coupon_speciality_condition_value,
+			
+			"coupon_speciality_featured_image"				: datas.coupon_speciality_featured_image,
+			
+			
 			"coupon_speciality_price_max"					: datas.coupon_speciality_price_max,
 
 			"coupon_speciality_date_star"					: datas.coupon_speciality_date_star,	

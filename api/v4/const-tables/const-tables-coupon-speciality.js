@@ -20,6 +20,7 @@
 		"coupon_speciality_code"				:"",
 		"coupon_speciality_stores_id_created"	: 0,
 		"coupon_speciality_info"				: "",
+		"coupon_speciality_featured_image"		: "",
 		"coupon_speciality_type"				: 0,
 		"coupon_speciality_formula_price"		: 0,
 		"coupon_speciality_formula_price_value"	: 0,

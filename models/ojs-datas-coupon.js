@@ -36,6 +36,7 @@ const ojs_datas_coupon = {
 				[
 				"coupon_speciality_ID",
 				"coupon_speciality_code",
+				"coupon_speciality_featured_image",
 				"coupon_speciality_stores_id_created",
 				"coupon_speciality_info",
 				"coupon_speciality_type",
@@ -101,6 +102,7 @@ const ojs_datas_coupon = {
 				[
 				"coupon_speciality_ID",
 				"coupon_speciality_code",
+				"coupon_speciality_featured_image",
 				"coupon_speciality_stores_id_created",
 				"coupon_speciality_info",
 				"coupon_speciality_type",

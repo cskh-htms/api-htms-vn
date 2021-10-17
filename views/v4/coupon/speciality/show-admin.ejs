@@ -241,7 +241,35 @@ content
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		<div class="pro_col02">
+		
+		
+		
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share.unCape( datas[0].coupon_speciality_featured_image ) %>" 
+						style="display:none;" 
+					/>
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//hình đại diện  
+			------------------- -->			
+		
+		
 			<!-- Thời gian -->
 			<div class="pro_box">
 				<h3>Hiệu lực</h3>
@@ -371,6 +399,64 @@ $(document).ready(function($){
 	var coupon_id = $('#coupon_id').val();
 	
 	
+	
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@	
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
+	
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
+	//		
+	//		
+	
+	
+	
+	
+	
+	
 	let date_s1 = $('#coupon_speciality_date_star').val();
 	let date_s2 = $('#coupon_speciality_date_end').val();
 		
@@ -471,6 +557,9 @@ $(document).ready(function($){
 		let coupon_speciality_formula_price = $('#coupon_speciality_formula_price  option:selected').val();
 		let coupon_speciality_formula_price_value = $('#coupon_speciality_formula_price_value').attr("data_value");
 		
+		//@
+		let coupon_speciality_featured_image = $('#featured_image').attr('data_value');	
+
 		
 		let coupon_speciality_price_max = $('#coupon_speciality_price_max').attr("data_value");
 		let coupon_speciality_limit_user = $('#coupon_speciality_limit_user').val();
@@ -499,6 +588,7 @@ $(document).ready(function($){
 				coupon_speciality_formula_price : coupon_speciality_formula_price,
 				coupon_speciality_formula_price_value : coupon_speciality_formula_price_value,	
 
+				coupon_speciality_featured_image : coupon_speciality_featured_image,
 				
 				coupon_speciality_price_max : coupon_speciality_price_max,	
 				coupon_speciality_type : coupon_speciality_type,				
