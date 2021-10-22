@@ -412,7 +412,7 @@ try {
 				"users_full_name": results[0].users_full_name,
 				"users_phone": results[0].users_phone,
 				"users_email": results[0].users_email,
-				"users_password":results[0].users_password,
+				"users_password":md5(datas.users_password),
 				"user_role":role_text
 			};
 			
