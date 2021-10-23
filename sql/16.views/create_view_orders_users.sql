@@ -7,18 +7,9 @@
 DROP VIEW IF EXISTS dala_view_orders_users;
 CREATE VIEW dala_view_orders_users AS 
 SELECT 
-dala_orders_speciality.* , 
-dala_orders_details_speciality.* , 
-dala_coupon_speciality.*,
-dala_stores.*,
+dala_orders_speciality.*, 
+dala_view_order_by_users.*, 
 dala_orders_details_speciality_qty * dala_orders_details_speciality_price as dala_price_caution,
-
-dala_products_speciality_ID, 
-dala_products_speciality_name,
-
-dala_users_ID,
-dala_users_full_name
-
 
 FROM  
 dala_orders_details_speciality   

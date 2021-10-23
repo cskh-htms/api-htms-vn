@@ -25,7 +25,6 @@
 		arr_check_name.forEach(function(item) {
 			if(item == "brands_name"){
 				if(check_data_fields.check_datas.check_empty(datas.brands_name) == false){check_errer =  "Tên brand là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_name(datas.brands_name) == false){check_errer =  "Dữ liệu tên brand không hợp lệ";return;}	
 			}
 		});
 		//data ok cho phép insert

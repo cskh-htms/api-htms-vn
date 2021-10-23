@@ -85,8 +85,14 @@ var sql_select_all = 	"" +
 var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "brands "  ;
 	
+//from table
+var sql_from_view = 	" from " + 
+	ojs_configs.db_prefix + "view_brands "  ;	
+	
+	
 //link table	
 var sql_link_default = 	"";
+var sql_link_view = 	"";
 var sql_link_search = 	"" + 
 	" LEFT JOIN " + 
 	ojs_configs.db_prefix + "stores  ON  " + 
@@ -395,7 +401,7 @@ const search = async function (datas) {
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);
 					
 	}
 	catch(error){

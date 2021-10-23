@@ -15,7 +15,7 @@
 	<% 
 	for(var  x in datas) { %>
 		   <tr>
-			<td class="user-name"><a href="#"><%= datas[x].brands_name %></a>
+			<td class="user-name"><a href="#"><%- ojs_share.unCape(datas[x].brands_name) %></a>
 				<% //neu nếu đã chấp nhận thì ko cho update nua
 				if( datas[x].brands_status_admin != "1" ){ 
 				%>

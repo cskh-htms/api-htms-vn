@@ -115,7 +115,13 @@ var  sql_select_all = 	"" +
 var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "users " ;
 	
-	
+//@
+//@
+//@
+//@from
+var sql_from_view = 	" from " + 
+	ojs_configs.db_prefix + "view_users " ;
+		
 	
 	
 //@
@@ -128,6 +134,12 @@ var sql_link_default = 	" " +
 		ojs_configs.db_prefix +  "users_users_type_id = " + 
 		ojs_configs.db_prefix +  "users_type_ID  " ;		
 		
+
+//@
+//@
+//@
+//@link	
+var sql_link_view ="  " ;
 		
 //@
 //@
@@ -774,7 +786,7 @@ const search = async function (datas) {
 	//@
 	//@
 	//@
-	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);	
+	var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);	
 	
 
 	

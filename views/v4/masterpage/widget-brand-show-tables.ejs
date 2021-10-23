@@ -30,7 +30,7 @@
 	
 	
 		   <tr class="<%= ex1 %>">
-			<td class="user-name"><a href="#"><%= datas[x].brands_name %></a>
+			<td class="user-name"><a href="#"><%- ojs_share.unCape(datas[x].brands_name) %></a>
 				<div class="row-actions">
 					<% //nếu là admin thì hiển thị update
 					if(user_role == "admin" ||  datas[x].users_ID == user_id){ %>
