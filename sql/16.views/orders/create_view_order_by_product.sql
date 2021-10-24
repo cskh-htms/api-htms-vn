@@ -1,8 +1,8 @@
 
 -- 
 -- 
-DROP VIEW IF EXISTS dala_view_count_product_sale;
-CREATE VIEW dala_view_count_product_sale AS 
+DROP VIEW IF EXISTS dala_view_order_by_product;
+CREATE VIEW dala_view_order_by_product AS 
 SELECT 
 
 dala_orders_details_speciality_product_id,

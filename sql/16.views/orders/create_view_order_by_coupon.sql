@@ -1,8 +1,8 @@
 
 -- 
 -- 
-DROP VIEW IF EXISTS dala_view_coupons_sale;
-CREATE VIEW dala_view_coupons_sale AS 
+DROP VIEW IF EXISTS dala_view_order_by_coupon;
+CREATE VIEW dala_view_order_by_coupon AS 
 SELECT 
 
 dala_coupon_speciality_ID,
