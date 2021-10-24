@@ -17,7 +17,13 @@
 
  9. [checked_coupon]
 
- 9. [checked_coupon_dala]
+ 10. [checked_coupon_dala]
+
+ 11. [search_coupons_sale]
+
+
+
+
 
 */
 
@@ -1473,7 +1479,71 @@ catch(error){
 }
 }
 
-//end of 6. [search_all] 
+
+//@@
+//@@
+//@@
+//6. [search_coupons_sale] 
+async  function search_coupons_sale(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-coupon-speciality->search_coupons_sale", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//@
+	//@ run
+	try {
+		models_coupon_speciality.search_coupons_sale(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+			res.send({ "error" : "6", "position":"ctl-coupon-speciality->search_coupons_sale", "message": error_send } );  
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+			res.send({ "error" : "7", "position":"ctl-coupon-speciality->search_coupons_sale", "message": error_send } );  
+			return;	
+	}
+
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "113", "position":"ctl-coupon-speciality->search_coupons_sale", "message": error_send } );  
+		return;	
+}
+}
+//@
+//@
+//@
+
+
 
 
 
@@ -1487,7 +1557,8 @@ module.exports = {
 		delete_coupon_speciality,
 		get_all_coupon_speciality,
 		checked_coupon,
-		checked_coupon_dala
+		checked_coupon_dala,
+		search_coupons_sale
 };
 
 

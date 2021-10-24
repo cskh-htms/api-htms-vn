@@ -19,6 +19,12 @@ model-category
 
 * 8. [search]
 
+* 9. [search_count_product_by_category]
+* 10. [search_count_product_sale_by_category]
+
+
+
+
 */
 //@
 //@
@@ -116,7 +122,16 @@ var sql_order_default = " order by " +
 
 
 
+//from table
+var sql_from_search_count_product_by_category = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_by_category "  ;		
 
+var sql_from_search_count_product_sale_by_category = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_sale_by_category "  ;	
+
+
+var sql_link_search_count_product_by_category = "";
+var sql_link_search_count_product_sale_by_category = 	"";
 
 
 
@@ -527,6 +542,83 @@ var search = async function (datas) {
 	
 	
 	
+//@@
+//@@	
+//@ 9. [search_count_product_by_category]
+var search_count_product_by_category = async function (datas) {
+	
+	
+	//@
+	//@
+	//@	
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_by_category,sql_link_search_count_product_by_category);
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-category_general_speciality->search_count_product_by_category", "message" : error } ;
+	}	
+
+	//return get_sql_search_group;
+
+
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-category_general_speciality->search_count_product_by_category", "message" : error } ;
+	}
+};
+
+
+
+
+//@@
+//@@	
+//@ 10. [search_count_product_sale_by_category]
+var search_count_product_sale_by_category = async function (datas) {
+	
+	
+	//@
+	//@
+	//@	
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_sale_by_category,sql_link_search_count_product_sale_by_category);
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-category_general_speciality->search_count_product_sale_by_category", "message" : error } ;
+	}	
+
+	//return get_sql_search_group;
+
+
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-category_general_speciality->search_count_product_sale_by_category", "message" : error } ;
+	}
+};	
+	
+	
+
 
 
 /*
@@ -544,7 +636,9 @@ module.exports = {
 	get_one_category_general_speciality,
 	search,
 	get_owner_store,
-	get_owner_cat
+	get_owner_cat,
+	search_count_product_by_category,
+	search_count_product_sale_by_category
 };
 
 

@@ -16,7 +16,7 @@
 
 * 7. [search_all]
 
-
+* 8. [search_count_product_sale]
 
 
 
@@ -170,6 +170,23 @@ var  sql_from_search_all =" from "  +
 //@
 //@
 //@	
+
+
+
+//from table
+var sql_from_search_count_product_sale = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_sale "  ;		
+
+var sql_link_search_count_product_sale = "";
+
+
+
+
+
+
+
+
+
 //@
 //@
 //@ *  1. [insert_products_spaciality]
@@ -891,10 +908,43 @@ const search_all = async function (datas) {
 	
 	
 //@
-//@ * end of 7. [search_all] 	
+	
 
 
+//@
+//@
+//@
+//@
+// * 8. [search_count_product_sale]
+const search_count_product_sale = async function (datas) {
+	
+	//@
+	//@
+	//@
+	//@ select field
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_sale,sql_link_search_count_product_sale);
+					
+	}
+	catch(error){
+		return  { "error" : "1","position":"md-products-spaciality->search_count_product_sale", "message" : error } ;
+	}
 
+
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-products-spaciality->search_count_product_sale", "message" : error } ;
+	}
+};
 
 /*
 @@@@
@@ -911,7 +961,8 @@ module.exports = {
 	delete_products_spaciality,
 	search,
 	search_all,
-	get_owner_product
+	get_owner_product,
+	search_count_product_sale
 };
 
 

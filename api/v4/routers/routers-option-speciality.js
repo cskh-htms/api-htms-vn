@@ -12,6 +12,16 @@
 
 * 4. [update_option_speciality]
 
+* 5. [delete_option_speciality]
+
+* 6. [search]
+
+* 7. [search_count_product_by_option]
+
+
+
+
+
 
 */
 
@@ -87,6 +97,14 @@ router.delete('/:option_id', middle_ware, controllers_options_speciality.delete_
 //@* 6. [search]
 router.post('/search', middle_ware, controllers_options_speciality.search);
 
+
+
+//@
+//@
+//@
+//@
+//@** 7. [search_count_product_by_option]
+router.post('/search_count_product_by_option', middle_ware, controllers_options_speciality.search_count_product_by_option);
 
 
 

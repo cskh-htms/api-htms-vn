@@ -11,7 +11,9 @@
 
 * 5. [delete_discount_program]
 
+* 6. [search]
 
+* 7. [search_discount_program_sale]
 
 
 
@@ -95,7 +97,11 @@ router.post('/search', middle_ware, controllers_discount_program.search);
 
 
 
-
+//@@
+//@@
+//@@
+//7. [search_discount_program_sale] 
+router.post('/search_discount_program_sale', middle_ware, controllers_discount_program.search_discount_program_sale);
 
 
 

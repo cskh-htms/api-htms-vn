@@ -23,11 +23,11 @@
 
 * 10. [get_all_coupon]
 
-* 100. [get_all_coupon]
+* 11. [get_all_coupon]
 
-* 11. [get_user_taget]
+* 12. [get_user_taget]
 
-
+* 13. [search_coupons_sale]
 
 
 
@@ -159,6 +159,22 @@ var sql_link_search_all = 	"" ;
 //@order	
 var sql_order_default = " order by " + 
 	ojs_configs.db_prefix + "coupon_speciality_date_created ASC ";
+	
+	
+	
+	
+	
+	
+	
+	
+//from table
+var sql_from_search_coupons_sale = 	" from " + 
+	ojs_configs.db_prefix + "view_coupons_sale "  ;		
+
+var sql_link_search_coupons_sale = "";
+	
+		
+		
 	
 	
 	
@@ -817,9 +833,45 @@ const get_owner_coupon_speciality = async function (datas) {
 	}
 };
 
-// 7. [get_owner_product]
 
 
+
+
+//@
+//@
+//@
+//@
+//@* 13. [search_coupons_sale]
+const search_coupons_sale = async function (datas) {
+	//return sql_field;
+	//@
+	//@
+	//@
+	// sql 
+	try {
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_coupons_sale,sql_link_search_coupons_sale);
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-coupon_speciality->search_coupons_sale", "message" : error } ; 
+	}	
+	//return get_sql_search_group;
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-coupon_speciality->search_coupons_sale", "message" : error } ; 
+	}
+};
 
 
 
@@ -844,7 +896,8 @@ module.exports = {
 			get_store_id,
 			get_all_coupon,
 			get_user_taget,
-			get_all_coupon_dala
+			get_all_coupon_dala,
+			search_coupons_sale
 };
 
 

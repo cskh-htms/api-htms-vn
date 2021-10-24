@@ -17,7 +17,7 @@
 
 * 7. [search]
 
-
+* 8.[search_count_product_by_option]
 
 
 
@@ -141,7 +141,11 @@ var sql_order_default = " order by " +
 	
 
 		
+//from table
+var sql_from_search_count_product_by_option = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_by_option ";	
 	
+var sql_link_search_count_product_by_option = "";
 
 //@
 //@
@@ -435,8 +439,53 @@ const search = async function (datas) {
 
 };
 
+
+
+
+
 //@
-//@end of  7. [search]
+//@
+//@
+//@
+//@ 7. [search_count_product_by_option]
+const search_count_product_by_option = async function (datas) {
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_by_option,sql_link_search_count_product_by_option);
+		//return get_sql_search_group;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		return { "error" : "model_option_speciality->search_count_product_by_option->error_number : 1", "message": error_send } ; 
+	}					
+	//@
+	//return sql_text;
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấu dữ liệu store search" );
+		return { "error" : "model_option_speciality->search_count_product_by_option->error_number : 2", "message": error_send } ; 
+	}
+
+};
+
+
+
+
+
 
 
 /*
@@ -453,7 +502,8 @@ module.exports = {
 	insert_option_speciality,
 	delete_option_speciality,
 	search,
-	get_owner_option
+	get_owner_option,
+	search_count_product_by_option
 };
 
 

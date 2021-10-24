@@ -14,9 +14,9 @@
 
 * 5. [delete_category_general_speciality]
 
-
-
-
+* 6. [search]
+* 7. [search_count_product_by_category]
+* 8. [search_count_product_sale_by_category]
 
 
 */
@@ -98,6 +98,19 @@ router.delete('/:cat_id', middle_ware, controllers_category_general_speciality.d
 // 6. [delete_category_general_speciality]
 router.post('/search', middle_ware, controllers_category_general_speciality.search);
 
+
+//@@
+//@@
+//@@
+// 7. [search_count_product_by_category]
+router.post('/search_count_product_by_category', middle_ware, controllers_category_general_speciality.search_count_product_by_category);
+
+
+//@@
+//@@
+//@@
+// * 8. [search_count_product_sale_by_category]
+router.post('/search_count_product_sale_by_category', middle_ware, controllers_category_general_speciality.search_count_product_sale_by_category);
 
 
 

@@ -16,6 +16,9 @@
 
 * 6. [search]
 
+* 7. [search_count_product_by_brand]
+
+* 8. [search_count_product_sale_by_brand]
 
 */
 
@@ -104,6 +107,22 @@ router.delete('/:brand_id', middle_ware, controllers_brands.delete_brands);
 //@
 //@* 6. [search]
 router.post('/search', middle_ware, controllers_brands.search);
+
+
+//@
+//@
+//@
+//@
+//@* 7. [search-count-product-by-brand]
+router.post('/search_count_product_by_brand', middle_ware, controllers_brands.search_count_product_by_brand);
+
+//@
+//@
+//@
+//@
+//@* 8. [search_count_product_sale_by_brand]
+router.post('/search_count_product_sale_by_brand', middle_ware, controllers_brands.search_count_product_sale_by_brand);
+
 
 
 

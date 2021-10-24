@@ -15,7 +15,9 @@
 
 * 6. [search]
 
+* 7. [search_count_product_by_brand]
 
+* 8. [search_count_product_sale_by_brand]
 
 
 */
@@ -939,9 +941,137 @@ catch(error){
 }
 
 
-// * end of 6. [search]
+
+//* 
+//@
+//@
+//@
+//@
+//@
+// * 7. [search_count_product_by_brand]
+async  function search_count_product_by_brand(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-brands->search_count_product_by_brand", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//@
+	//@
+	//@ run model
+	try {
+		models_brands.search_count_product_by_brand(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search brands" );
+			res.send({ "error" : "6", "position":"ctl-brands->search_count_product_by_brand", "message": error_send } ); 
+			return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi không xác định,Vui lòng liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-brands->search_count_product_by_brand", "message": error_send } ); 
+		return;	
+	}
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi không xác định,Vui lòng liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-brands->search_count_product_by_brand", "message": error_send } ); 
+	return;	
+}	
+	
+}
 
 
+
+//@
+//@
+//@
+//@
+//@
+// * 8. [search_count_product_sale_by_brand]
+async  function search_count_product_sale_by_brand(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-brands->search_count_product_sale_by_brand", "message": error_send } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//@
+	//@
+	//@ run model
+	try {
+		models_brands.search_count_product_sale_by_brand(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search brands" );
+			res.send({ "error" : "6", "position":"ctl-brands->search_count_product_sale_by_brand", "message": error_send } ); 
+			return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi không xác định,Vui lòng liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-brands->search_count_product_sale_by_brand", "message": error_send } ); 
+		return;	
+	}
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi không xác định,Vui lòng liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-brands->search_count_product_sale_by_brand", "message": error_send } ); 
+	return;	
+}	
+	
+}
 
 
 /*
@@ -956,7 +1086,9 @@ module.exports = {
 	update_brands,
 	insert_brands,
 	delete_brands,
-	search
+	search,
+	search_count_product_by_brand,
+	search_count_product_sale_by_brand
 };
 
 /*

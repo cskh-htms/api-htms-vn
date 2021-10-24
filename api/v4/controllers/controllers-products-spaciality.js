@@ -18,6 +18,11 @@
 
 * 7. [search_all]
 
+* 8. [search_count_product_sale]
+
+
+
+
 */
 
 //@
@@ -1175,13 +1180,76 @@ catch(error){
 }
 }
 //@
-//@ * end of 7. [search_all]
 
 
 
 
 
 
+//@
+//@
+//@
+//@
+//@ * 8. [search_count_product_sale]
+async function search_count_product_sale(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		
+		if(!datas.select_field || datas.select_field.length <= 0){
+			res.send({ "error" : "1", "position":"ctl-products-spaciality->search_count_product_sale", "message": "Vui lòng chọn fields" } ); 
+			return;			
+		}
+		
+		
+		//@
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-products-spaciality->search_count_product_sale", "message": error_send  } ); 
+		return;			
+	}	
+
+
+	//@
+	//@
+	//@
+	// run model
+	try {
+		models_products_spaciality.search_count_product_sale(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+		}, error => {
+				var evn = ojs_configs.evn;
+				//evn = "dev";
+				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+				res.send({ "error" : "6", "position":"ctl-products-spaciality->search_count_product_sale", "message": error_send  } ); 
+				return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "7", "position":"ctl-products-spaciality->search_count_product_sale", "message": error_send  } ); 
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+	res.send({ "error" : "113", "position":"ctl-products-spaciality->search_count_product_sale", "message": error_send  } ); 
+	return;	
+}
+}
+//@
 
 
 
@@ -1199,7 +1267,8 @@ module.exports = {
 	insert_products_spaciality,
 	delete_products_spaciality,
 	search,
-	search_all
+	search_all,
+	search_count_product_sale
 };
 
 /*

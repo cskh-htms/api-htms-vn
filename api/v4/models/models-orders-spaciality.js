@@ -138,7 +138,9 @@ var sql_from_view_order_count_product = " from " + ojs_configs.db_prefix + "view
 
 var sql_link_search_view = 	" " ;	
 
-
+//from table
+var sql_from_search_view = 	" from " + 
+	ojs_configs.db_prefix + "view_order_by_user "  ;
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -482,7 +484,7 @@ const search = async function (datas) {
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_view,sql_link_search_view);
 					
 	}
 	catch(error){

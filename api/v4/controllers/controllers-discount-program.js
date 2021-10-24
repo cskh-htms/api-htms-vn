@@ -13,6 +13,9 @@
 
 * 6. [search]
 
+* 7. [search_discount_program_sale]
+
+
 
 
 */
@@ -896,12 +899,71 @@ catch(error){
 }	
 }
 
-//end of 6. [search] 
 
 
 
 
 
+//@@
+//@@
+//@@
+//7. [search_discount_program_sale] 
+async  function search_discount_program_sale(req, res, next) {
+try {	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-discount-program->search_discount_program_sale", "message": error_send } );
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@
+	//@ run
+	try {
+		models_discount_program.search_discount_program_sale(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+			res.send({ "error" : "4", "position":"ctl-discount-program->search_discount_program_sale", "message": error_send } );
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+			res.send({ "error" : "5", "position":"ctl-discount-program->search_discount_program_sale", "message": error_send } );
+			return;	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
+		res.send({ "error" : "5", "position":"ctl-discount-program->search_discount_program_sale", "message": error_send } );
+		return;	
+}	
+}
 
 
 
@@ -912,7 +974,8 @@ module.exports = {
 		get_one_discount_program,
 		update_discount_program,
 		delete_discount_program,
-		get_all_discount_program
+		get_all_discount_program,
+		search_discount_program_sale
 };
 
 

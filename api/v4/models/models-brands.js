@@ -14,7 +14,9 @@
 
 * 6. [search]
 
+* 7. [search_count_product_by_brand]
 
+* 8. [search_count_product_sale_by_brand]
 
 
 */
@@ -116,6 +118,22 @@ var sql_link_search = 	"" +
 var sql_order_default = " order by " + 
 	ojs_configs.db_prefix + "brands_date_created DESC, " + 
 	ojs_configs.db_prefix + "brands_name " ;
+	
+	
+//from table
+var sql_from_search_count_product_by_brand = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_by_brand "  ;		
+
+var sql_from_search_count_product_sale_by_brand = 	" from " + 
+	ojs_configs.db_prefix + "view_count_product_sale_by_brand "  ;	
+
+
+var sql_link_search_count_product_by_brand = "";
+var sql_link_search_count_product_sale_by_brand = 	"";
+	
+		
+	
+	
 	
 	
 
@@ -431,6 +449,79 @@ const search = async function (datas) {
 //@
 //@
 //@
+//@ 7. [search_count_product_by_brand]
+const search_count_product_by_brand = async function (datas) {
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_by_brand,sql_link_search_count_product_by_brand);
+					
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-brands->search_count_product_by_brand", "message" : error };
+	}
+					
+	//@
+	//return sql_text;
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-brands->search_count_product_by_brand", "message" : error };
+	}
+
+};
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 8. [search_count_product_sale_by_brand]
+const search_count_product_sale_by_brand = async function (datas) {
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_count_product_sale_by_brand,sql_link_search_count_product_sale_by_brand);
+					
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-brands->search_count_product_sale_by_brand", "message" : error };
+	}
+					
+	//@
+	//return sql_text;
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "2", "position":"md-brands->search_count_product_sale_by_brand", "message" : error };
+	}
+
+};
+
+
+//@
+//@
+//@
+//@
+//@
 //@ end of 6. [search]
 
 /*
@@ -447,7 +538,9 @@ module.exports = {
 	insert_brands,
 	delete_brands,
 	search,
-	get_owner_brand
+	get_owner_brand,
+	search_count_product_by_brand,
+	search_count_product_sale_by_brand
 };
 
 

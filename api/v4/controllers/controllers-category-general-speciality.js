@@ -11,6 +11,9 @@
 * -5. [delete_category_general_speciality]
 
 * -6. [search]
+* 9. [search_count_product_by_category]
+* 10. [search_count_product_sale_by_category]	
+
 
 
 */
@@ -890,6 +893,134 @@ catch(error){
 //@ * end of -6. [search]
 
 
+//@@
+//@@
+//@@
+//@@
+//@ * 9. [search_count_product_by_category]
+async  function search_count_product_by_category(req, res, next) {
+try {	
+	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+		//res.send({ datas } ); 
+		//return;	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
+		return;			
+	}	
+
+
+	//@
+	//@
+	//@ run
+	try {
+		models_category_gemeral_speciality.search_count_product_by_category(datas).then( results => {
+			
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
+			res.send({ "error" : "6", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev"
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
+			res.send({ "error" : "7", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
+			return;	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev"
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
+		res.send({ "error" : "113", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
+		return;	
+}	
+}
+
+
+
+
+//@@
+//@@
+//@@
+//@@
+//@ * 10. [search_count_product_sale_by_category]
+async  function search_count_product_sale_by_category(req, res, next) {
+try {	
+	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+		//res.send({ datas } ); 
+		//return;	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-category_general_speciality->search_count_product_sale_by_category", "message": error_send } );
+		return;			
+	}	
+
+
+	//@
+	//@
+	//@ run
+	try {
+		models_category_gemeral_speciality.search_count_product_sale_by_category(datas).then( results => {
+			
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
+			res.send({ "error" : "6", "position":"ctl-category_general_speciality->search_count_product_sale_by_category", "message": error_send } );
+			return;	
+		});
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev"
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
+			res.send({ "error" : "7", "position":"ctl-category_general_speciality->search_count_product_sale_by_category", "message": error_send } );
+			return;	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev"
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
+		res.send({ "error" : "113", "position":"ctl-category_general_speciality->search_count_product_sale_by_category", "message": error_send } );
+		return;	
+}	
+}
 
 
 /*
@@ -904,7 +1035,9 @@ module.exports = {
 	update_category_general_speciality,
 	delete_category_general_speciality,
 	get_one_category_general_speciality,
-	search
+	search,
+	search_count_product_by_category,
+	search_count_product_sale_by_category
 };
 
 /*

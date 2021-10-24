@@ -13,6 +13,9 @@
 
 //@* 5. [delete_option_speciality]
 
+* 6. [search]
+
+* 7. [search_count_product_by_option]
 
 
 
@@ -865,6 +868,69 @@ async  function search(req, res, next) {
 //@
 //@ 6. end of  [search]
 
+
+
+
+
+//@
+//@
+//@ * 7. [search_count_product_by_option]
+async  function search_count_product_by_option(req, res, next) {
+	
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "controller_option-speciality->search_count_product_by_option->get req -> error_number : 1", "message": error_send } ); 
+		return;			
+	}	
+
+
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_option_speciality.search_count_product_by_option(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+			res.send({ "error" : "controllers-option-speciality->search_count_product_by_option->check_condition_id -> error_number : 3", "message": error_send } ); 
+			return;	
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
+		res.send({ "error" : "controllers-option-speciality->search_count_product_by_option->check_condition_id -> error_number : 4", "message": error_send } ); 
+		return;	
+	}
+}
+//@
+
+
+
+
+
+
+
 //@
 //@
 //@
@@ -876,7 +942,8 @@ module.exports = {
 	update_option_speciality,
 	insert_option_speciality,
 	delete_option_speciality,
-	search
+	search,
+	search_count_product_by_option
 };
 
 /*

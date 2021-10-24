@@ -16,6 +16,14 @@
 
 * 6. [search]
 
+* 7. [search_all]
+
+* 8. [search_count_product_sale]
+
+
+
+
+
 
 */
 
@@ -103,6 +111,27 @@ router.post('/search', middle_ware, controllers_products_spaciality.search);
 //@
 //@ 7. [search]
 router.post('/search_all', middle_ware, controllers_products_spaciality.search_all);
+
+
+
+//@
+//@
+//@
+//@
+//@ * 8. [search_count_product_sale]
+router.post('/search_count_product_sale', middle_ware, controllers_products_spaciality.search_count_product_sale);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
