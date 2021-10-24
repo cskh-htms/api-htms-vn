@@ -1281,7 +1281,7 @@ try {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
 			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_user", "message":  error_send  } ); 
 			return;				
@@ -1289,7 +1289,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
 		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_user", "message":  error_send  } ); 
 		return;	

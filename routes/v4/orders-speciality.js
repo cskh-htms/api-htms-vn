@@ -787,6 +787,10 @@ router.get('/show/:order_id', async function(req, res, next) {
 	}
 	
 	
+	//res.send(orders_detail);
+	//return;	
+	
+	
 	
 	
 	//Lấy danh sách shipper

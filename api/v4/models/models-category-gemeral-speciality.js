@@ -17,6 +17,7 @@ model-category
 
 * 7. [delete_category_general_speciality]
 
+* 8. [search]
 
 */
 //@
@@ -89,14 +90,16 @@ var sql_select_all = 	"" +
 //@from	
 var sql_from_default = 	" from " + 
 	ojs_configs.db_prefix + "category_general_speciality " ;
-	
+//@from	
+var sql_from_view = 	" from " + 
+	ojs_configs.db_prefix + "view_categorys " ;	
 	
 //@
 //@
 //@
 //@link	
-var sql_link_default = 	"";
-
+var sql_link_default = 	" ";
+var sql_link_view = 	" ";
 
 //@
 //@
@@ -488,7 +491,7 @@ const delete_category_general_speciality = async function (cat_id) {
 
 //@@
 //@@	
-//search
+//@ 8. [search]
 var search = async function (datas) {
 	
 	
@@ -497,7 +500,7 @@ var search = async function (datas) {
 	//@	
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);
 	}
 	catch(error){
 		return  { "error" : "1", "position":"md-category_general_speciality->search", "message" : error } ;

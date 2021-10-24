@@ -9,7 +9,6 @@ DROP VIEW IF EXISTS dala_views_products;
 
 CREATE VIEW dala_views_products AS 
 SELECT 
-
 dala_products_speciality.*,
 dala_stores.*,
 dala_service_type.*,

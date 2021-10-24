@@ -2323,11 +2323,6 @@ router.get('/', async function(req, res, next) {
 
 
 
-
-
-
-
-
 	datas_info = {
 		'title' 			: 'Quản lý coupon',
 		'users_type' 		: ojs_shares_others.get_users_type(token),

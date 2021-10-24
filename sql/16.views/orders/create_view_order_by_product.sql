@@ -9,18 +9,20 @@ dala_orders_details_speciality_product_id,
 dala_products_speciality_name,
 dala_users_ID,
 dala_users_full_name,
-
+dala_orders_speciality_date_orders,
 dala_stores_ID,
 dala_stores_name,
 
-sum(dala_orders_details_speciality_qty) as dala_orders_details_speciality_qty, 
-sum(dala_orders_details_speciality_qty * dala_orders_details_speciality_price) as dala_price_caution 
+dala_orders_details_speciality_qty,
+dala_orders_details_speciality_price,
+dala_orders_details_speciality_qty * dala_orders_details_speciality_price as dala_price_caution 
 
 FROM  
-dala_orders_details_speciality 
+dala_products_speciality 
 
+
+LEFT JOIN dala_orders_details_speciality  ON  dala_products_speciality_ID  =  dala_orders_details_speciality_product_id 
 LEFT JOIN dala_orders_speciality  ON  dala_orders_details_speciality_order_id  = dala_orders_speciality_ID  
-LEFT JOIN dala_products_speciality  ON  dala_orders_details_speciality_product_id  = dala_products_speciality_ID 
 
 LEFT JOIN dala_stores  ON  dala_orders_speciality_store_id  = dala_stores_ID 
 
@@ -30,15 +32,5 @@ WHERE
 
 dala_orders_speciality_status_orders = 100 
 AND 
-dala_orders_details_speciality_line_order = "product" 
-
-
-GROUP BY 
-dala_orders_details_speciality_product_id,
-dala_products_speciality_name,
-dala_users_ID,
-dala_users_full_name,
-
-dala_stores_ID,
-dala_stores_name;
+dala_orders_details_speciality_line_order = "product";
 

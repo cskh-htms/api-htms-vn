@@ -93,9 +93,15 @@
 			return " Shipper không có trong hệ thống  ";					
 			
 		}else if(error.sqlMessage.search("orders_speciality_store_id") >= 0){
-			return " Không tìm thấy cửa hàng ";				
+			return " Không tìm thấy cửa hàng ";	
+
+
+
 			
-			
+		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_product_id_not_refer") >= 0){
+			return " Không tìm thấy sản phẩm để tạo đơn hàng ";				
+		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_coupon_id_not_refer") >= 0){
+			return " Không tìm thấy mã coupon để tạo đơn hàng ";				
 			
 			
 		}else{

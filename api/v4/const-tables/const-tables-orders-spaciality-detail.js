@@ -51,6 +51,16 @@
 	function get_message_error(error){
 		if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0 ){
 			return "Không tìm thấy đơn hàng trong chi tiết đơn hàng";
+			
+
+			
+		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_product_id_not_refer") >= 0){
+			return " Không tìm thấy sản phẩm để tạo đơn hàng ";				
+		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_coupon_id_not_refer") >= 0){
+			return " Không tìm thấy mã coupon để tạo đơn hàng ";				
+			
+			
+			
 		}else{
 			return "Lỗi insert details orders ";
 		}

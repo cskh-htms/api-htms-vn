@@ -92,8 +92,7 @@ const ojs_datas_orders = {
 					"orders_details_speciality_product_id",
 					"orders_details_speciality_qty",
 					"orders_details_speciality_price",
-					"price_caution",
-					"coupon_speciality_type"
+					"price_caution"
 					],
 					"condition" :
 					[

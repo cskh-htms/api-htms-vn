@@ -1,76 +1,38 @@
 -- 
+-- create view product
+-- 
+-- 
 -- 
 
 
-DROP VIEW IF EXISTS dala_view_coupons;
+DROP VIEW IF EXISTS dala_view_discount_program;
 
-CREATE VIEW dala_view_coupons AS 
+CREATE VIEW dala_view_discount_program AS 
 SELECT 
 
-dala_coupon_speciality.*,
-dala_stores_ID,
-dala_stores_name,
-
-
-
+dala_discount_program.*,
+dala_stores.*,
+dala_users.*,
 
 (CASE 
-	WHEN (dala_coupon_speciality_date_star is null and dala_coupon_speciality_date_end is null ) THEN  
+	WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
 		1 
 		
-	WHEN (dala_coupon_speciality_date_star is null and dala_coupon_speciality_date_end is not null  ) THEN 
-		IF(
-			UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_coupon_speciality_date_end) < 0  ,1,0
-		) 
+	WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) < UNIX_TIMESTAMP() ) THEN 
+		1 
 		
-	WHEN (dala_coupon_speciality_date_star is not null and dala_coupon_speciality_date_end is null ) THEN 
-		IF(
-			UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_coupon_speciality_date_star) < 0  ,0,1
-		)		
-		
-	WHEN (dala_coupon_speciality_date_star is not null and dala_coupon_speciality_date_end is not null ) THEN 
-		
-		CASE 
-		WHEN (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_coupon_speciality_date_star) < 0 ) THEN 		
-			0 
-			
-		WHEN (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_coupon_speciality_date_star) > 0  ) THEN 		
-		
-			IF(
-				UNIX_TIMESTAMP() - UNIX_TIMESTAMP(dala_coupon_speciality_date_end) < 0  ,1,0
-			)			
-			
-		END 
 	ELSE   
-		100
+		0
 END) as dala_check_expired 
 
 
+
 FROM  
-dala_coupon_speciality 
+dala_discount_program 
 
-LEFT JOIN dala_stores  ON 
-dala_coupon_speciality_stores_id_created  = dala_stores_ID  
 
-LEFT JOIN dala_users  ON  
-dala_stores_user_id  = 	dala_users_ID ;	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+LEFT JOIN dala_stores  ON  dala_discount_program_store_id_created  = dala_stores_ID  
+
+LEFT JOIN dala_users ON  dala_stores_user_id = dala_users_ID ;
+
+

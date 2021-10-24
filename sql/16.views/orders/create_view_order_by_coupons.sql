@@ -8,6 +8,7 @@ SELECT
 dala_coupon_speciality_ID,
 dala_coupon_speciality_code,
 dala_coupon_speciality_type,
+dala_orders_speciality_date_orders,
 
 dala_users_ID,
 dala_users_full_name,
@@ -15,8 +16,7 @@ dala_users_full_name,
 dala_stores_ID,
 dala_stores_name,
 
-SUM(dala_orders_details_speciality_price) as coupon_sum 
-
+dala_orders_details_speciality_price 
 
 FROM  
 dala_coupon_speciality 
@@ -27,8 +27,4 @@ LEFT JOIN dala_stores  ON  dala_orders_speciality_store_id  = dala_stores_ID
 LEFT JOIN dala_users  ON  dala_stores_user_id = dala_users_ID 
 
 WHERE dala_orders_speciality_status_orders = 100  
-AND dala_orders_details_speciality_line_order = 'coupon' 
-
-
-group by dala_coupon_speciality_ID,
-dala_coupon_speciality_code;
+AND dala_orders_details_speciality_line_order = 'coupon';

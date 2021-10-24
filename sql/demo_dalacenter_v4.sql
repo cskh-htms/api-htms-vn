@@ -450,6 +450,43 @@ CREATE TABLE IF NOT EXISTS `dala_orders_details_speciality` (
 
 -- --------------------------------------------------------
 
+
+
+
+
+
+--
+-- Table structure for table `dala_orders_details_speciality_discount`
+--
+
+DROP TABLE IF EXISTS `dala_orders_details_speciality_discount`;
+CREATE TABLE IF NOT EXISTS `dala_orders_details_speciality_discount` (
+  `dala_orders_details_speciality_discount_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_orders_details_speciality_discount_order_id` int NOT NULL,
+  `dala_orders_details_speciality_discount_order_details_id` int NOT NULL,  
+  `dala_orders_details_speciality_discount_discount_id` int NOT NULL,
+  `dala_orders_details_speciality_discount_product_id` int NOT NULL,  
+  `dala_orders_details_speciality_discount_qty` int NOT NULL DEFAULT '0',
+  `dala_orders_details_speciality_discount_price` double NOT NULL DEFAULT '0',
+  `dala_orders_details_speciality_discount_medium_text` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`dala_orders_details_speciality_discount_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --
 -- Table structure for table `dala_orders_food_drink`
 --

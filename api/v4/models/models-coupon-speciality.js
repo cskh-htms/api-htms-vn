@@ -121,13 +121,17 @@ var sql_from_default = 	" from " +
 //@
 //@from
 var sql_from_search_all = 	" from " + 
-	ojs_configs.db_prefix + "view_coupon "  	
+	ojs_configs.db_prefix + "view_coupons "  	
+	
+	
+var sql_from_view = " from " + 
+	ojs_configs.db_prefix + "view_coupons " 	
 	
 	
 	
-var sql_link_default = 	"";	
+var sql_link_default = 	" ";	
 	
-	
+var sql_link_view = " ";		
 //@
 //@
 //@
@@ -706,7 +710,7 @@ const search = async function (datas) {
 				
 				
 		
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_2,sql_from_default,sql_link_search);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search_2,sql_from_view,sql_link_view);
 	}
 	catch(error){
 		return  { "error" : "3", "position":"md-coupon_speciality->search", "message" : error } ;  
@@ -749,7 +753,7 @@ const search_all = async function (datas) {
 	// sql 
 	try {
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
-		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_all,sql_link_search_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_view,sql_link_view);
 	}
 	catch(error){
 		return  { "error" : "1", "position":"md-coupon_speciality->search_all", "message" : error } ; 
@@ -789,8 +793,8 @@ const get_owner_coupon_speciality = async function (datas) {
 	//return datas;
 	//create sql text
 	let sql_text = 	" SELECT " +  ojs_configs.db_prefix  + "coupon_speciality_ID  "  + 
-					sql_from_default + 
-					sql_link_search + 
+					sql_from_view + 
+					sql_link_view + 
 					" WHERE " +  
 							ojs_configs.db_prefix + "users_ID = '" + datas.datas.user_id + "' "  + 
 							" AND " + 

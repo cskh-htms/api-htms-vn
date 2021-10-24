@@ -128,11 +128,11 @@ var sql_order_default = " order by " +
 //--------------------------------	
 	
 //from table
-var sql_from_search_customer = 	" from " + ojs_configs.db_prefix + "view_orders_customer " ;
-var sql_from_search_user = " from " + ojs_configs.db_prefix + "view_orders_users " ;
+var sql_from_search_customer = 	" from " + ojs_configs.db_prefix + "view_order_details_by_customer " ;
+var sql_from_search_user = " from " + ojs_configs.db_prefix + "view_order_details_by_user " ;
 
-var sql_from_search_count_order_by_user = " from " + ojs_configs.db_prefix + "view_count_order_by_user" ;
-var sql_from_view_order_count_product = " from " + ojs_configs.db_prefix + "view_order_count_product" ;
+var sql_from_search_count_order_by_user = " from " + ojs_configs.db_prefix + "view_count_order_by_user " ;
+var sql_from_view_order_count_product = " from " + ojs_configs.db_prefix + "view_count_product_sale " ;
 
 
 

@@ -19,8 +19,8 @@
 	
 	   <tr>
 			<td class="user-name">
-				<a href="#" class="pro-img"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
-				<a href="#"><%- products_list[x].products_speciality_name %></a>
+				<a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
+				<a href="#" class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>" ><%- products_list[x].products_speciality_name %></a>
 				<div class="row-actions">
 					<span class="edit"><a href="/admin/product/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>				

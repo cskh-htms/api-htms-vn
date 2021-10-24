@@ -88,13 +88,12 @@ source ./sql/14.table_dala_orders_speciality/03.table_orders_speciality_constrai
 
 
 
-
-
 -- 14.1.table_dala_orders_details_speciality
 source ./sql/14.1.table_orders_details_speciality/03.table_orders_details_speciality_constraint.sql;
 
 
-
+-- 14.2.table_orders_details_speciality_discount
+source ./sql/14.2.table_orders_details_speciality_discount/03.table_orders_details_speciality_discount_constraint.sql;
 
 
 -- 15.table_shipping_tracking
@@ -114,12 +113,8 @@ source ./sql/15.2.table_dala_adress_meta/03.table_adress_meta_constraint.sql;
 
 
 
-
-
 -- 16.0.table_reviews_store
 source ./sql/16.0.table_reviews_store/03.table_reviews_store_constraint.sql;
-
-
 
 
 
@@ -128,7 +123,6 @@ source ./sql/16.1.table_reviews/03.table_reviews_constraint.sql;
 
 -- 16.10.table_notes
 source ./sql/16.10.table_notes/03.table_notes_constraint.sql;
-
 
 
 

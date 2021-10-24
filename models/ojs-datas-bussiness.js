@@ -64,7 +64,7 @@ const ojs_datas_bussiness = {
 			  }
 			}	
 		return datas_return;	
-	},//@ end of [get_orders_list_bussiness]	
+	},//@ end of
 	
 	//@
 	//@
@@ -94,7 +94,7 @@ const ojs_datas_bussiness = {
 			  }
 			}	
 		return datas_return;	
-	},//@ end of [get_orders_list_bussiness]	
+	},//@ end of 
 	//@
 	//@
 	//@
@@ -132,7 +132,7 @@ const ojs_datas_bussiness = {
 			  }
 			}	
 		return datas_return;	
-	},//@ end of [get_orders_list_bussiness]
+	},//@ end of 
 		
 	//@
 	//@
@@ -172,7 +172,7 @@ const ojs_datas_bussiness = {
 				}
 			}	
 		return datas_return;	
-	},//@ end of [get_orders_list_bussiness]
+	},//@ end of
 	
 		
 	
@@ -197,7 +197,6 @@ const ojs_datas_bussiness = {
 					"orders_details_speciality_line_order",
 					"orders_details_speciality_qty" ,
 					"orders_details_speciality_price",
-					"coupon_speciality_type",
 					"price_caution",
 					"orders_speciality_status_pull_money"
 				],
@@ -225,7 +224,7 @@ const ojs_datas_bussiness = {
 		}	
 		return datas_return;		
 		
-	},//@ end of [get_orders_list_bussiness]
+	},//@ end of 
 	
 	
 	

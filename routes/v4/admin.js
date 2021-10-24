@@ -2723,7 +2723,7 @@ try {
 	
 		if(orders_details.error != ""){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_details.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 			res.send({ "error" : "31.router_app->admins->orders_details", "message": error_send } ); 
 			return;				
@@ -2732,7 +2732,7 @@ try {
 	catch(error){
 		if(orders_details.error != ""){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			evn = "dev";;
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 			res.send({ "error" : "31.router_app->admins-orders_details", "message": error_send } ); 
 			return;				
