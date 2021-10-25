@@ -90,6 +90,8 @@ var sql_select_all = 	"" +
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "products_speciality_date_end,'%Y/%m/%d %H:%i:%s') as products_speciality_date_end, " +  	
 
 	ojs_configs.db_prefix  + "products_speciality_stock as products_speciality_stock, " + 
+	ojs_configs.db_prefix  + "products_speciality_stock_status as products_speciality_stock_status, " + 
+	
 	ojs_configs.db_prefix  + "products_speciality_brand as products_speciality_brand, " + 
 	ojs_configs.db_prefix  + "products_speciality_status_admin as products_speciality_status_admin, " + 
 	ojs_configs.db_prefix  + "products_speciality_status_store as products_speciality_status_store, " + 
@@ -238,6 +240,8 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_date_start" : datas.products_speciality_date_start,
 			"products_speciality_date_end" : datas.products_speciality_date_end,
 			"products_speciality_stock" : datas.products_speciality_stock,
+			"products_speciality_stock_status" : datas.products_speciality_stock_status,			
+			
 			"products_speciality_brand" : datas.products_speciality_brand,
 			"products_speciality_status_admin" : datas.products_speciality_status_admin,
 			"products_speciality_status_store" : datas.products_speciality_status_store,

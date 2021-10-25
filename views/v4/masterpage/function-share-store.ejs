@@ -1,0 +1,112 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+	
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_store = {
+
+	//@
+	//@
+	//@
+	//@ hiển thị trạng thái duyệt
+	//dùng cho tất cả 
+	//@
+	show_status_select_store: function(status){
+		let t = "";
+		let s = " selected ";
+		let result = "";
+		
+		
+		
+		let arr = [
+			['<option value="0"',' >Chờ duyệt</option>'],
+			['<option value="1"',' >Đã duyệt</option>'],
+			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
+			['<option value="3"',' >Từ chối</option>'],
+			['<option value="4"',' >Cửa hàng ngừng hoạt động</option>']
+		]
+		var i;
+		
+		for(i = 0; i < arr.length; i ++){
+			if(status == i){
+				result = result + arr[i][0] + " selected " + arr[i][1];
+			}else{
+				result = result + arr[i][0] + "" + arr[i][1];
+			}
+		}
+		//	
+		return result;	
+	}		
+
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

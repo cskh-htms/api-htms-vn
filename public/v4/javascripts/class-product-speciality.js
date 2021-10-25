@@ -114,7 +114,7 @@ $(document).ready(function($){
 								}
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã phê suyệt sản phẩm",location.href);			
+							ojs_message.message_ok_show(" Đã phê duyệt sản phẩm",location.href);			
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
@@ -251,7 +251,15 @@ $(document).ready(function($){
 								}
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã update",location.href);			
+							var x = location.href;
+							var y = x.search("admin");
+							var x_arr = x.split("/");
+							var z = x_arr[x_arr.length - 1];
+							if(y > 0){
+								ojs_message.message_ok_show(" Đã update","/products/speciality/");
+							}else{
+								ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
+							}		
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

@@ -467,8 +467,8 @@ router.get('/product/show/:product_id/:store_id/', async function(req, res, next
 			'product_id'			:product_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
-			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_thuong_hieu',			
+			'sidebar_type'			: 3,
+			'menu_taget'			:'sidebar_product',			
 			'store_list' 			: get_all_list_datas[2].datas,
 			'news_admin_menu' 		: get_datas_news_admin_menu,
 			'service_type_name' : get_all_list_datas[2].datas[0].service_type_name,
@@ -494,13 +494,11 @@ router.get('/product/show/:product_id/:store_id/', async function(req, res, next
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			////evn = "dev";;
+			//evn = "dev";
 			var error_send = ojs_shares.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 			res.send({ "error" : "43.router_product_speciality(app)->add", "message": error_send } ); 
 			return;		
 	}
-
-
 });
 
 

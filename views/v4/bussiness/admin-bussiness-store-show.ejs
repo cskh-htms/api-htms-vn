@@ -41,7 +41,7 @@ if(users_type == "admin"){
 
 
 <% include ../masterpage/loader %>
-
+<% include ../masterpage/function-share-store %>
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
@@ -196,7 +196,7 @@ content
 		<p>
 			<span>Trạng thái admin:</span>
 			<select id="stores_status_admin" <%- status_disebale %>>
-				<%- ojs_share.show_status_select_share_all(datas[0].stores_status_admin) %>
+				<%- ojs_share_store.show_status_select_store(datas[0].stores_status_admin) %>
 			</select>	
 			<span class="giai-thich"><span>Cửa hàng đã được admin duyệt chưa</span></span>
 		</p>

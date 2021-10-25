@@ -22,14 +22,14 @@
 				products_speciality_featured_image : '',
 				products_speciality_image_slider : '',
 				products_speciality_contents : '',
-				products_speciality_origin : '',
-				
+				products_speciality_origin : '',				
 				
 				products_speciality_price : '',
 				products_speciality_sale_of_price : null,
 				products_speciality_date_start : null,
 				products_speciality_date_end : null,
-				products_speciality_stock : null,
+				products_speciality_stock : 0,
+				products_speciality_stock_status : 0,
 				products_speciality_brand : null,
 				products_speciality_status_admin : 0,
 				products_speciality_status_update : 0,

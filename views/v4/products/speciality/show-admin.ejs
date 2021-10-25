@@ -1,21 +1,17 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
-
+<% include ../../masterpage/function-share-product %>
 <script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
 
 
 
 <% 
-sidebar_type = 3;
-menu_taget = "sidebar_product";
 if(users_type == "admin"){
 	var status_disebale = "";
 }else{
 	var status_disebale = "disabled";
 }
 %>
-
-
 
 
 
@@ -57,16 +53,8 @@ content
 				<h3>Thuộc tính</h3>
 				<div class="inside">
 					<p><span>Mã sku</span>
-						<input type="text" value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
-					<p  style="display:none;" ><span>Tồn kho</span>
-						<input  
-						class="number_change" 
-						data_value="<%= datas[0].products_speciality_stock %>"  
-						type="text" 
-						value="<%= datas[0].products_speciality_stock %>" 
-						id="products_speciality_stock" 
-						/> 
-					</p>
+						<input type="text" disabled value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
+
 					<p><span>Cân nặng(g)</span>
 						<input 
 						class="number_change" 
@@ -76,6 +64,7 @@ content
 						id="products_speciality_weight" 
 						/> 
 					</p>
+					
 					<p><span>Giá bán</span>
 						<input 
 						class="number_change" 
@@ -94,7 +83,7 @@ content
 						id="products_speciality_length" 
 						/> 
 					</p>
-					<p style="display:none;" ><span>Chiều rộng(cm)</span>
+					<p  style="display:none;" ><span>Chiều rộng(cm)</span>
 						<input 
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_width %>" 							
@@ -103,7 +92,7 @@ content
 						id="products_speciality_width" 
 						/> 
 					</p>
-					<p style="display:none;" ><span>Chiều cao(cm)</span>
+					<p  style="display:none;" ><span>Chiều cao(cm)</span>
 						<input 
 						class="number_change" 
 						data_value="<%= datas[0].products_speciality_height %>" 							
@@ -125,7 +114,7 @@ content
 				<div class="inside">
 
 					
-					<p><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
+					<p style="display:none;"><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
 						<input 
 						class="number_change_empty" 
 						data_value="<%= datas[0].products_speciality_sale_of_price %>" 						
@@ -134,13 +123,34 @@ content
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p style="display:none;" ><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
+					<p style="display:none;" ><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
 					
 					
 				</div>
 			</div>	
-	
+			
+			<div class="pro_box ten_sp_box">
+				<h3>
+				Tồn kho
+				<p style="display: inline-flex;align-items: center;cursor: pointer;" >
+					<%- ojs_share_product.show_stauts_stock(datas[0].products_speciality_stock_status) %>
+					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  for="products_speciality_stock_status" >Quản lý tồn kho</label>
+				</p>				
+				</h3>
+			
+				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  ><span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
+					<input 
+					class="number_change" 
+					data_value="<%= datas[0].products_speciality_stock %>"  
+					type="text" 
+					value="<%= datas[0].products_speciality_stock %>" 
+					id="products_speciality_stock" 
+					/> 
+				</p>
+						
+			</div>
+			
 			<div class="pro_box quy_cach_box" style="display:none">
 				<h3>Quy cách</h3>
 				<div class="inside">
@@ -538,9 +548,28 @@ $(document).ready(function($){
 		var product_id = $('#product_id').val();
 		var datas = get_datas();
 		datas.datas.products_speciality_status_store = 1;		
-		console.log(datas);		
+		//console.log(datas);	
+		//return;
 		ojs_products_speciality.ajax_update(datas,product_id);			
 	});//end of save ajax
+
+
+	$(document).on('click','#products_speciality_stock_status',function(e) {		
+		if($( this ).prop( "checked" )){
+			$("#products_speciality_stock").prop('disabled', false);
+		}else{
+			$("#products_speciality_stock").prop('disabled', true);
+		}
+	});//end of save ajax
+
+		
+	if($('#products_speciality_stock_status').prop("checked")){
+		$("#products_speciality_stock").prop('disabled', false);
+	}else{
+		$("#products_speciality_stock").prop('disabled', true);
+	}
+
+
 
 
 
@@ -648,6 +677,16 @@ $(document).ready(function($){
 		
 		
 		
+		if($('#products_speciality_stock_status').prop("checked")){
+			var products_speciality_stock_status = 1;
+		}else{
+			var products_speciality_stock_status = 0;
+		}		
+		
+		
+		
+		
+		
 		
 		var user_id = $('#user_id').val();
 		
@@ -693,6 +732,7 @@ $(document).ready(function($){
 				products_speciality_date_start : products_speciality_date_start,
 				products_speciality_date_end : products_speciality_date_end,
 				products_speciality_stock : products_speciality_stock,
+				products_speciality_stock_status : products_speciality_stock_status,
 				products_speciality_brand : products_speciality_brand,
 				products_speciality_variation_option : products_speciality_variation_option,
 				products_speciality_height : products_speciality_height,
@@ -719,54 +759,7 @@ $(document).ready(function($){
 
 
 
-
-
-
-
-
-
-
-
-
 <% include ../../masterpage/loader-end %>	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

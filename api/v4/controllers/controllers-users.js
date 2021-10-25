@@ -501,7 +501,7 @@ try {
 		
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
 		res.send({ "error" : "15", "position":"ctl-users->login_app", "message": error_send } );
 		return;		
 	}
@@ -825,7 +825,7 @@ try {
 
 	//@
 	//@
-	// nếu có users type và không pahi3 admin thi thoat ra
+	// nếu có users type và không pahi3 admin thi thoặc ra
 	if(datas.users_users_type_id  &&  check_datas_result.user_role != "admin"){
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
@@ -1972,7 +1972,7 @@ try {
 		
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, "user hoat mật khẩu không đúng", "user hoat mật khẩu không đúng" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
 		res.send({ "error" : "14", "position":"ctl-users->login", "message": error_send } );
 		return;		
 	}

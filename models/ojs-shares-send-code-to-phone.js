@@ -66,7 +66,7 @@ const ojs_shares_send_code_to_phone = {
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
 			return;			
 		}
 
@@ -110,7 +110,7 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gữi tin nhắn"});
+				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
 			}else{
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
@@ -118,7 +118,7 @@ const ojs_shares_send_code_to_phone = {
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
 			return;			
 		}
 
@@ -165,15 +165,15 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gữi tin nhắn"});
+				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
 			}else{
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gữi được tin nhắn"});
+				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gửi được tin nhắn"});
 				return;					
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 2","message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 2","message": "chưa gửi được tin nhắn"});
 			return;			
 		}
 	},
@@ -218,7 +218,7 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gữi tin nhắn"});
+				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
 			}else{
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1",get_code_verification});
@@ -226,7 +226,7 @@ const ojs_shares_send_code_to_phone = {
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass ->","message": "chưa gữi được tin nhắn"});
+			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass ->","message": "chưa gửi được tin nhắn"});
 			return;			
 		}
 
