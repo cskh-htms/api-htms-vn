@@ -27,6 +27,18 @@
 12. [yeu-cau-rut-tien]
 
 
+
+13. [search_order_by_coupon]
+14. [search_order_by_discount]
+15. [search_order_by_product]
+
+
+
+
+
+
+
+
 */
 
 const express = require('express');
@@ -162,6 +174,33 @@ router.post('/search-order-product-count', middle_ware, controllers_orders_spaci
 //@
 //@* 12. [yeu-cau-rut-tien]
 router.put('/yeu-cau-rut-tien/:order_id', middle_ware, controllers_orders_spaciality.yeu_cau_rut_tien);
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 13. [search_order_by_coupon]
+router.post('/search_order_by_coupon', middle_ware, controllers_orders_spaciality.search_order_by_coupon);
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@* 14. [search_order_by_discount]
+router.post('/search_order_by_discount', middle_ware, controllers_orders_spaciality.search_order_by_discount);
+
+//@
+//@
+//@
+//@
+//@
+//@* 15. [yeu-cau-rut-tien]
+router.post('/search_order_by_product', middle_ware, controllers_orders_spaciality.search_order_by_product);
 
 
 

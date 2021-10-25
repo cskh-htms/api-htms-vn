@@ -27,6 +27,15 @@
 14. [save_meta_adress]
 
 
+15. [search_order_by_coupon]
+16. [search_order_by_discount]
+17. [search_order_by_product]
+
+
+
+
+
+
 */
 
 
@@ -144,6 +153,32 @@ var sql_from_search_view = 	" from " +
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+//from table
+var sql_from_search_order_by_coupon = 	" from " + 
+	ojs_configs.db_prefix + "view_order_by_coupon "  ;		
+
+var sql_from_search_order_by_discount = 	" from " + 
+	ojs_configs.db_prefix + "view_order_by_discount "  ;	
+	
+	
+var sql_from_search_order_by_product = 	" from " + 
+	ojs_configs.db_prefix + "view_order_by_product "  ;	
+
+
+var sql_link_search_order_by_coupon = "";
+var sql_link_search_order_by_discount = "";
+var sql_link_search_order_by_product = "";		
+	
+	
+
+	
+	
 	
 	
 //@
@@ -814,6 +849,145 @@ const save_meta_adress = async function (datas) {
 
 
 
+
+//@
+//@
+//@	
+//@ 15.[search_order_by_coupon]
+const search_order_by_coupon = async function (datas) {
+	
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_order_by_coupon,sql_link_search_order_by_coupon);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_order_by_coupon : 1", "message" : error } ;
+	}
+	
+	
+	
+	//return get_sql_search_group;
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_order_by_coupon : 2", "message" : error } ;
+	}
+};
+
+
+
+//@
+//@
+//@	
+//@ 15.[search_order_by_discount]
+const search_order_by_discount = async function (datas) {
+	
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_order_by_discount,sql_link_search_order_by_discount);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_order_by_discount : 1", "message" : error } ;
+	}
+	
+	
+	
+	//return get_sql_search_group;
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_order_by_discount : 2", "message" : error } ;
+	}
+};
+
+
+//@
+//@
+//@	
+//@ 15.[search_order_by_product	]
+const search_order_by_product	 = async function (datas) {
+	
+	//@
+	//@
+	//@
+	try {	
+		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
+		var get_sql_search_group  = ojs_shares_sql.get_sql_search_group(get_sql_search,sql_from_search_order_by_product	,sql_link_search_order_by_product);
+					
+	}
+	catch(error){
+		return  { "error" : "model-orders-spaciality->search_order_by_product	 : 1", "message" : error } ;
+	}
+	
+	
+	
+	//return get_sql_search_group;
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "01.model_orders_speciality->search_order_by_product	 : 2", "message" : error } ;
+	}
+};
+
+
+
+
+//	search_order_by_coupon,
+//	search_order_by_discount,
+//	search_order_by_product	
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 @@@@
 @@@@@
@@ -835,7 +1009,10 @@ module.exports = {
 	get_store_id,
 	search_order_product_count,
 	yeu_cau_rut_tien,
-	save_meta_adress
+	save_meta_adress,
+	search_order_by_coupon,
+	search_order_by_discount,
+	search_order_by_product	
 };
 
 

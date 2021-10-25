@@ -26,6 +26,15 @@
 * 11. [yeu_cau_rut_tien]
 
 
+
+13. [search_order_by_coupon]
+14. [search_order_by_discount]
+15. [search_order_by_product]
+
+
+
+
+
 */
 
 //@
@@ -1645,12 +1654,205 @@ catch(error){
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 13. [search_order_by_coupon]
+async  function search_order_by_coupon(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->search_order_by_coupon", "message":  error_send  } ); 
+		return;			
+	}	
+
+
+	//res.send(datas);  
+	//return;	
+
+
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_orders_spaciality.search_order_by_coupon(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
+			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_order_by_coupon", "message":  error_send  } ); 
+			return;				
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_order_by_coupon", "message":  error_send  } );  
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->search_order_by_coupon", "message":  error_send  } );  
+	return;	
+}
+}
+//@
 
 
 
 
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 14. [search_order_by_discount]
+async  function search_order_by_discount(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->search_order_by_discount", "message":  error_send  } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_orders_spaciality.search_order_by_discount(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
+			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_order_by_discount", "message":  error_send  } ); 
+			return;				
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_order_by_discount", "message":  error_send  } );  
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->search_order_by_discount", "message":  error_send  } );  
+	return;	
+}
+}
+//@
 
 
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 15. [search_order_by_product]
+async  function search_order_by_product(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body.datas;
+		var token = req.headers['token'];
+		//@
+		//@
+		//@
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->search_order_by_product", "message":  error_send  } ); 
+		return;			
+	}	
+
+	//@
+	//@
+	//@
+	//@
+	try {
+		models_orders_spaciality.search_order_by_product(datas).then( results => {
+			res.send( { "error" : "", "datas" : results } );
+			return;
+		}, error => {
+			var evn = ojs_configs.evn;
+			evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search, liên hệ admin" );
+			res.send({ "error" : "6", "position":"ctl-orders-spaciality->search_order_by_product", "message":  error_send  } ); 
+			return;				
+		});
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+		res.send({ "error" : "7", "position":"ctl-orders-spaciality->search_order_by_product", "message":  error_send  } );  
+		return;	
+	}
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "113", "position":"ctl-orders-spaciality->search_order_by_product", "message":  error_send  } );  
+	return;	
+}
+}
+//@
 
 
 
@@ -1673,7 +1875,10 @@ module.exports = {
 	search_count_order_by_user,
 	send_order_sms,
 	search_order_product_count,
-	yeu_cau_rut_tien
+	yeu_cau_rut_tien,
+	search_order_by_coupon,
+	search_order_by_discount,
+	search_order_by_product
 };
 
 /*
