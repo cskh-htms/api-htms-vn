@@ -2935,12 +2935,23 @@ shipper
 .giai_thich_link{
 	text-decoration:none;
 }
+
 /*
 //shipper
 */
 
 
-
+/*category*/
+#ul-category li{
+	list-style:none;
+    line-height: 22px;
+}
+#ul-category li .sub-menu{
+	padding-left:30px;
+}
+#ul-category li label{
+	cursor:pointer;
+}
 
 
 

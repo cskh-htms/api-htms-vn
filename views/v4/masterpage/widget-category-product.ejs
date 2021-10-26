@@ -10,126 +10,159 @@ if (typeof datas_category_general == 'object' && datas_category_general && datas
 
 
 
+
+
+<ul id="ul-category" style="margin: 0; padding: 0;">
 <% 
 if(datas_category_general.length > 0){
+for(var  x in datas_category_general) {
+if(datas_category_general[x].category_general_speciality_category_parent_id == 0) {
+%>	
+	<!-- -------------------- 
+	//cấp độ 1
+	--------------------- -->
+	<li class="level-1">
+	<% 
+	let cat_check_edit = "";
+	for( var i in category_link_datas ){
+		if(datas_category_general[x].category_general_speciality_ID == category_link_datas[i].category_general_speciality_link_category_general_id){
+			cat_check_edit = "checked";
+			break;
+		}
+	}
+	%>
+	<input type="checkbox" class="cat_check_edit" disabled <%= cat_check_edit %>
+		id="cat_<%= datas_category_general[x].category_general_speciality_ID %>" 
+		name="cat_<%= datas_category_general[x].category_general_speciality_ID %>" 
+		value="<%= datas_category_general[x].category_general_speciality_ID %>"
+	/>
+	<label for="cat_<%= datas_category_general[x].category_general_speciality_ID %>">
+		<%= datas_category_general[x].category_general_speciality_name %>
+	</label>	
 
-for(var  x in datas_category_general) { %>
-	<% if(datas_category_general[x].category_general_speciality_category_parent_id == 0) { %>
-		<div class="cat_line_wrap">
-		<div class="cat_parent_line">
-			<% 
-			let cat_check = "";
-			for( var i in category_link_datas ){
-				if(datas_category_general[x].category_general_speciality_ID == category_link_datas[i].category_general_speciality_link_category_general_id){
-					cat_check = "checked";
-					break;
-				}
-			}
-			%>
-			<input type="checkbox" class="cat_check" <%= cat_check %>
-				id="cat_<%= datas_category_general[x].category_general_speciality_ID %>" 
-				name="cat_<%= datas_category_general[x].category_general_speciality_ID %>" 
-				value="<%= datas_category_general[x].category_general_speciality_ID %>"
-			/>
-			<label for="cat_<%= datas_category_general[x].category_general_speciality_ID %>">
-				<%= datas_category_general[x].category_general_speciality_name %>
-			</label>	
-		
-		
-		
-		<!-- -------------------- 
-		//cấp độ 2 
-		--------------------- -->	
-
-		
-		<%
-		for(var  y in datas_category_general) { %>
-			<% if(datas_category_general[y].category_general_speciality_category_parent_id == datas_category_general[x].category_general_speciality_ID) { %>
-				<div class="cat_child_line_wrap">
-				<div class="cat_child_line">
-					<% 
-					let cat_check = "";
-					for( var ii in category_link_datas ){
-						if(datas_category_general[y].category_general_speciality_ID == category_link_datas[ii].category_general_speciality_link_category_general_id){
-							cat_check = "checked";
-							break;
-						}
-					}
-					%>
-				
-					<input type="checkbox" class="cat_check" <%= cat_check %>
-						id="cat_<%= datas_category_general[y].category_general_speciality_ID %>" 
-						name="cat_<%= datas_category_general[y].category_general_speciality_ID %>" 
-						value="<%= datas_category_general[y].category_general_speciality_ID %>"
-					/>
-					<label for="cat_<%= datas_category_general[y].category_general_speciality_ID %>">
-						<%= datas_category_general[y].category_general_speciality_name %>
-					</label>	
-				
-				
-				
-				<!-- -------------------- 
-				//cấp độ 3 
-				--------------------- -->	
-
-				
-				<%
-				for(var  z in datas_category_general) { %>
-					<% if(datas_category_general[z].category_general_speciality_category_parent_id == datas_category_general[y].category_general_speciality_ID) { %>
-						<div class="cat_child_line cat_child_line_2">
-						
-							<% 
-							let cat_check = "";
-							for( var iii in category_link_datas ){
-								if(datas_category_general[z].category_general_speciality_ID == category_link_datas[iii].category_general_speciality_link_category_general_id){
-									cat_check = "checked";
-									break;
-								}
-							}
-							%>
-						
-							<input type="checkbox" class="cat_check" <%= cat_check %>
-								id="cat_<%= datas_category_general[z].category_general_speciality_ID %>" 
-								name="cat_<%= datas_category_general[z].category_general_speciality_ID %>" 
-								value="<%= datas_category_general[z].category_general_speciality_ID %>"
-							/>
-							<label for="cat_<%= datas_category_general[z].category_general_speciality_ID %>">
-								<%= datas_category_general[z].category_general_speciality_name %>
-							</label>	
-						</div>	
 	
-				   <% 
-				   } //end of if cat parrent cấp độ 3
-				   %>
-				  
-				<% 
-				} //end of for cap độ 3
-				%>	
-				
-				<!-- -------------------- 
-				//cấp độ 3 
-				--------------------- -->					
-				</div>
 
-			</div>	<!-- //cat line wrap cap do 2 -->	
-		   <% 
-		   } //end of if cat parrent cấp độ 2
-		   %>
+	<!-- -------------------- 
+	//cấp độ 2 
+	--------------------- -->	
+	<ul class="sub-menu">
+	<%
+	for(var  y in datas_category_general){
+	if(datas_category_general[y].category_general_speciality_category_parent_id 
+	== datas_category_general[x].category_general_speciality_ID) { 
+	%>
 		<% 
-		} //end of for cap độ 2
-		%>	
-		
-		<!-- -------------------- 
-		//cấp độ 2 
-		--------------------- -->		
-		</div>	<!-- //cat parrent line -->
-	</div>	<!-- //cat line wrap -->	
-   <% 
-   } //end of if cat parrent
-   %>
+		let cat_check = "";
+		for( var ii in category_link_datas ){
+			if(datas_category_general[y].category_general_speciality_ID == category_link_datas[ii].category_general_speciality_link_category_general_id){
+				cat_check = "checked";
+				break;
+			}
+		}
+		%>
+		<li class="level-2">		
+			<input type="checkbox" class="cat_check_edit" <%= cat_check %>
+				id="cat_<%= datas_category_general[y].category_general_speciality_ID %>" 
+				name="cat_<%= datas_category_general[y].category_general_speciality_ID %>" 
+				value="<%= datas_category_general[y].category_general_speciality_ID %>"
+			/>
+			<label for="cat_<%= datas_category_general[y].category_general_speciality_ID %>">
+				<%= datas_category_general[y].category_general_speciality_name %>
+			</label>
+
+
+
+			<!-- -------------------- 
+			//cấp độ 3 
+			--------------------- -->	
+			<ul class="sub-menu">
+			<%
+			for(var  z in datas_category_general) {
+			if(datas_category_general[z].category_general_speciality_category_parent_id 
+			== datas_category_general[y].category_general_speciality_ID) { 
+			%>
+			
+				<% 
+				let cat_check = "";
+				for( var iii in category_link_datas ){
+					if(datas_category_general[z].category_general_speciality_ID == category_link_datas[iii].category_general_speciality_link_category_general_id){
+						cat_check = "checked";
+						break;
+					}
+				}
+				%>
+				
+				<li  class="level-3">
+				<input type="checkbox" class="cat_check_edit" <%= cat_check %>
+					id="cat_<%= datas_category_general[z].category_general_speciality_ID %>" 
+					name="cat_<%= datas_category_general[z].category_general_speciality_ID %>" 
+					value="<%= datas_category_general[z].category_general_speciality_ID %>"
+				/>
+				<label for="cat_<%= datas_category_general[z].category_general_speciality_ID %>">
+					<%= datas_category_general[z].category_general_speciality_name %>
+				</label>
+				
+				</li>	
+			<% 
+			} //end of có if
+			}// end of for
+			%>
+			</ul>
+			
+			<!-- -------------------- 
+			//cấp độ 3 
+			--------------------- -->
+
+
+
+
+
+
+
+
+			
+		</li>	
+	<% 
+	} //end of có if
+	}// end of for
+	%>
+	</ul>
+	
+	
+	<!-- -------------------- 
+	//cấp độ 2 
+	--------------------- -->
+
+
+				
+	
+
+
+
+
+
 <% 
-} //end of for
+} //end of có li
+}// end of for > 0
 %>
-<% 
-} //end of for
+
+	</li>
+	<!-- -------------------- 
+	//end of cấp độ 1
+	--------------------- -->
+
+
+
+
+
+<%
+}// end of if > 0
 %>
+</ul>
+
+
+
+
+
+
+
