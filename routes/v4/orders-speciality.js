@@ -298,12 +298,7 @@ router.post('/update/:order_id', async function(req, res, next) {
 	//var  user_id = ojs_shares_others.get_users_id(token);	
 	var users_type 	=  ojs_shares_others.get_users_type(token);
 	
-	if(users_type != "admin"){
-		res.redirect("/login");
-		return;
-	}
-	
-	//res.send( [token,store_id] );	
+	//res.send( [order_id] );	
 	//return;	
 	
 	
@@ -1294,7 +1289,42 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	//res.send(orders_list);
 	//return;		
 	
-	
+
+
+	var coupon_list;
+	//res.send(ojs_datas_orders.get_data_orders_detail_bussiness(order_id));
+	//return;
+	try {
+			coupon_list = await ojs_shares_fetch_data.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search_order_by_coupon/', 
+			ojs_datas_orders.get_data_coupon_list_view_orders(order_id),
+			ojs_configs.token_supper_job
+		);
+		
+		//res.send(coupon_list);
+		//return;	
+		
+		
+		if(coupon_list.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,coupon_list.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "39.router->orders->web->ajax-order-detail-bussiness->coupon_list", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "38.router->-orders->web->ajax-order-detail-bussiness->coupon_list", "message": error_send } ); 
+			return;		
+	}
+
+
+	//res.send( coupon_list );
+	//return;		
 	
 	
 	
@@ -1305,7 +1335,7 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	
 	try {
 			orders_list_taget = await ojs_shares_fetch_data.get_data_send_token_post( 
-			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search', 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search_customer/', 
 			ojs_datas_orders.get_data_orders_detail_bussiness_taget(order_id),
 			ojs_configs.token_supper_job
 		);
@@ -1343,7 +1373,8 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	//send web
 	data_send = {
 		'orders_detail' : orders_list.datas,
-		'order_taget' : orders_list_taget.datas
+		'coupon_list' 	: coupon_list.datas,
+		'order_taget' 	: orders_list_taget.datas
 	}
 	
 	//res.send(data_send);

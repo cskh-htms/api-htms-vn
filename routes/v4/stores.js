@@ -700,7 +700,7 @@ router.get('/manage/orders/:store_id/:status_int', async  function(req, res, nex
 
 	
 	if(status_int == 'all'){
-		var status_admin = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100];
+		var status_admin = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100,101,102];
 	}else{
 		var status_admin_string = "[" + status_int + "]";
 		var status_admin = JSON.parse(status_admin_string);		
@@ -1137,7 +1137,7 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		'date_star':"2021/01/01 00:00:00",
 		'date_end':ojs_shares_date.get_current_date_end(),
 		'status_admin_compare': 'in',
-		'status_admin_value':[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410],
+		'status_admin_value':[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,101,102],
 	}	
 	var datas_orders_edit_x = {...ojs_configs.orders_all};
 	var datas_orders_edit_s = Object.assign(datas_orders_edit_x,datas_orders_edit);	

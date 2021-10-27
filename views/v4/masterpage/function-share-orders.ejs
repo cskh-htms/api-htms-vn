@@ -222,9 +222,15 @@ ojs_share_orders = {
 	//@ 1. [datas_orders_status]
 	datas_orders_status : [	
 		{"status":"0","name":"chờ xác nhận"},
-		{"status":"-1","name":"Hủy đơn hàng"},
+		{"status":"100","name":"đã hoàn thành"},
 		{"status":"1","name":"Chưa tiếp nhận"},
 		{"status":"2","name":"Đã tiếp nhận"},
+		
+		
+		{"status":"101","name":"Cửa hàng đã xác nhận đơn hàng"},
+		{"status":"102","name":"Cửa hàng đã từ chối đơn hàng"},		
+		
+		
 		{"status":"3","name":"Đã lấy hàng/Đã nhập kho"},
 		{"status":"4","name":"Đã điều phối giao hàng/Đang giao hàng"},
 		{"status":"5","name":"Đã giao hàng/Chưa đối soát"},
@@ -235,14 +241,11 @@ ojs_share_orders = {
 		{"status":"9","name":"Không giao được hàng"},
 		{"status":"10","name":"Delay giao hàng"},
 
-
 		{"status":"11","name":"Đã đối soát công nợ trả hàng"},
 		{"status":"12","name":"Đã điều phối lấy hàng/Đang lấy hàng"},
 		{"status":"13","name":"Đơn hàng bồi hoàn"},
 		{"status":"20","name":"Đang trả hàng (COD cầm hàng đi trả)"},
 		{"status":"21","name":"Đã trả hàng (COD đã trả xong hàng)"},
-
-
 
 		{"status":"123","name":"Shipper báo đã lấy hàng"},
 		{"status":"127","name":"Shipper (nhân viên lấy/giao hàng) báo không lấy được hàng"},
@@ -250,16 +253,21 @@ ojs_share_orders = {
 		{"status":"45","name":"Shipper báo đã giao hàng"},
 		{"status":"49","name":"Shipper báo không giao được giao hàng"},
 		{"status":"410","name":"Shipper báo delay giao hàng"},
-		{"status":"100","name":"đã hoàn thành"}
+		
+		{"status":"-1","name":"Hủy đơn hàng"},
 	],
 	datas_orders_status_fillter : [	
-		{"status":"[0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100]","name":"Tất cả"},
-		{"status":"[0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410]","name":"Chưa hoàn thành"},
+		{"status":"[0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100,101,102]","name":"Tất cả"},
+		{"status":"[0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,101,102]","name":"Chưa hoàn thành"},
 		{"status":"[100]","name":"đã hoàn thành"},
 		{"status":"[0]","name":"chờ sử lý"},
 		{"status":"[-1]","name":"Hủy đơn hàng"},
 		{"status":"[1]","name":"Chưa tiếp nhận"},
 		{"status":"[2]","name":"Đã tiếp nhận"},
+		
+		{"status":"[101]","name":"Cửa hàng đã xác nhận đơn hàng"},
+		{"status":"[102]","name":"Cửa hàng đã từ  chối  đơn hàng"},		
+		
 		{"status":"[3]","name":"Đã lấy hàng/Đã nhập kho"},
 		{"status":"[4]","name":"Đã điều phối giao hàng/Đang giao hàng"},
 		{"status":"[5]","name":"Đã giao hàng/Chưa đối soát"},

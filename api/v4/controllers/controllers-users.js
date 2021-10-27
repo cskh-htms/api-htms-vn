@@ -366,7 +366,12 @@ try {
 			if(role_text =="supper-job"){
 				res.send({ "error" : "9", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> supper-job users không cần  login "} ); 	
 				return;
-			}		
+			}	
+
+			if(role_text =="bussiness"){
+				res.send({ "error" : "999", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> tài khoản doanh nghiệp không thể mua hàng"} ); 	
+				return;
+			}				
 
 			if(role_text =="admin"){
 				token_type = 1;

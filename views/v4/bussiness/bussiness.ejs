@@ -29,7 +29,7 @@ content
 
 
 <%
-if(store_id > 0 ){
+if(store_id && store_id > 0 ){
 %>	
 
 
@@ -122,20 +122,19 @@ if(store_id > 0 ){
 	var chiec_khau = 0;
 	var pull_price = 0;
 
+
+	for(let x in coupon_data){	
+		if(coupon_data[x].coupon_speciality_type == '1'){
+			coupon_of = coupon_of + coupon_data[x].sum_orders_details_speciality_price
+		}
+	}
+
+
 	if(orders_list.length > 0){
 		for(let x in orders_list){
-				
 			if(orders_list[x].orders_details_speciality_line_order == "product"){
 				line_product = line_product + orders_list[x].price_caution;
 				qty = qty + orders_list[x].orders_details_speciality_qty;
-				
-			}else if(orders_list[x].orders_details_speciality_line_order == "coupon" ){
-				
-				if(orders_list[x].coupon_speciality_type = '0'){
-					coupon_of = coupon_of + orders_list[x].orders_details_speciality_price
-				}else{
-					coupon = coupon + orders_list[x].orders_details_speciality_price	
-				}				
 
 			}else if(orders_list[x].orders_details_speciality_line_order == "add"){
 				add = add + orders_list[x].orders_details_speciality_price
@@ -357,20 +356,22 @@ if(store_id > 0 ){
 				let chiec_khau = 0;
 				let pull_price = 0;	
 				
+				
+				for(let x in coupon_data){	
+					if(coupon_data[x].coupon_speciality_type == '1' && coupon_data[x].orders_speciality_ID == order_arr[s]){
+						coupon_of = coupon_data[x].sum_orders_details_speciality_price;
+					}
+				}
+				
+				
+				
+				
 				for(let x in orders_list){	
 					if(orders_list[x].orders_speciality_ID == order_arr[s]){
 						
 						if(orders_list[x].orders_details_speciality_line_order == "product"){
 							line_product = line_product + orders_list[x].price_caution;
 							qty = qty + orders_list[x].orders_details_speciality_qty;
-							
-						}else if(orders_list[x].orders_details_speciality_line_order == "coupon" ){
-							
-							if(orders_list[x].coupon_speciality_type = '0'){
-								coupon_of = coupon_of + orders_list[x].orders_details_speciality_price
-							}else{
-								coupon = coupon + orders_list[x].orders_details_speciality_price	
-							}				
 
 						}else if(orders_list[x].orders_details_speciality_line_order == "add"){
 							add = add + orders_list[x].orders_details_speciality_price

@@ -185,126 +185,20 @@ $(document).ready(function($){
 		ojs_bussiness.ajax_load_products(datas);	
 	});
 	
-	/*
+	//
 	//@
-	//goi ajax
-	$(document).on('click','#all',function(e) {	
-		e.preventDefault();
+	//xem
+	$(document).on('click','.btn-xem',function(e) {	
 		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0,1,2,3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_id");
+		//alert(product_id);
 		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-
-	});//end of function		
-			
-	
-	
-	//@
-	//goi ajax
-	$(document).on('click','#complate',function(e) {	
-		e.preventDefault();
+		ojs_products_speciality.show_content_product(product_id);
 		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [1]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#new',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0];
-		
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#update',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [2]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-
-	});//end of function
-
-
-	//@
-	//goi ajax
-	$(document).on('click','#not',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : status_admin,
-				store_id:store_id
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-
-	});//end of function	
-	*/
+	});		
+	//
+	//@	
 	
 	//
 ///////////////////////////////////////////////////////

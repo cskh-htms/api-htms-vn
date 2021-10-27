@@ -63,6 +63,9 @@
 15.[get_stores_details_admin]
 	- lấy danh sách detial theo order arr (admin)
 
+16.[get_coupon_data]
+
+17.[get_data_coupon_list_view_orders]
 	
 */
 
@@ -73,6 +76,87 @@
 
 
 const ojs_datas_orders = {
+	
+	
+	//@ 17.[get_data_coupon_list_view_orders]
+	get_data_coupon_list_view_orders : function(order_id){
+		let datas_return = 			
+		{
+			"datas": {
+				"select_field": [
+					"coupon_speciality_ID",
+					"orders_speciality_ID",
+					"coupon_speciality_type",
+					"sum(orders_details_speciality_price)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"orders_speciality_ID",
+							"value"     : order_id,
+							"compare" : "="
+						}                                      
+						]    
+					}         
+				],
+				"group_by" :
+				 [
+					"coupon_speciality_ID",
+					"orders_speciality_ID",
+					"coupon_speciality_type"
+				 ] 
+			}
+		}		
+		return datas_return;		
+	},		
+	
+	
+	
+	//@
+	//@ 16.[get_coupon_data]	
+	get_coupon_data : function(user_id){
+		let datas_return = 			
+		{
+			"datas": {
+				"select_field": [
+					"coupon_speciality_ID",
+					"orders_speciality_ID",
+					"coupon_speciality_type",
+					"sum(orders_details_speciality_price)"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"users_ID",
+							"value"     : user_id,
+							"compare" : "="
+						}                                      
+						]    
+					}         
+				],
+				"group_by" :
+				 [
+					"coupon_speciality_ID",
+					"orders_speciality_ID",
+					"coupon_speciality_type"
+				 ] 
+			}
+		}		
+		return datas_return;		
+	},		
+	//@
+	//@	
+	//@	
+	//@
+	//@		
 	
 	
 	

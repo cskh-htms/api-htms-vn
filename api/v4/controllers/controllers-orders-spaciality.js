@@ -651,11 +651,17 @@ try {
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
 	if(check_datas_result.user_role == "admin"){}else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
-		res.send({ "error" : "3", "position":"ctl-orders-spaciality->update", "message":  error_send  } );
-		return;			
+		
+		if(
+		check_datas_result.user_role == "bussiness" 
+		&& check_datas_result.owner_order == '1' 
+		){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );
+			res.send({ "error" : "3", "position":"ctl-orders-spaciality->update", "message":  error_send  } );
+			return;				
+		}
 	}		
 	
 	
@@ -928,8 +934,7 @@ try {
 			return;			
 		}			
 	}	
-	
-	
+		
 	/////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	//@
@@ -1029,6 +1034,7 @@ try {
 				}
 			}
 		}
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -1054,6 +1060,7 @@ try {
 				"token":token
 			}
 		}			
+		
 		
 		var check_datas_result;		
 		check_datas_result = await ojs_shares_owner.check_owner(datas_check);
@@ -1089,6 +1096,7 @@ try {
 	}else if (check_condition_id == 1){
 		if( check_datas_result.owner_order == "1" 
 		||  check_datas_result.user_role == "admin"   
+		|| check_datas_result.user_role == "supper-job" 
 		|| check_datas_result.user_role == "default" 
 		|| check_datas_result.user_role == "customer" 
 		){ }else{
