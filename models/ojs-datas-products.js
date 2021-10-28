@@ -31,7 +31,9 @@
 
 8.[get_product_by_user_id]	
 
+9.[get_store_info]
 
+10.[get_category_link_datas2]	
 
 
 -------------------------------------------
@@ -39,7 +41,81 @@
 
 const ojs_datas_products = {
 	
+	//@
+	//@
+	//@ 10.[get_category_link_datas]		
+	get_category_link_datas2: function(store_id){
+		
+		let datas_return = 	
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+					"category_general_speciality_link_ID",
+					"category_general_speciality_link_product_id",
+					"category_general_speciality_link_category_general_id",
+					"category_general_speciality_ID",
+					"category_general_speciality_name"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  }         
+					]
+				  }
+				]
+			  }
+			}
+		return datas_return;
+	},		
 
+	//@
+	//@
+	//@ 9.[get_store_info]	
+	get_store_info: function(store_id){		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_field" :
+					[ 
+						"stores_ID",
+						"stores_user_id",
+						"stores_name" ,
+						"stores_date_created",
+						"stores_adress",
+						"service_type_name",
+						"users_first_name",
+						"users_last_name",
+						"users_full_name",					
+						"stores_payment_limit",
+						"stores_status_update",
+						"stores_status_admin",
+						"stores_status_stores",
+						"stores_wards",
+						"stores_district",
+						"stores_province"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  }       
+					]
+				  }
+				]
+				}
+			}
+		return datas_return;
+	},	
 
 	//@
 	//@
