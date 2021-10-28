@@ -19,7 +19,7 @@ dala_orders_speciality_date_orders,
 
 dala_orders_details_speciality_discount_qty,
 dala_orders_details_speciality_discount_price,
-dala_orders_details_speciality_discount_qty * dala_orders_details_speciality_discount_price as price_caution 
+dala_orders_details_speciality_discount_qty * dala_orders_details_speciality_discount_price as dala_price_caution 
  
 FROM  
 dala_discount_program  

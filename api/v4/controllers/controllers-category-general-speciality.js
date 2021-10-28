@@ -933,7 +933,7 @@ try {
 			return;
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search datas" );
 			res.send({ "error" : "6", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
 			return;	
@@ -941,7 +941,7 @@ try {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev"
+			evn = "dev"
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy dữ liệu category" );
 			res.send({ "error" : "7", "position":"ctl-category_general_speciality->search_count_product_by_category", "message": error_send } );
 			return;	

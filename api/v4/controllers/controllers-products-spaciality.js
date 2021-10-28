@@ -1157,7 +1157,7 @@ try {
 			res.send( { "error" : "", "datas" : results } );
 		}, error => {
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 				res.send({ "error" : "6", "position":"ctl-products-spaciality->search_all", "message": error_send  } ); 
 				return;	
@@ -1165,7 +1165,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "7", "position":"ctl-products-spaciality->search_all", "message": error_send  } ); 
 		return;	

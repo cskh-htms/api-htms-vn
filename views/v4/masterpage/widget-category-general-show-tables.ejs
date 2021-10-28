@@ -9,7 +9,6 @@
 	<thead>
 		<tr>
 			<th class="user-name">Tên danh mục</th>
-			<th>Số sản phẩm</th>
 			<th>Admin</th>
 			<th>Cửa hàng</th>		
 		</tr>
@@ -31,9 +30,25 @@
 				}
 				%>				
 		
-		
+			   <% // tính số lượng sản phẩm
+			   var x_count_product = 0;
+			   for(var  xx in product_count) {
+				   if(
+				   datas_category_general[x].category_general_speciality_ID 
+				   == 
+				   product_count[xx].category_general_speciality_ID 
+				   ){
+					   x_count_product = product_count[xx].product_count
+				   }
+			   }
+			   %>		
+			   
 			   <tr class="<%= ex1 %>">
-					<td class="user-name"><a href="#"><%= datas_category_general[x].category_general_speciality_name %></a>
+					<td class="user-name">
+						<a href="/categorys/general/speciality/admin/products/<%= datas_category_general[x].category_general_speciality_ID %>">
+						<%= datas_category_general[x].category_general_speciality_name %>
+						( <%= x_count_product %> )
+						</a>
 						<div class="row-actions">
 							<% //nếu là admin thì hiển thị update
 							if(user_role == "admin" ||  datas_category_general[x].category_general_speciality_stores_id == store_id){ %>
@@ -51,7 +66,6 @@
 							
 						</div>
 					</td>
-						<td>200</td> <!-- Số lượng sản phẩm của danh mục -->
 						<td><%- ojs_share.show_status_table_share_all(datas_category_general[x].category_general_speciality_admin_status) %></td>
 						<td><%- ojs_share.show_status_table_share_all(datas_category_general[x].category_general_speciality_stores_status) %></td>
 	
@@ -69,7 +83,10 @@
 							%>		
 					
 						    <tr  class="<%= ex1 %>">
-								<td class="user-name cat_child01" ><a href="#"><%= datas_category_general[y].category_general_speciality_name %></a>
+								<td class="user-name cat_child01" >
+								<a href="/categorys/general/speciality/admin/products/<%= datas_category_general[y].category_general_speciality_ID %>">
+								<%= datas_category_general[y].category_general_speciality_name %>
+								</a>
 								<div class="row-actions">
 									<% //nếu là admin thì hiển thị update
 									if(user_role == "admin" || datas_category_general[y].category_general_speciality_stores_id == store_id){ %>
@@ -88,7 +105,6 @@
 									
 								</div>
 								</td>
-									<td>200</td> <!-- Số lượng sản phẩm của danh mục -->
 									<td><%- ojs_share.show_status_table_share_all(datas_category_general[y].category_general_speciality_admin_status) %></td>
 									<td><%- ojs_share.show_status_table_share_all(datas_category_general[y].category_general_speciality_stores_status) %></td>
 							
@@ -105,7 +121,10 @@
 										%>		
 								
 										<tr  class="<%= ex1 %>">
-											<td class="user-name cat_child02" ><a href="#"><%= datas_category_general[z].category_general_speciality_name %></a>
+											<td class="user-name cat_child02" >
+											<a href="/categorys/general/speciality/admin/products/<%= datas_category_general[z].category_general_speciality_ID %>">
+											<%= datas_category_general[z].category_general_speciality_name %>
+											</a>
 											<div class="row-actions">
 											<% //nếu là admin thì hiển thị update
 											if(user_role == "admin" || datas_category_general[z].category_general_speciality_stores_id == store_id){ %>										
@@ -125,7 +144,6 @@
 											</div>
 											</td>
 											
-												<td>200</td> <!-- Số lượng sản phẩm của danh mục -->
 												<td><%- ojs_share.show_status_table_share_all(datas_category_general[z].category_general_speciality_admin_status) %></td>
 												<td><%- ojs_share.show_status_table_share_all(datas_category_general[z].category_general_speciality_stores_status) %></td>
 							
@@ -145,7 +163,6 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Tên danh mục</th>
-			<th>Số sản phẩm</th>
 			<th>Admin</th>
 			<th>Cửa hàng</th>			
 		</tr>

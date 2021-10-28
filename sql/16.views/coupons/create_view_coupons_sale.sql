@@ -15,7 +15,7 @@ dala_users_full_name,
 dala_stores_ID,
 dala_stores_name,
 
-SUM(dala_orders_details_speciality_price) as coupon_sum 
+SUM(dala_orders_details_speciality_price) as dala_coupon_sum 
 
 
 FROM  

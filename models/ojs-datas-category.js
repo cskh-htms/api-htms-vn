@@ -19,16 +19,339 @@
 	
 5.[get_all_list_datas_all]	
 	- lấy tat cả danh sách category
+	
+6.[get_data_category_product_count]	
+
+7.[get_data_category_product_view]	
+
+8.[get_store_info]
+
+9.[get_category_link_datas]	
+
+10.[get_product_by_user_id]
+
+11.[get_category_info]
+
+
+12.[get_data_category_product_count_admin]	
+
+13.[get_data_category_product_view_admin]
+
+14.[get_category_link_datas_admin]	
 
 -----------------------------------
 */
 
 const ojs_datas_category = {
 	
+	//@
+	//@
+	//@ 14.[get_category_link_datas_admin]		
+	get_category_link_datas_admin: function(){
+		
+		let datas_return = 	
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+					"category_general_speciality_link_ID",
+					"category_general_speciality_link_product_id",
+					"category_general_speciality_link_category_general_id",
+					"category_general_speciality_ID",
+					"category_general_speciality_name"
+				]
+			  }
+			}
+		return datas_return;
+	},		
+	//@
+	//@
+	//@ 13.[get_data_category_product_view_admin]	
+	get_data_category_product_view_admin: function(category_id){		
+		let datas_return = 	
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+					"products_speciality_ID",
+					"products_speciality_date_created",
+					"stores_ID",
+					"stores_name",
+					"products_speciality_name",
+					"products_speciality_price",
+					"products_speciality_sale_of_price",
+					"products_speciality_sale_of_price_time_check",
+					"products_speciality_status_store",
+					"products_speciality_status_admin",
+					"products_speciality_featured_image"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "category_general_speciality_ID",
+						"value": category_id,
+						"compare": "="
+					  }          
+					]
+				  }
+				]
+			  }
+			}
+		return datas_return;
+	},	
 	
 	
 	
 	
+	
+	
+	//@
+	//@
+	//@ 12.[get_data_category_product_count_admin]	
+	get_data_category_product_count_admin: function(){		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_field" :
+					[ 
+					"category_general_speciality_ID",
+					"users_ID",
+					"stores_ID",
+					"product_count"
+					]    
+				}
+			}
+		return datas_return;
+	},		
+	
+	//@
+	//@
+	//@ 
+	//@ 11.[get_category_info]
+	get_category_info: function(category_id){
+		
+		let datas_return = 	
+			{
+				"datas" :   
+				{
+					"select_field" :
+					[ 
+					"category_general_speciality_ID",
+					"category_general_speciality_name"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "category_general_speciality_ID",
+						"value": category_id,
+						"compare": "="
+					  }       
+					]
+				  }
+				]
+				}
+			}		
+
+		return datas_return;
+	},	
+	//@
+	//@		
+	
+	
+	//@
+	//@
+	//@ 
+	//@ 10.[get_product_by_user_id]
+	get_product_by_user_id: function(user_id){
+		
+		let datas_return = 	
+			{
+				"datas": 
+				{
+					"select_field": [
+					  "orders_details_speciality_product_id",
+					  "orders_details_speciality_qty",
+					  "stores_ID"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"users_ID",
+								"value"     : user_id,
+								"compare" : "="
+							}                                      
+							]    
+						}         
+					]
+				}
+			}		
+
+		return datas_return;
+	},	
+	//@
+	//@		
+	
+	
+	//@
+	//@
+	//@ 9.[get_category_link_datas]		
+	get_category_link_datas: function(store_id){
+		
+		let datas_return = 	
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+					"category_general_speciality_link_ID",
+					"category_general_speciality_link_product_id",
+					"category_general_speciality_link_category_general_id",
+					"category_general_speciality_ID",
+					"category_general_speciality_name"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  }         
+					]
+				  }
+				]
+			  }
+			}
+		return datas_return;
+	},		
+
+	//@
+	//@
+	//@ 8.[get_store_info]	
+	get_store_info: function(store_id){		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_field" :
+					[ 
+						"stores_ID",
+						"stores_user_id",
+						"stores_name" ,
+						"stores_date_created",
+						"stores_adress",
+						"service_type_name",
+						"users_first_name",
+						"users_last_name",
+						"users_full_name",					
+						"stores_payment_limit",
+						"stores_status_update",
+						"stores_status_admin",
+						"stores_status_stores",
+						"stores_wards",
+						"stores_district",
+						"stores_province"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  }       
+					]
+				  }
+				]
+				}
+			}
+		return datas_return;
+	},	
+	//@
+	//@
+	//@ 7.[get_data_category_product_view]	
+	get_data_category_product_view: function(category_id,store_id){		
+		let datas_return = 	
+			{
+			  "datas": {
+				"select_type": "DISTINCT",
+				"select_field": [
+					"products_speciality_ID",
+					"products_speciality_date_created",
+					"stores_ID",
+					"stores_name",
+					"products_speciality_name",
+					"products_speciality_price",
+					"products_speciality_sale_of_price",
+					"products_speciality_sale_of_price_time_check",
+					"products_speciality_status_store",
+					"products_speciality_status_admin",
+					"products_speciality_featured_image"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  },
+					  {
+						"field": "category_general_speciality_ID",
+						"value": category_id,
+						"compare": "="
+					  }          
+					]
+				  }
+				]
+			  }
+			}
+		return datas_return;
+	},		
+	
+	
+	
+	//@
+	//@
+	//@ 6.[get_data_category_product_count]	
+	get_data_category_product_count: function(store_id){		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_field" :
+					[ 
+					"category_general_speciality_ID",
+					"users_ID",
+					"stores_ID",
+					"product_count"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" : "="
+							}           
+							]    
+						}         
+					]     
+				}
+			}
+		return datas_return;
+	},		
 	
 	//@
 	//@

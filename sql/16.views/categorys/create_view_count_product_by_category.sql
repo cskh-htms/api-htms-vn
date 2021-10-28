@@ -14,7 +14,7 @@ dala_users_full_name,
 dala_stores_ID,
 dala_stores_name,
 
-count(dala_category_general_speciality_link_product_id) as product_count 
+count(dala_category_general_speciality_link_product_id) as dala_product_count 
 
 FROM  
 dala_category_general_speciality 

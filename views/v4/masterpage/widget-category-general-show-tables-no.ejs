@@ -18,9 +18,28 @@
 
 	<% 
 	for(var  x in datas_category_general) { %>
-
+		
+	   <% // tính số lượng sản phẩm
+	   var x_count_product = 0;
+	   for(var  xx in product_count) {
+		   if(
+		   datas_category_general[x].category_general_speciality_ID 
+		   == 
+		   product_count[xx].category_general_speciality_ID 
+		   ){
+			   x_count_product = product_count[xx].product_count
+		   }
+	   }
+	   %>
+		
 	   <tr>
-			<td class="user-name"><a href="#"><%= datas_category_general[x].category_general_speciality_name %></a>
+			<td class="user-name">
+				<a href="/categorys/general/speciality/products/
+				<%= datas_category_general[x].category_general_speciality_ID %>/
+				<%= datas_category_general[x].stores_ID %>">
+					<%= datas_category_general[x].category_general_speciality_name %>
+					( <%= x_count_product %> )
+				</a>
 				<% //neu nếu đã chấp nhận thì ko cho update nua
 				if( datas_category_general[x].category_general_speciality_admin_status != "1" ){ %>
 			

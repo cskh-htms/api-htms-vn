@@ -17,7 +17,7 @@ dala_stores_name,
 
 
 
-count(dala_options_product_speciality_link_product_id) as product_count 
+count(dala_options_product_speciality_link_product_id) as dala_product_count 
 
 FROM  
 dala_options_product_speciality  

@@ -17,7 +17,9 @@ dala_users_type.*,
 dala_brands.*,
 
 dala_category_general_speciality.*,
+dala_category_general_speciality_link.*,
 dala_options_product_speciality.*,
+dala_options_product_speciality_link.*,
 
 (CASE 
 		WHEN    

@@ -147,12 +147,7 @@ const ojs_shares_news_bussiness_menu = {
 				'store_compare':datas.compare.store_compare
 			}
 			
-			
-			//return ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search-count-order-by-user',
-							//ojs_datas_orders.orders_check_bussiness_menu_data(data_send);
-			
 			var fn_news_order = new Promise((resolve, reject) => {
-				
 				var sms = ojs_shares_fetch_data.get_data_send_token_post( 
 							ojs_configs.domain + '/api/' + ojs_configs.api_version + '/orders/speciality/search-count-order-by-user',
 							ojs_datas_orders.orders_check_bussiness_menu_data(data_send),

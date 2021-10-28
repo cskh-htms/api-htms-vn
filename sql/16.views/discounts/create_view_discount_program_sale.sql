@@ -11,7 +11,7 @@ dala_discount_program_ID,
 dala_discount_program_name,
 
 sum(dala_orders_details_speciality_discount_qty) as dala_orders_details_speciality_discount_qty,
-sum(dala_orders_details_speciality_discount_qty * dala_orders_details_speciality_discount_price) as price_caution 
+sum(dala_orders_details_speciality_discount_qty * dala_orders_details_speciality_discount_price) as dala_price_caution 
  
 FROM  
 dala_discount_program  
