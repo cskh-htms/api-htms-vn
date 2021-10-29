@@ -720,22 +720,16 @@ router.get('/', async function(req, res, next) {
 		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
 		return;			
 	}
-	
 	//@
 	//@
 	var  user_id = ojs_shares_others.get_users_id(token);	
+	var promise_all = [];
+	promise_all.push(0);
 	
-	//res.send( [token,user_id] );	
-	//return;		
 	
-
-
-
 	//--------------------------------------------------
-	//             news-admin
+	//             new menu
 	// -------------------------------------------------
-	
-	
 	//@
 	//@
 	//@
@@ -756,33 +750,14 @@ router.get('/', async function(req, res, next) {
 		'news_review_store' : 'news_review_store',
 		'news_coupon' : 'news_coupon'
 	}
-	
-	//res.send( datas_check_news_admin_menu );	
-	//return;		
-	var get_datas_news_admin_menu;
-	try{
-		get_datas_news_admin_menu = await ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy news admin menu" );
-		res.send({ "error" : "routers admin web -> get_news_admin_menu -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//res.send(get_datas_news_admin_menu);
-	//return;
+	var fn_get_datas_news_admin_menu = new Promise((resolve, reject) => {
+		var result = ojs_shares_news_admin_menu.get_news_admin_menu(datas_check_news_admin_menu);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_datas_news_admin_menu);	
+	//[1]
 	
 	
-	
-	
-	//--------------------------------------------------
-	//             list-datas-all
-	// -------------------------------------------------
-	
-	
-
 	//@
 	//@
 	//@
@@ -805,32 +780,20 @@ router.get('/', async function(req, res, next) {
 		'user_id' : user_id,
 		'datas_user': data_user_ok,
 	}
-	
-	//res.send( datas_get_all_list_datas_all );	
-	//return;		
-	
-	
-	
-	
-	var get_all_list_datas_all;
-	try{
-		get_all_list_datas_all = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas_all -> 1", "message": error_send } ); 
-		return;			
-	}
+	//@ get_all_list_datas_all
+	var fn_get_all_list_datas_all = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas_all);		
+	//[2]
 
 
-
-	//res.send(get_all_list_datas_all);
-	//return;
-
-
-
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	var promise_result = await Promise.all(promise_all);
+	//res.send(promise_result);
+	//return;	
 
 
 
@@ -844,10 +807,10 @@ router.get('/', async function(req, res, next) {
 			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'	: ojs_configs.js_css_version,
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
-			'news_admin_menu' 	: get_datas_news_admin_menu,	
+			'news_admin_menu' 	: promise_result[1],	
 			'sidebar_type'		: "",
 					
-			'users_list' 		: get_all_list_datas_all[1].datas
+			'users_list' 		: promise_result[2][1].datas
 		}	
 	
 	
@@ -858,10 +821,10 @@ router.get('/', async function(req, res, next) {
 			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'	: ojs_configs.js_css_version,
 			'menu_taget'		:'sidebar_danh_sach_tai_khoan',
-			'news_admin_menu' 	: get_datas_news_admin_menu,	
+			'news_admin_menu' 	: promise_result[1],	
 			'sidebar_type'		: "",
 					
-			'users_list' 		: get_all_list_datas_all[1].datas,
+			'users_list' 		: promise_result[2][1].datas,
 			'datas_info':datas_info
 		}
 		//res.send(data_send);

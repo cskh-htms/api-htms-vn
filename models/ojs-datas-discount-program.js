@@ -22,6 +22,9 @@
 7.[get_store_for_view]
 	* hiển thị view ajax
 
+6.[get_store_info]	
+
+
 
 ------------------------------------
 */
@@ -31,7 +34,50 @@ const ojs_datas_discount_program = {
 	
 	
 	
-	
+	//@
+	//@
+	//@ 6.[get_store_info]	
+	get_store_info: function(store_id){		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_field" :
+					[ 
+						"stores_ID",
+						"stores_user_id",
+						"stores_name" ,
+						"stores_date_created",
+						"stores_adress",
+						"service_type_name",
+						"users_first_name",
+						"users_last_name",
+						"users_full_name",					
+						"stores_payment_limit",
+						"stores_status_update",
+						"stores_status_admin",
+						"stores_status_stores",
+						"stores_wards",
+						"stores_district",
+						"stores_province"
+				],
+				"condition": [
+				  {
+					"relation": "and",
+					"where": [
+					  {
+						"field": "stores_ID",
+						"value": store_id,
+						"compare": "="
+					  }       
+					]
+				  }
+				]
+				}
+			}
+		return datas_return;
+	},	
+	//@
+	//@	
 	
 	//@
 	//@
