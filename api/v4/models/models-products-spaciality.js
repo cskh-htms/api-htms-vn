@@ -587,6 +587,14 @@ const update_products_spaciality = async function (datas,product_id,cat_string,o
 		
 		//sql_text = sql_text + sql_option_delete + sql_option_all;
 		sql_text = sql_text + sql_option_delete + sql_option_all;
+	}else{
+		var sql_option_all = "";
+		var table_name_option  = ojs_configs.db_prefix + "options_product_speciality_link ";
+		var field_where_option  = ojs_configs.db_prefix + "options_product_speciality_link_product_id ";	
+		var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
+		
+		//sql_text = sql_text + sql_option_delete + sql_option_all;
+		sql_text = sql_text + sql_option_delete;		
 	}
 	
 	//
@@ -621,6 +629,13 @@ const update_products_spaciality = async function (datas,product_id,cat_string,o
 		}//end of for option_arr	
 		//sql_text = sql_text + sql_cat_delete +  sql_cat_all;
 		sql_text = sql_text + sql_cat_delete +  sql_cat_all;
+	}else{
+		var sql_cat_all = "";
+		var table_name_cat  = ojs_configs.db_prefix + "category_general_speciality_link ";
+		var field_where_cat  = ojs_configs.db_prefix + "category_general_speciality_link_product_id ";
+		var sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';	
+
+		sql_text = sql_text + sql_cat_delete;		
 	}
 		
 	//

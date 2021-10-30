@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_ID` int NOT NULL AUTO_INCREMENT,
   `dala_coupon_speciality_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_coupon_speciality_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dala_coupon_speciality_featured_image` varchar(1000) CHARACTER SET utf8_unicode_ci NOT NULL,
+  `dala_coupon_speciality_featured_image` varchar(1000) CHARACTER SET utf8 COLLATE  utf8_unicode_ci NOT NULL,
   `dala_coupon_speciality_stores_id_created` int NOT NULL,  
   `dala_coupon_speciality_info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_coupon_speciality_type` tinyint(1) NOT NULL DEFAULT '0',
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `dala_coupon_speciality` (
   `dala_coupon_speciality_qoute` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`dala_coupon_speciality_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
-COMMIT;
+
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1005,7 @@ CREATE TABLE IF NOT EXISTS `dala_view_product` (
 
 
 --
--- Table structure for table `dala_coupon_speciality`
+-- Table structure for table `dala_discount_program`
 --
 DROP TABLE IF EXISTS `dala_discount_program`;
 CREATE TABLE IF NOT EXISTS `dala_discount_program` (

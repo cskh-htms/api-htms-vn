@@ -455,6 +455,8 @@ try {
 	//@ ///////////////////////////////////////////////
 	//@ ///////////////////////////////////////////////
 	var promise_result = await Promise.all(promise_all);
+	//res.send(promise_result[5]);
+	//return;
 	
 	//@
 	try {	
@@ -559,18 +561,10 @@ router.post('/ajax-category-list-world/', async function(req, res, next) {
 		return;			
 	}
 	
-	//@
-	//@
-	//var  user_id = ojs_shares_others.get_users_id(token);	
-	
-	//res.send( [token,store_id] );	
-	//return;		
-	
-
-	//--------------------------------------------------
-	//             list-datas-bussiness
-	// -------------------------------------------------
-	
+	//@ /////////////////////////////////////////////////
+	//@ /////////////////////////////////////////////////
+	var promise_all = [];
+	promise_all.push(0);	
 	
 
 	//@
@@ -602,41 +596,49 @@ router.post('/ajax-category-list-world/', async function(req, res, next) {
 		'store_id' : 0,
 		'datas_cat': data_cat_ok
 	}
-	
-	//res.send( datas_get_all_list_datas );	
-	//return;		
-	
-	var get_all_list_datas;
-	try{
-		get_all_list_datas = await ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy list datas bussiness" );
-		res.send({ "error" : "routers bussiness web -> get_all_list_datas -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//res.send(get_all_list_datas);
-	//return;
+
+	var fn_get_all_list_datas = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas);
+	//[1]	
 
 
+	//product count
+	var datas_send = ojs_datas_category.get_data_category_product_count_admin();
+	var fn_get_data_category_product_count = new Promise((resolve, reject) => {
+		var result = ojs_shares_fetch_data.get_data_send_token_post(
+			ojs_configs.domain + '/api/' + ojs_configs.api_version + '/categorys/general/speciality/search_count_product_by_category/',
+			datas_send,
+			ojs_configs.token_supper_job);
+			
+			resolve(result);
+	});	
+	promise_all.push(fn_get_data_category_product_count);
+	//[2]
 
+
+	//@ ///////////////////////////////////////////////
+	//@ ///////////////////////////////////////////////
+	var promise_result = await Promise.all(promise_all);
+	//res.send(promise_result[1]);
+	//return;	
 	//@
 	//@
 	//@
 	//@
 	try {	
 		data_send = {
-			'datas_category_general' : get_all_list_datas[4].datas,
+			'datas_category_general' : promise_result[1][4].datas,
 			'user_id':user_id,
 			'user_role' : ojs_shares_others.get_users_type(token),
-			'store_id' : store_id
+			'store_id' : store_id,
+			'product_count' 		 : promise_result[2].datas,
 		}
 		//res.send(data_send);
 		//return;
-		res.render(ojs_configs.view_version + '/masterpage/widget-category-general-show-tables', data_send );		
+		res.render(ojs_configs.view_version + '/masterpage/widget-category-general-show-tables-world', data_send );		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -660,6 +662,7 @@ router.post('/ajax-category-list-world/', async function(req, res, next) {
 //@
 //@ 1 [/]
 router.get('/', async function(req, res, next) {
+try {
 	//@
 	//@
 	//@
@@ -850,7 +853,14 @@ router.get('/', async function(req, res, next) {
 		res.send({ "error" : "35.router_app->categorys->get", "message": error_send } ); 
 		return;	
 	}		
-		
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	////evn = "dev";;
+	var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+	res.send({ "error" : "113.router_app->categorys->get", "message": error_send } ); 
+	return;	
+}			
 });
 
 
