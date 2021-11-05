@@ -235,16 +235,9 @@ $(document).ready(function($){
 		var datas = get_datas();	
 		var price = parseInt($('#products_speciality_price').attr('data_value'));
 
-
-		console.log(price);
-		console.log(datas);
-
-		
-
 		if(
-		parseInt(datas.datas.discount_program_product_link_sale_of_price) == 0 
-		|| datas.datas.discount_program_product_link_sale_of_price == ""  
-		|| parseInt(datas.datas.discount_program_product_link_sale_of_price) >=  price 
+		datas.datas.discount_program_product_link_sale_of_price == ""  
+		|| parseInt(datas.datas.discount_program_product_link_sale_of_price) >  price 
 		){
 			ojs_message.message_ok_show("giá giảm không hợp lệ");
 			return;			

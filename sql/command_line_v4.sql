@@ -65,7 +65,7 @@ source ./02.table_discount_program_product_link_update.sql;
 
 source ./02.table_discount_program_product_link_update.sql;
 
-source ./05.table_discount_program_product_link_delete.sql;
+source ./02.table_discount_program_product_link_update.sql;
 
 
 
