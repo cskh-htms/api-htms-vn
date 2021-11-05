@@ -418,7 +418,7 @@ try {
 			var check_condition = await ojs_share_coupon.check_coupon_condition(datas_check);
 	
 			//coupon_ok.push(check_condition);
-			
+
 			//@ tính tiền giảm giá
 			if(check_condition > 0){
 				var caution_price = await ojs_share_coupon.caution_price(datas_check);

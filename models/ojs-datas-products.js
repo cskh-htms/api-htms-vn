@@ -43,6 +43,73 @@ const ojs_datas_products = {
 	
 	//@
 	//@
+	//@ 11.[get_datas_test]		
+	get_data_test: function(){
+		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_type": "DISTINCT",
+					"select_field" :
+					[
+						"products_speciality_ID",
+						"products_speciality_date_created",
+						"stores_ID",
+						"stores_name",
+						"products_speciality_name",
+						"products_speciality_price",
+						"products_speciality_sale_of_price",
+						"products_speciality_sale_of_price_time_check",
+						"products_speciality_status_store",
+						"products_speciality_status_admin",
+						"products_speciality_featured_image"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"stores_ID",
+								"value"     : "17",
+								"compare" : "="
+							},
+							{   
+							"field"     :"users_ID",
+							"value"     : "51",
+							"compare" : "="
+							},  
+							{   
+							"field"     :"products_speciality_status_admin",
+							"value"     : "1",
+							"compare" : "="
+							},  
+							{   
+							"field"     :"products_speciality_status_store",
+							"value"     : "1",
+							"compare" : "="
+							} 
+						   ]    
+						}
+					],         
+					"order" :
+					 [   
+						 {    
+							 "field"  :"products_speciality_date_created",
+							 "compare" : "DESC"
+							}   
+
+					]  
+				}
+			}
+		return datas_return;
+	},	
+	
+	
+	
+	//@
+	//@
 	//@ 10.[get_category_link_datas]		
 	get_category_link_datas2: function(store_id){
 		

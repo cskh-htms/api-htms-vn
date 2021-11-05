@@ -33,7 +33,6 @@
 		arr_check_name.forEach(function(item) {
 			if(item == "users_full_name"){
 				if(check_data_fields.check_datas.check_empty(datas.users_full_name) == false){check_errer =  "Tên đăng nhập  là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_name(datas.users_full_name) == false){check_errer =  "Dữ liệu tên đăng nhập không hợp lệ";return;}	
 			}
 			if(item == "users_password"){
 				if(check_data_fields.check_datas.check_empty(datas.users_password) == false){check_errer =  "Mật khẩu là bắt buộc, bạn chưa nhập dữ liệu";	return;}					

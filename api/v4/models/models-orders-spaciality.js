@@ -814,6 +814,8 @@ const save_meta_adress = async function (datas) {
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "adress_meta  SET ?";
 	var dataGo = {
 			"adress_meta_user_id"					: datas.adress_meta_user_id,	
+			"adress_meta_name"						: mysql.escape(datas.adress_meta_name).replace(/^'|'$/gi, ""),
+			"adress_meta_phone"						: mysql.escape(datas.adress_meta_phone).replace(/^'|'$/gi, ""),
 			"adress_meta_province"					: mysql.escape(datas.adress_meta_province).replace(/^'|'$/gi, ""),
 			"adress_meta_district"					: mysql.escape(datas.adress_meta_district).replace(/^'|'$/gi, ""),
 			"adress_meta_wards"						: mysql.escape(datas.adress_meta_wards).replace(/^'|'$/gi, ""),

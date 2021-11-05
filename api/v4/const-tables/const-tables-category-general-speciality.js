@@ -33,19 +33,7 @@
 			//check name data type
 			if(item == "category_general_speciality_name"){
 				if(check_data_fields.check_datas.check_empty(datas.category_general_speciality_name) == false){check_errer =  "Tên danh mục  là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-				if(check_data_fields.check_datas.check_name(datas.category_general_speciality_name) == false){check_errer =  "Dữ liệu tên danh mục không hợp lệ";return;}	
 			}
-			
-			//@
-			//@
-			// check is cửa hàng empty
-			if(item == "category_general_speciality_stores_id"){
-				if(check_data_fields.check_datas.check_empty(datas.category_general_speciality_stores_id) == false){check_errer =  " Chưa nhập ID cửa hàng";	return;}	
-				if(datas.category_general_speciality_stores_id == "0"){check_errer =  " ID cửa hàng không hợp lệ ";	return;}				
-			}			
-			
-			
-			
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer;

@@ -22,8 +22,9 @@ content
 
 	  <input type="button" id="dang_nhap" class="btn" value="Đăng nhập">
 	  <div class="lost-pass"><a href="/lost-pass/">Quên mật khẩu ? </a></div>
-	  
+	  <div class="lost-pass"><p id="test" > test demo </p></div>
 	  <!--<div class="dangky-link">Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></div>-->
+	  <div id="test-content">0</div>
 	</div>
 	
 </div>
@@ -104,6 +105,42 @@ end content
 				}			  
 			});
 		});
+		//@
+		//@
+		//end of test
+		//login
+		$(document).on('click','#test',function(e) {
+			IT = 0;
+			function myTimer() {
+				IT ++;
+				$('#test-content').html(IT); 
+			}
+
+			//goi api
+			$.ajax({
+				type : "POST",	  
+				contentType : "application/json",
+				url : ojs_loader.host + "/products/speciality/test",
+				dataType : 'json',
+				beforeSend:  function(xhr){
+					ojs_loadding.ajax_show_loadding();
+					myVar = setInterval(myTimer,1);
+				},			  
+				error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+					clearInterval(myVar);
+				},
+				success : function(result) {
+					clearInterval(myVar);
+					console.log(result);
+					ojs_loadding.ajax_hide_loadding();
+				}			  
+			});
+		});		
+		
+		
+		
 	});
 </script>	
 

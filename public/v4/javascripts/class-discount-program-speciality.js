@@ -281,7 +281,7 @@ $(document).ready(function($){
 									ojs_message.message_ok_show(result.message);
 								}
 						}else{
-							ojs_message.message_ok_show(" Đã phê suyệt sản phẩm ",location.href);
+							ojs_message.message_ok_show(" Đã phê duyệt sản phẩm ",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

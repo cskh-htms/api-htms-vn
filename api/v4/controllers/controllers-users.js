@@ -809,7 +809,18 @@ try {
 	//@
 	//@
 	// nếu không phải admin hoặt chủ sở hữ user thì return error
-	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_user == "1" ){}else{
+	if(check_datas_result.user_role == "admin"  || check_datas_result.owner_user == "1" ){
+		
+		if( check_datas_result.user_role == "default" || check_datas_result.user_role == "supper-job"  ){
+			var evn = ojs_configs.evn;
+			//evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn, "Users default - supper-job không update", "Users guest không update" );
+			res.send({ "error" : "55", "position":"ctl-users->update", "message": error_send } );  
+			return;	
+		}
+		
+		
+	}else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn, "Bạn không đủ quyền thao tác", "Bạn không đủ quyền thao tác" );

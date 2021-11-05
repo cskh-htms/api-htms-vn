@@ -14,9 +14,7 @@ router.get('/', function(req, res, next) {
 	
 ---------------------------------------------- */
 router.use('/demo', require('../../routes/' + app_config.router_version + '/demo') );
-
 router.use('/demo1', require('../../routes/' + app_config.router_version + '/demo1') );
-
 
 
 router.use('/login', require('../../routes/' + app_config.router_version + '/login') );

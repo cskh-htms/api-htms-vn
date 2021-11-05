@@ -59,6 +59,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "adress_meta_user_id as adress_meta_user_id, " + 
 	"DATE_FORMAT(" + ojs_configs.db_prefix  + "adress_meta_date_created,'%Y/%m/%d %H:%i:%s') as adress_meta_date_created, " +	
 	
+	ojs_configs.db_prefix  + "adress_meta_name as adress_meta_name, " + 
+	ojs_configs.db_prefix  + "adress_meta_phone as adress_meta_phone, " + 
 	ojs_configs.db_prefix  + "adress_meta_province as adress_meta_province, " + 
 	ojs_configs.db_prefix  + "adress_meta_district as adress_meta_district, " + 
 	ojs_configs.db_prefix  + "adress_meta_wards as adress_meta_wards, " + 
@@ -116,6 +118,8 @@ const insert_adress_meta = async function (datas) {
 	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "adress_meta  SET ?";
 	var dataGo = {
 			"adress_meta_user_id"					: datas.adress_meta_user_id,	
+			"adress_meta_name"						: mysql.escape(datas.adress_meta_name).replace(/^'|'$/gi, ""),
+			"adress_meta_phone"						: mysql.escape(datas.adress_meta_phone).replace(/^'|'$/gi, ""),
 			"adress_meta_province"					: mysql.escape(datas.adress_meta_province).replace(/^'|'$/gi, ""),
 			"adress_meta_district"					: mysql.escape(datas.adress_meta_district).replace(/^'|'$/gi, ""),
 			"adress_meta_wards"						: mysql.escape(datas.adress_meta_wards).replace(/^'|'$/gi, ""),

@@ -154,7 +154,7 @@ const ojs_shares_send_code_to_phone = {
 			'sign=' + datas.sign + '&' +
 			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
 			'phoneNumber=' + datas.phoneNumber + '&' + 
-			'message=DALA ma xac nhan cua ban la: ' + datas.code + '&'+
+			'message=DALA.VN JSC ma xac nhan DALA - Dac San Da Lat cua ban la: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
 			//res.send(url);

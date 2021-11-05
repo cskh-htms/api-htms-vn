@@ -149,12 +149,13 @@ const price_fixed = async function(datas,value,max){
 //@@ 1. [check_coupon_condition]
 const check_coupon_condition = async function(datas){
 	//return datas;
+	
 	var date_return = 0;
 	if(datas.condition == 0){
 		date_return = 1;
 		
 	}else if(datas.condition == 1){
-		date_return = await  check_price_percen(datas.datas, datas.value);
+		date_return = await check_price_percen(datas.datas, datas.value);
 		
 	}else if(datas.condition == 2){
 		date_return = await check_qty(datas.datas, datas.value);	

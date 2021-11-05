@@ -921,6 +921,8 @@ CREATE TABLE IF NOT EXISTS `dala_adress_meta` (
   `dala_adress_meta_ID` int NOT NULL AUTO_INCREMENT,
   `dala_adress_meta_date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   `dala_adress_meta_user_id` int NOT NULL,
+  `dala_adress_meta_name` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_adress_meta_phone` char(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_province` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_district` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_adress_meta_wards` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

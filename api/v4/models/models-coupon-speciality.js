@@ -194,9 +194,11 @@ const get_user_taget = async function (user_id) {
 					ojs_configs.db_prefix + "orders_speciality_user_id " + 
 	
 	
-					"FROM " +   ojs_configs.db_prefix +  "view_orders_customer " + 
+					"FROM " +   ojs_configs.db_prefix +  "view_order_by_customer " + 
 					" where " +  
-					ojs_configs.db_prefix + "orders_speciality_user_id = '" + user_id + "' ";
+					ojs_configs.db_prefix + "orders_speciality_user_id = '" + user_id + "' " + 
+					" and "  + 
+					ojs_configs.db_prefix + "orders_speciality_status_orders = 100 ";
 	
 	//return sql_text;
 	
@@ -247,7 +249,7 @@ const get_all_coupon = async function (store_id) {
 	
 	
 	
-					"FROM " +   ojs_configs.db_prefix + "view_coupon " + 
+					"FROM " +   ojs_configs.db_prefix + "view_coupons " + 
 					" where " +  
 					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' and  " + 
 					ojs_configs.db_prefix + "coupon_speciality_type = 0 " +
@@ -304,7 +306,7 @@ const get_all_coupon_dala = async function (store_id) {
 	
 	
 	
-					"FROM " +   ojs_configs.db_prefix + "view_coupon " + 
+					"FROM " +   ojs_configs.db_prefix + "view_coupons " + 
 					" where " +  
 					ojs_configs.db_prefix + "coupon_speciality_stores_id_created = '" + store_id + "' and  " + 
 					ojs_configs.db_prefix + "coupon_speciality_type = 1 " +

@@ -7,6 +7,8 @@
 	//create default data frome mysql tblUsers
 	const  default_fields = {
 		"adress_meta_user_id"		: "",	
+		"adress_meta_name"			: "",
+		"adress_meta_phone"			: "",
 		"adress_meta_province"		: "",	
 		"adress_meta_district"		: "",
 		"adress_meta_wards"			: "",

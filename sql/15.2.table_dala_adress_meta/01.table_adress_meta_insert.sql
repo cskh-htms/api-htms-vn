@@ -41,7 +41,9 @@ IF(LENGTH(NEW.dala_adress_meta_user_id ) > 0 ) THEN
 	SET @check_all = (select dala_adress_meta_ID    
 		from dala_adress_meta  
 		where dala_adress_meta_user_id  = NEW.dala_adress_meta_user_id  
-		and dala_adress_meta_province  = NEW.dala_adress_meta_province   
+		and dala_adress_meta_name  = NEW.dala_adress_meta_name 
+		and dala_adress_meta_phone  = NEW.dala_adress_meta_phone  
+		and dala_adress_meta_province  = NEW.dala_adress_meta_province  
 		and dala_adress_meta_district  = NEW.dala_adress_meta_district   
 		and dala_adress_meta_wards  = NEW.dala_adress_meta_wards    
 		and dala_adress_meta_street  = NEW.dala_adress_meta_street  

@@ -342,7 +342,9 @@ try{
 	//@
 	//@ tao datas cho meta adress
 	var meta_adress= {
-		"adress_meta_user_id"		: datas.orders.orders_speciality_user_id,	
+		"adress_meta_user_id"		: datas.orders.orders_speciality_user_id,
+		"adress_meta_name"			: datas.orders.orders_speciality_name,
+		"adress_meta_phone"			: datas.orders.orders_speciality_phone,
 		"adress_meta_province"		: datas.orders.orders_speciality_province,	
 		"adress_meta_district"		: datas.orders.orders_speciality_district,
 		"adress_meta_wards"			: datas.orders.orders_speciality_wards,
