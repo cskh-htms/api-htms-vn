@@ -254,7 +254,7 @@ $(document).ready(function($){
 							var x = location.href;
 							var y = x.search("admin");
 							var x_arr = x.split("/");
-							var z = x_arr[x_arr.length - 1];
+							var z = x_arr[x_arr.length - 2];
 							if(y > 0){
 								ojs_message.message_ok_show(" Đã update","/products/speciality/");
 							}else{

@@ -5,6 +5,12 @@
 
 * 2. [get_all_discount_program]
 
+* 2.3 [get_product_sale_by_prodduct]
+
+* 2.3 [get_product_sale]
+
+* 2.4 [get_all_discount_program_by_position]
+
 * 3. [get_one_discount_program]
 
 * 4. [update_discount_program]
@@ -262,7 +268,291 @@ var get_all_discount_program = async function () {
 
 
 
-//@ end of * 2. [get_all_discount_program]
+
+
+
+//@@
+//@@
+//@@
+//@@
+//@ * 2.2 [get_all_discount_program_by_product]
+var get_all_discount_program_by_product = async function (datas) {
+	//return datas;	
+	//create sql text
+	var sql_text = 	"SELECT " + 
+					ojs_configs.db_prefix + "products_speciality_ID as products_speciality_ID," + 
+					ojs_configs.db_prefix + "products_speciality_name as products_speciality_name, " +
+					ojs_configs.db_prefix + "stores_name as stores_name, " +					
+					ojs_configs.db_prefix + "products_speciality_featured_image as products_speciality_featured_image ," + 
+					ojs_configs.db_prefix + "products_speciality_price as products_speciality_price," + 
+					ojs_configs.db_prefix + "products_speciality_sale_of_price as products_speciality_sale_of_price," + 
+					
+					"(CASE " + 
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price IS NULL " + 
+						"THEN " + 
+							ojs_configs.db_prefix  + "products_speciality_price " + 
+							
+							
+						// date_star = null 	
+						// date_end = null 
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NULL " + 
+						"THEN " + 
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price " + 			
+							
+							
+						// date_star = yes 	
+						// date_end = null 
+						// date_now - date_star > 0 (da toi han khuyen mai)
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0 " + 
+						"THEN " + 
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price " + 		
+
+							
+						// date_star = null 	
+						// date_end = yes 
+						// date_now - date_end  < 0 (da toi han khuyen mai chưa het han khuyen mai)
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) < 0 " + 
+						"THEN " + 
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price " + 																	
+							
+							
+						// date_star = yes 	
+						// date_end = yes 
+						// date_now - date_star > 0 (da toi han khuyen mai)
+						// date_now - date_star > 0 (da toi han khuyen mai)
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0  and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) < 0  " + 								
+						"THEN " + 
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price " + 			
+
+						"ELSE " +  
+							ojs_configs.db_prefix  + "products_speciality_price " + 
+					"END )  as products_speciality_price_caution, "  + 					
+					
+					
+					
+					"(CASE " + 
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_sale_of_price IS NULL " + 
+						"THEN " + 
+							" '0' " + 
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NULL " + 
+						"THEN " + 
+							" '1' " +  			
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0 " + 
+						"THEN " + 
+							" '1' " +  		
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0 " + 
+						"THEN " + 
+							" '2' " +  
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0 " + 
+						"THEN " + 
+							" '3' " + 																	
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0  and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0  " + 								
+						"THEN " + 
+							" '3' " + 		
+						"WHEN " +  
+							ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
+							ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+							"UNIX_TIMESTAMP(NOW()) - " + 
+							"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0  " + 								
+						"THEN " + 
+							" '2' " + 	
+						"ELSE " +  
+							" '4' " + 
+					"END ) as products_speciality_sale_of_price_time_check " + 						
+					
+					
+					"FROM " +
+					ojs_configs.db_prefix + "discount_program_product_link " + 
+					
+					"LEFT JOIN " + 
+						ojs_configs.db_prefix + "products_speciality ON " + 
+						ojs_configs.db_prefix + "discount_program_product_link_product_speciality_id = " + 
+						ojs_configs.db_prefix + "products_speciality_ID " + 
+						
+					"LEFT JOIN " + 
+						ojs_configs.db_prefix + "stores ON " + 
+						ojs_configs.db_prefix + "products_speciality_store_id = " + 
+						ojs_configs.db_prefix + "stores_ID " + 						
+						
+					"LEFT JOIN " + 
+						ojs_configs.db_prefix + "discount_program_details ON " + 
+						ojs_configs.db_prefix + "discount_program_product_link_discount_program_details_id = " + 
+						ojs_configs.db_prefix + "discount_program_details_ID " + 						
+						
+					"LEFT JOIN " + 
+						ojs_configs.db_prefix + "discount_program ON " + 
+						ojs_configs.db_prefix + "discount_program_details_discount_program_id = " + 
+						ojs_configs.db_prefix + "discount_program_ID " + 							
+							
+					"WHERE " +
+					ojs_configs.db_prefix + "discount_program_ID = " + datas.c1 + " " + 
+					"AND " + ojs_configs.db_prefix + "stores_status_stores = 1 " + 
+					"AND " + ojs_configs.db_prefix + "discount_program_product_link_status = 1 " + 
+					"AND " + ojs_configs.db_prefix + "products_speciality_status_admin = 1 " + 
+					
+					"AND (" + 
+						ojs_configs.db_prefix + "discount_program_time_type  = 0 " + 
+						"OR " + 
+						" UNIX_TIMESTAMP(" + ojs_configs.db_prefix + "discount_program_date_end) < UNIX_TIMESTAMP(NOW()) ) " + 
+
+					"AND (" + 
+						ojs_configs.db_prefix + "discount_program_details_limit_day = 0 " + 
+						"OR " + 
+						"UNIX_TIMESTAMP() - (UNIX_TIMESTAMP(" + 
+						ojs_configs.db_prefix + "discount_program_details_date_created) + (" + 
+						ojs_configs.db_prefix + "discount_program_details_limit_day * 24 * 60 * 60) ) < 0)"
+
+					
+	//return sql_text;				
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-discount_program->get_all_discount_program_by_product", "message" : error } ;
+	}	
+	
+};
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 2.3 [get_product_sale]
+const get_product_sale = async function (datas) {
+	
+	var data_id = "";
+	data_id = data_id + "(";
+	for(x in datas){
+		if(x == 0){
+			data_id = data_id + datas[x]
+		}else{
+			data_id = data_id + "," + datas[x]
+		}
+	}
+	data_id = data_id + ")";
+	//return data_id;
+	
+	//@
+	//@
+	var sql_text = 	"SELECT " + 
+					ojs_configs.db_prefix + "orders_details_speciality_product_id as f1_product_id, " + 
+					ojs_configs.db_prefix + "orders_details_speciality_qty as f2_so_luong_ban " + 
+					
+					"FROM " +
+					ojs_configs.db_prefix + "view_count_product_sale " + 
+
+					"WHERE " +
+					ojs_configs.db_prefix + "orders_details_speciality_product_id IN " +  data_id ;
+
+					
+	//return sql_text;				
+	
+	
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-discount_program->get_product_sale", "message" : error } ;
+	}	
+	
+};
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ * 2.4 [get_all_discount_program_by_position]
+const get_all_discount_program_by_position = async function (datas) {
+	
+	//@
+	//@
+	var sql_text = 	"SELECT " + 
+					ojs_configs.db_prefix + "discount_program_ID as discount_program_ID, " + 
+					ojs_configs.db_prefix + "discount_program_featured_image as discount_program_featured_image, " + 
+					ojs_configs.db_prefix + "discount_program_name as discount_program_name " + 
+					
+					"FROM " +
+					ojs_configs.db_prefix + "discount_program " + 
+
+					"WHERE " +
+					ojs_configs.db_prefix + "discount_program_position = " +  datas.c1 ;
+
+					
+	//return sql_text;			
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "1", "position":"md-discount_program->get_all_discount_program_by_position", "message" : error } ;
+	}		
+};
+
+
+
+
+
 
 
 
@@ -574,7 +864,10 @@ module.exports = {
 			delete_discount_program,
 			get_all_discount_program,
 			get_owner_discount_program,
-			search_discount_program_sale
+			search_discount_program_sale,
+			get_all_discount_program_by_product,
+			get_product_sale,
+			get_all_discount_program_by_position
 };
 
 

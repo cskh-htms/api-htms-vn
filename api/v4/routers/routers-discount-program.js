@@ -5,6 +5,10 @@
 
 * 2. [get_all_discount_program]
 
+* 2.2 [get_all_discount_program_by_product]
+
+* 2.3 [get_all_discount_program_by_position]
+
 * 3. [get_one_discount_program]
 
 * 4. [update_discount_program]
@@ -56,8 +60,20 @@ router.post('/', middle_ware, controllers_discount_program.insert_discount_progr
 //@* 2. [get_all_discount_program]
 router.get('/', middle_ware, controllers_discount_program.get_all_discount_program);
 
+//@
+//@
+//@
+//@
+//@* 2.2 [get_all_discount_program_by_product]
+router.get('/by-product', middle_ware, controllers_discount_program.get_all_discount_program_by_product);
 
 
+//@
+//@
+//@
+//@
+//@* 2.3 [get_all_discount_program_by_position]
+router.get('/by-position', middle_ware, controllers_discount_program.get_all_discount_program_by_position);
 
 
 //@
