@@ -18,7 +18,9 @@
 
 * 8. [search_count_product_sale]
 
+* 9. [get_all_comment]
 
+* 10. [get_all_comment_in]
 
 
 */
@@ -965,6 +967,100 @@ const search_count_product_sale = async function (datas) {
 	}
 };
 
+
+
+
+
+
+//@@
+//@@
+//@ *  9. [get_all_comment]
+const get_all_comment = async function () {
+	//create sql text
+	let sql_text = 	"SELECT " + 
+	ojs_configs.db_prefix + "comments_speciality_ID as comments_speciality_ID, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "comments_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as comments_speciality_date_created, " + 	
+	ojs_configs.db_prefix  + "comments_speciality_user_id as comments_speciality_user_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_comment_parent_id as comments_speciality_comment_parent_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_product_id as comments_speciality_product_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_contents as comments_speciality_contents, " + 
+	ojs_configs.db_prefix  + "comments_speciality_status_admin as comments_speciality_status_admin " + 
+	" FROM " +  ojs_configs.db_prefix + "comments_speciality " + 
+	" WHERE " +  ojs_configs.db_prefix + "comments_speciality_status_admin = 1 ";
+					
+
+					
+	//return sql_text;
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model->products-spaciality->get_all->comment->error : 1", "message" : error } ;
+	}
+};
+
+
+
+
+//@@
+//@@
+//@ *  10. [get_all_comment_in]
+const get_all_comment_in = async function (datas) {
+	
+	
+	var data_id = "";
+	data_id = data_id + "(";
+	for(x in datas){
+		if(x == 0){
+			data_id = data_id + datas[x]
+		}else{
+			data_id = data_id + "," + datas[x]
+		}
+	}
+	data_id = data_id + ")";
+	
+	
+	
+	//create sql text
+	let sql_text = 	"SELECT " + 
+	ojs_configs.db_prefix + "comments_speciality_ID as comments_speciality_ID, " + 
+	"DATE_FORMAT(" + ojs_configs.db_prefix  + "comments_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as comments_speciality_date_created, " + 	
+	ojs_configs.db_prefix  + "comments_speciality_user_id as comments_speciality_user_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_comment_parent_id as comments_speciality_comment_parent_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_product_id as comments_speciality_product_id, " + 
+	ojs_configs.db_prefix  + "comments_speciality_contents as comments_speciality_contents, " + 
+	ojs_configs.db_prefix  + "comments_speciality_status_admin as comments_speciality_status_admin " + 
+	" FROM " +  ojs_configs.db_prefix + "comments_speciality " + 
+	" WHERE " +  ojs_configs.db_prefix + "comments_speciality_status_admin = 1 " + 
+	" AND " +  ojs_configs.db_prefix + "comments_speciality_product_id  IN  " + data_id ;
+					
+
+					
+	//return sql_text;
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model->products-spaciality->get_all->comment_in->error : 1", "message" : error } ;
+	}
+};
+
+
+
+
+
 /*
 @@@@
 @@@@@
@@ -981,7 +1077,9 @@ module.exports = {
 	search,
 	search_all,
 	get_owner_product,
-	search_count_product_sale
+	search_count_product_sale,
+	get_all_comment,
+	get_all_comment_in
 };
 
 

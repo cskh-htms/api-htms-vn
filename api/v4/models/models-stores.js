@@ -13,6 +13,9 @@
 
 * 6. [search]
 
+* 07. [get_all_sale] 
+
+* 08.[get_all_sale_by_id]
 
 */
 
@@ -405,7 +408,7 @@ const delete_stores = async function (stores_id) {
 //@
 //@
 //@
-//@* 6. [delete_stores]
+//@* 6. [search]
 const search = async function (datas) {
 	
 	//@
@@ -445,7 +448,63 @@ const search = async function (datas) {
 	}
 };
 
-//@* end of 6. [search]
+
+
+//@
+//@
+
+//@
+//@
+//@
+//@* 7. [get_all_sale]
+const get_all_sale = async function () {
+	
+	//create sql text
+	var sql_text = 	"SELECT * FROM " +  
+					ojs_configs.db_prefix + "view_sale_product_by_store ";
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_stores_insert->get_all_sale -> error_nymber : 1", "message" : error } ;
+	}
+};
+
+
+//@
+//@
+//@
+//@* 7. [get_all_sale_by_id]
+const get_all_sale_by_id = async function (id) {
+	
+	//create sql text
+	var sql_text = 	"SELECT * FROM " +  
+					ojs_configs.db_prefix + "view_sale_product_by_store " + 
+					" WHERE stores_ID = " + id ;
+	//@
+	try {
+		return new Promise( (resolve,reject) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
+				if( err ) reject(err);
+				resolve(results);
+			} );
+		} );
+	}
+	catch(error){
+		return  { "error" : "model_stores_insert->get_all_sale_by_id -> error_nymber : 1", "message" : error } ;
+	}
+};
+
+
+
+
+
 
 
 
@@ -457,7 +516,9 @@ module.exports = {
 			get_one_stores,
 			update_stores,
 			delete_stores,
-			get_all_stores
+			get_all_stores,
+			get_all_sale,
+			get_all_sale_by_id
 };
 
 

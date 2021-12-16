@@ -265,25 +265,57 @@ try {
 	//@
 	//@
 	//@
+
 	try {
-		models_stores.get_all_stores().then( results => {
-			res.send( {"error" : "", "datas" : results} );
-			return;
-		}, error => {
-			var evn = ojs_configs.evn;
-			evn = "dev";			
-			let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
-			res.send({ "error" : "4", "position":"ctl-stores->get all", "message": error_send } );
-			return;
-		});
+		var store_data = await models_stores.get_all_stores();
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";			
+		//evn = "dev";			
 		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores" );
 		res.send({ "error" : "5", "position":"ctl-stores->get all", "message": error_send } );
 		return;
 	}
+	
+	
+	//res.send({ "error" : "", "datas": store_data } );
+	//return;	
+	
+	
+	
+	//@
+	//@ get product sale
+	try {
+		var store_data_sale = await models_stores.get_all_sale();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";			
+		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores sale" );
+		res.send({ "error" : "6", "position":"ctl-stores->get-all->get_all_sale", "message": error_send } );
+		return;
+	}	
+	
+	
+	//res.send({ "error" : "", "datas": store_data_sale } );
+	//return;	
+	
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in store_data){
+		for(y in store_data_sale){
+			if(store_data[x].stores_ID == store_data_sale[y].stores_ID){
+				add_data = [{ "so_luong_ban":store_data_sale[y].qty}, {"tong_tien_ban":store_data_sale[y].price }];
+			}							
+		}
+		store_data[x].da_ban = add_data;
+	}	
+	
+	res.send({ "error" : "", "datas": store_data } );
+	return;		
 }
 catch(error){
 	var evn = ojs_configs.evn;
@@ -364,18 +396,7 @@ try {
 	//@
 	//@
 	try {
-		models_stores.get_one_stores(store_id).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-			return;
-		}, error => {
-
-			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get user, liên hệ admin" );
-			res.send({ "error" : "4", "position":"ctl-stores->get one", "message": error_send } );
-			return;	
-
-		});
+		var store_data = await models_stores.get_one_stores(store_id);
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
@@ -384,6 +405,54 @@ try {
 			res.send({ "error" : "5", "position":"ctl-stores->get one", "message": error_send } );
 			return;	
 	}
+	
+	
+	//res.send({ "error" : "", "datas": store_data } );
+	//return;		
+	
+	
+	//@
+	//@ get product sale
+	try {
+		var store_data_sale = await models_stores.get_all_sale_by_id(store_id);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";			
+		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores sale" );
+		res.send({ "error" : "6", "position":"ctl-stores->get-all->get_one_sale_by id", "message": error_send } );
+		return;
+	}	
+	
+	
+	store_data[0].so_luong_ban = store_data_sale;
+	
+	
+	
+	
+	res.send({ "error" : "", "datas": store_data } );
+	return;	
+	
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in store_data){
+		for(y in store_data_sale){
+			if(store_data[x].stores_ID == store_data_sale[y].stores_ID){
+				add_data = [{ "so_luong_ban":store_data_sale[y].qty}, {"tong_tien_ban":store_data_sale[y].price }];
+			}							
+		}
+		store_data[x].da_ban = add_data;
+	}	
+	
+	res.send({ "error" : "", "datas": store_data } );
+	return;		
+	
+	
+	
+	
 }
 catch(error){
 		var evn = ojs_configs.evn;
@@ -850,16 +919,7 @@ try {
 	//@
 	//@ run
 	try {
-		models_stores.search(datas).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-			return;
-		}, error => {
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search cửa hàng, liên hệ admin" );
-			res.send({ "error" : "6", "position":"ctl-stores->search", "message": error_send } );  
-			return;	
-		});
+		var store_data = await models_stores.search(datas);
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
@@ -868,6 +928,57 @@ try {
 			res.send({ "error" : "7", "position":"ctl-stores->search", "message": error_send } );  
 			return;	
 	}
+	
+	
+	//res.send({ "error" : "", "datas": store_data} );
+	//return;		
+	
+	
+	
+	
+	
+	//@
+	//@ get product sale
+	try {
+		var store_data_sale = await models_stores.get_all_sale();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";			
+		let error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi truy xuất database list stores sale" );
+		res.send({ "error" : "6", "position":"ctl-stores->get-all->get_all_sale", "message": error_send } );
+		return;
+	}	
+	
+	
+	//res.send({ "error" : "", "datas": store_data_sale } );
+	//return;	
+	
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in store_data){
+		for(y in store_data_sale){
+			if(store_data[x].stores_ID == store_data_sale[y].stores_ID){
+				add_data = [{ "so_luong_ban":store_data_sale[y].qty}, {"tong_tien_ban":store_data_sale[y].price }];
+			}							
+		}
+		store_data[x].da_ban = add_data;
+	}	
+	
+	res.send({ "error" : "", "datas": store_data } );
+	return;			
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 catch(error){
 		var evn = ojs_configs.evn;

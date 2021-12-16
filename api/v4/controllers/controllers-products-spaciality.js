@@ -289,21 +289,14 @@ try {
 	}
 	
 	
+	
+	
 	//@
 	//@
 	//@
-	//@ run model
+	//@ data_product
 	try {
-		models_products_spaciality.get_all_products_spaciality().then( results => {
-			res.send( {"error" : "", "datas" : results} );
-			return;
-		}, error => {
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
-			res.send({ "error" : "12", "position":"ctl-products-spaciality->get_all", "message": error_send  } );  
-			return;		
-		});
+		var data_product = await models_products_spaciality.get_all_products_spaciality();
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -312,6 +305,47 @@ try {
 		res.send({ "error" : "13", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
 		return;		
 	}	
+	
+	//res.send({ "error" : "", "datas": data_product } );
+	//return;		
+	
+	//@
+	//@
+	//@
+	//@ get comment 
+	try {
+		var data_comment = await models_products_spaciality.get_all_comment();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
+		res.send({ "error" : "14", "position":"ctl-products-spaciality->get_all->comment", "message": error_send  } ); 
+		return;		
+	}		
+
+	//res.send({ "error" : "", "datas": data_comment } );
+	//return;	
+
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		for(y in data_comment){
+			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
+				add_data_line.push(data_comment[y]);
+			}							
+		}
+		data_product[x].comments = add_data_line;
+	}	
+	
+	res.send({ "error" : "", "datas": data_product } );
+	return;		
+	
+	
 }
 catch(error){
 	var evn = ojs_configs.evn;
@@ -961,15 +995,17 @@ try {
 	//@
 	// run model
 	try {
-		models_products_spaciality.search(datas).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-		}, error => {
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-				res.send({ "error" : "6", "position":"ctl-products-spaciality->search", "message": error_send  } );  
-				return;	
-		});
+		var data_product = await models_products_spaciality.search(datas);
+		var model_product_arr = [0];
+		
+		if(data_product.length > 0){
+			for(x in data_product){
+				if(data_product[x].products_speciality_ID){
+					model_product_arr.push(data_product[x].products_speciality_ID);
+				}
+			}
+		}		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -978,6 +1014,48 @@ try {
 		res.send({ "error" : "7", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
 		return;	
 	}
+	
+	//res.send({ "error" : "", "datas": model_product_arr } );
+	//return;		
+	
+	//@
+	//@
+	//@
+	//@ get comment 
+	try {
+		var data_comment = await models_products_spaciality.get_all_comment_in(model_product_arr);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
+		res.send({ "error" : "8", "position":"ctl-products-spaciality->get_all->comment_in", "message": error_send  } ); 
+		return;		
+	}		
+
+	//res.send({ "error" : "", "datas": data_comment } );
+	//return;		
+	
+	
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		for(y in data_comment){
+			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
+				add_data_line.push(data_comment[y]);
+			}							
+		}
+		data_product[x].comments = add_data_line;
+	}	
+	
+	res.send({ "error" : "", "datas": data_product } );
+	return;		
+	
+	
 }
 catch(error){
 	var evn = ojs_configs.evn;
@@ -1146,30 +1224,75 @@ try {
 		}			
 	}	
 		
-	
+	//res.send(check_datas_result);
+	//return;	
 
 	//@
 	//@
 	//@
 	// run model
 	try {
-		models_products_spaciality.search_all(datas).then( results => {
-			res.send( { "error" : "", "datas" : results } );
-		}, error => {
-				var evn = ojs_configs.evn;
-				evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-				res.send({ "error" : "6", "position":"ctl-products-spaciality->search_all", "message": error_send  } ); 
-				return;	
-		});
+		var data_product = await models_products_spaciality.search_all(datas);
+		
+		//res.send({ "error" : "", "datas": data_product } );
+		//return;	
+		
+		var model_product_arr = [0];
+		if(data_product.length > 0){
+			for(x in data_product){
+				if(data_product[x].products_speciality_ID){
+					model_product_arr.push(data_product[x].products_speciality_ID);
+				}
+			}
+		}		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : "7", "position":"ctl-products-spaciality->search_all", "message": error_send  } ); 
+		res.send({ "error" : "7", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
 		return;	
 	}
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ get comment 
+	try {
+		var data_comment = await models_products_spaciality.get_all_comment_in(model_product_arr);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
+		res.send({ "error" : "8", "position":"ctl-products-spaciality->get_all->comment_in", "message": error_send  } ); 
+		return;		
+	}		
+
+	//res.send({ "error" : "", "datas": data_comment } );
+	//return;		
+	
+	
+	//@
+	//@
+	//@
+	//@ gôm data return	
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		for(y in data_comment){
+			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
+				add_data_line.push(data_comment[y]);
+			}							
+		}
+		data_product[x].comments = add_data_line;
+	}	
+	
+	res.send({ "error" : "", "datas": data_product } );
+	return;		
 }
 catch(error){
 	var evn = ojs_configs.evn;
