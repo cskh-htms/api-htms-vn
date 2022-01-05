@@ -10,6 +10,8 @@
 		"comments_speciality_comment_parent_id"		: null,	
 		"comments_speciality_product_id"			: "",	
 		"comments_speciality_contents"			    : "",
+		"comments_speciality_images"			    : "",
+		"comments_speciality_videos"			    : "",
 		"comments_speciality_status_admin"			: 0
 	}
 	

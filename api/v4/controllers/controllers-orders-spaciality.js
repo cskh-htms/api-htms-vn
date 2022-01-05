@@ -77,7 +77,7 @@ const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
 //model
 const models_orders_spaciality = require('../models/models-orders-spaciality');
 const ojs_shares_send_code_to_phone = require('../../../models/ojs-shares-send-code-to-phone');
-
+const ojs_shares_send_email = require('../../../models/ojs-shares-send-email');
 
 
 
@@ -356,7 +356,29 @@ try{
 	try {
 		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail).then( results => {
 			
+			//@
+			//@
+			//gữi sms đặt hàng 		
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			//@
+			//@
+			
+			var email_to = "dalavn.group@gmail.com";
+			var email_title = "Có đơn hàng mới";
+			var email_content = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
+			//@
+			//@
+			ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);		
+
+			var email_to2 = "lehongson.tc@gmail.com";
+			var email_title2 = "Có đơn hàng mới";
+			var email_content2 = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
+			//@
+			//@
+			ojs_shares_send_email.send_email_lost_password(res,email_to2,email_title2,email_content2);					
+			//@
+			//@
+			//save meta admress
 			models_orders_spaciality.save_meta_adress(meta_adress);
 						
 			res.send( {"error" : "", "datas" : results} );

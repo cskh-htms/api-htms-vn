@@ -42,6 +42,15 @@ app.use('/api/v1/', require('./api/v1/routers/routers-index'));
 //app.use('/api/v2/', require('./api/v2/routers/routers-index'));
 app.use('/api/v4/', require('./api/v4/routers/routers-index'));
 
+app.get('/app_version', function(req, res){
+  version = {
+    "version" : "4.0.27",
+    "versionCode" : "4027"
+  }
+  
+  res.json(version);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

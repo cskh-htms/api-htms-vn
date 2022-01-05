@@ -1555,7 +1555,7 @@ try {
 							
 							
 							var email_to = datas.email_or_phone;
-							var email_title = "test email";
+							var email_title = "DALA mật khẩu mới";
 							var email_content = '<p> mật khẩu mới tại dala app : [' + n_password + ']</p>';
 							//@
 							//@

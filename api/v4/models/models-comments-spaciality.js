@@ -72,6 +72,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "comments_speciality_comment_parent_id as comments_speciality_comment_parent_id, " + 
 	ojs_configs.db_prefix  + "comments_speciality_product_id as comments_speciality_product_id, " + 
 	ojs_configs.db_prefix  + "comments_speciality_contents as comments_speciality_contents, " + 
+	ojs_configs.db_prefix  + "comments_speciality_images as comments_speciality_images, " + 
+	ojs_configs.db_prefix  + "comments_speciality_videos as comments_speciality_videos, " + 
 	ojs_configs.db_prefix  + "comments_speciality_status_admin as comments_speciality_status_admin "; 
 	
 
@@ -116,6 +118,8 @@ const insert_comments_spaciality = async function (datas) {
 			"comments_speciality_comment_parent_id"			: datas.comments_speciality_comment_parent_id,		
 			"comments_speciality_product_id"				: datas.comments_speciality_product_id,	
 			"comments_speciality_contents"					: mysql.escape(datas.comments_speciality_contents).replace(/^'|'$/gi, ""),
+			"comments_speciality_images"					: mysql.escape(datas.comments_speciality_images).replace(/^'|'$/gi, ""),
+			"comments_speciality_videos"					: mysql.escape(datas.comments_speciality_videos).replace(/^'|'$/gi, ""),
 			"comments_speciality_status_admin"				: datas.comments_speciality_status_admin		
 	}
 

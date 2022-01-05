@@ -257,7 +257,5 @@ router.use('/uploads-infomation', require('./routers-uploads-infomation'));
 
 
 
-
-
 //exports
 module.exports = router;
