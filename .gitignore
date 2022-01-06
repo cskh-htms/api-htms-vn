@@ -1,1 +1,4 @@
-/configs/config.js
+app.js
+configs/config.js
+public/v4/javascripts/loader.js
+api/v4/models/models-config.js
