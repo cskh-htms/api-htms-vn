@@ -320,27 +320,127 @@ try {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
-		res.send({ "error" : "14", "position":"ctl-products-spaciality->get_all->comment", "message": error_send  } ); 
+		res.send({ "error" : "14", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
 		return;		
 	}		
-
-	//res.send({ "error" : "", "datas": data_comment } );
-	//return;	
-
 	//@
-	//@
-	//@
-	//@ gôm data return	
-	var add_data = [];
+	//@ đưa comment vào data return
+	var add_data = [];	
 	for(x in data_product){
 		add_data_line = [];
+		comment_count = 0;
 		for(y in data_comment){
 			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
 				add_data_line.push(data_comment[y]);
+				comment_count = comment_count + 1;;
 			}							
 		}
 		data_product[x].comments = add_data_line;
+		data_product[x].comments_count = comment_count;
 	}	
+
+
+
+
+	//@
+	//@
+	//@
+	//@ get review 
+	try {
+		var data_review = await models_products_spaciality.get_all_review();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data review" );
+		res.send({ "error" : "144", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
+		return;		
+	}	
+	//@
+	//@ đưa review vào data return
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		review_count = 0;
+		review_start = 0;
+		review_start_one = 0;
+		review_start_two = 0;
+		review_start_three = 0;
+		review_start_four = 0;
+		review_start_five = 0;
+		for(y in data_review){
+			if(data_product[x].products_speciality_ID == data_review[y].reviews_speciality_product_id){
+				add_data_line.push(data_review[y]);
+				review_count = review_count + 1;
+				review_start = review_start + data_review[y].reviews_speciality_number_star;
+				if(data_review[y].reviews_speciality_number_star == 1){
+					review_start_one = review_start_one + 1;
+				}
+				if(data_review[y].reviews_speciality_number_star == 2){
+					review_start_two = review_start_two + 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 3){
+					review_start_three = review_start_three+ 1;
+				}					
+				if(data_review[y].reviews_speciality_number_star == 4){
+					review_start_four = review_start_four+ 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 5){
+					review_start_five = review_start_five+ 1;
+				}				
+			}							
+		}
+		data_product[x].reviews = add_data_line;
+		data_product[x].review_count = review_count;
+		data_product[x].review_start_sum = review_start;
+		if(review_count != 0){
+			data_product[x].review_avg = review_start/review_count;
+		}else{
+			data_product[x].review_avg = 0;
+		}
+		
+		data_product[x].review_start_one = review_start_one;
+		data_product[x].review_start_two = review_start_two;
+		data_product[x].review_start_three = review_start_three;
+		data_product[x].review_start_four = review_start_four;
+		data_product[x].review_start_five = review_start_five;		
+		
+	}		
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ get số lượng bán	
+	try {
+		var data_sale = await models_products_spaciality.get_all_sale();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products sale" );
+		res.send({ "error" : "145", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
+		return;		
+	}		
+	
+	//res.send({ "error" : "", "datas": data_sale } );
+	//return;	
+	
+
+	//@
+	//@ đưa comment vào data return
+	var add_data = [];	
+	for(x in data_product){
+		add_data_line = 0;
+		for(y in data_sale){
+			if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+				add_data_line = data_sale[y].orders_details_speciality_qty;
+			}							
+		}
+		data_product[x].sum_product_sale = add_data_line;
+	}		
+
 	
 	res.send({ "error" : "", "datas": data_product } );
 	return;		
@@ -432,30 +532,161 @@ try {
 	}		
 	
 
-	
 	//@
 	//@
 	//@
-	//@ run 
+	//@ data_product
 	try {
-		models_products_spaciality.get_one_products_spaciality(product_id).then( results => {
-			res.send( {"error" : "", "datas" : results} );
-			return;
-		}, error => {
-			var evn = ojs_configs.evn;
-			//evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get products");
-			res.send({ "error" : "4", "position":"ctl-products-spaciality->get_one", "message": error_send  } );  
-			return;	
-		});
+		var data_product = await models_products_spaciality.get_one_products_spaciality(product_id);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get products" );
-		res.send({ "error" : "5", "position":"ctl-products-spaciality->get_one", "message": error_send  } );  
-		return;	
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products one" );
+		res.send({ "error" : "13", "position":"ctl-products-spaciality->get_one", "message": error_send  } ); 
+		return;		
+	}	
+	
+	//res.send({ "error" : "", "datas": data_product } );
+	//return;			
+	
+	//@
+	//@
+	//@
+	//@ get comment 
+	try {
+		var data_comment = await models_products_spaciality.get_all_comment();
 	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
+		res.send({ "error" : "14", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
+		return;		
+	}		
+	//@
+	//@ đưa comment vào data return
+	var add_data = [];	
+	for(x in data_product){
+		add_data_line = [];
+		comment_count = 0;
+		for(y in data_comment){
+			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
+				add_data_line.push(data_comment[y]);
+				comment_count = comment_count + 1;;
+			}							
+		}
+		data_product[x].comments = add_data_line;
+		data_product[x].comments_count = comment_count;
+	}	
+
+
+
+
+	//@
+	//@
+	//@
+	//@ get review 
+	try {
+		var data_review = await models_products_spaciality.get_all_review();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data review" );
+		res.send({ "error" : "144", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
+		return;		
+	}	
+	//@
+	//@ đưa review vào data return
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		review_count = 0;
+		review_start = 0;
+		review_start_one = 0;
+		review_start_two = 0;
+		review_start_three = 0;
+		review_start_four = 0;
+		review_start_five = 0;
+		for(y in data_review){
+			if(data_product[x].products_speciality_ID == data_review[y].reviews_speciality_product_id){
+				add_data_line.push(data_review[y]);
+				review_count = review_count + 1;
+				review_start = review_start + data_review[y].reviews_speciality_number_star;
+				if(data_review[y].reviews_speciality_number_star == 1){
+					review_start_one = review_start_one + 1;
+				}
+				if(data_review[y].reviews_speciality_number_star == 2){
+					review_start_two = review_start_two + 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 3){
+					review_start_three = review_start_three+ 1;
+				}					
+				if(data_review[y].reviews_speciality_number_star == 4){
+					review_start_four = review_start_four+ 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 5){
+					review_start_five = review_start_five+ 1;
+				}				
+			}							
+		}
+		data_product[x].reviews = add_data_line;
+		data_product[x].review_count = review_count;
+		data_product[x].review_start_sum = review_start;
+		if(review_count != 0){
+			data_product[x].review_avg = review_start/review_count;
+		}else{
+			data_product[x].review_avg = 0;
+		}
+		
+		data_product[x].review_start_one = review_start_one;
+		data_product[x].review_start_two = review_start_two;
+		data_product[x].review_start_three = review_start_three;
+		data_product[x].review_start_four = review_start_four;
+		data_product[x].review_start_five = review_start_five;		
+		
+	}		
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ get số lượng bán	
+	try {
+		var data_sale = await models_products_spaciality.get_all_sale();
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products sale" );
+		res.send({ "error" : "145", "position":"ctl-products-spaciality->get_all", "message": error_send  } ); 
+		return;		
+	}		
+	
+	//res.send({ "error" : "", "datas": data_sale } );
+	//return;	
+	
+
+	//@
+	//@ đưa comment vào data return
+	var add_data = [];	
+	for(x in data_product){
+		add_data_line = 0;
+		for(y in data_sale){
+			if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+				add_data_line = data_sale[y].orders_details_speciality_qty;
+			}							
+		}
+		data_product[x].sum_product_sale = add_data_line;
+	}		
+
+	
+	res.send({ "error" : "", "datas": data_product } );
+	return;			
+	
+
 }
 catch(error){
 	var evn = ojs_configs.evn;
@@ -859,6 +1090,13 @@ try {
 	try {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
+		
+		if(datas.select_field.indexOf("products_speciality_ID") < 0){
+			datas.select_field.push("products_speciality_ID");
+		}
+		
+		//res.send(datas);
+		//return;
 		//@
 	}
 	catch(error){
@@ -997,7 +1235,6 @@ try {
 	try {
 		var data_product = await models_products_spaciality.search(datas);
 		var model_product_arr = [0];
-		
 		if(data_product.length > 0){
 			for(x in data_product){
 				if(data_product[x].products_speciality_ID){
@@ -1009,7 +1246,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
 		res.send({ "error" : "7", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
 		return;	
@@ -1029,29 +1266,128 @@ try {
 		var evn = ojs_configs.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
-		res.send({ "error" : "8", "position":"ctl-products-spaciality->get_all->comment_in", "message": error_send  } ); 
+		res.send({ "error" : "8", "position":"ctl-products-spaciality->search->comment_in", "message": error_send  } ); 
 		return;		
 	}		
-
-	//res.send({ "error" : "", "datas": data_comment } );
-	//return;		
-	
-	
-	//@
-	//@
-	//@
-	//@ gôm data return	
-	var add_data = [];
+	//@ đưa comment vào data return
+	var add_data = [];	
 	for(x in data_product){
 		add_data_line = [];
+		comment_count = 0;
 		for(y in data_comment){
 			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
 				add_data_line.push(data_comment[y]);
+				comment_count = comment_count + 1;;
 			}							
 		}
 		data_product[x].comments = add_data_line;
-	}	
+		data_product[x].comments_count = comment_count;
+	}		
 	
+	
+	
+	//@
+	//@
+	//@
+	//@ get review 
+	try {
+		var data_review = await models_products_spaciality.get_all_review_in(model_product_arr);
+		//res.send(data_review);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data review" );
+		res.send({ "error" : "144", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
+		return;		
+	}	
+	//@
+	//@ đưa review vào data return
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		review_count = 0;
+		review_start = 0;
+		review_start_one = 0;
+		review_start_two = 0;
+		review_start_three = 0;
+		review_start_four = 0;
+		review_start_five = 0;
+		for(y in data_review){
+			if(data_product[x].products_speciality_ID == data_review[y].reviews_speciality_product_id){
+				add_data_line.push(data_review[y]);
+				review_count = review_count + 1;
+				review_start = review_start + data_review[y].reviews_speciality_number_star;
+				if(data_review[y].reviews_speciality_number_star == 1){
+					review_start_one = review_start_one + 1;
+				}
+				if(data_review[y].reviews_speciality_number_star == 2){
+					review_start_two = review_start_two + 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 3){
+					review_start_three = review_start_three+ 1;
+				}					
+				if(data_review[y].reviews_speciality_number_star == 4){
+					review_start_four = review_start_four+ 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 5){
+					review_start_five = review_start_five+ 1;
+				}				
+			}							
+		}
+		data_product[x].reviews = add_data_line;
+		data_product[x].review_count = review_count;
+		data_product[x].review_start_sum = review_start;
+		if(review_count != 0){
+			data_product[x].review_avg = review_start/review_count;
+		}else{
+			data_product[x].review_avg = 0;
+		}
+		
+		data_product[x].review_start_one = review_start_one;
+		data_product[x].review_start_two = review_start_two;
+		data_product[x].review_start_three = review_start_three;
+		data_product[x].review_start_four = review_start_four;
+		data_product[x].review_start_five = review_start_five;		
+		
+	}		
+	
+	
+	//@
+	//@
+	//@
+	//@ get số lượng bán	
+	try {
+		var data_sale = await models_products_spaciality.get_all_sale_in(model_product_arr);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products sale" );
+		res.send({ "error" : "145", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
+		return;		
+	}		
+	
+	//res.send({ "error" : "", "datas": data_sale } );
+	//return;	
+	
+
+	//@
+	//@ đưa comment vào data return
+	var add_data = [];	
+	for(x in data_product){
+		add_data_line = 0;
+		for(y in data_sale){
+			if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+				add_data_line = data_sale[y].orders_details_speciality_qty;
+			}							
+		}
+		data_product[x].sum_product_sale = add_data_line;
+	}		
+	
+	
+
 	res.send({ "error" : "", "datas": data_product } );
 	return;		
 	
@@ -1094,6 +1430,9 @@ try {
 			return;			
 		}
 		
+		if(datas.select_field.indexOf("products_speciality_ID") < 0){
+			datas.select_field.push("products_speciality_ID");
+		}		
 		
 		//@
 	}
@@ -1256,6 +1595,8 @@ try {
 	}
 	
 	
+	//res.send({ "error" : "", "datas": model_product_arr } );
+	//return;		
 	
 	//@
 	//@
@@ -1266,30 +1607,128 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products" );
-		res.send({ "error" : "8", "position":"ctl-products-spaciality->get_all->comment_in", "message": error_send  } ); 
+		res.send({ "error" : "8", "position":"ctl-products-spaciality->search->comment_in", "message": error_send  } ); 
 		return;		
 	}		
-
-	//res.send({ "error" : "", "datas": data_comment } );
-	//return;		
-	
-	
-	//@
-	//@
-	//@
-	//@ gôm data return	
-	var add_data = [];
+	//@ đưa comment vào data return
+	var add_data = [];	
 	for(x in data_product){
 		add_data_line = [];
+		comment_count = 0;
 		for(y in data_comment){
 			if(data_product[x].products_speciality_ID == data_comment[y].comments_speciality_product_id){
 				add_data_line.push(data_comment[y]);
+				comment_count = comment_count + 1;;
 			}							
 		}
 		data_product[x].comments = add_data_line;
+		data_product[x].comments_count = comment_count;
+	}		
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ get review 
+	try {
+		var data_review = await models_products_spaciality.get_all_review_in(model_product_arr);
+		//res.send(data_review);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data review" );
+		res.send({ "error" : "144", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
+		return;		
 	}	
+	//@
+	//@ đưa review vào data return
+	var add_data = [];
+	for(x in data_product){
+		add_data_line = [];
+		review_count = 0;
+		review_start = 0;
+		review_start_one = 0;
+		review_start_two = 0;
+		review_start_three = 0;
+		review_start_four = 0;
+		review_start_five = 0;
+		for(y in data_review){
+			if(data_product[x].products_speciality_ID == data_review[y].reviews_speciality_product_id){
+				add_data_line.push(data_review[y]);
+				review_count = review_count + 1;
+				review_start = review_start + data_review[y].reviews_speciality_number_star;
+				if(data_review[y].reviews_speciality_number_star == 1){
+					review_start_one = review_start_one + 1;
+				}
+				if(data_review[y].reviews_speciality_number_star == 2){
+					review_start_two = review_start_two + 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 3){
+					review_start_three = review_start_three+ 1;
+				}					
+				if(data_review[y].reviews_speciality_number_star == 4){
+					review_start_four = review_start_four+ 1;
+				}				
+				if(data_review[y].reviews_speciality_number_star == 5){
+					review_start_five = review_start_five+ 1;
+				}				
+			}							
+		}
+		data_product[x].reviews = add_data_line;
+		data_product[x].review_count = review_count;
+		data_product[x].review_start_sum = review_start;
+		if(review_count != 0){
+			data_product[x].review_avg = review_start/review_count;
+		}else{
+			data_product[x].review_avg = 0;
+		}
+		
+		data_product[x].review_start_one = review_start_one;
+		data_product[x].review_start_two = review_start_two;
+		data_product[x].review_start_three = review_start_three;
+		data_product[x].review_start_four = review_start_four;
+		data_product[x].review_start_five = review_start_five;		
+		
+	}		
+	
+	
+	//@
+	//@
+	//@
+	//@ get số lượng bán	
+	try {
+		var data_sale = await models_products_spaciality.get_all_sale_in(model_product_arr);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data products sale" );
+		res.send({ "error" : "145", "position":"ctl-products-spaciality->search", "message": error_send  } ); 
+		return;		
+	}		
+	
+	//res.send({ "error" : "", "datas": data_sale } );
+	//return;	
+	
+
+	//@
+	//@ đưa comment vào data return
+	var add_data = [];	
+	for(x in data_product){
+		add_data_line = 0;
+		for(y in data_sale){
+			if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+				add_data_line = data_sale[y].orders_details_speciality_qty;
+			}							
+		}
+		data_product[x].sum_product_sale = add_data_line;
+	}		
+	
 	
 	res.send({ "error" : "", "datas": data_product } );
 	return;		
