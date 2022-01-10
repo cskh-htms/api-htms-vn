@@ -6,6 +6,8 @@
 
 * 1. [insert_reviews_speciality]
 
+* 1.1 [insert_reviews_speciality_app]
+
 * 2. [get_all_reviews_speciality]
 
 * 3. [get_one_reviews_speciality]
@@ -45,7 +47,12 @@ router.post('/', middle_ware, controllers_reviews_spaciality.insert_reviews_spac
 
 
 
-
+//@
+//@
+//@
+//@
+//@ * 1.1 [insert_reviews_speciality_app]
+router.post('/app', middle_ware, controllers_reviews_spaciality.insert_reviews_spaciality_app);
 
 
 
