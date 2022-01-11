@@ -67,6 +67,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "reviews_speciality_user_id as reviews_speciality_user_id, " + 
 	ojs_configs.db_prefix  + "reviews_speciality_product_id as reviews_speciality_product_id, " + 
 	ojs_configs.db_prefix  + "reviews_speciality_contents as reviews_speciality_contents, " + 
+	ojs_configs.db_prefix  + "reviews_speciality_images as reviews_speciality_images, " + 
+	ojs_configs.db_prefix  + "reviews_speciality_videos as reviews_speciality_videos, " + 	
 	ojs_configs.db_prefix  + "reviews_speciality_status_admin as reviews_speciality_status_admin, " +  
 	ojs_configs.db_prefix  + "reviews_speciality_number_star as reviews_speciality_number_star " ;
 

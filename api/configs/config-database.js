@@ -13,6 +13,28 @@ const DATABASE_NAME2 = "dalacenter4";
 const PREFIX = "dala_";
 
 
+//@
+user_role_database =  {
+	"0" : "admin-ne",
+	"1" : "bussiness-ne",
+	"2" : "customer-ne",
+	"3" : "default-ne",
+	"4" : "supper-job-ne",
+	"5" : "shipping-ne"
+}
+
+
+//@
+user_role_text = [
+	"admin",
+	"bussiness",
+	"customer",
+	"default",
+	"supper-job",
+	"shipping"
+]
+
+
 module.exports = {
 	HOST_NAME,
 	HOST_IP,
@@ -24,5 +46,10 @@ module.exports = {
 	DATABASE_USER2,
 	DATABASE_PASS2,
 	DATABASE_NAME2,
-	PREFIX	
+	PREFIX,
+	user_role_database,	
+	user_role_text
 };
+
+
+

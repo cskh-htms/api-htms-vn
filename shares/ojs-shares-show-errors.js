@@ -1,3 +1,6 @@
+/*
+* hiển thị error theo chế độ desing
+*/
 
 
 const ojs_shares_show_errors = {
