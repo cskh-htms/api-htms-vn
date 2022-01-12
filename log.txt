@@ -2,21 +2,18 @@
 
 
 ------------------------------------
-	-- 2021/10/22
+	-- 2022/1/12
 ------------------------------------
-1. Tối ưu brand thêm dấu ['] cho thương hiệu
-2. 
 
+- các view đã sử dụng
+	* dala_view_count_product_sale
 
-
-
-
-
-
-
+- update trigger
+	* 01.table_reviews_insert.sql
+	* 02.table_reviews_update.sql
 
 ------------------------------------
-	end of 2021/10/22
+	end of 2022/1/12
 ------------------------------------
 
 

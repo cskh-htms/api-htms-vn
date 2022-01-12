@@ -6,8 +6,8 @@ const middle_ware =  require('../../../../lib/middle-ware/middle-ware');
 const multer = require('multer');
 const WPAPI = require( 'wpapi' );
 
-const controllers_reviews_spaciality_app =  require('../../controllers/controllers-reviews-spaciality-insert-app.js');
-
+const controllers_reviews_spaciality_insert_app =  require('../../controllers/controllers-reviews-spaciality-insert-app.js');
+const controllers_reviews_spaciality_update_app =  require('../../controllers/controllers-reviews-spaciality-update-app.js');
 
 
 
@@ -26,7 +26,9 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/insert-app', middle_ware, upload,controllers_reviews_spaciality_app.insert_reviews_spaciality_app);
+router.post('/insert-app', middle_ware, upload,controllers_reviews_spaciality_insert_app.insert_reviews_spaciality_app);
+
+router.put('/update-app/:review_id', middle_ware, upload,controllers_reviews_spaciality_update_app.update_reviews_spaciality_app);
 
 
 module.exports = router;

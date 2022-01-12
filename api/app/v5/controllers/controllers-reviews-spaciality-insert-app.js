@@ -10,6 +10,8 @@ const config_database = require('../../../configs/config-database');
 const ojs_shares_show_errors = require('../../../../shares/ojs-shares-show-errors');
 const fields_insert = require('../../../lib/reviews/fields-insert-reviews');
 const check_role = require('../../../shares/check-role');
+const check_owner_user = require('../../../shares/check-owner-user');
+
 const reviews_insert = require('../../../lib/reviews/reviews-insert.js');
 
 
@@ -42,6 +44,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -54,6 +57,43 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 		}); 
 		return;	
 	}
+	
+	
+	//@ check owner user
+	try{
+		var check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.reviews_speciality_user_id);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi check owner USER review, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "121",
+			"position" : "ctl-review->insert-app", 
+			"message": error_send 
+			}); 
+		return;			
+	}	
+	
+	if(check_owner_user_resuilt != 1){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" , 
+				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "122",
+			"position" : "ctl-review->insert-app", 
+			"message": error_send 
+		}); 
+		return;			
+	}	
 	
 
 	//@ check role phân quyền
@@ -143,7 +183,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	}
 	
 	
-	//@ add datas url upload
+	//@ save database
 	var datas_assign = {
 		"reviews_speciality_images" :url_images,
         "reviews_speciality_videos" : url_videos

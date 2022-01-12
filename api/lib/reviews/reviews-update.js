@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const connection = require('../connections/connections');
 
 const config_database = require ('../../configs/config-database');
-const shares_all_api = require('../../shares/shares-all-api');
+const shares_all_api = require('../../shares/shares_all_api');
 const fields_insert_reviews = require('./fields-insert-reviews');
 
 
