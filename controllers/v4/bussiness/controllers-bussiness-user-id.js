@@ -1,7 +1,11 @@
 
+const ojs_configs = require('../../../configs/config');
+const config_api = require('../../../app/configs/config-api');
+
+
 
 const ojs_shares_show_errors = require('../../../models/ojs-shares-show-errors');
-const ojs_configs = require('../../../configs/config');
+
 
 
 async  function bussiness_user_id(req, res, next) {

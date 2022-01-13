@@ -6,9 +6,12 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
+
 const ojs_configs = require('../../configs/config');
-const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
-//const middle_ware = require('../../../api/'+ ojs_configs.api_version + '/models/ojs-shares-show-errors');
+const config_api = require('../../api/configs/config-api');
+
+
+
 
 
 
@@ -23,7 +26,7 @@ const ojs_shares_get_all_list_datas_all = require('../../models/ojs-shares-get-a
 const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
 const ojs_shares_news_admin_menu = require('../../models/ojs-shares-news-admin-menu');
 const ojs_shares_news_bussiness_menu = require('../../models/ojs-shares-news-bussiness-menu');
-
+const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
 
 const ojs_shares_others = require('../../models/ojs-shares-others');
 
@@ -63,9 +66,6 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 
-C:\Users\May006\Desktop\v5\controllers\v5\bussiness\controllers-bussiness-user-id.js
-
-
 
 --------------------------------------------------------------
 */
@@ -73,13 +73,45 @@ C:\Users\May006\Desktop\v5\controllers\v5\bussiness\controllers-bussiness-user-i
 
 
 router.get('/:user_id',async function(req, res, next) {
-	
-		const controllers_bussiness_user_id = require('../../controllers/' + ojs_configs.api_version + '/bussiness/controllers-bussiness-user-id');
-		const controllers_bussiness_user_id_resuilt = await controllers_bussiness_user_id.bussiness_user_id(req, res, next);
+	try {
+		var token = req.session.token;	
+		var user_id = req.params.user_id;
 		
-		res.send(controllers_bussiness_user_id_resuilt);		
-		return;
+		if(token == "" || token == null || token == undefined){
+			res.send('<h1 style="text-align:center;">Vui lòng đăng nhập</h1>'); 
+			return;
+		}		
+	}
+	catch(error){
+		res.send("Lỗi lấy datas request , vui lòng liên hệ admin dala"); 
+		return;			
+	}
+	
+	// gọi api
+	try {
+		var api_data_resuilt = await dfsdfsdf();		
+	}
+	catch(error){
+		res.send("Lỗi gọi api server , vui lòng liên hệ admin dala"); 
+		return;			
+	}	
+	
+	
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
