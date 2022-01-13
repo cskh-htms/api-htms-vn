@@ -3,7 +3,7 @@
 const md5 = require('md5');
 const mysql = require('mysql');
 const connection = require('../connections/connections');
-const config_database = require('../../configs/config-database');
+const config_database = require('../../../configs/config-database');
 
 
 

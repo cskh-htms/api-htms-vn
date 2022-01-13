@@ -7,10 +7,12 @@ const WPAPI = require( 'wpapi' );
 
 const ojs_configs = require('../../../../configs/config');
 const config_database = require('../../../configs/config-database');
-const ojs_shares_show_errors = require('../../../../shares/ojs-shares-show-errors');
-const fields_insert = require('../../../lib/reviews/fields-insert-reviews');
-const check_role = require('../../../shares/check-role');
-const check_owner_review = require('../../../shares/check-owner-review');
+const config_api = require('../../../configs/config-api');
+
+const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const fields_insert = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/fields-insert-reviews');
+const check_role = require('../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_review = require('../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-review');
 
 
 

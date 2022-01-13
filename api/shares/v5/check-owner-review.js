@@ -1,7 +1,9 @@
 
 const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../configs/config');
-const reviews_search = require('../lib/reviews/reviews-search.js');
+const ojs_configs = require('../../../configs/config');
+const config_api = require('../../configs/config-api');
+
+const reviews_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
 
 
 const check_owner_review = async function(token,review_id){

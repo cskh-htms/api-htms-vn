@@ -1,31 +1,22 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
-
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
+//const middle_ware = require('../../../api/'+ ojs_configs.api_version + '/models/ojs-shares-show-errors');
 
 
 
-//@
-//@
-//@
-//@ loader function shares
+//end of v5
+
+
+
+
 const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
 const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-list-datas');
 const ojs_shares_get_all_list_datas_all = require('../../models/ojs-shares-get-all-list-datas-all');
@@ -35,17 +26,22 @@ const ojs_shares_news_bussiness_menu = require('../../models/ojs-shares-news-bus
 
 
 const ojs_shares_others = require('../../models/ojs-shares-others');
-const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
+
 const ojs_shares_date = require('../../models/ojs-shares-date');
 const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 const ojs_datas_users = require('../../models/ojs-datas-users');
 const ojs_datas_bussiness = require('../../models/ojs-datas-bussiness');
 const ojs_datas_orders = require('../../models/ojs-datas-orders');
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-
-
+//const controllers_bussiness_user_id = require('../../controllers/' + ojs_configs.api_version + '/bussiness/controllers-bussiness-user-id');
 
 /* 
 ---------------------------------------------------------------
@@ -67,11 +63,30 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 
+C:\Users\May006\Desktop\v5\controllers\v5\bussiness\controllers-bussiness-user-id.js
 
 
 
 --------------------------------------------------------------
 */
+
+
+
+router.get('/:user_id',async function(req, res, next) {
+	
+		const controllers_bussiness_user_id = require('../../controllers/' + ojs_configs.api_version + '/bussiness/controllers-bussiness-user-id');
+		const controllers_bussiness_user_id_resuilt = await controllers_bussiness_user_id.bussiness_user_id(req, res, next);
+		
+		res.send(controllers_bussiness_user_id_resuilt);		
+		return;
+});
+
+
+
+
+
+
+
 
 
 
@@ -843,7 +858,7 @@ router.get('/stores/show/:store_id/:user_id', async  function(req, res, next) {
 //@
 //@
 //@ 1. [bussiness]/user_id
-router.get('/:user_id', async  function(req, res, next) {
+router.get('/demo/:user_id', async  function(req, res, next) {
 try {	
 	//@
 	//@

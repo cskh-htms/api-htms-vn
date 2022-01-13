@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 
 const connection = require('../connections/connections');
-const config_database = require('../../configs/config-database');
+const config_database = require('../../../configs/config-database');
 const fields_search_users = require('./fields-search-users');
 
 

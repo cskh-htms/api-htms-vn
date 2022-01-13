@@ -1,10 +1,14 @@
 
 
 const mysql = require('mysql');
-const connection = require('../connections/connections');
 
-const config_database = require ('../../configs/config-database');
-const shares_all_api = require('../../shares/shares-all-api');
+
+const config_database = require ('../../../configs/config-database');
+const config_api = require ('../../../configs/config-api');
+
+
+const connection = require('../connections/connections');
+const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_insert_reviews = require('./fields-insert-reviews');
 
 

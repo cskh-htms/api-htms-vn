@@ -1,6 +1,6 @@
 
 const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../configs/config');
+const ojs_configs = require('../../../configs/config');
 
 
 
