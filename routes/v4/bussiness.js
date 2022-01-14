@@ -10,14 +10,10 @@ const fetch = require('node-fetch');
 const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
-
-
-
+const controller_bussiness_by_user_id = require('../../controllers/' + ojs_configs.controller_version + '/bussiness/controllers-bussiness-by-user-id.js');
 
 
 //end of v5
-
-
 
 
 const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
@@ -44,7 +40,6 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-//const controllers_bussiness_user_id = require('../../controllers/' + ojs_configs.api_version + '/bussiness/controllers-bussiness-user-id');
 
 /* 
 ---------------------------------------------------------------
@@ -72,32 +67,15 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 
-router.get('/:user_id',async function(req, res, next) {
-	try {
-		var token = req.session.token;	
-		var user_id = req.params.user_id;
-		
-		if(token == "" || token == null || token == undefined){
-			res.send('<h1 style="text-align:center;">Vui lòng đăng nhập</h1>'); 
-			return;
-		}		
-	}
-	catch(error){
-		res.send("Lỗi lấy datas request , vui lòng liên hệ admin dala"); 
-		return;			
-	}
-	
-	// gọi api
-	try {
-		var api_data_resuilt = await dfsdfsdf();		
-	}
-	catch(error){
-		res.send("Lỗi gọi api server , vui lòng liên hệ admin dala"); 
-		return;			
-	}	
-	
-	
-});
+router.get('/:user_id', controller_bussiness_by_user_id);
+
+
+
+
+
+
+
+
 
 
 
