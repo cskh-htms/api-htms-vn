@@ -14,6 +14,6 @@ router.get('/', function(req, res, next) {
   res.end('api appdalacom bussiness by user welcom');
 });
 
-router.get('/:user_id', controllers_bussiness_by_user_id );
+router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
 
 module.exports = router;

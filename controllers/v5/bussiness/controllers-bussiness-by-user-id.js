@@ -10,7 +10,11 @@ async  function bussiness_by_user_id(req, res, next) {
 	try {
 		var token = req.session.token;	
 		var user_id = req.params.user_id;	
-		//res.send(user_id);
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.send( "vui lòng đăng nhập" );
+			return;
+		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -28,14 +32,16 @@ async  function bussiness_by_user_id(req, res, next) {
 		return;			
 	}
 	
+	//res.send( user_id );
+	//return;	
 
 	try {
-		var data_api_resuilt = await ojs_shares.get_data_send_token_get(
+		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/bussiness/115', 
 			token
 		);	
 		
-		res.send( [data_api_resuilt] );
+		res.send( data_api_resuilt );
 		return;
 		
 	}

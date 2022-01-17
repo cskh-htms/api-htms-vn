@@ -72,34 +72,6 @@ router.get('/:user_id', controller_bussiness_by_user_id);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //@
 //@
 //@
