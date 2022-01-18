@@ -9,7 +9,7 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_insert_reviews = require('./fields-insert-reviews');
+const fields_insert_reviews = require('./reviews-fields-insert');
 
 
 

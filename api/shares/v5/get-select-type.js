@@ -19,6 +19,4 @@ const get_select_type =  function(datas){
 	}
 	return data_return;
 }
-module.exports = {
-	get_select_type
-}
+module.exports = get_select_type;

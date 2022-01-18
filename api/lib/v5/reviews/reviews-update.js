@@ -2,63 +2,61 @@
 
 const mysql = require('mysql');
 const connection = require('../connections/connections');
-
-const config_database = require ('../../configs/config-database');
-const shares_all_api = require('../../shares/shares_all_api');
-const fields_insert_reviews = require('./fields-insert-reviews');
+const config_database = require ('../../../configs/config-database');
 
 
-
-
-
-const insert_reviews_spaciality = async function (datas) {
+const update_reviews_spaciality = async function (datas) {
+	let sqlSet = "";
 	
-	var datas_assign = Object.assign(fields_insert_reviews.default_fields, datas);
-		
-	//@
-	let sql_text = "INSERT INTO " + config_database.PREFIX + "reviews_speciality  SET ?";
-	let dataGo = {
-			"reviews_speciality_user_id"					: datas_assign.reviews_speciality_user_id,	
-			"reviews_speciality_product_id"					: datas_assign.reviews_speciality_product_id,	
-			"reviews_speciality_contents"					: mysql.escape(datas_assign.reviews_speciality_contents).replace(/^'|'$/gi, ""),
-			"reviews_speciality_images"						: mysql.escape(datas_assign.reviews_speciality_images).replace(/^'|'$/gi, ""),
-			"reviews_speciality_videos"						: mysql.escape(datas_assign.reviews_speciality_videos).replace(/^'|'$/gi, ""),
-			"reviews_speciality_status_admin"				: datas_assign.reviews_speciality_status_admin,
-			"reviews_speciality_number_star"				: datas_assign.reviews_speciality_number_star					
-	}
+	let arrDatas = Object.keys(datas);
+	
+	let arrValueDatas = [];
+	let x;
+	for (x in datas){
+		arrValueDatas.push(datas[x]);
+	}	
+	
+	let i = 0;
+	arrDatas.forEach(function(item) {
+		//
+		if(arrValueDatas[i]== null){
+			if(sqlSet.length == 0){
+				sqlSet = config_database.PREFIX + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+			}else{
+				sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+			}
+		}else{
+			if(sqlSet.length == 0){
+				sqlSet = config_database.PREFIX + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
+			}else{
+				sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
+			}		
+		}
 
-	var kes = Object.keys(dataGo);
-	for(let x in kes){
-		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
-	}
-	//@
+		i = i + 1 ;
+	});		
 
+	let table_name  = config_database.PREFIX + "reviews_speciality ";
+	let field_where  = config_database.PREFIX + "reviews_speciality_ID ";
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ review_id + '"';
+	
 	try {
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) reject(err);
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "1", "message" : error } ;
+		return  { "error" : "1", "position":"lib -> update review", "message" : error } ;
 	}
-
 };	
 
 
-module.exports = {
-	insert_reviews_spaciality
-};
+module.exports = update_reviews_spaciality;
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
 
 
 

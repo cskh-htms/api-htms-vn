@@ -10,12 +10,11 @@ const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const fields_insert = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/fields-insert-reviews');
+const fields_insert = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_review = require('../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-review');
 
-
-
+const update_review = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-update');
 
 
 //@
@@ -43,11 +42,8 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		}); 
 		return;	
 	}
-	//res.send({"error":"","datas":[all_files,datas,token,review_id]}); 
-	//return;	
-
-
-
+	
+	
 	//@ check owner review
 	try{
 		var check_owner_review_resuilt = await check_owner_review.check_owner_review(token,review_id);
@@ -87,10 +83,90 @@ async  function update_reviews_spaciality_app(req, res, next) {
 	}	
 
 
+	//@ check owner review
+	try{
+		var check_owner_review_resuilt = await check_owner_review.check_owner_review(token,review_id);
+		res.send({ "error":"","datas":[check_owner_review_resuilt] }); 
+		return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi check owner review, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "21",
+			"position" : "ctl-review->insert-app", 
+			"message": error_send 
+			}); 
+		return;			
+	}		
 
+	res.send(check_owner_review_resuilt);
+	return;
+
+
+	//@ upload hinh sang wp
+	try {
+		var url_images = "";
+		var url_videos = "";
+		if(all_files){
+			var wp = new WPAPI({
+				endpoint: 'https://appdala.net/wp-json',
+				username: 'appdala',
+				password: 'root@2021!@#$%^'
+			});
+
+			
+			for (x in all_files){
+				var upload_go = await wp.media().file(all_files[x].buffer,all_files[x].originalname).create();
+				var myArray = upload_go.source_url.split(".");
+				if(
+				myArray[myArray.length -1] == "jpg" || 
+				myArray[myArray.length -1] == "png" ){
+					if(url_images == ""){
+						url_images = url_images + upload_go.source_url
+					}else{
+						url_images = url_images + ";" + upload_go.source_url
+					}
+				}else{
+					if(url_videos == ""){
+						url_videos = url_videos + upload_go.source_url
+					}else{
+						url_videos = url_videos + ";" + upload_go.source_url
+					}					
+				}
+			}
+		}
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi upload hình , Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "4",
+			"position" : "ctl-review->update_app",
+			"message": error_send 
+			}); 
+		return;	
+	}
+
+	//@ update data
+	var datas_assign = {
+		"reviews_speciality_images" :url_images,
+        "reviews_speciality_videos" : url_videos
+	}
+	var datas_update = Object.assign(datas,datas_assign);	
 
 	
-	res.send({"error":"","datas":[all_files,datas,token]}); 
+	res.send({"error":"","datas":datas_update}); 
 	return;
 	
 }
