@@ -15,7 +15,7 @@ const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION
 const check_owner_review = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-review');
 
 const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-appdalacom-api.js');
-
+const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 
 //@
@@ -89,8 +89,6 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 	//@ lấy news bussiness
 	try{
 		var get_data_news_bussiness_resuilt = await get_data_news_bussiness(user_id);
-		res.send({"error":"","datas":[get_data_news_bussiness_resuilt]});
-		return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -107,6 +105,32 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 			}); 
 		return;			
 	}
+	
+	//@ lấy cout datas
+	try{
+		var get_data_count_bussiness_resuilt = await get_data_count_bussiness(user_id);
+		res.send(get_data_count_bussiness_resuilt);
+		return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi lấy data tin tuc bussisness, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "5",
+			"position" : "ctroller->api-appdalacom->controllers-bussiness-by-user-id-appdalacom-api.js", 
+			"message": error_send 
+			}); 
+		return;			
+	}	
+	
+	
+	
+	
 }
 
 module.exports = controllers_bussiness_by_user_id;
