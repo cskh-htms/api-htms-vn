@@ -1,27 +1,40 @@
 
-const jwt = require('jsonwebtoken');
 
 const ojs_configs = require('../../../configs/config');
 const config_api = require('../../configs/config-api');
+const config_database = require('../../configs/config-database.js');
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
+const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 
 
-const check_role = async function(token){
-	
+
+const get_group_by =  function(datas){	
 	try {
-		var users_decode = jwt.decode(token);
-		return ( users_decode.user_role );
+		var sql_group = "";
+		//@
+		if(datas.group_by){
+			var group_arr = datas.group_by;
+			for (var x in group_arr){
+				if(sql_group == ""){
+					sql_group =  sql_group  + config_database.PREFIX +  group_arr[x];
+				}else{
+					sql_group =  sql_group  + ", "  + config_database.PREFIX + group_arr[x];
+				}
+			}
+			sql_group = " group by " + sql_group + " ";
+		}
+
+		
+		return sql_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi decode , liên hệ admin" );
-		return { "error" : "1", "position":"check-role","message": error_send };
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get group by , liên hệ admin" );
+		return { "error" : "1", "position":"get group_by","message": error_send };
 	}	
 }
-module.exports = {
-		check_role
-}
+module.exports = get_group_by;

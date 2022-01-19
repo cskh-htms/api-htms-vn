@@ -37,7 +37,7 @@ async  function bussiness_by_user_id(req, res, next) {
 
 	try {
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
-			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/bussiness/115', 
+			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/bussiness/' + user_id, 
 			token
 		);	
 		

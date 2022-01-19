@@ -26,6 +26,8 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		var datas = req.body;
 		var token = req.headers['token'];
 		var review_id = req.params.review_id
+		//res.send([all_files,datas,review_id,token]);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -47,26 +49,24 @@ async  function update_reviews_spaciality_app(req, res, next) {
 	//@ check owner review
 	try{
 		var check_owner_review_resuilt = await check_owner_review.check_owner_review(token,review_id);
-		res.send({ "error":"","datas":[check_owner_review_resuilt] }); 
-		return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check owner review, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "21",
-			"position" : "ctl-review->insert-app", 
+			"error" : "2",
+			"position" : "ctl-review->update-app", 
 			"message": error_send 
 			}); 
 		return;			
 	}	
 	
-	if(check_owner_review_resuilt != 1){
+	if(check_owner_review_resuilt != "1"){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
@@ -75,19 +75,17 @@ async  function update_reviews_spaciality_app(req, res, next) {
 				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "22",
-			"position" : "ctl-review->insert-app", 
+			"error" : "3",
+			"position" : "ctl-review->update-app", 
 			"message": error_send 
 		}); 
 		return;			
 	}	
 
 
-	//@ check owner review
+	//@ check role 
 	try{
-		var check_owner_review_resuilt = await check_owner_review.check_owner_review(token,review_id);
-		res.send({ "error":"","datas":[check_owner_review_resuilt] }); 
-		return;
+		var check_role_resuilt = await check_role.check_role(token);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -95,18 +93,23 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi check owner review, Vui lòng liên hệ admin" 
+				"Lỗi check role, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "21",
-			"position" : "ctl-review->insert-app", 
+			"error" : "4",
+			"position" : "ctl-review->update-app", 
 			"message": error_send 
 			}); 
 		return;			
 	}		
-
-	res.send(check_owner_review_resuilt);
-	return;
+	if(check_role_resuilt != "customer"){
+		res.send({ 
+			"error" : "5",
+			"position" : "ctl-review->update-app", 
+			"message": "Lỗi phân quyền , bạn không có quyền chỉnh sữa đánh giá này" 
+			}); 
+		return;				
+	}
 
 
 	//@ upload hinh sang wp
@@ -158,15 +161,42 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		return;	
 	}
 
-	//@ update data
-	var datas_assign = {
-		"reviews_speciality_images" :url_images,
-        "reviews_speciality_videos" : url_videos
-	}
-	var datas_update = Object.assign(datas,datas_assign);	
 
+
+	//@ update_review
+	try {
+		var datas_assign = {
+			"reviews_speciality_images" :url_images,
+			"reviews_speciality_videos" : url_videos
+		}
+		var datas_update = Object.assign(datas,datas_assign);			
+		
+		var update_review_resuilt = await update_review(datas_update,review_id);
+		res.send({"error":"","datas": update_review_resuilt});
+		return;
+
+	}
+	catch(error){
+		var message_error = fields_insert.get_message_error(error);
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error,
+				message_error 
+			);
+		res.send({ 
+			"error" : "5",
+			"position" : "ctl-review->update", 
+			"message": error_send 
+		}); 
+		return;
+	}
+
+
+		
 	
-	res.send({"error":"","datas":datas_update}); 
+	res.send({"error":"","dataseeee":datas_update}); 
 	return;
 	
 }

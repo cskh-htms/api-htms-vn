@@ -7,21 +7,21 @@ const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const category_fields_get = require('./category-fields-get.js');
+const note_fields_get = require('./note-fields-get.js');
 
-const category_news_bussiness = async function (user_id) {
+const note_news_bussiness = async function (user_id) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
-		"count(" + config_database.PREFIX + "category_general_speciality_ID ) as category_general_speciality_ID  " +
+		"count(" + config_database.PREFIX + "notes_ID ) as notes_ID  " +
 		
-	category_fields_get.from_default + 
-	category_fields_get.link_default + 
+	note_fields_get.from_default + 
+	note_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "category_general_speciality_admin_status in (3) " +
+		config_database.PREFIX + "notes_status in (0) " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "notes_user_id  = " + user_id + " " ; 		
 
 	//@
 	try {	
@@ -31,24 +31,24 @@ const category_news_bussiness = async function (user_id) {
 				resolve(results);
 			} );
 		} );
-	}
-	
+	}	
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi category search news bussiness, Vui lòng liên hệ admin" 
+				"Lỗi note search news bussiness, Vui lòng liên hệ admin" 
 			);
-		return({ 
+		res.send({ 
 			"error" : "1",
-			"position" : "category search", 
+			"position" : "note news bussiness", 
 			"message": error_send 
 			}); 
+		return;	
 	}
 	
 };
 
 
-module.exports = category_news_bussiness;
+module.exports = note_news_bussiness;

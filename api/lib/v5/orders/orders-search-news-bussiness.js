@@ -4,10 +4,16 @@
 const mysql = require('mysql');
 const connection = require('../connections/connections');
 const config_database = require('../../../configs/config-database');
+const config_api = require('../../../configs/config-api');
+
+const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
+
+
+
 
 const orders_fields_get = require('./orders-fields-get.js');
 
-const orders_search = async function (user_id) {
+const orders_search_news_bussiness = async function (user_id) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -35,10 +41,22 @@ const orders_search = async function (user_id) {
 	}
 	
 	catch(error){
-		return  { "error" : "1", "position":"lib-orders->orders-search-news-bussiness.js", "message" : error } ;
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi orders search news bussiness, Vui lòng liên hệ admin" 
+			);
+		return ({ 
+			"error" : "1",
+			"position" : "orders search news bussiness", 
+			"message": error_send 
+			}); 
+		return;	
 	}
 	
 };
 
 
-module.exports = orders_search;
+module.exports = orders_search_news_bussiness;

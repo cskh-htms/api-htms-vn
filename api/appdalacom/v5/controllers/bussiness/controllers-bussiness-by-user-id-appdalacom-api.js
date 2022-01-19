@@ -107,13 +107,6 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 			}); 
 		return;			
 	}
-
-	
-	return;	
-
-	
-	
-	
 }
 
 module.exports = controllers_bussiness_by_user_id;

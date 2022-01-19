@@ -309,8 +309,7 @@ const update_reviews_spaciality = async function (datas,review_id) {
 //@
 // 5. [search]
 const search = async function (datas) {
-	//@
-	//@
+
 	//@
 	try {	
 		var get_sql_search  = ojs_shares_sql.get_sql_search(datas,sql_select_all);
@@ -321,13 +320,6 @@ const search = async function (datas) {
 		return  { "error" : "model-review-speciality->search->error-nymber : 3", "message" : error } ;
 	}	
 
-
-
-
-	//return {get_sql_search_group};
-	//@
-	//@
-	//@
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {

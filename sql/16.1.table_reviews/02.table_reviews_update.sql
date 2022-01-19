@@ -11,18 +11,31 @@ CREATE TRIGGER trig_reviews_speciality_update BEFORE UPDATE ON dala_reviews_spec
 FOR EACH ROW  
 BEGIN  
 
--- kiem tra co user_id chua
-IF(NEW.dala_reviews_speciality_user_id > 0 ) THEN 
+-- khong cho thay doi user id
+SET @check_user_id = (
+	select dala_reviews_speciality_user_id 
+	from dala_reviews_speciality   
+	where dala_reviews_speciality_ID  =  NEW.dala_reviews_speciality_ID 	
+);
+	
+IF (@check_user_id  <>  NEW.dala_reviews_speciality_user_id ) THEN   
 	SIGNAL SQLSTATE '12351' 
-	SET MESSAGE_TEXT = 'trig_reviews_speciality_user_id_no_update';   
-END IF;
+	SET MESSAGE_TEXT = 'trig_reviews_speciality_insert_no_update'; 
+END IF;	
 
--- kiem tra co product_id chua
-IF(NEW.dala_reviews_speciality_product_id > 0 ) THEN 
+
+
+-- khong cho thay doi product id
+SET @check_product_id = (
+	select dala_reviews_speciality_product_id  
+	from dala_reviews_speciality   
+	where dala_reviews_speciality_ID  =  NEW.dala_reviews_speciality_ID 	
+);
+	
+IF (@check_product_id  <>  NEW.dala_reviews_speciality_product_id ) THEN   
 	SIGNAL SQLSTATE '12352' 
-	SET MESSAGE_TEXT = 'trig_reviews_speciality_product_id_no_update';   
+	SET MESSAGE_TEXT = 'trig_reviews_speciality_product_id_no_update'; 
 END IF;
-
 
 -- review content phải có data
 IF(NEW.dala_reviews_speciality_contents is null or NEW.dala_reviews_speciality_contents = '' ) THEN 

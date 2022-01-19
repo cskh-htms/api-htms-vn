@@ -34,11 +34,33 @@ const link_default = 	" " +
 	config_database.PREFIX + "products_speciality_ID " ;	
 
 
+//@	
+const link_default_store = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "products_speciality  ON  " + 
+	config_database.PREFIX + "reviews_speciality_product_id  = " + 
+	config_database.PREFIX + "products_speciality_ID " +  
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +  	
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "stores_user_id  = " + 
+	config_database.PREFIX + "users_ID ";	
+
+
+
+
 //export module
 module.exports = { 
 				fields_search,
 				from_default,
-				link_default
+				link_default,
+				link_default_store
 };
 
 

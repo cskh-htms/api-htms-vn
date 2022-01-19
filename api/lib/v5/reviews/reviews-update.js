@@ -5,7 +5,9 @@ const connection = require('../connections/connections');
 const config_database = require ('../../../configs/config-database');
 
 
-const update_reviews_spaciality = async function (datas) {
+const update_reviews_spaciality = async function (datas,review_id) {
+	
+	
 	let sqlSet = "";
 	
 	let arrDatas = Object.keys(datas);
@@ -32,6 +34,7 @@ const update_reviews_spaciality = async function (datas) {
 				sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
 			}		
 		}
+		
 
 		i = i + 1 ;
 	});		
@@ -39,6 +42,10 @@ const update_reviews_spaciality = async function (datas) {
 	let table_name  = config_database.PREFIX + "reviews_speciality ";
 	let field_where  = config_database.PREFIX + "reviews_speciality_ID ";
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ review_id + '"';
+	
+	//return(sql_text);
+	
+	
 	
 	try {
 		return new Promise( (resolve,reject) => {

@@ -7,19 +7,19 @@ const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const category_fields_get = require('./category-fields-get.js');
+const discount_product_fields_get = require('./discount-product-fields-get.js');
 
-const category_news_bussiness = async function (user_id) {
+const discount_product_news_bussiness = async function (user_id) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
-		"count(" + config_database.PREFIX + "category_general_speciality_ID ) as category_general_speciality_ID  " +
+		"count(" + config_database.PREFIX + "discount_program_product_link_ID ) as discount_program_product_link_ID  " +
 		
-	category_fields_get.from_default + 
-	category_fields_get.link_default + 
+	discount_product_fields_get.from_default + 
+	discount_product_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "category_general_speciality_admin_status in (3) " +
+		config_database.PREFIX + "discount_program_product_link_status in (3) " +
 		" and " + 
 		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
 
@@ -31,24 +31,24 @@ const category_news_bussiness = async function (user_id) {
 				resolve(results);
 			} );
 		} );
-	}
-	
+	}	
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi category search news bussiness, Vui lòng liên hệ admin" 
+				"Lỗi discount dproduct search news bussiness, Vui lòng liên hệ admin" 
 			);
-		return({ 
+		res.send({ 
 			"error" : "1",
-			"position" : "category search", 
+			"position" : "discount product news bussiness", 
 			"message": error_send 
 			}); 
+		return;	
 	}
 	
 };
 
 
-module.exports = category_news_bussiness;
+module.exports = discount_product_news_bussiness;
