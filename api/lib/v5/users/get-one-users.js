@@ -5,15 +5,15 @@ const jwt = require('jsonwebtoken');
 
 const connection = require('../connections/connections');
 const config_database = require('../../../configs/config-database');
-const fields_search_users = require('./fields-search-users');
+const user_fields_get = require('./user-fields-get.js');
 
 
 const get_one_users = async function (user_id) {
 
 	let sql_text = 	"" + 
-	"SELECT " +  fields_search_users.fields_search + 
-	fields_search_users.from_default + 
-	fields_search_users.link_default + 
+	"SELECT " +  user_fields_get.fields_search + 
+	user_fields_get.from_default + 
+	user_fields_get.link_default + 
 	" where " + 
 	config_database.PREFIX + "users_ID = '" + user_id + "' " 
 

@@ -5,11 +5,12 @@ const mysql = require('mysql');
 const connection = require('../connections/connections');
 const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
+const ojs_configs = require('../../../../configs/config');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const brand_fields_get = require('./brand-fields-get.js');
 
-const brand_news_bussiness = async function (user_id) {
+const brand_news_bussiness = async function (user_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -27,7 +28,21 @@ const brand_news_bussiness = async function (user_id) {
 	try {	
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							"Lỗi brand news bussiness, Vui lòng liên hệ admin" 
+						);
+					res.send({ 
+						"error" : "1",
+						"position" : "lib/brands/brand news bussiness", 
+						"message": error_send 
+					}); 
+					return;
+				}
 				resolve(results);
 			} );
 		} );
@@ -40,14 +55,13 @@ const brand_news_bussiness = async function (user_id) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi brand search news bussiness, Vui lòng liên hệ admin" 
+				"Lỗi brand news bussiness, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "1",
-			"position" : "brand news bussiness", 
+			"error" : "2",
+			"position" : "lib/brands/brand news bussiness", 
 			"message": error_send 
-			}); 
-		return;	
+		}); 
 	}
 	
 };

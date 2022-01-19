@@ -12,7 +12,7 @@ const get_one_users = require('../../lib/' + config_api.API_LIB_VERSION + '/user
 
 
 
-const check_role = async function(token){
+const check_role = async function(token,res){
 	
 	try {
 		var users_decode = jwt.decode(token);
@@ -22,7 +22,8 @@ const check_role = async function(token){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi decode , liên hệ admin" );
-		return { "error" : "1", "position":"check-role","message": error_send };
+		res.send ({ "error" : "1", "position":"api/shares/check-role","message": error_send });
+		return;
 	}	
 }
 module.exports = {

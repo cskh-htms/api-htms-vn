@@ -5,11 +5,12 @@ const mysql = require('mysql');
 const connection = require('../connections/connections');
 const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
+const ojs_configs = require('../../../../configs/config');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const option_fields_get = require('./option-fields-get.js');
 
-const option_news_bussiness = async function (user_id) {
+const option_news_bussiness = async function (user_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -27,7 +28,21 @@ const option_news_bussiness = async function (user_id) {
 	try {	
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							"Lỗi option news bussiness, Vui lòng liên hệ admin" 
+						);
+					res.send({ 
+						"error" : "1",
+						"position" : "lib/options/option news bussiness", 
+						"message": error_send 
+					}); 
+					return;
+				}
 				resolve(results);
 			} );
 		} );
@@ -40,11 +55,11 @@ const option_news_bussiness = async function (user_id) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi option search news bussiness, Vui lòng liên hệ admin" 
+				"Lỗi option news bussiness, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "1",
-			"position" : "option news bussiness", 
+			"error" : "2",
+			"position" : "lib/options/option news bussiness", 
 			"message": error_send 
 			}); 
 		return;	

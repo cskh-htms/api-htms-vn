@@ -11,7 +11,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 
-const get_order =  function(datas){	
+const get_order =  function(datas,res){	
 	try {
 		var sql_order = "";
 		//@

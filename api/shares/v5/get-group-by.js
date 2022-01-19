@@ -11,7 +11,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 
-const get_group_by =  function(datas){	
+const get_group_by =  function(datas,res){	
 	try {
 		var sql_group = "";
 		//@

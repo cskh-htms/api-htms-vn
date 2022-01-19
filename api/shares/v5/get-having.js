@@ -11,7 +11,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 
-const get_having =  function(datas){	
+const get_having =  function(datas,res){	
 	try {
 		var sql_condition = "";
 		var sql_conditions = " having ";

@@ -445,23 +445,6 @@ const get_condition = function(condition_arr){
 					}
 				}		
 
-				
-				
-				
-				//
-				//neu file dat biet
-				if( 
-				condition_arr[x].where[s].field == "products_speciality_price_caution"  
-				|| 
-				condition_arr[x].where[s].field =="products_speciality_price_sum" 
-				|| 
-				condition_arr[x].where[s].field =="products_speciality_sale_of_price_time_check" 				
-				){
-					consition_value = " '" + condition_arr[x].where[s].value + "' ";
-					consition_field = condition_arr[x].where[s].field;
-				}				
-				
-				
 	
 				var relation = condition_arr[x].relation;
 				

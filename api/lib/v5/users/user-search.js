@@ -5,14 +5,13 @@ const mysql = require('mysql');
 
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
-
-const connection = require('../connections/connections');
-const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./reviews-fields-get');
-const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
 
+const connection = require('../connections/connections');
+const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
+const fields_get = require('./user-fields-get');
+const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
 const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
@@ -23,7 +22,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const search_reviews_spaciality = function (datas,res) {
+const user_search = function (datas,res) {
 	try{	
 		var sql_select_type = get_select_type(datas,res);
 		var sql_select_fields = get_select_fields(datas,res);	
@@ -39,11 +38,11 @@ const search_reviews_spaciality = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi review search, Vui lòng liên hệ admin" 
+				"Lỗi user search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "review search", 
+			"position" : "lib/users/user search",  
 			"message": error_send 
 			}); 
 		return;	
@@ -72,11 +71,11 @@ const search_reviews_spaciality = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi orders search, Vui lòng liên hệ admin" 
+							"Lỗi user search, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/orders/order search", 
+						"position" : "lib/users/user search", 
 						"message": error_send 
 					}); 
 					return;
@@ -91,11 +90,11 @@ const search_reviews_spaciality = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi orders search, Vui lòng liên hệ admin" 
+				"Lỗi user search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "3",
-			"position" : "lib/orders/order search", 
+			"error" : "3,
+			"position" : "lib/users/user search", 
 			"message": error_send 
 		}); 
 		return;
@@ -103,9 +102,7 @@ const search_reviews_spaciality = function (datas,res) {
 };	
 
 
-module.exports = {
-	search_reviews_spaciality
-};
+module.exports = user_search;
 
 
 /*

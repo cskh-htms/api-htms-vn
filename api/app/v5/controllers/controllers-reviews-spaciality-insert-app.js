@@ -64,25 +64,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	
 	
 	//@ check owner user
-	try{
-		var check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.reviews_speciality_user_id);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi check owner USER review, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "121",
-			"position" : "ctl-review->insert-app", 
-			"message": error_send 
-			}); 
-		return;			
-	}	
-	
+	const check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.reviews_speciality_user_id,res);
 	if(check_owner_user_resuilt != 1){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
@@ -101,25 +83,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	
 
 	//@ check role phân quyền
-	try{
-		var check_role_result = await check_role.check_role(token);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi check role, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "2",
-			"position" : "ctl-review->insert-app", 
-			"message": error_send 
-			}); 
-		return;			
-	}
-
+	const check_role_result = await check_role.check_role(token,res);
 	if(check_role_result != "customer"){
 		var evn = ojs_configs.evn;
 		//evn = "dev";

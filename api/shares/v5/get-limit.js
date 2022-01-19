@@ -11,7 +11,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 
-const get_limit =  function(datas){	
+const get_limit =  function(datas,res){	
 	try {
 		var limit = "";
 		if(datas.limit){

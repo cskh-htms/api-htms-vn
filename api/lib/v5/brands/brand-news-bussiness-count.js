@@ -8,26 +8,19 @@ const config_api = require('../../../configs/config-api');
 const ojs_configs = require('../../../../configs/config');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
+const brand_fields_get = require('./brand-fields-get.js');
 
-
-
-
-const orders_fields_get = require('./orders-fields-get.js');
-
-const orders_search_news_bussiness = async function (user_id,res) {
+const brand_news_bussiness_count = async function (user_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
-		"count(" + config_database.PREFIX + "orders_speciality_ID) as orders_speciality_ID " +
-	orders_fields_get.from_default + 
-	
-	" LEFT JOIN " + 
-		config_database.PREFIX + "stores  ON  " + 
-		config_database.PREFIX + "orders_speciality_store_id  = " + 
-		config_database.PREFIX + "stores_ID " +    
+		"count(" + config_database.PREFIX + "brands_ID ) as brands_ID  " +
+		
+	brand_fields_get.from_default + 
+	brand_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "orders_speciality_status_orders <> 100 " +
+		config_database.PREFIX + "brands_status_admin = 1 " +
 		" and " + 
 		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
 
@@ -41,19 +34,20 @@ const orders_search_news_bussiness = async function (user_id,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi order news bussiness, Vui lòng liên hệ admin" 
+							"Lỗi brand count bussiness, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "1",
-						"position" : "lib/orders/order news bussiness", 
+						"position" : "lib/brands/brand count bussiness", 
 						"message": error_send 
 					}); 
-					return;
+					return;					
 				}
 				resolve(results);
 			} );
 		} );
 	}
+	
 	
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -61,11 +55,11 @@ const orders_search_news_bussiness = async function (user_id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi orders  news bussiness, Vui lòng liên hệ admin" 
+				"Lỗi brand bussiness count, Vui lòng liên hệ admin" 
 			);
-		return ({ 
+		res.send({ 
 			"error" : "2",
-			"position" : "lib/orders/order news bussiness",  
+			"position" : "lib/brands/brand count bussiness", 
 			"message": error_send 
 			}); 
 		return;	
@@ -74,4 +68,4 @@ const orders_search_news_bussiness = async function (user_id,res) {
 };
 
 
-module.exports = orders_search_news_bussiness;
+module.exports = brand_news_bussiness_count;

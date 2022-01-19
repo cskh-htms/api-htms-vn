@@ -6,16 +6,22 @@ const config_api = require('../../configs/config-api');
 const reviews_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
-const check_owner_review = async function(token,review_id){
+const check_owner_review = async function(token,review_id,res){
 	
 	try {
 		var users_decode = jwt.decode(token);
 	}
 	catch(error){
-		return { "error" : "1", "position":"shares-check-owner-review","message": "Lỗi function check_owner_review" };
-	}	
-	
-	
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi check_owner_review , liên hệ admin" );
+		res.send ({ 
+			"error" : "1", 
+			"position":"api/shares/check_owner_review",
+			"message": error_send 
+		});
+		return;
+	}		
 	
 	try {
 		var datas = 
@@ -53,14 +59,14 @@ const check_owner_review = async function(token,review_id){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check-owner reviews, Vui lòng liên hệ admin" 
 			);
-		return ({ 
-			"error" : "1",
+		res.send ({ 
+			"error" : "2",
 			"position" : "check-owner reviews", 
 			"message": error_send 
 			}); 

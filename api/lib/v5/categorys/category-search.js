@@ -6,6 +6,8 @@ const mysql = require('mysql');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
 
+const ojs_configs = require('../../../../configs/config');
+
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./category-fields-get');
@@ -20,15 +22,28 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const search_category_spaciality = function (datas) {
+const search_category_spaciality = function (datas,res) {
 	try{	
-		var sql_select_type = get_select_type(datas);
-		var sql_select_fields = get_select_fields(datas);	
-		var sql_condition = get_conditions(datas);	
-		var sql_limit = get_limit(datas);
-		var sql_order = get_order(datas);
-		var sql_group_by = get_group_by(datas);
-		var sql_having = get_having(datas);	
+		var sql_select_type = get_select_type(datas,res);
+		var sql_select_fields = get_select_fields(datas,res);	
+		var sql_condition = get_conditions(datas,res);	
+		var sql_limit = get_limit(datas,res);
+		var sql_order = get_order(datas,res);
+		var sql_group_by = get_group_by(datas,res);
+		var sql_having = get_having(datas,res);	
+		
+		var get_sql_search_group = "SELECT " + 
+			sql_select_type + 
+			sql_select_fields + 
+			fields_get.from_default + 
+			fields_get.link_default + 
+			sql_condition +
+			sql_group_by + 
+			sql_order + 
+			sql_having + 
+			sql_limit;		
+		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -40,36 +55,49 @@ const search_category_spaciality = function (datas) {
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "category search", 
+			"position" : "lib/categorys/category search", 
 			"message": error_send 
 			}); 
 		return;	
 	}	
-	
-	var get_sql_search_group = "SELECT " + 
-		sql_select_type + 
-		sql_select_fields + 
-		fields_get.from_default + 
-		fields_get.link_default + 
-		sql_condition +
-		sql_group_by + 
-		sql_order + 
-		sql_having + 
-		sql_limit;
-		
-		//return get_sql_search_group;
-		
+
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							"Lỗi category search, Vui lòng liên hệ admin" 
+						);
+					res.send({ 
+						"error" : "2",
+						"position" : "lib/categorys/category search", 
+						"message": error_send 
+					}); 
+					return;
+				}
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "model-category-speciality->search->error_number:1", "message" : error } ;
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				err, 
+				"Lỗi category search, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "3",
+			"position" : "lib/categorys/category search", 
+			"message": error_send 
+		}); 
+		return;
 	}	
 };	
 

@@ -8,21 +8,21 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 
 
 const orders_search_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-news-bussiness-count.js');
-///const category_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-news-bussiness.js');
-///const option_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/options/option-news-bussiness.js');
-///const brand_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-news-bussiness.js');
-///const product_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/products/product-news-bussiness.js');
-///const discount_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-news-bussiness.js');
+const category_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-news-bussiness-count.js');
+const option_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/options/option-news-bussiness-count.js');
+const brand_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-news-bussiness-count.js');
+const product_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/products/product-news-bussiness-count.js');
+const discount_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-news-bussiness-count.js');
 
-///const discount_detail_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts-details/discount-detail-news-bussiness.js');
-///const discount_product_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-news-bussiness.js');
-///const review_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/review-news-bussiness.js');
-///const coupon_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-news-bussiness.js');
+const discount_detail_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts-details/discount-detail-news-bussiness-count.js');
+const discount_product_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-news-bussiness-count.js');
+const review_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/reviews/review-news-bussiness-count.js');
+const coupon_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-news-bussiness-count.js');
 
-///const note_news_bussiness = require('../../../lib/' + config_api.API_LIB_VERSION + '/notes/note-news-bussiness.js');
+const note_news_bussiness_count = require('../../../lib/' + config_api.API_LIB_VERSION + '/notes/note-news-bussiness-count.js');
 
 
-const get_data_count_bussiness = async function (user_id){
+const get_data_count_bussiness = async function (user_id,res){
 	
 	var promise_all = [];
 	promise_all.push(0);
@@ -36,15 +36,15 @@ const get_data_count_bussiness = async function (user_id){
 	
 	//@ orders
 	var fn_get_datas_order = new Promise((resolve, reject) => {
-		let result = orders_search_news_bussiness_count(user_id);
+		let result = orders_search_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_order);
 
-	/*
+
 	//@category
 	var fn_get_datas_category = new Promise((resolve, reject) => {
-		let result = category_news_bussiness(user_id);
+		let result = category_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_category);
@@ -52,23 +52,23 @@ const get_data_count_bussiness = async function (user_id){
 
 	//@option
 	var fn_get_datas_option = new Promise((resolve, reject) => {
-		let result = option_news_bussiness(user_id);
+		let result = option_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_option);
 
-
+	
 	//@brand
 	var fn_get_datas_brand = new Promise((resolve, reject) => {
-		let result = brand_news_bussiness(user_id);
+		let result = brand_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_brand);
 
-
+	
 	//@product
 	var fn_get_datas_product = new Promise((resolve, reject) => {
-		let result = product_news_bussiness(user_id);
+		let result = product_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_product);
@@ -76,21 +76,24 @@ const get_data_count_bussiness = async function (user_id){
 
 	//@discount
 	var fn_get_datas_discount = new Promise((resolve, reject) => {
-		let result = discount_news_bussiness(user_id);
+		let result = discount_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_discount);
 
+
 	//@discount details
 	var fn_get_datas_discount_detail = new Promise((resolve, reject) => {
-		let result = discount_detail_news_bussiness(user_id);
+		let result = discount_detail_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_discount_detail);
 
+
+
 	//@discount product
 	var fn_get_datas_discount_product = new Promise((resolve, reject) => {
-		let result = discount_product_news_bussiness(user_id);
+		let result = discount_product_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_discount_product);
@@ -98,10 +101,12 @@ const get_data_count_bussiness = async function (user_id){
 
 	//@comment
 	promise_all.push(0);
+	
+	
 
 	//@reviews
 	var fn_get_datas_review = new Promise((resolve, reject) => {
-		let result = review_news_bussiness(user_id);
+		let result = review_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_review);
@@ -110,9 +115,10 @@ const get_data_count_bussiness = async function (user_id){
 	//@review store
 	promise_all.push(0);
 
+
 	//@coupon
 	var fn_get_datas_coupon = new Promise((resolve, reject) => {
-		let result = coupon_news_bussiness(user_id);
+		let result = coupon_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_coupon);
@@ -120,11 +126,11 @@ const get_data_count_bussiness = async function (user_id){
 
 	//@notes
 	var fn_get_datas_note = new Promise((resolve, reject) => {
-		let result = note_news_bussiness(user_id);
+		let result = note_news_bussiness_count(user_id,res);
 		resolve(result);
 	});	
 	promise_all.push(fn_get_datas_note);
-	*/
+
 	//@
 	var note = {
 		'0':'khong có',
