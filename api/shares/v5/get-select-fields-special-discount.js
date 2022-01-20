@@ -5,7 +5,7 @@ const config_database = require('../../configs/config-database.js');
 const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
-const select_field_special = async function(field){
+const select_field_special = async function(field,res){
 	let sql_field_check  = " " ;
 	try {
 		if(field == "check_expired"){	
@@ -19,7 +19,7 @@ const select_field_special = async function(field){
 					
 				"ELSE " +    
 					" 0 " + 
-			"END) as check_expired " ;
+			"END) " ;
 			
 			return sql_field_check;
 			
@@ -29,7 +29,7 @@ const select_field_special = async function(field){
 				"UNIX_TIMESTAMP() - (UNIX_TIMESTAMP(" + 
 				config_database.PREFIX + "discount_program_details_date_created) + ( " + 
 				config_database.PREFIX + "discount_program_details_limit_day * 24 * 60 * 60) )" + 
-			") as check_date ";			
+			") ";			
 			return sql_field_check;
 		}else{
 			return " ";
@@ -39,7 +39,7 @@ const select_field_special = async function(field){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field special discount, liên hệ admin" );
-		return { "error" : "1", "position":"get select field special discount","message": error_send };
+		res.send ({ "error" : "1", "position":"api/shares/get select field special discount","message": error_send });
 	}	
 }
 module.exports = select_field_special;

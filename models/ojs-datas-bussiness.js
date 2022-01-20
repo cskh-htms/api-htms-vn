@@ -142,7 +142,6 @@ const ojs_datas_bussiness = {
 	get_store_by_user_id:function(users_id){
 		let datas_return = 		
 			{
-
 				"datas" :   {
 				   "select_field" :
 					[

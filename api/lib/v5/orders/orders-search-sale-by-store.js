@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const order_search = function (datas,res) {
+const order_search_sale_by_store = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -37,8 +37,7 @@ const order_search = function (datas,res) {
 		var get_sql_search_group = "SELECT " + 
 			sql_select_type + 
 			sql_select_fields + 
-			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.from_product_sale_by_store + 
 			sql_condition +
 			sql_group_by + 
 			sql_order + 
@@ -52,11 +51,11 @@ const order_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi order search, Vui lòng liên hệ admin" 
+				"Lỗi order_search_sale_by_store, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "order search", 
+			"position" : "lib/orders/order_search_sale_by_store", 
 			"message": error_send 
 			}); 
 		return;	
@@ -72,11 +71,11 @@ const order_search = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi order search, Vui lòng liên hệ admin" 
+							"Lỗi order_search_sale_by_store , Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/orders/order search", 
+						"position" : "lib/orders/order_search_sale_by_store", 
 						"message": error_send 
 					}); 
 					return;
@@ -91,11 +90,11 @@ const order_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi order search, Vui lòng liên hệ admin" 
+				"Lỗi order_search_sale_by_store , Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/orders/order search", 
+			"position" : "lib/orders/order_search_sale_by_store",
 			"message": error_send 
 		}); 
 		return;
@@ -103,7 +102,7 @@ const order_search = function (datas,res) {
 };	
 
 
-module.exports = order_search;
+module.exports = order_search_sale_by_store;
 
 
 /*

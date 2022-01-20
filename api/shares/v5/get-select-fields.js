@@ -9,6 +9,7 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
 const get_select_fields_special_product = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-product.js');
 const get_select_fields_special_discount = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-discount.js');
+const get_select_fields_special_order = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-order.js');
 
 const get_select_fields =  function(datas,res){
 try {	
@@ -105,7 +106,7 @@ try {
 				field_arr[x] == "products_speciality_price_caution" 
 				|| field_arr[x] == "products_speciality_sale_of_price_time_check" 
 			){
-				sql_field_check  = get_select_fields_special_product(field_arr[x]);	
+				sql_field_check  = get_select_fields_special_product(field_arr[x],res);	
 				
 				
 			//@ field đặt biệt discount
@@ -113,7 +114,14 @@ try {
 				field_arr[x] == "check_expired" 
 				|| field_arr[x] == "check_date" 
 			){
-				sql_field_check  = get_select_fields_special_discount(field_arr[x]);					
+				sql_field_check  = get_select_fields_special_discount(field_arr[x],res);					
+				
+				
+			//@ field đặt biệt order
+			}else if(
+				field_arr[x] == "price_caution" 
+			){
+				sql_field_check  = get_select_fields_special_order(field_arr[x],res);					
 				
 			}else{
 				sql_field_check  = config_database.PREFIX + field_arr[x];

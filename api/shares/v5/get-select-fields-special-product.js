@@ -6,7 +6,7 @@ const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
 
-const select_field_special = async function(field){
+const select_field_special = function(field,res){
 	let sql_field_check  = " " ;
 	try {
 		if(field == "products_speciality_price_caution"){	
@@ -67,7 +67,7 @@ const select_field_special = async function(field){
 
 				"ELSE " +  
 					config_database.PREFIX  + "products_speciality_price " + 
-			"END ) as products_speciality_price_caution ";
+			"END ) ";
 			
 			return sql_field_check;
 			
@@ -151,7 +151,7 @@ const select_field_special = async function(field){
 						" '2' " + 	
 					"ELSE " +  
 						" '4' " + 
-				"END )  as products_speciality_sale_of_price_time_check ";				
+				"END )  ";				
 			return sql_field_check;
 		}else{
 			return " ";
@@ -161,7 +161,7 @@ const select_field_special = async function(field){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field special product, liên hệ admin" );
-		return { "error" : "1", "position":"get select field special product","message": error_send };
+		res.send ({ "error" : "1", "position":"api/shares/get select field special product","message": error_send });
 	}	
 }
 module.exports = select_field_special;

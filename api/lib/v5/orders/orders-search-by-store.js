@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const order_search = function (datas,res) {
+const order_search_by_store = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -38,7 +38,7 @@ const order_search = function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_order_by_store + 
 			sql_condition +
 			sql_group_by + 
 			sql_order + 
@@ -103,7 +103,7 @@ const order_search = function (datas,res) {
 };	
 
 
-module.exports = order_search;
+module.exports = order_search_by_store;
 
 
 /*
