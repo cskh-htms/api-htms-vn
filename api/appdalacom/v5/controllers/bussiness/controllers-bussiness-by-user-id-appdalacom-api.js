@@ -10,6 +10,8 @@ const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
@@ -107,7 +109,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		var promise_all = [];
 
 
-		//@lấy news bussiness
+		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
 			let result = get_data_news_bussiness(user_id,res);
 			resolve(result);
@@ -115,7 +117,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		promise_all.push(fn_get_data_news_bussiness);
 
 
-		//@lấy count datas
+		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
 			let result = get_data_count_bussiness(user_id,res);
 			resolve(result);
@@ -123,7 +125,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		promise_all.push(fn_get_data_count_bussiness);
 
 		
-		//@lấy store taget
+		//@ 3. lấy store taget
 		let data_store =    
 		{
 		   "select_field" :
@@ -161,7 +163,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		
 		
 		
-		//@lấy product sale
+		//@ 4. lấy product sale
 		let data_product_sale = 		
 		{
 			"select_type": "DISTINCT",
@@ -200,7 +202,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		
 		
 
-		//@lấy product sale max
+		//@ 5. lấy product sale max
 		let data_product_sale_max = 	
 		  {
 			"select_field": [
@@ -228,7 +230,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		
 		
 		
-		//@product_max_detail	
+		//@ 6. product_max_detail	
 		let data_product_sale_max_detail = 
 		{
 			"select_type": "DISTINCT",
@@ -262,7 +264,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 			
 		
 		
-		//@orders_list	
+		//@ 7. orders_list	
 		let data_orders_list = 	
 			{
 				"select_field" :
@@ -305,7 +307,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		
 		
 		
-		//@coupon
+		//@ 8. coupon
 		let data_coupon = 	
 			{
 				"select_field": [
@@ -343,7 +345,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 
 
 		
-		var result = await Promise.all(promise_all);
+		var promise_result = await Promise.all(promise_all);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -361,8 +363,21 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 		return;	
 	}	
 	
-	res.send(result);
-	return;	
+	let notes = {
+		"0":"no", 
+		"1":"news bussiness",
+		"2":"count item", 
+		"3":"store taget",
+		"4":"product sale", 
+		"5":"product max",
+		"6":"product max detail", 
+		"7":"order list",	
+		"8":"coupon",		
+	}
+	promise_result.push(notes);
+
+	res.send(promise_result);
+	return;
 }
 
 module.exports = controllers_bussiness_by_user_id;
