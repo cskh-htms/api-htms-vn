@@ -107,7 +107,7 @@ async  function controllers_bussiness_by_user_id(req, res, next) {
 	////////////////////
 	try{	
 		var promise_all = [];
-
+		promise_all.push(0);
 
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {

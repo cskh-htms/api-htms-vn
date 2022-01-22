@@ -35,30 +35,6 @@ if(store_id && store_id > 0 ){
 
 	<h1><%= title %></h1>
 
-
-	
-
-
-	<!-- --------------------
-		//1. Hiển thị tin tức
-	--------------------- -->
-
-
-		<%-  //JSON.stringify(news_bussiness_menu); -%>
-		<%-  //ojs_share.show_news_bussiness_menu_html(news_bussiness_menu,3) -%>
-		<%-  //ojs_share.show_news_bussiness_menu_home_page(news_bussiness_menu,store_id) -%>	
-
-		<br>
-		<br>
-		<br>
-		<br>		
-	<!-- --------------------
-		//end of Hiển thị tin tức
-	--------------------- -->
-
-
-	
-
 	<!-- --------------------
 		// 2. hiển thị cửa hàng
 	--------------------- -->
@@ -69,7 +45,7 @@ if(store_id && store_id > 0 ){
 		go_sum = go_sum + news_bussiness_menu[i];
 	}
 	%>
-
+	
 	<div class="store_box">
 		<div class="store_name">
 			<h3>
@@ -77,21 +53,19 @@ if(store_id && store_id > 0 ){
 					<%- ojs_share.unCape(datas[0].stores_name) %>
 				</a>
 			</h3>
-		</div>	
-
-
+		</div>
+		
 		<div class="store_thong_tin">
 			<p>Địa chỉ: <span><%- ojs_share.unCape(datas[0].stores_adress) %>,
 			<%- ojs_share.unCape(datas[0].stores_wards) %>,
 			<%- ojs_share.unCape(datas[0].stores_district) %>,
 			<%- ojs_share.unCape(datas[0].stores_province) %></span></p>
 			<p>Hạn mức: <span><%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %></span></p>
-		</div>	
-		
+		</div>			
 		
 		<div>
 		<a id="change_pass" style="right: 175px;" class="store_btn_ql" href="<%= user_id %>">Thay đổi mật khẩu</a>
-		<a class="store_btn_ql" href="/stores/manage/<%= datas[x].stores_ID %>/<%= user_id %>">
+		<a class="store_btn_ql" href="/stores/manage/<%= datas[0].stores_ID %>/<%= user_id %>">
 			Quản lý
 			<span><%= go_sum %></span>
 		</a>
@@ -99,8 +73,7 @@ if(store_id && store_id > 0 ){
 
 	<!-- --------------------
 		//2. end of hiển thị cửa hàng
-	--------------------- -->
-	
+	--------------------- -->		
 
 
 
@@ -201,9 +174,9 @@ if(store_id && store_id > 0 ){
 				-%>
 			</b></span></p>			
 		</div>
-		
-		
-		
+
+
+
 		<!-- -----------------------------------
 		// sản pham đang khuyen mai 
 		--------------------------------------->		
@@ -239,9 +212,10 @@ if(store_id && store_id > 0 ){
 		
 		<!-- -----------------------------------
 		// sản pham đang khuyen mai 
-		--------------------------------------->		
-		
-		
+		--------------------------------------->	
+
+
+
 		<!-- -----------------------------------
 		// sản pham ban chay
 		--------------------------------------->
@@ -294,10 +268,9 @@ if(store_id && store_id > 0 ){
 	
 		<!-- -----------------------------------
 		// sản pham ban chay
-		--------------------------------------->	
-	
-	
-	
+		--------------------------------------->
+
+
 
 		<!-- -----------------------------------
 		// thanh toan
@@ -456,27 +429,9 @@ if(store_id && store_id > 0 ){
 				<%				
 			} //enf of for show order line	
 			%>		
-			
-			
 
-			
-		</div>		
-		
-		
-		
-		<!-- -----------------------------------
-		// end of thanh toan
-		--------------------------------------->		
-		
-		
-		
-	</div>		
 
-	</div>	
-	
-	<!-- --------------------
-	//end of doanh thu
-	--------------------- -->
+
 
 
 <%

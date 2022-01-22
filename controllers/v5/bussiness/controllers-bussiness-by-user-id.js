@@ -57,6 +57,8 @@ async  function bussiness_by_user_id(req, res, next) {
 		return;
 	}		
 	
+	//res.send( [data_api_resuilt[3][0].stores_ID] );
+	//return;
 	
 	//@
 	try {
@@ -65,7 +67,7 @@ async  function bussiness_by_user_id(req, res, next) {
 			'title' 				: 'Quản lý tài khoản doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: user_id,
-			'store_id' 				: data_api_resuilt[3].stores_ID,
+			'store_id' 				: data_api_resuilt[3][0].stores_ID,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			
@@ -83,7 +85,7 @@ async  function bussiness_by_user_id(req, res, next) {
 			'title' 				: 'Quản lý tài khoản doanh nghiệp',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: user_id,
-			'store_id' 				: data_api_resuilt[3].stores_ID,
+			'store_id' 				: data_api_resuilt[3][0].stores_ID,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			
@@ -93,7 +95,7 @@ async  function bussiness_by_user_id(req, res, next) {
 			'datas'					: data_api_resuilt[3],
 			'product_sale_max'		: data_api_resuilt[5],
 			'product_max_detail' 	: data_api_resuilt[6],
-			'coupon_data' 			: data_api_resuilt[8],
+			'coupon_data' 			: data_api_resuilt[8],	
 			'datas_info'			: datas_info			
 		}
 	
@@ -106,7 +108,6 @@ async  function bussiness_by_user_id(req, res, next) {
 			res.send({ "error" : "100","":"", "message": error_send } ); 
 			return;		
 	}			
-
 };
 
 
