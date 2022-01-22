@@ -41,6 +41,8 @@ app.use('/',ojs_shares.check_meaintenance,  require('./routes/' + app_config.rou
 //app.use('/api/v1/', require('./api/v1/routers/routers-index'));
 //app.use('/api/v2/', require('./api/v2/routers/routers-index'));
 app.use('/api/v4/', require('./api/v4/routers/routers-index'));
+app.use('/api/app/v5/', require('./api/app/v5/routers/routers-index-app'));
+app.use('/api/appdalacom/v5/', require('./api/appdalacom/v5/routers/routers-index-appdalacom'));
 
 app.get('/app_version', function(req, res){
   version = {
@@ -50,6 +52,7 @@ app.get('/app_version', function(req, res){
   
   res.json(version);
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
