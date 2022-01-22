@@ -8,6 +8,10 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const ojs_shares_date = require('./ojs-shares-date.js');
 
 
+const get_select_fields_special_product = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-product.js');
+const get_select_fields_special_discount = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-discount.js');
+const get_select_fields_special_order = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-order.js');
+
 
 
 
@@ -36,7 +40,31 @@ const get_consition =  function(datas,res){
 					let consition_field = "";//condition_arr[x].where[s].field
 					
 					consition_value = " '" + condition_arr[x].where[s].value + "' ";
-					consition_field = config_database.PREFIX + condition_arr[x].where[s].field;				
+					consition_field = config_database.PREFIX + condition_arr[x].where[s].field;			
+
+
+					//@ field đặt biệt product
+					if(
+						condition_arr[x].where[s].field == "products_speciality_price_caution" 
+						|| condition_arr[x].where[s].field == "products_speciality_sale_of_price_time_check" 
+					){
+						consition_field  = get_select_fields_special_product(condition_arr[x].where[s].field,res);	
+						
+						
+					//@ field đặt biệt discount
+					}else if(
+						condition_arr[x].where[s].field == "check_expired" 
+						|| condition_arr[x].where[s].field == "check_date" 
+					){
+						consition_field  = get_select_fields_special_discount(condition_arr[x].where[s].field,res);					
+						
+						
+					//@ field đặt biệt order
+					}else if(
+						condition_arr[x].where[s].field == "price_caution" 
+					){
+						consition_field  = get_select_fields_special_order(condition_arr[x].where[s].field,res);							
+					}
 					
 					//@@ edit date 
 					if(

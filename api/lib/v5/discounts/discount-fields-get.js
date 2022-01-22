@@ -60,11 +60,36 @@ const link_default = 	" " +
 	config_database.PREFIX + "users_ID " ;
 
 
+//@	
+const link_product = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_details  ON  " + 
+	config_database.PREFIX + "discount_program_ID  = " + 
+	config_database.PREFIX + "discount_program_details_discount_program_id " +    
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_product_link  ON  " + 
+	config_database.PREFIX + "discount_program_details_ID  = " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_details_id  " +  
+
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "products_speciality  ON  " + 
+	config_database.PREFIX + "discount_program_product_link_product_speciality_id  = " + 
+	config_database.PREFIX + "products_speciality_ID " +    
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID ";
+
 //export module
 module.exports = { 
 				fields_get,
 				from_default,
-				link_default
+				link_default,
+				link_product
 };
 
 

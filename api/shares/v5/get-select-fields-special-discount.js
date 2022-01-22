@@ -5,13 +5,13 @@ const config_database = require('../../configs/config-database.js');
 const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
-const select_field_special = async function(field,res){
+const select_field_special = function(field,res){
 	let sql_field_check  = " " ;
 	try {
 		if(field == "check_expired"){	
 			sql_field_check = sql_field_check + 		
 			"(CASE " + 
-				"WHEN ( " + config_database.PREFIX  + " discount_program_time_type  = 0 ) THEN " +  
+				"WHEN ( " + config_database.PREFIX  + "discount_program_time_type  = 0 ) THEN " +  
 					" 1 " +  
 					
 				"WHEN ( UNIX_TIMESTAMP(" + config_database.PREFIX + "discount_program_date_end) < UNIX_TIMESTAMP() ) THEN " + 
