@@ -354,7 +354,7 @@ try{
 	
 	//@
 	try {
-		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail).then( results => {
+		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail,res).then( results => {
 			
 			//@
 			//@

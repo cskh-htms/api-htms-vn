@@ -15,22 +15,14 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search.js');
-
+const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search.js');
 
 
 //@
-async  function controllers_category_app(req, res, next) {
+async  function controllers_store_app(req, res, next) {
 	
-	//@ lấy req data
 	try {
-		var token = req.headers['token'];
-		/*
-		var category_id = -1;
-		if(req.query.c1){
-			store_id = req.query.c1;
-		}
-		*/
+		var token = req.headers['token'];	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -38,15 +30,18 @@ async  function controllers_category_app(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get data request, Vui lòng liên hệ admin" 
+				"Lỗi get data store, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/app/v5/ctroller/category/controllers-category-app",
+			"position" : "api/app/v5/ctroller//store/controllers-store-app",
 			"message": error_send 
 		}); 
 		return;	
 	}
+
+
+
 
 
 	//@ check role phân quyền
@@ -67,7 +62,7 @@ async  function controllers_category_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "2",
-			"position" : "api/app/v5/ctroller/category/controllers-category-app",
+			"position" : "api/app/v5/ctroller/store/controllers-store-app",
 			"message": error_send 
 		}); 
 		return;			
@@ -80,10 +75,10 @@ async  function controllers_category_app(req, res, next) {
 		{
 		   "select_field" :
 			[
-				"category_general_speciality_ID",
-				"category_general_speciality_name",
-				"category_general_speciality_featured_image",
-				"category_general_speciality_sort_order"				
+				"stores_ID",
+				"stores_name",
+				"stores_logo_image",
+				"stores_date_created"
 			],
 			"condition" :
 			[
@@ -92,37 +87,24 @@ async  function controllers_category_app(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"category_general_speciality_admin_status",
+						"field"     :"stores_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					},
-					{   
-						"field"     :"category_general_speciality_category_parent_id",
-						"value"     : "0",
-						"compare" : "="
-					}
-					]    
+					}	
+					] 				
 				}         
 			],
 			"order" :
 			 [		 
 				{    
-					"field"  :"category_general_speciality_sort_order",
+					"field"  :"stores_date_created",
 					"compare" : "DESC"
-				}, 
-				{    
-					"field"  :"category_general_speciality_ID",
-					"compare" : "ASC"
-				} 				
+				}			
 			]    
 		}
 	
-	
 		//@ get datas
-		let result = await category_search.search_category_spaciality(data_get,res);
-		res.send({"error":"","datas":result}); 
-		return;
-
+		var data_store = await store_search(data_get,res);
 
 	}
 	catch(error){
@@ -131,20 +113,24 @@ async  function controllers_category_app(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get data request, Vui lòng liên hệ admin" 
+				"Lỗi get data store, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/ctroller/category/controllers-category-app",
+			"position" : "api/app/v5/ctroller//store/controllers-store-app",
 			"message": error_send 
 		}); 
 		return;	
 	}		
 		
 
-	res.send({"error":"","datas":result}); 
+
+
+
+
+	res.send({"error":"","datas":data_store}); 
 	return;
 	
 }
 
-module.exports = controllers_category_app;
+module.exports = controllers_store_app;

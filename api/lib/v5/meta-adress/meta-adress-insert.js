@@ -8,7 +8,7 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./product-fields-get');
+const fields_get = require('./meta-adress-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const product_search = function (datas,res) {
+const store_search = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -52,11 +52,11 @@ const product_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search, Vui lòng liên hệ admin" 
+				"Lỗi store search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "product search", 
+			"position" : "store search", 
 			"message": error_send 
 			}); 
 		return;	
@@ -68,15 +68,15 @@ const product_search = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi product search, Vui lòng liên hệ admin" 
+							"Lỗi store search, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/products/product search", 
+						"position" : "lib/stores/store search", 
 						"message": error_send 
 					}); 
 					return;
@@ -91,11 +91,11 @@ const product_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search, Vui lòng liên hệ admin" 
+				"Lỗi store search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/products/product search", 
+			"position" : "lib/stores/store search", 
 			"message": error_send 
 		}); 
 		return;
@@ -103,7 +103,7 @@ const product_search = function (datas,res) {
 };	
 
 
-module.exports = product_search;
+module.exports = store_search;
 
 
 /*

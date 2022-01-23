@@ -166,7 +166,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	catch(error){
 		var message_error = fields_insert.get_message_error(error);
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error,

@@ -22,7 +22,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const search_category_spaciality = function (datas,res) {
+const search_category_spaciality = async function (datas,res) {
 	try{	
 		var sql_select_type = get_select_type(datas,res);
 		var sql_select_fields = get_select_fields(datas,res);	

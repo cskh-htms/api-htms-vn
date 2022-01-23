@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
 router.use('/reviews', require('./reviews/routers-reviews-app'));
 router.use('/discounts', require('./discounts/routers-discount-program-by-position-app'));
 router.use('/categorys', require('./categorys/routers-category-app'));
+router.use('/products', require('./products/routers-product-app'));
+router.use('/stores', require('./stores/routers-store-app'));
+router.use('/orders', require('./orders/routers-order-app'));
+
 
 
 module.exports = router;

@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const product_search = function (datas,res) {
+const product_search_by_store = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -45,6 +45,7 @@ const product_search = function (datas,res) {
 			sql_having + 
 			sql_limit;
 		
+		//return get_sql_search_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -52,11 +53,11 @@ const product_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "product search", 
+			"position" : "lib/products/product search by category",
 			"message": error_send 
 			}); 
 		return;	
@@ -72,11 +73,11 @@ const product_search = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi product search, Vui lòng liên hệ admin" 
+							"Lỗi product search by category, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/products/product search", 
+						"position" : "lib/products/product search by category",
 						"message": error_send 
 					}); 
 					return;
@@ -91,11 +92,11 @@ const product_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/products/product search", 
+			"position" : "lib/products/product search by category", 
 			"message": error_send 
 		}); 
 		return;
@@ -103,7 +104,7 @@ const product_search = function (datas,res) {
 };	
 
 
-module.exports = product_search;
+module.exports = product_search_by_store;
 
 
 /*
