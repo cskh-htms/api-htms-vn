@@ -45,6 +45,7 @@ const product_search_by_category = function (datas,res) {
 			sql_having + 
 			sql_limit;
 		
+		
 		//return get_sql_search_group;
 	}
 	catch(error){
