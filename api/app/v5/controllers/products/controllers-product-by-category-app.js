@@ -28,9 +28,9 @@ async  function controllers_product_by_category_app(req, res, next) {
 		if(req.query.c1){
 			category_id = req.query.c1;
 		}		
-		var limit_number = -1;
+		var limit_data = [];
 		if(req.query.c2){
-			limit_number = req.query.c2;
+			  limit_data.push({"limit_number"   :"1"});
 		}		
 	}
 	catch(error){
@@ -135,9 +135,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 					"compare" : "DESC"
 				}			
 			 ],
-			 "limit" :
-			 [
-			 ]    
+			 "limit" :limit_data
 		}
 	
 		//@ get datas

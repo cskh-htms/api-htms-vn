@@ -14,7 +14,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 const get_limit =  function(datas,res){	
 	try {
 		var limit = "";
-		if(datas.limit){
+		if(datas.limit && datas.limit.length > 0){
 			 
 			var limit_arr = datas.limit;
 			if( Object.getOwnPropertyDescriptor(limit_arr[0], 'limit_number') != undefined){
