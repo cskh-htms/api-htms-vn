@@ -28,6 +28,10 @@ async  function controllers_product_by_category_app(req, res, next) {
 		if(req.query.c1){
 			category_id = req.query.c1;
 		}		
+		var limit_number = 20;
+		if(req.query.c2){
+			limit_number = req.query.c2;
+		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -130,7 +134,13 @@ async  function controllers_product_by_category_app(req, res, next) {
 					"field"  :"products_speciality_date_created",
 					"compare" : "DESC"
 				}			
-			]    
+			 ],
+			 "limit" :
+			 [
+				{    
+					"limit_number" :limit_number
+				} 
+			 ]    
 		}
 	
 		//@ get datas

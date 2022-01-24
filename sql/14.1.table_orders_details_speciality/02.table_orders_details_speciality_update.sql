@@ -37,10 +37,20 @@ BEGIN
 	
 	-- kiểm tra discount có tồn tại không
 	IF(NEW.dala_orders_details_speciality_line_order = 'coupon' ) THEN 	
-		SET @checkID2 = ( select  dala_discount_program_ID 
-						 from dala_view_discount_program   
-						 where dala_discount_program_ID = NEW.dala_orders_details_speciality_product_id 
-						 and dala_check_expired = 1 
+		SET @checkID2 = ( select  dala_coupon_speciality_ID 
+						 from coupon_speciality   
+						 where dala_coupon_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+						 and 
+							(CASE 
+								WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
+									1 
+									
+								WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) < UNIX_TIMESTAMP() ) THEN 
+									1 
+									
+								ELSE   
+									0
+							END) = 1 
 						);
 		IF (@checkID2 > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 

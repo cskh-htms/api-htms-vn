@@ -29,7 +29,7 @@ BEGIN
 		IF (@checkID > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
-			SIGNAL SQLSTATE '12345' 
+			SIGNAL SQLSTATE '12301' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_product_id_not_refer'; 
 		END IF;	
 	END IF;
@@ -38,18 +38,48 @@ BEGIN
 	-- kiểm tra discount có tồn tại không
 	IF(NEW.dala_orders_details_speciality_line_order = 'coupon' ) THEN 	
 		SET @checkID2 = ( select  dala_coupon_speciality_ID 
-						 from dala_view_coupons   
+						 from coupon_speciality   
 						 where dala_coupon_speciality_ID = NEW.dala_orders_details_speciality_product_id 
-						 and dala_check_expired = 1 
+						 and 
+							(CASE 
+								WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
+									1 
+									
+								WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) < UNIX_TIMESTAMP() ) THEN 
+									1 
+									
+								ELSE   
+									0
+							END) = 1 
 						);
 		IF (@checkID2 > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
-			SIGNAL SQLSTATE '12345' 
+			SIGNAL SQLSTATE '12302' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_coupon_id_not_refer'; 
 		END IF;	
 	END IF;
 	-- end of kiểm tra product có tồn tại không	
+	
+	
+	-- kiểm tra tồn kho 
+	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 	
+		SET @check_data = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
+						 from dala_products_speciality    
+						 where products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+							);
+		IF (
+			@check_data.dala_products_speciality_stock_status = 1 
+			and  
+			@check_data.dala_products_speciality_stock <= NEW.dala_orders_details_speciality_qty
+		) THEN  
+			SIGNAL SQLSTATE '01000'; 
+		ELSE
+			SIGNAL SQLSTATE '12303' 
+			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_qty_not_ok'; 
+		END IF;	
+
+	-- end of kiểm tra tồn kho		
 	
 END $$
 DELIMITER ;
@@ -72,12 +102,31 @@ BEGIN
 	IF(NEW.dala_orders_details_speciality_line_order = 'product') THEN 
 		-- lấy mã giảm giá
 		SET @discounID = ( select  dala_discount_program_ID 
-						 from dala_view_discount_program_product   
-						 where dala_discount_program_product_link_product_speciality_id = NEW.dala_orders_details_speciality_product_id 
-						 and dala_check_expired = 1 	
-						 and dala_check_date < 0 
-						 and dala_discount_program_product_link_status = 1 
-		);
+						 from dala_discount_program 
+						 
+						 left join dala_discount_program_details on 
+							dala_discount_program_ID = dala_discount_program_details_discount_program_id 
+						 
+						 left join dala_discount_program_product_link on 
+							dala_discount_program_details_ID = dala_discount_program_product_link_discount_program_details_id 	
+						 
+						 where 
+							 dala_discount_program_product_link_product_speciality_id = NEW.dala_orders_details_speciality_product_id 
+							 and 							 
+								(CASE 
+									WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
+										1 
+									WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) < UNIX_TIMESTAMP() ) THEN 
+										1 
+									ELSE   
+										0
+								END) = 1 				
+							 and 
+								IF(dala_discount_program_details_limit_day = 0,-1,
+									UNIX_TIMESTAMP() - (UNIX_TIMESTAMP(dala_discount_program_details_date_created) + (dala_discount_program_details_limit_day * 24 * 60 * 60) )
+								) < 0 
+							 and dala_discount_program_product_link_status = 1 
+						);
 		IF(@discounID > 0) THEN 	
 			insert into dala_orders_details_speciality_discount set 
 			dala_orders_details_speciality_discount_order_id = NEW.dala_orders_details_speciality_order_id, 
@@ -88,6 +137,18 @@ BEGIN
 			dala_orders_details_speciality_discount_price = NEW.dala_orders_details_speciality_price,
 			dala_orders_details_speciality_discount_medium_text = NEW.dala_orders_details_medium_text;
 		END IF;
+		
+		-- update ton kho
+		SET @check_data_stock = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
+						 from dala_products_speciality    
+						 where products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+							);
+		IF (@check_data_stock.dala_products_speciality_stock_status = 1 ) THEN  
+			update  dala_products_speciality set 
+			dala_products_speciality_stock = NEW.dala_orders_details_speciality_qty 
+			where 
+			dala_products_speciality_ID  =  NEW.dala_orders_details_speciality_product_id ;
+		END IF;					
 	END IF;	
 	
 END $$
