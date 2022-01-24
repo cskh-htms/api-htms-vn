@@ -27,7 +27,11 @@ async  function controllers_product_by_store_app(req, res, next) {
 		var store_id = -1;
 		if(req.query.c1){
 			store_id = req.query.c1;
-		}		
+		}	
+		var limit_data = [];
+		if(req.query.c2){
+			  limit_data.push({"limit_number" : req.query.c2});
+		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -127,7 +131,8 @@ async  function controllers_product_by_store_app(req, res, next) {
 					"field"  :"products_speciality_date_created",
 					"compare" : "DESC"
 				}			
-			]    
+			],
+			"limit" :limit_data			
 		}
 	
 		//@ get datas

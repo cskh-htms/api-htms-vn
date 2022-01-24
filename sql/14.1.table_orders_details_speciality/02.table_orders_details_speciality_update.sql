@@ -29,11 +29,33 @@ BEGIN
 		IF (@checkID > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
-			SIGNAL SQLSTATE '12345' 
+			SIGNAL SQLSTATE '12301' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_product_id_not_refer'; 
 		END IF;	
+		
+		
+		-- kiểm tra tồn kho 	
+		SET @check_data = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
+						 from dala_products_speciality    
+						 where products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+							);
+		SET @check_data_line = ( select  dala_orders_details_speciality_qty   
+						 from dala_orders_details_speciality   
+						 where dala_orders_details_speciality_ID = NEW.dala_orders_details_speciality_product_id  
+						 and dala_orders_details_speciality_ID =  NEW.dala_orders_details_speciality_ID 
+							);							
+		IF (
+			@check_data.dala_products_speciality_stock_status = 1 
+			and  
+			NEW.dala_orders_details_speciality_qty < (@check_data.dala_products_speciality_stock  + dala_orders_details_speciality_qty)   
+		) THEN  
+			SIGNAL SQLSTATE '01000'; 
+		ELSE
+			SIGNAL SQLSTATE '12303' 
+			SET MESSAGE_TEXT = 'trig_orders_details_speciality_update_qty_not_ok'; 
+		END IF;			
 	END IF;
-	-- end of kiểm tra product có tồn tại không
+	
 	
 	-- kiểm tra discount có tồn tại không
 	IF(NEW.dala_orders_details_speciality_line_order = 'coupon' ) THEN 	
@@ -55,7 +77,7 @@ BEGIN
 		IF (@checkID2 > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
-			SIGNAL SQLSTATE '12345' 
+			SIGNAL SQLSTATE '12304' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_discount_id_not_refer'; 
 		END IF;	
 	END IF;

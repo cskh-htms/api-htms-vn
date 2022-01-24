@@ -15,7 +15,7 @@ const get_group_by =  function(datas,res){
 	try {
 		var sql_group = "";
 		//@
-		if(datas.group_by){
+		if(datas.group_by && datas.group_by.length > 0){
 			var group_arr = datas.group_by;
 			for (var x in group_arr){
 				if(sql_group == ""){

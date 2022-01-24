@@ -15,7 +15,7 @@ const get_order =  function(datas,res){
 	try {
 		var sql_order = "";
 		//@
-		if(!datas.order){
+		if(!datas.order || datas.order.length < 1){
 			sql_order = " ";
 		}else{
 			var order_arr = datas.order;

@@ -16,7 +16,7 @@ const get_having =  function(datas,res){
 		var sql_condition = "";
 		var sql_conditions = " having ";
 		//@
-		if(!datas.having){
+		if(!datas.having || datas.having.legnth < 1){
 			return  " ";
 		}else{
 			var condition_arr = datas.having;

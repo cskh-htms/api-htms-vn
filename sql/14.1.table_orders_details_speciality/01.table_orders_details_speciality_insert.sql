@@ -64,22 +64,26 @@ BEGIN
 	
 	-- kiểm tra tồn kho 
 	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 	
-		SET @check_data = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
+		SET @check_stock_status = ( select  dala_products_speciality_stock_status 
 						 from dala_products_speciality    
-						 where products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
 							);
+		SET @check_stock_number = ( select  dala_products_speciality_stock  
+						 from dala_products_speciality    
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+							);							
 		IF (
-			@check_data.dala_products_speciality_stock_status = 1 
+			@check_stock_status.dala_products_speciality_stock_status = 1 
 			and  
-			@check_data.dala_products_speciality_stock <= NEW.dala_orders_details_speciality_qty
+			@check_stock_number <= NEW.dala_orders_details_speciality_qty
 		) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
 			SIGNAL SQLSTATE '12303' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_qty_not_ok'; 
 		END IF;	
-
 	-- end of kiểm tra tồn kho		
+	END IF;		
 	
 END $$
 DELIMITER ;
@@ -141,7 +145,7 @@ BEGIN
 		-- update ton kho
 		SET @check_data_stock = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
 						 from dala_products_speciality    
-						 where products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
 							);
 		IF (@check_data_stock.dala_products_speciality_stock_status = 1 ) THEN  
 			update  dala_products_speciality set 

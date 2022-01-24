@@ -28,7 +28,7 @@ const get_consition =  function(datas,res){
 		];
 
 		//@
-		if(!datas.condition){
+		if(!datas.condition || datas.condition.length < 1 ){
 			sql_condition = "";
 		}else{
 			//return sql_conditions;
