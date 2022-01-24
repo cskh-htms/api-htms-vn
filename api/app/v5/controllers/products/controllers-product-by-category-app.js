@@ -30,7 +30,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 		}		
 		var limit_data = [];
 		if(req.query.c2){
-			  limit_data.push({"limit_number"   :"1"});
+			  limit_data.push({"limit_number" : req.query.c2});
 		}		
 	}
 	catch(error){
