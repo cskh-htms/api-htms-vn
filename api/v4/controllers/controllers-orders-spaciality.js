@@ -359,18 +359,18 @@ try{
 			//@
 			//@
 			//gữi sms đặt hàng 		
-			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
 			//@
 			//@
 			
-			var email_to = "dalavn.group@gmail.com";
+			var email_to = "vanluc.wordpress@gmail.com";
 			var email_title = "Có đơn hàng mới";
 			var email_content = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 			//@
 			//@
 			ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);		
 
-			var email_to2 = "lehongson.tc@gmail.com";
+			var email_to2 = "htms.group.vn@gmail.com";
 			var email_title2 = "Có đơn hàng mới";
 			var email_content2 = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 			//@

@@ -23,14 +23,20 @@ CREATE TRIGGER trig_check_owner_discount_program_update BEFORE UPDATE ON dala_di
 FOR EACH ROW  
 BEGIN  
 
+	-- kiểm tra id  program refer
+	SET @program_id = (select dala_discount_program_ID    
+		from dala_discount_program 
+		where dala_discount_program_ID = NEW.dala_discount_program_details_discount_program_id);
+	IF( @program_id > 0 ) THEN 
+		SIGNAL SQLSTATE '01000'; 
+	ELSE
+		SIGNAL SQLSTATE '12001' 
+		SET MESSAGE_TEXT = 'trig_check_owner_discount_program_update_program_id_not_refer'; 
+	END IF;	
+	
+	
 	-- 
-	-- lấy id cửa hàng cũ
-	-- lấy id discount program id
-	-- nếu id store cu = id store update và id program cu = id program moi 
-	--    * thì cho qua update
-	-- neu khong thì kiểm tra xem cửa hàng đã tham gia chuong trinh chua
-	-- 	* neu chưa tham gia thì cho update 
-	--  * nếu cữa hàng đã tham gia rùi thì re turn error
+	-- kiểm tra cửa hàng này đoực phép tham gia chương trình khuyến mãi này không
 	SET @store_id_old = (select dala_discount_program_details_store_id 
 		from dala_discount_program_details 
 		where dala_discount_program_details_ID  = NEW.dala_discount_program_details_ID );

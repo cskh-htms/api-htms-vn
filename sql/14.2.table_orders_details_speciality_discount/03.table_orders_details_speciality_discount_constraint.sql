@@ -9,13 +9,6 @@
 START TRANSACTION;
 
 
--- 
---
-ALTER TABLE `dala_orders_details_speciality_discount` 
-ADD CONSTRAINT `dala_orders_details_speciality_discount_order_id` 
-FOREIGN KEY (`dala_orders_details_speciality_discount_order_id`) 
-REFERENCES `dala_orders_speciality`(`dala_orders_speciality_ID`) 
-ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 -- 
@@ -38,19 +31,7 @@ ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
 
--- 
--- 
-ALTER TABLE `dala_orders_details_speciality_discount` 
-ADD CONSTRAINT `dala_orders_details_speciality_discount_order_details_id` 
-FOREIGN KEY (`dala_orders_details_speciality_discount_order_details_id`) 
-REFERENCES `dala_orders_details_speciality`(`dala_orders_details_speciality_ID`) 
-ON DELETE CASCADE ON UPDATE CASCADE;
 
-
-
-
- 
---
 --
 --
 -- commit 

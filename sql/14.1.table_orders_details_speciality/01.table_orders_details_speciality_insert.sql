@@ -20,8 +20,23 @@ DELIMITER $$
 CREATE TRIGGER trig_orders_details_speciality_insert BEFORE INSERT ON dala_orders_details_speciality 
 FOR EACH ROW  
 BEGIN  
-	-- kiểm tra product có tồn tại không
-	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 	
+	-- kiểm tra có đơn hàng chưa
+	SET @check_order_id = ( select dala_orders_speciality_ID 
+						 from dala_orders_speciality 
+						 where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id 
+						);	
+	IF( @check_order_id > 0 ) THEN 
+		SIGNAL SQLSTATE '01000'; 
+	ELSE
+		SIGNAL SQLSTATE '12001' 
+		SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_order_id_not_refer'; 
+	END IF;		
+	
+	
+	
+	
+	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 
+		-- kiểm tra product có tồn tại không	
 		SET @checkID = ( select dala_products_speciality_ID
 						 from dala_products_speciality 
 						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id
@@ -32,8 +47,13 @@ BEGIN
 			SIGNAL SQLSTATE '12301' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_product_id_not_refer'; 
 		END IF;	
+		
+		-- số lượng phải lớn hơn 0	
+		IF (NEW.dala_orders_details_speciality_qty < 1) THEN  
+			SIGNAL SQLSTATE '12101' 
+			SET MESSAGE_TEXT = 'trig_orders_details_speciality_insert_qty_empty'; 
+		END IF;			
 	END IF;
-	-- end of kiểm tra product có tồn tại không
 	
 	-- kiểm tra discount có tồn tại không
 	IF(NEW.dala_orders_details_speciality_line_order = 'coupon' ) THEN 	
@@ -73,9 +93,8 @@ BEGIN
 						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
 							);							
 		IF (
-			@check_stock_status.dala_products_speciality_stock_status = 1 
-			and  
-			@check_stock_number <= NEW.dala_orders_details_speciality_qty
+			(@check_stock_status = 1 and  NEW.dala_orders_details_speciality_qty <= @check_stock_number) 
+			or (@check_stock_status = 0)
 		) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
@@ -143,13 +162,17 @@ BEGIN
 		END IF;
 		
 		-- update ton kho
-		SET @check_data_stock = ( select  dala_products_speciality_stock_status,dala_products_speciality_stock  
+		SET @stock_status = ( select  dala_products_speciality_stock_status 
 						 from dala_products_speciality    
 						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
 							);
-		IF (@check_data_stock.dala_products_speciality_stock_status = 1 ) THEN  
+		SET @check_stock_number = ( select  dala_products_speciality_stock  
+						 from dala_products_speciality    
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+							);									
+		IF ( @stock_status = 1 ) THEN  
 			update  dala_products_speciality set 
-			dala_products_speciality_stock = NEW.dala_orders_details_speciality_qty 
+			dala_products_speciality_stock = @check_stock_number  -  NEW.dala_orders_details_speciality_qty 
 			where 
 			dala_products_speciality_ID  =  NEW.dala_orders_details_speciality_product_id ;
 		END IF;					

@@ -24,17 +24,26 @@ CREATE TRIGGER trig_discount_program_product_link_update BEFORE UPDATE ON dala_d
 FOR EACH ROW  
 BEGIN  
 
+	-- kiểm tra id detail program refer
+	SET @program_detail_id = (select dala_discount_program_product_link_discount_program_details_id     
+		from dala_discount_program_product_link 
+		where dala_discount_program_product_link_ID = NEW.dala_discount_program_product_link_ID);
+	IF( @program_detail_id <>  NEW.dala_discount_program_product_link_discount_program_details_id ) THEN 
+		SIGNAL SQLSTATE '12001' 
+		SET MESSAGE_TEXT = 'trig_discount_program_product_link_update_dicount_details_id_not_refer'; 
+	END IF;	
 
 
+	-- kiểm tra id product refer
+	SET @product_id = (select dala_discount_program_product_link_product_speciality_id    
+		from dala_discount_program_product_link  
+		where dala_discount_program_product_link_ID = NEW.dala_discount_program_product_link_ID);
+	IF( @product_id  <> NEW.dala_discount_program_product_link_product_speciality_id ) THEN 
+		SIGNAL SQLSTATE '12801' 
+		SET MESSAGE_TEXT = 'trig_discount_program_product_link_update_product_id_not_refer'; 
+	END IF;	
 
-	-- 
-	-- lấy id sản phẩm cũ
-	-- lấy id chương trình tham gia cũ
-	-- nếu id san pham cu  = id san pham update và id program cu = id program moi 
-	--    * thì cho qua update
-	-- neu khong thì kiểm tra xem sản phẩm đã tham gia chưa
-	-- 	* neu chưa tham gia thì cho update 
-	--  * nếu cữa hàng đã tham gia rùi thì re turn error
+
 	SET @program_details_id_old = (select dala_discount_program_product_link_discount_program_details_id 
 		from dala_discount_program_product_link  
 		where dala_discount_program_product_link_ID  = NEW.dala_discount_program_product_link_ID );
@@ -64,7 +73,7 @@ BEGIN
 		
 		
 		-- 
-		-- neu cua hang da tham gia rui thi ko the add them
+		-- kiem tra so sản phẩm tham gia đạt giới hạn chưa 
 		--
 		SET @checkID2 = (select dala_discount_program_product_link_ID  
 			from dala_discount_program_product_link  
@@ -84,14 +93,8 @@ DELIMITER ;
 
 
 
-
--- 
---        end of 
--- 
-
-
 --
--- *data type
+-- *update product
 DROP TRIGGER  IF EXISTS  trig_discount_program_product_link_update_after;
 --
 
@@ -114,13 +117,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
-
-
-
--- 
---        end of 
--- 
 
 
 --

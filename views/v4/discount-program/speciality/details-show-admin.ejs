@@ -151,6 +151,7 @@ content
 
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id_taget" value="<%= datas[0].discount_program_details_store_id %>"/>
 <input type="hidden" id="discount_program_details_id" value="<%= discount_program_details_id %>"/>
 <input type="hidden" id="discount_program_id" value="<%= discount_program_id %>"/>
 
@@ -183,7 +184,7 @@ $(document).ready(function($){
 	//
 	
 	var user_id = $('#user_id').val();
-	var store_id = $('#store_id').val();
+	var store_id_taget = $('#store_id_taget').val();
 	var discount_program_details_id = $('#discount_program_details_id').val();
 	var discount_program_id = $('#discount_program_id').val();
 	//@
@@ -222,7 +223,7 @@ $(document).ready(function($){
 				discount_program_details_qoute:discount_program_details_qoute,
 				
 				discount_program_details_discount_program_id:discount_program_id,
-				discount_program_details_store_id:store_id,
+				discount_program_details_store_id:store_id_taget,
 				discount_program_details_status_admin:discount_program_details_status_admin,
 				
 			}

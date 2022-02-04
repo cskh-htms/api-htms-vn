@@ -9,10 +9,6 @@ START TRANSACTION;
 
 
 
--- ---------------------
--- keim tra quyen tham gia chương trình
--- --------------------
-
 --
 -- *data type
 DROP TRIGGER  IF EXISTS  trig_check_owner_discount_program_insert;
@@ -22,6 +18,19 @@ DELIMITER $$
 CREATE TRIGGER trig_check_owner_discount_program_insert BEFORE INSERT ON dala_discount_program_details 
 FOR EACH ROW  
 BEGIN  
+
+	-- kiểm tra id  program refer
+	SET @program_id = (select dala_discount_program_ID    
+		from dala_discount_program 
+		where dala_discount_program_ID = NEW.dala_discount_program_details_discount_program_id);
+	IF( @program_id > 0 ) THEN 
+		SIGNAL SQLSTATE '01000'; 
+	ELSE
+		SIGNAL SQLSTATE '12001' 
+		SET MESSAGE_TEXT = 'trig_check_owner_discount_program_insert_program_id_not_refer'; 
+	END IF;	
+
+
 
 IF(LENGTH(NEW.dala_discount_program_details_store_id) > 0 and  LENGTH(NEW.dala_discount_program_details_discount_program_id) > 0 ) THEN 
 	-- 

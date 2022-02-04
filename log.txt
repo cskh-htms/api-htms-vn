@@ -10,32 +10,51 @@
 
 
 
+
+
+
 ------------------------------------
-	end of 2022/1/12
+	-- 2022/02/04
 ------------------------------------
+- thay doi trigger orders details insert , update, delete
+- xoa relation ship order id trong table order details
+- them trigger delete trong table orders
+- sửa email gữi đặt hàng
 
 
+-- table discount order detail
+	xoá constrain
+		- dala_orders_details_speciality_discount_order_id
+		- dala_orders_details_speciality_discount_order_details_id
+	
+-----------------------------------------------------------------
+
+--  table discount_program_product_link
+	xoá constrain 
+		- discount_program_product_link_discount_program_details_id
+		- discount_program_product_link_product_speciality_id
+	thay doi trigger discount_program_product_link insert , update, delete
 
 
+-- table discount_program_details
+	xoa contrains table discount_program_details
+		- discount_program_details_discount_program_id 
+	thay doi trigger discount_program_product_details insert , update, delete
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- table discount program
+   thêm trigger discount_program_product delete
+   
+   
+ -- view
+	update admin discount progrm detail -- store id
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
