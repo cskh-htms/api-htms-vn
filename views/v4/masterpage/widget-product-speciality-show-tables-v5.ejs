@@ -1,8 +1,15 @@
 
+<% include ./function-share-page-nav %>
+
 
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
 
+<div class="page-nav">
+	<div class="page-nav-inner">
+		<%- ojs_share_page_nav.show_page_nav(190,20,"dasdasd") -%>
+	</div>
+</div>
 
 <table class="table-list">
 	<thead>
@@ -11,8 +18,9 @@
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
-			<th>Cửa hàng</th>
-			<th>Admin</th>
+			<th>Chương trình khuyến mãi đang tham gia</th>
+			<th>Cửa hàng phê duyệt</th>
+			<th>Admin phê duyệt</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,6 +37,27 @@
 					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>
+			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>			
+			
+			
+			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
+				<td class="pro-price">
+					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+					<span class="price-off">
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+				</td>
+			<% } else { %>
+				<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+			<% } %>				
+			
+			
+		<td><%= products_list[x].so_luong_da_ban %></td>					
+		<td><%- products_list[x].discount_program[0].name %></td>		
+			
+		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
+		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>			
+			
 	   </tr>
 
 
@@ -41,8 +70,30 @@
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
-			<th>Cửa hàng</th>
-			<th>Admin</th>
+			<th>Chương trình khuyến mãi đang tham gia</th>
+			<th>Cửa hàng phê duyệt</th>
+			<th>Admin phê duyệt</th>
 		</tr>
 	</tfoot>
 </table>
+
+
+
+<div class="page-nav">
+	<div class="page-nav-inner">
+		<%- ojs_share_page_nav.show_page_nav(190,20,"dasdasd") -%>
+	</div>
+</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+

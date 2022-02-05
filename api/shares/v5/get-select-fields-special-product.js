@@ -75,7 +75,7 @@ const select_field_special = function(field,res){
 			sql_field_check  = " " + 			
 				"(CASE " + 
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_sale_of_price IS NULL " + 
+						config_database.PREFIX  + "products_speciality_sale_of_price IS NULL " + 
 					"THEN " + 
 						" '0' " + 
 						
@@ -83,8 +83,8 @@ const select_field_special = function(field,res){
 					// date_star = null 	
 					// date_end = null 
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NULL " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NULL " + 
 					"THEN " + 
 						" '1' " +  			
 						
@@ -93,10 +93,10 @@ const select_field_special = function(field,res){
 					// date_end = null 
 					// date_now - date_star > 0 (da toi han khuyen mai)
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NULL and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0 " + 
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_start ) > 0 " + 
 					"THEN " + 
 						" '1' " +  		
 
@@ -104,10 +104,10 @@ const select_field_special = function(field,res){
 					// date_end = null 
 					// date_now - date_star > 0 (da toi han khuyen mai)
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NULL and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0 " + 
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_start ) < 0 " + 
 					"THEN " + 
 						" '2' " +  
 
@@ -116,10 +116,10 @@ const select_field_special = function(field,res){
 					// date_end = yes 
 					// date_now - date_end  < 0 (da toi han khuyen mai chưa het han khuyen mai)
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NOT NULL and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0 " + 
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_end ) > 0 " + 
 					"THEN " + 
 						" '3' " + 																	
 						
@@ -129,12 +129,12 @@ const select_field_special = function(field,res){
 					// date_now - date_star > 0 (da toi han khuyen mai)
 					// date_now - date_star > 0 (da toi han khuyen mai)
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NOT NULL and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) > 0  and " + 
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_start ) > 0  and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_end ) > 0  " + 								
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_end ) > 0  " + 								
 					"THEN " + 
 						" '3' " + 		
 
@@ -143,15 +143,30 @@ const select_field_special = function(field,res){
 					// date_now - date_star < 0 (da toi han khuyen mai)
 					// date_now - date_star > 0 (da toi han khuyen mai)
 					"WHEN " +  
-						ojs_configs.db_prefix  + "products_speciality_date_start IS NOT NULL and " + 
-						ojs_configs.db_prefix  + "products_speciality_date_end IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_start IS NOT NULL and " + 
+						config_database.PREFIX  + "products_speciality_date_end IS NOT NULL and " + 
 						"UNIX_TIMESTAMP(NOW()) - " + 
-						"UNIX_TIMESTAMP(" + ojs_configs.db_prefix  + "products_speciality_date_start ) < 0  " + 								
+						"UNIX_TIMESTAMP(" + config_database.PREFIX  + "products_speciality_date_start ) < 0  " + 								
 					"THEN " + 
 						" '2' " + 	
 					"ELSE " +  
 						" '4' " + 
-				"END )  ";				
+				"END )  ";	
+			return sql_field_check;
+			
+		}else if(field == "products_speciality_sort_by_percen"){
+			sql_field_check  = " " + 	
+			"(CASE " + 
+				"WHEN " +  
+					config_database.PREFIX  + "products_speciality_sale_of_price IS NULL " + 
+				"THEN " + 
+					" 0 " +  
+				"ELSE " +  
+					"(" + config_database.PREFIX  + "products_speciality_price - " + 
+					config_database.PREFIX  + "products_speciality_sale_of_price) / " + 
+					config_database.PREFIX  + "products_speciality_price * 100 " + 
+			"END ) ";
+				
 			return sql_field_check;
 		}else{
 			return " ";
@@ -159,7 +174,7 @@ const select_field_special = function(field,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field special product, liên hệ admin" );
 		res.send ({ "error" : "1", "position":"api/shares/get select field special product","message": error_send });
 	}	

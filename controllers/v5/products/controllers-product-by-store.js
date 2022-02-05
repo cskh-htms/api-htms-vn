@@ -40,14 +40,10 @@ async  function product_by_store(req, res, next) {
 				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/products/speciality/' + store_id, 
 				token
 			);	
-			
-		res.send( data_api_resuilt );
-		return;			
-			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
@@ -63,7 +59,7 @@ async  function product_by_store(req, res, next) {
 	
 	if(data_api_resuilt.error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
@@ -102,7 +98,9 @@ async  function product_by_store(req, res, next) {
 			
 			'store_name' 			: data_api_resuilt[3][0].stores_name,			
 			'store_list' 			: data_api_resuilt[3],
-			"products_list" 		: data_api_resuilt[4],
+			"products_list" 		: data_api_resuilt[6],
+			"category_link_datas" 	: data_api_resuilt[4],
+			"product_count_all" 	: data_api_resuilt[5],
 			
 		}
 		
@@ -125,14 +123,12 @@ async  function product_by_store(req, res, next) {
 			
 			'store_name' 			: data_api_resuilt[3][0].stores_name,			
 			'store_list' 			: data_api_resuilt[3],
-			"products_list" 		: data_api_resuilt[4],
+			"products_list" 		: data_api_resuilt[6],
+			"category_link_datas" 		: data_api_resuilt[4],
+			"product_count_all" 	: data_api_resuilt[5],
 			
 			'datas_info'			: datas_info			
 		}
-		
-		res.send(data_send);
-		return;
-		
 		
 		res.render( ojs_configs.view_version + '/products/speciality/show-all', data_send );
 	}

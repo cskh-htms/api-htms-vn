@@ -21,7 +21,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search');
-
+const category_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-link');
 
 
 
@@ -183,9 +183,8 @@ async  function controllers_products_by_store(req, res, next) {
 	var limit_data = [];
 	limit_data.push({"limit_number" : 20});
 	
-	//@ lấy req data
+	//@ product_list
 	try {
-		//@ 3. get model
 		let data_get =    
 		{
 		   "select_field" :
@@ -200,7 +199,10 @@ async  function controllers_products_by_store(req, res, next) {
 				"products_speciality_stock_status",
 				"products_speciality_stock",
 				"products_speciality_sku",
-				"products_speciality_type",				
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
 				"stores_name",
 				"stores_ID"
 			],
@@ -372,7 +374,6 @@ async  function controllers_products_by_store(req, res, next) {
 		//@ 4. category list
 		let data_category_list =    
 		  {
-			"select_type": "DISTINCT",
 			"select_field": [
 				"category_general_speciality_link_ID",
 				"category_general_speciality_link_product_id",
@@ -385,8 +386,8 @@ async  function controllers_products_by_store(req, res, next) {
 				"relation": "and",
 				"where": [
 				  {
-					"field": "stores_ID",
-					"value": store_id,
+					"field": "category_general_speciality_admin_status",
+					"value": "1",
 					"compare": "="
 				  }         
 				]
@@ -395,12 +396,63 @@ async  function controllers_products_by_store(req, res, next) {
 		  }
 		
 		var fn_get_category_list = new Promise((resolve, reject) => {
-			let result = category_search(data_category_list,res);
+			let result = category_search_by_link(data_category_list,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_category_list);			
 
 	
+		
+		//@ 5.product count all
+		let data_product_count_all =    
+		  {
+			"select_field": [
+				"count(products_speciality_ID)"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+						{   
+							"field"     :"stores_ID",
+							"value"     : store_id,
+							"compare" : "="
+						}, 
+						{   
+							"field"     :"products_speciality_status_store",
+							"value"     : "1",
+							"compare" : "="
+						} ,				
+						{   
+							"field"     :"stores_status_admin",
+							"value"     : "1",
+							"compare" : "="
+						},				
+						{   
+							"field"     :"products_speciality_status_admin",
+							"value"     : "1",
+							"compare" : "="
+						}  						
+					]    
+				}         
+			]  
+		 }
+		
+		var fn_get_product_count_all = new Promise((resolve, reject) => {
+			let result = product_search(data_product_count_all,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_product_count_all);				
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -408,7 +460,7 @@ async  function controllers_products_by_store(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -427,7 +479,8 @@ async  function controllers_products_by_store(req, res, next) {
 		"1":"news bussiness",
 		"2":"count item", 
 		"3":"store taget",	
-		"4":"category_4",
+		"4":"category_list",
+		"5":"product_count_all",
 	}
 	
 	promise_result.push(data_product);		

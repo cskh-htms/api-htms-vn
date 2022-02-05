@@ -43,14 +43,38 @@ const link_default = 	" " +
 	" LEFT JOIN " + 
 		config_database.PREFIX +  "users  ON  " + 
 		config_database.PREFIX +  "stores_user_id = " + 
-		config_database.PREFIX +  "users_ID  " ; 	
+		config_database.PREFIX +  "users_ID  " ; 
 
+		
+const link_category_link = 	" " +
+
+	" LEFT JOIN " + 
+		config_database.PREFIX +  "category_general_speciality_link  ON  " + 
+		config_database.PREFIX +  "category_general_speciality_ID = " + 
+		config_database.PREFIX +  "category_general_speciality_link_category_general_id  " + 
+
+	" LEFT JOIN " + 
+		config_database.PREFIX +  "stores  ON  " + 
+		config_database.PREFIX +  "category_general_speciality_stores_id = " + 
+		config_database.PREFIX +  "stores_ID  " + 
+		
+	
+	" LEFT JOIN " + 
+		config_database.PREFIX + "service_type  ON  " + 
+		config_database.PREFIX + "stores_service_type_id  = " + 
+		config_database.PREFIX + "service_type_ID  " +    			
+		
+	" LEFT JOIN " + 
+		config_database.PREFIX +  "users  ON  " + 
+		config_database.PREFIX +  "stores_user_id = " + 
+		config_database.PREFIX +  "users_ID  " ; 	
 
 //export module
 module.exports = { 
 				fields_get,
 				from_default,
-				link_default
+				link_default,
+				link_category_link
 };
 
 
