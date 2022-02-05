@@ -1,28 +1,20 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+
+const controller_product_by_store = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js');
+
+
+//end of v5
 
 
 
-//@
+
 //@
 //@
 //@ loader function shares
@@ -79,6 +71,11 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 --------------------------------------------------------------
 */
+
+
+router.get('/:store_id', controller_product_by_store);
+
+
 
 //@ 
 //@ 
@@ -1112,7 +1109,7 @@ router.post('/ajax-products-list/', async function(req, res, next) {
 //@ 
 //@ 
 //@ 4. [/:store_id]
-router.get('/:store_id', async function(req, res, next) {
+router.get('dang-lam/:store_id', async function(req, res, next) {
 	
 	
 	//@

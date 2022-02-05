@@ -26,7 +26,17 @@ BEGIN
 
 
 
-
+	-- kiểm tra có user id chưa
+	SET @check_user_id = ( select dala_users_ID   
+						 from dala_users 
+						 where dala_users_ID = NEW.dala_users_tracking_user_id  
+						);	
+	IF( @check_user_id > 0 ) THEN 
+		SIGNAL SQLSTATE '01000'; 
+	ELSE
+		SIGNAL SQLSTATE '12002' 
+		SET MESSAGE_TEXT = 'trig_users_tracking_insert_user_id_not_refer'; 
+	END IF;	
 -- 
 --
 -- kiểm tra xem user có bị log chưa

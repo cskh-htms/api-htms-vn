@@ -1,12 +1,18 @@
 
-
-
 ------------------------------------
-	-- 2022/1/12
+	-- 2022/02/05
 ------------------------------------
 
-- các view đã sử dụng
-	* dala_view_count_product_sale
+-- 1. chỉnh sữa giao diện  /products/speciality/31
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16,6 +22,8 @@
 ------------------------------------
 	-- 2022/02/04
 ------------------------------------
+
+
 - thay doi trigger orders details insert , update, delete
 - xoa relation ship order id trong table order details
 - them trigger delete trong table orders
@@ -24,8 +32,14 @@
 
 -- table discount order detail
 	xoá constrain
+		- orders_details_speciality_order_id
+		
+		
+-- table dala_orders_details_speciality_discount
+	xoá constrain
 		- dala_orders_details_speciality_discount_order_id
-		- dala_orders_details_speciality_discount_order_details_id
+		- dala_orders_details_speciality_discount_order_details_id		
+		
 	
 -----------------------------------------------------------------
 
@@ -51,9 +65,86 @@
    
    
    
+--  dala_category_general_speciality_link
+	xoá constrain 
+		- category_general_speciality_link_product_id
+	thay doi trigger discount_program_product_link insert , update
+	- category_general_speciality_link_category_general_id  thay bang restrict
    
-   
-   
+--  dala_products_speciality 
+	- thêm trigger delete
+
+
+
+--  dala_options_product_speciality_link
+	xoá constrain 
+		- options_speciality_link_product_id
+	thay doi trigger options_product_speciality_link_insert insert , update
+	-options_product_speciality_link_option_id  thay bang restrict
+
+
+ 
+
+
+--  dala_shipping_tracking
+	xoá constrain 
+		- shipping_tracking_orders_id
+	contranst -> shipping_tracking_users_id to restrict
+	thay doi trigger trig_shipping_tracking insert , update
+
+
+--  dala_users_tracking_user_id
+	xoá constrain 
+		- users_tracking_user_id
+		thay doi trigger trig_users_tracking_user insert , update
+
+
+--  dala_users
+	- them trigger delete
+
+
+------------------------------------
+	-- 2022/1/12
+------------------------------------
+
+- các view đã sử dụng
+	* dala_view_count_product_sale
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
    
    

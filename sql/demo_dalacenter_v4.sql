@@ -811,6 +811,7 @@ CREATE TABLE IF NOT EXISTS `dala_stores` (
   `dala_stores_status_admin` tinyint(1) NOT NULL DEFAULT '0',
   `dala_stores_status_stores` tinyint(1) NOT NULL DEFAULT '0',
   `dala_stores_info_banking` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dala_stores_sort_order` tinyint NOT NULL DEFAULT '0' COMMENT 'sắp xếp theo thứ tự đánh số giảm dần',
   `dala_stores_discount_price` TINYINT NULL DEFAULT '0'  COMMENT 'phần trăm chiết khấu bán hàng',
   `dala_stores_local_x` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dala_stores_local_y` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,

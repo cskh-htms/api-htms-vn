@@ -68,7 +68,7 @@ source ./sql/09.table_stores/02.table_stores_update.sql;
 -- 10.table_products_speciality
 source ./sql/10.table_products_speciality/01.table_products_speciality_insert.sql;
 source ./sql/10.table_products_speciality/02.table_products_speciality_update.sql;
-
+source ./sql/10.table_products_speciality/05.table_products_speciality_delete.sql;
 
 
 
@@ -94,22 +94,19 @@ source ./sql/13.table_category_news_link/02.table_category_news_link_update.sql;
 -- 14.table_dala_orders_speciality
 source ./sql/14.table_dala_orders_speciality/01.table_orders_speciality_insert.sql;
 source ./sql/14.table_dala_orders_speciality/02.table_orders_speciality_update.sql;
-
+source ./sql/14.table_dala_orders_speciality/05.table_orders_speciality_delete.sql;
 
 
 -- 14.1.table_dala_orders_details_speciality
 source ./sql/14.1.table_orders_details_speciality/01.table_orders_details_speciality_insert.sql;
 source ./sql/14.1.table_orders_details_speciality/02.table_orders_details_speciality_update.sql;
-
+source ./sql/14.1.table_orders_details_speciality/04.table_orders_details_speciality_delete.sql;
 
 
 
 -- 15.0.table_dala_shipping_tracking
 source ./sql/15.0.table_shipping_tracking/01.table_shipping_tracking_insert.sql;
 source ./sql/15.0.table_shipping_tracking/02.table_shipping_tracking_update.sql;
-
-
-
 
 
 
@@ -190,7 +187,7 @@ source ./sql/16.5.table_view_product/02.table_view_product_update.sql;
 -- 16.6.table_discount_program
 source ./sql/16.6.table_discount_program/01.table_discount_program_insert.sql;
 source ./sql/16.6.table_discount_program/02.table_discount_program_update.sql;
-
+source ./sql/16.6.table_discount_program/05.table_discount_program_delete.sql;
 
 
 
@@ -199,7 +196,7 @@ source ./sql/16.6.table_discount_program/02.table_discount_program_update.sql;
 -- 16.7.table_discount_program_details
 source ./sql/16.7.table_discount_program_details/01.table_discount_program_details_insert.sql;
 source ./sql/16.7.table_discount_program_details/02.table_discount_program_details_update.sql;
-
+source ./sql/16.7.table_discount_program_details/05.table_discount_program_details_delete.sql;
 
 
 

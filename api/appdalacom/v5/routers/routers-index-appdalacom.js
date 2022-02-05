@@ -10,6 +10,6 @@ router.get('/', function(req, res, next) {
 
 
 router.use('/bussiness', require('./bussiness/routers-bussiness-appdalacom'));
-
+router.use('/products', require('./products/routers-products-appdalacom'));
 
 module.exports = router;

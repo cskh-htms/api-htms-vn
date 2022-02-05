@@ -28,6 +28,11 @@ BEGIN
 		DELETE FROM dala_orders_details_speciality 
 		where dala_orders_details_speciality_order_id = OLD.dala_orders_speciality_ID;
 		
+	-- xoa line bên dala_shipping_tracking 
+		DELETE FROM dala_shipping_tracking 
+		where dala_shipping_tracking_orders_id = OLD.dala_orders_speciality_ID;	
+
+	
 END $$
 DELIMITER ;
 

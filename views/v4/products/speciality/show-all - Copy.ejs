@@ -26,8 +26,8 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách sản phẩm</h1>
-
-
+	
+	
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
@@ -61,16 +61,15 @@ content
 			</select>
 		</div>
 	</div>	
-
-
-
-
+	
+	
+	
+	
 	<div id="ajax-wrap">
-	<% include ../../masterpage/widget-product-speciality-show-tables-v5 %>
+	<% include ../../masterpage/widget-product-speciality-show-tables %>
 	</div>	
 	
-
-
+	
 	
 	
 	
@@ -225,10 +224,3 @@ $(document).ready(function($){
 	
 	
 	
-
-
-
-
-
-
-

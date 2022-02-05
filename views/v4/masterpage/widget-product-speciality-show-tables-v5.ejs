@@ -1,0 +1,48 @@
+
+
+<% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
+<% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% 
+	for( var  x in products_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name">
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem"><%- products_list[x].products_speciality_name %></a>
+				<div class="row-actions">
+					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>
+	   </tr>
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
+		</tr>
+	</tfoot>
+</table>
