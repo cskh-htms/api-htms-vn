@@ -8,7 +8,7 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 const controller_product_by_store = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js');
-
+const controller_ajax_products_list = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list.js');
 
 //end of v5
 
@@ -74,6 +74,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 router.get('/:store_id', controller_product_by_store);
+router.post('/ajax-products-list/', controller_ajax_products_list);
 
 
 
@@ -839,7 +840,7 @@ router.delete('/delete/:product_id', async function(req, res, next) {
 //@ 
 //@ 
 //@ 5. [/ajax-products-list/]
-router.post('/ajax-products-list/', async function(req, res, next) {
+router.post('/ajax-products-list-s/', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -1450,7 +1451,9 @@ router.get('dang-lam/:store_id', async function(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_san_pham',			
+			'menu_taget'			:'sidebar_san_pham',	
+
+			
 			'store_list' 			: store_info.datas,
 			'news_bussiness_menu' 	: promise_result[1],
 			'list_data_count' 		: promise_result[2],
