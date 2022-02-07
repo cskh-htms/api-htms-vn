@@ -273,6 +273,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 
 
 
+
 	/////////////////////
 	////////////////////
 	try{	
@@ -301,8 +302,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 				]
 			  }
 			]
-		  }
-		
+		  }		
 		var fn_get_category_list = new Promise((resolve, reject) => {
 			let result = category_search_by_link(data_category_list,res);
 			resolve(result);

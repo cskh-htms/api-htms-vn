@@ -1,3 +1,11 @@
+
+
+/* 
+	* lấy danh sách sản phẩm thuộc discount
+	* c1 : id disocunt programe
+*/
+
+
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -29,8 +37,39 @@ async  function controllers_discount_by_product_app(req, res, next) {
 	try {
 		var token = req.headers['token'];
 		var discount_id = -1;
+		var order_data = [];
+		var limit_data = [];
 		if(req.query.c1){
-			discount_id = req.query.c1;
+			discount_id = parseInt(req.query.c1);
+			if(discount_id == 2){
+				order_data.push(
+					{
+						"field"  :"products_speciality_sort_by_percen",
+						"compare" : "DESC"
+					}
+				)				
+				
+				limit_data.push(
+					{
+						"limit_number" : 20,
+						"limit_offset":"0"
+					}
+				);	
+			}else{
+				order_data.push(
+					{
+						"field"  :"discount_program_product_link_date_created",
+						"compare" : "DESC"
+					}
+				)				
+				
+				limit_data.push(
+					{
+						"limit_number" : 20,
+						"limit_offset":"0"
+					}
+				);	
+			}				
 		}
 	}
 	catch(error){
@@ -93,7 +132,8 @@ async  function controllers_discount_by_product_app(req, res, next) {
 				"products_speciality_stock",
 				"products_speciality_sku",
 				"products_speciality_type",		
-				"products_speciality_sort_by_percen",				
+				"products_speciality_sort_by_percen",
+				"discount_program_product_link_date_created",				
 				"stores_name"		
 			],
 			"condition" :
@@ -150,13 +190,8 @@ async  function controllers_discount_by_product_app(req, res, next) {
 					]    
 				}         
 			],
-			"order" :
-			 [		 
-				{    
-					"field"  :"products_speciality_sort_by_percen",
-					"compare" : "DESC"
-				}			
-			],  
+			"order" : order_data,
+			"limit" : limit_data,
 		}
 		
 		//@ get datas

@@ -28,7 +28,7 @@ content
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
-			<select id="sap_xep_sp" disabled >
+			<select id="sap_xep_sp"  >
 				<option value="ten">Sắp xếp theo tên</option>
 				<option value="moinhat">Mới nhất</option>
 				<option value="giacao">Giá cao > thấp</option>
@@ -37,17 +37,18 @@ content
 			</select>
 		</div>
 		<div class="loc_wrap">
-			<select id="loc_danh_muc" disabled>
+			<select id="loc_danh_muc" >
 				<option value="all">Tất cả danh mục</option>
 				<option>Mứt dâu</option>
 				<option>Cà phê</option>
 			</select>
-			<select id="loc_km" disabled >
-				<option value="all">Tất cả giá</option>
+			<select id="loc_km"  >
+				<option value="all">Khuyến mãi</option>
 				<option value="đangkhuyếnmãi">Đang giảm giá</option>
 				<option value="khuyếnmãivôthờihạn">Luôn giảm giá</option>
 				<option value="đãhếthạn">Hết hạn giảm giá</option>
 				<option value="">Không giảm giá</option>
+				
 			</select>
 			<select id="loc_trang_thai">
 				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
@@ -199,6 +200,26 @@ $(document).ready(function($){
 	});		
 	//
 	//@	
+	
+	//
+	//@
+	//xem
+	$(document).on('click','.page-nav-inner a',function(e) {	
+		//@
+		e.preventDefault();	
+		$(".page-nav-inner a").removeClass("active");
+		$(this).addClass("active");
+		//var product_id = $(this).attr("data_product_id");
+		//alert(product_id);
+		//return;
+		//ojs_products_speciality.show_content_product(product_id);
+		//@
+	});		
+	//
+	//@		
+	
+	
+	
 	
 	//
 ///////////////////////////////////////////////////////

@@ -13,11 +13,15 @@ ojs_share_page_nav = {
 			
 			var trang_text = "";
 			for(let i = 1 ; i <= tong_so_trang; i ++){
+				var page_active = "";
+				if(i == 1){
+					page_active = "active";
+				}
 				trang_text = trang_text + 
-				'<a href="' + link_action + '?limit=' + nav + '&ofset=' + (i - 1)*nav + '">' + i + '</a>';	
+				'<a class="' + page_active + '" href="' + link_action + '?limit=' + nav + '&ofset=' + (i - 1)*nav + '">' + i + '</a>';	
 				if(tong_so_trang == i && so_du > 0){
 					trang_text = trang_text + 
-					'<a href="' + link_action + '?limit=' + nav + '&ofset=' + (i)*nav + '">' + (i + 1) + '</a>';
+					'<a class="' + page_active + '" href="' + link_action + '?limit=' + nav + '&ofset=' + (i)*nav + '">' + (i + 1) + '</a>';
 				}	
 			}
 			result = trang_text ; 

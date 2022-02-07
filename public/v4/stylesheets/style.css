@@ -2953,10 +2953,32 @@ shipper
 	cursor:pointer;
 }
 
+/*page nav*/
+.page-nav-inner {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0px;
+}
+.page-nav-inner a{
+	display: inline-flex;
+    width: 30px;
+    height: 30px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #4a914b;
+    border-radius: 50%;
+    margin: 0px 1px;
+    color: white;	
+}
+.page-nav-inner a.active{
+    background-color: white;
+    color: #4a914b;		
+}
 
-
-
-
+.page-nav-inner a:hover{
+	
+}
 
 
 

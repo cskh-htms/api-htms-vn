@@ -21,11 +21,31 @@ const get_order =  function(datas,res){
 			var order_arr = datas.order;
 			for (var x in order_arr){
 				if(sql_order == ""){
-					sql_order = "order by " + config_database.PREFIX + order_arr[x].field + " " + 
-					order_arr[x].compare +  " " 
+					
+					//@speciality field product
+					if(
+					order_arr[x].field == "products_speciality_sort_by_percen" 
+					|| order_arr[x].field == "products_speciality_price_caution" 
+					){
+						sql_order = "order by " + order_arr[x].field + " " + 
+						order_arr[x].compare +  " ";						
+					}else{
+						sql_order = "order by " + config_database.PREFIX + order_arr[x].field + " " + 
+						order_arr[x].compare +  " "; 
+					}
 				}else{
-					sql_order = sql_order + " , " + config_database.PREFIX + order_arr[x].field + " " + 
-					order_arr[x].compare +  " " 				
+					
+					//@speciality field product
+					if(
+					order_arr[x].field == "products_speciality_sort_by_percen" 
+					|| order_arr[x].field == "products_speciality_price_caution" 
+					){
+						sql_order = sql_order + " , " + order_arr[x].field + " " + 
+						order_arr[x].compare +  " ";
+					}else{
+						sql_order = sql_order + " , " + config_database.PREFIX + order_arr[x].field + " " + 
+						order_arr[x].compare +  " ";
+					}						
 				}
 			}
 		}
