@@ -130,6 +130,10 @@ async  function product_by_store(req, res, next) {
 			'datas_info'			: datas_info			
 		}
 		
+		
+		//res.send(data_send);
+		//return;
+		
 		res.render( ojs_configs.view_version + '/products/speciality/show-all', data_send );
 	}
 	catch(error){
