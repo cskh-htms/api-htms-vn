@@ -14,7 +14,7 @@ const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/order
 
 const get_meta_product = async function (data_product,model_product_arr,res) {
 	var data_return = {};
-	//@ 3. get discount program
+	//@ 3. get discount program 
 	try{
 		let data_get =    
 		{

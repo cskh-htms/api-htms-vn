@@ -92,7 +92,8 @@ async  function controllers_discount_by_product_app(req, res, next) {
 				"products_speciality_stock_status",
 				"products_speciality_stock",
 				"products_speciality_sku",
-				"products_speciality_type",				
+				"products_speciality_type",		
+				"products_speciality_sort_by_percen",				
 				"stores_name"		
 			],
 			"condition" :
@@ -148,7 +149,14 @@ async  function controllers_discount_by_product_app(req, res, next) {
 					} 	
 					]    
 				}         
-			]   
+			],
+			"order" :
+			 [		 
+				{    
+					"field"  :"products_speciality_sort_by_percen",
+					"compare" : "DESC"
+				}			
+			],  
 		}
 		
 		//@ get datas
