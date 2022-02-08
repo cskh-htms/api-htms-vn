@@ -7,7 +7,7 @@ const ojs_shares_others = require('../../../shares/ojs-shares-others.js');
 const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
 
 
-async  function ajax_products_list(req, res, next) {
+async  function ajax_products_list_table(req, res, next) {
 	
 	
 			
@@ -51,7 +51,7 @@ async  function ajax_products_list(req, res, next) {
 	//@ get data 
 	try {
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
-				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/products/speciality/ajax-proructs-list/', 
+				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/products/speciality/ajax-proructs-list-table/', 
 				datas,
 				token
 			);	
@@ -101,7 +101,7 @@ async  function ajax_products_list(req, res, next) {
 		//res.send(data_send);
 		//return;
 		
-		res.render( ojs_configs.view_version + '/masterpage/widget-product-speciality-show-tables-v5', data_send );
+		res.render( ojs_configs.view_version + '/masterpage/widget-product-speciality-show-tables-v5-table', data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
@@ -113,6 +113,6 @@ async  function ajax_products_list(req, res, next) {
 };
 
 
-module.exports = ajax_products_list;
+module.exports = ajax_products_list_table;
 
 

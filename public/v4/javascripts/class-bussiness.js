@@ -123,7 +123,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//console.log(result);
+					console.log(result);
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;
@@ -132,7 +132,33 @@ $(document).ready(function($){
 		},//end of ajax save			
 		
 		
+		//@	4. [ajax_load_products]		
+		ajax_load_products_table	: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/products/speciality/ajax-products-list-table/",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					console.log(result);
+					$('#ajax-table').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
 		
+				
 		
 		//@
 		//@

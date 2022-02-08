@@ -5,12 +5,6 @@
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
 
-<div class="page-nav">
-	<div class="page-nav-inner">
-		<%- ojs_share_page_nav.show_page_nav(product_count_all[0].count_products_speciality_ID,20,"#") -%>
-	</div>
-</div>
-<div id="ajax-table">
 <table class="table-list">
 	<thead>
 		<tr>
@@ -76,15 +70,8 @@
 		</tr>
 	</tfoot>
 </table>
-</div>
 
 
-<div class="page-nav">
-	<div class="page-nav-inner">
-		<%- ojs_share_page_nav.show_page_nav(product_count_all[0].count_products_speciality_ID,20,"#") -%>
-	</div>
-</div>
-	
 
 
 

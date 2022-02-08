@@ -130,7 +130,52 @@ const link_category = 	" " +
 	config_database.PREFIX + "users_ID ";
 
 
+//@	
+const link_discount_category = 	" " +
 
+	" LEFT JOIN " + 
+	config_database.PREFIX + "category_general_speciality_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "category_general_speciality_link_product_id " +   
+
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "category_general_speciality ON  " + 
+	config_database.PREFIX + "category_general_speciality_link_category_general_id  = " + 
+	config_database.PREFIX + "category_general_speciality_ID " +  
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +    
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "service_type  ON  " + 
+	config_database.PREFIX + "stores_service_type_id  = " + 
+	config_database.PREFIX + "service_type_ID  " +    	
+	
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "stores_user_id  = " + 
+	config_database.PREFIX + "users_ID " + 
+	
+	
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_product_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "discount_program_product_link_product_speciality_id " +  	
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_details ON  " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_details_id  = " + 
+	config_database.PREFIX + "discount_program_details_ID " +  	
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program ON  " + 
+	config_database.PREFIX + "discount_program_details_discount_program_id = " + 
+	config_database.PREFIX + "discount_program_ID ";
 
 
 //export module
@@ -139,7 +184,8 @@ module.exports = {
 				from_default,
 				link_default,
 				link_category,
-				link_brand
+				link_brand,
+				link_discount_category
 };
 
 

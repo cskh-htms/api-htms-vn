@@ -74,7 +74,7 @@ async  function product_by_store(req, res, next) {
 	}		
 	
 
-
+	
 
 		
 	//@
@@ -100,6 +100,7 @@ async  function product_by_store(req, res, next) {
 			'store_list' 			: data_api_resuilt[3],
 			"products_list" 		: data_api_resuilt[6],
 			"category_link_datas" 	: data_api_resuilt[4],
+			"category_by_store" 	: data_api_resuilt[7],
 			"product_count_all" 	: data_api_resuilt[5],
 			
 		}
@@ -125,6 +126,7 @@ async  function product_by_store(req, res, next) {
 			'store_list' 			: data_api_resuilt[3],
 			"products_list" 		: data_api_resuilt[6],
 			"category_link_datas" 		: data_api_resuilt[4],
+			"category_by_store" 	: data_api_resuilt[7],
 			"product_count_all" 	: data_api_resuilt[5],
 			
 			'datas_info'			: datas_info			

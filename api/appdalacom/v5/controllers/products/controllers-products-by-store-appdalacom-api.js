@@ -299,6 +299,50 @@ async  function controllers_products_by_store(req, res, next) {
 		return;	
 	}
 
+	//@ 6. category list by store
+	try{		
+		let data_category_list_by_store =    
+		  {
+			"select_field": [
+				"category_general_speciality_ID",
+				"category_general_speciality_name"
+			],
+			"condition": [
+			  {
+				"relation": "and",
+				"where": [
+				  {
+					"field": "category_general_speciality_admin_status",
+					"value": "1",
+					"compare": "="
+				  },
+				  {
+					"field": "category_general_speciality_stores_id",
+					"value": store_id,
+					"compare": "="
+				  } 				  
+				]
+			  }
+			]
+		  }
+		//@ get datas
+		var category_by_store_resuilt = await category_search.search_category_spaciality(data_category_list_by_store,res);
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get data product, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "33", 
+			"position" : "api/appdalacom/v5/ctroller/controllers-product-by-store-app",
+			"message": error_send 
+		}); 
+		return;	
+	}	
 
 
 
@@ -403,7 +447,10 @@ async  function controllers_products_by_store(req, res, next) {
 		});	
 		promise_all.push(fn_get_category_list);			
 
-	
+
+		
+		
+		
 		
 		//@ 5.product count all
 		let data_product_count_all =    
@@ -450,14 +497,7 @@ async  function controllers_products_by_store(req, res, next) {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 		var promise_result = await Promise.all(promise_all);
 	}
 	catch(error){
@@ -485,7 +525,9 @@ async  function controllers_products_by_store(req, res, next) {
 		"5":"product_count_all",
 	}
 	
-	promise_result.push(data_product);		
+	promise_result.push(data_product);	
+	promise_result.push(category_by_store_resuilt);
+	
 	promise_result.push(notes);
 	
 

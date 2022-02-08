@@ -18,10 +18,19 @@ ojs_share_page_nav = {
 					page_active = "active";
 				}
 				trang_text = trang_text + 
-				'<a class="' + page_active + '" href="' + link_action + '?limit=' + nav + '&ofset=' + (i - 1)*nav + '">' + i + '</a>';	
+					'<a class="' + page_active + 
+					'" href="#" ' + 
+					'data-limit="' + nav + '"' + 
+					'data-offset="' + (i-1)*nav + '">' +
+					i + '</a>';
+				
 				if(tong_so_trang == i && so_du > 0){
 					trang_text = trang_text + 
-					'<a class="' + page_active + '" href="' + link_action + '?limit=' + nav + '&ofset=' + (i)*nav + '">' + (i + 1) + '</a>';
+					'<a class="' + page_active + 
+					'" href="#" ' + 
+					'data-limit="' + nav + '"' + 
+					'data-offset="' + (i)*nav + '">' + 
+					i + '</a>';
 				}	
 			}
 			result = trang_text ; 

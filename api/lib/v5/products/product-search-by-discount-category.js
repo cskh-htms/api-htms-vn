@@ -6,12 +6,13 @@ const mysql = require('mysql');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
 
-const ojs_configs = require('../../../../configs/config');
-
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./category-fields-get');
+const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
+const ojs_configs = require('../../../../configs/config');
+
+
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
 const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
@@ -22,7 +23,8 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const search_category_spaciality = async function (datas,res) {
+const product_search_by_store = function (datas,res) {
+
 	try{	
 		var sql_select_type = get_select_type(datas,res);
 		var sql_select_fields = get_select_fields(datas,res);	
@@ -36,26 +38,26 @@ const search_category_spaciality = async function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_discount_category + 
 			sql_condition +
 			sql_group_by + 
 			sql_order + 
 			sql_having + 
-			sql_limit;		
+			sql_limit;
 		
-		
+		//return get_sql_search_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi category search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "lib/categorys/category search", 
+			"position" : "lib/products/product search by category",
 			"message": error_send 
 			}); 
 		return;	
@@ -71,11 +73,11 @@ const search_category_spaciality = async function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi category search, Vui lòng liên hệ admin" 
+							"Lỗi product search by category, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/categorys/category search", 
+						"position" : "lib/products/product search by category",
 						"message": error_send 
 					}); 
 					return;
@@ -86,15 +88,15 @@ const search_category_spaciality = async function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
-				err, 
-				"Lỗi category search, Vui lòng liên hệ admin" 
+				error, 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/categorys/category search", 
+			"position" : "lib/products/product search by category", 
 			"message": error_send 
 		}); 
 		return;
@@ -102,9 +104,7 @@ const search_category_spaciality = async function (datas,res) {
 };	
 
 
-module.exports = {
-	search_category_spaciality
-};
+module.exports = product_search_by_store;
 
 
 /*

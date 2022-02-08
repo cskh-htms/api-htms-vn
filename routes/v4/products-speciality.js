@@ -9,7 +9,7 @@ const config_api = require('../../api/configs/config-api');
 
 const controller_product_by_store = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js');
 const controller_ajax_products_list = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list.js');
-
+const controller_ajax_products_list_table = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list-table.js');
 //end of v5
 
 
@@ -75,7 +75,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 router.get('/:store_id', controller_product_by_store);
 router.post('/ajax-products-list/', controller_ajax_products_list);
-
+router.post('/ajax-products-list-table/', controller_ajax_products_list_table);
 
 
 //@ 

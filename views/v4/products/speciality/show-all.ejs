@@ -28,28 +28,37 @@ content
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
-			<select id="sap_xep_sp"  >
-				<option value="ten">Sắp xếp theo tên</option>
+			<select id="sap_xep_sp" disabled  >
 				<option value="moinhat">Mới nhất</option>
-				<option value="giacao">Giá cao > thấp</option>
-				<option value="giathap">Giá thấp > cao</option>
+				<option value="giacao">Giá cao đến thấp > thấp</option>
+				<option value="giathap">Giá thấp đến cao > cao</option>
 				<option value="banchay">Bán chạy</option>
 			</select>
 		</div>
+		
+		<select id="loc_km" disabled >
+			<option value="all">Khuyến mãi</option>
+			<option value="đangkhuyếnmãi">FLASH SALE</option>
+			<option value="khuyếnmãivôthờihạn">Giảm giá theo mùa</option>
+			<option value="đãhếthạn">Mua 1 tặng 1</option>
+			<option value="">Không có giảm giá</option>
+			
+		</select>		
+		
 		<div class="loc_wrap">
 			<select id="loc_danh_muc" >
 				<option value="all">Tất cả danh mục</option>
-				<option>Mứt dâu</option>
-				<option>Cà phê</option>
+				<% 
+				for(x in category_by_store){
+				%>	
+					<option value="<%= category_by_store[x].category_general_speciality_ID %>">
+						<%= category_by_store[x].category_general_speciality_name %>
+					</option>
+				<%
+				}
+				%>
 			</select>
-			<select id="loc_km"  >
-				<option value="all">Khuyến mãi</option>
-				<option value="đangkhuyếnmãi">Đang giảm giá</option>
-				<option value="khuyếnmãivôthờihạn">Luôn giảm giá</option>
-				<option value="đãhếthạn">Hết hạn giảm giá</option>
-				<option value="">Không giảm giá</option>
-				
-			</select>
+
 			<select id="loc_trang_thai">
 				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
@@ -128,63 +137,7 @@ $(document).ready(function($){
 	//@
 	//@	
 	
-	//sap xep san pham
-	///////////////////////////
-	$("#sap_xep_sp").change(function() {
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let kieu_sap_xep = $('#sap_xep_sp').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id	:store_id,
-				kieu_sap_xep : kieu_sap_xep
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-	});
-	
-	
-	//Loc han khuyen mai
-	///////////////////////////
-	$("#loc_km").change(function() {
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let han_km = $('#loc_km').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id	:store_id,
-				han_km : han_km
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-	});
-	
-	//Loc trang thai san pham
-	///////////////////////////
-	$("#loc_trang_thai").change(function() {
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = $('#loc_trang_thai').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id	:store_id,
-				status_admin : JSON.parse(status_admin)
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_products(datas);	
-	});
+
 	
 	//
 	//@
@@ -199,7 +152,19 @@ $(document).ready(function($){
 		//@
 	});		
 	//
-	//@	
+	//@		
+	
+
+	
+	//Loc danh muc
+	///////////////////////////	
+	$("#loc_danh_muc,#loc_km,#sap_xep_sp,#loc_trang_thai").change(function() {
+		var datas = get_data_ajax();
+		console.log(datas);
+		ojs_bussiness.ajax_load_products(datas);	
+	});	
+	
+	
 	
 	//
 	//@
@@ -208,18 +173,43 @@ $(document).ready(function($){
 		//@
 		e.preventDefault();	
 		$(".page-nav-inner a").removeClass("active");
-		$(this).addClass("active");
-		//var product_id = $(this).attr("data_product_id");
-		//alert(product_id);
-		//return;
-		//ojs_products_speciality.show_content_product(product_id);
-		//@
+		var pav_taget = parseInt($(this).html());
+		$('.page-nav-inner a:nth-child(' + pav_taget + ')').addClass("active");
+		e.preventDefault();	
+		
+		var datas = get_data_ajax();
+		console.log(datas);
+		ojs_bussiness.ajax_load_products_table(datas);
+		
 	});		
 	//
 	//@		
 	
 	
-	
+	function get_data_ajax(){
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();
+		let status_data = $('#loc_trang_thai').val();
+		let category_data = $('#loc_danh_muc').val();
+		let discount_data = $('#loc_km').val();
+		let sort_data = $('#sap_xep_sp').val();
+		
+		var data_limit = $('.page-nav-inner a.active').attr('data-limit') || 20;
+		var data_offset = $('.page-nav-inner a.active').attr('data-offset') || 0;
+		
+		
+		var datas = {
+			"user_id" : user_id,
+			"store_id" :store_id,
+			"status_data" : JSON.parse(status_data),
+			"category_data" :category_data,
+			"discount_data" :discount_data,
+			"sort_data" :sort_data,	
+			"data_limit" :data_limit,	
+			"data_offset" :data_offset,				
+		}
+		return datas;
+	}
 	
 	//
 ///////////////////////////////////////////////////////
