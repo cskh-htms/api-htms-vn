@@ -11,5 +11,10 @@ router.get('/', function(req, res, next) {
 
 router.use('/bussiness', require('./bussiness/routers-bussiness-appdalacom'));
 router.use('/products', require('./products/routers-products-appdalacom'));
+router.use('/discount-program', require('./discount-program/routers-discount-program-api-appdalacom'));
+
+
+
+
 
 module.exports = router;

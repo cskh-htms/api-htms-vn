@@ -2240,6 +2240,8 @@ display: flex;
     border-top: 1px solid #ccc;
     margin-top: 10px;
     padding-top: 10px;
+    max-height: 250px;
+    overflow: auto;
 }
 
 .discount-title {
@@ -2247,9 +2249,17 @@ display: flex;
 }
 .product-add {
     display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 5px;
 }
 
-
+.add-box {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 15px;
+    color: #298512;
+}
 
 
 .product-add a{

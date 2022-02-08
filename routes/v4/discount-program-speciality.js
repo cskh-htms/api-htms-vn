@@ -1,26 +1,24 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
 
+const controllers_discount_program_product_add_list = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-add-list-web-appdalacom.js'
+	);
 
+//end of v5
 
 //@
 //@
@@ -113,6 +111,21 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 
 --------------------------------------------------------------
 */
+
+
+
+
+router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
+
+
+
+
+
+
+
+
+
+
 
 //@
 //@
@@ -3439,7 +3452,7 @@ router.post('/product-save/', async function(req, res, next) {
 //@
 //@
 //@ 2 [/product/add/:discount_program_details_id/:store_id/:user_id]
-router.get('/product/add/:discount_program_details_id/:store_id/:user_id', async function(req, res, next) {
+router.get('da_thay/product/add/:discount_program_details_id/:store_id/:user_id', async function(req, res, next) {
 	//@
 	//@
 	//@
