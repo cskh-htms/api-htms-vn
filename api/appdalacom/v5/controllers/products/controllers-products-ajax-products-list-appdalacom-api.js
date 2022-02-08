@@ -143,8 +143,8 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	var limit_data = [];
 	limit_data.push(
 		{
-			"limit_number" : 20,
-			"limit_offset":"0"
+			"limit_number" : datas.data_limit,
+			"limit_offset" : datas.data_offset
 		}
 	);
 	
@@ -154,8 +154,10 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 			"field"  :"products_speciality_date_created",
 			"compare" : "DESC"
 		}
-	)				
+	)		
 
+	
+	//@ condition
 	var condition_data = [];
 	condition_data.push(
 		{   
@@ -164,35 +166,38 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 			"compare" : "="
 		}
 	)		
-	condition_data.push(
-		{   
-			"field"     :"products_speciality_status_store",
-			"value"     : "1",
-			"compare" : "="
-		} 
-	)	
-	condition_data.push(
-		{   
-			"field"     :"stores_status_admin",
-			"value"     : "1",
-			"compare" : "="
-		}
-	)
 
 	condition_data.push(
 		{   
 			"field"     :"products_speciality_status_admin",
-			"value"     : "1",
-			"compare" : "="
+			"value"     : datas.status_data,
+			"compare" : "in"
 		} 
 	)
 
-
+	if(datas.category_data == "all"){
+		condition_data.push(
+			{   
+				"field"     :"category_general_speciality_ID",
+				"value"     : datas.category_data,
+				"compare" : "<>"
+			} 
+		)
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"category_general_speciality_ID",
+				"value"     : datas.category_data,
+				"compare" : "="
+			} 
+		)		
+	}
 	
 	//@ product_list
 	try {
 		let data_get =    
 		{
+		   "select_type" : "DISTINCT",
 		   "select_field" :
 			[
 				"products_speciality_ID",
