@@ -159,6 +159,8 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	
 	//@ condition
 	var condition_data = [];
+	
+	//@ store
 	condition_data.push(
 		{   
 			"field"     :"products_speciality_store_id",
@@ -166,15 +168,34 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 			"compare" : "="
 		}
 	)		
-
-	condition_data.push(
-		{   
-			"field"     :"products_speciality_status_admin",
-			"value"     : datas.status_data,
-			"compare" : "in"
-		} 
-	)
-
+	
+	//@ status
+	if(datas.status_data[0] == -1){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_store",
+				"value"     : 0,
+				"compare" : "="
+			} 
+		)		
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_store",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)		
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_admin",
+				"value"     : datas.status_data,
+				"compare" : "in"
+			} 
+		)		
+	}
+	
+	//@ category
 	if(datas.category_data == "all"){
 		condition_data.push(
 			{   
@@ -192,6 +213,46 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 			} 
 		)		
 	}
+	
+	
+	//@ khuyen mai
+	if(datas.discount_data == -1){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_store",
+				"value"     : 0,
+				"compare" : "="
+			} 
+		)		
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_store",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)		
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_admin",
+				"value"     : datas.status_data,
+				"compare" : "in"
+			} 
+		)		
+	}	
+	
+	//@ discount
+	var having_data = [];
+	having_data.push(
+		{   
+			"field"     :"products_speciality_sale_of_price_time_check",
+			"value"     : datas.discount_data,
+			"compare" : "in"
+		} 
+	)	
+	
+	
+	
 	
 	//@ product_list
 	try {
@@ -225,7 +286,14 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 				}         
 			],
 			"order" :order_data,
-			"limit" :limit_data			
+			"limit" :limit_data,	
+			"having" :
+			[
+				{    
+				"relation": "and",
+				"where" :having_data				
+				}         
+			],			
 		}
 	
 		//@ get datas
@@ -245,7 +313,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -325,43 +393,25 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 
 		//@ 5.product count all
 		let data_product_count_all =    
-		  {
-			"select_field": [
-				"count(products_speciality_ID)"
+		{
+		   "select_type" : "DISTINCT",
+		   "select_field" :
+			[
+				"products_speciality_ID",
 			],
 			"condition" :
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-						{   
-							"field"     :"stores_ID",
-							"value"     : datas.store_id,
-							"compare" : "="
-						}, 
-						{   
-							"field"     :"products_speciality_status_store",
-							"value"     : "1",
-							"compare" : "="
-						} ,				
-						{   
-							"field"     :"stores_status_admin",
-							"value"     : "1",
-							"compare" : "="
-						},				
-						{   
-							"field"     :"products_speciality_status_admin",
-							"value"     : "1",
-							"compare" : "="
-						}  						
-					]    
+				"where" :condition_data				
 				}         
-			]  
-		 }
+			],
+			"order" :order_data,
+			"limit" :[]		
+		}
 		
 		var fn_get_product_count_all = new Promise((resolve, reject) => {
-			let result = product_search_by_store(data_product_count_all,res);
+			let result = product_search_by_discount_category(data_product_count_all,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_product_count_all);	

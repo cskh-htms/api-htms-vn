@@ -28,20 +28,18 @@ content
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
-			<select id="sap_xep_sp" disabled  >
+			<select id="sap_xep_sp">
 				<option value="moinhat">Mới nhất</option>
-				<option value="giacao">Giá cao đến thấp > thấp</option>
-				<option value="giathap">Giá thấp đến cao > cao</option>
-				<option value="banchay">Bán chạy</option>
+				<option value="giacao">Giá cao > thấp</option>
+				<option value="giathap">Giá thấp < cao</option>
 			</select>
 		</div>
 		
-		<select id="loc_km" disabled >
-			<option value="all">Khuyến mãi</option>
-			<option value="đangkhuyếnmãi">FLASH SALE</option>
-			<option value="khuyếnmãivôthờihạn">Giảm giá theo mùa</option>
-			<option value="đãhếthạn">Mua 1 tặng 1</option>
-			<option value="">Không có giảm giá</option>
+		<select id="loc_km">
+			<option value="[0,1,2,3,4]">Tất cả sản phẩm</option>
+			<option value="[1,4]">Đang khuyến mãi</option>
+			<option value="[3]">Khuyến mãi đã quá hạn</option>
+			<option value="[0]">Không có khuyến mãi</option>
 			
 		</select>		
 		
@@ -60,7 +58,8 @@ content
 			</select>
 
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
+				<option id="all" value="[0,1,2,3,4]">Tất cả trạng thái</option>
+				<option id="draf" value="[-1]">Bản nháp</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
@@ -161,6 +160,7 @@ $(document).ready(function($){
 	$("#loc_danh_muc,#loc_km,#sap_xep_sp,#loc_trang_thai").change(function() {
 		var datas = get_data_ajax();
 		console.log(datas);
+		//return;
 		ojs_bussiness.ajax_load_products(datas);	
 	});	
 	
@@ -203,7 +203,7 @@ $(document).ready(function($){
 			"store_id" :store_id,
 			"status_data" : JSON.parse(status_data),
 			"category_data" :category_data,
-			"discount_data" :discount_data,
+			"discount_data" :JSON.parse(discount_data),
 			"sort_data" :sort_data,	
 			"data_limit" :data_limit,	
 			"data_offset" :data_offset,				

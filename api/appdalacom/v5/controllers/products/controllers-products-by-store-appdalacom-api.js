@@ -456,7 +456,7 @@ async  function controllers_products_by_store(req, res, next) {
 		let data_product_count_all =    
 		  {
 			"select_field": [
-				"count(products_speciality_ID)"
+				"products_speciality_ID"
 			],
 			"condition" :
 			[
@@ -473,16 +473,11 @@ async  function controllers_products_by_store(req, res, next) {
 							"field"     :"products_speciality_status_store",
 							"value"     : "1",
 							"compare" : "="
-						} ,				
-						{   
-							"field"     :"stores_status_admin",
-							"value"     : "1",
-							"compare" : "="
-						},				
+						} ,					
 						{   
 							"field"     :"products_speciality_status_admin",
-							"value"     : "1",
-							"compare" : "="
+							"value"     : [1,2,3,4],
+							"compare" : "in"
 						}  						
 					]    
 				}         

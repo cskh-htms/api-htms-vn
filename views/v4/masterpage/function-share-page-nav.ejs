@@ -26,11 +26,11 @@ ojs_share_page_nav = {
 				
 				if(tong_so_trang == i && so_du > 0){
 					trang_text = trang_text + 
-					'<a class="' + page_active + 
+					'<a class="' + 
 					'" href="#" ' + 
 					'data-limit="' + nav + '"' + 
 					'data-offset="' + (i)*nav + '">' + 
-					i + '</a>';
+					(i+ 1) + '</a>';
 				}	
 			}
 			result = trang_text ; 

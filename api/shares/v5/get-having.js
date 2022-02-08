@@ -32,8 +32,13 @@ const get_having =  function(datas,res){
 						consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
 						consition_field = " UNIX_TIMESTAMP(" + config_database.PREFIX + condition_arr[x].where[s].field + ") ";
 					}else if(condition_arr[x].where[s].compare == "in"){
-						consition_value = "(" + condition_arr[x].where[s].value + ")";
-						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+						if(condition_arr[x].where[s].field == "products_speciality_sale_of_price_time_check"){
+							consition_value = "(" + condition_arr[x].where[s].value + ")";
+							consition_field = condition_arr[x].where[s].field;							
+						}else{
+							consition_value = "(" + condition_arr[x].where[s].value + ")";
+							consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+						}
 					}else if(condition_arr[x].where[s].compare == "is not null"){
 						consition_value = condition_arr[x].where[s].value;
 						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;

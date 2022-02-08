@@ -41,15 +41,15 @@ const product_search_by_store = function (datas,res) {
 			fields_get.link_discount_category + 
 			sql_condition +
 			sql_group_by + 
+			sql_having + 			
 			sql_order + 
-			sql_having + 
 			sql_limit;
 		
 		//return get_sql_search_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -88,7 +88,7 @@ const product_search_by_store = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 

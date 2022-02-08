@@ -83,7 +83,7 @@ async  function ajax_products_list(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"web/controller/products/controllers-products-by-store_id",
+			"position":"web/controller->products->ajax-product-list",
 			"message": error_send 
 		}); 
 		return;

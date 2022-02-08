@@ -160,7 +160,12 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 						"field"     :"products_speciality_sale_of_price",
 						"value"     : "",
 						"compare" : "null"
-					}	
+					},
+					{   
+						"field"     :"products_speciality_status_admin",
+						"value"     : "1",
+						"compare" : "="
+					}					
 					] 				
 				}         
 			],
