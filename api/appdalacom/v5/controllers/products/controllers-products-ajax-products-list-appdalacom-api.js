@@ -414,6 +414,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 		   "select_field" :
 			[
 				"products_speciality_ID",
+				"products_speciality_sale_of_price_time_check",
 			],
 			"condition" :
 			[
@@ -423,7 +424,14 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 				}         
 			],
 			"order" :order_data,
-			"limit" :[]		
+			"limit" :[]	,
+			"having" :
+			[
+				{    
+				"relation": "and",
+				"where" :having_data				
+				}         
+			],				
 		}
 		
 		var fn_get_product_count_all = new Promise((resolve, reject) => {

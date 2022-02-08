@@ -149,12 +149,28 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	);
 	
 	var order_data = [];
-	order_data.push(
-		{
-			"field"  :"products_speciality_date_created",
-			"compare" : "DESC"
-		}
-	)		
+	if(datas.sort_data == "moinhat"){
+		order_data.push(
+			{
+				"field"  :"products_speciality_date_created",
+				"compare" : "DESC"
+			}
+		)	
+	}else if(datas.sort_data == "giacao"){
+		order_data.push(
+			{
+				"field"  :"products_speciality_price",
+				"compare" : "DESC"
+			}
+		)
+	}else{
+		order_data.push(
+			{
+				"field"  :"products_speciality_price",
+				"compare" : "ASC"
+			}
+		)
+	}		
 
 	
 	//@ condition
@@ -313,7 +329,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -398,6 +414,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 		   "select_field" :
 			[
 				"products_speciality_ID",
+				"products_speciality_sale_of_price_time_check",
 			],
 			"condition" :
 			[
@@ -407,7 +424,14 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 				}         
 			],
 			"order" :order_data,
-			"limit" :[]		
+			"limit" :[]	,
+			"having" :
+			[
+				{    
+				"relation": "and",
+				"where" :having_data				
+				}         
+			],				
 		}
 		
 		var fn_get_product_count_all = new Promise((resolve, reject) => {
