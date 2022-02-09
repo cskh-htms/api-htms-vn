@@ -363,14 +363,14 @@ try{
 			//@
 			//@
 			
-			var email_to = "vanluc.wordpress@gmail.com";
+			var email_to = "lehongson.tc@gmail.com";
 			var email_title = "Có đơn hàng mới";
 			var email_content = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 			//@
 			//@
 			ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);		
 
-			var email_to2 = "htms.group.vn@gmail.com";
+			var email_to2 = "dalavn.group@gmail.com";
 			var email_title2 = "Có đơn hàng mới";
 			var email_content2 = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 			//@
