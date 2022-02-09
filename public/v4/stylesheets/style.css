@@ -674,6 +674,20 @@ a {
     margin: 0 2% 10px 0;
 }
 
+#time-product {
+    display: inline-flex;
+}
+#time-product input{
+	display: inline-flex !important;
+    max-width: 50px !important;
+    width: 30px !important;
+    min-width: 50px;
+}
+#products_speciality_date_created {
+    min-width: 100px;
+    width: 100px;
+}
+
 /*
 #post-body-content input, #post-body-content textarea, #post-body-content select {
     padding: 5px 8px;

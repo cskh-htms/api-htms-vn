@@ -109,22 +109,22 @@ content
 				</div>
 			</div>
 			
-			<div class="pro_box gia_box"  style="display:none;" >
+			<div class="pro_box gia_box"  style="" >
 				<h3>Giá sản phẩm</h3>
 				<div class="inside">
 
 					
-					<p style="display:none;"><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
+					<p style=""><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
 						<input 
-						class="number_change_empty" 
+						class="number_change_empty" disabled						
 						data_value="<%= datas[0].products_speciality_sale_of_price %>" 						
 						type="text" 
 						value=" <%- ojs_share_all.show_price_format(datas[0].products_speciality_sale_of_price,0,",",".","") %>" 
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p style="display:none;" ><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p style="display:none;" ><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p style="" ><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input  disabled	 type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
+					<p style="" ><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input  disabled	 type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
 					
 					
 				</div>
@@ -223,7 +223,25 @@ content
 			<!-- ------------------
 			//end of option
 			------------------- -->	
-			
+		
+			<%
+			let date_create = new Date(datas[0].products_speciality_date_created);
+			let hours = date_create.getHours();
+			let minutes = date_create.getMinutes();
+			let seconds = date_create.getSeconds();
+			%>
+			<div class="pro_box thuong_hieu_box">
+				<h3>Ngày đăng</h3>	
+				<div class="inside">
+					<input  type="text" value="<%= datas[0].products_speciality_date_created %>" id="products_speciality_date_created" /> 
+					<div id="time-product">
+						<input  type="text" value="<%= hours %>" id="product-hours-create" /> 
+						<input  type="text" value="<%= minutes %>" id="product-minutes-create" /> 
+						<input  type="text" value="<%= seconds %>" id="product-seconds-create" /> 
+					</div>
+				</div>
+			</div>
+		
 			<div class="pro_box thuong_hieu_box">
 				<h3>Thương hiệu</h3>	
 				<div class="inside">
@@ -364,6 +382,17 @@ $(document).ready(function($){
 	var user_id = $('#user_id').val();
 	let date_s1 = $('#products_speciality_date_start').val();
 	let date_s2 = $('#products_speciality_date_end').val();
+		
+	let date_s3 = $('#products_speciality_date_created').val();		
+
+	$( "#products_speciality_date_created" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	).datepicker ('setDate',  new Date (date_s3));
+
+
 		
 	if(date_s1.length > 0){
 		$( "#products_speciality_date_start" ).datepicker({
@@ -685,6 +714,39 @@ $(document).ready(function($){
 		var date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
 		var products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
 
+		var date_03 = $('#products_speciality_date_created').datepicker( "getDate" );
+		var products_speciality_date_created = $.datepicker.formatDate("yy-mm-dd", date_03);
+		
+		var hours = $('#product-hours-create').val();
+		var minutes = $('#product-minutes-create').val();
+		var seconds = $('#product-seconds-create').val();
+		
+		//@hour
+		if(hours == ""){
+			hours = 00;
+		}
+		if(hours.length == 1 ){
+			hours = "0" + hours;
+		}
+		
+		//@minutes
+		if(minutes == ""){
+			minutes = 00;
+		}
+		if(minutes.length == 1 ){
+			minutes = "0" + minutes;
+		}		
+		
+		//@seconds
+		if(seconds == ""){
+			seconds = 00;
+		}
+		if(seconds.length == 1 ){
+			seconds = "0" + seconds;
+		}			
+		
+		products_speciality_date_created = products_speciality_date_created + " " + hours + ":" + minutes + ":" + seconds
+
 		
 		var date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
 		var products_speciality_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
@@ -764,6 +826,7 @@ $(document).ready(function($){
 				products_speciality_price : products_speciality_price,
 				products_speciality_sale_of_price : products_speciality_sale_of_price,
 				products_speciality_date_start : products_speciality_date_start,
+				products_speciality_date_created : products_speciality_date_created,
 				products_speciality_date_end : products_speciality_date_end,
 				products_speciality_stock : products_speciality_stock,
 				products_speciality_stock_status : products_speciality_stock_status,
