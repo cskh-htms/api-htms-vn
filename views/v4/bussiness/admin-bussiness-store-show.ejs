@@ -180,6 +180,11 @@ content
 			<span>% Chiết khấu DALA</span>
 			<input type="text"  id="stores_discount_price" value="<%= datas[0].stores_discount_price %>"/>
 		</p>		
+
+		<p>Sắp xếp<span class="giai-thich"><span>Để sắp xếp thứ tự cửa hàng, ưu tiên số cao(muốn đứng đầu nhập số lớn nhất)</span></span>
+			<input type="text"  id="stores_sort_order" value="<%= datas[0].stores_sort_order %>"/>
+		</p>	
+
 		
 		
 		<!-- 
@@ -346,6 +351,8 @@ $(document).ready(function($){
 		
 		var stores_adress = $('#stores_adress').val();
 		
+		var stores_sort_order = $('#stores_sort_order').val();
+		
 		var stores_local_x = $('#stores_local_x').val();
 		var stores_local_y = $('#stores_local_y').val();
 		
@@ -399,7 +406,8 @@ $(document).ready(function($){
 				stores_status_admin : stores_status_admin,
 				stores_upload_limit_day :stores_upload_limit_day,
 				stores_upload_limit_month : stores_upload_limit_month,
-				stores_discount_price : stores_discount_price
+				stores_discount_price : stores_discount_price,
+				stores_sort_order : stores_sort_order
 			}
 		}
 		

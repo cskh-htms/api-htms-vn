@@ -10,6 +10,7 @@
 		"stores_name"				: "",	
 		"stores_payment_limit"		: 0,
 		"stores_service_type_id"	: "",
+		"stores_sort_order"			:0,
 		
 		"stores_adress"				: "",		
 		"stores_province"			: "",

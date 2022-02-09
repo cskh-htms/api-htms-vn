@@ -41,8 +41,8 @@ const store_search = function (datas,res) {
 			fields_get.link_default + 
 			sql_condition +
 			sql_group_by + 
+			sql_having + 			
 			sql_order + 
-			sql_having + 
 			sql_limit;
 		
 	}

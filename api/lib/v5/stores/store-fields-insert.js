@@ -18,6 +18,8 @@ const  default_fields = {
 	"stores_information"		: "",
 	
 	"stores_discount_price" 	: 0,
+	"stores_sort_order" 		: 0,
+	
 
 	"stores_status_admin" 		: 0	,
 	"stores_status_stores" 		: 0	,

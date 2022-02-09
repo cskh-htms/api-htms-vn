@@ -78,7 +78,8 @@ async  function controllers_store_app(req, res, next) {
 				"stores_ID",
 				"stores_name",
 				"stores_logo_image",
-				"stores_date_created"
+				"stores_date_created",
+				"stores_sort_order"
 			],
 			"condition" :
 			[
@@ -97,7 +98,7 @@ async  function controllers_store_app(req, res, next) {
 			"order" :
 			 [		 
 				{    
-					"field"  :"stores_date_created",
+					"field"  :"stores_sort_order",
 					"compare" : "DESC"
 				}			
 			]    
