@@ -267,6 +267,63 @@ $(document).ready(function($){
 			});	//end of ajax
 		},//end of ajax save				
 		//
+		
+		//
+		//
+		//ajax_update_stock
+		ajax_update_stock: function(datas,product_id){		
+			//console.log(datas,product_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/products/speciality/update-stock/" + product_id,
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+							if(typeof result.message == 'string' && result.message){
+								ojs_message.message_ok_show(result.message);
+							}else{
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									//ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm \n xem lỗi ở console");
+								}else{
+									//ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
+								}
+							}
+						}else{
+							var x = location.href;
+							var y = x.search("admin");
+							var x_arr = x.split("/");
+							var z = x_arr[x_arr.length - 1];
+							if(y > 0){
+								//ojs_message.message_ok_show(" Đã update","/products/speciality/");
+							}else{
+								//ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
+							}		
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		
+		
+		
 		//load danh muc cua hang
 		ajax_delete: function(product_id){		
 			//alert(product_id);

@@ -608,7 +608,30 @@ $(document).ready(function($){
 
 
 
-
+	// ajax update ton kho
+	$(document).on('change','#products_speciality_stock_status,#products_speciality_stock',function(e) {		
+		e.preventDefault();
+		if($( '#products_speciality_stock_status' ).prop( "checked" )){
+			var products_speciality_stock_status = 1;	
+		}else{
+			var products_speciality_stock_status = 0;	
+		}
+		
+		//@@
+		//@@
+		var product_id = $('#product_id').val();
+		var products_speciality_stock = $('#products_speciality_stock').val();
+		var datas = {
+			"datas":{
+				products_speciality_stock : products_speciality_stock,
+				products_speciality_stock_status : products_speciality_stock_status,
+			}
+		}		
+		//console.log([datas,product_id]);
+		//return;
+		ojs_products_speciality.ajax_update_stock(datas,product_id);
+		
+	});//end of save ajax
 
 	
 	//@

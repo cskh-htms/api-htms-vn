@@ -78,14 +78,35 @@ BEGIN
 		SET MESSAGE_TEXT = 'trig_check_owner_discount_program_no_discount_program'; 	
 	END IF;	
 	
-	
-		
-		
-	
-
 END $$
 DELIMITER ;
 
+
+--
+-- 
+DROP TRIGGER  IF EXISTS  trig_discount_program_details_after_update;
+--
+
+DELIMITER $$ 
+CREATE TRIGGER trig_discount_program_details_after_update AFTER UPDATE ON dala_discount_program_details 
+FOR EACH ROW  
+BEGIN  
+
+	-- update bảng details discount
+	IF(NEW.dala_discount_program_details_status_admin = '4') THEN 
+		update  dala_products_speciality 
+		INNER JOIN dala_discount_program_product_link 
+		ON dala_products_speciality_ID = dala_discount_program_product_link_product_speciality_id  
+		
+		INNER JOIN  dala_discount_program_details  
+		ON dala_discount_program_product_link_discount_program_details_id = dala_discount_program_details_ID 	
+		set dala_products_speciality_date_end = ADDDATE(NEW.dala_discount_program_details_date_created, 
+			NEW.dala_discount_program_details_limit_day )   
+		where dala_discount_program_product_link_discount_program_details_id = NEW.dala_discount_program_details_ID;
+	END IF;		
+	
+END $$
+DELIMITER ;
 
 
 
