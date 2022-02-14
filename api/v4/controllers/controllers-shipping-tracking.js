@@ -1770,12 +1770,12 @@ try {
 				"order": order
 			}	
 
-		//res.send({ "error" : "" , "datas" : datas_send}); 
-		//return;							
+		res.send({ "error" : "" , "datas" : datas_send}); 
+		return;							
 		
 		
-		//var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
-		//res.send({ "error" : "asd" , "datas" : result_ghtk}); 
+		var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
+		res.send({ "error" : "" , "datas" : result_ghtk}); 
 		//return;
 		
 		//@

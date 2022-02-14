@@ -65,7 +65,8 @@ SET @checkID2 = (
 	LEFT JOIN dala_orders_speciality  
 	ON dala_orders_details_speciality_order_id  = dala_orders_speciality_ID  
 	where dala_orders_speciality_user_id  =  NEW.dala_reviews_speciality_user_id 
-	and  dala_orders_details_speciality_product_id =  NEW.dala_reviews_speciality_product_id 	
+	and  dala_orders_details_speciality_product_id =  NEW.dala_reviews_speciality_product_id 
+		limit 1 
 );
 	
 IF (@checkID2 is null or @checkID2 = '' or @checkID2 = 'null' ) THEN   

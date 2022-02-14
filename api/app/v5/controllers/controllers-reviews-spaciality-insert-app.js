@@ -32,7 +32,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 		if(!datas.reviews_speciality_user_id){
 			res.send({ 
 				"error" : "1" , 
-				"position" : "ctl-review->insert-app",
+				"position" : "api-ctl-review->insert", 
 				"message" : " Chưa nhập mã khách hàng (user_id) " 
 			});
 			return;
@@ -40,7 +40,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 		if(!datas.reviews_speciality_product_id){
 			res.send({ 
 				"error" : "11" , 
-				"position" : "ctl-review->insert-app",
+				"position" : "api-ctl-review->insert", 
 				"message" : " Chưa nhập mã sản phẩm (user_id) " 
 			});
 			return;
@@ -56,7 +56,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "111", 
-			"position" : "ctl-review->insert_app",
+			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 		}); 
 		return;	
@@ -94,7 +94,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "22",
-			"position" : "ctl-review->insert-app", 
+			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 		}); 
 		return;			
@@ -144,7 +144,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4",
-			"position" : "ctl-review->insert_app",
+			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 			}); 
 		return;	
@@ -166,7 +166,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 	catch(error){
 		var message_error = fields_insert.get_message_error(error);
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error,
@@ -174,7 +174,7 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "5",
-			"position" : "ctl-review->insert", 
+			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 		}); 
 		return;

@@ -1,9 +1,32 @@
-var express = require('express');
-var router = express.Router();
+
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
+const express = require('express');
+const router = express.Router();
 const fetch = require('node-fetch');
 
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+
+const controller_review_get_all = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-get-all.js');
+
+
+//end of v5
+
 const ojs_shares = require('../../models/ojs-shares');
+
+
+
+
+
+
+
+router.get('/', controller_review_get_all);
+
+
 
 
 
@@ -14,7 +37,7 @@ const ojs_shares = require('../../models/ojs-shares');
 //@@
 //@
 //danh sách
-router.get('/', async function(req, res, next) {
+router.get('/sdasd', async function(req, res, next) {
 	//
 	let token = req.session.token;	
 	//res.send("welCom !!!");
