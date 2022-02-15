@@ -15,7 +15,7 @@ const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_V
 
 const get_data_news_admin = require('../../shares/get-data-news-admin-appdalacom-api.js');
 
-//const review_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search');
+const review_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search');
 
 
 
@@ -37,7 +37,7 @@ async  function controllers_review_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-review-get-all-appdalacom-api.js",
+			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -59,7 +59,7 @@ async  function controllers_review_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-review-get-all-appdalacom-api.js", 
+			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;			
@@ -78,14 +78,56 @@ async  function controllers_review_get_all(req, res, next) {
 			let result = get_data_news_admin(res);
 			resolve(result);
 		});	
-		//promise_all.push(fn_get_data_news_admin);
+		promise_all.push(fn_get_data_news_admin);
 
 		
+		//@ 2. review list
+		var data_review = 		
+			{
+				"select_field" :
+				[
+					"reviews_speciality_user_id",
+					"reviews_speciality_product_id",	
+					"reviews_speciality_contents",
+					"reviews_speciality_images",
+					"reviews_speciality_videos",
+					"reviews_speciality_status_admin",
+					"reviews_speciality_number_star",
+					"users_full_name"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[  
+							{
+								"field" : "reviews_speciality_status_admin",
+								"value" : [0,1],
+								"compare" : "in"
+							}						
+						]    
+					}         
+				],
+				"order" :
+				 [
+					{    "field"  :"reviews_speciality_date_created",
+						"compare" : "DESC"
+					}   
+				] 
+			}
+
+		var fn_get_data_review = new Promise((resolve, reject) => {
+			let result = review_search.search_reviews_spaciality(data_review,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_data_review);		
+		
+		
+		
+		//@
+		//@
 		var promise_result = await Promise.all(promise_all);
-		res.send(promise_result);
-		return;
-		
-		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -93,11 +135,11 @@ async  function controllers_review_get_all(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
+				"Lỗi get data review, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/contriller/bussiness/controllers-review-get-all-appdalacom-api.js",
+			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -105,14 +147,8 @@ async  function controllers_review_get_all(req, res, next) {
 	
 	let notes = {
 		"0":"no", 
-		"1":"news bussiness",
-		"2":"count item", 
-		"3":"store taget",
-		"4":"product sale", 
-		"5":"product max",
-		"6":"product max detail", 
-		"7":"order list",	
-		"8":"coupon",		
+		"1":"news admin",
+		"2":"review list"
 	}
 	promise_result.push(notes);
 

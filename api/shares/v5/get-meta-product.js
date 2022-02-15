@@ -186,7 +186,8 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 				"reviews_speciality_images",
 				"reviews_speciality_videos",
 				"reviews_speciality_status_admin",
-				"reviews_speciality_number_star"				
+				"reviews_speciality_number_star",
+				"users_full_name"			
 			],
 			"condition" :
 			[
