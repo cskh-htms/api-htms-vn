@@ -2156,14 +2156,14 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 	//@
 	//@
 	
-	var datas =  {
-		
+	var datas =  {		
 		"datas":{
 			"products_speciality_name":"draf",
 			"products_speciality_store_id":store_id,
 			"products_speciality_price":0,
 			"products_speciality_weight": 100
-		}
+		},
+		"cat_string":"[87]"
 	}		
 	
 	//res.send(datas);

@@ -536,8 +536,21 @@ $(document).ready(function($){
 	$(document).on('click','.level-2 > .cat_check_edit',function(e) {		
 		if($(this).prop( "checked" )){
 			$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
-			
+			$('#cat_87').prop('checked', false);
 		}else{
+			
+			
+			var i_check = 0;
+			$( ".cat_check_edit" ).each(function( index ) {
+				 if($(this).prop( "checked" )){
+					 i_check = i_check + 1;
+				 }
+			});			
+			
+			if(i_check <= 1){
+				$('#cat_87').prop('checked', true);
+			}
+			
 			//$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
 			$(this).parent('li').find('ul li .cat_check_edit ').prop('checked', false);
 			var ox = $(this).parent('li').parent('ul').parent('li').find('.cat_check_edit');
@@ -557,9 +570,18 @@ $(document).ready(function($){
 		if($(this).prop( "checked" )){
 			$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
 			$(this).parent('li').parent('ul').parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
+			$('#cat_87').prop('checked', false);
 		}else{
-			//$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
-			//$(this).parent('li').parent('ul').parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
+			var i_check = 0;
+			$( ".cat_check_edit" ).each(function( index ) {
+				 if($(this).prop( "checked" )){
+					 i_check = i_check + 1;
+				 }
+			});			
+			
+			if(i_check <= 1){
+				$('#cat_87').prop('checked', true);
+			}
 		}		
 	});	
 	

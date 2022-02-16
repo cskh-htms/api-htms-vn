@@ -181,10 +181,8 @@ try {
 
 
 	//res.send([datas_assign]);
-	//return;	
+	//return;
 	
-	//@	
-	//@	
 	//@	
 	//@ run model
 	try {
@@ -193,12 +191,13 @@ try {
 			return;
 		}, error => {
 			var message_error = default_field.get_message_error(error);
-
+			
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "7", "position":"ctl-products-spaciality->insert", "message": error_send  } ); 
 			return;
+			
 		});
 	}
 	catch(error){
@@ -217,8 +216,6 @@ catch(error){
 	return;	
 }		
 }
-
-
 //@ * end of 1. [insert_products]
 
 

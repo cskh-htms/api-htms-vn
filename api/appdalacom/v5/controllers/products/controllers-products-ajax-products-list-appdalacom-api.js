@@ -231,32 +231,6 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}
 	
 	
-	//@ khuyen mai
-	if(datas.discount_data == -1){
-		condition_data.push(
-			{   
-				"field"     :"products_speciality_status_store",
-				"value"     : 0,
-				"compare" : "="
-			} 
-		)		
-	}else{
-		condition_data.push(
-			{   
-				"field"     :"products_speciality_status_store",
-				"value"     : 1,
-				"compare" : "="
-			} 
-		)		
-		condition_data.push(
-			{   
-				"field"     :"products_speciality_status_admin",
-				"value"     : datas.status_data,
-				"compare" : "in"
-			} 
-		)		
-	}	
-	
 	//@ discount
 	var having_data = [];
 	having_data.push(

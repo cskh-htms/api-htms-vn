@@ -27,6 +27,7 @@
 * 993. [get_all_sale_in]
 
 * 10. [get_all_comment_in]
+
 * 11. [get_all_review_in]
 
 */
@@ -206,7 +207,6 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 	//@
 	//return [datas,cat_string,option_string];	
 	
-	
 	//@
 	//@
 	try{
@@ -283,35 +283,15 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 		//return [dataGo,sql_text];
 		
 		//
-		// sql options
-		//
-		if(option_string && option_arr.length > 0){
-			let sql_option_all = "";
-			for(let i = 0; i < option_arr.length; i ++){
-				
-				///ex
-				sql_option = "INSERT INTO " + ojs_configs.db_prefix + "options_product_speciality_link  ";
-				sql_option = sql_option + "(" +
-								ojs_configs.db_prefix + "options_product_speciality_link_product_id" + "," + 
-								ojs_configs.db_prefix + "options_product_speciality_link_option_id" + 
-							") " + 
-							"values(" + 
-							"@aa, " + 
-							option_arr[i] + 
-							") ; ";		
-				sql_option_all	= sql_option_all + 	sql_option		
-			}//end of for option_arr	
-			
-			
-			sql_text = sql_text + sql_option_all;
-		}
-		//
 		// end of sql options
 		//-----------------------------	
 
 		//
 		// sql category
+		//return cat_arr.length;
+		
 		if(cat_string && cat_arr.length > 0){
+			
 			let sql_cat_all = "";
 			for(let i = 0; i < cat_arr.length; i ++){
 				///ex
