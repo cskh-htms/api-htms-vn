@@ -67,7 +67,7 @@ async  function review_get_all(req, res, next) {
 			'user_id' 				: ojs_shares_others.get_users_id(token),	
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
-			'sidebar_type'			: 4,
+			'sidebar_type'			: "",
 			'menu_taget'			:'sidebar_reviews',	
 
 			'review_list' 			: data_api_resuilt[2],		
@@ -84,7 +84,7 @@ async  function review_get_all(req, res, next) {
 			'user_id' 				: ojs_shares_others.get_users_id(token),	
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
-			'sidebar_type'			: 4,
+			'sidebar_type'			: "",
 			'menu_taget'			:'sidebar_reviews',	
 
 			'review_list' 			: data_api_resuilt[2],		
