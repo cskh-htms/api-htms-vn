@@ -64,7 +64,7 @@ const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
 //@
 //model
 const models_products_spaciality = require('../models/models-products-spaciality');
-
+const ojs_shares_send_email = require('../../../models/ojs-shares-send-email');
 
 
 
@@ -767,7 +767,7 @@ try {
 	//@
 	//@
 	//@
-	// lấy thông tin optiton để kiểm tranh option đã pushlish chưa
+	// lấy thông tin product để kiểm tranh product đã pushlish chưa
 	try {
 		var push_check = await models_products_spaciality.get_one_products_spaciality(product_id);
 		
@@ -879,8 +879,32 @@ try {
 	//@
 	try {
 		models_products_spaciality.update_products_spaciality(datas,product_id,cat_string, option_string).then( results => {
+			
+			
+			//var email_to = "lehongson.tc@gmail.com";
+			var email_to = "vanluc.wordpress@gmail.com";
+			var email_title = "Có sản phẩm mới cần duyệt";
+			var email_content = '<p> Có sản phẩm mới cần duyệt</p>';
+			//@
+			//@
+			ojs_shares_send_email.send_email_to_admin(res,email_to,email_title,email_content);		
+
+			//var email_to2 = "dalavn.group@gmail.com";
+			var email_to2 = "htms.group.vn@gmail.com";
+			var email_title2 = "Có sản phẩm mới cần duyệt";
+			var email_content2 = '<p>Có sản phẩm mới cần duyệt</p>';
+			//@
+			//@
+			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title2,email_content2);			
+			
+			
 			res.send( {"error" : "", "datas" : results} );
 			return;
+			
+			
+			
+			
+			
 		}, error => {
 			let message_error = default_field.get_message_error(error);
 			

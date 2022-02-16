@@ -105,7 +105,7 @@ const ojs_shares_send_email = {
 				res.send({"error":"function send email 1","message":err});
 				return;
 			} else {
-				res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});
+				res.send({"error":"","datas":"đã gữi email : " +  email_to});
 				return;
 			}
 		});		
