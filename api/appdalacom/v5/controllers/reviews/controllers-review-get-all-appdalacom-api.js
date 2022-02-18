@@ -87,6 +87,7 @@ async  function controllers_review_get_all(req, res, next) {
 				"select_field" :
 				[
 					"reviews_speciality_user_id",
+					"reviews_speciality_ID ",
 					"reviews_speciality_date_created",
 					"reviews_speciality_product_id",	
 					"reviews_speciality_contents",

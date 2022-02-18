@@ -19,6 +19,12 @@
 	* 3.1 [shipper_cap_nhat_order]
 
 
+4. REVIEW
+	* 4.1 [duyet_danh_gia]
+
+
+
+
 ----------------------------------------------------------
 */
 
@@ -37,6 +43,36 @@ ojs_loadding_message_callback = {
 		alert("hú hú test test");
 	},
 	
+
+
+
+
+
+	//@
+	//@
+	/*---------------------------------------
+	          4. REVIEWS
+	// -------------------------------------*/
+	//@
+	//@
+	//@
+	//@
+	//@ 3.1 [shipper_cap_nhat_order]
+	duyet_danh_gia:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let review_id = datas_parse.review_id;
+		//let datas = datas_parse.datas;
+		
+		//console.log(review_id);
+		//return;
+		
+		ojs_reviews_speciality.duyet_danh_gia(review_id);
+		
+	},//huy_tham_gia_discount
+
+
+
+
 
 
 

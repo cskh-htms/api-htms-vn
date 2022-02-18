@@ -84,14 +84,16 @@ $(document).ready(function($){
 
 
 	//xoa
-	$(document).on('click','.duyet',function(e) {	
+	$(document).on('click','.duyet a',function(e) {	
 		//@
 		e.preventDefault();		
 		let review_id = $(this).attr("data_review_id");
+		//alert(review_id);
+		//return;
 		//
 		//@
 		let x = "xác nhận Phê duyệt";		
-		let y = "delete_review_speciality";//function name in callback 
+		let y = "duyet_danh_gia";//function name in callback 
 		let z = ' { "review_id" : "' + review_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@

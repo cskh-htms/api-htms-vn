@@ -12,7 +12,7 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 const controller_review_get_all = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-get-all.js');
-
+const controller_review_duyet_danh_gia = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-duyet-danh-gia.js');
 
 //end of v5
 
@@ -25,8 +25,7 @@ const ojs_shares = require('../../models/ojs-shares');
 
 
 router.get('/', controller_review_get_all);
-
-
+router.post('/duyet-danh-gia/:review_id', controller_review_duyet_danh_gia);
 
 
 
