@@ -34,7 +34,7 @@
 				products_speciality_status_admin : 0,
 				products_speciality_status_update : 0,
 				products_speciality_status_store : 0,
-				
+				products_speciality_show_hide : 0,
 				
 				products_speciality_variation_option : '',
 				products_speciality_excerpt : '',	

@@ -7,11 +7,32 @@ const fetch = require('node-fetch');
 const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
-const controller_product_by_store = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js');
-const controller_ajax_products_list = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list.js');
-const controller_ajax_products_list_table = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list-table.js');
+const controller_product_by_store = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js'
+);
+const controller_ajax_products_list = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list.js'
+);
+const controller_ajax_products_list_table = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list-table.js'
+);
 
-const controller_product_update_stock = require('../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-update-stock.js');
+const controller_product_update_stock = require(
+   '../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-update-stock.js'
+);
+const controller_product_phe_duyet = require(
+   '../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-phe-duyet.js'
+);
+
+const controller_product_tu_choi = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-tu-choi.js'
+);
+
+const controller_product_store_update = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-update.js'
+);
+
+
 
 //end of v5
 
@@ -36,6 +57,11 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 const ojs_datas_products = require('../../models/ojs-datas-products');
 const ojs_datas_orders = require('../../models/ojs-datas-orders');
+
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +107,10 @@ router.post('/ajax-products-list/', controller_ajax_products_list);
 router.post('/ajax-products-list-table/', controller_ajax_products_list_table);
 
 router.post('/update-stock/:product_id', controller_product_update_stock);
+router.post('/duyet/:product_id', controller_product_phe_duyet);
+router.post('/tu-choi/:product_id', controller_product_tu_choi);
+router.post('/store-update/:product_id', controller_product_store_update);
+
 
 //@ 
 //@ 
@@ -211,7 +241,7 @@ router.post('/test/', async function(req, res, next) {
 //@
 //@
 //@ 9. [/tu-choi/:product_id]
-router.post('/tu-choi/:product_id', async function(req, res, next) {
+router.post('asdasdasd/tu-choi/:product_id', async function(req, res, next) {
 	
 	//@
 	//@
@@ -260,7 +290,7 @@ router.post('/tu-choi/:product_id', async function(req, res, next) {
 //@
 //@
 //@ 8. [/duyet/:product_id]
-router.post('/duyet/:product_id', async function(req, res, next) {
+router.post('asdasd/duyet/:product_id', async function(req, res, next) {
 	
 	//@
 	//@
@@ -1537,7 +1567,7 @@ router.get('dang-lam/:store_id', async function(req, res, next) {
 //@
 //@
 //@ 3. [/update/:product_id]
-router.post('/update/:product_id', async function(req, res, next) {
+router.post('asdasd/update/:product_id', async function(req, res, next) {
 	
 	//@
 	//@

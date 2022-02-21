@@ -104,6 +104,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "products_speciality_brand as products_speciality_brand, " + 
 	ojs_configs.db_prefix  + "products_speciality_status_admin as products_speciality_status_admin, " + 
 	ojs_configs.db_prefix  + "products_speciality_status_store as products_speciality_status_store, " + 
+	ojs_configs.db_prefix  + "products_speciality_show_hide as products_speciality_show_hide, " + 
 	ojs_configs.db_prefix  + "products_speciality_status_update as products_speciality_status_update, " + 
 	
 	
@@ -253,6 +254,7 @@ const insert_products_spaciality = async function (datas,cat_string,option_strin
 			"products_speciality_brand" : datas.products_speciality_brand,
 			"products_speciality_status_admin" : datas.products_speciality_status_admin,
 			"products_speciality_status_store" : datas.products_speciality_status_store,
+			"products_speciality_show_hide" : datas.products_speciality_show_hide,
 			"products_speciality_status_update" : datas.products_speciality_status_update,
 			"products_speciality_variation_option" : mysql.escape(datas.products_speciality_variation_option).replace(/^'|'$/gi, ""),
 			

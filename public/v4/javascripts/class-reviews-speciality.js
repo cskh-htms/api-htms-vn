@@ -70,7 +70,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "demo";
+					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
@@ -83,7 +83,7 @@ $(document).ready(function($){
 								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được reviews");
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã update ",location.href);
+							ojs_message.message_ok_show(" Đã update ","/reviews/speciality/");
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
@@ -108,7 +108,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				ojs_loader.evn = "demo";
+				//ojs_loader.evn = "dev";
 				if(ojs_loader.evn == "dev"){
 					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 					console.log(result);

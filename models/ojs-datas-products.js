@@ -253,6 +253,7 @@ const ojs_datas_products = {
 					"products_speciality_sale_of_price",
 					"products_speciality_sale_of_price_time_check",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -657,6 +658,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -739,6 +741,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -774,6 +777,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -822,6 +826,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -893,6 +898,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -991,6 +997,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -1042,6 +1049,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -1091,6 +1099,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],
@@ -1136,6 +1145,7 @@ const ojs_datas_products = {
 					"products_speciality_discount",
 					"products_speciality_unit_discount",
 					"products_speciality_status_store",
+					"products_speciality_show_hide",
 					"products_speciality_status_admin",
 					"products_speciality_featured_image"
 				],

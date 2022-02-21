@@ -291,10 +291,12 @@ content
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái admin</h3>	
 				<div class="inside">
-					<!--<span>Cửa hàng:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
-					<select id="products_speciality_status_store">
-						<%- ojs_share.show_status_select_share_all_two(datas[0].products_speciality_status_store) %>
-					</select>	-->
+				
+					<span>Ẩn hiện</span><span class="giai-thich"><span>Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
+					<select id="products_speciality_show_hide">
+						<%- ojs_share.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
+					</select>	
+					
 					<select id="products_speciality_status_admin"  <%- status_disebale %> >
 						<%- ojs_share.show_status_select_share_all(datas[0].products_speciality_status_admin) %>
 					</select>
@@ -594,18 +596,21 @@ $(document).ready(function($){
 		var datas = get_datas();
 		datas.datas.products_speciality_status_store = 0;
 		console.log(datas);
-		ojs_products_speciality.ajax_update(datas,product_id);	
+		ojs_products_speciality.ajax_update_store(datas,product_id);	
 		
 	});//end of save ajax	
 	
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();	
+		
+		//alert('asdasd');
+		//return;
+	
 		var product_id = $('#product_id').val();
-		var datas = get_datas();
-		datas.datas.products_speciality_status_store = 1;		
+		var datas = get_datas();	
 		//console.log(datas);	
 		//return;
-		ojs_products_speciality.ajax_update(datas,product_id);			
+		ojs_products_speciality.ajax_update_store(datas,product_id);			
 	});//end of save ajax
 
 
@@ -654,6 +659,27 @@ $(document).ready(function($){
 		ojs_products_speciality.ajax_update_stock(datas,product_id);
 		
 	});//end of save ajax
+
+
+	// ajax update ton kho
+	$(document).on('change','#products_speciality_show_hide',function(e) {		
+		e.preventDefault();
+		//@@
+		//@@
+		var product_id = $('#product_id').val();
+		var products_speciality_show_hide = $('#products_speciality_show_hide').val();
+		var datas = {
+			"datas":{
+				products_speciality_show_hide : products_speciality_show_hide
+			}
+		}		
+		//console.log([datas,product_id]);
+		//return;
+		ojs_products_speciality.ajax_update_show_hide(datas,product_id);
+		
+	});//end of save ajax
+
+
 
 	
 	//@
@@ -707,7 +733,7 @@ $(document).ready(function($){
 		var products_speciality_type = $('#products_speciality_type  option:selected').val();
 		
 		var products_speciality_status_admin = $('#products_speciality_status_admin  option:selected').val();
-		
+		var products_speciality_show_hide = $('#products_speciality_show_hide  option:selected').val();
 		
 		
 		var products_speciality_sku = $('#products_speciality_sku').val();
@@ -822,7 +848,8 @@ $(document).ready(function($){
 				products_speciality_length : products_speciality_length,
 				products_speciality_weight : products_speciality_weight,
 				products_speciality_qoute : products_speciality_qoute,
-				products_speciality_status_admin : products_speciality_status_admin				
+				products_speciality_status_admin : products_speciality_status_admin,
+				products_speciality_show_hide :products_speciality_show_hide				
 			}
 		}
 		return datas;

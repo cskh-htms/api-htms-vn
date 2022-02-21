@@ -13,7 +13,9 @@ const config_api = require('../../api/configs/config-api');
 
 const controller_review_get_all = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-get-all.js');
 const controller_review_duyet_danh_gia = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-duyet-danh-gia.js');
-
+const controller_review_delete = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-delete.js');
+const controller_review_show = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-show.js');
+const controller_review_update = require('../../controllers/' + ojs_configs.controller_version + '/reviews/controllers-review-update.js');
 //end of v5
 
 const ojs_shares = require('../../models/ojs-shares');
@@ -26,7 +28,9 @@ const ojs_shares = require('../../models/ojs-shares');
 
 router.get('/', controller_review_get_all);
 router.post('/duyet-danh-gia/:review_id', controller_review_duyet_danh_gia);
-
+router.get('/delete/:review_id', controller_review_delete);
+router.get('/show/:review_id', controller_review_show);
+router.post('/update/:review_id', controller_review_update);
 
 
 //@
@@ -120,7 +124,7 @@ router.get('/sdasd', async function(req, res, next) {
 //@@
 //
 //
-router.get('/show/:review_id', async function(req, res, next) {
+router.get('asd/show/:review_id', async function(req, res, next) {
 	//
 	let token = req.session.token;	
 	let review_id = req.params.review_id;
@@ -205,7 +209,7 @@ router.get('/show/:review_id', async function(req, res, next) {
 //@@
 //
 //update
-router.post('/update/:review_id', async function(req, res, next) {
+router.post('asd/update/:review_id', async function(req, res, next) {
 	//
 	let token = req.session.token;	
 	let review_id = req.params.review_id;
@@ -264,7 +268,7 @@ router.post('/update/:review_id', async function(req, res, next) {
 //@@
 //
 //
-router.get('/delete/:review_id', async function(req, res, next) {
+router.get('asdasd/delete/:review_id', async function(req, res, next) {
 	//
 	let token = req.session.token;	
 	let review_id = req.params.review_id;

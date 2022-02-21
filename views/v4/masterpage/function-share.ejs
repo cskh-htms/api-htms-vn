@@ -739,6 +739,27 @@ ojs_share = {
 	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
 	//@
+	show_status_select_share_show_hide: function(status){
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Hiện</option>' + 
+			'<option value="1">Ẩn</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Hiện</option>' + 
+			'<option value="1" selected>Ẩn</option>'
+		}		
+		//	
+		return result;	
+	},		
+	//@
+	//@
+	//@
+	//@ hiển thị trạng thái duyệt
+	//dùng cho tất cả 
+	//@
 	show_status_table_share_all: function(status){
 		//
 		let result = "";

@@ -1,11 +1,21 @@
 
 
 const mysql = require('mysql');
-const connection = require('../connections/connections');
+
+
 const config_database = require ('../../../configs/config-database');
+const config_api = require ('../../../configs/config-api');
+const ojs_configs = require('../../../../configs/config');
+
+const connection = require('../connections/connections');
+const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
+const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 
-const update_reviews_spaciality = async function (datas,review_id) {
+
+
+
+const update_reviews_spaciality = async function (datas,review_id,res) {
 	
 	
 	let sqlSet = "";
@@ -46,17 +56,43 @@ const update_reviews_spaciality = async function (datas,review_id) {
 	//return(sql_text);
 	
 	
-	
+	//@
 	try {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;
+					evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							"Lỗi update review, Vui lòng liên hệ admin" 
+						);
+					res.send({ 
+						"error" : "2",
+						"position" : "lib/reviews/reviews - update", 
+						"message": error_send 
+					}); 
+					return;
+				}
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		return  { "error" : "1", "position":"lib -> update review", "message" : error } ;
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi orders search, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "3",
+			"position" : "lib/reviews/reviews - update", 
+			"message": error_send 
+		}); 
+		return;
 	}
 };	
 

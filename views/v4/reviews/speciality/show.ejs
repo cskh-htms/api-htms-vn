@@ -1,8 +1,9 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% 
+if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
+%>
 <% include ../../masterpage/loader %>
 
-<script src="../../../javascripts/class-reviews-speciality.js"></script>	
+<script src="../../../../../<%= js_css_version %>/javascripts/class-reviews-speciality.js"></script>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -11,6 +12,13 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-all %>
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
 
 
 
@@ -18,7 +26,8 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-	<h1><%= title %></h1>
+
+	<h1><a href="/admin/">admin</a><i class="fas fa-chevron-right"></i>Chỉnh sữa đánh giá</h1>
 
 
 	<p><span>Ngày đăng</span><input type="text" value="<%= datas[0].reviews_speciality_date_created %>" id="reviews_speciality_date_created" /> </p>
@@ -26,13 +35,11 @@ content
 
 
 
-
-
 	<!-- ------------------
 	Mô tả danh mục
 	------------------- -->
 	<div class="value_row">
-		<span>Contents reviews</span>
+		<span>Contents reviews</span><br>
 		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].reviews_speciality_contents ) %></textarea>
 	</div>
 	<!-- ------------------
@@ -40,9 +47,9 @@ content
 	------------------- -->
 
 
-	<div>
+	<div style="display:none;">
 	<span>Trạng thái cửa hàng<span>
-		<select id="reviews_speciality_status_store">
+		<select id="reviews_speciality_status_store" >
 			<%- ojs_share.show_status_product(datas[0].reviews_speciality_status_store) %>
 		</select>	
 	</div>
@@ -59,26 +66,19 @@ content
 
 
 
-
-
-
-
 <div class="btn_box">
 	<a href="/reviews/general/show-all/" class="btn_back">Quay về</a>
 	<button id="btn_save" class="btn_save">Save</button>
 </div>	
 	
 <input type="hidden" id="review_id" value="<%= review_id %>"/>	
-<input type="hidden" id="users_id" value="<%= users_id %>"/>
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 
 </div>
-
 <!-- --------------------
 end content
 --------------------- -->
-
-
 
 
 
@@ -100,14 +100,11 @@ end content
 
 
 
+
+
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
-	//@
-	ojs_loader.loadTinyMCE('noi_dung');
-	
-	
 	// ajax luu san pham
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
@@ -124,12 +121,11 @@ $(document).ready(function($){
 		let reviews_speciality_status_store = $('#reviews_speciality_status_store  option:selected').val();
 		let reviews_speciality_status_admin = $('#reviews_speciality_status_admin  option:selected').val();
 		//@
-		let reviews_speciality_contents = tinymce.get("noi_dung").getContent();
+		let reviews_speciality_contents = $('#noi_dung').val();
 		
 		//
 		let datas = {
 			"datas":{
-				reviews_speciality_status_store : reviews_speciality_status_store,
 				reviews_speciality_status_admin : reviews_speciality_status_admin,
 				reviews_speciality_contents : reviews_speciality_contents,
 				reviews_speciality_date_created : reviews_speciality_date_created,
@@ -162,9 +158,5 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
-
-
-
-
 
 

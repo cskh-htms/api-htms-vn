@@ -59,12 +59,12 @@ const ojs_shares_owner = require('../function-shares/ojs-shares-owner');
 
 
 
-
 //@
 //@
 //model
 const models_products_spaciality = require('../models/models-products-spaciality');
 const ojs_shares_send_email = require('../../../models/ojs-shares-send-email');
+const ojs_get_email_content_create_product = require('../../../models/get-content-email-create-product.js');
 
 
 
@@ -880,22 +880,37 @@ try {
 	try {
 		models_products_spaciality.update_products_spaciality(datas,product_id,cat_string, option_string).then( results => {
 			
-			
-			//var email_to = "lehongson.tc@gmail.com";
-			var email_to = "vanluc.wordpress@gmail.com";
-			var email_title = "Có sản phẩm mới cần duyệt";
-			var email_content = '<p> Có sản phẩm mới cần duyệt</p>';
-			//@
-			//@
-			ojs_shares_send_email.send_email_to_admin(res,email_to,email_title,email_content);		
+			if(
+			datas.products_speciality_status_store == "1" 
+			&& check_datas_result.user_role != "admin"
+			){
+				if(datas.products_speciality_status_admin == "2"){
+					var email_title = "DALA - Có sản Phẩm chỉnh sữa cần phê duyệt";					
+				}else{
+					var email_title = "DALA - Có sản Phẩm mới cần phê duyệt";	
+				}
+				/*
+				var email_to1 = ojs_configs.email_admin_01;
+				var email_content1 = '<p> Có sản phẩm mới cần duyệt</p>';
+				ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content1);		
 
-			//var email_to2 = "dalavn.group@gmail.com";
-			var email_to2 = "htms.group.vn@gmail.com";
-			var email_title2 = "Có sản phẩm mới cần duyệt";
-			var email_content2 = '<p>Có sản phẩm mới cần duyệt</p>';
-			//@
-			//@
-			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title2,email_content2);			
+
+				var email_to2 = ojs_configs.email_admin_02;
+				var email_content2 = '<p>Có sản phẩm mới cần duyệt</p>';
+				ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content2);			
+				*/
+				
+				var email_to3 = ojs_configs.email_admin_03;
+				var email_content3 = ojs_get_email_content_create_product.get_content(datas);
+				ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content3);				
+				
+				
+				
+				var email_to4 = ojs_configs.email_admin_04;
+				var email_content4 = ojs_get_email_content_create_product.get_content(datas);
+				ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+			}
+			
 			
 			
 			res.send( {"error" : "", "datas" : results} );

@@ -76,7 +76,7 @@ async  function product_update_stock(req, res, next) {
 	}		
 	
 	//@ send 
-	res.send({"error":"","datas":data_api_resuilt});
+	res.send({"error":"0","datas":data_api_resuilt});
 	return;
 			
 };

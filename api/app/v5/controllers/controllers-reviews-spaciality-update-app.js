@@ -136,7 +136,7 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		}
 		var datas_update = Object.assign(datas,datas_assign);			
 		
-		var update_review_resuilt = await update_review(datas_update,review_id);
+		var update_review_resuilt = await update_review(datas_update,review_id,res);
 		res.send({"error":"","datas": update_review_resuilt});
 		return;
 
@@ -161,7 +161,7 @@ async  function update_reviews_spaciality_app(req, res, next) {
 
 		
 	
-	res.send({"error":"","dataseeee":datas_update}); 
+	res.send({"error":"","datas":datas_update}); 
 	return;
 	
 }
