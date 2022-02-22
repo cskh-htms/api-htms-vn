@@ -41,17 +41,6 @@ const get_email_content_create_product = {
 		//@
 		html_resuilt = html_resuilt + table_text;
 		return html_resuilt;
-	},
-	get_content_duyet : function(product_id){
-		var html_resuilt = "" ;
-		
-		var table_text =  "" + 
-
-		'<p> Sản Phẩm [ ' + product_id + ' ] đã được duyệt';
-		
-		//@
-		html_resuilt = html_resuilt + table_text;
-		return html_resuilt;
 	}	
 }//end of oj_loader
 

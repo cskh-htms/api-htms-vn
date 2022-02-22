@@ -14,9 +14,8 @@ const phe_duyet_product = require('../../../../lib/' + config_api.API_LIB_VERSIO
 
 
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-product');
-
-
+const ojs_get_email_content_create_product = require('../../../../../models/get-content-email-create-product.js');
+const ojs_shares_send_email = require('../../../../../models/ojs-shares-send-email');
 //@
 async  function controllers_products_phe_duyet(req, res, next) {
 
@@ -45,9 +44,7 @@ async  function controllers_products_phe_duyet(req, res, next) {
 
 	// check role;
 	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "bussiness" 
-	|| check_role_result == "admin" 
+	if( check_role_result == "admin" 
 	){
 		//go
 	}
@@ -68,53 +65,32 @@ async  function controllers_products_phe_duyet(req, res, next) {
 	}
 	
 	
-	//@ check_owner_product
-	try{		
-		//@ check_owner_product
-		var check_owner_product_resuilt = await check_owner_product(token,product_id,res);
-	
-		if(	
-		check_owner_product_resuilt == "1" 
-		|| check_role_result == "admin" 
-		){
-			//go
-		}
-		else{
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( 
-					evn, 
-					check_role_result, 
-					"Lỗi phân quyền, Vui lòng liên hệ admin" 
-				);
-			res.send({ 
-				"error" : "333",
-				"position" : "ctroller->api-appdalacom->controllers-products-phe-duyet-appdalacom-api.js", 
-				"message": error_send 
-			}); 
-			return;			
-		}	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi check ownwr store, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "150", 
-			"position" : "ctroller->api-appdalacom->controllers-products-phe-duyet-appdalacom-api.js", 
-			"message": error_send 
-		}); 
-		return;	
-	}	
-
-	
 	try{		
 		//@  phe_duyet_product_resuilt
 		var phe_duyet_product_resuilt = await phe_duyet_product(datas,product_id,res);
+		
+		var email_title = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';					
+
+		var email_to1 = ojs_configs.email_admin_01;
+		var email_content1 = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';
+		ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content1);		
+
+
+		var email_to2 = ojs_configs.email_admin_02;
+		var email_content2 = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';
+		ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content2);			
+
+		
+		var email_to3 = ojs_configs.email_admin_03;
+		var email_content3 = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';
+		ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content3);				
+		
+		
+		
+		var email_to4 = ojs_configs.email_admin_04;
+		var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';
+		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+				
 		res.send(phe_duyet_product_resuilt);
 		return;	
 	
@@ -125,7 +101,7 @@ async  function controllers_products_phe_duyet(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi check ownwr store, Vui lòng liên hệ admin" 
+				"Lỗi datas, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "155", 

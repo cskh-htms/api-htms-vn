@@ -42,6 +42,11 @@ async  function phe_duyet_product(req, res, next) {
 				datas,		
 				token
 			);	
+			
+			res.send({"error":"","datas":data_api_resuilt});
+			return;			
+			
+			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -61,7 +66,7 @@ async  function phe_duyet_product(req, res, next) {
 	
 	if(data_api_resuilt.error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 

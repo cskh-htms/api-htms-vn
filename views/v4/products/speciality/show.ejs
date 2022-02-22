@@ -292,8 +292,8 @@ content
 				<h3>Trạng thái admin</h3>	
 				<div class="inside">
 				
-					<span>Ẩn hiện</span><span class="giai-thich"><span>Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
-					<select id="products_speciality_show_hide">
+					<span style="display:none;">Ẩn hiện</span><span class="giai-thich"style="display:none;"><span style="display:none;">Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
+					<select id="products_speciality_show_hide" style="display:none;">
 						<%- ojs_share.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
 					</select>	
 					
@@ -608,6 +608,7 @@ $(document).ready(function($){
 	
 		var product_id = $('#product_id').val();
 		var datas = get_datas();	
+		datas.datas.products_speciality_status_store = 1;
 		//console.log(datas);	
 		//return;
 		ojs_products_speciality.ajax_update_store(datas,product_id);			

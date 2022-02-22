@@ -1063,8 +1063,8 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		}
 		
 		
-		res.send(data_send);
-		return;
+		//res.send(data_send);
+		//return;
 		
 		
 		

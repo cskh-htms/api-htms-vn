@@ -889,16 +889,16 @@ try {
 				}else{
 					var email_title = "DALA - Có sản Phẩm mới cần phê duyệt";	
 				}
-				/*
+
 				var email_to1 = ojs_configs.email_admin_01;
-				var email_content1 = '<p> Có sản phẩm mới cần duyệt</p>';
+				var email_content1 = ojs_get_email_content_create_product.get_content(datas);
 				ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content1);		
 
 
 				var email_to2 = ojs_configs.email_admin_02;
-				var email_content2 = '<p>Có sản phẩm mới cần duyệt</p>';
+				var email_content2 = ojs_get_email_content_create_product.get_content(datas);
 				ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content2);			
-				*/
+
 				
 				var email_to3 = ojs_configs.email_admin_03;
 				var email_content3 = ojs_get_email_content_create_product.get_content(datas);
