@@ -1063,14 +1063,17 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		}
 		
 		
-		//res.send(data_send);
-		//return;
+		res.send(data_send);
+		return;
+		
+		
+		
 		res.render( ojs_configs.view_version + '/stores/manage', data_send );	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi send", "Lỗi send" );
+		var error_send = ojs_shares_show_errors.show_error( evn, "Cửa hàng đã ngưng hoạt động", "Cửa hàng đã ngưng hoạt động" );
 		res.send({ "error" : "router_store(app)->manage", "message": error_send } ); 
 		return;	
 	}	

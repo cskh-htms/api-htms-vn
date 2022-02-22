@@ -420,6 +420,7 @@ async  function controllers_products_by_store(req, res, next) {
 		//@ 4. category list
 		let data_category_list =    
 		  {
+			  "select_type" : "DISTINCT",
 			"select_field": [
 				"category_general_speciality_link_ID",
 				"category_general_speciality_link_product_id",

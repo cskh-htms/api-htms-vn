@@ -5,16 +5,11 @@
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
 
-<div class="page-nav">
-	<div class="page-nav-inner">
-		<%- ojs_share_page_nav.show_page_nav(product_count_all.length,20,"#") -%>
-	</div>
-</div>
-<div id="ajax-table">
-<table class="table-list">
+<table class="table-list" style="table-layout: auto;">
 	<thead>
 		<tr>
 			<th class="user-name">Sản phẩm</th>
+			<th class="user-name"  style="text-align:center;">Cửa hàng</th>
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
@@ -34,29 +29,35 @@
 				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
 				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem"><%- products_list[x].products_speciality_name %></a>
 				<div class="row-actions">
-					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+					<span class="edit"><a href="/admin/product/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>				
+					<span class="btn-duyet"  data_product_id="<%= products_list[x].products_speciality_ID  %>" ><a href="#">duyệt</a> | </span>
+					<span class="btn-tu-choi"  data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#" >từ chối</a> | </span>					
+					<span class="btn-delete"  data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">Xóa</a></span>
 				</div>
 			</td>
+			
+			<td><%= products_list[x].stores_name %></td>
+			
 			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>			
 			
 			
 			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
-				<td class="pro-price">
+				<td class="pro-price" style="white-space: nowrap;">
 					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
 					<span class="price-off">
 					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
 					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
 				</td>
 			<% } else { %>
-				<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+				<td class="pro-price"  style="white-space: nowrap;"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
 			<% } %>				
 			
 			
 		<td><%= products_list[x].so_luong_da_ban %></td>					
 		<td><%- products_list[x].discount_program[0].name %></td>
 		
-		<td>
+		<td  style="white-space: nowrap;">
 			<%- ojs_share_product.show_stock_html(
 				products_list[x].products_speciality_stock_status,
 				products_list[x].products_speciality_stock
@@ -75,6 +76,7 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Sản phẩm</th>
+			<th class="user-name">Cửa hàng</th>
 			<th>Danh mục</th>
 			<th>Giá</th>
 			<th>Đã bán</th>
@@ -85,22 +87,6 @@
 		</tr>
 	</tfoot>
 </table>
-</div>
-
-
-<div class="page-nav">
-	<div class="page-nav-inner">
-		<%- ojs_share_page_nav.show_page_nav(product_count_all.length,20,"#") -%>
-	</div>
-</div>
-	
-
-
-
-
-
-
-
 
 
 

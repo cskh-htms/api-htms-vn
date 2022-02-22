@@ -1,6 +1,6 @@
 
 <% include ./function-share-page-nav %>
-
+<% include ./function-share-product %>
 
 <% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
@@ -13,6 +13,7 @@
 			<th>Giá</th>
 			<th>Đã bán</th>
 			<th>Chương trình khuyến mãi đang tham gia</th>
+			<th>Tồn kho</th>
 			<th>Cửa hàng phê duyệt</th>
 			<th>Admin phê duyệt</th>
 		</tr>
@@ -47,8 +48,15 @@
 			
 			
 		<td><%= products_list[x].so_luong_da_ban %></td>					
-		<td><%- products_list[x].discount_program[0].name %></td>		
+		<td><%- products_list[x].discount_program[0].name %></td>
+		
+		<td>
+			<%- ojs_share_product.show_stock_html(
+				products_list[x].products_speciality_stock_status,
+				products_list[x].products_speciality_stock
+			) -%>
 			
+		</td>			
 		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>			
 			
@@ -65,6 +73,7 @@
 			<th>Giá</th>
 			<th>Đã bán</th>
 			<th>Chương trình khuyến mãi đang tham gia</th>
+			<th>Tồn kho</th>
 			<th>Cửa hàng phê duyệt</th>
 			<th>Admin phê duyệt</th>
 		</tr>

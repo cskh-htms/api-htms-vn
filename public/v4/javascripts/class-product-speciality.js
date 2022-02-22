@@ -377,10 +377,11 @@ $(document).ready(function($){
 							var y = x.search("admin");
 							var x_arr = x.split("/");
 							var z = x_arr[x_arr.length - 1];
+							
 							if(y > 0){
-								//ojs_message.message_ok_show(" Đã update","/products/speciality/");
+								ojs_message.message_ok_show(" Đã update tồn kho","/products/speciality/");
 							}else{
-								//ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
+								ojs_message.message_ok_show(" Đã update tồn kho","/products/speciality/" + z);
 							}		
 						}
 					}				
@@ -483,7 +484,91 @@ $(document).ready(function($){
 				ojs_loadding.ajax_hide_loadding();	
 			  }			  
 			});	
-		}//end of ajax save				
+		},//end of ajax save	
+
+
+		//load danh muc cua hang
+		ajax_delete_admin: function(product_id){		
+			//alert(product_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "delete",	  
+			  url : ojs_loader.host + "/products/speciality/admin-delete/" + product_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				//ojs_loader.evn = "dev";
+				if(ojs_loader.evn == "dev"){
+					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+					console.log(result);
+				}else{
+					if(result.error.length > 0){
+							if(typeof result.message == 'string' && result.message){
+								ojs_message.message_ok_show(result.message);
+							}else{
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa sản phẩm \n xem lỗi ở console");
+								}else{
+									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa được sản phẩm");
+								}
+							}
+					}else{
+						ojs_message.message_ok_show(" Đã xoá sản phẩm ",location.href);
+					}
+				}				
+				ojs_loadding.ajax_hide_loadding();	
+			  }			  
+			});	
+		},
+
+		//load danh muc cua hang
+		ajax_delete_store: function(product_id){		
+			//alert(product_id);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "delete",	  
+			  url : ojs_loader.host + "/products/speciality/store-delete/" + product_id,
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+				//ojs_loader.evn = "dev";
+				if(ojs_loader.evn == "dev"){
+					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+					console.log(result);
+				}else{
+					if(result.error.length > 0){
+							if(typeof result.message == 'string' && result.message){
+								ojs_message.message_ok_show(result.message);
+							}else{
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa sản phẩm \n xem lỗi ở console");
+								}else{
+									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa được sản phẩm");
+								}
+							}
+					}else{
+						ojs_message.message_ok_show(" Đã xoá sản phẩm ",location.href);
+					}
+				}				
+				ojs_loadding.ajax_hide_loadding();	
+			  }			  
+			});	
+		}		
+		
 		//		//
 	///////////////////////////
 	//////////////////////////////

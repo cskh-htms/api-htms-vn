@@ -4,7 +4,8 @@
 
 /* 
 -------------------------------------------------
-
+	* show_stauts_stock ()
+	* show_stock_html()
 	
 
 --------------------------------------------------
@@ -33,7 +34,28 @@ ojs_share_product = {
 		}
 		//	
 		return result;	
-	}
+	},
+	show_stock_html: function(status,qty){
+		let result = "";
+		
+		if(status == 1){
+			if(qty == 0){
+				result = '' + 
+				'<span style="color:red;"> <b>Hết hàng</b></span>';
+			}else if(qty > 0 && qty < 5){
+				result = '' + 
+				'<span style="color: white;background-color: #c5bf47;display: inline-block; padding: 0px 5px;"> <b>' + qty + '</b></span>';				
+			}else if(qty >= 5){
+				result = '' + 
+				'<span style="color:green;"> <b>' + qty + '</b></span>';				
+			}			 
+		}else{
+				result = '' + 
+				'<span style="color:green;"> <b> Luôn có hàng </b></span>';	
+		}
+		//	
+		return result;	
+	}	
 }
 %>
 

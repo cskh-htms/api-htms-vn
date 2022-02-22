@@ -55,8 +55,6 @@ function get_message_error(error){
 		return " một số option chưa có trong hệ thống ";		
 	}else if(error.sqlMessage.search("category_general_speciality_link_category_general_id") >= 0 ){
 		return " Một số danh mục chưa được tạo sãn ";			
-	}else if(error.sqlMessage.search("a foreign key constraint fails") >= 0 ){
-		return " Danh mục hoặc option id không tìm thấy ";		
 		
 	}else if(error.sqlMessage.search("trig_products_speciality_insert_weight_empty") >= 0 ){
 		return " vui lòng nhập cân nặng của sản phẩm, có thể ước lượng khoảng 200 gram ";			
@@ -64,8 +62,11 @@ function get_message_error(error){
 	}else if(error.sqlMessage.search("trig_products_speciality_update_date_end_less_star") >= 0 ){
 		return " ngày khuyến mãi không hợp lệ ";			
 	
+	}else if(error.errno == 1451 ){
+		return " Sản phẩm đã có liên kết không thể xóa, hãy ẩn đi nếu không muốn bán sản phẩm này ";
+		
 	}else if(error.sqlMessage.search("trig_products_speciality_insert_peice_less_then") >= 0 ){
-		return " giá khuyến mãi không hợp lệ ";
+		return " giá khuyến mãi không hợp lệ ";		
 		
 	}else{
 		return "Lỗi data type insert, xem lại dữ liệu gữi lên";

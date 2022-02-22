@@ -32,6 +32,24 @@ const controller_product_store_update = require(
 	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-update.js'
 );
 
+const controller_product_all_admin = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-all-admin.js'
+);
+
+const controller_ajax_products_list_admin = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list-admin.js'
+);
+const controller_ajax_products_list_table_admin = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-ajax-products-list-table-admin.js'
+);
+
+const controller_product_admin_delete = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-admin-delete.js'
+);
+
+const controller_product_store_delete = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-delete.js'
+);
 
 
 //end of v5
@@ -86,7 +104,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 5. [/ajax-products-list/]
 
-6. [/devare/:product_id/]
+6. [/delete/:product_id/]
 
 7. [/show-content-product/:product_id]
 
@@ -101,7 +119,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 --------------------------------------------------------------
 */
 
-
+router.get('/', controller_product_all_admin);
 router.get('/:store_id', controller_product_by_store);
 router.post('/ajax-products-list/', controller_ajax_products_list);
 router.post('/ajax-products-list-table/', controller_ajax_products_list_table);
@@ -111,7 +129,11 @@ router.post('/duyet/:product_id', controller_product_phe_duyet);
 router.post('/tu-choi/:product_id', controller_product_tu_choi);
 router.post('/store-update/:product_id', controller_product_store_update);
 
+router.post('/ajax-products-list-admin/', controller_ajax_products_list_admin);
+router.post('/ajax-products-list-table-admin/', controller_ajax_products_list_table_admin);
 
+router.delete('/admin-delete/:product_id', controller_product_admin_delete);
+router.delete('/store-delete/:product_id', controller_product_store_delete);
 //@ 
 //@ 
 //@ 
@@ -440,7 +462,7 @@ router.post('/show-content-product/:product_id', async function(req, res, next) 
 //@ 
 //@ 
 //@ 5. [/ajax-products-list-admin/]
-router.post('/ajax-products-list-admin/', async function(req, res, next) {
+router.post('asdasdasd/ajax-products-list-admin/', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -586,7 +608,7 @@ router.post('/ajax-products-list-admin/', async function(req, res, next) {
 //@
 //@
 //@ 0. [/]
-router.get('/', async function(req, res, next) {
+router.get('asdasd/', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -816,7 +838,7 @@ router.get('/', async function(req, res, next) {
 //@ 
 //@ 
 //@ 6. [/delete/:product_id/]
-router.delete('/delete/:product_id', async function(req, res, next) {
+router.delete('asdasdasd/delete/:product_id', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -874,7 +896,7 @@ router.delete('/delete/:product_id', async function(req, res, next) {
 //@ 
 //@ 
 //@ 5. [/ajax-products-list/]
-router.post('/ajax-products-list-s/', async function(req, res, next) {
+router.post('asdasd/ajax-products-list/', async function(req, res, next) {
 	//@
 	//@
 	//@
