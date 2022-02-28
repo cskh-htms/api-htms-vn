@@ -67,7 +67,7 @@ const update_product = function (datas,product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -106,7 +106,7 @@ const update_product = function (datas,product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 

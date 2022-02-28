@@ -20,7 +20,7 @@ async  function store_update_product(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
@@ -47,9 +47,9 @@ async  function store_update_product(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-			evn, 
+			//evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
@@ -61,9 +61,9 @@ async  function store_update_product(req, res, next) {
 		return;			
 	}
 	
-	if(data_api_resuilt.error){
+	if(data_api_resuilt.error && data_api_resuilt.error.length > 0){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 

@@ -171,7 +171,7 @@ $(document).ready(function($){
 		//
 		//load danh muc cua hang
 		ajax_save: function(datas){		
-			//console.log(datas,users_id);
+			//console.log(datas,);
 			//return;
 			//goi api
 			 $.ajax({
@@ -216,7 +216,7 @@ $(document).ready(function($){
 		//
 		//
 		//load danh muc cua hang
-		ajax_update: function(datas,product_id,users_id){		
+		ajax_update: function(datas,product_id){		
 			//console.log(datas,product_id);
 			//return;
 			//goi api
@@ -234,7 +234,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
+					ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);

@@ -9,7 +9,7 @@ const config_api = require('../../../../configs/config-api');
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 
-const product_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-update.js');
+const product_update_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-update-store.js');
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 
 
@@ -19,17 +19,17 @@ const check_owner_product = require('../../../../shares/' + config_api.API_SHARE
 
 //@
 async  function controllers_product_store_update(req, res, next) {
-
 	//@ lấy req data
 	try {
 		var datas = req.body.datas;
-		var product_id = req.params.product_id;
-		var token = req.headers['token'];	
-			
+		var cat_string = req.body.cat_string;
+		var option_string = req.body.option_string;
+		var  product_id= req.params.product_id;
+		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -44,6 +44,9 @@ async  function controllers_product_store_update(req, res, next) {
 	}	
 	
 
+	//res.send([datas,cat_string,option_string]);
+	//return;
+
 	// check role;
 	const check_role_result = await check_role.check_role(token,res);
 	if(
@@ -54,7 +57,7 @@ async  function controllers_product_store_update(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
@@ -82,7 +85,7 @@ async  function controllers_product_store_update(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
@@ -98,7 +101,7 @@ async  function controllers_product_store_update(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -226,14 +229,14 @@ async  function controllers_product_store_update(req, res, next) {
 	//@ update go
 	try{		
 		//@  update_product_resuilt
-		var update_product_resuilt = await product_update(datas,product_id,res);
+		var update_product_resuilt = await product_update_store(datas,product_id,cat_string, option_string,res);
 		res.send(update_product_resuilt);
 		return;	
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
