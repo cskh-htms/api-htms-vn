@@ -255,6 +255,7 @@ try{
 		if(get_store_id.length > 0){
 			var store_id = get_store_id[0].products_speciality_store_id;
 			var store_name = get_store_id[0].stores_name;
+			var store_email = get_store_id[0].users_email;
 			//res.send([store_name]);
 			//return;				
 			
@@ -359,23 +360,45 @@ try{
 			//@
 			//@
 			//gữi sms đặt hàng 		
-			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
 			//@
 			//@
 			
-			var email_to = "lehongson.tc@gmail.com";
-			var email_title = "Có đơn hàng mới";
-			var email_content = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
-			//@
-			//@
-			ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);		
+			
+			
+			var email_to4 = store_email;
+			var email_title = 'DALA - Có đơn hàng mới';
+			var email_content4 = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
+				
+			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);				
+			
+			/*
+			var email_to1 = ojs_configs.email_admin_01;
+			ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content4);		
 
-			var email_to2 = "dalavn.group@gmail.com";
-			var email_title2 = "Có đơn hàng mới";
-			var email_content2 = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
-			//@
-			//@
-			ojs_shares_send_email.send_email_lost_password(res,email_to2,email_title2,email_content2);					
+
+			var email_to2 = ojs_configs.email_admin_02;
+			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
+			*/
+			
+			var email_to3 = ojs_configs.email_admin_03;	
+			ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
+			
+			var email_to4 = ojs_configs.email_admin_04;	
+			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+							
+			//@ gữi cho khách hàng
+			email_to4 = datas.orders.orders_speciality_email;
+			email_title = 'DALA - Đặt hàng thành công ';
+			email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + results[0].insertId + ' ] </b> tại DALA</p>';
+				
+			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+
+
+
+
+
+							
 			//@
 			//@
 			//save meta admress

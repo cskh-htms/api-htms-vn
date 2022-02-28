@@ -690,6 +690,7 @@ const get_store_id = async function (product_id) {
 	//create sql text
 	var sql_text = 	"SELECT " +  
 					ojs_configs.db_prefix +  "products_speciality_store_id as products_speciality_store_id, " + 
+					ojs_configs.db_prefix +  "users_email as users_email, " + 
 					ojs_configs.db_prefix +  "stores_name as stores_name " + 
 					
 					"FROM " +   ojs_configs.db_prefix +  "products_speciality  " + 
@@ -699,7 +700,10 @@ const get_store_id = async function (product_id) {
 					ojs_configs.db_prefix + "products_speciality_store_id  = " + 
 					ojs_configs.db_prefix + "stores_ID " +   
 					
-					
+					" LEFT JOIN " + 
+					ojs_configs.db_prefix + "users  ON  " + 
+					ojs_configs.db_prefix + "stores_user_id   = " + 
+					ojs_configs.db_prefix + "users_ID " + 					
 					" where " +  
 					ojs_configs.db_prefix + "products_speciality_ID = '" + product_id + "' ";				
 	
