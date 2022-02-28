@@ -372,14 +372,14 @@ try{
 				
 			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);				
 			
-			/*
+
 			var email_to1 = ojs_configs.email_admin_01;
 			ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content4);		
 
 
 			var email_to2 = ojs_configs.email_admin_02;
 			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
-			*/
+
 			
 			var email_to3 = ojs_configs.email_admin_03;	
 			ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
