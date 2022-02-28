@@ -16,6 +16,8 @@ const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION +
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-product');
 
+const ojs_get_email_content_create_product = require('../../../../../models/get-content-email-create-product.js');
+const ojs_shares_send_email = require('../../../../../models/ojs-shares-send-email');
 
 //@
 async  function controllers_product_store_update(req, res, next) {
@@ -152,7 +154,8 @@ async  function controllers_product_store_update(req, res, next) {
 				"products_speciality_status_admin",				
 				"stores_name",
 				"products_speciality_status_update",
-				"stores_ID"
+				"stores_ID",
+				"users_email"
 			],
 			"condition" :
 			[
@@ -230,6 +233,56 @@ async  function controllers_product_store_update(req, res, next) {
 	try{		
 		//@  update_product_resuilt
 		var update_product_resuilt = await product_update_store(datas,product_id,cat_string, option_string,res);
+		var email_title = '';
+		
+		if(check_role_result == "admin" ){
+			var email_to4 = data_product[0].users_email;
+			if(datas.products_speciality_status_admin  == 3){
+				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ] bị từ chối';
+				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] bị từ chối';
+				
+			}else if(datas.products_speciality_status_admin  == 1){		
+				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ] đã phê duyệt';			
+				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] đã phê duyệt';				
+			}else{
+				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ] vừa update bởi DALA';	
+				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] vừa update bởi DALA';
+			}
+				
+			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+			
+		}else{		
+			
+			if(
+			datas.products_speciality_status_store  == "1"  
+			){
+				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ]  cần phê duyệt';
+				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] cần phê duyệt';	
+				
+				var email_to3 = ojs_configs.email_admin_03;	
+				ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
+				
+				var email_to4 = ojs_configs.email_admin_04;	
+				ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+				
+			}		
+			
+				
+			/*
+			var email_to1 = ojs_configs.email_admin_01;
+			var email_content1 = 'DALA - Có sản Phẩm mới  [ ' + product_id + ' ] cần phê duyệt';	
+			ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content1);		
+
+
+			var email_to2 = ojs_configs.email_admin_02;
+			var email_content2 = 'DALA - Có sản Phẩm mới  [ ' + product_id + ' ] cần phê duyệt';	
+			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content2);			
+			*/
+		
+		}
+
+		
+		
 		res.send(update_product_resuilt);
 		return;	
 	
