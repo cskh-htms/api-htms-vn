@@ -132,14 +132,13 @@ content
 			</div>	
 			
 			<div class="pro_box ten_sp_box">
-				<h3>
-				Tồn kho
+				<h3>Tồn kho</h3>
+				<div class="inside">
 				<p style="display: inline-flex;align-items: center;cursor: pointer;" >
 					<%- ojs_share_product.show_stauts_stock(datas[0].products_speciality_stock_status) %>
 					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  for="products_speciality_stock_status" >Quản lý tồn kho</label>
-				</p>				
-				</h3>
-			
+					<span class="giai-thich"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></span>
+				</p>
 				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  ><span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
 					<input 
 					class="number_change" 
@@ -149,6 +148,7 @@ content
 					id="products_speciality_stock" 
 					/> 
 				</p>
+				</div>
 						
 			</div>
 			
@@ -321,7 +321,7 @@ content
 	<%	
 	}
 	%>
-	<button id="btn_save" class="btn_save">update</button>
+	<button id="btn_save" class="btn_save">Đăng</button>
 </div>	
 	
 	

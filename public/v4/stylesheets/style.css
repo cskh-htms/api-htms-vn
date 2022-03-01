@@ -558,6 +558,7 @@ a {
     text-decoration: line-through;
     font-size: 85%;
 	margin-right: 5px;
+	display: block;
 }
 
 
@@ -850,6 +851,10 @@ input[disabled] {
     align-items: flex-start;
     padding-top: 20px;
 }
+.ul-wrap span {
+	padding-top: 5px;
+    margin-right: 10px;
+}
 .status_box {
     display: flex;
     margin: 0 0 40px;
@@ -988,6 +993,7 @@ body .ajax-load-bt {
 .order_sum tr td:last-child {
 	text-align: right;
 	font-weight: bold;
+	color: #4a914b;
 }
 #btn_xac_nhan_order {
 	margin-top: 20px;
@@ -1038,7 +1044,7 @@ body .ajax-load-bt {
 	text-transform: uppercase;
 }
 .store_box .store_btn_ql span {
-	padding: 2px 7px;
+	padding: 4px 5px;
     font-size: 14px;
     border-radius: 50%;
     color: #fff;
@@ -1088,6 +1094,14 @@ body .ajax-load-bt {
 	background:#4a914b;
     color: rgba(255,255,255,0.8);
 	text-align: center;
+}
+.store_box_content .store_thang_nay.don_hang_box {
+	width: 66%;
+	background-color: transparent;
+	border: 1px solid #ccc;
+	color: #000;
+	max-height: 500px;
+	overflow-y: scroll;
 }
 .store_box_content .store_thang_nay .number {
 	margin: 5px 0;
@@ -1311,8 +1325,8 @@ body .ajax-load-bt {
 }
 .store_row .store_col {
 	background: #fff;
+	border: 1px solid #ccc;
 	border-radius: 5px;
-	box-shadow: 0 0 5px rgba(0,0,0,0.1);
 	padding: 20px;
 	width: 32%;
 }
@@ -1326,7 +1340,7 @@ body .ajax-load-bt {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	max-height: 235px;
+	max-height: 265px;
 	overflow-y: auto;
 }
 .store_col ul li {
@@ -2990,14 +3004,15 @@ shipper
     text-decoration: none;
     justify-content: center;
     align-items: center;
-    background-color: #4a914b;
+    background-color: #fff;
+	border: 1px solid #4a914b;
     border-radius: 50%;
     margin: 0px 1px;
-    color: white;	
+    color: #4a914b;	
 }
 .page-nav-inner a.active{
-    background-color: white;
-    color: #4a914b;		
+    background-color: #4a914b;
+    color: #fff;		
 }
 
 .page-nav-inner a:hover{

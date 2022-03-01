@@ -4,11 +4,11 @@
 	<thead>
 		<tr>
 			<th class="user-name">Mã code</th>
-			<th class="user-name">Cửa hàng tạo</th>
-			<th class="user-name">Ngày bắt đầu</th>
-			<th class="user-name">Ngày kết thúc</th>
-			<th class="user-name">Tên công thức</th>
-			<th class="user-name">trạng thái</th>
+			<th>Cửa hàng tạo</th>
+			<th>Ngày bắt đầu</th>
+			<th>Ngày kết thúc</th>
+			<th>Tên công thức</th>
+			<th>Trạng thái</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,11 +36,11 @@
 				}
 				%>
 			</td>
-			<td class="user-name"><%= coupon_list[x].stores_name %></td>	
-			<td class="user-name"><%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_star) %></td>				
-			<td class="user-name"><%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_end) %></td>	
-			<td class="user-name"><%- ojs_share.show_coupon_formula_table(coupon_list[x].coupon_speciality_formula) %></td>	
-			<td class="user-name"><%- ojs_share_coupon.show_status_coupon_html(coupon_list[x].coupon_speciality_status_admin) %></td>			
+			<td><%= coupon_list[x].stores_name %></td>	
+			<td><%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_star) %></td>				
+			<td><%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_end) %></td>	
+			<td><%- ojs_share.show_coupon_formula_table(coupon_list[x].coupon_speciality_formula) %></td>	
+			<td><%- ojs_share_coupon.show_status_coupon_html(coupon_list[x].coupon_speciality_status_admin) %></td>			
 					
 
 	   </tr>
@@ -53,11 +53,11 @@
 	<tfoot>
 		<tr>
 			<th class="user-name">Mã code</th>
-			<th class="user-name">Cửa hàng tạo</th>
-			<th class="user-name">Ngày bắt đầu</th>
-			<th class="user-name">Ngày kết thúc</th>
-			<th class="user-name">Tên công thức</th>
-			<th class="user-name">trạng thái</th>			
+			<th>Cửa hàng tạo</th>
+			<th>Ngày bắt đầu</th>
+			<th>Ngày kết thúc</th>
+			<th>Tên công thức</th>
+			<th>Trạng thái</th>		
 		</tr>
 	</tfoot>
 </table>

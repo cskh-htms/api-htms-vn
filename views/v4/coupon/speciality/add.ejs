@@ -58,7 +58,7 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/coupon/speciality/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="coupon/speciality/add/<%= store_id %>">coupon</a><i class="fas fa-chevron-right"></i>Tạo coupon</h1>
+	<a href="coupon/speciality/add/<%= store_id %>">Mã giảm giá</a><i class="fas fa-chevron-right"></i>Tạo mã giảm giá</h1>
 	
 	<div class="coupon_content pro_content_edit">
 		<div class="pro_col01">
@@ -70,43 +70,42 @@ content
 				</div>
 			</div>
 			
-			
-			<div class="noi_dung_coupon">
+			<div class="pro_box">
+			<h3>Qui cách coupon</h3>
+			<div class="noi_dung_coupon inside">
 				<div class="thong_tin_coupon">	
 
-					<p style="" class="<%= admin_view %>"><span>Loại coupon<span><br>
+					<p style="" class="<%= admin_view %>">
+					<span>Loại coupon<span>
+					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/lo%E1%BA%A1i-coupon"  target="_blank"  class="giai_thich_link">
+						<span class="giai-thich"><span>Chọn loại coupon chỉ dành cho cửa ah2ng hay tất cả cửa hàng được dùng</span></span>	
+						</a>
 						<select id="coupon_speciality_type">
 							<%- ojs_share.show_coupon_type_select(0) %>
 						</select>
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/lo%E1%BA%A1i-coupon"  target="_blank"  class="giai_thich_link">
-						<span class="giai-thich"><span>Chọn loại coupon chỉ dành cho cửa ah2ng hay tất cả cửa hàng được dùng</span></span>	
-						</a>						
+												
 					</p>		
 						
 
 					<p>
-					<span>Điều kiện<span><br>
+					<span>Điều kiện<span>
+					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Điều kiện để sử dụng mã giảm giá này</span></span>	
+						</a>
 						<select id="coupon_speciality_condition">
 							<%- ojs_share_coupon.show_coupon_condition_select( 0 ) %>
 						</select>	
-						
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Điều kiện để sử dụng mã giảm giá này</span></span>	
-						</a>			
-						
 					<p>
-					<span>Giá trị điều kiện<span><br>
+					<span>Giá trị điều kiện<span>
+					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span>	
+						</a>
 					<input 
 						class="number_change" type="text" 
 						data_value="0"
 						value="0" 
 						id="coupon_speciality_condition_value" 
 					/>			
-
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span>	
-						</a>
-					
 					</p>
 					
 					
@@ -114,32 +113,34 @@ content
 				<div class="cong_thuc_coupon">
 					<p>
 					<span>Tên công thức<span>
+					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Công thức tính tiền mã giảm giá</span></span>	
+						</a>
 						<select id="coupon_speciality_formula_price">
 							<%- ojs_share_coupon.show_coupon_formula_select() %>
 						</select>	
-						
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Công thức tình tiền mã giảm giá</span></span>	
-						</a>
-						
 					</p>
 				
 
-					<p><span>Tiền giảm giá </span>
+					<p><span style="display: block">Tiền giảm giá <a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Giá trị công thức tính tiền mã giảm giá</span></span>	
+						</a></span>
+					
 						<input 
 							class="number_change" type="text" 
 							data_value="0"
 							value="0" 
 							id="coupon_speciality_formula_price_value" 
 						/>
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Giá trị công thức tính tiền mã giảm giá</span></span>	
-						</a>						
+												
 					</p>
 				</div>
 				
 				<div class="cong_thuc_coupon">
 					<p><span>Giảm giá tối đa</span>
+					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/giam-gia-toi-da"  target="_blank" class="giai_thich_link">
+						<span class="giai-thich"><span>Giá trị giảm giá tối đa cho chương trình khuyến mãi</span></span>	
+						</a>
 						<input 
 							class="number_change" type="text" 
 							data_value=""
@@ -147,15 +148,14 @@ content
 							id="coupon_speciality_price_max" 
 						/>
 						
-						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/giam-gia-toi-da"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Giá trị giảm giá tối đa cho chương trình khuyến mãi</span></span>	
-						</a>						
+												
 						
 					</p>	
 						
 
 				</div>
-			</div>			
+			</div>		
+			</div>
 			
 			
 			
@@ -331,16 +331,16 @@ content
 			
 			<!-- Sử dụng chung coupon -->
 			<div class="pro_box">
-				<h3>Dùng chung với Coupon khác?</h3>
+				<h3>Dùng chung với Coupon khác? <a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dung-chung-ma-giam-gia"  target="_blank" class="giai_thich_link">
+				<span class="giai-thich"><span>Dùng chung với mã giảm giá khác</span></span>	
+				</a></h3>
 				<div class="inside">
 					<select id="coupon_speciality_multiple">
 						<%- ojs_share.show_coupon_multi_select(0) %>
 					</select>	
 				</div>
 				
-				<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dung-chung-ma-giam-gia"  target="_blank" class="giai_thich_link">
-				<span class="giai-thich"><span>Dùng chung với mã giảm giá khác</span></span>	
-				</a>					
+									
 			</div>
 			
 			<!-- KH dùng tối đa -->
@@ -358,15 +358,10 @@ content
 			
 			<!-- Tin nhắn admin -->
 			<div class="pro_box trang_thai_box ">
-				<h3>Lời nhắn</h3>
+				<h3>Lời nhắn<span class="giai-thich"><span>Gửi tin nhắn tới admin duyệt sản phẩm</span></span></h3>
 				<div class="inside">
 					<textarea class="quote"  id="coupon_speciality_qoute"  rows="10" cols="100%"></textarea>					
 				</div>
-				
-				
-				<span class="giai-thich"><span>Gữi tin nhắn tới admin duyệt sản phẩm</span></span>	
-	
-				
 			</div>	
 			
 			<!-- Trạng thái admin -->

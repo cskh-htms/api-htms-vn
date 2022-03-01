@@ -283,7 +283,7 @@ if(store_id && store_id > 0 ){
 			<p style="font-size:22px;"><strong><%- ojs_share_all.show_price_vnd(pull_price ,0,",",".","đ") %> </strong></p>
 		</div>
 		
-		<div class="store_thang_nay" style="width: 66%;background-color: transparent;border: 1px solid #ccc;color: #000;">
+		<div class="store_thang_nay don_hang_box">
 			<% 
 			//@
 			//@
@@ -376,11 +376,11 @@ if(store_id && store_id > 0 ){
 						<p><%- ojs_share_all.show_price_vnd( line_product ,0,",",".","đ")  -%></p>
 					</div>		
 					<div class="inner">
-						<p><strong>coupon</strong></p>
+						<p><strong>Coupon</strong></p>
 						<p><%- ojs_share_all.show_price_vnd( coupon_of ,0,",",".","đ")  -%></p>
 					</div>						
 					<div class="inner">
-						<p><strong>chiếc khấu</strong></p>
+						<p><strong>Chiết khấu</strong></p>
 						<p><%- ojs_share_all.show_price_vnd( chiec_khau ,0,",",".","đ")  -%></p>
 					</div>		
 
@@ -471,7 +471,7 @@ end content
 
 
 
-<% include ../masterpage/footer %>
+<% //include ../masterpage/footer %>
 
 </div><!-- //content_wrap -->	
 
