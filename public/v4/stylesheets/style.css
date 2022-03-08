@@ -2245,22 +2245,29 @@ end of van luc 07.04.2021
 }
 
 .discount-box {
-display: flex;
-    border: 1px solid #ccc;
+	display: flex;
     padding: 10px;
-    margin: 10px;
+    margin: 15px;
     flex-direction: column;
     box-sizing: border-box;
 	max-width: 30%;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
 }
 
 .discount-box .discount-image-wrap {
 	max-width:100%;
 	box-sizing:border-box;
 	text-align:center;
+	height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 .discount-box .discount-image-wrap img{
 	max-width:100%;
+	min-height: 100%;
 	display:block;
 }
 
@@ -2284,12 +2291,30 @@ display: flex;
 
 .add-box {
     font-weight: bold;
-    text-decoration: underline;
     margin-bottom: 15px;
-    color: #298512;
+    color: #4a914b;
 }
 
-
+#btn-tham-gia {
+	display: inline-block;
+    background: #4a914b;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+.btn-huy-tham-gia {
+	display: inline-block;
+    background: #999;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px 10px;
+	text-transform: capitalize;
+	margin-top: 5px;
+}
 .product-add a{
 	display:inline-block;
 	padding:0px 10px;
