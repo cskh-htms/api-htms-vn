@@ -357,26 +357,35 @@ try{
 	try {
 		models_orders_spaciality.insert_orders_spaciality(datas_assign,datas.orders_detail,res).then( results => {
 			
+			
+			//@
+			//@
+			//save meta admress
+			models_orders_spaciality.save_meta_adress(meta_adress);			
+			
 			//@
 			//@
 			//gữi sms đặt hàng 		
-			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
 			//@
 			//@
 			
-			
-			
+
+			//@
+			//gữi email đặt hàng cho cửa hàng		
 			var email_to4 = store_email;
 			var email_title = 'DALA - Có đơn hàng mới';
 			var email_content4 = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 				
 			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);				
 			
-
+			
+			//@
+			//gữi email đặt hàng cho admin	
 			var email_to1 = ojs_configs.email_admin_01;
-			ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content4);		
+			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);			
 
-
+			
 			var email_to2 = ojs_configs.email_admin_02;
 			ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
 
@@ -386,7 +395,11 @@ try{
 			
 			var email_to4 = ojs_configs.email_admin_04;	
 			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-							
+
+
+
+
+
 			//@ gữi cho khách hàng
 			email_to4 = datas.orders.orders_speciality_email;
 			email_title = 'DALA - Đặt hàng thành công ';
@@ -398,11 +411,9 @@ try{
 
 
 
+
 							
-			//@
-			//@
-			//save meta admress
-			models_orders_spaciality.save_meta_adress(meta_adress);
+
 						
 			res.send( {"error" : "", "datas" : results} );
 			return;

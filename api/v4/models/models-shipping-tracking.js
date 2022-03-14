@@ -714,7 +714,7 @@ const get_orders_details = async function (order_id) {
 				
 				ojs_configs.db_prefix + "products_speciality_weight as products_speciality_weight " + 
 	
-				" FROM " + ojs_configs.db_prefix + "view_orders_customer  WHERE  " + 
+				" FROM " + ojs_configs.db_prefix + "view_order_details_by_customer  WHERE  " + 
 				ojs_configs.db_prefix + "orders_speciality_ID = '" + order_id + "'" ;
 	
 	//return sql_text;

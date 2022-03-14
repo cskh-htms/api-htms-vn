@@ -3052,6 +3052,50 @@ shipper
 }
 
 
+/*
+bo cong thuong
+*/
+.bo-cong-thuong-box {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0px auto;
+    margin-top: 50px;
+	flex-direction: column;
+}
+#content .bo-cong-thuong-box h1{
+	font-size:22px;
+	font-weight:bold;
+}
+
+.bo-cong-thuong-logo {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.bo-cong-thuong-logo img {
+	max-width:250px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
