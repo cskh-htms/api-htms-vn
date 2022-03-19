@@ -56,6 +56,7 @@ const controllers_orders_spaciality = require('../controllers/controllers-orders
 
 
 
+router.post('/webhook-ghtk/', controllers_orders_spaciality.webhook_ghtk);
 
 
 //@

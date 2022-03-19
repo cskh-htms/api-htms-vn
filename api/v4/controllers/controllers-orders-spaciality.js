@@ -32,7 +32,7 @@
 15. [search_order_by_product]
 
 
-
+100. [webhook_ghtk]
 
 
 */
@@ -79,10 +79,122 @@ const models_orders_spaciality = require('../models/models-orders-spaciality');
 const ojs_shares_send_code_to_phone = require('../../../models/ojs-shares-send-code-to-phone');
 const ojs_shares_send_email = require('../../../models/ojs-shares-send-email');
 
-
+const models_shipping_tracking = require('../models/models-shipping-tracking');
 
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ * 100. [webhook_ghtk]
+async  function webhook_ghtk(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@	get datas req
+	try {
+		var datas = req.body;
+		var hash = req.query.hash;
+		//@
+		//@
+		//@
+		var order_id = datas.partner_id.split("_")[1];
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy data req, Liên hệ HTKT dala" );
+		res.send({ "error" : "1", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } ); 
+		return;			
+	}	
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	if(hash != "e429d202bbe3a8fe595d5030ca122f66"){
+		res.sendStatus( 401 );
+		return;		
+	}
+	//res.send([datas,hash,order_id]);
+	//return;
+
+
+
+	//@
+	//@
+	//@
+	//@
+	//@ insert shipping tracking
+	try {
+		var datas_tracking = {
+			"shipping_tracking_users_id" : "90" ,
+			"shipping_tracking_orders_id" : order_id,
+			"shipping_tracking_orders_status" : datas.status_id
+		}
+		var shipping_tracking_insert = await models_shipping_tracking.insert_shipping_tracking(datas_tracking);
+		//res.send(shipping_tracking_insert);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert tracking, liên hệ admin" );
+		res.sendStatus( 401 ); 
+		return;	
+	}
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ update order
+	try {
+		var data_update = {
+			"orders_speciality_shipper_id" : "90" ,
+			"orders_speciality_shipping_code" : datas.label_id,
+			"orders_speciality_status_orders" : datas.status_id
+		}
+		var update_order_result = await models_orders_spaciality.update_orders_spaciality(data_update,order_id);
+		//res.send(update_order_result);
+		//return;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert tracking, liên hệ admin" );
+		res.sendStatus( 401 ); 
+		return;	
+	}	
+	
+	
+	//@ return;
+	res.sendStatus( 200 ); 
+	return;	
+	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	evn = "dev";
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
+	res.send({ "error" : "11", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } );  
+	return;	
+}
+}
+//@
+//@ * end of 8. [send_order_sms]
+
+
 
 
 
@@ -366,11 +478,16 @@ try{
 			//@
 			//@
 			//gữi sms đặt hàng 		
-			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
 			//@
 			//@
 			
-
+			//res.send([store_email]);
+			//return;	
+			
+			
+			
+			
 			//@
 			//gữi email đặt hàng cho cửa hàng		
 			var email_to4 = store_email;
@@ -406,13 +523,6 @@ try{
 			email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + results[0].insertId + ' ] </b> tại DALA</p>';
 				
 			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-
-
-
-
-
-
-							
 
 						
 			res.send( {"error" : "", "datas" : results} );
@@ -1944,7 +2054,8 @@ module.exports = {
 	yeu_cau_rut_tien,
 	search_order_by_coupon,
 	search_order_by_discount,
-	search_order_by_product
+	search_order_by_product,
+	webhook_ghtk
 };
 
 /*
