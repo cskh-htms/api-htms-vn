@@ -1588,7 +1588,7 @@ try {
 			}
 		}else{
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_details, "Lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" );					
 			res.send({ "error" : "8" ,"position":"ctl-shipping_tracking->push_shipping_ghtk", "message" : error_send}); 
 			return;							
@@ -1643,7 +1643,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" );					
 		res.send({ "error" : "11" ,"position":"ctl-shipping_tracking->push_shipping_ghtk", "message" : error_send}); 
 		return;					
@@ -1670,7 +1670,7 @@ try {
 		if( Array.isArray(orders_info)){
 		}else{
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, orders_info, "Lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" );					
 			res.send({ "error" : "10" ,"position":"ctl-shipping_tracking->push_shipping_ghtk", "message" : error_send}); 
 			return;							
@@ -1678,7 +1678,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" );					
 		res.send({ "error" : "11" ,"position":"ctl-shipping_tracking->push_shipping_ghtk", "message" : error_send}); 
 		return;					
@@ -1776,8 +1776,8 @@ try {
 		
 		
 		var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
-		res.send({ "error" : "111" , "datas" : result_ghtk}); 
-		return;
+		//res.send({ "error" : "111" , "datas" : result_ghtk}); 
+		//return;
 		
 		
 		
@@ -1886,7 +1886,7 @@ try {
 					return;
 				}, error => {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
 					res.send({ "error" : "134", "position":"ctl-shipping_tracking->push_shipping_ghtk","message": error_send } );
 					return;	
@@ -1894,7 +1894,7 @@ try {
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
-				evn = "dev";;
+				//evn = "dev";;
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search model option" );
 				res.send({ "error" : "135", "position":"ctl-shipping_tracking->push_shipping_ghtk","message": error_send } ); 
 				return;	
@@ -1902,7 +1902,7 @@ try {
 
 		}else{
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "push đơn hàng không thành công, vui lòng thao tác lại", "push đơn hàng không thành công, vui lòng thao tác lại" );
 			res.send({ "error" : "14" ,"position":"ctl-shipping_tracking->push order ghtk", "message" : error_send }); 
 			return;					
@@ -1911,7 +1911,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lưu data. liên hệ admin" );
 		res.send({ "error" : "15" ,"position":"ctl-shipping_tracking->ghtk", "message" : error_send}); 
 		return;	
@@ -1919,7 +1919,7 @@ try {
 }
 catch(error){
 	var evn = ojs_configs.evn;
-	evn = "dev";
+	//evn = "dev";
 	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lưu data. liên hệ admin" );
 	res.send({ "error" : "113" ,"position":"ctl-shipping_tracking->ghtk", "message" : "không tìm thấy giá ghtk"}); 
 	return;	
