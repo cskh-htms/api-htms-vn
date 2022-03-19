@@ -7,13 +7,24 @@ const config_api = require('../../../../configs/config-api');
 
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
 
-const controllers_bussiness_by_user_id =  require('../../controllers/bussiness/controllers-bussiness-by-user-id-appdalacom-api');
+const controllers_store_order_get_all =  
+require(
+	'../../controllers/stores/controllers-stores-order-get-all-api-appdalacom-api.js'
+);
 
 
 router.get('/', function(req, res, next) {
-  res.end('api appdalacom bussiness by user welcom');
+  res.end('api appdalacom stores welcom');
 });
 
-router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
+
+
+router.get(
+	'/manage/orders/:store_id/:status_int',
+	middle_ware, 
+	controllers_store_order_get_all 
+);
+
+
 
 module.exports = router;

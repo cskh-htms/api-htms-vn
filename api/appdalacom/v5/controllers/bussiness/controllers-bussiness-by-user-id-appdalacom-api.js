@@ -30,6 +30,7 @@ const coupon_search_by_store = require('../../../../lib/' + config_api.API_LIB_V
 //@
 async  function controllers_bussiness_by_user_id(req, res, next) {
 	
+	
 	//@ lấy req data
 	try {
 		var user_id = req.params.user_id;

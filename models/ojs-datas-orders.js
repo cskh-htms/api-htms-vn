@@ -586,7 +586,13 @@ const ojs_datas_orders = {
 					"orders_speciality_ID",
 					"orders_speciality_status_orders",
 					"orders_speciality_date_orders"
-				]			
+				],
+				"order" :
+				[
+					 {    "field"  :"orders_speciality_date_orders",
+							"compare" : "DESC"
+					 }   
+				]  		
 			}
 		}	
 		return datas_return;			

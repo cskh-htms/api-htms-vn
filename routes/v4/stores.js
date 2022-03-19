@@ -1,24 +1,27 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+
+const controller_store_order_get_all = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/stores/controllers-stores-order-get-all-web-appdalacom.js'
+);
+
+
+//end of v5
+
+
 
 
 
@@ -59,7 +62,7 @@ const ojs_datas_stores = require('../../models/ojs-datas-stores');
 
 --------------------------------------------------------------------
 */
-
+//router.get('/manage/orders/:store_id/:status_int', controller_store_order_get_all);
 
 //@
 //@
