@@ -464,6 +464,7 @@ const ojs_datas_orders = {
 					"orders_speciality_status_orders",
 					"orders_speciality_adress",
 					"orders_speciality_date_orders",
+					"orders_speciality_shipping_code",
 					"users_full_name"					
 				],
 				"condition" :

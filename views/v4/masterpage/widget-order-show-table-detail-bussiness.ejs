@@ -35,16 +35,18 @@ if(coupon_list.length > 0){
 	console.log(<%- JSON.stringify(orders_detail) %>);
 </script>
 
+
+
+
 <div class="order_detail_top">
 	<div class="order_id">Đơn hàng<span>#<%= order_taget[0].orders_speciality_ID %></span></div>
 	<div class="order_status"><%- ojs_share_orders.show_order_status_html(order_taget[0].orders_speciality_status_orders) %></div>
 </div>
-<!--
+
 <div class="ship_number">
-	GHTK | Mã vận đơn
-	<a href="https://i.ghtk.vn/" target="_blank" style="color: #000"><span>272069727</span></a>
+	GHTK | Mã vận đơn : <span><%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %></span>
 </div>
--->
+
 <div class="order_content" style="align-items: flex-end;">
 	<div class="order_content_col01">
 		<div class="order_customer">
@@ -164,6 +166,55 @@ if(coupon_list.length > 0){
 	<div style="text-align: right;background-color: white;"><a style="background-color:#ee4d2d;" href="#"  data_order_id = "<%= order_taget[0].orders_speciality_ID %>"  id="btn_tu_choi_order" class="btn_green">Từ chối đơn hàng</a></div>
 <% } %>
 
+
+
+
+<div class="order_tracking">
+	<h1 class="tracking-title">Theo dõi vận chuyển</div>
+	
+	<div class="order_tracking_box">
+	
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Trạng thái</th>
+					<th>Thời gian</th>
+					<th>shipper</th>
+				</tr>
+			</thead>
+			<tbody>	
+	
+			<% 
+			for(var  x in order_tracking) { 
+				var stt = x;
+				stt ++;
+			%>		
+			   <tr>
+					<td class="title"><%= stt %></td>			
+					<td><%- ojs_share_orders.show_order_status_html(order_tracking[x].shipping_tracking_orders_status) %></td>
+					<td><%= ojs_share.format_date(order_tracking[x].shipping_tracking_date_created) %></td>	
+					<td>
+						Tên : <%- ojs_share.unCape(order_tracking[x].users_full_name) %><br>
+						Điện thoại : <%- ojs_share.unCape(order_tracking[x].users_phone) %>
+					</td>						
+			   </tr>		
+			<% 
+			} 
+			%>		
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>STT</th>
+					<th>Trạng thái</th>
+					<th>Thời gian</th>
+					<th>shipper</th>
+				</tr>
+			</tfoot>
+		</table>
+				
+	</div>
+</div>
 
 
 <script>

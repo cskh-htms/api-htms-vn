@@ -3082,10 +3082,18 @@ bo cong thuong
 
 
 
+/*tracking*/
+.order_tracking_box {
+    display: flex;
+    flex-direction: column;
+}
+.order_tracking_line {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 
-
-
+/* end of tracking*/
 
 
 

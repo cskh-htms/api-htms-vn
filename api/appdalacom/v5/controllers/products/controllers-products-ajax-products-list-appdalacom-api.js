@@ -231,6 +231,51 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}
 	
 	
+	//@ stock
+	//@ hết hàng
+	if(datas.stock_data == "het_hang"){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock_status",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 0,
+				"compare" : "<="
+			} 
+		)				
+	}
+	
+	//gần hết hàng
+	if(datas.stock_data == "sap_het_hang"){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock_status",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 0,
+				"compare" : ">"
+			} 
+		)		
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 5,
+				"compare" : "<="
+			} 
+		)			
+	}	
+	
+	
 	//@ discount
 	var having_data = [];
 	having_data.push(
@@ -423,7 +468,7 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 

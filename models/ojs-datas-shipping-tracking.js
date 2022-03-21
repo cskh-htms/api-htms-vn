@@ -9,7 +9,7 @@
 
 3.[get_orders_list_infor]	
 
-
+4.[get_shipping_tracking_by_order]	
 
 
 
@@ -24,6 +24,43 @@ const ojs_datas_shipping_tracking = {
 	//@ 	
 	
 	
+	//@
+	//@
+	//@ 
+	//@ 4.[get_shipping_tracking_by_order]		
+	get_shipping_tracking_by_order: function(order_id){
+		
+		let datas_return = 	
+			{
+				"datas" :   {
+					"select_type":"DISTINCT",
+					"select_field" :
+					[ 
+						"shipping_tracking_orders_id",
+						"shipping_tracking_date_created",
+						"shipping_tracking_orders_status",
+						"users_full_name",
+						"users_phone"
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"shipping_tracking_orders_id",
+								"value"     : order_id,
+								"compare" : "="
+							}                        
+							]    
+						}         
+					]
+				}
+			}
+		return datas_return;
+	},	
+	//@
 	//@
 	//@ 	
 	//@

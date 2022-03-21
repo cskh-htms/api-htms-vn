@@ -150,6 +150,57 @@ content
 	%>	
 
 
+<div class="order_tracking">
+	<h1 class="tracking-title">Theo dõi vận chuyển </div>
+	
+	<div class="order_tracking_box">
+	
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Trạng thái</th>
+					<th>Thời gian</th>
+					<th>shipper</th>
+				</tr>
+			</thead>
+			<tbody>	
+	
+			<% 
+			for(var  x in order_tracking) { 
+				var stt = x;
+				stt ++;
+			%>		
+			   <tr>
+					<td class="title"><%= stt %></td>			
+					<td><%- ojs_share_orders.show_order_status_html(order_tracking[x].shipping_tracking_orders_status) %></td>
+					<td><%= ojs_share.format_date(order_tracking[x].shipping_tracking_date_created) %></td>	
+					<td>
+						Tên : <%- ojs_share.unCape(order_tracking[x].users_full_name) %><br>
+						Điện thoại : <%- ojs_share.unCape(order_tracking[x].users_phone) %>
+					</td>						
+			   </tr>		
+			<% 
+			} 
+			%>		
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>STT</th>
+					<th>Trạng thái</th>
+					<th>Thời gian</th>
+					<th>shipper</th>
+				</tr>
+			</tfoot>
+		</table>
+				
+	</div>
+</div>
+
+
+
+
+
 
 	
 <div class="btn_box">

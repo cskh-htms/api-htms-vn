@@ -44,7 +44,7 @@ const ojs_datas_category = require('../../models/ojs-datas-category');
 
 const ojs_datas_orders = require('../../models/ojs-datas-orders');
 const ojs_datas_users = require('../../models/ojs-datas-users');
-
+const ojs_datas_shipping_tracking = require('../../models/ojs-datas-shipping-tracking');
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -637,7 +637,7 @@ router.post('/save_fee', async function(req, res, next) {
 //@
 //@
 //@
-//@ 5. [/show/]
+//@ 5. [/show/order_id]
 router.get('/show/:order_id', async function(req, res, next) {
 	//@
 	//@
@@ -819,15 +819,39 @@ router.get('/show/:order_id', async function(req, res, next) {
 		return;		
 	}	
 	
-	
-	
-	
-	
-	
 	//res.send(orders_detail);
 	//return;
 	
-	
+	//@ order_tracking
+	var order_tracking_result;
+	try {
+			order_tracking_result = await ojs_shares_fetch_data.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/shipping-tracking/search/', 
+			ojs_datas_shipping_tracking.get_shipping_tracking_by_order(order_id),
+			ojs_configs.token_supper_job
+		);
+		
+		//res.send( order_tracking_result );
+		//return;				
+		
+		
+		
+		if(order_tracking_result.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,order_tracking_result.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "40.router->orders->  web->  ajax-order-detail-bussiness", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "41.router->orders-> web-> ajax-order-detail-bussiness", "message": error_send } ); 
+			return;		
+	}		
 	
 	
 	//send web
@@ -848,7 +872,8 @@ router.get('/show/:order_id', async function(req, res, next) {
 			'sidebar_type'		: "",			
 			'datas' : orders_tager.datas,
 			'orders_detail' : orders_detail.datas,	
-			'shipper_list' : shipper_list.datas
+			'shipper_list' : shipper_list.datas,
+			'order_tracking' : order_tracking_result.datas
 		}
 		
 
@@ -870,6 +895,7 @@ router.get('/show/:order_id', async function(req, res, next) {
 			'datas' : orders_tager.datas,
 			'orders_detail' : orders_detail.datas,	
 			'shipper_list' : shipper_list.datas,
+			'order_tracking' : order_tracking_result.datas,
 			'datas_info'	: datas_info			
 		}
 		
@@ -1334,10 +1360,6 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	
 	
 	var orders_list_taget;
-	
-	//res.send( ojs_datas_orders.get_data_orders_detail_bussiness_taget(order_id) );
-	//return;		
-	
 	try {
 			orders_list_taget = await ojs_shares_fetch_data.get_data_send_token_post( 
 			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/orders/speciality/search_customer/', 
@@ -1371,7 +1393,35 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	//res.send( orders_list_taget );
 	//return;		
 	
-	
+	var order_tracking_result;
+	try {
+			order_tracking_result = await ojs_shares_fetch_data.get_data_send_token_post( 
+			ojs_configs.domain + '/api/' + ojs_configs.api_version  + '/shipping-tracking/search/', 
+			ojs_datas_shipping_tracking.get_shipping_tracking_by_order(order_id),
+			ojs_configs.token_supper_job
+		);
+		
+		//res.send( order_tracking_result );
+		//return;				
+		
+		
+		
+		if(orders_list_taget.error != ""){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,orders_list_taget.error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "40.router->orders->  web->  ajax-order-detail-bussiness", "message": error_send } ); 
+			return;				
+		}	
+		
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "41.router->orders-> web-> ajax-order-detail-bussiness", "message": error_send } ); 
+			return;		
+	}	
 	
 	
 	
@@ -1379,7 +1429,8 @@ router.post('/ajax-order-detail-bussiness/', async  function(req, res, next) {
 	data_send = {
 		'orders_detail' : orders_list.datas,
 		'coupon_list' 	: coupon_list.datas,
-		'order_taget' 	: orders_list_taget.datas
+		'order_taget' 	: orders_list_taget.datas,
+		'order_tracking' : order_tracking_result.datas
 	}
 	
 	//res.send(data_send);
