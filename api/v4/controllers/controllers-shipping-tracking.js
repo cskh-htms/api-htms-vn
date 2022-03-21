@@ -1771,8 +1771,8 @@ try {
 				"order": order
 			}	
 
-		//res.send({ "error" : "100" , "datas" : datas_send}); 
-		//return;							
+		res.send({ "error" : "100" , "datas" : datas_send}); 
+		return;							
 		
 		
 		var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);

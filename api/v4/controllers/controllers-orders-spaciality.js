@@ -162,7 +162,6 @@ try {
 	try {
 		var data_update = {
 			"orders_speciality_shipper_id" : "90" ,
-			"orders_speciality_shipping_code" : datas.label_id,
 			"orders_speciality_status_orders" : datas.status_id
 		}
 		var update_order_result = await models_orders_spaciality.update_orders_spaciality(data_update,order_id);

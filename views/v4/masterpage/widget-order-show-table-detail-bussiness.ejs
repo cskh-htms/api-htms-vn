@@ -44,7 +44,12 @@ if(coupon_list.length > 0){
 </div>
 
 <div class="ship_number">
-	GHTK | Mã vận đơn : <span><%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %></span>
+	GHTK | Mã vận đơn : 
+	<span>
+		<a href="https://i.ghtk.vn/<%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %>">
+		<%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %>
+		</a>
+	</span>
 </div>
 
 <div class="order_content" style="align-items: flex-end;">

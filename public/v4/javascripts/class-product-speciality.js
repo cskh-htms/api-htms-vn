@@ -372,17 +372,6 @@ $(document).ready(function($){
 									//ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
 								}
 							}
-						}else{
-							var x = location.href;
-							var y = x.search("admin");
-							var x_arr = x.split("/");
-							var z = x_arr[x_arr.length - 1];
-							
-							if(y > 0){
-								ojs_message.message_ok_show(" Đã update tồn kho","/products/speciality/");
-							}else{
-								ojs_message.message_ok_show(" Đã update tồn kho","/products/speciality/" + z);
-							}		
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
