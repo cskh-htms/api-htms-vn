@@ -122,8 +122,11 @@ try {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	if(hash != "e429d202bbe3a8fe595d5030ca122f66"){
-		res.sendStatus( 401 );
-		return;		
+		var evn = ojs_configs.evn;
+		evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi sai hash, Liên hệ HTKT dala" );
+		res.send({ "error" : "2", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } ); 
+		return;			
 	}
 	//res.send([datas,hash,order_id]);
 	//return;
@@ -149,7 +152,8 @@ try {
 		var evn = ojs_configs.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert tracking, liên hệ admin" );
-		res.sendStatus( 401 ); 
+		res.send({ "error" : "3", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } ); 
+		//res.sendStatus( 401 ); 
 		return;	
 	}
 	
@@ -171,8 +175,9 @@ try {
 	catch(error){
 		var evn = ojs_configs.evn;
 		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi insert tracking, liên hệ admin" );
-		res.sendStatus( 401 ); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update_order_result, liên hệ admin" );
+		res.send({ "error" : "4", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } );
+		//res.sendStatus( 401 ); 
 		return;	
 	}	
 	
@@ -185,8 +190,8 @@ try {
 catch(error){
 	var evn = ojs_configs.evn;
 	evn = "dev";
-	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi search data, liên hệ admin" );
-	res.send({ "error" : "11", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } );  
+	var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi webhook end, liên hệ admin DALA" );
+	res.send({ "error" : "100", "position":"ctl-orders-spaciality->webhook-ghtk", "message":  error_send  } );  
 	return;	
 }
 }
