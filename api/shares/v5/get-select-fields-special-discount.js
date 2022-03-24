@@ -14,7 +14,7 @@ const select_field_special = function(field,res){
 				"WHEN ( " + config_database.PREFIX  + "discount_program_time_type  = 0 ) THEN " +  
 					" 1 " +  
 					
-				"WHEN ( UNIX_TIMESTAMP(" + config_database.PREFIX + "discount_program_date_end) < UNIX_TIMESTAMP() ) THEN " + 
+				"WHEN ( UNIX_TIMESTAMP(" + config_database.PREFIX + "discount_program_date_end) - UNIX_TIMESTAMP() > 0 ) THEN " + 
 					" 1 " +  
 					
 				"ELSE " +    
