@@ -14,7 +14,9 @@ const controllers_discount_program_product_add_list = require(
 const controllers_discount_program_quan_ly_admin =  require(
 	'../../controllers/discount-program/controllers-discount-program-quan-ly-admin-api-appdalacom.js'
 );
-
+const controllers_discount_program_store_active_admin =  require(
+	'../../controllers/discount-program/controllers-discount-program-store-active-admin-api-appdalacom.js'
+);
 
 //@ router
 router.get('/', function(req, res, next) {
@@ -33,7 +35,11 @@ router.get(
 	controllers_discount_program_quan_ly_admin 
 );
 
-
+router.get(
+	'/speciality/store-active-admin/',
+	middle_ware, 
+	controllers_discount_program_store_active_admin
+);
 
 
 module.exports = router;

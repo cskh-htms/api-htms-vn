@@ -22,6 +22,13 @@ const controllers_discount_program_quan_ly_admin = require(
 		ojs_configs.controller_version + 
 		'/discount-program/controllers-discount-program-quan-ly-admin-web-appdalacom.js'
 	);
+	
+const controllers_discount_program_store_active_admin = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-store-active-admin-web-appdalacom.js'
+	);	
+	
 //end of v5
 
 //@
@@ -121,8 +128,7 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
 router.get('/quan-ly', controllers_discount_program_quan_ly_admin);
-
-
+router.get('/store-active', controllers_discount_program_store_active_admin);
 
 
 
@@ -1694,7 +1700,7 @@ router.get('/details/show-admin/:discount_program_id/:discount_program_details_i
 //@
 //@
 //@ 0. [/store-active]
-router.get('/store-active', async function(req, res, next) {
+router.get('asdasdasd/store-active', async function(req, res, next) {
 	//@
 	//@
 	//@

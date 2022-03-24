@@ -488,9 +488,7 @@ try{
 			
 			//res.send([store_email]);
 			//return;	
-			
-			
-			
+
 			
 			//@
 			//gữi email đặt hàng cho cửa hàng		
