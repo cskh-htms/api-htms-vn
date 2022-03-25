@@ -12,7 +12,7 @@ router.use('/categorys', require('./categorys/routers-category-app'));
 router.use('/products', require('./products/routers-product-app'));
 router.use('/stores', require('./stores/routers-store-app'));
 router.use('/orders', require('./orders/routers-order-app'));
-
+router.use('/shipping-tracking', require('./shipping-tracking/routers-shipping-tracking-app'));
 
 
 module.exports = router;

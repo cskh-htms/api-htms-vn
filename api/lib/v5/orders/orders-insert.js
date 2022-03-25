@@ -14,7 +14,7 @@ const ojs_configs = require('../../../../configs/config');
 
 
 const order_insert = function (datas,data_details,res) {
-
+	
 	var sql_text = "";
 	var dataGo = {
 			"orders_speciality_user_id"					: datas.orders_speciality_user_id,
@@ -50,6 +50,10 @@ const order_insert = function (datas,data_details,res) {
 	sql_text = "INSERT INTO " + config_database.PREFIX + "orders_speciality  SET ? ; ";
 
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
+	
+	
+	//return sql_text;
+	
 	
 	//
 	// sql details

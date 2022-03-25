@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const md5 = require('md5');
-const multer = require('multer');
-const WPAPI = require( 'wpapi' );
 
 const ojs_configs = require('../../../../../configs/config');
 
@@ -36,7 +32,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(!datas.orders.orders_speciality_user_id){
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/app/v5/ctroller/order/orders-insert",
+				"position" : "api/app/v5/controller/order/orders-insert",
 				"message":  " Chưa nhập mã khách hàng "
 			});
 			return;
@@ -44,7 +40,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(!datas.orders_detail){
 			res.send({ 
 				"error" : "2", 
-				"position" : "api/app/v5/ctroller/order/orders-insert",
+				"position" : "api/app/v5/controller/order/orders-insert",
 				"message":  " Chưa có data order "
 			});
 			return;
@@ -60,7 +56,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/ctroller/order/orders-insert",
+			"position" : "api/app/v5/controller/order/orders-insert",
 			"message": error_send 
 		}); 
 		return;	
@@ -86,7 +82,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4",
-			"position" : "api/app/v5/ctroller/order/orders-insert",
+			"position" : "api/app/v5/controller/order/orders-insert",
 			"message": error_send 
 		}); 
 		return;			
@@ -105,7 +101,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "5",
-			"position" : "api/app/v5/ctroller/order/orders-insert", 
+			"position" : "api/app/v5/controller/order/orders-insert", 
 			"message": error_send 
 		}); 
 		return;			
@@ -136,6 +132,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(get_store_id_resuilt.length > 0){
 			var store_id = get_store_id_resuilt[0].products_speciality_store_id;
 			var store_name = get_store_id_resuilt[0].stores_name;
+			var store_email = get_store_id_resuilt[0].users_email;
 		}else{
 			var evn = ojs_configs.evn;
 			//evn = "dev";
@@ -171,8 +168,11 @@ async  function controllers_order_insert_app(req, res, next) {
 		return;				
 	}	
 
+	//res.send([datas]);
+	//return;	
+
 	
-	//@
+	//@ tạo meta data
 	try {
 		var datas_assign = Object.assign(fields_insert.default_fields, datas.orders);
 		var meta_adress= {
@@ -184,41 +184,50 @@ async  function controllers_order_insert_app(req, res, next) {
 			"adress_meta_wards"			: datas.orders.orders_speciality_wards,
 			"adress_meta_street"		: datas.orders.orders_speciality_adress
 		}	
-		order_insert(datas_assign,datas.orders_detail).then( results => {
+		
+		var order_insert_resuilt = await  order_insert(datas_assign,datas.orders_detail,res);
+		meta_adress_insert(meta_adress,res);
 
-			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,results[0].insertId,datas.orders.orders_speciality_phone);
+		//@
+		//@
+		//gữi sms đặt hàng 		
+		ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[0].insertId,datas.orders.orders_speciality_phone);
+		//@
+		//@
+
+		//@
+		//gữi email đặt hàng cho cửa hàng		
+		var email_to4 = store_email;
+		var email_title = 'DALA - Có đơn hàng mới';
+		var email_content4 = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
 			
-			var email_to = "dalavn.group@gmail.com";
-			var email_title = "Có đơn hàng mới";
-			var email_content = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
-			//@
-			//@
-			ojs_shares_send_email.send_email_lost_password(res,email_to,email_title,email_content);		
+		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);				
+		
+		//@
+		//gữi email đặt hàng cho admin	
+		var email_to1 = ojs_configs.email_admin_01;
+		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);			
+		
+		var email_to2 = ojs_configs.email_admin_02;
+		ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
+		
+		var email_to3 = ojs_configs.email_admin_03;	
+		ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
+		
+		var email_to4 = ojs_configs.email_admin_04;	
+		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
 
-			var email_to2 = "lehongson.tc@gmail.com";
-			var email_title2 = "Có đơn hàng mới";
-			var email_content2 = '<p> Có đơn hàng mới <b>[ ' + results[0].insertId + ' ] </b></p>';
 
-			ojs_shares_send_email.send_email_lost_password(res,email_to2,email_title2,email_content2);					
-
-			meta_adress_insert.save_meta_adress(meta_adress);
-						
-			res.send( {"error" : "", "datas" : results} );
-			return;
-			//
-		}, error => {
-			var message_error = fields-insert.get_message_error(error);
+		//@ gữi cho khách hàng
+		email_to4 = datas.orders.orders_speciality_email;
+		email_title = 'DALA - Đặt hàng thành công ';
+		email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b> tại DALA</p>';
 			
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn, error, message_error);
-			res.send({ 
-				"error" : "9", 
-				"position":"ctl-orders-speciality-insert", 
-				"message": error_send 
-			}); 
-			return;	
-		});
+		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+
+
+		res.send( {"error" : "", "datas" : order_insert_resuilt} );
+		return;
 	}
 	catch(error){
 		env = ojs_configs.api_evn;

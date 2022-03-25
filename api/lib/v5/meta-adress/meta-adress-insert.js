@@ -8,102 +8,74 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./meta-adress-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
+const fields_insert = require('./meta-adress-fields-insert.js');
 
 
-const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
-const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
-const get_conditions = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-conditions');
-const get_limit = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-limit.js');
-const get_order = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-order.js');
-const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-group-by.js');
-const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
-
-
-const store_search = function (datas,res) {
-
-	try{	
-		var sql_select_type = get_select_type(datas,res);
-		var sql_select_fields = get_select_fields(datas,res);	
-		var sql_condition = get_conditions(datas,res);	
-		var sql_limit = get_limit(datas,res);
-		var sql_order = get_order(datas,res);
-		var sql_group_by = get_group_by(datas,res);
-		var sql_having = get_having(datas,res);	
-		
-		var get_sql_search_group = "SELECT " + 
-			sql_select_type + 
-			sql_select_fields + 
-			fields_get.from_default + 
-			fields_get.link_default + 
-			sql_condition +
-			sql_group_by + 
-			sql_order + 
-			sql_having + 
-			sql_limit;
-		
+const meta_adress_insert = function (data,res) {
+	
+	//@
+	//@
+	//@
+	try {
+		var datas = Object.assign(fields_insert.default_fields, data);
+			
+		var sql_text = "INSERT INTO " + config_database.PREFIX + "adress_meta  SET ?";
+		var dataGo = {
+				"adress_meta_user_id"					: datas.adress_meta_user_id,	
+				"adress_meta_name"						: mysql.escape(datas.adress_meta_name).replace(/^'|'$/gi, ""),
+				"adress_meta_phone"						: mysql.escape(datas.adress_meta_phone).replace(/^'|'$/gi, ""),
+				"adress_meta_province"					: mysql.escape(datas.adress_meta_province).replace(/^'|'$/gi, ""),
+				"adress_meta_district"					: mysql.escape(datas.adress_meta_district).replace(/^'|'$/gi, ""),
+				"adress_meta_wards"						: mysql.escape(datas.adress_meta_wards).replace(/^'|'$/gi, ""),
+				"adress_meta_street" 					: mysql.escape(datas.adress_meta_street).replace(/^'|'$/gi, ""),			
+				"adress_meta_full_adress" 				: mysql.escape(datas.adress_meta_full_adress).replace(/^'|'$/gi, ""),
+				"adress_meta_status" 					: mysql.escape(datas.adress_meta_status).replace(/^'|'$/gi, "")
+		}
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi store search, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
+		return ({ 
 			"error" : "1",
-			"position" : "store search", 
-			"message": error_send 
-			}); 
-		return;	
+			"position" : "lib/meta-adress/insert", 
+			"message": "Lỗi sử lý data, liên hệ admin DALA(lỗi này có thể bỏ qua)" 
+		}); 
 	}	
-
+	
+	//return dataGo;
+	
 	//@
-	try {	
+	//@
+	//@
+	var kes = Object.keys(dataGo);
+	for(var x in kes){
+		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
+	}
+
+	//return dataGo;
+	//@
+	//@
+	//@
+	try {
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
-				if( err ) {
-					var evn = ojs_configs.evn;
-					//evn = "dev";
-					var error_send = ojs_shares_show_errors.show_error( 
-							evn, 
-							err, 
-							"Lỗi store search, Vui lòng liên hệ admin" 
-						);
-					res.send({ 
-						"error" : "2",
-						"position" : "lib/stores/store search", 
-						"message": error_send 
-					}); 
-					return;
-				}
+			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
+				if( err ) reject(err);
 				resolve(results);
 			} );
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi store search, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "3",
-			"position" : "lib/stores/store search", 
-			"message": error_send 
+		return ({ 
+			"error" : "2",
+			"position" : "lib/meta-adress/insert", 
+			"message": "Lỗi sử lý data, liên hệ admin DALA(lỗi này có thể bỏ qua)" 
 		}); 
-		return;
-	}	
+	}
 };	
 
 
-module.exports = store_search;
+module.exports = meta_adress_insert;
 
 
 /*
