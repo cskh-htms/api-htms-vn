@@ -11,7 +11,7 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 const get_select_fields_special_product = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-product.js');
 const get_select_fields_special_discount = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-discount.js');
 const get_select_fields_special_order = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-order.js');
-
+const get_select_fields_special_coupon = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-coupon.js');
 
 
 
@@ -56,8 +56,13 @@ const get_consition =  function(datas,res){
 						condition_arr[x].where[s].field == "check_expired" 
 						|| condition_arr[x].where[s].field == "check_date" 
 					){
-						consition_field  = get_select_fields_special_discount(condition_arr[x].where[s].field,res);					
+						consition_field  = get_select_fields_special_discount(condition_arr[x].where[s].field,res);	
 						
+					//@ field đặt biệt coupon
+					}else if(
+						condition_arr[x].where[s].field == "check_expired_coupon" 
+					){
+						consition_field  = get_select_fields_special_coupon(condition_arr[x].where[s].field,res);							
 						
 					//@ field đặt biệt order
 					}else if(
