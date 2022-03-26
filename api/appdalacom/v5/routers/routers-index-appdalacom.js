@@ -15,6 +15,6 @@ router.use('/discount-program', require('./discount-program/routers-discount-pro
 
 router.use('/reviews', require('./reviews/routers-reviews-appdalacom-api.js'));
 router.use('/stores', require('./stores/routers-stores-appdalacom.js'));
-
+router.use('/coupons', require('./coupons/routers-coupon-api-appdalacom.js'));
 
 module.exports = router;

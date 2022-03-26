@@ -30,10 +30,19 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá DALA</h1>
+	<div class="sap_xep_wrap">
+		<a href="/coupon/speciality/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo mã giảm giá</a>
+	</div>
+	<br>
 	<div class="mb20">
-		<span>Đây là trang mã giảm giá chung của DALA, để tạo và quản lý mã giảm giá cho riêng mình, xin ấn vào đây > </span>
 		<a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">Quản lý mã giảm giá của <%= store_name %></a>
 	</div>
+	
+	<br>	
+<hr>
+	<br>	
+	
+	<h1>Danh sách Mã giảm giá đang có trên hệ Thống DALA</h1>
 	<div class="coupon_content">
 	
 	<%
@@ -66,8 +75,7 @@ content
 					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 				</div>
 				<div class="coupon_btn">
-					<a href="/coupon/speciality/show/13/17" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-					<a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a>
+					<a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID %>/<%= store_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
 				</div>
 			</div>
 		<%

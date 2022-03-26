@@ -15,6 +15,7 @@ const  default_fields = {
 		"coupon_speciality_date_star"			:null,
 		"coupon_speciality_date_end"			:null,
 		"coupon_speciality_multiple"			: 0,
+		"coupon_speciality_show_hide"			: 0,
 		"coupon_speciality_status_admin"		: 0,
 		"coupon_speciality_status_update"		: 0,
 		"coupon_speciality_limit_user"			: 0,

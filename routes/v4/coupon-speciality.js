@@ -1,25 +1,20 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
 
+const controller_coupon_add = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-add.js');
+const controller_coupon_save = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-save.js');
+const controller_coupon_delete = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-delete.js');
+//end of v5
 
 
 //@
@@ -79,6 +74,13 @@ const ojs_datas_coupon = require('../../models/ojs-datas-coupon.js');
 
 --------------------------------------------------------------
 */
+
+
+
+
+router.get('/add/:store_id/:user_id', controller_coupon_add);
+router.post('/save', controller_coupon_save);
+router.get('/delete/:coupon_id', controller_coupon_delete);
 
 //@
 //@
@@ -824,7 +826,7 @@ router.get('/quan-ly', async function(req, res, next) {
 //@
 //@
 //@ 8 [/delete/:coupon_id]
-router.get('/delete/:coupon_id', async function(req, res, next) {
+router.get('asasdasdasd/delete/:coupon_id', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -1328,7 +1330,7 @@ router.get('/show/:coupon_id/:store_id', async function(req, res, next) {
 //@
 //@
 //@ 5 [/save]
-router.post('/save', async function(req, res, next) {
+router.post('asdasdasd/save', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -1394,7 +1396,7 @@ router.post('/save', async function(req, res, next) {
 //@
 //@
 //@ 4 [/add/:store_id/:user_id]
-router.get('/add/:store_id/:user_id', async function(req, res, next) {
+router.get('asdasdasd/add/:store_id/:user_id', async function(req, res, next) {
 	//@
 	//@
 	//@

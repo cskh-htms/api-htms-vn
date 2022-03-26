@@ -88,14 +88,15 @@ content
 						
 
 					<p>
-					<span>Điều kiện<span>
-					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
-						<span class="giai-thich"><span>Điều kiện để sử dụng mã giảm giá này</span></span>	
-						</a>
-						<select id="coupon_speciality_condition">
-							<%- ojs_share_coupon.show_coupon_condition_select( 0 ) %>
-						</select>	
-					<p>
+						<span>Điều kiện<span>
+						<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+							<span class="giai-thich"><span>Điều kiện để sử dụng mã giảm giá này</span></span>	
+							</a>
+							<select id="coupon_speciality_condition">
+								<%- ojs_share_coupon.show_coupon_condition_select( 0 ) %>
+							</select>	
+					</p>		
+					<p  id="gia_tri_dieu_kien_coupon" style="display:none;">
 					<span>Giá trị điều kiện<span>
 					<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
 						<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span>	
@@ -167,9 +168,7 @@ content
 			<!-- ----------------------------------
 					//của bảo
 			------------------------------------ -->
-			
-			
-			
+						
 			<!-- Kiểu coupon -->
 			<div class="pro_box kieu_km" style="display:none;">
 				<h3>Kiểu khuyến mãi</h3>
@@ -321,15 +320,11 @@ content
 				</div>
 			</div>
 			
-			<!-- Số lượng coupon -->
-			<div class="pro_box"  style="display:none;">
-				<h3>Số lượng coupon</h3>
-				<div class="inside">
-					<input type="text" value="" id="coupon_speciality_limit_number" />
-				</div>
-			</div>
 			
-			<!-- Sử dụng chung coupon -->
+			
+			<!-- --------------
+			//Sử dụng chung coupon 
+			---------------- -->			
 			<div class="pro_box">
 				<h3>Dùng chung với Coupon khác? <a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dung-chung-ma-giam-gia"  target="_blank" class="giai_thich_link">
 				<span class="giai-thich"><span>Dùng chung với mã giảm giá khác</span></span>	
@@ -338,25 +333,63 @@ content
 					<select id="coupon_speciality_multiple">
 						<%- ojs_share.show_coupon_multi_select(0) %>
 					</select>	
-				</div>
-				
-									
-			</div>
+				</div>									
+			</div>				
 			
-			<!-- KH dùng tối đa -->
-			<div class="pro_box"   style="display:none;">
+			
+			<!-- ---------------------------
+			//Số lượng coupon 
+			------------------------------ -->
+			<div class="pro_box">
+				<h3>Số lượng coupon</h3>
+				<span class="giai-thich"><span>Dùng tối đa bao nhiêu mã</span></span>	
+				<div class="inside">
+					<input type="text" value="" id="coupon_speciality_limit_number" />
+				</div>
+			</div>	
+			
+			
+			<!-- ------------------------------
+			//KH dùng tối đa 
+			------------------------------ -->
+			<div class="pro_box" >
 				<h3>Mỗi khách dùng tối đa bao nhiêu lần?</h3>
+				<span class="giai-thich"><span>Số lượng tối đa cho mỗi khách hàng</span></span>
 				<div class="inside">
 					<input 
-					class="number_change" type="text" 
-					data_value="0"
-					value="0" 
+					type="text" 
+					value="" 
 					id="coupon_speciality_limit_user" 
 					/>
 				</div>
+			</div>			
+			
+			
+			
+			
+			<!-- --------------
+			//ẩn hiện coupon
+			---------------- -->			
+			<div class="pro_box">
+				<h3>Ẩn hiện ngoài app ? <a href="#"  target="_blank" class="giai_thich_link">
+				<span class="giai-thich"><span>Cho ẩn hoặc hiện trên app khi khách mua hàng</span></span>	
+				</a></h3>
+				<div class="inside">
+					<select id="coupon_speciality_show_hide">
+						<%- ojs_share_coupon.show_coupon_show_hide(0) %>
+					</select>	
+				</div>									
 			</div>
 			
-			<!-- Tin nhắn admin -->
+			
+
+			
+			
+			
+			
+			<!-- ------------------------------
+			//Tin nhắn admin 
+			------------------------------- -->
 			<div class="pro_box trang_thai_box ">
 				<h3>Lời nhắn<span class="giai-thich"><span>Gửi tin nhắn tới admin duyệt sản phẩm</span></span></h3>
 				<div class="inside">
@@ -364,7 +397,13 @@ content
 				</div>
 			</div>	
 			
-			<!-- Trạng thái admin -->
+			
+			
+			
+			
+			<!-- ----------------------------
+			//Trạng thái admin 
+			-------------------------- -->
 			<div class="pro_box trang_thai_box <%= admin_view %>">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
@@ -504,6 +543,30 @@ $(document).ready(function($){
 		}
 	);
 
+
+
+
+
+
+
+
+
+
+
+
+	$(document).on('change','#coupon_speciality_condition',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0 || x == 3){
+			$('#gia_tri_dieu_kien_coupon').css('display','none');
+		}else{
+			$('#gia_tri_dieu_kien_coupon').css('display','block');
+		}
+	});
+
+
+
+
 	//@
 	//@
 	//@
@@ -578,7 +641,8 @@ $(document).ready(function($){
 		//@
 		//@
 		let coupon_speciality_type = $('#coupon_speciality_type  option:selected').val();
-		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();	
+		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();
+		let coupon_speciality_show_hide = $('#coupon_speciality_show_hide  option:selected').val();			
 		//@
 		let coupon_speciality_info = $('#noi_dung').val();
 		var coupon_speciality_status_admin = $('#coupon_speciality_status_admin').val();
@@ -608,6 +672,7 @@ $(document).ready(function($){
 								
 				coupon_speciality_info : coupon_speciality_info,				
 				coupon_speciality_multiple : coupon_speciality_multiple,
+				coupon_speciality_show_hide : coupon_speciality_show_hide,
 				coupon_speciality_limit_user : coupon_speciality_limit_user,
 				coupon_speciality_limit_number:coupon_speciality_limit_number,
 				

@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const store_search = function (datas,res) {
+const function_export = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -44,11 +44,10 @@ const store_search = function (datas,res) {
 			sql_having + 			
 			sql_order + 
 			sql_limit;
-		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -68,7 +67,7 @@ const store_search = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -87,7 +86,7 @@ const store_search = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -103,7 +102,7 @@ const store_search = function (datas,res) {
 };	
 
 
-module.exports = store_search;
+module.exports = function_export;
 
 
 /*

@@ -16,7 +16,7 @@
 
 5. [show_name_formula_condition_coupon]
 
-
+6. [show_coupon_show_hide]
 
 --------------------------------------------------
 */
@@ -29,6 +29,27 @@
 
 
 ojs_share_coupon = {
+	
+	
+	//@
+	//@ 6. [show_coupon_show_hide]
+	show_coupon_show_hide: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Ẩn</option>' + 
+			'<option value="1">Hiện</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Ẩn</option>' + 
+			'<option value="1" selected>Hiện</option>'
+		}		
+		//	
+		return result;	
+	},	
+	
 	//@
 	//@
 	//@ 

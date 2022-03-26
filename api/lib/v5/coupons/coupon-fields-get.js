@@ -26,7 +26,8 @@ const fields_get = 	"" +
 	"DATE_FORMAT(" + config_database.PREFIX  + "coupon_speciality_date_end,'%Y/%m/%d %H:%i:%s') as coupon_speciality_date_end, " +		
 	
 	config_database.PREFIX  + "coupon_speciality_multiple as coupon_speciality_multiple, " + 
-
+	config_database.PREFIX  + "coupon_speciality_show_hide as coupon_speciality_show_hide, " + 
+	
 	config_database.PREFIX  + "coupon_speciality_status_admin as coupon_speciality_status_admin, " + 
 	config_database.PREFIX  + "coupon_speciality_status_update as coupon_speciality_status_update, " + 
 	config_database.PREFIX  + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
