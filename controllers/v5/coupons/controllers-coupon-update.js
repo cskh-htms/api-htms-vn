@@ -10,7 +10,8 @@ const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
 async  function function_export(req, res, next) {
 	try {
 		var token = req.session.token;
-		var coupon_id = req.params.coupon_id;		
+		var coupon_id = req.params.coupon_id;
+		var datas  = req.body;		
 		if(token == "" || token == null || token == undefined || token == 'null'){
 			res.send( "vui lòng đăng nhập" );
 			return;
@@ -35,12 +36,13 @@ async  function function_export(req, res, next) {
 	//res.send( [coupon_id] );
 	//return;	
 	
-	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_delete(
-			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/coupons/delete/'+ coupon_id,
+	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
+			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/coupons/update/'+ coupon_id,
+			datas,
 			token
 		);	
 		
-	//res.send( data_api_resuilt );
+	//res.send( [data_api_resuilt] );
 	//return;			
 		
 		
@@ -54,7 +56,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"controller->coupon-delete",
+			"position":"controller->coupon-update",
 			"message": error_send 
 		}); 
 		return;

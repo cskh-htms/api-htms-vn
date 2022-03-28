@@ -31,7 +31,7 @@ function get_message_error(error){
 			return " Không tìm thấy cửa hàng ";
 			
 		}else if(error.sqlMessage.search("trig_coupon_speciality_code_date_end_less_star") >= 0){
-			return " ngày tháng không hợp lệ ";			
+			return "Bạn chưa nhập ngày tháng, hoặc ngày tháng không hợp lệ ";			
 			
 			
 			

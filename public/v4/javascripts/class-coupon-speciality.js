@@ -105,7 +105,7 @@ $(document).ready(function($){
 								ojs_message.message_ok_show(result.message);
 							}
 						}else{
-							ojs_message.message_ok_show(" Đã tạo coupon",location.href);
+							ojs_message.message_ok_show(" Đã tạo coupon","/coupon/speciality/" + $('#store_id').val());
 						}
 					}				
 					

@@ -8,19 +8,20 @@ const config_api = require('../../../../configs/config-api');
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 
+
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_coupon = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-coupon');
-const coupon_delete = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-delete');
 
+const coupon_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-update');
 
 //@
 async  function function_export(req, res, next) {
-	
 	
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
 		var coupon_id = req.params.coupon_id;
+		var datas  = req.body.datas;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -38,7 +39,7 @@ async  function function_export(req, res, next) {
 		return;	
 	}	
 	
-	//res.send([coupon_id]);
+	//res.send(datas);
 	//return;
 	
 	//@ check role phân quyền
@@ -66,18 +67,17 @@ async  function function_export(req, res, next) {
 	}
 
 
-	//res.send([check_role_result]);
+	///res.send([check_role_result]);
 	//return;
 	
 	
-	//@ lấy id cửa để check owner store
+	//@ lấy id cửa hàng để check owner store
 	if(check_role_result == "bussiness"){
 		//@ check owner store id
 			
 		var check_owner_coupon_resuilt = await check_owner_coupon(token,coupon_id,res);
 		//res.send([check_owner_coupon_resuilt]);
-		//return;		
-		
+		//return;				
 		
 		if(	check_owner_coupon_resuilt == "1" ){
 			//go
@@ -92,7 +92,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "232",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-delete-appdalacom-api.js", 
+				"position" : "ctroller->api-appdalacom->controllers-coupon-update-appdalacom-api.js", 
 				"message": error_send 
 			}); 
 			return;			
@@ -105,9 +105,9 @@ async  function function_export(req, res, next) {
 	//return;	
 	
 	
-	var coupon_delete_result = await coupon_delete(coupon_id,res);
+	var coupon_update_result = await coupon_update(datas,coupon_id,res);
 	
-	res.send([coupon_delete_result]);
+	res.send(coupon_update_result);
 	return;
 
 

@@ -10,11 +10,7 @@ const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_
 
 
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 const check_owner_store = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-store');
-
-const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-appdalacom-api.js');
-const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const coupon_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-insert');
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
@@ -76,7 +72,7 @@ async  function function_export(req, res, next) {
 	//return;
 	
 	
-	//@ lấy id cửa để check owner store
+	//@ lấy id cửa hàng để check owner store
 	if(check_role_result == "bussiness"){
 		var user_id = ojs_shares_others.get_users_id(token);
 		let data_store =    
