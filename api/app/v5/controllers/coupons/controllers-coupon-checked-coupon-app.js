@@ -14,6 +14,7 @@ const check_owner_order_customer = require('../../../../shares/' + config_api.AP
 
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
+const check_coupon_condition = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition');
 
 //@
 async  function function_export(req, res, next) {
@@ -76,8 +77,6 @@ async  function function_export(req, res, next) {
 
 
 
-
-
 	//@
 	//@ 
 	//@ nếu có data
@@ -109,7 +108,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@ lấy id cửa hàng của đơn hàng
 		try{
-			var datas = 
+			var datas_store = 
 			{
 				"select_field" :
 				[ 
@@ -133,7 +132,7 @@ async  function function_export(req, res, next) {
 			}
 			//return datas;		
 			
-			var get_store_result = await product_search(datas,res);		
+			var get_store_result = await product_search(datas_store,res);		
 			//res.send(get_store_result);
 			//return;
 				
@@ -171,7 +170,7 @@ async  function function_export(req, res, next) {
 	//@
 	//@ lấy danh sách coupon con hạn theo cửa hàng
 	try{
-		var datas = 
+		var datas_coupon = 
 		{
 			"select_field" :
 			[ 
@@ -189,19 +188,49 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_date_star",
 				"coupon_speciality_date_end",
 				"coupon_speciality_multiple",
+				"coupon_speciality_show_hide",
 				"coupon_speciality_status_admin",
 				"coupon_speciality_limit_user",
 				"coupon_speciality_limit_number",
 				"coupon_speciality_qoute",
 				"stores_ID",
 				"stores_name"
-			]
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+						{   
+							"field"     :"check_expired_coupon",
+							"value"     : 1,
+							"compare" : "="
+						},
+						{   
+							"field"     :"coupon_speciality_stores_id_created",
+							"value"     : store_id,
+							"compare" : "="
+						},
+						{   
+							"field"     :"coupon_speciality_status_admin",
+							"value"     : 4,
+							"compare" : "="
+						},
+						{   
+							"field"     :"coupon_speciality_show_hide",
+							"value"     : 1,
+							"compare" : "="
+						},						
+					]    
+				}         
+			],
 		}
 		//return datas;		
 		
-		var coupon_list_result = await coupon_search(datas,res);		
-		res.send(coupon_list_result);
-		return;
+		var coupon_list_result = await coupon_search(datas_coupon,res);		
+		//res.send(coupon_list_result);
+		//return;
 			
 		var coupon_list = coupon_list_result;			
 
@@ -212,7 +241,7 @@ async  function function_export(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get_store, Vui lòng liên hệ admin" 
+				"Lỗi get coupon, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "444",
@@ -221,6 +250,79 @@ async  function function_export(req, res, next) {
 		}); 
 		return;				
 	}
+
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ check điều kiện áp dụng
+	try{	
+	
+		var coupon_ok = [];
+		for( var  x in coupon_list ) { 
+			var datas_check = {
+				datas : datas,
+				
+				coupon_id : coupon_list[x].coupon_speciality_ID,
+				condition : coupon_list[x].coupon_speciality_condition,
+				value : coupon_list[x].coupon_speciality_condition_value,
+				user_limit : coupon_list[x].coupon_speciality_limit_user,
+				limit_number : coupon_list[x].coupon_speciality_limit_number,
+				show_hide : coupon_list[x].coupon_speciality_show_hide,
+				user_id : user_id,
+				formula : coupon_list[x].coupon_speciality_formula_price,
+				price : coupon_list[x].coupon_speciality_formula_price_value,
+				price_max : coupon_list[x].coupon_speciality_price_max				
+			}
+
+			var check_condition = await check_coupon_condition.coupon_condition(datas_check,res);
+	
+			//coupon_ok.push(check_condition);
+			//@ tính tiền giảm giá
+			if(check_condition > 0){
+				var caution_price = await check_coupon_condition.caution_price(datas_check);
+				
+				let line_data = {
+					"coupon_speciality_ID": coupon_list[x].coupon_speciality_ID,
+					"coupon_speciality_code": coupon_list[x].coupon_speciality_code,
+					"coupon_price_caution": caution_price,
+					"store_id":store_id,
+					"store_name":store_name,
+					"coupon_speciality_multiple":coupon_list[x].coupon_speciality_multiple,
+					"coupon_speciality_limit_number":coupon_list[x].coupon_speciality_limit_number,
+					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user
+				}
+				coupon_ok.push(line_data);
+			}
+
+		}//end of for
+		
+		res.send(coupon_ok);
+		return;	
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get condition, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "414",
+			"position" : "api/app/v5/coupons/checked-coupon",
+			"message": error_send 
+		}); 
+		return;				
+	}
+
+
+
 
 	//@
 	res.send({"error":"","datas":coupon_search_result});
