@@ -10,6 +10,12 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const get_select_fields_special_product = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-product.js');
 const get_select_fields_special_discount = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-discount.js');
 const get_select_fields_special_order = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-order.js');
+const get_select_fields_special_coupon = require('../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields-special-coupon.js');
+
+
+
+
+
 
 const get_select_fields =  function(datas,res){
 try {	
@@ -117,6 +123,13 @@ try {
 			){
 				sql_field_check  = get_select_fields_special_discount(field_arr[x],res);					
 				
+				
+			//@ field đặt biệt coupon
+			}else if(
+				field_arr[x] == "check_expired_coupon" 
+			){
+				sql_field_check  = get_select_fields_special_coupon(field_arr[x],res);	
+
 				
 			//@ field đặt biệt order
 			}else if(

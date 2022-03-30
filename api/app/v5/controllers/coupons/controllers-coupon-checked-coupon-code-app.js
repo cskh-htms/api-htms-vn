@@ -14,8 +14,8 @@ const check_owner_order_customer = require('../../../../shares/' + config_api.AP
 
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
-const check_coupon_condition = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition');
-
+const check_coupon_condition_code = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code');
+const check_coupon_condition_code_all = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code-all');
 //@
 async  function function_export(req, res, next) {
 
@@ -23,7 +23,9 @@ async  function function_export(req, res, next) {
 		var token = req.headers['token'];
 		var datas = req.body.datas;
 		var user_id = req.body.user_id;	
-		var store_id = 17;		
+		var coupon_code = req.body.coupon_code;
+		var coupon_selected_by_store = req.body.coupon_selected_by_store;
+		var coupon_selected_by_dala = req.body.coupon_selected_by_dala;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -35,14 +37,16 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/coupons/checked-coupon-dala",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
 		return;	
 	}
 
-	//res.send([datas,user_id,store_id]);
+	//res.send([datas,user_id,coupon_code,coupon_selected]);
 	//return;
+
+
 
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
@@ -63,7 +67,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4",
-			"position" : "api/app/v5/coupons/checked-coupon-dala",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
 		return;			
@@ -76,9 +80,12 @@ async  function function_export(req, res, next) {
 
 
 
+
+
+
 	//@
 	//@
-	//@ lấy danh sách coupon con hạn theo cửa hàng
+	//@ lấy thong tin coupon
 	try{
 		var datas_coupon = 
 		{
@@ -104,7 +111,8 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_limit_number",
 				"coupon_speciality_qoute",
 				"stores_ID",
-				"stores_name"
+				"stores_name",
+				"check_expired_coupon"
 			],
 			"condition" :
 			[
@@ -113,30 +121,10 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 						{   
-							"field"     :"check_expired_coupon",
-							"value"     : 1,
+							"field"     :"coupon_speciality_code",
+							"value"     : coupon_code,
 							"compare" : "="
-						},
-						{   
-							"field"     :"coupon_speciality_stores_id_created",
-							"value"     : store_id,
-							"compare" : "="
-						},
-						{   
-							"field"     :"coupon_speciality_status_admin",
-							"value"     : 4,
-							"compare" : "="
-						},
-						{   
-							"field"     :"coupon_speciality_show_hide",
-							"value"     : 1,
-							"compare" : "="
-						},
-						{   
-							"field"     :"coupon_speciality_type",
-							"value"     : 1,
-							"compare" : "="
-						},						
+						}		
 					]    
 				}         
 			],
@@ -144,6 +132,16 @@ async  function function_export(req, res, next) {
 		//return datas;		
 		
 		var coupon_list_result = await coupon_search(datas_coupon,res);		
+
+		if(coupon_list_result[0].check_expired_coupon == "0"){
+			res.send({ 
+				"error" : "100",
+				"position" : "api/app/v5/coupons/checked-coupon-code",
+				"message": "Mã code đã hết hạn" 
+			}); 
+			return;	
+		}
+
 		//res.send(coupon_list_result);
 		//return;
 			
@@ -160,7 +158,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "444",
-			"position" : "api/app/v5/coupons/checked-coupon-dala",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
 		return;				
@@ -168,56 +166,60 @@ async  function function_export(req, res, next) {
 
 
 
-
-
-		//@
-		//@
-		//@
-		//@
-		//@ check điều kiện áp dụng
+	//@
+	//@
+	//@
+	//@
+	//@ check điều kiện áp dụng
 	try{	
-	
-		var coupon_ok = [];
-		for( var  x in coupon_list ) { 
-			var datas_check = {
-				datas : datas,				
-				coupon_id : coupon_list[x].coupon_speciality_ID,
-				condition : coupon_list[x].coupon_speciality_condition,
-				value : coupon_list[x].coupon_speciality_condition_value,
-				user_limit : coupon_list[x].coupon_speciality_limit_user,
-				limit_number : coupon_list[x].coupon_speciality_limit_number,
-				show_hide : coupon_list[x].coupon_speciality_show_hide,
-				user_id : user_id,
-				formula : coupon_list[x].coupon_speciality_formula_price,
-				price : coupon_list[x].coupon_speciality_formula_price_value,
-				price_max : coupon_list[x].coupon_speciality_price_max				
-			}
-
-			var check_condition = await check_coupon_condition.coupon_condition(datas_check,res);
-	
-			//coupon_ok.push(check_condition);
-
-			//@ tính tiền giảm giá
-			if(check_condition > 0){
-				var caution_price = await check_coupon_condition.caution_price(datas_check);
-				
-				let line_data = {
-					"coupon_speciality_ID": coupon_list[x].coupon_speciality_ID,
-					"coupon_speciality_code": coupon_list[x].coupon_speciality_code,
-					"coupon_price_caution": caution_price,
-					"store_id":store_id,
-					"store_name":"DALA",
-					"coupon_speciality_multiple":coupon_list[x].coupon_speciality_multiple,
-					"coupon_speciality_limit_number":coupon_list[x].coupon_speciality_limit_number,
-					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user
-				}
-				coupon_ok.push(line_data);
-			}
+		var check_resuilt = {};
+		//@
+		//@
+		if(coupon_list_result[0].coupon_speciality_type == "0"){
 			
-		}//end of for
+			//res.send(["code"]);
+			//return;			
+			
+			var check_resuilt_store = 0;
+			for( var  x in datas ) { 
+				var check_condition = await check_coupon_condition_code.coupon_condition(datas[x],coupon_list,user_id,res);		
+				res.send([check_condition]);
+				return;
+			}//end of for	
+
+		}
 		
-		res.send(coupon_ok);
-		return;	
+		
+		//@
+		//@
+		if(coupon_list_result[0].coupon_speciality_type == "1"){
+			//res.send(["code-all"]);
+			//return;
+			var check_all = await check_coupon_condition_code_all.coupon_condition(datas,coupon_list,user_id,res);	
+			var caution_price = await check_coupon_condition_code_all.caution_price(datas,coupon_list,res);
+
+			//res.send([caution_price]);
+			//return;
+
+			
+			let data_push = {
+					"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
+					"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
+					"coupon_price_caution": caution_price,
+					"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
+					"store_id":17,
+					"store_name":"DALA"
+				}  
+
+			coupon_selected_by_dala.push(data_push);
+			check_resuilt.coupon_selected_store = coupon_selected_by_store;
+			check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
+		}		
+
+
+		
+		res.send(check_resuilt);
+		return;
 
 	}
 	catch(error){
@@ -229,15 +231,12 @@ async  function function_export(req, res, next) {
 				"Lỗi get condition, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "414",
-			"position" : "api/app/v5/coupons/checked-coupon-dala",
+			"error" : "241",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
 		return;				
 	}
-
-
-
 
 	//@
 	res.send({"error":"","datas":coupon_search_result});
