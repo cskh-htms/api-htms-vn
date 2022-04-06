@@ -1,25 +1,25 @@
-//@
-//@
-//@
-//@
-//@ loader express
+// v5 
 const express = require('express');
 const router = express.Router();
+const fetch = require('node-fetch');
+
+const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
+
+
+const controller_coupon_show_admin = require(
+	'../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-show-admin.js'
+);
+
+
 
 
 //@
 //@
 //@
 //@ loader extends module
-const fetch = require('node-fetch');
 const md5 = require('md5');
-
-//@
-//@
-//@
-//@ loader configs
-const ojs_configs = require('../../configs/config');
-
 
 
 //@
@@ -33,7 +33,7 @@ const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-
 const ojs_shares_news_admin_menu = require('../../models/ojs-shares-news-admin-menu');
 
 const ojs_shares_others = require('../../models/ojs-shares-others');
-const ojs_shares_show_errors = require('../../models/ojs-shares-show-errors');
+
 const ojs_shares_date = require('../../models/ojs-shares-date');
 const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
@@ -78,6 +78,15 @@ const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-dis
 
 --------------------------------------------------------------
 */
+
+
+router.get('/coupon/show/:coupon_id/:store_id', controller_coupon_show_admin);
+
+
+
+
+
+
 
 
 //@
@@ -513,7 +522,7 @@ router.get('/product/show/:product_id/:store_id/', async function(req, res, next
 //@
 //@
 //@ 8. [/coupon/show/:coupon_id/:store_id]
-router.get('/coupon/show/:coupon_id/:store_id', async function(req, res, next) {
+router.get('ASDASDASD/coupon/show/:coupon_id/:store_id', async function(req, res, next) {
 	//@
 	//@
 	//@

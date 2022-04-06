@@ -17,7 +17,6 @@ const coupon_condition = async function(datas,res){
 		var date_return = 0;
 		
 		if(datas.condition == 0){
-			
 			let coupon_limit_result =  await check_limit_number(datas.coupon_id,datas.limit_number,res);
 			let user_limit_result =  await check_limit_user(datas.coupon_id,datas.user_limit,datas.user_id,res);
 			
@@ -145,6 +144,11 @@ const check_limit_user = async function(coupon_id,number,user_id,res){
 		var data_sum = 0;
 		var data_return = 0;
 
+		if(number == 0){
+			data_return = 1;
+		}
+
+
 		var limit_user_result = await coupon_search_limit_user(coupon_id,user_id,res);
 		//return limit_user_result;
 		
@@ -180,16 +184,22 @@ const check_limit_number = async function(coupon_id,number,res){
 	try{
 		var data_sum = 0;
 		var data_return = 0;
-
+		
+		
+		if(number == 0){
+			data_return = 1;
+		}
+						
 		var limit_number_result = await coupon_search_limit_number(coupon_id,res);
-		//return limit_number_result;
+		//return [coupon_id,number];
 		
 		if(limit_number_result.length > 0){
 			if(parseInt(limit_number_result[0].coupons_sum) < number){
 				data_return = 1;
 			}
-		}
-		return data_return;
+		}			
+
+		return data_return;		
 	}	
 	catch(error){
 		var evn = ojs_configs.evn;

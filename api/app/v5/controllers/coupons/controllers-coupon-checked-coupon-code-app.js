@@ -133,20 +133,26 @@ async  function function_export(req, res, next) {
 		
 		var coupon_list_result = await coupon_search(datas_coupon,res);		
 
-		if(coupon_list_result[0].check_expired_coupon == "0"){
+		if(coupon_list_result.length > 0){
+			var coupon_list = coupon_list_result;
+			if(coupon_list_result[0].check_expired_coupon == "0"){
+				res.send({ 
+					"error" : "100",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Mã code đã hết hạn" 
+				}); 
+				return;	
+			}			
+		}else{
 			res.send({ 
-				"error" : "100",
+				"error" : "021",
 				"position" : "api/app/v5/coupons/checked-coupon-code",
-				"message": "Mã code đã hết hạn" 
+				"message": "Mã coupon không có trên hệ thống DALA" 
 			}); 
-			return;	
+			return;				
 		}
-
-		//res.send(coupon_list_result);
+		//res.send(coupon_list);
 		//return;
-			
-		var coupon_list = coupon_list_result;			
-
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -183,10 +189,44 @@ async  function function_export(req, res, next) {
 			var check_resuilt_store = 0;
 			for( var  x in datas ) { 
 				var check_condition = await check_coupon_condition_code.coupon_condition(datas[x],coupon_list,user_id,res);		
-				res.send([check_condition]);
-				return;
-			}//end of for	
+				//res.send([check_condition]);
+				//return;
+				if(
+				check_condition.store_check == 1
+				&& check_condition.coupon_limit == 1 
+				&& check_condition.user_limit == 1 
+				&& check_condition.check == 1 
+				){
+					
+					var caution_price = await check_coupon_condition_code.caution_price(datas[x].line_order,coupon_list,res);	
+					//res.send([caution_price]);
+					//return;						
+					
+					let data_push = {
+							"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
+							"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
+							"coupon_price_caution": caution_price,
+							"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
+							"store_id":coupon_list_result[0].stores_ID,
+							"store_name":coupon_list_result[0].stores_name,
+						}  
 
+					coupon_selected_by_store.push(data_push);
+					check_resuilt.coupon_selected_store = coupon_selected_by_store;
+					check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
+					check_resuilt.coupon_new = data_push;
+
+					res.send(check_resuilt);
+					return;					
+				}
+				
+			}//end of for	
+		
+			res.send({ 
+				"error" : "1021",
+				"position" : "api/app/v5/coupons/checked-coupon-code",
+				"message": "Mã giảm giá không đủ điều kiện áp dụng với đơn hàng của bạn"
+			}); 
 		}
 		
 		
@@ -214,6 +254,7 @@ async  function function_export(req, res, next) {
 			coupon_selected_by_dala.push(data_push);
 			check_resuilt.coupon_selected_store = coupon_selected_by_store;
 			check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
+			check_resuilt.coupon_new = data_push;
 		}		
 
 

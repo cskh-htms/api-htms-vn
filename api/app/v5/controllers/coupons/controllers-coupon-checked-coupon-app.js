@@ -229,6 +229,7 @@ async  function function_export(req, res, next) {
 		//return datas;		
 		
 		var coupon_list_result = await coupon_search(datas_coupon,res);		
+		
 		//res.send(coupon_list_result);
 		//return;
 			
@@ -280,8 +281,9 @@ async  function function_export(req, res, next) {
 			}
 
 			var check_condition = await check_coupon_condition.coupon_condition(datas_check,res);
-	
 			//coupon_ok.push(check_condition);
+			
+
 			//@ tính tiền giảm giá
 			if(check_condition > 0){
 				var caution_price = await check_coupon_condition.caution_price(datas_check);
@@ -299,9 +301,10 @@ async  function function_export(req, res, next) {
 				coupon_ok.push(line_data);
 			}
 
+
 		}//end of for
 		
-		res.send(coupon_ok);
+		res.send([coupon_ok]);
 		return;	
 
 	}
