@@ -38,46 +38,75 @@ content
 		<a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">Quản lý mã giảm giá của <%= store_name %></a>
 	</div>
 	
-	<br>	
-<hr>
+	<br>
+	<hr>
 	<br>	
 	
-	<h1>Danh sách Mã giảm giá đang có trên hệ Thống DALA</h1>
-	<div class="coupon_content">
-	
+	<h1>Mã giảm giá đang hoạt động thuộc cửa hàng</h1>
 	<%
 	if(coupon_list.length > 0){
 	%>
+	<div class="coupon_content">
+		
 		<%
 		for(x in coupon_list ){
 		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type != "1" ){	
-		}else{
+		}else{			
 		%>	
-			<div class="coupon">
-				<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
-				<div class="coupon_info">
-					<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
-					coupon_list[x].coupon_speciality_formula_price,
-					coupon_list[x].coupon_speciality_formula_price_value
-					) -%></div>
-					<div class="coupon_don_tu">
-						<%- ojs_share_coupon.show_name_formula_condition_coupon(
-						0,
-						1
-						) -%>					
+			<%
+			//-----------------------------
+			//		coupon thuộc cửa hàng
+			//------------------------------
+			if(coupon_list[x].stores_ID == store_id){
+			%>	
 					
+				<div class="coupon">
+					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
+					<div class="coupon_info">
+						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
+						coupon_list[x].coupon_speciality_formula_price,
+						coupon_list[x].coupon_speciality_formula_price_value
+						) -%></div>
+						<div class="coupon_don_tu">
+							<%- ojs_share_coupon.show_name_formula_condition_coupon(
+							0,
+							1
+							) -%>					
+						
+						</div>
+						<div class="coupon_don_tu">
+							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
+						</div>	
+
+						<%
+						if(coupon_list[x].coupon_speciality_type == "0"){
+						%>
+							<div class="">
+								Chỉ áp dụng cho cửa hàng : <strong><%- coupon_list[x].stores_name -%></strong>					
+							</div>	
+							<br>						
+						<%
+						}else{
+						%>
+						
+							<div class="">
+								Áp dụng cho mọi cửa hàng trên DALA				
+							</div>	
+							<br>						
+						
+						<%
+						}
+						%>					
+						
+						
+						<div class="coupon_da_dung">Ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+						<div class="coupon_thoi_han">Ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 					</div>
-					<div class="coupon_don_tu">
-						Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
-					</div>					
-					
-					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+
 				</div>
-				<div class="coupon_btn">
-					<a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID %>/<%= store_id %>" title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-				</div>
-			</div>
+			<%
+			}//check coupon thuộc cửa hàng
+			%>	
 		<%
 		}
 		}
@@ -86,18 +115,106 @@ content
 	} else{
 	%>	
 	
-	<h1 style="text-align:center">Chưa có mã giảm giá nào </h1> 
+	<h1 style="text-align:center">Chưa có mã giảm giá nào thuộc cửa hàng</h1> 
 	
 	<%
 	}
 	%>		
 	
-	
-	
 	</div>
 	
-
 	
+	
+	
+	
+	<!-- -------------------------------
+	// coupon dalaDALA
+	-------------------------- ------ -->
+	<br>
+	<br>
+	<hr>
+	<h1>Mã giảm giá đang hoạt động Trên hệ thống DALA áp dụng cho mọi cửa hàng</h1>
+	<br>
+	<br>	
+	<%
+	if(coupon_list.length > 0){
+	%>
+	<div class="coupon_content">
+		
+		<%
+		for(x in coupon_list ){
+		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type != "1" ){	
+		}else{			
+		%>	
+			<%
+			//-----------------------------
+			//		coupon thuộc cửa hàng
+			//------------------------------
+			if(coupon_list[x].stores_ID == 17){
+			%>	
+					
+				<div class="coupon">
+					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
+					<div class="coupon_info">
+						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
+						coupon_list[x].coupon_speciality_formula_price,
+						coupon_list[x].coupon_speciality_formula_price_value
+						) -%></div>
+						<div class="coupon_don_tu">
+							<%- ojs_share_coupon.show_name_formula_condition_coupon(
+							0,
+							1
+							) -%>					
+						
+						</div>
+						<div class="coupon_don_tu">
+							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
+						</div>	
+
+						<%
+						if(coupon_list[x].coupon_speciality_type == "0"){
+						%>
+							<div class="">
+								Chỉ áp dụng cho cửa hàng : <strong><%- coupon_list[x].stores_name -%></strong>					
+							</div>	
+							<br>						
+						<%
+						}else{
+						%>
+						
+							<div class="">
+								Áp dụng cho mọi cửa hàng trên DALA				
+							</div>	
+							<br>						
+						
+						<%
+						}
+						%>					
+						
+						
+						<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+						<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+					</div>
+
+				</div>
+			<%
+			}//check coupon thuộc cửa hàng
+			%>	
+		<%
+		}
+		}
+		%>
+	<%
+	} else{
+	%>	
+	
+	<h1 style="text-align:center">Chưa có mã giảm giá nào của DALA </h1> 
+	
+	<%
+	}
+	%>		
+	
+	</div>	
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="store_id" value="<%= store_id %>"/>

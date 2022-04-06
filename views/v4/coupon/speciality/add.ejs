@@ -123,7 +123,7 @@ content
 					</p>
 				
 
-					<p><span style="display: block">Tiền giảm giá <a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
+					<p id="gia_tri_cong_thuc_coupon"><span style="display: block">Tiền giảm giá <a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/cong-thuc-tinh-tien-giam-gia"  target="_blank" class="giai_thich_link">
 						<span class="giai-thich"><span>Giá trị công thức tính tiền mã giảm giá</span></span>	
 						</a></span>
 					
@@ -370,7 +370,7 @@ content
 			<!-- --------------
 			//ẩn hiện coupon
 			---------------- -->			
-			<div class="pro_box">
+			<div class="<%- admin_view %>">
 				<h3>Ẩn hiện ngoài app ? <a href="#"  target="_blank" class="giai_thich_link">
 				<span class="giai-thich"><span>Cho ẩn hoặc hiện trên app khi khách mua hàng</span></span>	
 				</a></h3>
@@ -382,6 +382,7 @@ content
 			</div>
 			
 			
+
 
 			
 			
@@ -563,6 +564,19 @@ $(document).ready(function($){
 			$('#gia_tri_dieu_kien_coupon').css('display','block');
 		}
 	});
+
+	$(document).on('change','#coupon_speciality_formula_price',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 2){
+			$('#gia_tri_cong_thuc_coupon').css('display','none');
+		}else{
+			$('#gia_tri_cong_thuc_coupon').css('display','block');
+		}
+	});
+
+
+
 
 
 
