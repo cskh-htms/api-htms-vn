@@ -12,11 +12,31 @@ const fetch = require('node-fetch');
 const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
+
+
+
+/*
+	* bussiness
+*/
 const controllers_discount_program_product_add_list = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
 		'/discount-program/controllers-discount-program-product-add-list-web-appdalacom.js'
 	);
+	
+const controllers_discount_program_store_id = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-store-id-web-appdalacom.js'
+	);	
+	
+	
+	
+	
+/*
+	* admin
+*/
+	
 const controllers_discount_program_quan_ly_admin = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
@@ -27,6 +47,12 @@ const controllers_discount_program_store_active_admin = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
 		'/discount-program/controllers-discount-program-store-active-admin-web-appdalacom.js'
+	);	
+	
+const controllers_discount_program_admin_quan_ly_show_all = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-admin-quan-ly-show-all-web-appdalacom.js'
 	);	
 	
 //end of v5
@@ -125,10 +151,16 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 
 
 
-
+//@ bussiness
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
+router.get('/:store_id', controllers_discount_program_store_id);
+
+
+
+//@ admin
 router.get('/quan-ly', controllers_discount_program_quan_ly_admin);
 router.get('/store-active', controllers_discount_program_store_active_admin);
+router.get('/asd', controllers_discount_program_admin_quan_ly_show_all);
 
 
 
@@ -340,7 +372,7 @@ catch(error){
 //@
 //@
 //@ 0. [/quan-ly-show-all]
-router.get('/quan-ly-show-all', async function(req, res, next) {
+router.get('asdasdasd/quan-ly-show-all', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -5098,7 +5130,7 @@ router.get('/add/:store_id/:user_id', async function(req, res, next) {
 //@
 //@
 //@ 1[/:store_id]
-router.get('/:store_id', async function(req, res, next) {
+router.get('asdasdasd/:store_id', async function(req, res, next) {
 	//@
 	//@
 	//@

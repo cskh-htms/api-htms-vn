@@ -29,11 +29,22 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi DALA</h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi Đang hoạt động</h1>
 	<div class="mb20" style="text-align:right;"><a href="/discount-program/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">Quản lý CTKM của bạn</a></div>
 	
-	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-discount-program-show-no %>
+	<div id="ajax-wrap">
+		<% 
+		if(store_id == 17){
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no-dala %>
+		<% 
+		}else{
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no %>		
+		<% 
+		}
+		%>		
+		
 	</div>
 
 

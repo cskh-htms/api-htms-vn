@@ -50,7 +50,18 @@ content
 	
 	
 	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-discount-program-show-no %>
+	
+		<% 
+		if(store_id == 17){
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no-dala %>
+		<% 
+		}else{
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no %>		
+		<% 
+		}
+		%>	
 	</div>
 
 
