@@ -35,7 +35,7 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/discount-program/speciality/' + 
+				'/discount-program/speciality/stores/' + 
 				store_id ,
 				token
 			);	

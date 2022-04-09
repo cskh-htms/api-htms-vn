@@ -27,6 +27,14 @@ const controllers_discount_program_store_id = require(
 const controllers_discount_program_quan_ly_admin =  require(
 	'../../controllers/discount-program/controllers-discount-program-quan-ly-admin-api-appdalacom.js'
 );
+
+
+const controllers_discount_program_admin_quan_ly_show_all =  require(
+	'../../controllers/discount-program/controllers-discount-program-admin-quan-ly-show-all-api-appdalacom.js'
+);
+
+
+
 const controllers_discount_program_store_active_admin =  require(
 	'../../controllers/discount-program/controllers-discount-program-store-active-admin-api-appdalacom.js'
 );
@@ -49,7 +57,7 @@ router.get(
 );
 
 router.get(
-	'/speciality/:store_id',
+	'/speciality/stores/:store_id',
 	middle_ware, 
 	controllers_discount_program_store_id 
 );
@@ -66,6 +74,14 @@ router.get(
 	middle_ware, 
 	controllers_discount_program_quan_ly_admin 
 );
+
+router.get(
+	'/speciality/admin-quan-ly-show-all/',
+	middle_ware, 
+	controllers_discount_program_admin_quan_ly_show_all 
+);
+
+
 
 router.get(
 	'/speciality/store-active-admin/',

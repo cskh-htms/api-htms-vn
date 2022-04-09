@@ -153,17 +153,14 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 
 //@ bussiness
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
-router.get('/:store_id', controllers_discount_program_store_id);
+router.get('/stores/:store_id/', controllers_discount_program_store_id);
 
 
 
 //@ admin
 router.get('/quan-ly', controllers_discount_program_quan_ly_admin);
 router.get('/store-active', controllers_discount_program_store_active_admin);
-router.get('/asd', controllers_discount_program_admin_quan_ly_show_all);
-
-
-
+router.get('/quan-ly-show-all/', controllers_discount_program_admin_quan_ly_show_all);
 
 
 

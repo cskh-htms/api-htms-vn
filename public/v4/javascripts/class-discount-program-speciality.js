@@ -621,7 +621,7 @@ $(document).ready(function($){
 									ojs_message.message_ok_show(result.message);
 								}
 						}else{
-							ojs_message.message_ok_show(" Đã tạo chương trình",location.href);
+							ojs_message.message_ok_show(" Đã tạo chương trình","/discount-program/speciality/store-quan-ly/" + $('#store_id').val());
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

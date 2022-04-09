@@ -14,7 +14,7 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
-
+<% include ../../masterpage/function-share-discount.ejs %>
 
 
 
@@ -121,19 +121,19 @@ content
 				<div class="inside">
 					<span>Hướng dẫn : </span><span class="giai-thich"><span>Khuyến mãi không thời hạn hay có thời hạn</span></span>
 					<select id="discount_program_time_type">
-						<%- ojs_share.show_discount_program_time_type(0) -%>
+						<%- ojs_share.show_discount_program_time_type(1) -%>
 					</select>						
 				</div>
 			</div>	
 			
 			
 			
-			<div class="pro_box trang_thai_box <%= admin_view %>" >
+			<div class="pro_box trang_thai_box" >
 				<h3>Vị trí chương trình khuyến mãi</h3>
 				<div class="inside">
 					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị trên trang chủ app</span></span>
 					<select id="discount_program_position">
-						<%- ojs_share.show_discount_program_position(0) -%>
+						<%- ojs_share_discount.show_discount_program_position_store(4) -%>
 					</select>						
 				</div>
 			</div>				
@@ -235,7 +235,7 @@ content
 			</div>				
 
 		
-			<div class="pro_box ten_sp_box">
+			<div class="pro_box ten_sp_box" id="thoi-han-khuyen-mai">
 				<h3>thời gian khuyến mãi</h3>
 				<div class="inside">
 					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span><input type="text" value="" id="discount_program_date_star" /> </p>	
@@ -377,6 +377,17 @@ $(document).ready(function($){
 	//	
 	
 	
+	
+	$(document).on('change','#discount_program_time_type',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0){
+			$('#thoi-han-khuyen-mai').css('display','none');
+		}else{
+			$('#thoi-han-khuyen-mai').css('display','block');
+		}
+	});	
+	
 	//@
 	//@
 	//@
@@ -400,7 +411,30 @@ $(document).ready(function($){
 	//@
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
+		
+		var date_01 = $('#discount_program_date_star').datepicker( "getDate" );
+		var discount_program_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#discount_program_date_end').datepicker( "getDate" );
+		var discount_program_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);		
+		
+		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();		
+		
+		
+		//console.log([discount_program_date_star,discount_program_date_end,discount_program_time_type]);
+		//return;
+		if(
+		discount_program_time_type == 1
+		&& (discount_program_date_star == "" 
+		|| discount_program_date_end == "")
+		){
+			ojs_message.message_ok_show("Vui lòng chọn ngày khuyến mãi");
+			return;
+		}
+		
 		var datas = get_datas();	
+		
 		//console.log(datas);
 		//return;
 		
