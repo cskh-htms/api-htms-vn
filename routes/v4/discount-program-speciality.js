@@ -4321,7 +4321,11 @@ router.post('/ajax-load-discount-program/', async function(req, res, next) {
 			'user_id':user_id,
 			'user_role' : ojs_shares_others.get_users_type(token)
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-show-no', data_send );		
+		if(store_id == 17){
+			res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-show-no-dala', data_send );
+		}else{
+			res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-show-no-quan-ly', data_send );
+		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

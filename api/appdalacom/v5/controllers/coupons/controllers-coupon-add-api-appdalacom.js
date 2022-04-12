@@ -169,8 +169,8 @@ async  function coupon_add(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"stores_user_id",
-						"value"     : user_id,
+						"field"     :"stores_ID",
+						"value"     : store_id,
 						"compare" : "="
 					}           
 					]    

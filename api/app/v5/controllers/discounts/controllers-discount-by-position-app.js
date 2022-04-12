@@ -29,6 +29,27 @@ async  function controllers_discount_by_position_app(req, res, next) {
 		if(req.query.c1){
 			position_number = req.query.c1;
 		}
+		
+		
+		var condition_where = [];
+		if(position_number == 0){
+			condition_where.push(
+				{   
+					"field"     :"discount_program_position",
+					"value"     : [position_number,6],
+					"compare" : "in"
+				} 
+			);
+		}else{
+			condition_where.push(
+				{   
+					"field"     :"discount_program_position",
+					"value"     : [position_number],
+					"compare" : "in"
+				} 
+			);		
+		}
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -85,14 +106,7 @@ async  function controllers_discount_by_position_app(req, res, next) {
 		[
 			{    
 			"relation": "and",
-			"where" :
-				[
-				{   
-					"field"     :"discount_program_position",
-					"value"     : position_number,
-					"compare" : "="
-				}           
-				]    
+			"where" :condition_where   
 			}         
 		]   
 	}

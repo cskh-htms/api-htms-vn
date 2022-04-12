@@ -16,6 +16,8 @@ const controller_coupon_show = require('../../controllers/' + ojs_configs.contro
 const controller_coupon_save = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-save.js');
 const controller_coupon_delete = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-delete.js');
 const controller_coupon_update = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-update.js');
+const controller_coupon_store_id = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-store-id.js');
+const controller_coupon_quan_ly_admin = require('../../controllers/' + ojs_configs.controller_version + '/coupons/controllers-coupon-quan-ly-admin.js');
 //end of v5
 
 
@@ -85,6 +87,13 @@ router.get('/show/:coupon_id/:store_id', controller_coupon_show);
 router.post('/save', controller_coupon_save);
 router.get('/delete/:coupon_id', controller_coupon_delete);
 router.post('/update/:coupon_id', controller_coupon_update);
+router.get('/quan-ly/', controller_coupon_quan_ly_admin);
+
+
+
+
+router.get('/:store_id', controller_coupon_store_id);
+
 //@
 //@
 //@
@@ -618,7 +627,7 @@ catch(error){
 //@
 //@
 //@ 9. [/quan-ly]
-router.get('/quan-ly', async function(req, res, next) {
+router.get('/asdasdasdasd/quan-ly', async function(req, res, next) {
 	//@
 	//@
 	//@
@@ -1693,7 +1702,7 @@ router.get('asdasdasd/add/:store_id/:user_id', async function(req, res, next) {
 //@
 //@
 //@ 2. [/:store_id]
-router.get('/:store_id', async function(req, res, next) {
+router.get('/asdasdasdasd/:store_id', async function(req, res, next) {
 	//@
 	//@
 	//@

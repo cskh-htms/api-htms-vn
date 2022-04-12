@@ -262,12 +262,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 					{    
 						"relation": "and",
 						"where" :
-						[  
-							{   
-								"field"     :"discount_program_status_admin",
-								"value"     : 4,
-								"compare" 	: '='
-							},
+						[  							
 							{   
 								"field"     :"discount_program_store_id_created",
 								"value"     : [store_id,17],

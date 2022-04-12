@@ -20,8 +20,6 @@ const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + 
 async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
-		var coupon_id = req.params.coupon_id;
-		var store_id = req.params.store_id;
 		var token = req.headers['token'];
 	}
 	catch(error){
@@ -34,13 +32,13 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-admin-appdalacom-api.js",
+			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
 	}	
 	
-	//res.send([store_id,coupon_id]);
+	//res.send(["sdfsdfsdf"]);
 	//return;
 	
 	//@ check role phân quyền
@@ -58,7 +56,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-admin-appdalacom-api.js",
+			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;			
@@ -80,44 +78,6 @@ async  function function_export(req, res, next) {
 		});	
 		promise_all.push(fn_get_data_news_admin);
 
-
-		//@ 2. lấy store taget
-		let data_store =    
-		{
-		   "select_field" :
-			[
-				"stores_ID",
-				"stores_name" ,
-				"stores_adress",
-				"stores_province",
-				"stores_district",
-				"stores_wards" ,
-				"stores_payment_limit",
-				"stores_discount_price",
-				"service_type_name"
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"stores_ID",
-						"value"     : store_id,
-						"compare" : "="
-					}           
-					]    
-				}         
-			]   
-		}
-		
-		var fn_get_store_taget = new Promise((resolve, reject) => {
-			let result = store_search(data_store,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_store_taget);	
-		
 
 
 		//@ 3. lấy coupon taget
@@ -155,13 +115,20 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"coupon_speciality_ID",
-						"value"     : coupon_id,
-						"compare" : "="
+						"field"     :"coupon_speciality_status_admin",
+						"value"     : -1,
+						"compare" : "<>"
 					}           
 					]    
 				}         
-			]   
+			],
+			"order" :
+			 [
+					{    
+						"field"  :"coupon_speciality_date_created",
+						"compare" : "DESC"
+					}   
+			]    
 		}
 		
 		var fn_get_coupon_taget = new Promise((resolve, reject) => {
@@ -186,7 +153,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-admin-appdalacom-api.js",
+			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -194,9 +161,8 @@ async  function function_export(req, res, next) {
 	
 	let notes = {
 		"0":"no", 
-		"1":"news bussiness",
-		"2":"store taget", 
-		"3":"coupon taget",	
+		"1":"news admin",
+		"2":"coupon list",	
 	}
 	promise_result.push(notes);
 

@@ -24,7 +24,6 @@ const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + 
 async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
-		var coupon_id = req.params.coupon_id;
 		var store_id = req.params.store_id;
 		var token = req.headers['token'];
 	}
@@ -38,13 +37,13 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
 	}	
 	
-	//res.send([store_id,coupon_id]);
+	//res.send([store_id]);
 	//return;
 	
 	//@ check role phân quyền
@@ -65,11 +64,15 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;			
 	}
+
+
+	//res.send(["check role ok"]);
+	//return;
 
 
 	//@ lấy id cửa để check owner store
@@ -93,42 +96,16 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3333",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+				"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 				"message": error_send 
 			}); 
 			return;			
 		}		
-
-
-		//@
-		//@ check owner coupon			
-		var check_owner_coupon_resuilt = await check_owner_coupon(token,coupon_id,res);
-		//res.send([check_owner_coupon_resuilt]);
-		//return;				
-		
-		if(	check_owner_coupon_resuilt == "1" ){
-			//go
-		}
-		else{
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( 
-					evn, 
-					check_role_result, 
-					"Lỗi phân quyền, Vui lòng liên hệ admin" 
-				);
-			res.send({ 
-				"error" : "232",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js",  
-				"message": error_send 
-			}); 
-			return;			
-		}		
-	
 	}//@enf fi check store owner
 
 
-
+	//res.send(["check role store"]);
+	//return;
 
 	//@ 3. lấy user_id của cửa hàng
 	try{
@@ -170,7 +147,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "105", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -248,7 +225,7 @@ async  function function_export(req, res, next) {
 		
 
 
-		//@ 3. lấy coupon taget
+		//@ 4. lấy coupon list
 		let data_coupon =    
 		{
 		   "select_field" :
@@ -283,13 +260,26 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"coupon_speciality_ID",
-						"value"     : coupon_id,
+						"field"     :"coupon_speciality_stores_id_created",
+						"value"     : [store_id,17],
+						"compare" : "in"
+					},
+					{   
+						"field"     :"check_expired_coupon",
+						"value"     : 1,
 						"compare" : "="
-					}           
+					}  					
 					]    
 				}         
-			]   
+			],
+			"order" :
+			 [
+					{
+						"field"  :"coupon_speciality_date_created",
+						"compare" : "DESC"
+					}   
+			] 
+			
 		}
 		
 		var fn_get_coupon_taget = new Promise((resolve, reject) => {
@@ -297,7 +287,7 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_coupon_taget);	
-
+	
 
 		//@
 		//@
@@ -314,7 +304,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -325,7 +315,7 @@ async  function function_export(req, res, next) {
 		"1":"news bussiness",
 		"2":"count item", 
 		"3":"store taget",
-		"4":"coupon taget",	
+		"4":"coupon list",	
 	}
 	promise_result.push(notes);
 

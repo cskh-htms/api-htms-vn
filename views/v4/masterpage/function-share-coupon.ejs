@@ -201,6 +201,32 @@ ojs_share_coupon = {
 		//	
 		return result;	
 	},
+	
+	//@
+	//@ hiển thị trạng thái thanh toán
+	show_coupon_pay_type_select: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Cửa hàng tạo trả tiền giảm giá </option>' + 
+			'<option value="1">DALA trả tiền giảm giá </option>'
+		}else{
+			result = "" + 
+			'<option value="0">Cửa hàng tạo trả tiền giảm giá </option>' + 
+			'<option value="1"  selected>DALA trả tiền giảm giá </option>'
+		}		
+		//	
+		return result;	
+	},	
+	
+	
+	
+	
+	
+	
+	
 }
 %>
 

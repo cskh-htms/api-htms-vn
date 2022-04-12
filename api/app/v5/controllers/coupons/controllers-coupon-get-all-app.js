@@ -114,9 +114,6 @@ async  function get_all(req, res, next) {
 							"value"     : 4,
 							"compare" : "="
 						} 
-
-
-						
 					]    
 				}         
 			],

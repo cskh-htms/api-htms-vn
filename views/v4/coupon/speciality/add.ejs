@@ -147,10 +147,7 @@ content
 							data_value=""
 							value="" 
 							id="coupon_speciality_price_max" 
-						/>
-						
-												
-						
+						/>						
 					</p>	
 						
 
@@ -159,116 +156,17 @@ content
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
-			<!-- ----------------------------------
-					//của bảo
-			------------------------------------ -->
+		<p class="<%- admin_view %>"><span>Tiền khuyến mãi<span>
+			<select id="coupon_speciality_pay_type">
+				<%- ojs_share_coupon.show_coupon_pay_type_select(0) %>
+			</select>	
+		</p>	
 						
-			<!-- Kiểu coupon -->
-			<div class="pro_box kieu_km" style="display:none;">
-				<h3>Kiểu khuyến mãi</h3>
-				<div class="inside">
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="giamphantram" checked="checked"/>
-						<div><p>Giảm <input type="text" value=""> % đơn hàng</p>
-						<p>Tối đa <input 
-							class="number_change" type="text" 
-							data_value="0"
-							value="0" 
-							id="coupon_speciality_price_max" 
-						/> đ</p>
-						</div>
-						
-					</label>
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="giamcodinh" />
-						<div>Giảm cố định <input type="text" value=""> đ </div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="freeship" />
-						<div><p>Freeship</p>
-							<p>Tối đa <input 
-								class="number_change" type="text" 
-								data_value="0"
-								value="0" 
-								id="coupon_speciality_price_max" 
-							/> đ</p>
-						</div>
-						
-					</label>
-				</div>
-			</div>
-			
-			<!-- Điều kiện coupon -->
-			<div class="pro_box kieu_km"  style="display:none;">
-				<h3>Điều kiện</h3>
-				<div class="inside">
-					<label class="labl">
-						<input type="radio" name="dk_km" value="khongdk" checked="checked"/>
-						<div>Không có điều kiện</div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="dk_km" value="dontu" />
-						<div>Đơn tối thiểu <input type="text" value=""> đ</div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="dk_km" value="sptu"/>
-						<div>Đơn có ít nhất <input type="text" value=""> SP</div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="dk_km" value="dondau" />
-						<div>Đơn hàng đầu tiên trên DALA</div>
-					</label>
-				</div>
-			</div>
-			
-			<!-- Áp dụng cho -->
-			<div class="pro_box coupon_apply"  style="display:none;">
-				<h3>Áp dụng cho</h3>
-				<div class="inside">
-					<div class="col">
-						<h4>Danh mục sản phẩm</h4>	
-						<div class="category_wrap inside">
-							<div id="category_inner">
-								<% include ../../masterpage/widget-category-product %>
-							</div>	
-						</div>
-					</div>
-					<div class="col">
-						<h4>Thương hiệu</h4>	
-						<div class="category_wrap inside">
-							<div id="category_inner">
-								Load danh sach thương hiệu dạng checkbox
-							</div>	
-						</div>
-					</div>
-					<div class="col">
-						<h4>Sản phẩm</h4>	
-						<div class="category_wrap inside">
-							<div id="category_inner">
-								Load danh sach SP dạng checkbox
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			
-			<!-- ----------------------------------
-					// end of của bảo
-			------------------------------------ -->			
 			
 			
 			
 			
-			
-			
+				
 			
 			
 			<!-- ------------------
@@ -655,6 +553,7 @@ $(document).ready(function($){
 		//@
 		//@
 		let coupon_speciality_type = $('#coupon_speciality_type  option:selected').val();
+		let coupon_speciality_pay_type = $('#coupon_speciality_pay_type  option:selected').val();
 		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();
 		let coupon_speciality_show_hide = $('#coupon_speciality_show_hide  option:selected').val();			
 		//@
@@ -680,7 +579,8 @@ $(document).ready(function($){
 
 				
 				coupon_speciality_price_max : coupon_speciality_price_max,	
-				coupon_speciality_type : coupon_speciality_type,	
+				coupon_speciality_type : coupon_speciality_type,
+				coupon_speciality_pay_type : coupon_speciality_pay_type,				
 				
 				coupon_speciality_featured_image : coupon_speciality_featured_image,
 								

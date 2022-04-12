@@ -7,6 +7,7 @@ const  default_fields = {
 		"coupon_speciality_info"				: "",
 		"coupon_speciality_featured_image"		: "",
 		"coupon_speciality_type"				: 0,
+		"coupon_speciality_pay_type"			: 0,
 		"coupon_speciality_formula_price"		: 0,
 		"coupon_speciality_formula_price_value"	: 0,
 		"coupon_speciality_condition"			: 0,

@@ -56,7 +56,11 @@ content
 			//-----------------------------
 			//		coupon thuộc cửa hàng
 			//------------------------------
-			if(coupon_list[x].stores_ID == 17){
+			if(
+			coupon_list[x].stores_ID == 17 
+			&& 
+			coupon_list[x].coupon_speciality_type == 1 
+			){
 			%>			
 		
 			<div class="coupon">
@@ -146,7 +150,7 @@ content
 			//-----------------------------
 			//		coupon thuộc cửa hàng
 			//------------------------------
-			if(coupon_list[x].stores_ID != 17){
+			if(coupon_list[x].coupon_speciality_type != 1 ){
 			%>			
 		
 			<div class="coupon">

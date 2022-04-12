@@ -22,6 +22,38 @@ page wrap
 
 
 
+<%
+// coupon count
+var list_of_store_quan_ly = 0;
+var list_of_store = 0;
+var list_of_dala = 0;
+
+for (x in coupon_list){
+	//@
+	if(
+	coupon_list[x].coupon_speciality_stores_id_created == store_id 
+	&& 
+	coupon_list[x].coupon_speciality_status_admin == 4 
+	){
+		list_of_store = list_of_store + 1;
+	}
+	
+	//@
+	if(
+	coupon_list[x].coupon_speciality_stores_id_created == store_id 
+	){
+		list_of_store_quan_ly = list_of_store_quan_ly + 1;
+	}
+	//@	
+	if(
+	coupon_list[x].coupon_speciality_stores_id_created == "17" 
+	&& 
+	coupon_list[x].coupon_speciality_type == "1" 
+	){
+		list_of_dala = list_of_dala + 1;
+	}	
+}
+%>
 
 
 <!-- --------------------
@@ -30,34 +62,38 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá DALA</h1>
-	<div class="sap_xep_wrap">
-		<a href="/coupon/speciality/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo mã giảm giá</a>
+	<div style="display:flex;    justify-content: space-between;align-items: center;">
+		<div class="sap_xep_wrap">
+			<a href="/coupon/speciality/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo mã giảm giá</a>
+		</div>
+		<br>
+		<div class="mb20">
+			<a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">
+			Quản lý mã giảm giá của <%= store_name %>
+			<span  class="red"><%= list_of_store_quan_ly %></span>
+			</a>
+		</div>
 	</div>
-	<br>
-	<div class="mb20">
-		<a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">Quản lý mã giảm giá của <%= store_name %></a>
-	</div>
-	
 	<br>
 	<hr>
 	<br>	
 	
-	<h1>Mã giảm giá đang hoạt động thuộc cửa hàng</h1>
+	<h1>Mã giảm giá thuộc cửa hàng</h1>
 	<%
-	if(coupon_list.length > 0){
+	if(list_of_store_quan_ly > 0){
 	%>
 	<div class="coupon_content">
 		
 		<%
 		for(x in coupon_list ){
-		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type != "1" ){	
-		}else{			
 		%>	
 			<%
 			//-----------------------------
 			//		coupon thuộc cửa hàng
 			//------------------------------
-			if(coupon_list[x].stores_ID == store_id){
+			if(
+			coupon_list[x].stores_ID == store_id
+			){
 			%>	
 					
 				<div class="coupon">
@@ -98,7 +134,10 @@ content
 						}
 						%>					
 						
+						<div class="discount-status">
 						
+							<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
+						</div>						
 						<div class="coupon_da_dung">Ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 						<div class="coupon_thoi_han">Ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 					</div>
@@ -108,25 +147,25 @@ content
 			}//check coupon thuộc cửa hàng
 			%>	
 		<%
-		}
-		}
+		}//end of for
 		%>
+		</div>
 	<%
 	} else{
 	%>	
 	
-	<h1 style="text-align:center">Chưa có mã giảm giá nào thuộc cửa hàng</h1> 
+	<p>Chưa có mã giảm giá nào thuộc cửa hàng đang hoạt động</p> 
 	
 	<%
 	}
 	%>		
 	
-	</div>
 	
 	
 	
 	
 	
+<div id="content" class="content">	
 	<!-- -------------------------------
 	// coupon dalaDALA
 	-------------------------- ------ -->
@@ -137,20 +176,18 @@ content
 	<br>
 	<br>	
 	<%
-	if(coupon_list.length > 0){
+	if(list_of_dala > 0){
 	%>
 	<div class="coupon_content">
 		
 		<%
 		for(x in coupon_list ){
-		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type != "1" ){	
-		}else{			
+		if(coupon_list[x].coupon_speciality_stores_id_created == "17" && coupon_list[x].coupon_speciality_type == "1" ){	
 		%>	
 			<%
 			//-----------------------------
 			//		coupon thuộc cửa hàng
 			//------------------------------
-			if(coupon_list[x].stores_ID == 17){
 			%>	
 					
 				<div class="coupon">
@@ -197,9 +234,6 @@ content
 					</div>
 
 				</div>
-			<%
-			}//check coupon thuộc cửa hàng
-			%>	
 		<%
 		}
 		}
@@ -208,7 +242,7 @@ content
 	} else{
 	%>	
 	
-	<h1 style="text-align:center">Chưa có mã giảm giá nào của DALA </h1> 
+	<p>Không có mã giảm giá nào của DALA đang hoạt động</p> 
 	
 	<%
 	}
