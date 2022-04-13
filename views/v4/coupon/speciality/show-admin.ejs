@@ -89,7 +89,20 @@ content
 				</select>	
 			</p>	
 			
-			<p  id="gia_tri_dieu_kien_coupon" style="display:none;">
+			
+			
+			<%
+			if(
+			datas[0].coupon_speciality_condition == "0" 
+			|| 
+			datas[0].coupon_speciality_condition == "3" 		
+			){
+				var condition_show = "display:none;"
+			}else{
+				var condition_show = "display:block;"
+			}
+			%>
+			<p  id="gia_tri_dieu_kien_coupon" sadasd="sdadasd" style="<%- condition_show %>">
 				<span>Giá trị điều kiện<span>
 				<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
 					<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span></a>			
@@ -111,8 +124,17 @@ content
 				</select>	
 			</p>
 		
-
-			<p id="gia_tri_cong_thuc_coupon"><span>Tiền giảm giá </span>
+			<%
+			if(
+			datas[0].coupon_speciality_formula_price == "2" 		
+			){
+				var price_show = "display:none;"
+			}else{
+				var price_show = "display:block;"
+			}
+			%>
+			
+			<p id="gia_tri_cong_thuc_coupon" style="<%- price_show %>"><span>Tiền giảm giá </span>
 				<input 
 					class="number_change" type="text" 
 					data_value="<%= datas[0].coupon_speciality_formula_price_value %>"
