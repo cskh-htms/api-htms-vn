@@ -193,6 +193,7 @@ async  function function_export(req, res, next) {
 			[
 				"stores_ID",
 				"stores_name" ,
+				"stores_user_id",
 				"stores_adress",
 				"stores_province",
 				"stores_district",
