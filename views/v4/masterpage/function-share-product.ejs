@@ -55,7 +55,31 @@ ojs_share_product = {
 		}
 		//	
 		return result;	
-	}	
+	},
+	//@ hiển thị trạng thái sản phẩm (cửa hàng)
+	show_product_type: function(type){
+		let type_arr = ["normal product","variation product","Gift product"];
+		//
+		let result = "";
+		//
+		if(type == 0 || type == null){
+			result = "" +
+			'<option value="0"  selected>Normal product</option>' + 
+			'<option value="1">Variation product</option>' + 
+			'<option value="2" >Gift product</option>';		
+			
+		}else{
+			for(let i = 0; i < type_arr.length; i ++){
+				if( type == i){
+					result = result + '<option value="' + i + '" selected>' + type_arr[i] +'</option>';
+				}else{
+					result = result + '<option value="' + i + '">' + type_arr[i] +'</option>';
+				}
+			}
+		}		
+		//	
+		return result;	
+	},	
 }
 %>
 

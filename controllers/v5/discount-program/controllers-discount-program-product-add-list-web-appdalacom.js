@@ -109,7 +109,8 @@ async  function discount_program_product_add_list(req, res, next) {
 			'store_name' 			: data_api_resuilt[3][0].stores_name,	
 			'store_list' 			: data_api_resuilt[3],
 			'discount_program_details_tager': data_api_resuilt[4],
-			'products_list'			: data_api_resuilt[5],				
+			'products_list'			: data_api_resuilt[5],		
+			'products_list_gift'	: data_api_resuilt[6],				
 		}
 		
 		
@@ -132,13 +133,14 @@ async  function discount_program_product_add_list(req, res, next) {
 			'store_name' 			: data_api_resuilt[3][0].stores_name,
 			'store_list' 			: data_api_resuilt[3],			
 			'discount_program_details_tager': data_api_resuilt[4],
-			'products_list'			: data_api_resuilt[5],		
+			'products_list'			: data_api_resuilt[5],
+			'products_list_gift'	: data_api_resuilt[6],				
 			
 			'datas_info'			: datas_info			
 		}
 		
 		
-		//res.send(data_send);
+		//res.send(data_api_resuilt[]);
 		//return;
 		
 		res.render( ojs_configs.view_version + '/discount-program/speciality/product-add', data_send );	

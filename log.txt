@@ -1,4 +1,82 @@
 
+------------------------------------
+	-- 2022/04/15
+------------------------------------
+
+
+ALTER TABLE `dala_discount_program` 
+ADD `dala_discount_program_gift_type` 
+INT NOT NULL DEFAULT '0' 
+COMMENT '[0: kieu khuyen mai binh htuong] [1: kieu khuyen mai mua 1 tang 1 2 3]' 
+AFTER `dala_discount_program_time_type`;
+
+
+
+/* them table */
+
+
+DROP TRIGGER IF EXISTS `trig_discount_program_product_link_delete`;
+DELIMITER $$
+CREATE TRIGGER `trig_discount_program_product_link_delete` AFTER DELETE ON `dala_discount_program_product_link` FOR EACH ROW BEGIN  
+	
+	UPDATE dala_products_speciality 
+	SET dala_products_speciality_sale_of_price = NULL,   
+	dala_products_speciality_date_start =  NULL,  
+	dala_products_speciality_date_end =  NULL    	
+	
+	WHERE dala_products_speciality_ID = OLD.dala_discount_program_product_link_product_speciality_id;
+		
+		
+	DELETE FROM dala_discount_program_gift_link 
+	where dala_discount_program_gift_link_discount_program_product_link_id = OLD.dala_discount_program_product_link_ID;	
+END
+$$
+DELIMITER ;
+
+
+
+DROP TABLE IF EXISTS `dala_discount_program_gift_link`;
+CREATE TABLE IF NOT EXISTS `dala_discount_program_gift_link` (
+  `dala_discount_program_gift_link_ID` int NOT NULL AUTO_INCREMENT,
+  `dala_discount_program_gift_link_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dala_discount_program_gift_link_discount_program_product_link_id` int NOT NULL,
+  `dala_discount_program_gift_link_product_speciality_id` int NOT NULL,
+  `dala_discount_program_gift_link_product_speciality_gift_id` int NOT NULL,
+  PRIMARY KEY (`dala_discount_program_gift_link_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+ALTER TABLE `dala_discount_program_gift_link` 
+ADD CONSTRAINT `dala_discount_program_gift_link_discount_program_product_link_id` 
+FOREIGN KEY (`dala_discount_program_gift_link_discount_program_product_link_id`) 
+REFERENCES `dala_discount_program_product_link`(`dala_discount_program_product_link_ID`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+
+ALTER TABLE `dala_discount_program_gift_link` 
+ADD CONSTRAINT `dala_discount_program_gift_link_product_speciality_id` 
+FOREIGN KEY (`dala_discount_program_gift_link_product_speciality_id`) 
+REFERENCES `dala_products_speciality`(`dala_products_speciality_ID`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+
+ALTER TABLE `dala_discount_program_gift_link` 
+ADD CONSTRAINT `dala_discount_program_gift_link_product_speciality_gift_id` 
+FOREIGN KEY (`dala_discount_program_gift_link_product_speciality_gift_id`) 
+REFERENCES `dala_products_speciality`(`dala_products_speciality_ID`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+
+
+
+
+
+
 
 ------------------------------------
 	-- 2022/1/12
@@ -7,25 +85,6 @@
 - các view đã sử dụng
 	* dala_view_count_product_sale
 	* dala_view_order_details_by_user
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

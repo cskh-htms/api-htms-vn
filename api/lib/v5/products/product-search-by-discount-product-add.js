@@ -8,7 +8,7 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./discount-detail-fields-get');
+const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
@@ -23,7 +23,7 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const detail_search = function (datas,res) {
+const function_export = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -38,25 +38,27 @@ const detail_search = function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_discount_product_add + 
 			sql_condition +
 			sql_group_by + 
 			sql_order + 
 			sql_having + 
 			sql_limit;
 		
+		
+		//return get_sql_search_group;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi discount-details-search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "discount-details-search", 
+			"position" : "lib/products/product search by discount-product-add", 
 			"message": error_send 
 			}); 
 		return;	
@@ -72,11 +74,11 @@ const detail_search = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi discount-details-search, Vui lòng liên hệ admin" 
+							"Lỗi product search by category, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/stores/discount-details-search", 
+						"position" : "lib/products/product search by discount-product-add", 
 						"message": error_send 
 					}); 
 					return;
@@ -87,15 +89,15 @@ const detail_search = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi discount-details-search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/discount-details-search", 
+			"position" : "lib/products/product search by discount-product-add", 
 			"message": error_send 
 		}); 
 		return;
@@ -103,7 +105,7 @@ const detail_search = function (datas,res) {
 };	
 
 
-module.exports = detail_search;
+module.exports = function_export;
 
 
 /*

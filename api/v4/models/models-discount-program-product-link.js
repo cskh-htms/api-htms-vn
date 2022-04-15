@@ -141,12 +141,14 @@ var sql_order_default = " order by " +
 //@
 //@ * 1. [insert_discount_program_product_link]
 var insert_discount_program_product_link = async function (datas) {
+	var gift_arr = datas.gift_data;
 	
 	//@
 	//@
 	//@
 	//@
-	var sql_text = "INSERT INTO " + ojs_configs.db_prefix + "discount_program_product_link  SET ?";
+	var sql_text = "START TRANSACTION ;"
+	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "discount_program_product_link  SET ? ; ";
 	var dataGo = {
 			"discount_program_product_link_discount_program_details_id"	: datas.discount_program_product_link_discount_program_details_id,
 			"discount_program_product_link_product_speciality_id"	: datas.discount_program_product_link_product_speciality_id,			
@@ -157,6 +159,41 @@ var insert_discount_program_product_link = async function (datas) {
 			
 			"discount_program_product_link_qoute"	: mysql.escape(datas.discount_program_product_link_qoute).replace(/^'|'$/gi, "")
 	}
+	
+	
+	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";
+	
+	
+	if(gift_arr.length > 0){
+		
+		let sql_gift_all = "";
+		for(let i = 0; i < gift_arr.length; i ++){
+			///ex
+			sql_gift = "INSERT INTO " + ojs_configs.db_prefix + "discount_program_gift_link  ";
+			sql_gift = sql_gift + "(" +
+							ojs_configs.db_prefix + "discount_program_gift_link_discount_program_product_link_id" + "," + 
+							ojs_configs.db_prefix + "discount_program_gift_link_product_speciality_id" + "," + 
+							ojs_configs.db_prefix + "discount_program_gift_link_product_speciality_gift_id" + 
+						") " + 
+						"values(" + 
+						"@aa, " + 
+						datas.discount_program_product_link_product_speciality_id + " , " + 
+						gift_arr[i] + 
+						") ; ";		
+			sql_gift_all	= sql_gift_all  + sql_gift		
+		}//end of for option_arr	
+		sql_text = sql_text + sql_gift_all;
+	}
+	//
+	// end of sql category
+	//-----------------------------		
+	
+	sql_text = sql_text + " COMMIT;"
+	
+	
+	
+	//return sql_text;
+	
 	
 	//@
 	//@

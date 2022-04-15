@@ -2320,6 +2320,39 @@ end of van luc 07.04.2021
 	padding:0px 10px;
 }
 
+
+#select_gift_list .gift-line {
+    display: flex;
+    align-items: center;
+}
+#select_gift_list .gift_image {
+    margin-right: 20px;
+}
+
+#select_gift_list .gift_line_name{
+	width: auto;
+    margin-right: 10px;
+    display: inline-flex;
+}
+
+#select_gift_list label {
+    cursor: pointer;
+}
+
+
+#select_gift_list .gift-img{
+	max-width:30px;
+	display:inline-block;
+}
+
+
+
+
+
+
+
+
+
 /* ========== ADMIN ============== */
 .admin_content {
 	display: flex;

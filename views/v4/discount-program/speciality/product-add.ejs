@@ -116,6 +116,77 @@ content
 			</div>			
 		
 	
+	
+			<%
+			//-------------------------
+			// gift
+			//-------------------------
+			if(discount_program_details_tager[0].discount_program_gift_type == "2"){
+				var gift_type = "display:block;"
+			}else{
+				var gift_type = "display:none;"
+			}
+			%>
+			
+			
+			
+			<div class="pro_box ten_sp_box" id="gift_list" style="<%- gift_type %>">
+				<h3>Sản phẩm quà tặng
+					<span class="giai-thich">
+					<span>
+						Chọn một sản phẩm quà tặng kèm sản phẩm này
+					</span>
+					</span>					
+				</h3>
+				
+				<%
+				if(typeof products_list_gift == 'object' && products_list_gift.length > 0){  %>
+				
+					<div class="inside">
+						<div id="select_gift_list">
+							   <%
+							   for(var x in products_list_gift){
+							   %>
+								<div class="gift-line"> 
+								  <div class="gift_image">
+									<img 
+									class="gift-img" src="<%- ojs_share.unCape(products_list_gift[x].products_speciality_featured_image) -%>"
+									/>
+								  </div>								
+								  <input type="checkbox" 
+								  id="gift_line_<%= products_list_gift[x].products_speciality_ID %>" 
+								  name="gift_line_name" 
+								  class="gift_line_name" 
+								  value="<%= products_list_gift[x].products_speciality_ID %>">
+								  <label for="gift_line_<%= products_list_gift[x].products_speciality_ID %>">
+									<%- ojs_share.unCape(products_list_gift[x].products_speciality_name) -%>
+								  </label>	
+
+								  
+								</div>
+							    <%
+								} //end of for
+								%>
+						</div>
+					</div>
+				
+				<%
+				}else{
+				%>
+					<h1> Cửa hàng chưa có sản phẩm quà tặng nào
+				<%
+				}//end of typeof products_list
+				%>
+
+			</div>				
+	
+	
+	
+	
+	
+	
+	
+	
 
 			
 			<div class="pro_box ten_sp_box">
@@ -191,6 +262,7 @@ content
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="store_id" value="<%= store_id %>"/>
+<input type="hidden" id="gift_type_id" value="<%= discount_program_details_tager[0].discount_program_gift_type %>"/>
 <input type="hidden" id="discount_program_details_id" value="<%= discount_program_details_id %>"/>
 
 
@@ -233,6 +305,23 @@ $(document).ready(function($){
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
+		
+		//console.log(datas );
+		//return;
+		
+		var gift_type_id = $('#gift_type_id').val();
+		if(
+		gift_type_id == 2 
+		&& 
+		datas.datas.gift_data.length < 1 
+		)
+		{
+			ojs_message.message_ok_show("Chưa chọn sản phẩm quà tặng");
+			return;	
+		}
+		
+		
+		
 		var price = parseInt($('#products_speciality_price').attr('data_value'));
 
 		if(
@@ -269,9 +358,20 @@ $(document).ready(function($){
 		var discount_program_product_link_date_star = $('#discount_program_product_link_date_star').val();
 		var discount_program_product_link_date_end = $('#discount_program_product_link_date_end').val();
 		
-		
-		
 		var discount_program_product_link_sale_of_price = $('#products_speciality_sale_of_price').attr("data_value");
+		
+		
+		
+		
+		var gift_ojp = $('#select_gift_list').find('.gift_line_name');
+		var gift_data = [];
+		$(gift_ojp).each(function( index ) {
+			if($(this).prop( "checked" )){
+				gift_data.push($(this).val());
+			}
+		});		
+		
+		
 		
 		var datas = {
 			"datas":{
@@ -282,7 +382,8 @@ $(document).ready(function($){
 				discount_program_product_link_qoute : discount_program_product_link_qoute,
 				discount_program_product_link_sale_of_price : discount_program_product_link_sale_of_price,
 				discount_program_product_link_date_star : discount_program_product_link_date_star,
-				discount_program_product_link_date_end : discount_program_product_link_date_end
+				discount_program_product_link_date_end : discount_program_product_link_date_end,
+				gift_data:gift_data
 				
 			}
 		}
@@ -301,23 +402,41 @@ $(document).ready(function($){
 		var product_price = $(this).find('option:selected').attr("data_price");	
 		var product_sale_of_price = $(this).find('option:selected').attr("data_sale_of_price");	
 		
-		console.log([ product_id,product_price,product_sale_of_price ]);
+		var gift_type_id = $('#gift_type_id').val();
+		console.log([gift_type_id, product_id,product_price,product_sale_of_price ]);
+		
+		/*
+		var gift_ojp = $('#select_gift_list').find('.gift_line_name');
+		var gift_data = [];
+		$(gift_ojp).each(function( index ) {
+			if($(this).prop( "checked" )){
+				gift_data.push($(this).val());
+			}
+		});
+		*/
+		//console.log(gift_data);
+		//return;
 		
 		
-		if( product_id == 0 ){
-			$('#products_speciality_price').attr('data_value','0');
-			$('#products_speciality_price').val('0');
-			
-			$('#products_speciality_sale_of_price').attr('data_value','0');
-			$('#products_speciality_sale_of_price').val('0');
-			$('#price-wrap').css('display','none');
+		
+		if(gift_type_id == 2){
+			$('#price-wrap').css('display','none');			
 		}else{
-			$('#price-wrap').css('display','block');
-			$('#products_speciality_price').attr('data_value',product_price);
-			$('#products_speciality_price').val(ojs_loader.show_price_format(product_price,0,",",".",""));
-			
-			$('#products_speciality_sale_of_price').attr('data_value',product_sale_of_price);
-			$('#products_speciality_sale_of_price').val(ojs_loader.show_price_format(product_sale_of_price,0,",",".",""));
+			if( product_id == 0 ){
+				$('#products_speciality_price').attr('data_value','0');
+				$('#products_speciality_price').val('0');
+				
+				$('#products_speciality_sale_of_price').attr('data_value','0');
+				$('#products_speciality_sale_of_price').val('0');
+				$('#price-wrap').css('display','none');
+			}else{
+				$('#price-wrap').css('display','block');
+				$('#products_speciality_price').attr('data_value',product_price);
+				$('#products_speciality_price').val(ojs_loader.show_price_format(product_price,0,",",".",""));
+				
+				$('#products_speciality_sale_of_price').attr('data_value',product_sale_of_price);
+				$('#products_speciality_sale_of_price').val(ojs_loader.show_price_format(product_sale_of_price,0,",",".",""));
+			}
 		}
 	});
 	

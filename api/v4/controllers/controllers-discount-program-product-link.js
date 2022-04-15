@@ -201,7 +201,7 @@ try {
 			var message_error = default_field.get_message_error(error);
 
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error,message_error );
 			res.send({ "error" : "8", "position":"ctl-discount-program-product-link>insert", "message": error_send } );
 			return;
@@ -209,7 +209,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error,"Lỗi insert discount_program_product_link , Liên hệ admin" );
 		res.send({ "error" : "9", "position":"ctl-discount-program-product-link>insert", "message": error_send } );
 		return;

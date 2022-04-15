@@ -178,6 +178,31 @@ const link_discount_category = 	" " +
 	config_database.PREFIX + "discount_program_ID ";
 
 
+//@	
+const link_discount_product_add = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_product_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "discount_program_product_link_product_speciality_id " +   
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +     
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_details ON  " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_details_id  = " + 
+	config_database.PREFIX + "discount_program_details_ID " +  	
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program ON  " + 
+	config_database.PREFIX + "discount_program_details_discount_program_id = " + 
+	config_database.PREFIX + "discount_program_ID ";
+	
+	
+	
 //export module
 module.exports = { 
 				fields_get,
@@ -185,7 +210,8 @@ module.exports = {
 				link_default,
 				link_category,
 				link_brand,
-				link_discount_category
+				link_discount_category,
+				link_discount_product_add
 };
 
 

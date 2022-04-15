@@ -20,6 +20,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search');
+const product_search_by_discount_product_add = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount-product-add');
 const discount_detail_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-details/discount-detail-search');
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 
@@ -49,6 +50,12 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		return;	
 	}	
 	
+
+
+	//res.send([discount_program_details_id] );
+	//return;
+
+
 
 	// check role;
 	const check_role_result = await check_role.check_role(token,res);
@@ -118,7 +125,8 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}	
 
 
-
+	//res.send(["owner ok"] );
+	//return;
 
 
 	//@ product_list
@@ -165,6 +173,16 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
 						"compare" : "="
+					},
+					{   
+						"field"     :"products_speciality_type",
+						"value"     : "2",
+						"compare" : "<>"
+					},
+					{   
+						"field"     :"discount_program_product_link_status",
+						"value"     : "",
+						"compare" : "null"
 					}					
 					] 				
 				}         
@@ -180,7 +198,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		}
 	
 		//@ get datas
-		var data_product = await product_search(data_product_list,res);
+		var data_product = await product_search_by_discount_product_add(data_product_list,res);
 		
 		//@ create arr ID product
 		var model_product_arr = [0];
@@ -208,8 +226,6 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		}); 
 		return;	
 	}		
-		
-
 
 	//@ lấy meta
 	try {
@@ -232,9 +248,90 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}
 
 
+	//res.send(data_product);
+	//return;
 
 
 
+	//@ product_list gift
+	try {
+		let data_product_list_gift =    
+		{
+		   "select_field" :
+			[
+				"products_speciality_ID",
+				"products_speciality_featured_image",
+				"products_speciality_name",
+				"products_speciality_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
+				"stores_ID"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"products_speciality_store_id",
+						"value"     : store_id,
+						"compare" : "="
+					},	
+					{   
+						"field"     :"products_speciality_status_admin",
+						"value"     : "1",
+						"compare" : "="
+					},
+					{   
+						"field"     :"products_speciality_type",
+						"value"     : "2",
+						"compare" : "="
+					}
+					] 				
+				}         
+			],
+			"order" :
+			 [		 
+				{    
+					"field"  :"products_speciality_date_created",
+					"compare" : "DESC"
+				}			
+			]	
+		}
+	
+		//@ get datas
+		var data_product_gift = await product_search(data_product_list_gift,res);
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get data product gift, Vui lòng liên hệ admin" 
+			);
+		res.send({ 
+			"error" : "33", 
+			"position" : "api/app/v5/ctroller/controllers-product-by-store-app",
+			"message": error_send 
+		}); 
+		return;	
+	}	
+
+
+	//res.send(data_product_gift);
+	//return;
 	
 	/////////////////////
 	////////////////////
@@ -260,7 +357,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		promise_all.push(fn_get_data_count_bussiness);
 
 		
-		
+
 		//@ 3. lấy store taget
 		let data_store_taget =    
 		{
@@ -268,7 +365,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			[
 				"stores_ID",
 				"stores_user_id",
-				"stores_name" ,
+				"stores_name",
 				"stores_date_created",
 				"stores_adress",
 				"service_type_name",
@@ -281,9 +378,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"stores_status_stores",
 				"stores_wards",
 				"stores_district",
-				"stores_province"
-
-				
+				"stores_province"				
 			],
 			"condition" :
 			[
@@ -324,6 +419,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"discount_program_details_qoute",
 				"discount_program_details_date_created",
 				"discount_program_ID",
+				"discount_program_gift_type",
 				"discount_program_name",
 				"check_date"
 				],
@@ -377,9 +473,10 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		"3":"data_store_taget",
 		"4":"discount taget",
 		"5":"product_list",
-		
+		"6":"product_list gift",		
 	}
 	promise_result.push(data_product);
+	promise_result.push(data_product_gift);
 	promise_result.push(notes);
 	
 

@@ -49,6 +49,15 @@ content
 				</div>
 			</div>
 			
+			<div class="pro_box ten_sp_box">
+				<p  style=""><span>Loại sản phẩm</span><span class="giai-thich"><span>Normal product:Bình thường, Variation product: Biến thể(đang phát triển),gift product:Sản phẩm quà tặng</span></span>	
+					<select id="products_speciality_type">
+						<%- ojs_share_product.show_product_type(datas[0].products_speciality_type) %>
+					</select>	
+				</p>			
+			</div>
+			
+			
 			<div class="pro_box thuoc_tinh_box">
 				<h3>Thuộc tính</h3>
 				<div class="inside">
@@ -101,11 +110,7 @@ content
 						id="products_speciality_height" 
 						/> 
 					</p>	
-					<p  style="display:none"><span>Loại sản phẩm</span><span class="giai-thich"><span>Normal:Bình thường, Variation: Biến thể(đang phát triển)</span></span>	
-						<select id="products_speciality_type">
-							<%- ojs_share.show_product_type(datas[0].products_speciality_type) %>
-						</select>	
-					</p>
+
 				</div>
 			</div>
 			
