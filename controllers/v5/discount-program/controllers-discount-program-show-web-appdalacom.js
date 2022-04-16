@@ -29,7 +29,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"controller->web-discount-program->discount_program_store-id",
+			"position":"controller->web-discount-program->discount_program_show",
 			"message": error_send 
 		}); 
 		return;			
@@ -37,8 +37,8 @@ async  function function_export(req, res, next) {
 	
 	
 	
-	res.send([token,store_id,discount_program_id]);
-	return;	
+	//res.send([token,store_id,discount_program_id]);
+	//return;	
 	
 	
 	try {
@@ -46,8 +46,8 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/discount-program/speciality/stores/' + 
-				store_id ,
+				'/discount-program/speciality/show/' + 
+				discount_program_id + '/' +  store_id,
 				token
 			);	
 		//res.send( data_api_resuilt );
@@ -63,7 +63,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "2", 
-			"position":"controller->web-discount-program->discount_program_store-id",
+			"position":"controller->web-discount-program->discount_program_show",
 			"message": error_send 
 		}); 
 		return;			
@@ -75,11 +75,11 @@ async  function function_export(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
-			"Lỗi lấy api" 
+			"Lỗi lấy api " 
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"controller->web-discount-program->discount_program_store-id",
+			"position":"controller->web-discount-program->discount_program_show",
 			"message": error_send 
 		}); 
 		return;
@@ -92,48 +92,55 @@ async  function function_export(req, res, next) {
 	//@
 	try {
 
-		datas_info = {
-			'title' 				: 'Danh sách tùy chọn',
+		datas_info = {			
+			'title' 				: 'Chỉnh sửa dischount program',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: data_api_resuilt[3][0].stores_user_id,
+			'user_id' 				: data_api_resuilt[3][0].stores_ID,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_discount_program',		
+			'menu_taget'			:'sidebar_discount_program',	
+
+
+			
 			'store_list' 			: data_api_resuilt[3],
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],
+
 			'service_type_name' 	: data_api_resuilt[3][0].service_type_name,
 			'store_name' 			: data_api_resuilt[3][0].stores_name,			
 			
-			'discount_program_list' : data_api_resuilt[4],
-			'discount_program_details_list' : data_api_resuilt[5],
-			'discount_program_product_list' : data_api_resuilt[6],			
+			'discount_program_id'	:discount_program_id,
+			'datas' 				: data_api_resuilt[4],			
 		}
 		
 		
+	
+		
 		data_send = {
-			'title' 				: 'Danh sách tùy chọn',
+			'title' 				: 'Chỉnh sửa dischount program',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: data_api_resuilt[3][0].stores_user_id,
+			'user_id' 				: data_api_resuilt[3][0].stores_ID,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_discount_program',		
+			'menu_taget'			:'sidebar_discount_program',	
+
+
+			
 			'store_list' 			: data_api_resuilt[3],
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],
+
 			'service_type_name' 	: data_api_resuilt[3][0].service_type_name,
 			'store_name' 			: data_api_resuilt[3][0].stores_name,			
 			
-			'discount_program_list' : data_api_resuilt[4],
-			'discount_program_details_list' : data_api_resuilt[5],
-			'discount_program_product_list' : data_api_resuilt[6],		
-			
+			'discount_program_id'	:discount_program_id,
+			'datas' 				: data_api_resuilt[4],					
 			'datas_info'			: datas_info			
 		}
 		
@@ -141,7 +148,7 @@ async  function function_export(req, res, next) {
 		//res.send(data_send);
 		//return;
 		
-		res.render( ojs_configs.view_version + '/discount-program/speciality/store-show-all', data_send );
+		res.render( ojs_configs.view_version +  '/discount-program/speciality/show', data_send );	
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
