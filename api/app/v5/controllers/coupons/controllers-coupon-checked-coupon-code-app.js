@@ -216,9 +216,11 @@ async  function function_export(req, res, next) {
 					check_resuilt.coupon_selected_store = coupon_selected_by_store;
 					check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
 					check_resuilt.coupon_new = data_push;
+	
+					res.send({"error":"","datas":check_resuilt});
+					return;		
 
-					res.send(check_resuilt);
-					return;					
+					
 				}
 				
 			}//end of for	
