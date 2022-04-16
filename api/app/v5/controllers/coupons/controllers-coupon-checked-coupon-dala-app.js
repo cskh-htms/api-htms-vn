@@ -216,7 +216,7 @@ async  function function_export(req, res, next) {
 			
 		}//end of for
 		
-		res.send(coupon_ok);
+		res.send({"error":"","datas":coupon_ok});
 		return;	
 
 	}
