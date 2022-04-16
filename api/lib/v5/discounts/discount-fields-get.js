@@ -20,6 +20,7 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "discount_program_price_sale as discount_program_price_sale, " + 
 	config_database.PREFIX  + "discount_program_type as discount_program_type, " + 
 	config_database.PREFIX  + "discount_program_time_type as discount_program_time_type, " + 
+	config_database.PREFIX  + "discount_program_gift_type as discount_program_gift_type, " + 
 
 	
 	config_database.PREFIX  + "discount_program_price_one_day as discount_program_price_one_day, " + 	

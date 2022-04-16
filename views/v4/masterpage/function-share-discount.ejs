@@ -29,6 +29,31 @@ ojs_share_discount = {
 	//@
 	//@
 	//@
+	//@
+	//@
+	//@
+	//@ 13.[show_discount_program_gift_type]
+	show_discount_program_gift_type: function(status){	
+		//
+		let result = "";
+		//
+		if(status == 0){
+			result = "" +
+			'<option value="0" selected>Khuyến mãi thường</option>' + 
+			'<option value="1"> Khuyến mãi mua 1 tặng 1 - 2 -3 </option>';	
+		}else if(status == 1){
+			result = "" +
+			'<option value="0">Khuyến mãi thường</option>' + 
+			'<option value="1" selected> Khuyến mãi mua 1 tặng 1 - 2 -3 </option>';				
+		
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},
+
 	//@ 
 	//@ 
 	//@ 3. [format_date_discount]

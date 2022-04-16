@@ -254,6 +254,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"discount_program_status_update",
 				"discount_program_store_id_created",
 				"discount_program_type",
+				"discount_program_gift_type",
 				"stores_ID",
 				"stores_name"
 				],

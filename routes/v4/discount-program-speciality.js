@@ -30,7 +30,11 @@ const controllers_discount_program_store_id = require(
 		'/discount-program/controllers-discount-program-store-id-web-appdalacom.js'
 	);	
 	
-	
+const controllers_discount_program_show = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-show-web-appdalacom.js'
+	);	
 	
 	
 /*
@@ -154,7 +158,7 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 //@ bussiness
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
 router.get('/stores/:store_id/', controllers_discount_program_store_id);
-
+router.get('/show/:discount_program_id/:store_id', controllers_discount_program_show);
 
 
 //@ admin
@@ -4467,7 +4471,7 @@ router.post('/save', async function(req, res, next) {
 //@
 //@
 //@ 6 [/show/:discount_program_id/:store_id]
-router.get('/show/:discount_program_id/:store_id', async function(req, res, next) {
+router.get('/asdasdasd/show/:discount_program_id/:store_id', async function(req, res, next) {
 	//@
 	//@
 	//@

@@ -1,4 +1,16 @@
 
+
+
+	if( !req.session.token ){
+		res.send('<h1 style="text-align:center;">Vui lòng đăng nhập</h1>' );
+		return;
+	}	
+
+
+
+
+
+
 ------------------------------------
 	-- 2022/04/15
 ------------------------------------

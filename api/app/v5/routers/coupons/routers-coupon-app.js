@@ -25,17 +25,17 @@ router.get('/get-all/', middle_ware,get_all);
 
 //@
 // * lấy danh sách tất cả các coupon của cửa hàng thuộc order
-router.get('/checked-coupon/', middle_ware,checked_coupon);
+router.post('/checked-coupon/', middle_ware,checked_coupon);
 
 //@
 // * lấy danh sách tất cả các coupon của DALA (tất cả đều dùng dc) thuộc order
-router.get('/checked-coupon-dala/', middle_ware,checked_coupon_dala);
+router.post('/checked-coupon-dala/', middle_ware,checked_coupon_dala);
 
 
 
 //@
 // * check coupon gữi lên
-router.get('/checked-coupon-code/', middle_ware,checked_coupon_code);
+router.post('/checked-coupon-code/', middle_ware,checked_coupon_code);
 
 
 

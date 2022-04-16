@@ -35,7 +35,15 @@ content
 				</div>
 			</div>
 			
-						
+			<div class="pro_box trang_thai_box">
+				<h3>Kiểu chương trình khuyến mãi</h3>
+				<div class="inside">
+					<span>Hướng dẫn : </span><span class="giai-thich"><span>Loại chương trình thường, hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span>
+					<select id="discount_program_gift_type">
+						<%- ojs_share_discount.show_discount_program_gift_type(0) -%>
+					</select>						
+				</div>
+			</div>								
 			
 			<!-- ------------------
 			//Kiểu khuyến mãi
@@ -320,6 +328,7 @@ $(document).ready(function($){
 		
 		var discount_program_type = $('#discount_program_type  option:selected').val();		
 		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();
+		var discount_program_gift_type = $('#discount_program_gift_type  option:selected').val();
 		var discount_program_position = $('#discount_program_position  option:selected').val();
 		var discount_program_status_admin = $('#discount_program_status_admin').val();
 		
@@ -357,6 +366,7 @@ $(document).ready(function($){
 				discount_program_price_one_product:discount_program_price_one_product,
 				discount_program_type:discount_program_type,
 				discount_program_time_type:discount_program_time_type,
+				discount_program_gift_type:discount_program_gift_type,
 				discount_program_position:discount_program_position,
 				discount_program_store_id_created:discount_program_store_id_created,
 				
