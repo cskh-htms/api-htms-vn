@@ -209,6 +209,7 @@ async  function function_export(req, res, next) {
 							"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
 							"store_id":coupon_list_result[0].stores_ID,
 							"store_name":coupon_list_result[0].stores_name,
+							"dung_chung":coupon_list_result[0].coupon_speciality_type
 						}  
 
 					coupon_selected_by_store.push(data_push);
@@ -248,7 +249,8 @@ async  function function_export(req, res, next) {
 					"coupon_price_caution": caution_price,
 					"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
 					"store_id":17,
-					"store_name":"DALA"
+					"store_name":"DALA",
+					"dung_chung":coupon_list_result[0].coupon_speciality_type
 				}  
 
 			coupon_selected_by_dala.push(data_push);

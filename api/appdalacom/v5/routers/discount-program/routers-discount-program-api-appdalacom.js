@@ -26,7 +26,9 @@ const controllers_discount_program_show= require(
 );
 
 
-
+const controllers_discount_program_save= require(
+	'../../controllers/discount-program/controllers-discount-program-save-api-appdalacom.js'
+);
 
 
 
@@ -81,7 +83,11 @@ router.get(
 );
 
 
-
+router.post(
+	'/speciality/save/',
+	middle_ware, 
+	controllers_discount_program_save
+);
 
 
 

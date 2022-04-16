@@ -37,6 +37,14 @@ const controllers_discount_program_show = require(
 	);	
 	
 	
+const controllers_discount_program_save = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-save-web-appdalacom.js'
+	);	
+		
+	
+	
 /*
 	* admin
 */
@@ -159,7 +167,7 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
 router.get('/stores/:store_id/', controllers_discount_program_store_id);
 router.get('/show/:discount_program_id/:store_id', controllers_discount_program_show);
-
+//router.post('/save/', controllers_discount_program_save);
 
 //@ admin
 router.get('/quan-ly', controllers_discount_program_quan_ly_admin);

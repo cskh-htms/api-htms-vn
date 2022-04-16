@@ -81,6 +81,7 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "discount_program_price_sale as discount_program_price_sale, " + 
 	ojs_configs.db_prefix  + "discount_program_type as discount_program_type, " + 
 	ojs_configs.db_prefix  + "discount_program_time_type as discount_program_time_type, " + 
+	ojs_configs.db_prefix  + "discount_program_gift_type as discount_program_gift_type, " + 
 
 	
 	ojs_configs.db_prefix  + "discount_program_price_one_day as discount_program_price_one_day, " + 	
@@ -188,6 +189,7 @@ var insert_discount_program = async function (datas) {
 			"discount_program_price_sale"			: datas.discount_program_price_sale,
 			"discount_program_type"					: datas.discount_program_type,
 			"discount_program_time_type"			: datas.discount_program_time_type,
+			"discount_program_gift_type"			: datas.discount_program_gift_type,
 			
 			"discount_program_store_id_created": datas.discount_program_store_id_created,
 			"discount_program_qoute"				: mysql.escape(datas.discount_program_qoute).replace(/^'|'$/gi, ""),			

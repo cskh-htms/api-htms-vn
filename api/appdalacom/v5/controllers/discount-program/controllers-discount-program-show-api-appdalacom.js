@@ -255,6 +255,7 @@ async  function function_export(req, res, next) {
 				"discount_program_store_id_created",
 				"discount_program_type",
 				"discount_program_gift_type",
+				"discount_program_time_type",
 				"stores_ID",
 				"stores_name"
 				],
