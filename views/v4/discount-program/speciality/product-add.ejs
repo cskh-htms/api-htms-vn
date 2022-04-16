@@ -325,8 +325,10 @@ $(document).ready(function($){
 		var price = parseInt($('#products_speciality_price').attr('data_value'));
 
 		if(
-		datas.datas.discount_program_product_link_sale_of_price == ""  
-		|| parseInt(datas.datas.discount_program_product_link_sale_of_price) >  price 
+		gift_type_id == 0 
+		&& 
+		(datas.datas.discount_program_product_link_sale_of_price == ""  
+		|| parseInt(datas.datas.discount_program_product_link_sale_of_price) >  price) 
 		){
 			ojs_message.message_ok_show("giá giảm không hợp lệ");
 			return;			
@@ -344,6 +346,7 @@ $(document).ready(function($){
 	});
 
 
+	
 	
 	//@
 	//@

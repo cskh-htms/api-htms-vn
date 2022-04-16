@@ -194,7 +194,9 @@ async  function controllers_order_insert_app(req, res, next) {
 		ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[0].insertId,datas.orders.orders_speciality_phone);
 		//@
 		//@
-
+		
+		/*
+		
 		//@
 		//gữi email đặt hàng cho cửa hàng		
 		var email_to4 = store_email;
@@ -224,8 +226,8 @@ async  function controllers_order_insert_app(req, res, next) {
 		//email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b> tại DALA</p>';
 			
 		//ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-
-	
+		*/
+		
 		res.send( {"error" : "", "datas" : order_insert_resuilt} );
 		return;
 	}

@@ -8,6 +8,67 @@
 
 
 
+DROP TRIGGER IF EXISTS `trig_discount_program_product_link_after_insert`;
+DELIMITER $$
+CREATE TRIGGER `trig_discount_program_product_link_after_insert` AFTER INSERT ON `dala_discount_program_product_link` FOR EACH ROW BEGIN  
+
+	IF(NEW.dala_discount_program_product_link_status = 1) THEN 
+	
+	
+	
+		IF(NEW.dala_discount_program_product_link_sale_of_price) = 0 THEN 
+			SET @products_speciality_sale_of_price = NULL ;
+		ELSE 
+			SET @products_speciality_sale_of_price = NEW.dala_discount_program_product_link_sale_of_price;
+		END IF;	
+	
+	
+		UPDATE dala_products_speciality 
+		SET dala_products_speciality_sale_of_price = @products_speciality_sale_of_price,  
+			dala_products_speciality_date_start = NEW.dala_discount_program_product_link_date_star,  
+			dala_products_speciality_date_end = NEW.dala_discount_program_product_link_date_end  
+			
+		WHERE dala_products_speciality_ID = NEW.dala_discount_program_product_link_product_speciality_id ;
+		
+	END IF;	
+
+END
+$$
+DELIMITER ;
+
+
+
+
+
+DROP TRIGGER IF EXISTS `trig_discount_program_product_link_update_after`;
+DELIMITER $$
+CREATE TRIGGER `trig_discount_program_product_link_update_after` AFTER UPDATE ON `dala_discount_program_product_link` FOR EACH ROW BEGIN  
+
+	IF(NEW.dala_discount_program_product_link_status = 1) THEN 
+	
+		IF(NEW.dala_discount_program_product_link_sale_of_price) = 0 THEN 
+			SET @products_speciality_sale_of_price = NULL ;
+		ELSE 
+			SET @products_speciality_sale_of_price = NEW.dala_discount_program_product_link_sale_of_price;
+		END IF;		
+	
+	
+	
+		UPDATE dala_products_speciality 
+		SET dala_products_speciality_sale_of_price = @products_speciality_sale_of_price,  
+			dala_products_speciality_date_start = NEW.dala_discount_program_product_link_date_star,  
+			dala_products_speciality_date_end = NEW.dala_discount_program_product_link_date_end  
+			
+		WHERE dala_products_speciality_ID = NEW.dala_discount_program_product_link_product_speciality_id ;
+		
+	END IF;
+
+END
+$$
+DELIMITER ;
+
+
+
 
 
 
