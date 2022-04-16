@@ -221,7 +221,13 @@ async  function function_export(req, res, next) {
 							"field"     :"coupon_speciality_show_hide",
 							"value"     : 1,
 							"compare" : "="
-						},						
+						},
+						{   
+							"field"     :"coupon_speciality_type",
+							"value"     : 0,
+							"compare" : "="
+						},	
+						
 					]    
 				}         
 			],
