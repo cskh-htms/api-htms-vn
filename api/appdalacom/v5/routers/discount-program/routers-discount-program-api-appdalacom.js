@@ -31,6 +31,12 @@ const controllers_discount_program_save= require(
 );
 
 
+const controllers_discount_program_product_save= require(
+	'../../controllers/discount-program/controllers-discount-program-product-save-api-appdalacom.js'
+);
+
+
+
 
 
 //@
@@ -88,6 +94,16 @@ router.post(
 	middle_ware, 
 	controllers_discount_program_save
 );
+
+router.post(
+	'/speciality/product-save/',
+	middle_ware, 
+	controllers_discount_program_product_save
+);
+
+
+
+
 
 
 

@@ -362,7 +362,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 								"compare" 	: '<>'
 							},
 							{   
-								"field"     :"discount_program_store_id_created",
+								"field"     :"products_speciality_store_id",
 								"value"     : [store_id],
 								"compare" 	: 'in'
 							}									

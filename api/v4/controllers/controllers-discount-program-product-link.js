@@ -116,6 +116,7 @@ try {
 
 	//res.send(datas_check );	
 	//return;	 
+	
 	try{
 		var datas_check = {
 			"token":token,
@@ -139,8 +140,8 @@ try {
 	}
 	
 	
-	//res.send({ check_datas_result } );
-	//return;	
+	res.send({ check_datas_result } );
+	return;	
 	
 	
 	//@

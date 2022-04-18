@@ -8,6 +8,13 @@ const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
 
 
 async  function function_export(req, res, next) {
+	
+	if( !req.session.token ){
+		res.send('<h1 style="text-align:center;">Vui lòng đăng nhập</h1>' );
+		return;
+	}		
+	
+	
 	try {
 		var token = req.session.token;
 		var store_id = req.params.store_id;
