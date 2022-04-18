@@ -186,8 +186,8 @@ async  function controllers_order_insert_app(req, res, next) {
 		}	
 		
 		var order_insert_resuilt = await  order_insert(datas_assign,datas.orders_detail,res);
-		meta_adress_insert(meta_adress,res);
-		
+
+
 		//@
 		//@
 		//gữi sms đặt hàng 		
@@ -195,8 +195,8 @@ async  function controllers_order_insert_app(req, res, next) {
 		//@
 		//@
 		
-		/*
 		
+		/*
 		//@
 		//gữi email đặt hàng cho cửa hàng		
 		var email_to4 = store_email;
@@ -219,6 +219,13 @@ async  function controllers_order_insert_app(req, res, next) {
 		var email_to4 = ojs_configs.email_admin_04;	
 		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
 
+
+		*/
+		
+		meta_adress_insert(meta_adress,res);
+		
+
+
 	
 		//@ gữi cho khách hàng
 		//email_to4 = datas.orders.orders_speciality_email;
@@ -226,14 +233,14 @@ async  function controllers_order_insert_app(req, res, next) {
 		//email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b> tại DALA</p>';
 			
 		//ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-		*/
+
 		
 		res.send( {"error" : "", "datas" : order_insert_resuilt} );
 		return;
 	}
 	catch(error){
 		env = ojs_configs.api_evn;
-		//env = "dev";
+		env = "dev";
 		var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi truy xuất database" );
 		res.send({ 
 			"error" : "10", 

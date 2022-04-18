@@ -9,6 +9,7 @@ const config_api = require ('../../../configs/config-api');
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./orders-fields-get');
+const fields_insert = require('./orders-fields-insert.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
@@ -63,20 +64,30 @@ const order_insert = function (datas,data_details,res) {
 		let sql_details_all = "";
 		for(let i = 0; i < data_details.length; i ++){
 			///ex
+			if(data_details[i].orders_details_medium_text){
+				var orders_details_medium_text = data_details[i].orders_details_medium_text;
+			}else{
+				var orders_details_medium_text = "";
+			}
+			
+			
+			
 			sql_details = "INSERT INTO " + config_database.PREFIX + "orders_details_speciality  ";
 			sql_details = sql_details + "(" +
 							config_database.PREFIX + "orders_details_speciality_order_id" + "," + 
 							config_database.PREFIX + "orders_details_speciality_line_order" + "," + 
 							config_database.PREFIX + "orders_details_speciality_product_id " + "," + 
 							config_database.PREFIX + "orders_details_speciality_qty " + "," + 
-							config_database.PREFIX + "orders_details_speciality_price "  + 	
+							config_database.PREFIX + "orders_details_speciality_price "  + "," + 
+							config_database.PREFIX + "orders_details_medium_text "  + 
 						") " + 
 						"values(" + 
 						"@aa, '" + 
 						data_details[i].orders_details_speciality_line_order +  "', " + 
 						data_details[i].orders_details_speciality_product_id +  ", " + 
 						data_details[i].orders_details_speciality_qty +  ", " + 
-						data_details[i].orders_details_speciality_price + 
+						data_details[i].orders_details_speciality_price +  ", '" + 
+						orders_details_medium_text + "' " + 
 						") ; ";		
 			sql_details_all	= sql_details_all  + sql_details		
 		}//end of for option_arr	
@@ -91,23 +102,56 @@ const order_insert = function (datas,data_details,res) {
 	//commit
 	sql_text = sql_text + " COMMIT;"	
 	
-	
+	//@
+	/*
+	res.send({ 
+		"error" : "100", 
+		"position" : "lib->order->inser.js",
+		"message": sql_text
+	}); 
+	return;		
+	*/
 	//return sql_text;
 	
 	try {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;
+					
+					var error_massage = fields_insert.get_message_error(err);
+					
+					evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							error_massage
+						);
+					res.send({ 
+						"error" : "10", 
+						"position" : "lib->order->inser.js",
+						"message": error_send 
+					}); 
+					return;					
+				}
 				resolve(results);
 			});
 		} );		
 	}
 	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				//evn, 
+				error, 
+				"Lỗi insert order, Vui lòng liên hệ admin" 
+			);
 		res.send({ 
-			"error" : "modem orders speciality, -> insert order  speciality", 
-			"position":"api/lib/v5/order insert",
-			"message" : error 
-		}) ;
+			"error" : "100", 
+			"position" : "lib->order->inser.js",
+			"message": error_send 
+		}); 
+		return;	
 	}
 };	
 
