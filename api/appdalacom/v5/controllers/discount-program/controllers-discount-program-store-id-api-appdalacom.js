@@ -23,6 +23,7 @@ const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION +
 const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search');
 const discount_detail_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-details/discount-detail-search');
 const discount_product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search');
+const discount_product_gift_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 
 
@@ -378,6 +379,43 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		promise_all.push(fn_get_discount_program_product);			
 			
 		
+		//@
+		//@
+		//@ 7. discount program product gift
+		let data_discount_program_product_gift =    
+			{
+				"select_field" :
+				[
+				"discount_program_gift_link_product_speciality_id",
+				"discount_program_gift_link_product_speciality_gift_id",
+				"products_speciality_name",
+				"products_speciality_featured_image"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  
+							{   
+								"field"     :"products_speciality_store_id",
+								"value"     : [store_id],
+								"compare" 	: 'in'
+							}									
+						]    
+					}
+				]
+			}
+		
+		var fn_get_discount_program_product_gift = new Promise((resolve, reject) => {
+			let result = discount_product_gift_search(data_discount_program_product_gift,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_discount_program_product_gift);					
+		
+		
+		
+		
 		
 		
 		
@@ -407,7 +445,8 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		"3":"data_store_taget",
 		"4":"discount list",
 		"5":"discount-details-list",
-		"5":"discount-product-list",
+		"6":"discount-product-list",
+		"7":"discount-product-gift-list",
 		
 	}
 	promise_result.push(notes);
