@@ -209,7 +209,8 @@ async  function function_export(req, res, next) {
 					"store_name":"DALA",
 					"coupon_speciality_multiple":coupon_list[x].coupon_speciality_multiple,
 					"coupon_speciality_limit_number":coupon_list[x].coupon_speciality_limit_number,
-					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user
+					"coupon_speciality_limit_user":coupon_list[x].coupon_speciality_limit_user,
+					"coupon_speciality_formula_price":coupon_list[x].coupon_speciality_formula_price
 				}
 				coupon_ok.push(line_data);
 			}
