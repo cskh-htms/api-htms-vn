@@ -169,7 +169,7 @@ if(discount_program_list.length > 0){ %>
 					
 					<div class="product-add" style="flex-wrap: wrap;" >
 						<span class="ngay-tham-gia">
-							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>
+							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>							
 						</span>
 						<br>
 						<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
@@ -198,7 +198,33 @@ if(discount_program_list.length > 0){ %>
 						}
 						%>
 
-						
+						<div class="gift-box">
+							<%
+							var gift_text = "";
+							for(let os in discount_program_product_gift_list){
+								if(
+								discount_program_product_gift_list[os].discount_program_gift_link_product_speciality_id  
+								== 
+								discount_program_product_list[z].products_speciality_ID 
+								){
+									gift_text = gift_text + 
+									'<div style="">' + 
+										'<img src="' + discount_program_product_gift_list[os].products_speciality_featured_image + '"/>' + 
+										'<span style=""><i>' +  
+											discount_program_product_gift_list[os].products_speciality_name + 
+										'</i></span>' + 
+									'</div>';
+								}
+							}		
+							if(gift_text.length > 0){
+							%>
+								<p style="text-decoration: underline;font-weight:bold;"> quà tặng : </p>
+								<%- gift_text %>
+							
+							<%
+							}								
+							%>						
+						</div>
 					</div>
 				<% 
 				}//end if
@@ -478,7 +504,33 @@ if(discount_program_list.length > 0){ %>
 						<%
 						}
 						%>
-
+						<div class="gift-box">
+							<%
+							var gift_text = "";
+							for(let os in discount_program_product_gift_list){
+								if(
+								discount_program_product_gift_list[os].discount_program_gift_link_product_speciality_id  
+								== 
+								discount_program_product_list[z].products_speciality_ID 
+								){
+									gift_text = gift_text + 
+									'<div style="">' + 
+										'<img src="' + discount_program_product_gift_list[os].products_speciality_featured_image + '"/>' + 
+										'<span style=""><i>' +  
+											discount_program_product_gift_list[os].products_speciality_name + 
+										'</i></span>' + 
+									'</div>';
+								}
+							}		
+							if(gift_text.length > 0){
+							%>
+								<p style="text-decoration: underline;font-weight:bold;"> quà tặng : </p>
+								<%- gift_text %>
+							
+							<%
+							}								
+							%>						
+						</div>
 						
 					</div>
 				<% 

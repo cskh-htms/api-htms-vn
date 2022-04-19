@@ -82,14 +82,12 @@ async  function function_export(req, res, next) {
 	}		
 	
 
-
-
 		
 	//@
 	try {
 
 		datas_info = {
-			'title' 				: 'Danh sách tùy chọn',
+			'title' 				: 'Chương trình khuyến mãi',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: data_api_resuilt[3][0].stores_user_id,
@@ -112,7 +110,7 @@ async  function function_export(req, res, next) {
 		
 		
 		data_send = {
-			'title' 				: 'Danh sách tùy chọn',
+			'title' 				: 'Chương trình khuyến mãi',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role'  			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: data_api_resuilt[3][0].stores_user_id,

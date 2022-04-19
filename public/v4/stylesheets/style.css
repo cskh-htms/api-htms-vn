@@ -2345,9 +2345,13 @@ end of van luc 07.04.2021
 	display:inline-block;
 }
 
+.gift-box {
+    width: 100%;
+}
 
-
-
+.gift-box img{
+    max-width: 30px;
+}
 
 
 

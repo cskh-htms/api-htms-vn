@@ -494,7 +494,7 @@ $(document).ready(function($){
 									ojs_message.message_ok_show(result.message);
 								}
 						}else{
-							ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình",location.href);
+							ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình","/discount-program/speciality/stores/" + $("#store_id").val());
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
@@ -539,7 +539,7 @@ $(document).ready(function($){
 									ojs_message.message_ok_show(result.message);
 								}
 						}else{
-							ojs_message.message_ok_show(" Đã tạo chương trình",location.href);
+							ojs_message.message_ok_show(" Đã tham gia chương trình khuyến mãi, Chờ admin DALA phê duyệt","/discount-program/speciality/stores/" + $("#store_id").val());
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
