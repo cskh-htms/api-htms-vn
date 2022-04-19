@@ -617,6 +617,10 @@ try {
 		res.send({ "error" : "1", "position":"ctl-discount-program-product-link>delete", "message": error_send } ); 
 		return;			
 	}	
+	
+	
+	
+	
 	//@
 	//@
 	//@ kiểm tra phân quyền 

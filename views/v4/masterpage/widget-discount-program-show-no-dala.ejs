@@ -15,7 +15,10 @@ if(discount_program_list.length > 0){ %>
 	<% 
 	for( var  x in discount_program_list ) { 
 	if(
-	discount_program_list[x].discount_program_type == 0 ){
+	discount_program_list[x].discount_program_type == 0 
+	&& 
+	discount_program_list[x].discount_program_status_admin == "4" 	
+	){
 	i_loop = i_loop + 1;
 	%>
 		<div class="discount-box">
@@ -162,7 +165,9 @@ if(discount_program_list.length > 0){ %>
 				for( var  z in discount_program_product_list ) { 
 				if(
 				discount_program_list[x].discount_program_ID ==  
-				discount_program_product_list[z].discount_program_ID)
+				discount_program_product_list[z].discount_program_ID 
+				&& discount_program_product_list[z].discount_program_product_link_status == 1	
+				)
 				{ 
 				product_count = product_count + 1;
 				%>
@@ -296,7 +301,9 @@ if(discount_program_list.length > 0){ %>
 	<% 
 	for( var  x in discount_program_list ) { 
 	if(
-		discount_program_list[x].discount_program_type == 1
+	discount_program_list[x].discount_program_type == 1 
+	&& 
+	discount_program_list[x].discount_program_status_admin == "4" 		
 	){
 	%>	
 	
@@ -439,7 +446,9 @@ if(discount_program_list.length > 0){ %>
 				for( var  z in discount_program_product_list ) { 
 				if(
 				discount_program_list[x].discount_program_ID ==  
-				discount_program_product_list[z].discount_program_ID)
+				discount_program_product_list[z].discount_program_ID 
+				&& discount_program_product_list[z].discount_program_product_link_status == 1	
+				)
 				{ 
 				product_count = product_count + 1;
 				%>

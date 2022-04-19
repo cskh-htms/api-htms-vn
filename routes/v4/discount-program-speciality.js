@@ -30,6 +30,14 @@ const controllers_discount_program_store_id = require(
 		'/discount-program/controllers-discount-program-store-id-web-appdalacom.js'
 	);	
 	
+const controllers_discount_program_store_quan_ly = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-store-quan-ly-web-appdalacom.js'
+	);		
+	
+	
+	
 const controllers_discount_program_show = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
@@ -180,6 +188,7 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 //@ bussiness
 router.get('/product/add/:discount_program_details_id/:store_id/:user_id', controllers_discount_program_product_add_list);
 router.get('/stores/:store_id/', controllers_discount_program_store_id);
+router.get('/store-quan-ly/:store_id', controllers_discount_program_store_quan_ly);
 router.get('/show/:discount_program_id/:store_id', controllers_discount_program_show);
 //router.post('/save/', controllers_discount_program_save);
 
@@ -826,7 +835,7 @@ router.get('/discount-delete/:discount_id', async function(req, res, next) {
 //@
 //@
 //@ 18[/store-quan-ly/:store_id]
-router.get('/store-quan-ly/:store_id', async function(req, res, next) {
+router.get('asdasdasd/store-quan-ly/:store_id', async function(req, res, next) {
 try {
 	//@
 	//@

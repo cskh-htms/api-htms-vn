@@ -20,6 +20,12 @@ const controllers_discount_program_store_id = require(
 	'../../controllers/discount-program/controllers-discount-program-store-id-api-appdalacom'
 );
 
+const controllers_discount_program_store_quan_ly= require(
+	'../../controllers/discount-program/controllers-discount-program-store-quan-ly-api-appdalacom'
+);
+
+
+
 
 const controllers_discount_program_show= require(
 	'../../controllers/discount-program/controllers-discount-program-show-api-appdalacom'
@@ -80,6 +86,13 @@ router.get(
 	middle_ware, 
 	controllers_discount_program_store_id 
 );
+
+router.get(
+	'/speciality/store-quan-ly/:store_id',
+	middle_ware, 
+	controllers_discount_program_store_quan_ly 
+);
+
 
 
 router.get(

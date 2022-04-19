@@ -7,14 +7,18 @@
 <%		
 var i_loop = 0;
 if(discount_program_list.length > 0){ %>	
-	<h1 style="font-weight:bold; font-size:20px;margin:0;">Chương trình khuyến mãi của cửa hàng</h1>
+	<h1 style="font-weight:bold; font-size:20px;margin:0;">Chương trình khuyến mãi của cửa hàng đang hoạt động</h1>
 	<hr>
 	<br>
 	<div class="discount-wrap">
 	<% 
 	
 	for( var  x in discount_program_list ) { 
-	if(discount_program_list[x].discount_program_store_id_created == store_id ){
+	if(
+	discount_program_list[x].discount_program_store_id_created == store_id 
+	&& 
+	discount_program_list[x].discount_program_status_admin == "4" 
+	){
 	i_loop = i_loop + 1;
 	%>
 		<div class="discount-box">
@@ -31,7 +35,7 @@ if(discount_program_list.length > 0){ %>
 				</div>
 				<% 
 				if(
-				discount_program_list[x].discount_program_status_admin != "4" && 
+				discount_program_list[x].discount_program_status_admin == "4" && 
 				discount_program_list[x].discount_program_status_admin != "1" 
 				){
 				%>
@@ -161,7 +165,9 @@ if(discount_program_list.length > 0){ %>
 				for( var  z in discount_program_product_list ) { 
 				if(
 				discount_program_list[x].discount_program_ID ==  
-				discount_program_product_list[z].discount_program_ID)
+				discount_program_product_list[z].discount_program_ID 				 
+				&& discount_program_product_list[z].discount_program_product_link_status == 1	
+				)
 				{ 
 				product_count = product_count + 1;
 				%>
@@ -187,16 +193,6 @@ if(discount_program_list.length > 0){ %>
 						<span class="ngay-tham-gia">
 							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
 						</span>	
-
-						<%
-						if(
-						discount_program_product_list[z].discount_program_details_store_id == store_id	
-						|| user_role == "admin" 
-						){ %>
-							<a href="#" data_discount_program_link_id="<%= discount_program_product_list[z].discount_program_product_link_ID %>" class="submitdelete">delete</a>
-						<%
-						}
-						%>
 
 						<div class="gift-box">
 							<%
@@ -324,7 +320,8 @@ if(discount_program_list.length > 0){ %>
 	for( var  x in discount_program_list ) { 
 	if(
 	discount_program_list[x].discount_program_store_id_created == 17
-	&& discount_program_list[x].discount_program_type == 1
+	&& discount_program_list[x].discount_program_type == 1 
+	&& discount_program_list[x].discount_program_status_admin == "4" 
 	){
 	i_loop = i_loop + 1;	
 	%>	
@@ -468,7 +465,9 @@ if(discount_program_list.length > 0){ %>
 				for( var  z in discount_program_product_list ) { 
 				if(
 				discount_program_list[x].discount_program_ID ==  
-				discount_program_product_list[z].discount_program_ID)
+				discount_program_product_list[z].discount_program_ID 
+				&& discount_program_product_list[z].discount_program_product_link_status == 1	 		
+				)
 				{ 
 				product_count = product_count + 1;
 				%>
@@ -495,15 +494,7 @@ if(discount_program_list.length > 0){ %>
 							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
 						</span>	
 
-						<%
-						if(
-						discount_program_product_list[z].discount_program_details_store_id == store_id	
-						|| user_role == "admin" 
-						){ %>
-							<a href="#" data_discount_program_link_id="<%= discount_program_product_list[z].discount_program_product_link_ID %>" class="submitdelete">delete</a>
-						<%
-						}
-						%>
+
 						<div class="gift-box">
 							<%
 							var gift_text = "";
@@ -591,7 +582,7 @@ if(discount_program_list.length > 0){ %>
 	<%
 	if(i_loop == 0){
 	%>
-		<h1> Không có chương trình khuyến mãi nào cửa cửa hàng</h1>
+		<h1> Không có chương trình khuyến mãi nào cửa cửa hàng đang hoạt động</h1>
 		<a href="#">Tạo một chương trình khuyến mãi</a>
 	<%
 	}
