@@ -9,18 +9,18 @@ content
 
 
 	<div class="content-image">
-		<img src="<%- datas[0].discount_program_featured_image -%>" style="max-width:100%;"/>
+		<img src="<%- datas[0].discount_program_featured_image -%>" style="max-width:100%; marginBottom: 10px;"/>
 	</div>
 
 	<div class="content-title">
-		<span> chương trình khuyến mãi</span>
-		<strong>[ <%- datas[0].discount_program_name -%> ]</strong>
+		<span>Tên CTKM:</span>
+		<strong style="color: #4a914b;">[ <%- datas[0].discount_program_name -%> ]</strong>
 		<br>
 	</div>
 	<hr>
 
 	<div class="content-date">
-		<span> thời gian </span><br>
+		<span>Thời gian:</span><br>
 		
 		<%
 		var star;
@@ -50,7 +50,7 @@ content
 	
 	
 	<div class="content-information">
-		<strong><span> Nôi dung </span></strong>
+		<span>Nội dung:</span>
 		<br>
 		<br>
 		<%- datas[0].discount_program_information -%>

@@ -1511,6 +1511,7 @@ h3 .giai-thich {
     padding: 5px 10px;
     cursor: pointer;
     min-width: unset !important;
+	text-decoration: none;
 }
 .giai-thich:before {
 	content: "\f059";
@@ -2260,7 +2261,6 @@ end of van luc 07.04.2021
 	max-width:100%;
 	box-sizing:border-box;
 	text-align:center;
-	height: 200px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -2280,19 +2280,27 @@ end of van luc 07.04.2021
 }
 
 .discount-title {
-    margin-top: 15px;
+    margin: 10px 0;
+	font-weight: bold;
+    color: #4a914b;
+	font-size: 120%;
 }
 .product-add {
     display: flex;
+	flex-wrap: wrap;
     margin-bottom: 10px;
     border-bottom: 1px dotted #ccc;
     padding-bottom: 5px;
 }
-
+.product-add .p-name {
+	width: 100%;
+}
+.product-add .p-price-sale {
+	margin-right: 5px;
+}
 .add-box {
     font-weight: bold;
     margin-bottom: 15px;
-    color: #4a914b;
 }
 
 #btn-tham-gia {

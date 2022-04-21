@@ -43,18 +43,22 @@ content
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
-				<h3>Tên Sản phẩm</h3>
+				<h3>Tên sản phẩm</h3>
 				<div class="inside">
 					<input type="text" value="<%-  ojs_share.unCape(datas[0].products_speciality_name) %>" id="products_speciality_name"/>
 				</div>
 			</div>
 			
 			<div class="pro_box ten_sp_box">
-				<p  style=""><span>Loại sản phẩm</span><span class="giai-thich"><span>Normal product:Bình thường, Variation product: Biến thể(đang phát triển),gift product:Sản phẩm quà tặng</span></span>	
+				<h3>Loại sản phẩm 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#loai-san-pham" target="_blank">
+				<span>Sản phẩm bình thường, Biến thể(đang phát triển) hoặc sản phẩm làm quà tặng</span>
+				</a></h3>
+				<div class="inside">
 					<select id="products_speciality_type">
 						<%- ojs_share_product.show_product_type(datas[0].products_speciality_type) %>
 					</select>	
-				</p>			
+				</div>			
 			</div>
 			
 			
@@ -115,11 +119,11 @@ content
 			</div>
 			
 			<div class="pro_box gia_box"  style="" >
-				<h3>Khuyến mãi</h3>
+				<h3>Khuyến mãi 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala" target="_blank"><span>Nội dung này chỉ hiển thị khi sản phẩm tham gia CTKM</span>
+				</a></h3>
 				<div class="inside">
-
-					
-					<p style=""><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
+					<p style=""><span>Giá khuyến mãi</span>
 						<input 
 						class="number_change_empty" 
 						data_value="<%= datas[0].products_speciality_sale_of_price %>" 						
@@ -129,8 +133,8 @@ content
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p style="" ><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input disabled  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p style="" ><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input disabled  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p style="" ><span>Ngày bắt đầu KM</span><input disabled  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
+					<p style="" ><span>Ngày kết thúc KM</span><input disabled  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
 					
 					
 				</div>
@@ -142,7 +146,7 @@ content
 				<p style="display: inline-flex;align-items: center;cursor: pointer;" >
 					<%- ojs_share_product.show_stauts_stock(datas[0].products_speciality_stock_status) %>
 					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  for="products_speciality_stock_status" >Quản lý tồn kho</label>
-					<span class="giai-thich"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></span>
+					<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#ton-kho" target="_blank"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></a>
 				</p>
 				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  ><span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
 					<input 
@@ -248,7 +252,9 @@ content
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Ảnh đại diện 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
+				</a></h3>	
 				<div class="inside">
 					<input type="text" 
 						value="" 
@@ -269,7 +275,9 @@ content
 			//hình slider 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Bộ sưu tập (giới hạn 6 ảnh)</h3>	
+				<h3>Bộ sưu tập 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#bo-suu-tap" target="_blank"><span>Chọn thêm hình cho sản phẩm, tối đa 6 hình, tỉ lệ vuông</span>
+				</a></h3>	
 				<div class="inside">
 					
 					<input type="text" 

@@ -73,9 +73,8 @@ content
 			
 			
 			<div class="pro_box trang_thai_box">
-				<h3>Kiểu chương trình khuyến mãi</h3>
+				<h3>Kiểu chương trình khuyến mãi <span class="giai-thich"><span>Loại khuyến mãi thường(giảm giá), hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span></h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Loại chương trình thường, hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span>
 					<select id="discount_program_gift_type">
 						<%- ojs_share_discount.show_discount_program_gift_type(0) -%>
 					</select>						
@@ -118,7 +117,7 @@ content
 			<div class="pro_box trang_thai_box  <%= admin_view %>" ">
 				<h3>Loại chương trình khuyến mãi</h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Dùng cho chỉ cửa hàng tạo hay tất cả các cửa hàng</span></span>
+					<span>Hướng dẫn:</span><span class="giai-thich"><span>Dùng cho chỉ cửa hàng tạo hay tất cả các cửa hàng</span></span>
 					<select id="discount_program_type">
 						<%- ojs_share.show_ddiscount_program_type(0) -%>
 					</select>						
@@ -126,23 +125,9 @@ content
 			</div>				
 			
 			
-
-			<div class="pro_box trang_thai_box ">
-				<h3>Kiểu thời gian khuyến mãi</h3>
-				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Khuyến mãi không thời hạn hay có thời hạn</span></span>
-					<select id="discount_program_time_type">
-						<%- ojs_share.show_discount_program_time_type(1) -%>
-					</select>						
-				</div>
-			</div>	
-			
-			
-			
 			<div class="pro_box trang_thai_box" >
-				<h3>Vị trí chương trình khuyến mãi</h3>
+				<h3>Vị trí chương trình khuyến mãi <span class="giai-thich"><span>Vị trí hiển thị CTKM trên trang chủ app, ấn "?" để xem chi tiết</span></span></h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị trên trang chủ app</span></span>
 					<select id="discount_program_position">
 						<%- ojs_share_discount.show_discount_program_position_store(4) -%>
 					</select>						
@@ -173,7 +158,7 @@ content
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Banner CTKM <span class="giai-thich"><span>Chọn ảnh có tỉ lệ 3:1</span></span></h3>	
 				<div class="inside">
 					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
@@ -244,13 +229,22 @@ content
 					<input type="text" class= "" value="0" id="discount_program_limit_day"/>
 				</div>
 			</div>				
-
+			
+			
+			<div class="pro_box trang_thai_box ">
+				<h3>Kiểu thời gian khuyến mãi <span class="giai-thich"><span>Khuyến mãi vô thời hạn sẽ chạy liên tục đến khi chương trình bị xóa</span></span></h3>
+				<div class="inside">
+					<select id="discount_program_time_type">
+						<%- ojs_share.show_discount_program_time_type(1) -%>
+					</select>						
+				</div>
+			</div>	
 		
 			<div class="pro_box ten_sp_box" id="thoi-han-khuyen-mai">
-				<h3>thời gian khuyến mãi</h3>
+				<h3>Thời gian diễn ra CTKM</h3>
 				<div class="inside">
-					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span><input type="text" value="" id="discount_program_date_star" /> </p>	
-					<p><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span><input type="text" value="" id="discount_program_date_end" /> </p>		
+					<p><span>Ngày bắt đầu KM</span><input type="text" value="" id="discount_program_date_star" /> </p>	
+					<p><span>Ngày kết thúc KM</span><input type="text" value="" id="discount_program_date_end" /> </p>		
 				</div>
 			</div>			
 		
