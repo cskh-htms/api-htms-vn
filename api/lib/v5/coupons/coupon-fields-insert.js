@@ -34,7 +34,8 @@ function get_message_error(error){
 		}else if(error.sqlMessage.search("trig_coupon_speciality_code_date_end_less_star") >= 0){
 			return "Bạn chưa nhập ngày tháng, hoặc ngày tháng không hợp lệ ";			
 			
-			
+		}else if(error.sqlMessage.search("trig_coupon_speciality_code_data_type") >= 0){
+			return "Vui lòng chỉ nhập chữ cái và số và [-], Không nhập khoảng trắng ";				
 			
 		}else{
 			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";

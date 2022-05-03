@@ -21,10 +21,10 @@
 	   <tr>
 			<td class="user-name"><a href="#"><%- coupon_list[x].coupon_speciality_code %></a>
 				<%
-				if(
-				coupon_list[x].coupon_speciality_status_admin != "4" && 
-				coupon_list[x].coupon_speciality_status_admin != "1"   
-				){
+				//if(
+				//coupon_list[x].coupon_speciality_status_admin != "4" && 
+				//coupon_list[x].coupon_speciality_status_admin != "1"   
+				//){
 				%>
 				
 					<div class="row-actions">
@@ -33,7 +33,7 @@
 					</div>
 				
 				<%
-				}
+				//}
 				%>
 			</td>
 			<td><%= coupon_list[x].stores_name %></td>	
