@@ -372,7 +372,10 @@ try {
 				res.send({ "error" : "999", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> tài khoản doanh nghiệp không thể mua hàng"} ); 	
 				return;
 			}				
-
+			if(role_text =="shipping"){
+				res.send({ "error" : "777", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> shipper chỉ login trên web quản lý"} ); 	
+				return;
+			}	
 			if(role_text =="admin"){
 				token_type = 1;
 			}
@@ -428,7 +431,8 @@ try {
 				"datas": {
 					"token_key": token,
 					'token_type':token_type,
-					"token_value": token_database
+					"token_value": token_database,
+					"token_user_id": results[0].users_ID
 				}
 			}
 		}
@@ -1861,7 +1865,9 @@ try {
 				token_type = 3;
 			}
 
-			
+			if(role_text =="web"){
+				token_type = 4;
+			}			
 			//@
 			//@
 			//tạo token send data
@@ -1911,7 +1917,8 @@ try {
 				"datas": {
 					"token_key": token,
 					'token_type':token_type,
-					"token_value": token_database
+					"token_value": token_database,
+					"token_user_id":results[0].users_ID
 				}
 			}
 		}

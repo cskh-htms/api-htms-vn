@@ -9,7 +9,8 @@
 	const  default_fields = {
 		"token_key"		: "",
 		"token_type"	: 0,
-		"token_value"	: ""	
+		"token_value"	: "",
+		"token_user_id"	 : 0	
 	}
 	function check_datas (datas){
 		let arr_check_name = Object.keys(datas);

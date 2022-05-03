@@ -23,6 +23,7 @@ let sql_select_all = 	"" +
 	ojs_configs.db_prefix + "token_date_created as token_date_created, " + 
 	ojs_configs.db_prefix + "token_type as token_type, " +
 	ojs_configs.db_prefix + "token_key as token_key, " + 
+	ojs_configs.db_prefix + "token_user_id as token_user_id, " +
 	ojs_configs.db_prefix + "token_value as token_value " 
 //from table
 let sql_from_default = 	" from " + 
@@ -77,10 +78,17 @@ var insert_token = async function (datas) {
 	
 	
 	//@
-	let sql_text = "INSERT INTO " + ojs_configs.db_prefix + "token  SET ?";
+	let sql_text = "START TRANSACTION ;";
+	sql_text = sql_text +  "DELETE from " + ojs_configs.db_prefix + "token where " + 
+	ojs_configs.db_prefix + "token_type='" + datas.datas.token_type + "' " + 
+	"and " + 
+	ojs_configs.db_prefix + "token_user_id=" + datas.datas.token_user_id + "; "; 
+	
+	sql_text = sql_text + "INSERT INTO " + ojs_configs.db_prefix + "token  SET ? ; ";
 	let dataGo = {
 			"token_key"						: datas.datas.token_key,
-			"token_type"					: datas.datas.token_type,	
+			"token_type"					: datas.datas.token_type,
+			"token_user_id"					: datas.datas.token_user_id,			
 			"token_value"					: datas.datas.token_value
 	}
 
@@ -90,7 +98,7 @@ var insert_token = async function (datas) {
 	}
 	//@
 
-
+	sql_text = sql_text + " COMMIT;"
 
 
 	try {
