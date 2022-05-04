@@ -110,8 +110,11 @@ async  function function_export(req, res, next) {
 		//res.send(data_send);
 		//return;
 	
-	
-		res.render( ojs_configs.view_version + '/coupon/speciality/show-all', data_send );
+		if(store_id == 17){
+			res.render( ojs_configs.view_version + '/coupon/speciality/show-all-dala', data_send );
+		}else{
+			res.render( ojs_configs.view_version + '/coupon/speciality/show-all', data_send );
+		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

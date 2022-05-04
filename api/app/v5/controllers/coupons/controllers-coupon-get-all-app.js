@@ -113,6 +113,11 @@ async  function get_all(req, res, next) {
 							"field"     :"coupon_speciality_status_admin",
 							"value"     : 4,
 							"compare" : "="
+						} ,
+						{   
+							"field"     :"coupon_speciality_show_hide",
+							"value"     : 1,
+							"compare" : "="
 						} 
 					]    
 				}         
