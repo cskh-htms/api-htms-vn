@@ -15,7 +15,7 @@ const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_V
 const order_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-insert.js');
 const get_store_id = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-get-store-id.js');
 const meta_adress_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/meta-adress/meta-adress-insert.js');
-
+const meta_adress_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/meta-adress/meta-adress-search.js');
 
 const ojs_shares_send_code_to_phone = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-code-to-phone.js');
 const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
@@ -186,53 +186,91 @@ async  function controllers_order_insert_app(req, res, next) {
 		}	
 		
 		var order_insert_resuilt = await  order_insert(datas_assign,datas.orders_detail,res);
-
-
-		//@
-		//@
-		//gữi sms đặt hàng 		
-		ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[0].insertId,datas.orders.orders_speciality_phone);
-		//@
-		//@
 		
 		
-		/*
 		//@
-		//gữi email đặt hàng cho cửa hàng		
-		var email_to4 = store_email;
+		// Check if the address matches or not, if it does, don't add it
+		var data_adress_search = 
+		{
+		   "select_field" :
+			[
+				"adress_meta_ID"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"adress_meta_user_id",
+						"value"     : datas.orders.orders_speciality_user_id,
+						"compare" : "="
+					},     
+					{   
+						"field"     :"adress_meta_phone",
+						"value"     : datas.orders.orders_speciality_phone,
+						"compare" : "="
+					},     
+					{   
+						"field"     :"adress_meta_name",
+						"value"     : datas.orders.orders_speciality_name,
+						"compare" : "="
+					},
+					{					
+						"field"     :"adress_meta_province",
+						"value"     : datas.orders.orders_speciality_province,
+						"compare" : "="
+					}, 					
+					{   
+						"field"     :"adress_meta_district",
+						"value"     : datas.orders.orders_speciality_district,
+						"compare" : "="
+					}, 
+					{   
+						"field"     :"adress_meta_wards",
+						"value"     : datas.orders.orders_speciality_wards,
+						"compare" : "="
+					}, 					
+					{   
+						"field"     :"adress_meta_street",
+						"value"     : datas.orders.orders_speciality_adress,
+						"compare" : "="
+					}  					
+					]    
+				}         
+			]   
+		}		
+		var meta_adress_search_resuilt = await  meta_adress_search(data_adress_search,res);
+		if(meta_adress_search_resuilt.length > 0){
+			// nothing!
+		}else{
+			var meta_adress_insert_resuilt = await meta_adress_insert(meta_adress,res);
+		}
+		
+		//@
+		//@
+		//@ send email
 		var email_title = 'DALA - Có đơn hàng mới';
-		var email_content4 = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
+		var email_content = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
+
+		if(ojs_configs.domain == "http://localhost:2021"){
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+			//ojs_shares_send_email.send_email_to_admin(res,store_email,email_title,email_content);
+		}else{
+			//@
+			//@
+			//gữi sms đặt hàng 		
+			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[0].insertId,datas.orders.orders_speciality_phone);
 			
-		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);				
-		
-		//@
-		//gữi email đặt hàng cho admin	
-		var email_to1 = ojs_configs.email_admin_01;
-		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);			
-		
-		var email_to2 = ojs_configs.email_admin_02;
-		ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
-		
-		//var email_to3 = ojs_configs.email_admin_03;	
-		//ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
-		
-		var email_to4 = ojs_configs.email_admin_04;	
-		ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-
-
-		*/
-		
-		meta_adress_insert(meta_adress,res);
-		
-
-
-	
-		//@ gữi cho khách hàng
-		//email_to4 = datas.orders.orders_speciality_email;
-		//email_title = 'DALA - Đặt hàng thành công ';
-		//email_content4 = '<strong> DALA - </strong><p> Đặt hàng thành công. đơn hàng <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b> tại DALA</p>';
+			//@ send email to store
+			ojs_shares_send_email.send_email_to_admin(res,store_email,email_title,email_content);
 			
-		//ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+			//@ send email to admin
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+		}
 
 		
 		res.send( {"error" : "", "datas" : order_insert_resuilt} );

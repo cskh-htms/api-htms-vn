@@ -17,6 +17,7 @@ const get_store_id = async function (product_id,res) {
 
 	var sql_text = 	"SELECT " +  
 		config_database.PREFIX +  "products_speciality_store_id as products_speciality_store_id, " + 
+		config_database.PREFIX +  "users_email as users_email, " + 
 		config_database.PREFIX +  "stores_name as stores_name " + 
 		
 		"FROM " +   config_database.PREFIX +  "products_speciality  " + 
@@ -26,6 +27,10 @@ const get_store_id = async function (product_id,res) {
 		config_database.PREFIX + "products_speciality_store_id  = " + 
 		config_database.PREFIX + "stores_ID " +   
 		
+		" LEFT JOIN " + 
+		config_database.PREFIX + "users  ON  " + 
+		config_database.PREFIX + "stores_user_id  = " + 
+		config_database.PREFIX + "users_ID " + 		
 		
 		" where " +  
 		config_database.PREFIX + "products_speciality_ID = '" + product_id + "' ";

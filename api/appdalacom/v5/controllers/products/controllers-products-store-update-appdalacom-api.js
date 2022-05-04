@@ -248,41 +248,48 @@ async  function controllers_product_store_update(req, res, next) {
 				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ] vừa update bởi DALA';	
 				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] vừa update bởi DALA';
 			}
-				
-			ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
+			
+			//@ send email
+			if(ojs_configs.domain == "http://localhost:2021"){	
+				//ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);
+				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content4);
+			}else{
+				ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);
+			}				
 			
 		}else{		
 			
 			if(
 			datas.products_speciality_status_store  == "1"  
 			){
-				email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ]  cần phê duyệt';
-				var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] cần phê duyệt';	
 				
+				if(ojs_configs.domain == "http://localhost:2021"){	
 				
-				var email_to1 = ojs_configs.email_admin_01;
-				ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content4);		
+					email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ]  cần phê duyệt';
+					var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] cần phê duyệt';	
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content4);					
+				}else{
+					
+					email_title = 'DALA - Sản Phẩm  [ ' + product_id + ' ]  cần phê duyệt';
+					var email_content4 = 'DALA - Sản Phẩm  [ ' + product_id + ' ] cần phê duyệt';	
+					
+					
+					var email_to1 = ojs_configs.email_admin_01;
+					ojs_shares_send_email.send_email_to_admin(res,email_to1,email_title,email_content4);		
 
 
-				var email_to2 = ojs_configs.email_admin_02;
-				ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
-				
-				
-				var email_to3 = ojs_configs.email_admin_03;	
-				ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
-				
-				var email_to4 = ojs_configs.email_admin_04;	
-				ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
-				
-				
-				
-				
+					var email_to2 = ojs_configs.email_admin_02;
+					ojs_shares_send_email.send_email_to_admin(res,email_to2,email_title,email_content4);		
+					
+					
+					var email_to3 = ojs_configs.email_admin_03;	
+					ojs_shares_send_email.send_email_to_admin(res,email_to3,email_title,email_content4);			
+					
+					var email_to4 = ojs_configs.email_admin_04;	
+					ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);
+				}				
 			}		
-
 		}
-
-		
-		
 		res.send(update_product_resuilt);
 		return;	
 	
