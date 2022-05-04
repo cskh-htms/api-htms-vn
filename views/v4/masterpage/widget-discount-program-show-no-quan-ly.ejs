@@ -28,29 +28,41 @@ if(discount_program_list.length > 0){ %>
 				<div style="cursor: pointer;" class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" >
 				<strong><%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong> 
 				</div>
-				<% 
-				if(
-				discount_program_list[x].discount_program_status_admin != "4" && 
-				discount_program_list[x].discount_program_status_admin != "1" 
-				){
+				
+				<%
+				if(discount_program_list[x].discount_program_status_admin != 4){
 				%>
-					<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>" class="btn_update">Chỉnh sửa</a>
-					<a href="#" data_discount_program_id ="<%= discount_program_list[x].discount_program_ID %>" class="btn_discount_delete">Xóa</a>
-				<% 
+					<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>" class="btn_update btn_discount_update">Chỉnh sửa</a>
+				<%
 				}
 				%>
+				<a href="#" data_discount_program_id ="<%= discount_program_list[x].discount_program_ID %>" class="btn_discount_delete">Xóa</a>
 			</div>
 			
-			<div class="discount-status">
-			
+			<div class="discount-status">			
 				<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
 			</div>
-			
-			<div class="discount-btn">
-				<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>/<%= store_id %>" id="btn-tham-gia">Chỉnh sửa</a>
-				<a href="#" data_discount_program_id ="<%= discount_program_list[x].discount_program_ID %>" class="btn_discount_delete btn-huy-tham-gia">Xóa</a>
-			</div>
-			
+		
+			<%
+			if(discount_program_list[x].check_expired == 0){
+			%>
+				<div class="discount-status"  style="color:red;">			
+					<p style="color:red;margin:0;"><%- discount_program_list[x].discount_program_date_star -%></p>
+					<p style="color:red;margin:0;"><%- discount_program_list[x].discount_program_date_end -%></p>
+					<p style="color:red;margin:0;">Đã hết hạn</p>
+				</div>
+			<%
+			}else{
+			%>	
+				<div class="discount-status"  style="green">			
+					<p style="color: lightseagreen;margin:0;"><%- discount_program_list[x].discount_program_date_star -%></p>
+					<p style="color: lightseagreen;margin:0;"><%- discount_program_list[x].discount_program_date_end -%></p>
+				</div>
+
+			<%
+			}
+			%>				
+		
 			<!- -----------------------------------
 			//details/
 			------------------------------------- -->
@@ -356,7 +368,9 @@ if(discount_program_list.length > 0){ %>
 			for( var  y in discount_program_details_list ) { 
 			if(
 			discount_program_list[x].discount_program_ID ==  
-			discount_program_details_list[y].discount_program_details_discount_program_id)
+			discount_program_details_list[y].discount_program_ID 
+			&& 
+			discount_program_details_list[y].discount_program_details_store_id == store_id)
 			{ 
 			join_check = 1 ;
 			details_id = discount_program_details_list[y].discount_program_details_ID;

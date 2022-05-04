@@ -18,6 +18,8 @@ if(discount_program_list.length > 0){ %>
 	discount_program_list[x].discount_program_store_id_created == store_id 
 	&& 
 	discount_program_list[x].discount_program_status_admin == "4" 
+	&& 
+	discount_program_list[x].check_expired == "1" 		
 	){
 	i_loop = i_loop + 1;
 	%>
@@ -53,6 +55,11 @@ if(discount_program_list.length > 0){ %>
 				<a href="#" data_discount_program_id ="<%= discount_program_list[x].discount_program_ID %>" class="btn_discount_delete btn-huy-tham-gia">Xóa</a>
 			</div>
 			-->
+			
+			
+			
+			
+			
 			<!- -----------------------------------
 			//details/
 			------------------------------------- -->
@@ -250,7 +257,7 @@ if(discount_program_list.length > 0){ %>
 			------------------------------------- -->			
 			
 	
-			
+			<!--
 			<div class="discount-action" style="padding-top:20px; text-align:right;">
 				<%
 				if(join_check == 0 && discount_program_list[x].discount_program_status_admin == "4"){ %>
@@ -266,7 +273,8 @@ if(discount_program_list.length > 0){ %>
 				}
 				%>					
 
-			</div>				
+			</div>		
+			-->			
 		</div>
 		
 	<% 
@@ -370,7 +378,9 @@ if(discount_program_list.length > 0){ %>
 			for( var  y in discount_program_details_list ) { 
 			if(
 			discount_program_list[x].discount_program_ID ==  
-			discount_program_details_list[y].discount_program_details_discount_program_id)
+			discount_program_details_list[y].discount_program_ID 
+			&& 
+			discount_program_details_list[y].discount_program_details_store_id == store_id)
 			{ 
 			join_check = 1 ;
 			details_id = discount_program_details_list[y].discount_program_details_ID;
@@ -551,7 +561,7 @@ if(discount_program_list.length > 0){ %>
 			//end of product
 			------------------------------------- -->
 			
-			
+			<!--
 			<div class="discount-action" style="padding-top:20px; text-align:right;">
 				<%
 				if(join_check == 0 && discount_program_list[x].discount_program_status_admin == "4"){ %>
@@ -568,7 +578,7 @@ if(discount_program_list.length > 0){ %>
 				%>					
 
 			</div>				
-			
+			-->
 		</div>	
 	
 	<%

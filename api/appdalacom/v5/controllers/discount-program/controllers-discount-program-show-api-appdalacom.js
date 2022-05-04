@@ -256,6 +256,9 @@ async  function function_export(req, res, next) {
 				"discount_program_type",
 				"discount_program_gift_type",
 				"discount_program_time_type",
+				"discount_program_date_star",
+				"discount_program_date_end",
+				"check_expired",
 				"stores_ID",
 				"stores_name"
 				],

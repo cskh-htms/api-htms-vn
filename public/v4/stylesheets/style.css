@@ -1712,9 +1712,26 @@ css ordres
 }
 
 
-
-
-
+.btn_discount_delete{
+	display: inline-block;
+    background: #999;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px 10px;
+    text-transform: capitalize;
+    margin-top: 5px;	
+}
+.btn_discount_update{
+	display: inline-block;
+    background: #4a914b;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px 10px;	
+}
 
 /*report ul*/
 #ajax_load, .ajax_load {
