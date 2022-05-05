@@ -123,7 +123,7 @@ async  function controllers_product_by_store_app(req, res, next) {
 						"compare" : "="
 					},				
 					{   
-						"field"     :"Out_of_stock",
+						"field"     :"out_of_stock",
 						"value"     : "0",
 						"compare" : "="
 					} 		

@@ -126,7 +126,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 						"compare" : "="
 					},				
 					{   
-						"field"     :"Out_of_stock",
+						"field"     :"out_of_stock",
 						"value"     : "0",
 						"compare" : "="
 					} 					
