@@ -142,6 +142,16 @@ content
 						</div>						
 						<div class="coupon_da_dung">Ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 						<div class="coupon_thoi_han">Ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+					
+						<%
+						if(coupon_list[x].coupon_speciality_show_hide == 0){
+						%>
+							<p style="color:red;"> Ẩn </p>						
+						<%
+						}
+						%>
+					
+					
 					</div>
 
 				</div>
@@ -237,6 +247,13 @@ content
 						
 						<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 						<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						<%
+						if(coupon_list[x].coupon_speciality_show_hide == 0){
+						%>
+							<p style="color:red;"> Ẩn </p>						
+						<%
+						}
+						%>					
 					</div>
 
 				</div>

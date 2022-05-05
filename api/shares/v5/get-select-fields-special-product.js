@@ -1,11 +1,25 @@
 
+
+
+
+
+
+
+/*
+	* products_speciality_price_caution
+	* products_speciality_sale_of_price_time_check
+	* products_speciality_sort_by_percen
+	* out_of_stock
+*/
+
 const config_api = require('../../configs/config-api');
 const config_database = require('../../configs/config-database.js');
 
 const ojs_configs = require('../../../configs/config');
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
-
+//@
+//@
 const select_field_special = function(field,res){
 	let sql_field_check  = " " ;
 	try {
@@ -168,13 +182,28 @@ const select_field_special = function(field,res){
 			"END ) ";
 				
 			return sql_field_check;
+			
+		}else if(field == "out_of_stock"){
+			sql_field_check  = " " + 	
+			"(CASE " + 
+				"WHEN " +  
+					config_database.PREFIX  + "products_speciality_stock_status = 1 " + 
+					"AND " + config_database.PREFIX  + "products_speciality_stock <= 0 " + 
+				"THEN " + 
+					" 1 " + 					
+				"ELSE " +  
+					" 0 " + 
+			"END ) ";
+				
+			return sql_field_check;	
+			
 		}else{
 			return " ";
 		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field special product, liên hệ admin" );
 		res.send ({ "error" : "1", "position":"api/shares/get select field special product","message": error_send });
 	}	

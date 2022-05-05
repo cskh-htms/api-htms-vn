@@ -32,7 +32,39 @@
 	   <tr>
 			<td class="user-name">
 				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
+				
+				
 				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem"><%- products_list[x].products_speciality_name %></a>
+				<%
+				if(products_list[x].products_speciality_type == 2){
+				%>
+					<span style="color:#c76560;display:block;">Sản phẩm quà tặng</span>
+				<%
+				}
+				%>
+				
+				
+				<%
+				//hien thi san pham qua tang
+				var gift_text = "";
+				for(let os in products_list[x].product_gift){
+					gift_text = gift_text + 
+					'<div style="display:flex;align-item:center;">' + 
+						'<img style="width:30px;" src="' + products_list[x].product_gift[os].product_gift_image + '"/>' + 
+						'<span style="display:block;font-size:12px;"><i>' +  
+							products_list[x].product_gift[os].product_gift_name + 
+						'</i></span>' + 
+					'</div>';
+				}		
+				if(gift_text.length > 0){
+				%>
+					<span style="text-decoration: underline;font-weight:bold;">Quà tặng: </span>
+					<%- gift_text %>
+				
+				<%
+				}								
+				%>		
+				
 				<div class="row-actions">
 					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>

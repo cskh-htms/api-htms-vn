@@ -252,7 +252,8 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_limit_number",
 				"coupon_speciality_qoute",
 				"stores_ID",
-				"stores_name"
+				"stores_name",
+				"check_expired_coupon"
 			],
 			"condition" :
 			[

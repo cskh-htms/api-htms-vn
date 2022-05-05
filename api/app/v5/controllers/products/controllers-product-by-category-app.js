@@ -124,7 +124,12 @@ async  function controllers_product_by_category_app(req, res, next) {
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					} 	
+					},				
+					{   
+						"field"     :"Out_of_stock",
+						"value"     : "0",
+						"compare" : "="
+					} 					
 					] 				
 				}         
 			],

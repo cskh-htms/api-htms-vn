@@ -180,18 +180,48 @@ if(discount_program_list.length > 0){ %>
 				product_count = product_count + 1;
 				%>
 
+				<%
+				//@ tinh sản phẩm quà tặng
+				var gift_text = "";
+				for(let os in discount_program_product_gift_list){
+					if(
+					discount_program_product_gift_list[os].discount_program_gift_link_product_speciality_id  
+					== 
+					discount_program_product_list[z].products_speciality_ID 
+					){
+						gift_text = gift_text + 
+						'<div style="display:flex;align-items: center;">' + 
+							'<img src="' + discount_program_product_gift_list[os].products_speciality_featured_image + '"/>' + 
+							'<span style=""><i>' +  
+								discount_program_product_gift_list[os].products_speciality_name + 
+							'</i></span>' + 
+						'</div>';
+						}
+					}
+					%>	
 					
 					<div class="product-add">
 						<span class="p-name">
 							<%- ojs_share.unCape(discount_program_product_list[z].products_speciality_name) -%>
 						</span>
-						<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
-						( <%- ojs_share_all.show_price_format(discount_program_product_list[z].products_speciality_price,0,",",".","đ") -%>
-						</span>	
-						<span class="p-price-sale"  style="font-size:10px;">
-							- <%- ojs_share_all.show_price_format(discount_program_product_list[z].discount_program_product_link_sale_of_price,0,",",".","đ") -%>
-						 )
-						</span>		
+						<br>
+						<%
+						//@ hien thi gia
+						if(gift_text.length <= 0){
+						%>							
+							
+							<span class="p-price" style="font-size:10px;text-decoration-line: line-through;font-weight:bold;">
+							( <%- ojs_share_all.show_price_format(discount_program_product_list[z].products_speciality_price,0,",",".","đ") -%>
+							</span>						
+							
+							
+							<span class="p-price-sale"  style="font-size:10px;">
+								- <%- ojs_share_all.show_price_format(discount_program_product_list[z].discount_program_product_link_sale_of_price,0,",",".","đ") -%>
+							 )
+							</span>							
+						<%
+						}								
+						%>		
 						<span class="ngay-tham-gia">
 							<%- ojs_share.show_status_table_share_all(discount_program_product_list[z].discount_program_product_link_status) -%>
 						</span>	

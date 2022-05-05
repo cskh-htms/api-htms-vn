@@ -355,7 +355,11 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"discount_program_ID",
 				"products_speciality_ID",
 				"products_speciality_name",
-				"discount_program_product_link_ID"
+				"discount_program_product_link_ID",
+				"products_speciality_price",
+				"products_speciality_sale_of_price",
+				"products_speciality_price_caution",
+				"discount_program_product_link_sale_of_price"				
 				],
 				"condition" :
 				[				

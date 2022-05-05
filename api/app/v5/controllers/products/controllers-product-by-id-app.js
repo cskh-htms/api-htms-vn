@@ -102,7 +102,8 @@ async  function controllers_product_by_id_app(req, res, next) {
 				"products_speciality_stock_status",
 				"products_speciality_stock",
 				"products_speciality_sku",
-				"products_speciality_type"
+				"products_speciality_type",
+				"out_of_stock"
 			],
 			"condition" :
 			[
@@ -129,7 +130,12 @@ async  function controllers_product_by_id_app(req, res, next) {
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					} 	
+					},				
+					{   
+						"field"     :"Out_of_stock",
+						"value"     : "0",
+						"compare" : "="
+					} 					
 					] 				
 				}         
 			],

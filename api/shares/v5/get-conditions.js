@@ -47,6 +47,7 @@ const get_consition =  function(datas,res){
 					if(
 						condition_arr[x].where[s].field == "products_speciality_price_caution" 
 						|| condition_arr[x].where[s].field == "products_speciality_sale_of_price_time_check" 
+						|| condition_arr[x].where[s].field == "out_of_stock" 
 					){
 						consition_field  = get_select_fields_special_product(condition_arr[x].where[s].field,res);	
 						
