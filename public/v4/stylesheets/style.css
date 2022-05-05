@@ -2261,17 +2261,19 @@ end of van luc 07.04.2021
     display: flex;
 	flex-wrap:wrap;
 }
-
 .discount-box {
 	display: flex;
     padding: 10px;
-    margin: 15px;
+    margin: 0 2% 2% 0;
     flex-direction: column;
     box-sizing: border-box;
-	max-width: 30%;
+	max-width: 32%;
 	background: white;
 	border-radius: 5px;
 	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+.discount-wrap .discount-box:nth-child(3n) {
+	margin-right: 0;
 }
 
 .discount-box .discount-image-wrap {
@@ -2809,7 +2811,7 @@ end of van luc 07.04.2021
 	margin-bottom: 5px;
 }
 .coupon .coupon_info .coupon_da_dung, .coupon .coupon_info .coupon_thoi_han {
-	color: #6bd9b5;
+	color: #ee4d2d;
 	margin-bottom: 5px;
 }
 .coupon_btn {

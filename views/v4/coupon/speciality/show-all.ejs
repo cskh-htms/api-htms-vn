@@ -78,7 +78,7 @@ content
 	<hr>
 	<br>	
 	
-	<h1>Mã giảm giá thuộc cửa hàng</h1>
+	<h1>Mã giảm giá của <%= store_name %></h1>
 	<%
 	if(list_of_store_quan_ly > 0){
 	%>
@@ -138,8 +138,9 @@ content
 						
 						<div class="discount-status">
 						
-							<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
+							<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
 						</div>						
+<<<<<<< Updated upstream
 						<div class="coupon_da_dung">Ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 						<div class="coupon_thoi_han">Ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 					
@@ -152,6 +153,10 @@ content
 						%>
 					
 					
+=======
+						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+>>>>>>> Stashed changes
 					</div>
 
 				</div>
@@ -166,7 +171,7 @@ content
 	} else{
 	%>	
 	
-	<p>Chưa có mã giảm giá nào thuộc cửa hàng đang hoạt động</p> 
+	<p>Cửa hàng bạn chưa có mã giảm giá nào đang hoạt động.</p> 
 	
 	<%
 	}
@@ -177,14 +182,14 @@ content
 	
 	
 	
-<div id="content" class="content">	
+<div class="content">	
 	<!-- -------------------------------
 	// coupon dalaDALA
 	-------------------------- ------ -->
 	<br>
 	<br>
 	<hr>
-	<h1>Mã giảm giá đang hoạt động Trên hệ thống DALA áp dụng cho mọi cửa hàng</h1>
+	<h1>Mã giảm giá trên toàn hệ thống DALA</h1>
 	<br>
 	<br>	
 	<%
@@ -245,6 +250,7 @@ content
 						%>					
 						
 						
+<<<<<<< Updated upstream
 						<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
 						<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 						<%
@@ -254,6 +260,10 @@ content
 						<%
 						}
 						%>					
+=======
+						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+>>>>>>> Stashed changes
 					</div>
 
 				</div>

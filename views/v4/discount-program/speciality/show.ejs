@@ -55,7 +55,7 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/discount-program/speciality/<%= store_id %>">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>update chương trình khuyến mãi</h1>
+	<a href="/discount-program/speciality/<%= store_id %>">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Chỉnh sửa chương trình khuyến mãi</h1>
 	
 	<div class="pro_content_edit">
 		<div class="pro_col01">
@@ -73,9 +73,8 @@ content
 			
 			
 			<div class="pro_box trang_thai_box">
-				<h3>Kiểu chương trình khuyến mãi</h3>
+				<h3>Kiểu chương trình khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-chuong-trinh" target="_blank"><span>Loại khuyến mãi thường(giảm giá), hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></a></h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Loại chương trình thường, hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span>
 					<select id="discount_program_gift_type">
 						<%- ojs_share_discount.show_discount_program_gift_type(datas[0].discount_program_gift_type) -%>
 					</select>						
@@ -132,17 +131,6 @@ content
 			</div>				
 			
 			
-
-			<div class="pro_box trang_thai_box ">
-				<h3>Kiểu thời gian khuyến mãi</h3>
-				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Khuyến mãi không thời hạn hay có thời hạn</span></span>
-					<select id="discount_program_time_type">
-						<%- ojs_share.show_discount_program_time_type(datas[0].discount_program_time_type) -%>
-					</select>						
-				</div>
-			</div>	
-			
 			
 			<% 
 			if(user_role == "admin"){
@@ -150,7 +138,7 @@ content
 			<div class="pro_box trang_thai_box ">
 				<h3>Vị trí chương trình khuyến mãi</h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị trên trang chủ app</span></span>
+					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị banner trên trang chủ app</span></span>
 					<select id="discount_program_position">
 						<%- ojs_share_discount.show_discount_program_position(datas[0].discount_program_position) -%>
 					</select>						
@@ -162,9 +150,8 @@ content
 			%>
 			
 			<div class="pro_box trang_thai_box">
-				<h3>Vị trí chương trình khuyến mãi</h3>
+				<h3>Vị trí chương trình khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#vi-tri" target="_blank"><span>Vị trí hiển thị banner CTKM trên trang chủ app, ấn "?" để xem chi tiết</span></a></h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Vị trí hiển thị trên trang chủ app</span></span>
 					<select id="discount_program_position">
 						<%- ojs_share_discount.show_discount_program_position_store(datas[0].discount_program_position) -%>
 					</select>						
@@ -178,9 +165,11 @@ content
 			<!-- ------------------
 			//thông tin danh mục
 			------------------- -->
-			<div class="value_row">
-				<span>Nội dung chương trình</span><br>
-				<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].discount_program_information) -%></textarea>
+			<div class="pro_box">
+				<h3>Nội dung chương trình</h3>
+				<div class="inside">
+					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%" placeholder="Nhập nội dung mô tả cho chương trình khuyến mãi"><%- ojs_share.unCape(datas[0].discount_program_information) -%></textarea>
+				</div>
 			</div>
 			<!-- ------------------
 			//thông tin danh mục
@@ -199,7 +188,7 @@ content
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Banner CTKM <span class="giai-thich"><span>Chọn ảnh có tỉ lệ 3:1</span></span></h3>		
 				<div class="inside">
 					<input type="text" 
 						value="<%- ojs_share.unCape(datas[0].discount_program_featured_image) -%>" 
@@ -280,15 +269,23 @@ content
 					<input type="text" class= "" value="<%= datas[0].discount_program_limit_day %>" id="discount_program_limit_day"/>
 				</div>
 			</div>				
-
+			
+			<div class="pro_box trang_thai_box ">
+				<h3>Kiểu thời gian khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-thoi-gian" target="_blank"><span>Khuyến mãi vô thời hạn sẽ chạy liên tục đến khi chương trình bị xóa</span></a></h3>
+				<div class="inside">
+					<select id="discount_program_time_type">
+						<%- ojs_share.show_discount_program_time_type(datas[0].discount_program_time_type) -%>
+					</select>						
+				</div>
+			</div>	
 		
 			<div class="pro_box ten_sp_box" id="thoi-han-khuyen-mai">
-				<h3>thời gian khuyến mãi</h3>
+				<h3>Thời gian diễn ra CTKM</h3>
 				<div class="inside">
-					<p><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span>
+					<p><span>Ngày bắt đầu KM</span>
 						<input type="text" value="<%- ojs_share.show_date_if_empty(datas[0].discount_program_date_star) -%>" id="discount_program_date_star" /> 
 					</p>	
-					<p><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Năm/tháng/ngày(VD:2021/01/01) để trống nếu không KM</span></span>
+					<p><span>Ngày kết thúc KM</span>
 						<input type="text" value="<%- ojs_share.show_date_if_empty(datas[0].discount_program_date_end) -%>" id="discount_program_date_end" /> 
 					</p>		
 				</div>
@@ -297,9 +294,9 @@ content
 		
 		
 			<div class="pro_box ten_sp_box">
-				<h3>Lời nhắn</h3>
+				<h3>Lời nhắn từ admin</h3>
 				<div class="inside">
-					<textarea class="asd"  id="discount_program_qoute"  rows="10" cols="100%"><%- datas[0].discount_program_qoute -%></textarea>
+					<textarea class="asd"  id="discount_program_qoute"  rows="10" cols="100%" placeholder="Chỉ nhập khi chat với admin"><%- datas[0].discount_program_qoute -%></textarea>
 				</div>
 			</div>	
 
