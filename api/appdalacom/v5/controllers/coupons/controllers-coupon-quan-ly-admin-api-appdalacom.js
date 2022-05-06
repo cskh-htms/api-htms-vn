@@ -92,7 +92,6 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_info",
 				"coupon_speciality_type",
 				"coupon_speciality_pay_type",
-				"coupon_speciality_formula",
 				"coupon_speciality_formula_price",
 				"coupon_speciality_formula_price_value",
 				"coupon_speciality_condition",
