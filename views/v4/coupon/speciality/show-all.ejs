@@ -106,9 +106,8 @@ content
 						coupon_list[x].coupon_speciality_formula_price_value
 						) -%></div>
 						<div class="coupon_don_tu">
-							<%- ojs_share_coupon.show_name_formula_condition_coupon(
-							0,
-							1
+							<%- ojs_share_coupon.show_name_formula_condition_coupon(coupon_list[x].coupon_speciality_condition,
+							ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_condition_value,0,",",".","đ")
 							) -%>					
 						
 						</div>
@@ -137,12 +136,10 @@ content
 						%>					
 						
 						<div class="discount-status">
-						
 							<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
-						</div>						
-<<<<<<< Updated upstream
-						<div class="coupon_da_dung">Ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-						<div class="coupon_thoi_han">Ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						</div>	
+						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 					
 						<%
 						if(coupon_list[x].coupon_speciality_show_hide == 0){
@@ -152,11 +149,7 @@ content
 						}
 						%>
 					
-					
-=======
-						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
->>>>>>> Stashed changes
+
 					</div>
 
 				</div>
