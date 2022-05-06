@@ -85,6 +85,7 @@ content
 
 			<p>
 			<span>Điều kiện<span>
+			<a class="giai-thich" href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#dieu-kien" target="_blank"><span>Điều kiện để sử dụng mã giảm giá này</span></a>
 				<select id="coupon_speciality_condition">
 					<%- ojs_share_coupon.show_coupon_condition_select( datas[0].coupon_speciality_condition ) %>
 				</select>	
@@ -108,7 +109,7 @@ content
 			
 			<p  id="gia_tri_dieu_kien_coupon"  style="<%- condition_show %>">
 			<span>Giá trị điều kiện<span>
-			<a href="https://sites.google.com/view/huong-dan-cua-hang-dala/tao-coupon/dieu-kien-dung-coupon"  target="_blank" class="giai_thich_link">
+			<a href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#dieu-kien"  target="_blank" class="giai_thich_link">
 				<span class="giai-thich"><span>Nhập giá trị cho điều kiện ở trên</span></span></a>			
 					<input 
 						class="number_change" type="text" 
@@ -121,6 +122,9 @@ content
 		<div class="cong_thuc_coupon">
 			<p>
 			<span>Tên công thức<span>
+				<a class="giai-thich" href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#cong-thuc" target="_blank">
+							<span>Công thức tính tiền mã giảm giá</span>
+						</a>
 				<select id="coupon_speciality_formula_price">
 					<%- ojs_share_coupon.show_coupon_formula_select(datas[0].coupon_speciality_formula_price ) %>
 				</select>	
@@ -146,6 +150,7 @@ content
 		</div>
 		<div class="cong_thuc_coupon">
 			<p><span>Giảm giá tối đa</span>
+			<a class="giai-thich" href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#giam-toi-da" target="_blank"><span>Nhập số tiền giảm tối đa.</span></a>
 				<input 
 					class="number_change" type="text" 
 					data_value="<%= datas[0].coupon_speciality_price_max %>"
@@ -173,7 +178,7 @@ content
 			<div class="pro_box ">
 				<h3>Mô tả coupon</h3>
 				<div class="inside">
-					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape( datas[0].coupon_speciality_info ) -%></textarea>
+					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%" placeholder="Vài mô tả cho mã giảm giá này."><%- ojs_share.unCape( datas[0].coupon_speciality_info ) -%></textarea>
 				</div>
 			</div>
 		</div>
@@ -185,7 +190,9 @@ content
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Ảnh đại diện
+				<a class="giai-thich" href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#banner" target="_blank"><span>Chọn ảnh banner cho coupon, tỉ lệ 3:1</span></a>	
+				</h3>	
 				<div class="inside">
 					<input type="text" 
 						value="" 
@@ -214,8 +221,7 @@ content
 			
 			<!-- Số lượng coupon -->
 			<div class="pro_box">
-				<h3>Số lượng coupon tối đa được sử dụng</h3>
-				<span class="giai-thich"><span>Giá trị = (0) là không giới hạn</span></span>
+				<h3>Số lượng coupon <a class="giai-thich" href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#so-luong" target="_blank"><span>Số lượng coupon được tạo ra</span></a></h3>
 				<div class="inside">
 					<input type="text" value="<%= datas[0].coupon_speciality_limit_number %>" id="coupon_speciality_limit_number" />
 				</div>
@@ -224,7 +230,6 @@ content
 			<!-- Sử dụng chung coupon -->
 			<div class="pro_box">
 				<h3>Dùng chung với Coupon khác?</h3>
-				<span class="giai-thich"><span>Có được dùng chung với mã giảm giá khách hay không, Giá trị = (0) là không giới hạn</span></span>	
 				<div class="inside">
 					<select id="coupon_speciality_multiple">
 						<%- ojs_share.show_coupon_multi_select(datas[0].coupon_speciality_multiple) %>
@@ -234,8 +239,7 @@ content
 			
 			<!-- KH dùng tối đa -->
 			<div class="pro_box">
-				<h3>Mỗi khách dùng tối đa bao nhiêu lần?</h3>
-				<span class="giai-thich"><span>Giá trị = (0) là không giới hạn</span></span>	
+				<h3>Mỗi khách dùng tối đa mấy lần?</h3>	
 				<div class="inside">
 					<input 
 						class="number_change" type="text" 
@@ -251,9 +255,7 @@ content
 			//ẩn hiện coupon
 			---------------- -->			
 			<div class="pro_box">
-				<h3>Ẩn hiện ngoài app ? <a href="#"  target="_blank" class="giai_thich_link">
-				<span class="giai-thich"><span>Cho ẩn hoặc hiện trên app khi khách mua hàng</span></span>	
-				</a></h3>
+				<h3>Ẩn hiện ngoài app ? <a href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#an-hien"  target="_blank" class="giai-thich"><span>Chọn hiện thì khi vào giỏ hàng coupon sẽ tự hiển thị</span></a></h3>
 				<div class="inside">
 					<select id="coupon_speciality_show_hide">
 						<%- ojs_share_coupon.show_coupon_show_hide(datas[0].coupon_speciality_show_hide) %>
@@ -266,7 +268,7 @@ content
 			<div class="pro_box trang_thai_box ">
 				<h3>Lời nhắn</h3>
 				<div class="inside">
-					<textarea class="quote"  id="coupon_speciality_qoute"  rows="10" cols="100%">
+					<textarea class="quote"  id="coupon_speciality_qoute"  rows="10" cols="100%" placeholder="Không bắt buộc, chỉ nhập khi nhắn tin với admin">
 						<%- ojs_share.unCape(datas[0].coupon_speciality_qoute) -%>
 					</textarea>					
 				</div>
