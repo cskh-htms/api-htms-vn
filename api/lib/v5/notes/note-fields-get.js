@@ -23,7 +23,12 @@ const link_default = 	" " +
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
 	config_database.PREFIX + "notes_user_id  = " + 
-	config_database.PREFIX + "users_ID ";  
+	config_database.PREFIX + "users_ID " + 
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users_type  ON  " + 
+	config_database.PREFIX + "users_users_type_id  = " + 
+	config_database.PREFIX + "users_type_ID ";  
 
 
 //export module

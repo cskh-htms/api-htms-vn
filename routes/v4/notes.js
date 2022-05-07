@@ -1,28 +1,21 @@
 //@
 //@
-//@
-//@
-//@ loader express
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+
+const controller_notes_ajax_load_user = require('../../controllers/' + ojs_configs.controller_version + '/notes/controllers-notes-ajax-load-user-admin.js');
+//end of v5
 
 
-
-//@
 
 //@
 //@
@@ -67,6 +60,10 @@ const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
 
 --------------------------------------------------------------------
 */
+
+
+router.post('/ajax-load-user/', controller_notes_ajax_load_user);
+
 
 
 
@@ -151,7 +148,7 @@ router.post('/save-all/', async function(req, res, next) {
 //@
 //@
 //@ 8. [/ajax-load-user/]
-router.post('/ajax-load-user/', async function(req, res, next) {
+router.post('asdasdasd/ajax-load-user/', async function(req, res, next) {
 
 	//@
 	//@
@@ -271,8 +268,11 @@ router.post('/ajax-load-user/', async function(req, res, next) {
 		data_send = {
 			'datas'		: get_all_list_datas_all[1].datas
 		}
-		//res.send(data_send);
-		//return;
+		res.send(data_send);
+		return;
+		
+		
+		
 		res.render( ojs_configs.view_version + '/masterpage/widget-notes-show-users', data_send );		
 	}
 	catch(error){
