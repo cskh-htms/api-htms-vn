@@ -130,12 +130,7 @@ async  function controllers_product_by_id_app(req, res, next) {
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					},				
-					{   
-						"field"     :"out_of_stock",
-						"value"     : "0",
-						"compare" : "="
-					} 					
+					}				
 					] 				
 				}         
 			],
