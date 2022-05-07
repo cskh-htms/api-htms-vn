@@ -186,6 +186,11 @@ async  function controllers_discount_by_product_app(req, res, next) {
 						"field"     :"discount_program_status_admin",
 						"value"     : "4",
 						"compare" : "="
+					},				
+					{   
+						"field"     :"out_of_stock",
+						"value"     : "0",
+						"compare" : "="
 					} 	
 					]    
 				}         
