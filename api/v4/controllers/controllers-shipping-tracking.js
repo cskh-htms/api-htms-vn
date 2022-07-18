@@ -1717,7 +1717,7 @@ try {
 		return;					
 	}
 
-	//res.send({ "error" : "" , "datas" : stores_info}); 
+	//res.send({ "error" : "qwqweqweqwe" , "datas" : stores_info}); 
 	//return;
 
 	
@@ -1730,7 +1730,7 @@ try {
 	//@	push lên GHTK
 	try {	
 		//Lấy danh sách loại danh mục
-		let url = ojs_configs.domain_ghtk_push_order;		
+		let url = ojs_configs.domain_ghtk;		
 		let token = ojs_configs.token_ghtk;
 		let ran = Math.random().toString(36).slice(-10);
 		//@
@@ -1738,7 +1738,8 @@ try {
 		//@
 		let order = 	    
 			{
-				"id": ran + "_" + datas.shipping_tracking_orders_id,
+				//"id": ran + "_" + datas.shipping_tracking_orders_id,
+				"id": ran + "_" + 1,
 				"pick_name": stores_info[0].stores_name,
 				"pick_address": stores_info[0].stores_adress,
 				"pick_province": stores_info[0].stores_province,
@@ -1771,8 +1772,8 @@ try {
 				"order": order
 			}	
 
-		res.send({ "error" : "100" , "datas" : datas_send}); 
-		return;							
+		//res.send({ "error" : "100" , "datas" : url,"asdas":token}); 
+		//return;							
 		
 		
 		var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
