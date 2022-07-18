@@ -253,11 +253,12 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "1", "position":"ctl-users->login_app", "message": error_send } );  
 		return;	
 	}	
+	
 	
 	
 	
@@ -285,7 +286,7 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "4", "position":"ctl-users->login_app", "message": error_send } );
 		return;	
@@ -305,12 +306,15 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "5", "position":"ctl-users->login_app", "message": error_send } ); 
 		return;	
 	}	
 	
+	
+	//res.send({"asdasda":"adsad","adsdzxsda":"dfsdfsdf"});
+	//return;		
 	
 	//@
 	//@
@@ -320,11 +324,15 @@ try {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		res.send({ "error" : "6", "position":"ctl-users->login_app", "message": error_send } ); 
 		return;	
 	}		
+	
+	
+	//res.send({"asdasda":"adsad","adsdddddzxsda":"dfsdfsdf"});
+	//return;	
 	
 	
 	//@
@@ -341,8 +349,6 @@ try {
 		}else{
 			results = login_one_lost;
 		}
-		
-
 		
 
 		try {	
