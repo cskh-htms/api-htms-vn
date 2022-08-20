@@ -17,13 +17,32 @@ page wrap
 --------------------- -->
 
 
-<div id="header">
-<h1>Trung tâm hỗ trợ</h1>
-</div>
+<div id="header" class="flow">
+	<a href="https://appdala.com/ho-tro/">Trung tâm hỗ trợ</a> <i class="fas fa-chevron-right"></i> <span>Xóa tài khoản</span>
+	</div>
 
 <div id="content" class="content">
 	<ul class="chu_de">
-		<h3> Xóa tài khoản</h3>
+		<h3>Xóa tài khoản của bạn trên ứng dụng DALA</h3>
+		<h5 style="color:red">Mọi dữ liệu như thông tin cá nhân và đơn hàng đều bị xóa và không thể khôi phục.<br>
+		Bạn xác nhận xóa tài khoản của mình trên DALA?</h5>
+		<div>
+			<p>Nhập số điện thoại đã đăng ký</p>
+			<input type="number"></input>
+		</div>
+		<div>
+			<p>Lý do bạn muốn xóa tài khoản?</p>
+			<select name="ly-do-xo" id="ly-do">
+			  <option value="1">Tôi không sử dụng ứng dụng này nữa.</option>
+			  <option value="2">Tôi đổi qua sử dụng tài khoản khác.</option>
+			  <option value="3">Khác</option>
+			</select>
+		</div>
+		<button type="button" style="background: #4a914b;color: white; padding: 10px; border: none;margin-top: 20px;">Xác nhận xóa</button>
+		<div style="display: none; background: white; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); max-width: 300px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+			Chúng tôi đã nhận được yêu cầu xóa tài khoản của bạn. Nhân viên hỗ trợ sẽ liên hệ lại với bạn trong 24h để xác nhận thông tin.<br>
+			Cám ơn bạn đã sử dụng dịch vụ của chúng tôi.
+		</div>
 	</ul>
 </div>
 
