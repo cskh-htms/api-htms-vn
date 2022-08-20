@@ -30,14 +30,33 @@ router.get('/', function(req, res, next) {
 		sản phẩm đặc sản
 ---------------------------------------------- */
 //
+
+
+
+
+
+router.get('/xoa-tai-khoan/', async function(req, res, next) {
+	try {	
+		//
+		//@
+		data_send = {
+			'title'  : 'Hỗ trợ xóa tài khoản',
+			'js_css_version' : ojs_configs.js_css_version
+		}
+		
+		res.render( ojs_configs.view_version + '/ho-tro/xoa-tai-khoan', data_send );	
+	}
+	catch(error){
+		res.send( { "error" : "Loi Ho Tro" , "message" : error } );
+	}
+});
+
+
+
+
+
 //@@
 //@@
-//@@@@@@@@@
-//@@@@@@@@@
-//@@
-//@@
-//
-//
 router.get('/tai-khoan', async function(req, res, next) {
 	//
 	//res.send("welCom !!! huogn dan thanh toán");

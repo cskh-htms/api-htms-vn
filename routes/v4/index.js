@@ -14,6 +14,10 @@ router.get('/', function(req, res, next) {
 	
 ---------------------------------------------- */
 router.use('/demo', require('../../routes/' + app_config.router_version + '/demo') );
+
+router.use('/user-delete-qa', require('../../routes/' + app_config.router_version + '/user-delete-qa') );
+
+
 router.use('/bo-cong-thuong', require('../../routes/' + app_config.router_version + '/bo-cong-thuong') );
 router.use('/demo1', require('../../routes/' + app_config.router_version + '/demo1') );
 
