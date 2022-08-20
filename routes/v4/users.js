@@ -81,7 +81,38 @@ const ojs_datas_users = require('../../models/ojs-datas-users.js');
 
 
 
+	//@
+//@
+//@
+//@
+//@
+//@
+//@ 100 [xoa-tai-khoan]
+router.post('/xoa-tai-khoan/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var datas  = req.body.datas;
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers users web -> xoa tai khoan -> 1", "message": error_send } ); 
+		return;			
+	}
 	
+	
+	 setTimeout(function() { 
+		res.send(datas);	
+		return;
+    }, 3000);
+	
+});
 
 
 
