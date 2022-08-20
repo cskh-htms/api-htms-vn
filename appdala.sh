@@ -1,3 +1,3 @@
 #!/bin/bash
 #
-git pull https://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@github.com/htmsgroup/v5.git
+git pull https://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@github.com/htmsgroup/v5.git
