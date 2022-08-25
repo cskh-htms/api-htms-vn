@@ -14,5 +14,8 @@ router.use('/stores', require('./stores/routers-store-app'));
 router.use('/orders', require('./orders/routers-order-app'));
 router.use('/shipping-tracking', require('./shipping-tracking/routers-shipping-tracking-app'));
 router.use('/coupons', require('./coupons/routers-coupon-app'));
+router.use('/users', require('./users/routers-users-web'));
+router.use('/news', require('./news/routers-news-web'));
+
 
 module.exports = router;
