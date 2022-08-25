@@ -126,7 +126,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 
 		//@ get datas
 		var data_return = await news_search(data_get,res);
-		res.send(data_return);
+		res.send({"error":"","datas":data_return});
 		return;
 	}
 	catch(error){
