@@ -12,19 +12,20 @@ const ojs_shares_date = require('./ojs-shares-date.js');
 
 
 const get_limit =  function(datas,res){	
+	//res.send(datas.limit);
+	//return;
 	try {
 		var limit = "";
 		if(datas.limit && datas.limit.length > 0){
-			 
-			var limit_arr = datas.limit;
-			if( Object.getOwnPropertyDescriptor(limit_arr[0], 'limit_number') != undefined){
-				limit = " " + limit_arr[0].limit_number + " ";
-				
-				if( Object.getOwnPropertyDescriptor(limit_arr[0], 'limit_offset') != undefined){
-					limit = limit + " offset " + limit_arr[0].limit_offset;
-				}	
-				limit = "limit " + limit ;
-			}	
+			for(x in datas.limit){
+				for (const [key, value] of Object.entries(datas.limit[x])) {
+					if(key == "limit_number"){
+						limit = limit + " limit " + value + " ";
+					}else{
+						limit = limit + " offset " + value + " ";
+					}
+				}
+			}
 		}
 		//@
 		return limit;

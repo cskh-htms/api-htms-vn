@@ -32,6 +32,13 @@ async  function controllers_product_by_category_app(req, res, next) {
 		if(req.query.c2){
 			  limit_data.push({"limit_number" : req.query.c2});
 		}		
+		if(req.query.c3){
+			  limit_data.push({"limit_offset" : req.query.c3});
+		}		
+		
+		
+		//res.send(limit_data);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -145,7 +152,8 @@ async  function controllers_product_by_category_app(req, res, next) {
 	
 		//@ get datas
 		var data_product = await product_search_by_category(data_get,res);
-		
+		res.send(data_product);
+		return;
 		//@ create arr ID product
 		var model_product_arr = [0];
 		if(data_product.length > 0){

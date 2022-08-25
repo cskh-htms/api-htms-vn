@@ -23,14 +23,13 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const product_search_by_category = function (datas,res) {
+const product_search = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
 		var sql_select_fields = get_select_fields(datas,res);	
 		var sql_condition = get_conditions(datas,res);	
 		var sql_limit = get_limit(datas,res);
-		
 		var sql_order = get_order(datas,res);
 		var sql_group_by = get_group_by(datas,res);
 		var sql_having = get_having(datas,res);	
@@ -39,14 +38,14 @@ const product_search_by_category = function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_category + 
+			fields_get.link_fillter + 
 			sql_condition +
 			sql_group_by + 
+			sql_having + 			
 			sql_order + 
-			sql_having + 
 			sql_limit;
-		
-		
+			
+			
 		//return get_sql_search_group;
 	}
 	catch(error){
@@ -55,11 +54,11 @@ const product_search_by_category = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search by category, Vui lòng liên hệ admin" 
+				"Lỗi product-fillter, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "lib/products/product search by category",
+			"position" : "product-fillter", 
 			"message": error_send 
 			}); 
 		return;	
@@ -75,11 +74,11 @@ const product_search_by_category = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi product search by category, Vui lòng liên hệ admin" 
+							"Lỗi product-fillter, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/products/product search by category",
+						"position" : "lib/products/product-fillter", 
 						"message": error_send 
 					}); 
 					return;
@@ -94,11 +93,11 @@ const product_search_by_category = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi product search by category, Vui lòng liên hệ admin" 
+				"Lỗi product-fillter, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/products/product search by category", 
+			"position" : "lib/products/product-fillter", 
 			"message": error_send 
 		}); 
 		return;
@@ -106,7 +105,7 @@ const product_search_by_category = function (datas,res) {
 };	
 
 
-module.exports = product_search_by_category;
+module.exports = product_search;
 
 
 /*

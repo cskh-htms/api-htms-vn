@@ -15,26 +15,19 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const product_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-store.js');
+const product_fillter = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-fillter.js');
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 
 
 //@
-async  function controllers_product_by_store_app(req, res, next) {
+async  function function_export(req, res, next) {
 	
 	try {
 		var token = req.headers['token'];
-		var store_id = -1;
-		if(req.query.c1){
-			store_id = req.query.c1;
-		}	
-		var limit_data = [];
-		if(req.query.c2){
-			  limit_data.push({"limit_number" : req.query.c2});
-		}		
-		if(req.query.c3){
-			  limit_data.push({"limit_offset" : req.query.c3});
-		}				
+		var datas  = req.body.datas;	
+		
+		//res.send(datas);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -46,11 +39,12 @@ async  function controllers_product_by_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
+			"position" : "api/web/v5/ctroller/controllers-product-fillter-web",
 			"message": error_send 
 		}); 
 		return;	
 	}
+
 
 
 
@@ -72,17 +66,134 @@ async  function controllers_product_by_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "2",
-			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
+			"position" : "api/web/v5/ctroller/controllers-product-fillter-web",
 			"message": error_send 
 		}); 
 		return;			
 	}
 
+
+
+
+
+	//@
+	//@
+	//@ tạo condition
+	
+	//@ limit
+	var limit_data = [];
+	if(datas.limit){
+		limit_data.push(
+			{
+				"limit_number" : datas.limit
+			}
+		);		
+	}
+	if(datas.offset){
+		limit_data.push(
+			{
+				"limit_offset" : datas.offset
+			}
+		);		
+	}	
+	
+	
+	//@ order
+	var order_data = [];
+	if(datas.sort.by_price){
+		if(datas.sort.by_price == "ASC"){
+			order_data.push(
+				{
+					"field"  :"products_speciality_price",
+					"compare" : "ASC"
+				}
+			)	
+		}else if(datas.sort.by_price == "DESC"){
+			order_data.push(
+				{
+					"field"  :"products_speciality_price",
+					"compare" : "DESC"
+				}
+			)
+		}
+	}
+	
+
+
+	//@ condition
+	var condition_data = [		
+		{   
+			"field"     :"stores_status_admin",
+			"value"     : "1",
+			"compare" : "="
+		},				
+		{   
+			"field"     :"products_speciality_status_admin",
+			"value"     : "1",
+			"compare" : "="
+		},				
+		{   
+			"field"     :"out_of_stock",
+			"value"     : "0",
+			"compare" : "="
+		} 		
+	]	
+	
+	//@ category
+	if(datas.category){
+		condition_data.push(
+			{   
+				"field"     :"category_general_speciality_ID",
+				"value"     : datas.category,
+				"compare" : "="
+			}
+		)		
+	}
+
+
+	//@ store
+	if(datas.store){
+		condition_data.push(
+			{   
+				"field"     :"stores_ID",
+				"value"     : datas.store,
+				"compare" : "="
+			}
+		)		
+	}
+
+	//@ brand
+	if(datas.brand){
+		condition_data.push(
+			{   
+				"field"     :"brands_ID",
+				"value"     : datas.brand,
+				"compare" : "in"
+			}
+		)		
+	}
+	
+	//@ option
+	if(datas.option){
+		condition_data.push(
+			{   
+				"field"     :"options_product_speciality_ID",
+				"value"     : datas.option,
+				"compare" : "in"
+			}
+		)		
+	}	
+	
+	
+	//res.send(condition_data);
+	//return;
+	
 	//@ lấy req data
 	try {
 		//@ 3. get model
 		let data_get =    
 		{
+		   "select_type" : "DISTINCT",
 		   "select_field" :
 			[
 				"products_speciality_ID",
@@ -103,49 +214,17 @@ async  function controllers_product_by_store_app(req, res, next) {
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"products_speciality_store_id",
-						"value"     : store_id,
-						"compare" : "="
-					},				
-					{   
-						"field"     :"products_speciality_status_store",
-						"value"     : "1",
-						"compare" : "="
-					} ,				
-					{   
-						"field"     :"stores_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					},				
-					{   
-						"field"     :"products_speciality_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					},				
-					{   
-						"field"     :"out_of_stock",
-						"value"     : "0",
-						"compare" : "="
-					} 		
-					] 				
+				"where" :condition_data				
 				}         
 			],
-			"order" :
-			 [		 
-				{    
-					"field"  :"products_speciality_date_created",
-					"compare" : "DESC"
-				}			
-			],
-			"limit" :limit_data			
+			"order" :order_data,
+			"limit" :limit_data
 		}
 	
 		//@ get datas
-		var data_product = await product_search_by_store(data_get,res);
-		
+		var data_product = await product_fillter(data_get,res);
+		//res.send(data_product);
+		//return;
 		//@ create arr ID product
 		var model_product_arr = [0];
 		if(data_product.length > 0){
@@ -167,7 +246,7 @@ async  function controllers_product_by_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
+			"position" : "api/web/v5/ctroller/controllers-product-fillter-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -190,7 +269,7 @@ async  function controllers_product_by_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4", 
-			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
+			"position" : "api/web/v5/ctroller/controllers-product-fillter-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -203,4 +282,4 @@ async  function controllers_product_by_store_app(req, res, next) {
 	
 }
 
-module.exports = controllers_product_by_store_app;
+module.exports = function_export;
