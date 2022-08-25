@@ -11,6 +11,10 @@ const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+
+
+
 
 const user_check_lock = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-check-lock.js');
 const user_login_one = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-login-one.js');
@@ -100,8 +104,72 @@ async  function function_export(req, res, next) {
 			results = login_one_lost;
 		}
 		
-		res.send(results);
-		return;
+		//res.send(results);
+		//return;
+		
+		try {	
+		//@
+			//@
+			// lấy role text
+			var token_type=0;
+			var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
+			
+			//res.send(role_text);
+			//return;
+			
+			if(role_text =="admin"){
+				res.send({ "error" : "7", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> Admin chỉ login trên web manage" } ); 
+				return;
+			}
+			if(role_text =="default"){
+				res.send({ "error" : "8", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> guest users không cần  login "} ); 				
+				return;
+			}
+			if(role_text =="supper-job"){
+				res.send({ "error" : "9", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> supper-job users không cần  login "} ); 	
+				return;
+			}	
+
+			if(role_text =="bussiness"){
+				res.send({ "error" : "999", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> tài khoản doanh nghiệp không thể mua hàng"} ); 	
+				return;
+			}				
+			if(role_text =="shipping"){
+				res.send({ "error" : "777", "position":"ctl-users->login_app", "message": "Lỗi phân quyền -> shipper chỉ login trên web quản lý"} ); 	
+				return;
+			}	
+			if(role_text =="admin"){
+				token_type = 1;
+			}
+			if(role_text =="bussiness"){
+				token_type = 2;
+			}				
+			//@
+			//@
+			//tạo token send data
+			var payload = { 
+				"users_ID": results[0].users_ID, 
+				"users_full_name" :  results[0].users_full_name, 
+				"user_role":role_text
+			};
+			var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
+	
+		}
+		catch (error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
+			res.send({ "error" : "10", "position":"ctl-users->login_app", "message": error_send } );
+			return;	
+		}		
+		
+		
+		
+		
+		
+		
+		
+		
 	//@
 	//@ nếu mật khẩu không đúng
 	}else{
@@ -111,6 +179,9 @@ async  function function_export(req, res, next) {
 			"users_tracking_status": "1",
 		}
 		let user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
+		
+		//res.send(user_tracking_insert_result);
+		//return;
 		
 		
 		var evn = ojs_configs.evn;
