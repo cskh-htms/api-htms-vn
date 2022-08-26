@@ -220,7 +220,12 @@ async  function function_export(req, res, next) {
 		//update lost qua password
 		var token_insert_web_result = await token_insert_web(data_insert,res);
 		
-		let datas_return = { "error" : "","token" : token,"datas" : payload };
+		var payload_go = {
+			"token":token
+		}
+		var datas_ob = Object.assign(payload, payload_go);
+
+		let datas_return = { "error" : "","datas" : datas_ob };
 		res.send( datas_return );
 		return;		
 				

@@ -5,7 +5,7 @@ var router = express.Router();
 
 const controllers_user_login_web =  require('../../controllers/users/controllers-user-login-web.js');
 const controllers_user_check_token_web =  require('../../controllers/users/controllers-user-check-token-web.js');
-
+const controllers_user_register_web =  require('../../controllers/users/controllers-user-register-web.js');
 
 
 
@@ -27,5 +27,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/login', controllers_user_login_web);
 router.post('/check-token', controllers_user_check_token_web);
+router.post('/register', controllers_user_register_web);
+
+
 
 module.exports = router;
