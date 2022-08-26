@@ -15,18 +15,20 @@ const fields_insert = require('./token-fields-insert.js');
 
 
 const function_export = function (data,res) {
-	return data;
+	//return data;
 	//@
 	//@
 	//@
 	try {
-		var datas = Object.assign(fields_insert.default_fields, data);
-			
+		var datas = Object.assign(fields_insert.default_fields, data.datas);
+		//return datas;
+		
 		var sql_text = "INSERT INTO " + config_database.PREFIX + "token  SET ?";
 		var dataGo = {
-			"token_key"						: datas.datas.token_key,
-			"token_type"					: datas.datas.token_type,	
-			"token_value"					: datas.datas.token_value
+			"token_key"						: datas.token_key,
+			"token_type"					: datas.token_type,	
+			"token_user_id"					: datas.token_user_id,
+			"token_value"					: datas.token_value
 		}
 	}
 	catch(error){
@@ -55,7 +57,7 @@ const function_export = function (data,res) {
 		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
 	}
 
-	//return dataGo;
+	//return sql_text;
 	//@
 	//@
 	//@
@@ -67,7 +69,7 @@ const function_export = function (data,res) {
 					
 					var error_massage = fields_insert.get_message_error(err);
 					
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 

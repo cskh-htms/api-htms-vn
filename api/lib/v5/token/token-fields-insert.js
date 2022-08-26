@@ -6,7 +6,8 @@
 const  default_fields = {
 		"token_key"		: "",
 		"token_type"	: 0,
-		"token_value"	: ""	
+		"token_value"	: "",
+		"token_user_id"	 : 0	
 }
 
 //@

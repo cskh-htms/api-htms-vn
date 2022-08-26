@@ -143,7 +143,7 @@ async  function function_export(req, res, next) {
 				"users_full_name" :  results[0].users_full_name, 
 				"user_role":role_text
 			};
-			var token = jwt.sign(payload, ojs_configs.jwt_secret, {expiresIn: "10h"});
+			var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
 			
 			//res.send([token]);
 			//return;
@@ -177,7 +177,7 @@ async  function function_export(req, res, next) {
 				"user_role":role_text
 			};
 			
-			var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {expiresIn: "10h"});		
+			var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});		
 			
 			//res.send([payload_database,token_database]);
 			//return;
@@ -219,9 +219,6 @@ async  function function_export(req, res, next) {
 		//@
 		//update lost qua password
 		var token_insert_web_result = await token_insert_web(data_insert,res);
-		
-		res.send( token_insert_web_result );
-		return;			
 		
 		let datas_return = { "error" : "","token" : token,"datas" : payload };
 		res.send( datas_return );
