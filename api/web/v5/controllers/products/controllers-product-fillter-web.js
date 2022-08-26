@@ -100,18 +100,18 @@ async  function function_export(req, res, next) {
 	
 	//@ order
 	var order_data = [];
-	if(datas.sort.by_price){
+	if(datas.sort){
 		if(datas.sort.by_price == "ASC"){
 			order_data.push(
 				{
-					"field"  :"products_speciality_price",
+					"field"  :"products_speciality_price_caution",
 					"compare" : "ASC"
 				}
 			)	
 		}else if(datas.sort.by_price == "DESC"){
 			order_data.push(
 				{
-					"field"  :"products_speciality_price",
+					"field"  :"products_speciality_price_caution",
 					"compare" : "DESC"
 				}
 			)
@@ -138,6 +138,55 @@ async  function function_export(req, res, next) {
 			"compare" : "="
 		} 		
 	]	
+	
+	
+	
+	
+	
+	
+	//@ giá
+	if(datas.price_less_than){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_price_caution",
+				"value"     : datas.price_less_than,
+				"compare" : "<"
+			}
+		)		
+	}		
+	
+	if(datas.price_great_than){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_price_caution",
+				"value"     : datas.price_great_than,
+				"compare" : ">"
+			}
+		)		
+	}
+
+	
+	//@ tên sản phẩm
+	if(datas.name){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_name",
+				"value"     : datas.name,
+				"compare" : "like"
+			}
+		)		
+	}	
+	
+	//@ sku
+	if(datas.sku){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_sku",
+				"value"     : datas.sku,
+				"compare" : "="
+			}
+		)		
+	}	
 	
 	//@ category
 	if(datas.category){
@@ -206,7 +255,8 @@ async  function function_export(req, res, next) {
 				"products_speciality_stock_status",
 				"products_speciality_stock",
 				"products_speciality_sku",
-				"products_speciality_type",				
+				"products_speciality_type",	
+				"products_speciality_price_caution",				
 				"stores_name",
 				"stores_ID"
 			],

@@ -19,6 +19,11 @@ const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_
 const user_check_lock = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-check-lock.js');
 const user_login_one = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-login-one.js');
 const user_login_lost = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-login-lost.js');
+const update_lost_password = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/update-lost-password.js');
+const token_insert_web = require('../../../../lib/' + config_api.API_LIB_VERSION + '/token/token-insert-web.js');
+
+
+
 
 const user_tracking_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users-trackings/user-tracking-insert.js');
 
@@ -186,8 +191,8 @@ async  function function_export(req, res, next) {
 				}
 			}
 			
-			res.send(data_insert);
-			return;		
+			//res.send(data_insert);
+			//return;		
 			
 			
 		}
@@ -201,6 +206,27 @@ async  function function_export(req, res, next) {
 		
 		
 		
+		//@
+		//@
+		//@
+		//update lost qua password
+		if(login_one_lost.length > 0){
+			var update_lost_password_result = await update_lost_password(datas,res);		
+		}
+		
+		//@
+		//@
+		//@
+		//update lost qua password
+		var token_insert_web_result = await token_insert_web(data_insert,res);
+		
+		res.send( token_insert_web_result );
+		return;			
+		
+		let datas_return = { "error" : "","token" : token,"datas" : payload };
+		res.send( datas_return );
+		return;		
+				
 		
 	//@
 	//@ nếu mật khẩu không đúng
@@ -223,17 +249,6 @@ async  function function_export(req, res, next) {
 		return;		
 	}
 
-
-
-
-
-
-
-
-
-
-	res.send({"error":"","datas":data_store}); 
-	return;
 	
 }
 
