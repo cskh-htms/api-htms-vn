@@ -18,7 +18,7 @@ const update_review = require('../../../lib/' + config_api.API_LIB_VERSION + '/r
 
 
 //@
-async  function update_reviews_spaciality_app(req, res, next) {
+async  function update_reviews_spaciality_web(req, res, next) {
 
 	//@ lấy req data
 	try {
@@ -167,5 +167,5 @@ async  function update_reviews_spaciality_app(req, res, next) {
 }
 
 module.exports = { 
-	update_reviews_spaciality_app
+	update_reviews_spaciality_web
 };

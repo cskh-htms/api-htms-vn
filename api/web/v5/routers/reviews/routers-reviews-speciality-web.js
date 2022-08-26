@@ -11,8 +11,8 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 
 
-const controllers_reviews_spaciality_insert_app =  require('../../controllers/controllers-reviews-spaciality-insert-app.js');
-const controllers_reviews_spaciality_update_app =  require('../../controllers/controllers-reviews-spaciality-update-app.js');
+const controllers_reviews_spaciality_insert_web =  require('../../controllers/controllers-reviews-spaciality-insert-web.js');
+const controllers_reviews_spaciality_update_web =  require('../../controllers/controllers-reviews-spaciality-update-web.js');
 
 
 
@@ -31,9 +31,9 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/insert-app', middle_ware, upload,controllers_reviews_spaciality_insert_app.insert_reviews_spaciality_app);
+router.post('/insert-web', middle_ware, upload,controllers_reviews_spaciality_insert_web.insert_reviews_spaciality_web);
 
-router.put('/update-app/:review_id', middle_ware, upload,controllers_reviews_spaciality_update_app.update_reviews_spaciality_app);
+router.put('/update-web/:review_id', middle_ware, upload,controllers_reviews_spaciality_update_web.update_reviews_spaciality_web);
 
 
 module.exports = router;

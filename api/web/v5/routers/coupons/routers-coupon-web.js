@@ -8,10 +8,10 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 
 
-const get_all =  require('../../controllers/coupons/controllers-coupon-get-all-app.js');
-const checked_coupon =  require('../../controllers/coupons/controllers-coupon-checked-coupon-app.js');
-const checked_coupon_dala =  require('../../controllers/coupons/controllers-coupon-checked-coupon-dala-app.js');
-const checked_coupon_code =  require('../../controllers/coupons/controllers-coupon-checked-coupon-code-app.js');
+const get_all =  require('../../controllers/coupons/controllers-coupon-get-all-web.js');
+const checked_coupon =  require('../../controllers/coupons/controllers-coupon-checked-coupon-web.js');
+const checked_coupon_dala =  require('../../controllers/coupons/controllers-coupon-checked-coupon-dala-web.js');
+const checked_coupon_code =  require('../../controllers/coupons/controllers-coupon-checked-coupon-code-web.js');
 
 
 router.get('/', function(req, res, next) {

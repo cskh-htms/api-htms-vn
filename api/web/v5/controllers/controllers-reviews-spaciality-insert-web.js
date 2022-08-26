@@ -21,7 +21,7 @@ const reviews_insert = require('../../../lib/' + config_api.API_LIB_VERSION + '/
 
 
 //@
-async  function insert_reviews_spaciality_app(req, res, next) {
+async  function insert_reviews_spaciality_web(req, res, next) {
 	
 	//@ lấy req data
 	try {
@@ -186,5 +186,5 @@ async  function insert_reviews_spaciality_app(req, res, next) {
 }
 
 module.exports = { 
-	insert_reviews_spaciality_app
+	insert_reviews_spaciality_web
 };

@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.use('/speciality', require('./routers-reviews-speciality-app'));
+router.use('/speciality', require('./routers-reviews-speciality-web'));
 
 
 module.exports = router;
