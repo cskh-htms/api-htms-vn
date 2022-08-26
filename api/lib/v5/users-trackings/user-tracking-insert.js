@@ -14,7 +14,7 @@ const ojs_configs = require('../../../../configs/config');
 const fields_insert = require('./user-tracking-fields-insert.js');
 
 
-const meta_adress_insert = function (data,res) {
+const function_export = function (data,res) {
 	
 	//@
 	//@
@@ -70,7 +70,7 @@ const meta_adress_insert = function (data,res) {
 };	
 
 
-module.exports = meta_adress_insert;
+module.exports = function_export;
 
 
 /*
