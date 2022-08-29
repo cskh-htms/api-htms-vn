@@ -68,7 +68,7 @@ function get_message_error(error){
 			
 			
 		}else{
-			return "Lỗi data type insert vui lòng liên hệ admin";
+			return "Lỗi data type  vui lòng liên hệ admin";
 		}
 }	
 

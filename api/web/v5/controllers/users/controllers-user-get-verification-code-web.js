@@ -14,10 +14,11 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 const ojs_shares_date = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
 
-
+const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-fields-insert.js');
 const fields_get = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-fields-get.js');
+
 const user_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search.js');
-const user_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search.js');
+const user_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-update.js');
 const user_check_lock = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-check-lock.js');
 
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
@@ -29,8 +30,8 @@ const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION
 
 
 
-
-
+const ojs_shares_send_code_to_phone = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-code-to-phone.js');
+const user_tracking_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users-trackings/user-tracking-insert.js');
 
 
 //@
@@ -246,10 +247,8 @@ async  function function_export(req, res, next) {
 						//@
 						//@ lưu verification code
 						user_update(datas_verification,de_token.users_ID,res).then( results2 => {
-							res.send([results2]);
-							return;	
-							
-							
+							//res.send([results2]);
+							//return;
 							ojs_shares_send_code_to_phone.send_code_to_phone(res,verification_code,results[0].users_phone);
 
 							//@
@@ -261,15 +260,17 @@ async  function function_export(req, res, next) {
 								"users_tracking_action": "3",			
 								"users_tracking_status": "1",
 							}
-							models_users_tracking.insert_users_tracking(datas_tracking);
+							user_tracking_insert(datas_tracking,res);
 
 							
-							//res.send( {"error" : "", "code" : verification_code} );
-							//return;
-								
+							res.send( {"error" : "", "code" : verification_code} );
+							return;
+							
 						}, error => {
 							
-							let message_error = default_field.get_message_error(error);
+							//let message_error = fields_insert.get_message_error(error);
+							let message_error = "Lỗi update user";
+							
 							
 							var evn = ojs_configs.evn;
 							//evn = "dev";
