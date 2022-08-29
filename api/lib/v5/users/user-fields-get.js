@@ -34,6 +34,41 @@ const fields_search = 	"" +
 	config_database.PREFIX + "users_type_name as users_type_name, " + 
 	config_database.PREFIX + "users_type_infomation as users_type_infomation ";
 
+
+
+
+//@
+const fields_search_arr = [
+	"users_full_name",
+	"users_password",
+	"users_date_created",
+	"users_password_lost",		
+	"users_first_name",	
+	"users_last_name",	
+	"users_adress",	
+	"users_phone",
+	"users_email",
+			
+	"users_router_version",
+	"users_view_version",
+	"users_js_css_version",
+	"users_api_version",
+	"users_users_type_id" ,		
+	
+	"users_shipping_status",
+	"users_status",
+	"users_verification_status",
+	"users_verification_code"
+];
+
+
+
+
+
+
+
+
+
 //@
 const  from_default = 	" from " + 
 	config_database.PREFIX + "users "; 
@@ -50,7 +85,8 @@ const link_default = 	" " +
 module.exports = { 
 				fields_search,
 				from_default,
-				link_default
+				link_default,
+				fields_search_arr
 };
 
 

@@ -12,7 +12,7 @@ const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
+const fields_get = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-fields-get.js');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search.js');
@@ -34,7 +34,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/ctroller//store/controllers-store-app",
+			"position" : "api/web/v5/ctronller/stores/controllers-store/get-all-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -62,7 +62,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "2",
-			"position" : "api/web/v5/ctroller/store/controllers-store-app",
+			"position" : "api/web/v5/ctronller/stores/controllers-store/get-all-web",
 			"message": error_send 
 		}); 
 		return;			
@@ -73,14 +73,7 @@ async  function controllers_store_app(req, res, next) {
 		//@ 3. get model
 		let data_get =    
 		{
-		   "select_field" :
-			[
-				"stores_ID",
-				"stores_name",
-				"stores_logo_image",
-				"stores_date_created",
-				"stores_sort_order"
-			],
+		   "select_field" : fields_get.fields_search_arr,
 			"condition" :
 			[
 				{    
@@ -118,7 +111,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/web/v5/ctroller//store/controllers-store-app",
+			"position" : "api/web/v5/ctronller/stores/controllers-store/get-all-web",
 			"message": error_send 
 		}); 
 		return;	

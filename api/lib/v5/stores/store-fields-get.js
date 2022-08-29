@@ -39,6 +39,56 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
 	config_database.PREFIX  + "stores_upload_limit_month as stores_upload_limit_month ";
 
+
+
+
+const fields_search_arr = [
+	"stores_user_id",	
+	"stores_name",	
+	"stores_date_created",
+	"stores_payment_limit",
+	"stores_service_type_id",
+	
+	"stores_adress"	,		
+	"stores_province",
+	"stores_district",
+	"stores_wards"	,
+	
+	"stores_phone"	,
+	"stores_logo_image",
+	"stores_banner_image",
+	"stores_information",
+	
+	"stores_discount_price",
+	"stores_sort_order",
+	
+
+	"stores_status_admin",
+	"stores_status_stores",
+	"stores_info_banking",
+
+	"stores_local_x",	
+	"stores_local_y",	
+	"stores_local_adress",	
+
+	"stores_qoute",		
+	"stores_status_update",
+	"stores_payment_methods",
+	"stores_payment_time",
+
+	"stores_upload_limit_day",
+	"stores_upload_limit_month"
+]
+
+
+
+
+
+
+
+
+
+
 //@
 const from_default = 	" from " + 
 	config_database.PREFIX + "stores ";	
@@ -65,7 +115,8 @@ const link_default = 	" " +
 module.exports = { 
 				fields_search,
 				from_default,
-				link_default
+				link_default,
+				fields_search_arr
 };
 
 
