@@ -32,7 +32,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(!datas.orders.orders_speciality_user_id){
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/app/v5/controller/order/orders-insert",
+				"position" : "api/web/v5/controller/order/orders-insert-web",
 				"message":  " Chưa nhập mã khách hàng "
 			});
 			return;
@@ -40,11 +40,14 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(!datas.orders_detail){
 			res.send({ 
 				"error" : "2", 
-				"position" : "api/app/v5/controller/order/orders-insert",
+				"position" : "api/web/v5/controller/order/orders-insert-web",
 				"message":  " Chưa có data order "
 			});
 			return;
-		}			
+		}		
+
+		//res.send(datas);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -56,7 +59,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/controller/order/orders-insert",
+			"position" : "api/web/v5/controller/order/orders-insert-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -67,8 +70,7 @@ async  function controllers_order_insert_app(req, res, next) {
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
 	if(
-	check_role_result == "customer" 
-	|| check_role_result == "default" 
+	check_role_result == "customer"
 	){
 		//go
 	}
@@ -82,15 +84,18 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4",
-			"position" : "api/app/v5/controller/order/orders-insert",
+			"position" : "api/web/v5/controller/order/orders-insert-web",
 			"message": error_send 
 		}); 
 		return;			
 	}
 
 
+
+
 	//@ check owner user
 	const check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.orders.orders_speciality_user_id,res);
+
 	if(check_owner_user_resuilt != 1){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
@@ -101,7 +106,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "5",
-			"position" : "api/app/v5/controller/order/orders-insert", 
+			"position" : "api/web/v5/controller/order/orders-insert-web", 
 			"message": error_send 
 		}); 
 		return;			

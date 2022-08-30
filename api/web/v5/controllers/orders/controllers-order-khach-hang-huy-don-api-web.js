@@ -40,7 +40,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/ctroller/order/khach-hang-huy-don",
+			"position" : "api/web/v5/ctroller/order/khach-hang-huy-don",
 			"message": error_send 
 		}); 
 		return;	
@@ -66,7 +66,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4",
-			"position" : "api/app/v5/ctroller/order/khach-hang-huy-don",
+			"position" : "api/web/v5/ctroller/order/khach-hang-huy-don",
 			"message": error_send 
 		}); 
 		return;			
@@ -89,7 +89,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 			);
 		res.send({ 
 			"error" : "5",
-			"position" : "api/app/v5/ctroller/order/khach-hang-huy-don", 
+			"position" : "api/web/v5/ctroller/order/khach-hang-huy-don", 
 			"message": error_send 
 		}); 
 		return;			
