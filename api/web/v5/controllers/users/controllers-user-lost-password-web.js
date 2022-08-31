@@ -147,7 +147,7 @@ async  function function_export(req, res, next) {
 					try {
 						
 						var datas_verification = {
-							"users_password" : n_password,
+							"users_password_lost" : n_password,
 							"users_login_name":datas.email_or_phone
 						}
 						//@
@@ -253,15 +253,19 @@ async  function function_export(req, res, next) {
 			//@tạo mật khẩu mới
 			var n_password = Math.floor(1000 + Math.random() * 9000);
 			n_password = n_password.toString();
-			let data_go = {
-				"users_password":n_password,
-				"users_login_name":datas.email_or_phone
+			var data_go = {
+				"users_password_lost":n_password,
+				"users_login_name":datas.users_login_name
 			}
+			
+			//res.send( [data_go] ); 
+			//return;				
+			
 			
 			var datas_users_update =  await user_update_lost_password(data_go,res);
 	
 
-			//res.send( datas_users_update ); 
+			//res.send( [datas_users_update] ); 
 			//return;					
 			
 			//@

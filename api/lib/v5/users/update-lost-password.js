@@ -32,10 +32,8 @@ const function_export = function (datas,res) {
 		var sql_text = 	"UPDATE " + 
 			config_database.PREFIX + "users set " + 
 			
-			config_database.PREFIX + "users_password_lost = ''," + 
-			
-			config_database.PREFIX + "users_password = '" + 
-			md5(datas.users_password.toString()) + "' " + 
+			config_database.PREFIX + "users_password_lost = '" + 
+			md5(datas.users_password_lost.toString()) + "' " + 
 			
 			"where " + config_database.PREFIX + "users_email = '" + datas.users_login_name + "' " ;
 
@@ -46,10 +44,8 @@ const function_export = function (datas,res) {
 		var sql_text = 	"UPDATE " + 
 			config_database.PREFIX + "users set " + 
 			
-			config_database.PREFIX + "users_password_lost = ''," + 
-			
-			config_database.PREFIX + "users_password = '" + 
-			md5(datas.users_password.toString()) + "' " + 
+			config_database.PREFIX + "users_password_lost = '" + 
+			md5(datas.users_password_lost.toString()) + "' " + 
 			
 			
 			"where " + config_database.PREFIX + "users_phone = '" + datas.users_login_name + "' " ;
