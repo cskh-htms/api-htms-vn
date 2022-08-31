@@ -131,27 +131,17 @@ async  function function_export(req, res, next) {
 	
 	
 	var user_search_result = await user_search(data_get,res);
-	//res.send(user_search_result);
+	//var x = Number(user_search_result.users_verification_status);
+	//res.send([user_search_result[0].users_verification_status]);
 	//return;
 	
-	if(user_search_result.users_verification_status == 1){
+	if(user_search_result[0].users_verification_status =='1'){
 		res.send({"error":"","datas":{"status":1,"message":"đã xác thực"}});
 		return;
 	}else{
 		res.send({"error":"","datas":{"status":0,"message":"chưa xác thực"}});
 		return;		
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
