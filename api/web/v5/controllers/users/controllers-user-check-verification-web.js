@@ -108,9 +108,6 @@ async  function function_export(req, res, next) {
 	//res.send(check_role_result);
 	//return;
 
-
-
-
 		
 	let data_get =    
 	{
