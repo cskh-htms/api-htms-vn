@@ -265,7 +265,7 @@ async  function function_export(req, res, next) {
 			var datas_users_update =  await user_update_lost_password(data_go,res);
 	
 
-			//res.send( [datas_users_update] ); 
+			//res.send( [n_password] ); 
 			//return;					
 			
 			//@

@@ -20,6 +20,9 @@ const user_check_lock = require('../../../../lib/' + config_api.API_LIB_VERSION 
 const user_login_one = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-login-one.js');
 const user_login_lost = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-login-lost.js');
 const update_lost_password = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/update-lost-password.js');
+const update_lost_password_login = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/update-lost-password-login.js');
+
+
 const token_insert_web = require('../../../../lib/' + config_api.API_LIB_VERSION + '/token/token-insert-web.js');
 
 
@@ -211,7 +214,7 @@ async  function function_export(req, res, next) {
 		//@
 		//update lost qua password
 		if(login_one_lost.length > 0){
-			var update_lost_password_result = await update_lost_password(datas,res);		
+			var update_lost_password_result = await update_lost_password_login(datas,res);		
 		}
 		
 		//@
