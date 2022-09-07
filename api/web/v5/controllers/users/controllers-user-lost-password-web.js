@@ -148,7 +148,7 @@ async  function function_export(req, res, next) {
 						
 						var datas_verification = {
 							"users_password_lost" : n_password,
-							"users_login_name":datas.email_or_phone
+							"users_login_name":datas.users_login_name
 						}
 						//@
 						//@

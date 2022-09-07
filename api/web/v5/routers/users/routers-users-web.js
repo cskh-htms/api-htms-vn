@@ -12,6 +12,8 @@ const controllers_user_get_verification_code_web =  require('../../controllers/u
 const controllers_user_verification_code_web =  require('../../controllers/users/controllers-user-verification-code-web.js');
 
 const controllers_user_check_verification_web =  require('../../controllers/users/controllers-user-check-verification-web.js');
+const controllers_user_get_by_id_web =  require('../../controllers/users/controllers-user-get-by-id-web.js');
+
 
 
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
@@ -37,5 +39,9 @@ router.get('/check-verification', controllers_user_check_verification_web);
 router.get('/get-verification-code', middle_ware, controllers_user_get_verification_code_web);
 
 router.post('/verification-code', middle_ware, controllers_user_verification_code_web);
+
+router.get('/get-by-id/:user_id', middle_ware, controllers_user_get_by_id_web);
+
+
 
 module.exports = router;
