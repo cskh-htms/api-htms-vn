@@ -60,7 +60,22 @@ const meta_adress_insert = function (data,res) {
 	try {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
-				if( err ) reject(err);
+				if( err ) {
+					var evn = ojs_configs.evn;					
+					var error_massage = fields_insert.get_message_error(err);					
+					//evn = "dev";
+					var error_send = ojs_shares_show_errors.show_error( 
+							evn, 
+							err, 
+							error_massage
+						);
+					res.send({ 
+						"error" : "10", 
+						"position" : "lib->meta-adress->inser.js",
+						"message": error_send 
+					}); 
+					return;					
+				}
 				resolve(results);
 			} );
 		} );

@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 const config_api = require('../../../../configs/config-api');
+const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
+
+
+
 
 const controllers_user_login_web =  require('../../controllers/users/controllers-user-login-web.js');
 const controllers_user_check_token_web =  require('../../controllers/users/controllers-user-check-token-web.js');
@@ -15,8 +19,15 @@ const controllers_user_check_verification_web =  require('../../controllers/user
 const controllers_user_get_by_id_web =  require('../../controllers/users/controllers-user-get-by-id-web.js');
 
 
+const controllers_user_change_password_web =  require('../../controllers/users/controllers-user-change-password-web.js');
 
-const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
+
+
+
+
+
+
+
 
 
 router.get('/', function(req, res, next) {
@@ -42,6 +53,6 @@ router.post('/verification-code', middle_ware, controllers_user_verification_cod
 
 router.get('/get-by-id/:user_id', middle_ware, controllers_user_get_by_id_web);
 
-
+router.post('/change-password/:user_id', middle_ware, controllers_user_change_password_web);
 
 module.exports = router;

@@ -14,6 +14,32 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "reviews_speciality_status_admin as reviews_speciality_status_admin, " +  
 	config_database.PREFIX  + "reviews_speciality_number_star as reviews_speciality_number_star " ;
 
+
+
+
+
+const fields_search_arr = [
+	"reviews_speciality_user_id",
+	"reviews_speciality_product_id",	
+	"reviews_speciality_contents",
+	"reviews_speciality_images",
+	"reviews_speciality_videos",
+	"reviews_speciality_status_admin",
+	"reviews_speciality_number_star"
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@
 const from_default = 	" from " + 
 	config_database.PREFIX + "reviews_speciality "  ;	
@@ -57,10 +83,11 @@ const link_default_store = 	" " +
 
 //export module
 module.exports = { 
-				fields_search,
-				from_default,
-				link_default,
-				link_default_store
+	fields_search,
+	from_default,
+	link_default,
+	link_default_store,
+	fields_search_arr
 };
 
 

@@ -14,6 +14,43 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "reviews_speciality_status_admin as reviews_speciality_status_admin, " +  
 	config_database.PREFIX  + "reviews_speciality_number_star as reviews_speciality_number_star " ;
 
+
+
+
+
+
+
+const fields_search_arr = [
+	"orders_speciality_ID",
+	"orders_speciality_user_id",
+	"orders_speciality_store_id",
+	"orders_speciality_status_orders",	
+	"orders_speciality_status_payment",	
+	"orders_speciality_adress",
+	"orders_speciality_notes",
+	"orders_speciality_phone",
+	"orders_speciality_email",
+	"orders_speciality_company",		
+	"orders_speciality_province",
+	"orders_speciality_district",
+	"orders_speciality_wards",
+	"orders_speciality_name",
+	"orders_speciality_shipping_code"
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@
 const from_default = " from " + 
 	config_database.PREFIX + "orders_speciality "  ;	
@@ -123,7 +160,8 @@ module.exports = {
 	link_default,
 	link_shipper,
 	link_order_by_store,
-	link_order_by_customer				
+	link_order_by_customer,
+	fields_search_arr	
 };
 
 
