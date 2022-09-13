@@ -184,7 +184,7 @@ const function_export = async function (data_order,order_arr,res) {
 				},						
 				{   
 					"field"     :"orders_details_speciality_line_order",
-					"value"     : "shipping",
+					"value"     : "fee",
 					"compare" : "="
 				}
 				]    
