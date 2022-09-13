@@ -84,6 +84,7 @@ async  function function_export(req, res, next) {
 		//@ 3. get model
 		let data_get =    
 		{
+			"select_type":"DISTINCT",
 		   "select_field" :fields_get.fields_search_arr,
 			"condition" :
 			[
@@ -109,7 +110,7 @@ async  function function_export(req, res, next) {
 		//@ get datas
 		var order_result = await order_search(data_get,res);
 		
-		var order_arr = [0];
+		var order_arr = [];
 		if(order_result.length > 0){
 			for(x in order_result){
 				if(order_result[x].orders_speciality_ID){
