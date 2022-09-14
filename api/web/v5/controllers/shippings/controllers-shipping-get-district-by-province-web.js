@@ -34,7 +34,18 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var token = req.headers['token'];
-		//res.send([token]);
+		var province_id = 0;
+		if(req.query.c1){
+			province_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "1", 
+				"position" : "api/web/v5/controller/controllers-shipping-get-distict-by-province-web",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}
+		//res.send(province_id);
 		//return;
 	}
 	catch(error){
@@ -47,7 +58,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/controller/controllers-shipping-get-all-province-web",
+			"position" : "api/web/v5/controller/controllers-shipping-get-distict-by-province-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -62,7 +73,7 @@ async  function function_export(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-all-province-web", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-distict-by-province-web", "message": error_send } ); 
 		return;
 	}	
 		
@@ -89,28 +100,35 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "22",
-			"position" : "api/web/v5/controller/controllers-shipping-get-all-province-web",
+			"position" : "api/web/v5/controller/controllers-shipping-get-distict-by-province-web",
 			"message": error_send 
 		}); 
 		return;			
 	}
 
+
+
+
 	try {
 	    const data = fs.readFileSync(__dirname + '\\local.json', 'utf8');
 		let data_json = JSON.parse(data);
 		
-		let province = [];
-		
-		for (x in data_json ){
-			let province_line = {};
-			province_line.Id = data_json[x].Id;
-			province_line.Name = data_json[x].Name;
-			province.push(province_line);
+		let district = [];		
+		for (let x in data_json ){			
+			if(data_json[x].Id == province_id){	
+				var district_arr = [];			
+				for(let i in data_json[x].Districts){					
+					let district_line = {};	
+					district_line.Id = data_json[x].Districts[i].Id;
+					district_line.Name = data_json[x].Districts[i].Name;	
+					district_arr.push(district_line);					
+				}	
+				district = 	district_arr;			
+			}
 		}
 		
-		res.send({"error":"","datas": province});
-		return;		
-
+		res.send({"error":"","datas": district});
+		return;
 	} catch (err) {
 	   res.send([err]);
 	   return;

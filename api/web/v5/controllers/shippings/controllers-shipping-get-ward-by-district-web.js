@@ -34,7 +34,18 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var token = req.headers['token'];
-		//res.send([token]);
+		var district_id = 0;
+		if(req.query.c1){
+			district_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "1", 
+				"position" : "api/web/v5/controller/controllers-shipping-get-ward-by-district-web",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}
+		//res.send(district_id);
 		//return;
 	}
 	catch(error){
@@ -47,7 +58,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/controller/controllers-shipping-get-all-province-web",
+			"position" : "api/web/v5/controller/controllers-shipping-get-ward-by-district-web",
 			"message": error_send 
 		}); 
 		return;	
@@ -62,7 +73,7 @@ async  function function_export(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-all-province-web", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-ward-by-district-web", "message": error_send } ); 
 		return;
 	}	
 		
@@ -89,28 +100,40 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "22",
-			"position" : "api/web/v5/controller/controllers-shipping-get-all-province-web",
+			"position" : "api/web/v5/controller/controllers-shipping-get-ward-by-district-web",
 			"message": error_send 
 		}); 
 		return;			
 	}
 
+
+
+
 	try {
 	    const data = fs.readFileSync(__dirname + '\\local.json', 'utf8');
 		let data_json = JSON.parse(data);
 		
-		let province = [];
 		
-		for (x in data_json ){
-			let province_line = {};
-			province_line.Id = data_json[x].Id;
-			province_line.Name = data_json[x].Name;
-			province.push(province_line);
-		}
 		
-		res.send({"error":"","datas": province});
-		return;		
-
+		
+		let wards = [];		
+		for (let x in data_json ){			
+			for(let i in data_json[x].Districts){				
+				if(data_json[x].Districts[i].Id == district_id){	
+					var ward_arr = [];			
+					for(let o in data_json[x].Districts[i].Wards){					
+						let ward_line = {};	
+						ward_line.Id = data_json[x].Districts[i].Wards[o].Id;
+						ward_line.Name = data_json[x].Districts[i].Wards[o].Name;	
+						ward_arr.push(ward_line);					
+					}	
+					wards = ward_arr;			
+				}			
+			}	
+		}		
+		
+		res.send({"error":"","datas": wards});
+		return;
 	} catch (err) {
 	   res.send([err]);
 	   return;
