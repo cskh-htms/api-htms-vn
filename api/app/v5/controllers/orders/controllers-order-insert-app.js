@@ -20,6 +20,9 @@ const meta_adress_search = require('../../../../lib/' + config_api.API_LIB_VERSI
 const ojs_shares_send_code_to_phone = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-code-to-phone.js');
 const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
 
+const content_email_order = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/content-email-order.js');
+
+
 
 
 //@
@@ -251,8 +254,9 @@ async  function controllers_order_insert_app(req, res, next) {
 		//@
 		//@
 		//@ send email
-		var email_title = 'DALA - Có đơn hàng mới';
-		var email_content = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
+		var email_title = 'DALA - Có đơn hàng mới asdasdasdasd';
+		//var email_content = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
+		var email_content = await content_email_order(order_insert_resuilt[0].insertId,res);
 
 		if(ojs_configs.domain == "http://localhost:2021"){
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
