@@ -25,7 +25,9 @@ const fields_search_arr = [
 	"reviews_speciality_images",
 	"reviews_speciality_videos",
 	"reviews_speciality_status_admin",
-	"reviews_speciality_number_star"
+	"reviews_speciality_number_star",
+	"users_full_name",
+	"reviews_speciality_date_created"
 ]
 
 
