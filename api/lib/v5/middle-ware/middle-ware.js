@@ -69,7 +69,7 @@ async function middle_ware(req, res, next){
 					}
 				}, error => {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, "không có database token", "không có database token" );
 					res.send({ "error" : "7", "postition":"middle-ware","message": error_send } ); 
 					return;	

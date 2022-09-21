@@ -191,7 +191,7 @@ const function_export = async function(order_id,res){
 	
 	
 	//@ total
-	var total = (total_line + fee + shipping) - shipping -coupon ;
+	var total = (total_line + fee + shipping ) - coupon ;
 	if(get_meta_order_resuilt[0].shipping_price[0].price){
 		txt_table = txt_table + 
 		  '<tr>' + 
@@ -205,17 +205,53 @@ const function_export = async function(order_id,res){
 	}	
 	
 	
-	
-	
 	txt_return = txt_return + txt_table;
-	
-	//@
-	//@
-	
-	
 	txt_return = txt_return + 
-	'</table>';
+	'</table>';	
+	//@
+	//@
 	
+	//@ thông tin đặt hàng
+	txt_return = txt_return +  
+	  '<div style="">' + 
+		'<h1 style="">Thông tin giao hàng</h1>' + 
+		'<div style="">' + 
+			'<p>Người nhận hàng : ' + get_meta_order_resuilt[0].orders_speciality_name + '</p>' + 
+			'<p>Điện thoại : ' + get_meta_order_resuilt[0].orders_speciality_phone + '</p>' + 
+			'<p>Địa chỉ : ' + get_meta_order_resuilt[0].orders_speciality_adress + 
+			'/' + get_meta_order_resuilt[0].orders_speciality_wards + 
+			'/' + get_meta_order_resuilt[0].orders_speciality_district + 
+			'/' + get_meta_order_resuilt[0].orders_speciality_province + 
+			'</p>';
+		'</div>' + 
+	  '</div>' ; 	
+	
+	
+	
+	
+	
+	//@ ghi chú
+	if(get_meta_order_resuilt[0].orders_speciality_notes.length > 0){
+		txt_return = txt_return +  
+		  '<div style="">' + 
+			'<div style="">' + 
+				'<p>Ghi chú : ' + get_meta_order_resuilt[0].orders_speciality_notes + '</p>' + 
+				'</p>';
+			'</div>' + 
+		  '</div>' ; 		
+	}
+	
+	
+	
+	
+	//@ bonus
+	txt_return = txt_return +  
+	  '<div style="">' + 
+		'<div style="">' + 
+			'<p>Cảm ơn Bạn đã tin tưởng và mua hàng tại DALA</p>' + 
+			'<p>DALA sẽ giao hàng cho bạn trong thời gian sớm nhất. hãy vào App DALA theo dõi đơn hàng của mình</p>' + 
+		'</div>' + 
+	  '</div>' ; 		
 	
 	return txt_return;		
 }	

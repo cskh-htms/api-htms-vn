@@ -254,7 +254,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		//@
 		//@
 		//@ send email
-		var email_title = 'DALA - Có đơn hàng mới asdasdasdasd';
+		var email_title = 'DALA - Có đơn hàng mới [ ' + order_insert_resuilt[0].insertId + ' ]';
 		//var email_content = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
 		var email_content = await content_email_order(order_insert_resuilt[0].insertId,res);
 
