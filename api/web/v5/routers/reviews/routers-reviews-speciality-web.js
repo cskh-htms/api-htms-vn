@@ -15,6 +15,11 @@ const controllers_reviews_spaciality_insert_web =  require('../../controllers/co
 const controllers_reviews_spaciality_update_web =  require('../../controllers/controllers-reviews-spaciality-update-web.js');
 
 const controllers_reviews_spaciality_get_by_product_id_web =  require('../../controllers/reviews/controllers-reviews-speciality-get-by-product-id-web.js');
+const controllers_reviews_spaciality_check_review_by_user_web =  require('../../controllers/reviews/controllers-reviews-speciality-check-review-by-user-web.js');
+
+
+
+
 
 const storage = multer.memoryStorage({
     destination: function(req, file, callback) {
@@ -37,7 +42,7 @@ router.put('/update-web/:review_id', middle_ware, upload,controllers_reviews_spa
 
 router.get('/get-by-product-id', middle_ware,controllers_reviews_spaciality_get_by_product_id_web);
 
-
+router.get('/check-review-by-user', middle_ware,controllers_reviews_spaciality_check_review_by_user_web);
 
 
 module.exports = router;
