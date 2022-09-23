@@ -110,7 +110,7 @@ async  function function_export(req, res, next) {
 
 
 	try {
-	    const data = fs.readFileSync(__dirname + '\\local.json', 'utf8');
+	    const data = fs.readFileSync(__dirname + '//local.json', 'utf8');
 		let data_json = JSON.parse(data);
 		
 		let district = [];		
