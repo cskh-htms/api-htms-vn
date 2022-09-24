@@ -6,12 +6,16 @@ const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_V
 const coupon_search_limit_user = require('../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search-limit-user.js');
 const coupon_search_limit_number = require('../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search-limit-number.js');
 const coupon_search_user_first_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search-user-first-sale.js');
+const product_search = require('../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const ojs_shares_all_api = require('../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api.js');
 
 
 //@@
 //@@[coupon_condition]
 const coupon_condition = async function(datas,coupon_list,user_id,res){
+	
+	//res.send(coupon_list);
+	//return;
 	
 	try{
 		var date_return = 0;		
@@ -48,6 +52,12 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				coupon_list[0].coupon_speciality_limit_number,
 				res
 			);
+			
+			//res.send([coupon_limit_result]);
+			//return;
+			
+			
+			
 			let user_limit_result =  await check_limit_user(
 				coupon_list[0].coupon_speciality_limit_user,
 				coupon_list[0].coupon_speciality_ID,
@@ -55,12 +65,21 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				user_id,
 				res
 			);
+			
+			
+			//res.send([user_limit_result]);
+			//return;
+			
 			let check_price_percen_result =  await check_price_percen(
 				datas,
 				coupon_list[0].coupon_speciality_condition_value,
 				res
 			);
 			
+			//res.send([check_price_percen_result]);
+			//return;
+
+
 			
 			if(
 			coupon_limit_result == 1 
@@ -388,18 +407,54 @@ const check_qty = async function(datas,value,res){
 //@@
 //@@ [price_percen]
 const check_price_percen = async function(datas,value,res){
-	//res.send([value]);
-	//return;
+	//res.send([datas]);
+	//return ;
 	try{
 		var data_sum = 0;
 		var data_return = 0;
 		
 		for(x in datas){
 			for(i in datas[x].line_order){
-				var line_sum = datas[x].line_order[i].orders_details_speciality_qty * datas[x].line_order[i].orders_details_speciality_price;
+				let data_get =    
+				{
+				   "select_field" :
+					[
+						"products_speciality_price_caution",
+					],
+					"condition" :
+					[
+						{    
+						"relation": "and",
+						"where" :
+							[
+							{   
+								"field"     :"products_speciality_ID",
+								"value"     : datas[x].line_order[i].orders_details_speciality_product_id,
+								"compare" : "="
+							}		
+							] 				
+						}         
+					]   
+				}
+				var data_price = await product_search(data_get,res);	
+				if(data_price.length <= 0 ){
+					res.send({ 
+						"error" : "001",
+						"position" : "api/shares/v5/checked-coupon-condition-code-all",
+						"message": "Không tìm thấy sản phẩm  [ " +  datas[x].line_order[i].orders_details_speciality_product_id + " ]"
+					}); 					
+				}
+				//res.send(data_price);
+				//return ;
+				
+				var line_sum = datas[x].line_order[i].orders_details_speciality_qty * data_price[0].products_speciality_price_caution;
 				data_sum = data_sum + line_sum;				
 			}
 		}
+		
+		
+		//return data_sum;	
+		
 		
 		if(data_sum >= value){
 			data_return = 1;
@@ -453,7 +508,39 @@ const price_percen = async function(datas,value,max){
 	
 	for(x in datas){
 		for(i in datas[x].line_order){
-			var line_sum = datas[x].line_order[i].orders_details_speciality_qty * datas[x].line_order[i].orders_details_speciality_price;
+			
+			let data_get =    
+			{
+			   "select_field" :
+				[
+					"products_speciality_price_caution",
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"products_speciality_ID",
+							"value"     : datas[x].line_order[i].orders_details_speciality_product_id,
+							"compare" : "="
+						}		
+						] 				
+					}         
+				]   
+			}
+			var data_price = await product_search(data_get,res);	
+			if(data_price.length <= 0 ){
+				res.send({ 
+					"error" : "001",
+					"position" : "api/shares/v5/checked-coupon-condition-code-all",
+					"message": "Không tìm thấy sản phẩm  [ " +  datas[x].line_order[i].orders_details_speciality_product_id + " ]"
+				}); 					
+			}			
+			
+			
+			var line_sum = datas[x].line_order[i].orders_details_speciality_qty * data_price[0].products_speciality_price_caution;
 			data_sum = data_sum + line_sum;				
 		}
 	}		
