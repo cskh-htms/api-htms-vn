@@ -27,7 +27,11 @@ async  function controllers_discount_by_position_app(req, res, next) {
 		var token = req.headers['token'];
 		var position_number = 1000;
 		if(req.query.c1){
-			position_number = req.query.c1;
+			if(req.query.c1 == 2){
+				position_number = 16;
+			}else{
+				position_number = req.query.c1;
+			}			
 		}
 		
 		
