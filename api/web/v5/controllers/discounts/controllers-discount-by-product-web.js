@@ -121,7 +121,7 @@ async  function controllers_discount_by_product_app(req, res, next) {
 		if(discount_id == 2){
 			discount_id = 16;
 		}
-		//@
+
 		let data_get =    
 		{
 		   "select_type" : "DISTINCT",
