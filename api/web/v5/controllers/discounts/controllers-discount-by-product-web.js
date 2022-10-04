@@ -89,6 +89,8 @@ async  function controllers_discount_by_product_app(req, res, next) {
 	}
 
 
+
+
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
 	if(
@@ -116,6 +118,10 @@ async  function controllers_discount_by_product_app(req, res, next) {
 
 	//@ 3. get product
 	try{
+		if(discount_id == 2){
+			discount_id = 16;
+		}
+		//@
 		let data_get =    
 		{
 		   "select_type" : "DISTINCT",
