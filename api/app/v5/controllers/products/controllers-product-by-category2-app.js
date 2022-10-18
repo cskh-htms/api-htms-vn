@@ -33,14 +33,70 @@ async  function controllers_product_by_category_app(req, res, next) {
 	
 	try {
 		var token = req.headers['token'];
+		
+		//@		
 		var category_id = -1;
 		if(req.query.c1){
 			category_id = req.query.c1;
+		}	
+		
+		//@
+		var store_id = -1;
+		if(req.query.c3){
+			store_id = req.query.c3;
 		}		
+		
+		//@		
 		var limit_data = [];
 		if(req.query.c2){
 			  limit_data.push({"limit_number" : req.query.c2});
 		}		
+		
+		
+		
+		
+		//@ condition
+		var condition_data = [		
+			{   
+				"field"     :"category_general_speciality_ID",
+				"value"     : category_id,
+				"compare" : "="
+			},				
+			{   
+				"field"     :"products_speciality_status_store",
+				"value"     : "1",
+				"compare" : "="
+			} ,				
+			{   
+				"field"     :"stores_status_admin",
+				"value"     : "1",
+				"compare" : "="
+			},				
+			{   
+				"field"     :"products_speciality_status_admin",
+				"value"     : "1",
+				"compare" : "="
+			},				
+			{   
+				"field"     :"out_of_stock",
+				"value"     : "0",
+				"compare" : "="
+			} 	
+		]			
+		
+		
+		if(store_id > 0){
+			condition_data.push(
+				{   
+					"field"     :"stores_ID",
+					"value"     : store_id,
+					"compare" : "="
+				}
+			)			
+		}
+		
+		//@
+		//@		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -52,7 +108,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/app/v5/ctroller/controllers-product-by-category-app",
+			"position" : "api/app/v5/ctroller/controllers-product-by-category2-app",
 			"message": error_send 
 		}); 
 		return;	
@@ -80,7 +136,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "2",
-			"position" : "api/app/v5/ctroller/controllers-product-by-category-app",
+			"position" : "api/app/v5/ctroller/controllers-product-by-category2-app",
 			"message": error_send 
 		}); 
 		return;			
@@ -112,34 +168,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"category_general_speciality_ID",
-						"value"     : category_id,
-						"compare" : "="
-					},				
-					{   
-						"field"     :"products_speciality_status_store",
-						"value"     : "1",
-						"compare" : "="
-					} ,				
-					{   
-						"field"     :"stores_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					},				
-					{   
-						"field"     :"products_speciality_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					},				
-					{   
-						"field"     :"out_of_stock",
-						"value"     : "0",
-						"compare" : "="
-					} 					
-					] 				
+				"where" : condition_data			
 				}         
 			],
 			"order" :
@@ -176,7 +205,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/ctroller/controllers-product-by-category-app",
+			"position" : "api/app/v5/ctroller/controllers-product-by-category2-app",
 			"message": error_send 
 		}); 
 		return;	
@@ -199,7 +228,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4", 
-			"position" : "api/app/v5/ctroller/controllers-product-by-category-app",
+			"position" : "api/app/v5/ctroller/controllers-product-by-category2-app",
 			"message": error_send 
 		}); 
 		return;	
