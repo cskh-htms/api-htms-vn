@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 const controllers_order_insert_app =  require('../../controllers/orders/controllers-order-insert-app.js');
 const controllers_order_khach_hang_huy_don =  require('../../controllers/orders/controllers-order-khach-hang-huy-don-api-app.js');
 const controllers_order_by_customer_app =  require('../../controllers/orders/controllers-order-by-customer-app.js');
-
+const controllers_order_get_shipping_company_app =  require('../../controllers/orders/controllers-order-get-shipping-company-app.js');
 
 
 
@@ -33,6 +33,6 @@ const controllers_order_by_customer_app =  require('../../controllers/orders/con
 router.post('/insert', middle_ware,controllers_order_insert_app);
 router.get('/khach-hang-huy-don/:order_id', middle_ware,controllers_order_khach_hang_huy_don);
 router.get('/by-customer', middle_ware,controllers_order_by_customer_app);
-
+router.get('/get-shipping-company', middle_ware,controllers_order_get_shipping_company_app);
 
 module.exports = router;
