@@ -228,7 +228,7 @@ async  function function_export(req, res, next) {
 		}
 		var datas_ob = Object.assign(payload, payload_go);
 
-		let datas_return = { "error" : "","datas" : datas_ob };
+		let datas_return = { "error" : "","token": token,"datas" : datas_ob };
 		res.send( datas_return );
 		return;		
 				
