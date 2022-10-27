@@ -18,53 +18,31 @@ const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + 
 const fields_get = require('../../../../lib/' + config_api.API_LIB_VERSION + '/meta-adress/meta-adress-fields-get.js');
 
 
-const meta_adress_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/meta-adress/meta-adress-search.js');
+const meta_adress_delete = require('../../../../lib/' + config_api.API_LIB_VERSION + '/meta-adress/meta-adress-delete.js');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-
-
-
-
+const check_owner_meta_adress = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-meta-adress');
 
 //@
 async  function function_export(req, res, next) {
-	
-	//@
-	//@
-	//@
-	// lấy data request
 	try {
 		var token = req.headers['token'];
-		var user_id = req.params.user_id;
-		var de_token = jwt.decode(token);
-		
-		if(user_id != de_token.users_ID){
-			res.send({ 
-				"error" : "01", 
-				"position" : "api/app/v5/controller/controllers-meta-adress-get-by-user-id-app",
-				"message": "user không khớp với phiên làm việc"
-			}); 	
-			return;			
-		}
-		
-		//res.send([token,user_id,de_token]);
+		var meta_adress_id = req.params.meta_adress_id;		
+		var de_token = jwt.decode(token);		
+		//res.send([datas,user_id,de_token]);
 		//return;
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi get data request , Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "1", 
-			"position" : "api/app/v5/controller/controllers-meta-adress-get-by-user-id-app",
-			"message": error_send 
-		}); 
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
+		res.send({ "error" : "2", "position":"api/app/v5/ctronller/controllers-meta-adress/delete-app", "message": error_send } );
 		return;	
 	}	
 	
+
+
+
 
 
 	//@
@@ -74,7 +52,7 @@ async  function function_export(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"api/app/v5/ctronller/controllers-meta-adress/delete-app", "message": error_send } ); 
 		return;
 	}	
 		
@@ -87,7 +65,8 @@ async  function function_export(req, res, next) {
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
 	if(
-	check_role_result == "customer"
+	check_role_result == "customer" || 
+	check_role_result == "default"
 	){
 		//go
 	}
@@ -101,7 +80,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "22",
-			"position" : "api/app/v5/controller/controllers-meta-adress-get-by-user-id-app",
+			"position" : "api/app/v5/ctronller/controllers-meta-adress/delete-app",
 			"message": error_send 
 		}); 
 		return;			
@@ -114,67 +93,40 @@ async  function function_export(req, res, next) {
 
 
 
-	//@
-	//@
-	//@
-	//@ check login lock	
-	try{
-		let data_get =    
-		{
-		   "select_field" :
-		   [
-				"adress_meta_ID",
-				"adress_meta_date_created",
-				"adress_meta_user_id",
-				"adress_meta_name",
-				"adress_meta_phone",
-				"adress_meta_province",
-				"adress_meta_district",
-				"adress_meta_wards",
-				"adress_meta_street",
-				"adress_meta_full_adress",
-				"adress_meta_status"				
-		   ],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"adress_meta_user_id",
-						"value"     : user_id,
-						"compare" : "="
-					}	
-					] 				
-				}         
-			]   
-		}
-		
-		//res.send(data_get);
-		//return ;
-		
-		var meta_adress_search_redult= await meta_adress_search(data_get,res);
-		
-		res.send({"error":"","datas":meta_adress_search_redult});
-		return ;
+	//@ check chủ sở hữu
+	const check_owner_result = await check_owner_meta_adress(token,meta_adress_id,res);
+	//res.send([check_owner_result]);
+	//return;	
+
+	if(
+	check_owner_result == "1"
+	){
+		//go
 	}
-	catch(error){
+	else{
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
-				error, 
-				"Lỗi get data  , Vui lòng liên hệ admin" 
+				"Lỗi phân quyền chủ sở hữu user, Vui lòng liên hệ admin", 
+				"Lỗi phân quyền chủ sở hữu user, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "5", 
-			"position" : "api/app/v5/controller/controllers-meta-adress-get-by-user-id-app",
+			"error" : "22",
+			"position" : "api/app/v5/ctronller/controllers-meta-adress/delete-app",
 			"message": error_send 
 		}); 
-		return;	
-	}			
-		
+		return;			
+	}
+
+
+
+
+
+	//@ insert	
+	var result = await meta_adress_delete(meta_adress_id,res);
+	res.send({"error":"","datas":result});
+	return;
 
 }
 
