@@ -95,7 +95,12 @@ async  function function_export(req, res, next) {
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					}				
+					},			
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					}
 					] 				
 				}         
 			],

@@ -263,7 +263,13 @@ const link_sale = 	" " +
 	config_database.PREFIX + "orders_details_speciality ON  " + 
 	config_database.PREFIX + "products_speciality_ID  = " + 
 	config_database.PREFIX + "orders_details_speciality_product_id " +   
-
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_order_id = " + 
+	config_database.PREFIX + "orders_speciality_ID " + 
+	
+	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "products_speciality_store_id  = " + 
