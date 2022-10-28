@@ -15,7 +15,7 @@ const fields_insert = require('./meta-adress-fields-insert.js');
 
 
 
-const function_export = async function (datas,meta_adress_id,res) {
+const function_export = async function (meta_adress_id,res) {
 	
 	let sqlSet = "";
 	

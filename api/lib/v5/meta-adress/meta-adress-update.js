@@ -15,9 +15,10 @@ const fields_insert = require('./meta-adress-fields-insert.js');
 
 
 
-const function_export = async function (datas,meta_adress_id,res) {
+const function_export = async function (user_id,datas,meta_adress_id,res) {
 	
 	let sqlSet = "";
+	
 	
 	//tao arr key
 	let arrDatas = Object.keys(datas);
@@ -58,8 +59,16 @@ const function_export = async function (datas,meta_adress_id,res) {
 	let table_name  = config_database.PREFIX + "adress_meta ";
 	let field_where  = config_database.PREFIX + "adress_meta_ID ";
 	//create sql text
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ meta_adress_id + '"';
+	sql_text = "START TRANSACTION ; "
+	sql_text = sql_text + 'UPDATE ' + table_name + 
+	' SET ' + config_database.PREFIX + "adress_meta_status = 0 " + ' where ' + 
+	config_database.PREFIX + "adress_meta_user_id " + ' = "'+ user_id + '"; ';
 	
+	
+	
+	
+	sql_text = sql_text + 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ meta_adress_id + '"; ';
+	sql_text = sql_text + " COMMIT;"	
 	//return sql_text;
 	
 	

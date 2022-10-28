@@ -94,6 +94,7 @@ async  function function_export(req, res, next) {
 
 
 
+
 	//@ check chủ sở hữu
 	const check_owner_result = await check_owner_meta_adress(token,meta_adress_id,res);
 	//res.send([check_owner_result]);
@@ -125,7 +126,7 @@ async  function function_export(req, res, next) {
 
 
 	//@ insert	
-	var result = await meta_adress_update(datas,meta_adress_id,res);
+	var result = await meta_adress_update(de_token.users_ID,datas,meta_adress_id,res);
 	res.send({"error":"","datas":result});
 	return;
 
