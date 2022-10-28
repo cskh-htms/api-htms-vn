@@ -13,6 +13,9 @@ const fields_get = require('../../../../lib/' + config_api.API_LIB_VERSION + '/s
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search.js');
+const store_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+
+
 
 //@
 async  function function_export(req, res, next) {
@@ -79,7 +82,7 @@ async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
 		//@ 3. get model
-		let data_get =    
+		var data_get =    
 		{
 		   "select_field" :fields_get.fields_search_arr,
 			"condition" :
@@ -100,10 +103,69 @@ async  function function_export(req, res, next) {
 	
 	
 		//@ get datas
-		let result = await store_search(data_get,res);
-		res.send({"error":"","datas":result}); 
-		return;
-
+		var store_data = await store_search(data_get,res);
+		
+		
+		//@ store sale
+		var data_get =    
+		{
+		   "select_field" :
+		   [
+		   "stores_ID",
+		   "sum(orders_details_speciality_qty)",
+		   "sum_price_caution"
+		   ],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : "product",
+						"compare" : "="
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					}
+					]    
+				}  
+			],				
+			"group_by" :
+			 [
+				"stores_ID"
+			 ]   
+		}		
+		var store_data_sale = await store_sale(data_get,res);		
+		//res.send({ "error" : "", "datas": store_data_sale } );
+		//return;		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@ gôm data return	
+		var add_data = [];
+		for(x in store_data){
+			for(y in store_data_sale){
+				if(store_data[x].stores_ID == store_data_sale[y].stores_ID){
+					add_data = [{ 
+					"stores_ID": store_data[x].stores_ID ,
+					"qty":store_data_sale[y].sum_orders_details_speciality_qty, 
+					"price":store_data_sale[y].sum_price_caution }];
+				}							
+			}
+			store_data[x].so_luong_ban = add_data;
+		}	
+		
+		res.send({ "error" : "", "datas": store_data } );
+		return;				
+		
 
 	}
 	catch(error){

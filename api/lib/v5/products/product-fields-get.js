@@ -256,7 +256,30 @@ const link_fillter = 	" " +
 	
 	
 	
+//@	
+const link_sale = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_details_speciality ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "orders_details_speciality_product_id " +   
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +    
 	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "service_type  ON  " + 
+	config_database.PREFIX + "stores_service_type_id  = " + 
+	config_database.PREFIX + "service_type_ID  " +    	
+	
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "stores_user_id  = " + 
+	config_database.PREFIX + "users_ID ";	
+		
 	
 	
 //export module
@@ -266,6 +289,7 @@ module.exports = {
 				link_default,
 				link_category,
 				link_brand,
+				link_sale,
 				link_fillter,
 				link_discount_category,
 				link_discount_product_add

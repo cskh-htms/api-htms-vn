@@ -43,6 +43,7 @@ const fields_search = 	"" +
 
 
 const fields_search_arr = [
+	"stores_ID",
 	"stores_user_id",	
 	"stores_name",	
 	"stores_date_created",

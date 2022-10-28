@@ -134,7 +134,8 @@ try {
 				
 			//@ field đặt biệt order
 			}else if(
-				field_arr[x] == "price_caution" 
+				field_arr[x] == "price_caution"  || 
+				field_arr[x] == "sum_price_caution" 
 			){
 				sql_field_check  = get_select_fields_special_order(field_arr[x],res);					
 				

@@ -90,12 +90,7 @@ async  function function_export(req, res, next) {
 						"field"     :"products_speciality_status_store",
 						"value"     : "1",
 						"compare" : "="
-					} ,				
-					{   
-						"field"     :"stores_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					},				
+					},			
 					{   
 						"field"     :"products_speciality_status_admin",
 						"value"     : "1",
@@ -103,7 +98,11 @@ async  function function_export(req, res, next) {
 					}				
 					] 				
 				}         
-			]   
+			],
+			"group_by" :
+			 [
+				"orders_details_speciality_product_id"
+			 ]   
 		}
 		
 

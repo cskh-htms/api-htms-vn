@@ -14,6 +14,15 @@ const select_field_special = function(field,res){
 			config_database.PREFIX  + "orders_details_speciality_qty * " + 
 			config_database.PREFIX  + "orders_details_speciality_price ";		
 			return sql_field_check;
+			
+		}else if(field == "sum_price_caution"){	
+			sql_field_check = sql_field_check + 	
+			"sum(" + 
+			config_database.PREFIX  + "orders_details_speciality_qty * " + 
+			config_database.PREFIX  + "orders_details_speciality_price ) ";		
+			return sql_field_check;			
+			
+			
 		}else{
 			return " ";
 		}
