@@ -76,7 +76,7 @@ async  function function_export(req, res, next) {
 		{
 		   "select_field" :
 			[
-				"count(orders_details_speciality_qty)",
+				"sum(orders_details_speciality_qty)",
 				"orders_details_speciality_product_id",
 				"products_speciality_name"
 			],
