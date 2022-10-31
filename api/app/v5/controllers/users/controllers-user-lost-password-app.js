@@ -242,7 +242,7 @@ async  function function_export(req, res, next) {
 				res.send({ 
 				"error" : "12", 
 				"position":"ctl-users->lost_password", 
-				"message": "chỉ có customer hoặc mới dc lost password"} ); 				
+				"message": "Chỉ có tài khoản customer hoặc mới được dùng chức năng quên mật khẩu"} ); 				
 				return;					
 			}						
 			//res.send(users_role);
@@ -272,7 +272,15 @@ async  function function_export(req, res, next) {
 			//@
 			//@gữi đến số điện thoại	
 			try{
-				ojs_shares_send_code_to_phone.send_code_to_phone_lost_pass(res,n_password,datas.users_login_name);
+				if(ojs_configs.domain == "http://localhost:2021"){
+					res.send({ 
+					"error" : "", 
+					"datas":data_go
+					}); 				
+					return;						
+				}else{
+					ojs_shares_send_code_to_phone.send_code_to_phone_lost_pass(res,n_password,datas.users_login_name);
+				}
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
