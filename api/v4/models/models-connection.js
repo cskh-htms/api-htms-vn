@@ -1,3 +1,6 @@
+
+/*
+
 //'user strict';
 
 var mysql = require('mysql');
@@ -19,3 +22,23 @@ connection.connect(function(err, results, fields) {
 //
 //exprort concection
 module.exports = connection;
+
+
+*/
+
+const mysql2 = require('mysql2');
+const ojs_models_config = require('./models-config');
+
+
+const connection2 = mysql2.createPool(ojs_models_config.connection_data);
+
+
+//
+//exprort concection
+module.exports = connection2;
+
+
+
+
+
+
