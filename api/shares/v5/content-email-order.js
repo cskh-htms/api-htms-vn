@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-
+const crypto = require('crypto-js');
 
 
 
@@ -28,7 +28,7 @@ const get_meta_order = require('../../shares/' + config_api.API_SHARES_VERSION +
 
 
 //@@
-//@@[coupon_condition]
+//@@thogn tin don hang
 const function_export = async function(order_id,res){
 	
 	let txt_return = '';
@@ -75,11 +75,26 @@ const function_export = async function(order_id,res){
 	//res.send({"error":"","datas":get_meta_order_resuilt}); 
 	//return;
 
+
+
+	//@
+	//@
+	//@ m hoa url
+
+	let url_code = crypto.AES.encrypt(order_result[0].orders_ID,ojs_configs.hash_secret).toString();
+
+
+
+
+
+
+
+
+
+
 	//@
 	txt_return = '<h1 style="text-align:center;"><img  style="max-width:200px;" src="https://appdala.com/images/dala-logo.jpg"/></h1>';
 	
-	
-	//'<p><span>Chào bạn <strong>[ ' +  get_meta_order_resuilt[0].orders_speciality_name + ' ] </strong></span></p>' + 
 	
 	//@
 	//@
@@ -87,52 +102,82 @@ const function_export = async function(order_id,res){
 	//@ div main
 	txt_return = txt_return + 
 	'<div style="background-color:#fbe6a3; display:flex; padding:50px; margin-top:100px; justify-content: center; align-item:center;">' + 
-	'<div style="display:flex; max-width:500px; background-color: white; padding:50px; flex-direction:column;">'; 
+	'<div style="max-width:500px; background-color: white; padding:50px; margin:0px auto;">'; 
 	
 	
 	
 		txt_return = txt_return + 
 		
 		'<div style="text-align:center;">' + 
-			'<p><span>Đơn hàng mới  <strong> # [ ' +  order_id + ' ] </strong></span></p>' + 
+			'<p><span style="font-size: 26px;font-weight: bold;color: #096e36;">Đơn hàng mới  <strong> # [ ' +  order_id + ' ] </strong></span></p>' + 
 		'</div>' +
-		'<div style="text-align:center;">' + 
-			'<p><a style="background-color: #4a914b;color: white;display: inline-flex;text-decoration: none;padding: 2px 30px;" href="https://appdala.com/">Xác nhận đơn hàng </a></p>' + 
+		'<div style="text-align:center;margin-bottom:60px;">' + 
+			'<p><a style="padding: 7px 30px; border-radius: 15px;' + 
+			'background-color: #4a914b;color: white;display: inline-flex;text-decoration: none;" ' + 
+			'href="' + ojs_configs.domain + '/orders/xac-nhan-don-hang?c1=' + url_code + '">Xác nhận đơn hàng </a></p>' + 
 		'</div>';
 		
+		
+		//@
+		//@
+		//@ thong tin table
 		txt_return = txt_return + 
 		'<table style="width:100%;border-collapse: collapse;line-height: 40px;font-size: 16px;">' + 
-		  '<tr style="background-color:#096e36;">' + 
-			'<th style="border:1px solid #fff;color:white;">STT</th>' + 
-			'<th style="border:1px solid #fff;color:white;">Hình</th>' +
-			'<th style="border:1px solid #fff;color:white;">Tên sản phẩm</th>' +
-			'<th style="border:1px solid #fff;color:white;">Giá</th>' +
-			'<th style="border:1px solid #fff;color:white;">số lượng</th>' +
-			'<th style="border:1px solid #fff;color:white;">tổng tiền</th>' +
-		  '</tr>';	
+		  '<tr style="">' + 
+			'<td style="vertical-align: top;">' + 
+				'<div style="font-size:18px; color:#4f9453;border-bottom:3px solid #fd9071;display: inline-block;font-weight:bold;margin-bottom:30px;">Thông tin</div>' + 
+				'<div style="font-size:12px; color:#000;font-weight:bold;">Cửa hàng : ' + order_result[0].stores_name + '</div>' + 
+				'<div style="font-size:12px; color:#000;">ngày đặt hàng : ' + order_result[0].orders_speciality_date_orders + '</div>' + 				
+			'</td>' + 
+			'<td style="vertical-align: top;">' + 
+				'<div style="font-size:18px; color:#4f9453;border-bottom:3px solid #fd9071;display: inline-block;font-weight:bold;margin-bottom:30px;">Giao hàng đến</div>' + 
+				'<div style="font-size:12px; color:#000;font-weight:bold;"><span>' + 
+					order_result[0].orders_speciality_name + 
+					' : ' + order_result[0].orders_speciality_phone + '</span>' + 
+				'</div>' + 
+				'<div style="font-size:12px; color:#000;">' + 
+					order_result[0].orders_speciality_adress + ' / ' + 
+					order_result[0].orders_speciality_wards + ' / ' +
+					order_result[0].orders_speciality_district + ' / ' +
+					order_result[0].orders_speciality_province + '' +
+				'</div>' + 				
+			'</td>' + 
+		  '</tr>' +
+		  '</table>';			
+		
+		
+		
+		//@
+		//@
+		//@ orders table	
+		txt_return = txt_return + 
+		'<div style="font-size:18px; color:#4f9453;border-bottom:3px solid #fd9071;display: inline-block;font-weight:bold;margin-top:40px;">Sản phẩm </div>'; 
+	
+		txt_return = txt_return + 
+		'<table style="width:100%;border-collapse: collapse;line-height: 40px;font-size: 13px;">' ;
+
 		
 		var txt_table = "";
 		var total_line = 0;
 		for(let x in get_meta_order_resuilt[0].order_details){
 		  txt_table = txt_table + 
 		  '<tr>' + 
-			'<td style="text-align:center;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + x + '</td>' + 
-			'<td style="text-align:center;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="padding:5px 10px;">' + 
 				'<img style="width:30px;" src="' + get_meta_order_resuilt[0].order_details[x].products_speciality_featured_image + '"/>' + 
 			'</td>' + 
-			'<td style="text-align:left;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="padding:5px 10px;">' + 
 				get_meta_order_resuilt[0].order_details[x].products_speciality_name + 
 			'</td>' + 
-			'<td style="text-align:center;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="padding:5px 10px;">' + 
 				ojs_shares_all_api.show_price_format(get_meta_order_resuilt[0].order_details[x].orders_details_speciality_price,0,",",".","đ") + 
 			'</td>' + 
-			'<td style="text-align:center;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="padding:5px 10px;"> x ' + 
 				get_meta_order_resuilt[0].order_details[x].orders_details_speciality_qty + 
 				'</td>' + 
-			'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="padding:5px 10px;">' + 
 				ojs_shares_all_api.show_price_format(get_meta_order_resuilt[0].order_details[x].price_caution,0,",",".","đ") + 
 			'</td>' + 
-		  '</tr>' ; 		
+		  '</tr>'; 		
 		  total_line = total_line + get_meta_order_resuilt[0].order_details[x].price_caution;
 		}
 		
@@ -140,8 +185,8 @@ const function_export = async function(order_id,res){
 		//@ total line
 			txt_table = txt_table + 
 		  '<tr>' + 
-			'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;" colspan="5">Tạm tính</td>' + 
-			'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+			'<td style="" colspan="4">Tạm tính</td>' + 
+			'<td style="">' + 
 				ojs_shares_all_api.show_price_format(total_line,0,",",".","đ") + 
 			'</td>' + 
 		  '</tr>' ; 
@@ -154,10 +199,10 @@ const function_export = async function(order_id,res){
 			for(let x in get_meta_order_resuilt[0].order_coupon){
 			  txt_table = txt_table + 
 				'<tr>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;" colspan="5">' + 
+				'<td style="" colspan="4">' + 
 					'Mã khuyến mãi [ ' + get_meta_order_resuilt[0].order_coupon[x].orders_details_medium_text + ' ] giảm ' + 
 				'</td>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+				'<td style="">' + 
 					ojs_shares_all_api.show_price_format(get_meta_order_resuilt[0].order_coupon[x].orders_details_speciality_price,0,",",".","đ") + 
 				'</td>' + 
 				'</tr>' ; 	
@@ -173,10 +218,10 @@ const function_export = async function(order_id,res){
 			for(let x in get_meta_order_resuilt[0].fee){
 			  txt_table = txt_table + 
 				'<tr>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;" colspan="5">' + 
+				'<td style="" colspan="4">' + 
 					' ' + get_meta_order_resuilt[0].fee[x].fee_name + '  ' + 
 				'</td>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+				'<td style="">' + 
 					ojs_shares_all_api.show_price_format(get_meta_order_resuilt[0].fee[x].fee_price,0,",",".","đ") + 
 				'</td>' + 
 				'</tr>' ; 		
@@ -190,9 +235,8 @@ const function_export = async function(order_id,res){
 		if(get_meta_order_resuilt[0].shipping_price[0].price){
 			txt_table = txt_table + 
 			  '<tr>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: ' + 
-				'1px solid #fff;color:white;" colspan="5">Phí vận chuyển</td>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:white;">' + 
+				'<td style="" colspan="4">Phí vận chuyển</td>' + 
+				'<td style="">' + 
 					ojs_shares_all_api.show_price_format(get_meta_order_resuilt[0].shipping_price[0].price,0,",",".","đ") + 
 				'</td>' + 
 			  '</tr>' ; 
@@ -206,9 +250,8 @@ const function_export = async function(order_id,res){
 		if(get_meta_order_resuilt[0].shipping_price[0].price){
 			txt_table = txt_table + 
 			  '<tr>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: ' + 
-				'1px solid #fff;color:white;" colspan="5">Tổng tiền thanh toán</td>' + 
-				'<td style="text-align:right;padding:10px;vertical-align: middle;background-color: #78a78d;border: 1px solid #fff;color:red;">' + 
+				'<td style="" colspan="4">Tổng tiền thanh toán</td>' + 
+				'<td style="">' + 
 					ojs_shares_all_api.show_price_format(total,0,",",".","đ") + 
 				'</td>' + 
 			  '</tr>' ; 
@@ -236,27 +279,6 @@ const function_export = async function(order_id,res){
 	
 	
 	
-	
-	
-	//@ thông tin đặt hàng
-	txt_return = txt_return +  
-	  '<div style="">' + 
-		'<h1 style="">Thông tin giao hàng</h1>' + 
-		'<div style="">' + 
-			'<p>Người nhận hàng : ' + get_meta_order_resuilt[0].orders_speciality_name + '</p>' + 
-			'<p>Điện thoại : ' + get_meta_order_resuilt[0].orders_speciality_phone + '</p>' + 
-			'<p>Địa chỉ : ' + get_meta_order_resuilt[0].orders_speciality_adress + 
-			'/' + get_meta_order_resuilt[0].orders_speciality_wards + 
-			'/' + get_meta_order_resuilt[0].orders_speciality_district + 
-			'/' + get_meta_order_resuilt[0].orders_speciality_province + 
-			'</p>';
-		'</div>' + 
-	  '</div>' ; 	
-	
-	
-	
-	
-	
 	//@ ghi chú
 	if(get_meta_order_resuilt[0].orders_speciality_notes.length > 0){
 		txt_return = txt_return +  
@@ -277,8 +299,32 @@ const function_export = async function(order_id,res){
 		'<div style="">' + 
 			'<p>Cảm ơn Bạn đã tin tưởng và mua hàng tại DALA</p>' + 
 			'<p>DALA sẽ giao hàng cho bạn trong thời gian sớm nhất. hãy vào App DALA theo dõi đơn hàng của mình</p>' + 
+			'<p>' + 
+				'<a href="' + ojs_configs.domain + '/stores/manage/orders/' + order_result[0].stores_ID + '/all">Quản lý đơn hàng </a> ' +
+			'</p>' + 
 		'</div>' + 
-	  '</div>' ; 		
+	  '</div>' ; 	
+
+
+
+	//@
+	//@
+	//@
+	//@ footer
+	txt_return = txt_return +  
+	'<div style="margin-top:60px;"border-top:3px solod #fd9071;padding-top:20px;>'
+	'<h1 style="text-align:center;"><img  style="max-width:200px;" src="https://appdala.com/images/dala-logo.jpg"/></h1>' + 
+	'</div>';
+
+
+
+
+
+
+
+
+
+	  
 	
 	return txt_return;		
 }	

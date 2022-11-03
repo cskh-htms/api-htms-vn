@@ -22,6 +22,8 @@ const fields_get = 	"" +
 
 const fields_search_arr = [
 	"orders_speciality_ID",
+	"stores_name",
+	"stores_ID",
 	"orders_speciality_date_orders",
 	"orders_speciality_user_id",
 	"orders_speciality_store_id",
