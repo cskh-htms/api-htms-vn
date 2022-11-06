@@ -2,9 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const crypto = require('crypto-js');
-
-
+const jwt = require('jsonwebtoken');
 
 //const jwt = require('jsonwebtoken');
 const config_database = require('../../configs/config-database');
@@ -77,19 +75,14 @@ const function_export = async function(order_id,res){
 
 
 
-	//@
-	//@
-	//@ m hoa url
+	var payload = { 
+		"order_id": order_id,
+		"sdf":"fdsdfsdf"
+	};
+	var url_code = jwt.sign(payload, ojs_configs.jwt_secret, {});
 
-	let url_code = crypto.AES.encrypt(order_result[0].orders_ID,ojs_configs.hash_secret).toString();
-
-
-
-
-
-
-
-
+	//let url_arr = [{"id":order_result[0].orders_ID}];	
+	//let url_code = crypto.AES.encrypt(JSON.stringify(url_arr),ojs_configs.hash_secret).toString();
 
 
 	//@
@@ -114,9 +107,8 @@ const function_export = async function(order_id,res){
 		'<div style="text-align:center;margin-bottom:60px;">' + 
 			'<p><a style="padding: 7px 30px; border-radius: 15px;' + 
 			'background-color: #4a914b;color: white;display: inline-flex;text-decoration: none;" ' + 
-			'href="' + ojs_configs.domain + '/orders/xac-nhan-don-hang?c1=' + url_code + '">Xác nhận đơn hàng </a></p>' + 
+			'href="' + ojs_configs.domain + '/api/appdalacom/v5/orders/xac-nhan-don-hang?c1=' + url_code + '">Xác nhận đơn hàng </a></p>' + 
 		'</div>';
-		
 		
 		//@
 		//@
