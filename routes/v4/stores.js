@@ -1077,7 +1077,7 @@ router.get('/manage/:store_id/:user_id', async  function(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Cửa hàng đã ngưng hoạt động", "Cửa hàng đã ngưng hoạt động" );
-		res.send({ "error" : "router_store(app)->manage", "message": error_send } ); 
+		res.send({ "error" : "100", "position":"routers->v4->store->[/manage/:store_id/:user_id]","message": error_send } ); 
 		return;	
 	}	
 });

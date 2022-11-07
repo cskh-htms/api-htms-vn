@@ -7,6 +7,10 @@ const ojs_shares_others = require('../../../shares/ojs-shares-others.js');
 const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
 
 
+
+
+
+
 async  function product_by_store(req, res, next) {
 	try {
 		var token = req.session.token;	
@@ -110,7 +114,7 @@ async  function product_by_store(req, res, next) {
 			'title' 				: 'Danh sách sản phẩm',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: ojs_shares_others.get_users_id(token),
+			'user_id' 				: data_api_resuilt[3][0].stores_user_id,
 			'store_id'				: store_id,
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
