@@ -10,7 +10,7 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search.js');
+const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-product.js');
 
 
 
@@ -83,6 +83,7 @@ async  function function_export(req, res, next) {
 		//@ 3. get model
 		let data_get =    
 		{
+		   "select_type": "DISTINCT",	
 		   "select_field" :
 			[
 				"category_general_speciality_ID",
@@ -96,7 +97,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"category_general_speciality_stores_id",
+						"field"     :"stores_ID",
 						"value"     : store_id,
 						"compare" : "="
 					},
