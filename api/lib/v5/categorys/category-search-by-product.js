@@ -35,7 +35,7 @@ const search_category_spaciality = async function (datas,res) {
 		var get_sql_search_group = "SELECT " + 
 			sql_select_type + 
 			sql_select_fields + 
-			fields_get.from_default + 
+			fields_get.from_detail + 
 			fields_get.link_category_by_product + 
 			sql_condition +
 			sql_group_by + 

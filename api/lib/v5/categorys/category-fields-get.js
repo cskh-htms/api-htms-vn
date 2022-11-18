@@ -24,7 +24,8 @@ const fields_get = 	"" +
 const from_default = 	" from " + 
 	config_database.PREFIX + "category_general_speciality "  ;	
 	
-	
+const from_detail = 	" from " + 
+	config_database.PREFIX + "category_general_speciality_link "  ;		
 	
 	
 //@	
@@ -75,10 +76,10 @@ const link_category_link = 	" " +
 const link_category_by_product = 	" " +
 
 	" LEFT JOIN " + 
-		config_database.PREFIX +  "category_general_speciality_link  ON  " + 
-		config_database.PREFIX +  "category_general_speciality_ID = " + 
-		config_database.PREFIX +  "category_general_speciality_link_category_general_id  " + 
-				
+	config_database.PREFIX + "category_general_speciality  ON  " + 
+	config_database.PREFIX + "category_general_speciality_link_category_general_id  = " + 
+	config_database.PREFIX + "category_general_speciality_ID " + 	
+
 	" LEFT JOIN " + 
 	config_database.PREFIX + "products_speciality  ON  " + 
 	config_database.PREFIX + "category_general_speciality_link_product_id  = " + 
@@ -106,6 +107,7 @@ const link_category_by_product = 	" " +
 module.exports = { 
 				fields_get,
 				from_default,
+				from_detail,
 				link_default,
 				link_category_link,
 				link_category_by_product
