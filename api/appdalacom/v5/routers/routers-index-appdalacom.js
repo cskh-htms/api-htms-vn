@@ -18,6 +18,6 @@ router.use('/stores', require('./stores/routers-stores-appdalacom.js'));
 router.use('/coupons', require('./coupons/routers-coupon-api-appdalacom.js'));
 router.use('/notes', require('./notes/routers-notes-api-appdalacom.js'));
 router.use('/orders', require('./orders/routers-orders-appdalacom.js'));
-
+router.use('/bo-cong-thuong', require('./bo-cong-thuong/routers-bo-cong-thuong.js'));
 
 module.exports = router;
