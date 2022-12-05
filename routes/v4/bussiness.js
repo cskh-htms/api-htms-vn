@@ -11,7 +11,7 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 const controller_bussiness_by_user_id = require('../../controllers/' + ojs_configs.controller_version + '/bussiness/controllers-bussiness-by-user-id.js');
-
+const controller_store_add = require('../../controllers/' + ojs_configs.controller_version + '/stores/controllers-stores-add.js');
 
 //end of v5
 
@@ -68,214 +68,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 router.get('/:user_id', controller_bussiness_by_user_id);
-
-
-
-
-//@
-//@
-//@
-//@
-//@
-//@
-//@ 7. [/ajax-change-pass/]
-router.post('/ajax-change-pass/', async function(req, res, next) {
-	//@
-	//@
-	//@
-	//@
-	//@	
-	//lấy token
-	try {
-		var token = req.session.token;	
-		var datas  = req.body.datas;
-		
-		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.redirect("/login");
-			return;
-		}		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//res.send( datas );	
-	//return;		
-	
-	
-	
-	
-	//@
-	//@
-	//@
-	//@
-	//@	
-	var datas_send = {
-		"datas" : {
-			"users_password" : datas.user_pass
-		}
-	}
-	
-	try {	
-		//Lấy danh sách loại danh mục
-		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/' + datas.user_id,datas_send, token);
-		res.send(active_update);	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update cửa hàng. vui lòng liên hệ admin" );
-		res.send({ "error" : "5.1.router_bussiness(app)->ajax-change-pass ", "message": error_send } ); 
-		return;	
-	}		
-});
-
-
-
-
-
-
-
-//@
-//@
-//@
-//@
-//@
-//@ 6. [/stores/delete/:store_id]
-router.get('/stores/delete/:store_id', async function(req, res, next) {
-	//@
-	//@
-	//@
-	//@
-	//@	
-	//lấy token
-	try {
-		var token = req.session.token;	
-		var store_id = req.params.store_id;
-		
-		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.redirect("/login");
-			return;
-		}		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//@
-	//@
-	//var  user_id = ojs_shares_others.get_users_id(token);	
-	var users_type 	=  ojs_shares_others.get_users_type(token);
-	
-	if(users_type != "admin"){
-		res.redirect("/login");
-		return;
-	}
-	
-	//res.send( [token,store_id] );	
-	//return;		
-	
-	
-	
-	
-	//@
-	//@
-	//@
-	//@
-	//@	
-	try {	
-		//Lấy danh sách loại danh mục
-		var active_devare = await ojs_shares_fetch_data.get_data_send_token_delete(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/' + store_id, token);
-		res.send(active_devare);	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update cửa hàng. vui lòng liên hệ admin" );
-		res.send({ "error" : "5.1.router_bussiness(app)->stores_devare ", "message": error_send } ); 
-		return;	
-	}		
-});
-
-
-
-
-
-
-//@
-//@
-//@
-//@
-//@
-//@ 5. [/stores/save]
-router.post('/stores/save', async function(req, res, next) {
-	//@
-	//@
-	//@
-	//@
-	//@	
-	//lấy token
-	try {
-		var token = req.session.token;	
-		var datas  = req.body;
-		var user_id = datas.datas.stores_users_id;
-		
-		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.redirect("/login");
-			return;
-		}		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
-	}
-	
-	//@
-	//@
-	//var  user_id = ojs_shares_others.get_users_id(token);	
-	var users_type 	=  ojs_shares_others.get_users_type(token);
-	
-	if(users_type != "admin"){
-		res.redirect("/login");
-		return;
-	}
-	
-	//res.send( [token,store_id] );	
-	//return;		
-	
-	
-	
-	//@
-	//@
-	//@
-	//@
-	//@
-	try {	
-		var active_save = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/',datas, token);
-		res.send(active_save);	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi tạo cửa hàng. vui lòng liên hệ admin" );
-		res.send({ "error" : "5.1.router_bussiness(app)->stores_save ", "message": error_send } ); 
-		return;	
-	}		
-	
-});
-
-
+router.get('/stores/add/', controller_store_add);
 
 
 //@
@@ -284,7 +77,7 @@ router.post('/stores/save', async function(req, res, next) {
 //@
 //@
 //@ 4. [/stores/add/]
-router.get('/stores/add/', async  function(req, res, next) {
+router.get('sdasd/stores/add/', async  function(req, res, next) {
 	//@
 	//@
 	//@
@@ -498,6 +291,224 @@ router.get('/stores/add/', async  function(req, res, next) {
 		return;			
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 7. [/ajax-change-pass/]
+router.post('/ajax-change-pass/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body.datas;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//res.send( datas );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@	
+	var datas_send = {
+		"datas" : {
+			"users_password" : datas.user_pass
+		}
+	}
+	
+	try {	
+		//Lấy danh sách loại danh mục
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/users/' + datas.user_id,datas_send, token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update cửa hàng. vui lòng liên hệ admin" );
+		res.send({ "error" : "5.1.router_bussiness(app)->ajax-change-pass ", "message": error_send } ); 
+		return;	
+	}		
+});
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 6. [/stores/delete/:store_id]
+router.get('/stores/delete/:store_id', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var store_id = req.params.store_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}
+	
+	//res.send( [token,store_id] );	
+	//return;		
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@	
+	try {	
+		//Lấy danh sách loại danh mục
+		var active_devare = await ojs_shares_fetch_data.get_data_send_token_delete(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/' + store_id, token);
+		res.send(active_devare);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update cửa hàng. vui lòng liên hệ admin" );
+		res.send({ "error" : "5.1.router_bussiness(app)->stores_devare ", "message": error_send } ); 
+		return;	
+	}		
+});
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@ 5. [/stores/save]
+router.post('/stores/save', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var datas  = req.body;
+		var user_id = datas.datas.stores_users_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers users web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	var users_type 	=  ojs_shares_others.get_users_type(token);
+	
+	if(users_type != "admin"){
+		res.redirect("/login");
+		return;
+	}
+	
+	//res.send( [token,store_id] );	
+	//return;		
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		var active_save = await ojs_shares_fetch_data.get_data_send_token_post(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/',datas, token);
+		res.send(active_save);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi tạo cửa hàng. vui lòng liên hệ admin" );
+		res.send({ "error" : "5.1.router_bussiness(app)->stores_save ", "message": error_send } ); 
+		return;	
+	}		
+	
+});
+
+
+
+
 
 
 

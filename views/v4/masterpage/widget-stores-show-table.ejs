@@ -8,7 +8,7 @@
 		<tr>
 			<td class="user-name"><a href="#"><%- ojs_share.unCape(datas[x].stores_name) %></a>
 				<div class="row-actions">
-					<span class="edit"><a href="/bussiness/<%= datas[x].stores_user_id %>">Quản lý</a> | </span>
+					<span class="edit"><a href="/stores/manage/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Quản lý</a> | </span>
 					<span class="edit"><a href="/notes/add/store/<%= datas[x].stores_user_id %>">Gửi tin nhắn</a> | </span>
 					<span class="edit"><a href="/bussiness/stores/show/<%= datas[x].stores_ID %>/<%= datas[x].stores_user_id %>">Chỉnh sửa</a> | </span>
 					<span class="delete"><a href="#" data_users_id ="<%= datas[x].stores_user_id  %>" data_stores_id="<%= datas[x].stores_ID  %>" class="submitdelete">Xóa</a> | </span>

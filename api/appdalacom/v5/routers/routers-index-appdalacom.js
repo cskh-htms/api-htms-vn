@@ -1,4 +1,11 @@
 
+//@
+//@
+//@
+//@ fields start
+
+
+
 
 const express = require('express');
 const router = require('express').Router();
@@ -19,5 +26,35 @@ router.use('/coupons', require('./coupons/routers-coupon-api-appdalacom.js'));
 router.use('/notes', require('./notes/routers-notes-api-appdalacom.js'));
 router.use('/orders', require('./orders/routers-orders-appdalacom.js'));
 router.use('/bo-cong-thuong', require('./bo-cong-thuong/routers-bo-cong-thuong.js'));
+router.use('/users', require('./users/routers-users.js'));
+router.use('/admin', require('./admin/routers-admin.js'));
 
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ export
 module.exports = router;
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ fields end
+
+
