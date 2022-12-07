@@ -36,7 +36,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"web->controller->categorys->controllers-category-store",
+			"position":"web->controller->options->controllers-option-store",
 			"message": error_send 
 		}); 
 		return;			
@@ -54,7 +54,7 @@ async  function function_export(req, res, next) {
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
 			config_api.API_APPDALACOM_VERSION + 
-			'/categorys/store?c1=' + store_id, 
+			'/options/store?c1=' + store_id, 
 			token
 		);	
 		
@@ -73,20 +73,20 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"web->controller->categorys->controllers-category-store",
+			"position":"web->controller->options->controllers-option-store",
 			"message": error_send 
 		}); 
 		return;
 	}		
 	
-	//res.send( [data_api_resuilt[3][0].stores_ID] );
+	//res.send( [data_api_resuilt] );
 	//return;
 	
 	//@
 	try {
 
 		datas_info = {
-			'title' 				: 'Danh mục',
+			'title' 				: 'Option ',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -94,23 +94,23 @@ async  function function_export(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_danh_muc',
+			'menu_taget'			:'sidebar_option',
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],				
 
 			'store_list' 			: data_api_resuilt[3],		
-			'category_sale' 		: data_api_resuilt[4],	
-			'category_list' 		: data_api_resuilt[5],		
-			'category_list_create' 	: data_api_resuilt[6],				
+			'option_sale' 		: data_api_resuilt[4],	
+			'option_list' 		: data_api_resuilt[5],		
+			'option_list_create' 	: data_api_resuilt[6],				
 		}
 	
 	
 	
 		
 		data_send = {
-			'title' 				: 'Danh mục',
+			'title' 				: 'Option ',
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -118,21 +118,21 @@ async  function function_export(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_danh_muc',
+			'menu_taget'			:'sidebar_option',
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],				
 
 			'store_list' 			: data_api_resuilt[3],		
-			'category_sale' 		: data_api_resuilt[4],	
-			'category_list' 		: data_api_resuilt[5],		
-			'category_list_create' 	: data_api_resuilt[6],	
+			'option_sale' 		: data_api_resuilt[4],	
+			'option_list' 		: data_api_resuilt[5],		
+			'option_list_create' 	: data_api_resuilt[6],	
 			
 			'datas_info'			: datas_info			
 		}
 	
-		res.render( ojs_configs.view_version + '/categorys/general/speciality/show-all',  data_send );
+		res.render( ojs_configs.view_version + '/options/speciality/show-all',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;

@@ -20,7 +20,12 @@ require(
 	'/categorys/controllers-category-store.js'
 );
 
-
+const controller_store_category_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controllers-category-store-product.js'
+);
 
 
 //end of v5
@@ -54,7 +59,7 @@ const ojs_datas_category = require('../../models/ojs-datas-category');
 ///////////////////////////////////////////////////////////////////////////////////
 
 router.get('/:store_id', controller_store_category);
-
+router.get('/product/:category_id/:store_id', controller_store_category_product);
 
 /* 
 ---------------------------------------------------------------

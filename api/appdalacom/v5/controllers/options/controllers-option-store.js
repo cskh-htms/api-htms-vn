@@ -22,8 +22,8 @@ const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-ap
 const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
-const category_link_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/category-links/category-link-search-by-product-store.js');
-const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search.js');
+const option_link_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/option-links/option-link-search-by-product-store.js');
+const option_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/options/option-search.js');
 
 
 
@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 		}else{
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+				"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
@@ -65,7 +65,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+			"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -96,7 +96,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+			"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 			"message": error_send 
 		}); 
 		return;			
@@ -124,7 +124,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+				"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 				"message": error_send 
 			}); 
 			return;			
@@ -140,7 +140,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+			"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -230,14 +230,14 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@lấy category_sale
-		var data_category_sale =    
+		var data_option_sale =    
 		{
 		   "select_field" :
 			[
-				"category_general_speciality_ID",
-				"category_general_speciality_name",
-				"category_general_speciality_category_parent_id",
-				"count(category_general_speciality_link_product_id)"		
+				"options_product_speciality_ID",
+				"options_product_speciality_name",
+				"options_product_speciality_parent_id",
+				"count(options_product_speciality_link_product_id)"		
 			],
 			"condition" :
 			[
@@ -251,7 +251,7 @@ async  function function_export(req, res, next) {
 						"compare" : "="
 					},
 					{
-						"field"     :"category_general_speciality_admin_status",
+						"field"     :"options_product_speciality_status_admin",
 						"value"     : 1,
 						"compare" : "="						
 					}
@@ -260,15 +260,15 @@ async  function function_export(req, res, next) {
 			],
 			"group_by":
 			[
-				"category_general_speciality_ID"
+				"options_product_speciality_ID"
 			]
 		}
 		
-		var fn_get_category_sale = new Promise((resolve, reject) => {
-			let result = category_link_search(data_category_sale,res);
+		var fn_get_option_sale = new Promise((resolve, reject) => {
+			let result = option_link_search(data_option_sale,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_category_sale);				
+		promise_all.push(fn_get_option_sale);				
 				
 		
 		
@@ -278,13 +278,13 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@lấy category_list
-		var data_category_list =    
+		var data_option_list =    
 		{
 		   "select_field" :
 			[
-				"category_general_speciality_ID",
-				"category_general_speciality_name",
-				"category_general_speciality_category_parent_id"							
+				"options_product_speciality_ID",
+				"options_product_speciality_name",
+				"options_product_speciality_parent_id"							
 			],
 			"condition" :
 			[
@@ -293,7 +293,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{
-						"field"     :"category_general_speciality_admin_status",
+						"field"     :"options_product_speciality_status_admin",
 						"value"     : 1,
 						"compare" : "="						
 					}
@@ -302,28 +302,28 @@ async  function function_export(req, res, next) {
 			]
 		}
 		
-		var fn_get_category_list = new Promise((resolve, reject) => {
-			let result = category_search.search_category_spaciality(data_category_list,res);
+		var fn_get_option_list = new Promise((resolve, reject) => {
+			let result = option_search(data_option_list,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_category_list);	
+		promise_all.push(fn_get_option_list);	
 
 		
 		
-		
+			
 		//@
 		//@		
 		//@
 		//@
 		//@lấy category_list_create
-		var data_category_list_create =    
+		var data_option_list_create =    
 		{
 		   "select_field" :
 			[
-				"category_general_speciality_ID",
-				"category_general_speciality_name",
-				"category_general_speciality_category_parent_id",
-				"category_general_speciality_admin_status",
+				"options_product_speciality_ID",
+				"options_product_speciality_name",
+				"options_product_speciality_parent_id",
+				"options_product_speciality_status_admin",
 				"stores_ID"					
 			],
 			"condition" :
@@ -333,7 +333,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{
-						"field"     :"category_general_speciality_admin_status",
+						"field"     :"options_product_speciality_status_admin",
 						"value"     : 1,
 						"compare" : "<>"						
 					},
@@ -347,11 +347,14 @@ async  function function_export(req, res, next) {
 			]
 		}
 		
-		var fn_get_category_list_create = new Promise((resolve, reject) => {
-			let result = category_search.search_category_spaciality(data_category_list_create,res);
+		var fn_get_option_list_create = new Promise((resolve, reject) => {
+			let result = option_search(data_option_list_create,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_category_list_create);			
+		promise_all.push(fn_get_option_list_create);			
+
+
+
 
 
 		
@@ -373,7 +376,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
+			"position" : "api/appdalacom/v5/controller/options/controllers-option-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -384,9 +387,9 @@ async  function function_export(req, res, next) {
 		"1":"news bussiness",
 		"2":"count data new",
 		"3":"store_list",
-		"4":"category_sale",
-		"5":"category_list",
-		"6":"category_list_create",
+		"4":"option_sale",
+		"5":"option_list",
+		"6":"option_list_create",
 	}
 	promise_result.push(notes);
 

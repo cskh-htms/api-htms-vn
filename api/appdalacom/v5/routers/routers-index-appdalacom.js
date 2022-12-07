@@ -29,7 +29,7 @@ router.use('/bo-cong-thuong', require('./bo-cong-thuong/routers-bo-cong-thuong.j
 router.use('/users', require('./users/routers-users.js'));
 router.use('/admin', require('./admin/routers-admin.js'));
 router.use('/categorys', require('./categorys/routers-category.js'));
-
+router.use('/options', require('./options/routers-option.js'));
 
 
 

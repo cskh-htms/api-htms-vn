@@ -1,26 +1,32 @@
-//@
-//@
-//@
-//@
-//@ loader express
+
+
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
 
 
+const controller_option_store = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/options/controllers-option-store.js'
+);
+
+const controller_store_option_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/options/controllers-option-store-product.js'
+);
+
+//end of v5
 
 //@
 //@
@@ -76,6 +82,339 @@ const ojs_datas_option = require('../../models/ojs-datas-option');
 --------------------------------------------------------------
 */
 
+
+
+
+
+
+router.get('/:store_id', controller_option_store);
+router.get('/product/:option_id/:store_id', controller_store_option_product);
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 2[/:store_id]
+router.get('asdasdasd/:store_id', async function(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var store_id = req.params.store_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers option web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	//@
+	//@
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	var promise_all = [];
+	promise_all.push(0);	
+	
+	
+	
+	//@
+	//store_info
+	var datas_send = ojs_datas_option.get_store_info(store_id);
+	var store_info = await ojs_shares_fetch_data.get_data_send_token_post(
+		ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search/',
+		datas_send,
+		ojs_configs.token_supper_job);
+		
+	if(store_info.error == ""){
+		var user_id = store_info.datas[0].stores_user_id;	
+	}else{
+		res.send("Lỗi không xác định, vui lòng liên hệ CSKH dala");
+		return;		
+	}
+		
+	
+	//res.send([user_id]);
+	//return;	
+	
+	
+	//--------------------------------------------------
+	//              news menu
+	// -------------------------------------------------	
+	//@
+	//@
+	//@
+	//@ check new bussiness
+	var datas_order_send = {
+		'status_admin_compare':'<>'
+	}
+	
+	var datas_order_send_x = {...ojs_configs.orders_all};
+	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);		
+	
+	//@
+	//@
+	//@
+	var datas_note_send = {
+		'status_admin_compare':'<>'
+	}
+	
+	var datas_note_send_x = {...ojs_configs.datas_all};
+	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
+	
+	
+	//res.send( datas_order_send_s );	
+	//return;	
+	
+
+	
+	
+	var datas_check_news_bussiness_menu = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id':user_id,
+		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
+		'news_user':'news_user',
+		'news_order': datas_order_send_s,
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_brand': 'news_brand',
+		'news_product': 'news_product',
+		'news_note':datas_note_send_s		
+
+	}
+	var fn_get_datas_news_bussiness_menu = new Promise((resolve, reject) => {
+		var result = ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_datas_news_bussiness_menu);
+	//[1]
+
+
+
+	//--------------------------------------------------
+	//               datas count
+	// -------------------------------------------------
+
+
+
+	//@
+	//@
+	//@
+	//@ datas_get_all_list_datas
+	var datas_order_send = {
+		'date_star':ojs_shares_date.get_current_month_now()
+	}
+	var datas_order_send_x = {...ojs_configs.orders_all};
+	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);	
+	
+	
+	//@
+	//@
+	//@
+	var datas_note_send = {
+		'status_admin_compare':'<>'
+	}
+	var datas_note_send_x = {...ojs_configs.datas_all};
+	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);		
+	
+	
+	var datas_get_all_list_datas_count = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_order':datas_order_send_s,
+		'datas_cat':ojs_configs.datas_all,
+		'datas_option':ojs_configs.datas_all,
+		'datas_brand':ojs_configs.datas_all,
+		'datas_product':ojs_configs.datas_all,	
+		'datas_note' : datas_note_send_s
+	}
+	var fn_get_all_list_datas_count = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas_count.get_all_list_datas_count(datas_get_all_list_datas_count);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas_count);		
+	//[2]
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	
+	
+
+	//--------------------------------------------------
+	//             list-datas-bussiness
+	// -------------------------------------------------
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	var datas_store_send = {
+		'store_compare':'='
+	}	
+	var datas_store_send_x = {...ojs_configs.datas_all};
+	var datas_store_send_s = Object.assign(datas_store_send_x,datas_store_send);
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_store':datas_store_send_s
+	}
+	//@ get_all_list_datas
+	var fn_get_all_list_datas = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas);		
+	//[3]
+
+
+	//--------------------------------------------------
+	//             list-datas-all
+	// -------------------------------------------------
+	//@
+	//@
+	//@
+	//@ datas brand
+	//@
+	//@
+	//@ datas_brand
+	var data_option_order = [{'field':'options_product_speciality_date_created','compare':'DESC'}];
+	var data_option_order_edit = {'order':data_option_order};
+	var data_option_order_copy = {...ojs_configs.datas_all};	
+	var data_option_order_assign = Object.assign(data_option_order_copy,data_option_order_edit);
+	//@
+	var data_option_data_edit = {
+		'user_compare':'=',
+		'status_admin_compare':'<>',
+		'status_store_value':'1000',
+		'status_store_compare':'<>',
+		'status_admin_value':'1000'		
+		};
+	var data_option_ok = Object.assign(data_option_order_assign,data_option_data_edit);	
+
+	
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_option': data_option_ok,
+	}
+	
+	//@ get_all_list_datas
+	var fn_get_all_list_datas_all = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas_all.get_all_list_datas_all(datas_get_all_list_datas_all);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas_all);		
+	//[4]
+
+
+
+	//@
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	var promise_result = await Promise.all(promise_all);
+	//res.send(promise_result);
+	//return;	
+
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+	
+		datas_info = {
+			'title' 				: 'Danh sách tùy chọn',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role'  			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id'				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_option',		
+			'store_list' 			: store_info.datas,
+			'news_bussiness_menu' 	: promise_result[1],
+			'list_data_count' 		: promise_result[2],
+			'service_type_name' 	: store_info.datas[0].service_type_name,
+			'store_name' 			: store_info.datas[0].stores_name,			
+			
+			'options_list' 			: promise_result[4][5].datas,
+		}	
+	
+		data_send = {
+			'title' 				: 'Danh sách tùy chọn',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role'  			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id'				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_option',		
+			'store_list' 			: store_info.datas,
+			'news_bussiness_menu' 	: promise_result[1],
+			'list_data_count' 		: promise_result[2],
+			'service_type_name' 	: store_info.datas[0].service_type_name,
+			'store_name' 			: store_info.datas[0].stores_name,			
+			
+			'options_list' 			: promise_result[4][5].datas,
+			'datas_info':datas_info
+		}
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/options/speciality/show-all', data_send );
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+		res.send({ "error" : "100.1.router_options_speciality(app)->ge", "message": error_send } ); 
+		return;	
+	}	
+}
+catch(error){
+	var evn = ojs_configs.evn;
+	//evn = "dev";;
+	var error_send = ojs_shares.show_error( evn, error, "server đang bận, truy cập lại sau" );
+	res.send({ "error" : "113.router_options_speciality(app)->ge", "message": error_send } ); 
+	return;	
+}	
+});
+//@
+//@ end of
+//@ 2. [/:store_id]
 
 
 
@@ -1482,7 +1821,7 @@ router.post('/ajax-option-list-no/', async function(req, res, next) {
 //@
 //@
 //@ 2[/:store_id]
-router.get('/:store_id', async function(req, res, next) {
+router.get('asdasdasd/:store_id', async function(req, res, next) {
 try {
 	//@
 	//@
