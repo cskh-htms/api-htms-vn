@@ -20,7 +20,7 @@ async  function function_export(req, res, next) {
 	try {
 		var token = req.session.token;	
 		var store_id = req.params.store_id;
-		var option_id = req.params.option_id;
+		var brand_id = req.params.brand_id;
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
 			res.send( "vui lòng đăng nhập" );
@@ -37,7 +37,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"web->controller->options->controllers-option-store-product",
+			"position":"web->controller->brands->controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;			
@@ -56,7 +56,7 @@ async  function function_export(req, res, next) {
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
 			config_api.API_APPDALACOM_VERSION + 
-			'/options/product?c1=' + option_id + "&c2=" + store_id, 
+			'/brands/product?c1=' + brand_id + "&c2=" + store_id, 
 			token
 		);	
 		
@@ -77,7 +77,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"web->controller->options->controllers-option-store-product",
+			"position":"web->controller->brands->controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;
@@ -98,7 +98,7 @@ async  function function_export(req, res, next) {
 	try {
 
 		datas_info = {
-			'title' 				: 'Sản phẩm của tuỳ chọn ' + data_api_resuilt[5][0].options_product_speciality_name,
+			'title' 				: 'Sản phẩm của thương hiệu ' + data_api_resuilt[5][0].brands_name,
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -106,7 +106,7 @@ async  function function_export(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_option',
+			'menu_taget'			:'sidebar_thuong_hieu',
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
@@ -122,7 +122,7 @@ async  function function_export(req, res, next) {
 	
 		
 		data_send = {
-			'title' 				: 'Sản phẩm của tuỳ chọn ' + data_api_resuilt[5][0].options_product_speciality_name,
+			'title' 				: 'Sản phẩm của thương hiệu ' + data_api_resuilt[5][0].brands_name,
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -130,7 +130,7 @@ async  function function_export(req, res, next) {
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_option',
+			'menu_taget'			:'sidebar_thuong_hieu',
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
@@ -143,7 +143,7 @@ async  function function_export(req, res, next) {
 			'datas_info'			: datas_info			
 		}
 	
-		res.render( ojs_configs.view_version + '/options/speciality/option-product',  data_send );
+		res.render( ojs_configs.view_version + '/brands/brand-product',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;

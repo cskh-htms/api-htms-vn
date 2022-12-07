@@ -23,7 +23,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-option.js');
-const option_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/options/option-search');
+const brand_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-search');
 
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 const option_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/option-links/option-link-search-by-product-store.js');
@@ -45,13 +45,13 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		var option_id = 0;
+		var brand_id = 0;
 		if(req.query.c1){
-			option_id = req.query.c1;
+			brand_id = req.query.c1;
 		}else{
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+				"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
@@ -64,7 +64,7 @@ async  function function_export(req, res, next) {
 		}else{
 			res.send({ 
 				"error" : "101", 
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+				"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
@@ -82,7 +82,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1001", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;	
@@ -113,7 +113,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;			
@@ -141,7 +141,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+				"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 				"message": error_send 
 			}); 
 			return;			
@@ -157,7 +157,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;	
@@ -209,8 +209,8 @@ async  function function_export(req, res, next) {
 						"compare" 	: "="
 					},
 					{
-						"field"     :"options_product_speciality_ID",
-						"value"     : option_id,
+						"field"     :"products_speciality_brand",
+						"value"     : brand_id,
 						"compare" 	: "="						
 					}
 					]    
@@ -242,7 +242,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;	
@@ -264,7 +264,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "4", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;	
@@ -388,21 +388,21 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@
-		//@option_taget
-		let data_option_taget =    
+		//@brand_taget
+		let data_brand_taget =    
 		  {
 			  "select_type" : "DISTINCT",
 			"select_field": [
-				"options_product_speciality_ID",
-				"options_product_speciality_name"
+				"brands_ID",
+				"brands_name"
 			],
 			"condition": [
 			  {
 				"relation": "and",
 				"where": [
 				  {
-					"field": "options_product_speciality_ID",
-					"value": option_id,
+					"field": "brands_ID",
+					"value": brand_id,
 					"compare": "="
 				  }         
 				]
@@ -410,11 +410,11 @@ async  function function_export(req, res, next) {
 			]
 		  }
 		
-		var fn_get_option_taget = new Promise((resolve, reject) => {
-			let result = option_search(data_option_taget,res);
+		var fn_get_brand_taget = new Promise((resolve, reject) => {
+			let result = brand_search(data_brand_taget,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_option_taget);			
+		promise_all.push(fn_get_brand_taget);			
 
 
 
@@ -439,7 +439,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brands/controllers-brand-store-product",
 			"message": error_send 
 		}); 
 		return;	

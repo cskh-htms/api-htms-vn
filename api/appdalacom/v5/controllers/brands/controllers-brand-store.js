@@ -22,14 +22,9 @@ const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-ap
 const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
-const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-option.js');
-const option_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/options/option-search');
+const brand_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-search.js');
+const brand_search_product = require('../../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-search-product.js');
 
-const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
-const option_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/option-links/option-link-search-by-product-store.js');
-
-
-const category_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-link');
 
 
 
@@ -45,26 +40,13 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		var option_id = 0;
+		var store_id = 0;
 		if(req.query.c1){
-			option_id = req.query.c1;
+			store_id = req.query.c1;
 		}else{
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
-				"message": "vui lòng nhập id"
-			}); 	
-			return;
-		}		
-		//@
-		//@
-		var store_id = 0;
-		if(req.query.c2){
-			store_id = req.query.c2;
-		}else{
-			res.send({ 
-				"error" : "101", 
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+				"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
@@ -81,8 +63,8 @@ async  function function_export(req, res, next) {
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "1001", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"error" : "1", 
+			"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -113,7 +95,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 			"message": error_send 
 		}); 
 		return;			
@@ -141,7 +123,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+				"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 				"message": error_send 
 			}); 
 			return;			
@@ -157,7 +139,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -167,113 +149,6 @@ async  function function_export(req, res, next) {
 	//res.send(["ok"]);
 	//return;	
 	
-	
-
-	//@
-	//@			
-	//@
-	//@
-	//@ product_list
-	try {
-		let data_get =    
-		{
-		   "select_type"  : "DISTINCT",
-		   "select_field" :
-			[
-				"products_speciality_ID",
-				"products_speciality_featured_image",
-				"products_speciality_name",
-				"products_speciality_price",
-				"products_speciality_price_caution",
-				"products_speciality_sale_of_price",
-				"products_speciality_sale_of_price_time_check",
-				"products_speciality_stock_status",
-				"products_speciality_stock",
-				"products_speciality_sku",
-				"products_speciality_type",	
-				"products_speciality_status_store",
-				"products_speciality_status_admin",	
-				"products_speciality_sort_by_percen",				
-				"stores_name",
-				"stores_ID"
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"stores_ID",
-						"value"     : store_id,
-						"compare" 	: "="
-					},
-					{
-						"field"     :"options_product_speciality_ID",
-						"value"     : option_id,
-						"compare" 	: "="						
-					}
-					]    
-				}         
-			]
-		}
-	
-		//@ get datas
-		var data_product = await product_search(data_get,res);
-		
-		//@ create arr ID product
-		var model_product_arr = [0];
-		if(data_product.length > 0){
-			for(x in data_product){
-				if(data_product[x].products_speciality_ID){
-					model_product_arr.push(data_product[x].products_speciality_ID);
-				}
-			}
-		}	
-
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi get data product, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "3", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
-			"message": error_send 
-		}); 
-		return;	
-	}		
-		
-
-
-	//@ lấy meta
-	try {
-		var get_meta_product_resuilt = await get_meta_product(data_product,model_product_arr,res);
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi get data product, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "4", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
-			"message": error_send 
-		}); 
-		return;	
-	}	
-	
-	
-	
-	//res.send([data_product]);
-	//return;	
 	
 	
 
@@ -345,82 +220,141 @@ async  function function_export(req, res, next) {
 		
 		
 		
-		//@
-		//@
-		//@
-		//@
-		//@Category list
-		let data_category_list =    
-		  {
-			  "select_type" : "DISTINCT",
-			"select_field": [
-				"category_general_speciality_link_ID",
-				"category_general_speciality_link_product_id",
-				"category_general_speciality_link_category_general_id",
-				"category_general_speciality_ID",
-				"category_general_speciality_name"
-			],
-			"condition": [
-			  {
-				"relation": "and",
-				"where": [
-				  {
-					"field": "category_general_speciality_admin_status",
-					"value": "1",
-					"compare": "="
-				  }         
-				]
-			  }
-			]
-		  }
 		
-		var fn_get_category_list = new Promise((resolve, reject) => {
-			let result = category_search_by_link(data_category_list,res);
+		
+		
+		
+		//@
+		//@			
+		//@
+		//@
+		//@lấy category_sale
+		var data_brand_sale =    
+		{
+		   "select_field" :
+			[
+				"brands_ID",
+				"brands_name",
+				"count(products_speciality_ID)"		
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					},
+					{
+						"field"     :"brands_status_admin",
+						"value"     : 1,
+						"compare" : "="						
+					}
+					]    
+				}         
+			],
+			"group_by":
+			[
+				"brands_ID"
+			]
+		}
+		
+		var fn_get_brand_sale = new Promise((resolve, reject) => {
+			let result = brand_search_product(data_brand_sale,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_category_list);			
+		promise_all.push(fn_get_brand_sale);				
+				
 		
 		
 		
-		
-
+		//@
+		//@		
 		//@
 		//@
-		//@
-		//@
-		//@option_taget
-		let data_option_taget =    
-		  {
-			  "select_type" : "DISTINCT",
-			"select_field": [
-				"options_product_speciality_ID",
-				"options_product_speciality_name"
+		//@lấy brand_list
+		var data_brand_list =    
+		{
+		   "select_field" :
+			[
+				"brands_ID",
+				"brands_name",
+				"brands_status_admin"					
 			],
-			"condition": [
-			  {
+			"condition" :
+			[
+				{    
 				"relation": "and",
-				"where": [
-				  {
-					"field": "options_product_speciality_ID",
-					"value": option_id,
-					"compare": "="
-				  }         
-				]
-			  }
+				"where" :
+					[
+					{
+						"field"     :"brands_status_admin",
+						"value"     : 1,
+						"compare" : "="						
+					}
+					]    
+				}         
 			]
-		  }
+		}
 		
-		var fn_get_option_taget = new Promise((resolve, reject) => {
-			let result = option_search(data_option_taget,res);
+		var fn_get_brand_list = new Promise((resolve, reject) => {
+			let result = brand_search(data_brand_list,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_option_taget);			
+		promise_all.push(fn_get_brand_list);	
+
+		
+		
+			
+		//@
+		//@		
+		//@
+		//@
+		//@lấy brand_list_create
+		var data_brand_list_create =    
+		{
+		   "select_field" :
+			[
+				"brands_ID",
+				"brands_name",
+				"brands_status_admin",
+				"stores_ID"				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{
+						"field"     :"brands_status_admin",
+						"value"     : 1,
+						"compare" : "<>"						
+					},
+					{
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					}
+					]    
+				}         
+			]
+		}
+		
+		var fn_get_brand_list_create = new Promise((resolve, reject) => {
+			let result = brand_search(data_brand_list_create,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_brand_list_create);			
 
 
 
 
 
-	
+		
 		
 		//@
 		//@
@@ -439,7 +373,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/v5/controller/options/controllers-option-store-product",
+			"position" : "api/appdalacom/v5/controller/brnads/controllers-brand-store",
 			"message": error_send 
 		}); 
 		return;	
@@ -450,14 +384,10 @@ async  function function_export(req, res, next) {
 		"1":"news bussiness",
 		"2":"count data new",
 		"3":"store_list",
-		"4":"category_list",
-		"5":"option_taget",
-		"6":"product_list",
+		"4":"brand_sale",
+		"5":"brand_list",
+		"6":"brand_list_create",
 	}
-	
-	
-	
-	promise_result.push(data_product);
 	promise_result.push(notes);
 
 	res.send(promise_result);

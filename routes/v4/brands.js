@@ -2,23 +2,33 @@
 //@
 //@
 //@
-//@ loader express
+/* v5 
+1. bussiness/user 
+*/
+// v5 
 const express = require('express');
 const router = express.Router();
-
-
-//@
-//@
-//@
-//@ loader extends module
 const fetch = require('node-fetch');
 
-
-//@
-//@
-//@
-//@ loader configs
 const ojs_configs = require('../../configs/config');
+const config_api = require('../../api/configs/config-api');
+
+
+const controller_brand_store = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/brands/controllers-brand-store.js'
+);
+
+const controller_store_brand_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/brands/controllers-brand-store-product.js'
+);
+
+//end of v5
 
 
 
@@ -81,7 +91,343 @@ const ojs_datas_brands = require('../../models/ojs-datas-brands');
 --------------------------------------------------------------------
 */
 
+router.get('/:store_id', controller_brand_store);
+router.get('/product/:brand_id/:store_id', controller_store_brand_product);
 
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 4. [/:store_id]
+router.get('asdasdasd/:store_id', async function(req, res, next) {
+try {
+	//@
+	//@
+	//@
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var store_id = req.params.store_id;
+
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+
+
+	//@
+	//@
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	var promise_all = [];
+	promise_all.push(0);	
+	
+	//@
+	//store_info
+	var datas_send = ojs_datas_brands.get_store_info(store_id);
+	var store_info = await ojs_shares_fetch_data.get_data_send_token_post(
+		ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search/',
+		datas_send,
+		ojs_configs.token_supper_job);
+		
+	if(store_info.error == ""){
+		var user_id = store_info.datas[0].stores_user_id;	
+	}else{
+		res.send("Lỗi không xác định, vui lòng liên hệ CSKH dala");
+		return;		
+	}
+		
+	
+	//res.send([user_id]);
+	//return;	
+	
+	
+	//--------------------------------------------------
+	//              news menu
+	// -------------------------------------------------	
+	//@
+	//@
+	//@
+	//@ check new bussiness
+	var datas_order_send = {
+		'status_admin_compare':'<>'
+	}
+	
+	var datas_order_send_x = {...ojs_configs.orders_all};
+	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);		
+	
+	//@
+	//@
+	//@
+	var datas_note_send = {
+		'status_admin_compare':'<>'
+	}
+	
+	var datas_note_send_x = {...ojs_configs.datas_all};
+	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
+	
+	
+	//res.send( datas_order_send_s );	
+	//return;	
+	
+
+	
+	
+	var datas_check_news_bussiness_menu = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id':user_id,
+		'store_id':store_id,
+		'compare':ojs_configs.datas_news_bussiness,
+		'news_user':'news_user',
+		'news_order': datas_order_send_s,
+		'news_cat': 'news_cat',
+		'news_option': 'news_option',
+		'news_brand': 'news_brand',
+		'news_product': 'news_product',
+		'news_note':datas_note_send_s		
+
+	}
+	var fn_get_datas_news_bussiness_menu = new Promise((resolve, reject) => {
+		var result = ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_datas_news_bussiness_menu);
+	//[1]
+
+
+
+	//--------------------------------------------------
+	//               datas count
+	// -------------------------------------------------
+
+
+
+	//@
+	//@
+	//@
+	//@ datas_get_all_list_datas
+	var datas_order_send = {
+		'date_star':ojs_shares_date.get_current_month_now()
+	}
+	var datas_order_send_x = {...ojs_configs.orders_all};
+	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);	
+	
+	
+	//@
+	//@
+	//@
+	var datas_note_send = {
+		'status_admin_compare':'<>'
+	}
+	var datas_note_send_x = {...ojs_configs.datas_all};
+	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);		
+	
+	
+	var datas_get_all_list_datas_count = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_order':datas_order_send_s,
+		'datas_cat':ojs_configs.datas_all,
+		'datas_option':ojs_configs.datas_all,
+		'datas_brand':ojs_configs.datas_all,
+		'datas_product':ojs_configs.datas_all,	
+		'datas_note' : datas_note_send_s
+	}
+	var fn_get_all_list_datas_count = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas_count.get_all_list_datas_count(datas_get_all_list_datas_count);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas_count);		
+	//[2]
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	// -----------------------------------------------------
+				//list_datas
+	//------------------------------------------------------	
+	
+	
+	
+	
+
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_store':ojs_configs.datas_all,
+		//'datas_brand': data_brand_ok
+	}
+	//@ get_all_list_datas
+	var fn_get_all_list_datas = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas);		
+	//[3]
+
+
+
+
+	// -----------------------------------------------------
+				//list_datas_all
+	//------------------------------------------------------
+
+	//res.send( [user_id, store_id]);	
+	//return;	
+
+	//@
+	//@
+	//@ datas_brand
+	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
+	var data_brand_order_edit = {'order':data_brand_order};
+	var data_brand_order_copy = {...ojs_configs.datas_all};	
+	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
+	
+	var data_brand_order_data_edit = {
+		'status_admin_compare':'<>',
+		'status_admin_value':'1000',
+		'status_store_compare':'<>'	,	
+		'status_store_value':'1000',
+		'store_compare':'=',
+		};
+	var data_brand_order_ok = Object.assign(data_brand_order_assign,data_brand_order_data_edit);	
+	
+
+	//@
+	//@
+	//@
+	//@ datas brand
+	var datas_get_all_list_datas_all = {
+		'token':token,
+		'token_job':ojs_configs.token_supper_job,
+		'user_id' : user_id,
+		'store_id' : store_id,
+		'datas_brand': data_brand_order_ok,
+	}
+	//@ get_all_list_datas
+	var fn_get_all_list_datas_all = new Promise((resolve, reject) => {
+		var result = ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas_all);
+		resolve(result);
+	});	
+	promise_all.push(fn_get_all_list_datas_all);		
+	//[4]
+
+
+	//@
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	var promise_result = await Promise.all(promise_all);
+	//res.send(promise_result);
+	//return;
+
+
+	//@
+	//@
+	//@
+	//@
+	//@	
+	try {	
+		data_info = {
+			'title' 				: 'Danh sách thương hiệu',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id'				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_thuong_hieu',
+			'menu_taget_child'		:'sidebar_add_thuong_hieu',			
+			
+			'store_list' 			: store_info.datas,
+			'news_bussiness_menu' 	: promise_result[1],
+			'list_data_count' 		: promise_result[2],
+			'service_type_name' : store_info.datas[0].service_type_name,
+			'datas' : promise_result[4][6].datas,
+			'store_name' : store_info.datas[0].stores_name			
+			
+		}
+		
+		data_send = {
+			'title' 				: 'Danh sách thương hiệu',
+			'users_type' 			: ojs_shares_others.get_users_type(token),
+			'user_role' 			: ojs_shares_others.get_users_type(token),
+			'user_id' 				: user_id,
+			'store_id'				: store_id,
+			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
+			'js_css_version'		: ojs_configs.js_css_version,
+			'sidebar_type'			: 4,
+			'menu_taget'			:'sidebar_thuong_hieu',
+			'menu_taget_child'		:'sidebar_add_thuong_hieu',			
+			
+			'store_list' 			: store_info.datas,
+			'news_bussiness_menu' 	: promise_result[1],
+			'list_data_count' 		: promise_result[2],
+			'service_type_name' : store_info.datas[0].service_type_name,
+			'datas' : promise_result[4][6].datas,
+			'store_name' : store_info.datas[0].stores_name,	
+			'data_info' : 		data_info
+			
+		}		
+
+		//res.send(data_send);
+		//return;
+		res.render( ojs_configs.view_version + '/brands/show-all', data_send );
+	}
+	catch(error){
+			var evn = ojs_configs.evn;
+			////evn = "dev";;
+			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+			res.send({ "error" : "35.router_app->brands->get", "message": error_send } ); 
+			return;	
+	}
+}
+catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";;
+		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "113.router_app->brands->get", "message": error_send } ); 
+		return;	
+}		
+});
+
+//@
+//@
+//@
+//@
+//@
+//@ end of
+//@ 4. [/:store_id]
 
 
 
@@ -1153,334 +1499,6 @@ router.post('/ajax-brand-list/', async function(req, res, next) {
 
 
 
-//@
-//@
-//@
-//@
-//@
-//@
-//@ 4. [/:store_id]
-router.get('/:store_id', async function(req, res, next) {
-try {
-	//@
-	//@
-	//@
-	//lấy token
-	try {
-		var token = req.session.token;	
-		var store_id = req.params.store_id;
-
-		
-		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.redirect("/login");
-			return;
-		}		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
-	}
-
-
-	//@
-	//@
-	/////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////
-	var promise_all = [];
-	promise_all.push(0);	
-	
-	//@
-	//store_info
-	var datas_send = ojs_datas_brands.get_store_info(store_id);
-	var store_info = await ojs_shares_fetch_data.get_data_send_token_post(
-		ojs_configs.domain + '/api/' + ojs_configs.api_version + '/stores/search/',
-		datas_send,
-		ojs_configs.token_supper_job);
-		
-	if(store_info.error == ""){
-		var user_id = store_info.datas[0].stores_user_id;	
-	}else{
-		res.send("Lỗi không xác định, vui lòng liên hệ CSKH dala");
-		return;		
-	}
-		
-	
-	//res.send([user_id]);
-	//return;	
-	
-	
-	//--------------------------------------------------
-	//              news menu
-	// -------------------------------------------------	
-	//@
-	//@
-	//@
-	//@ check new bussiness
-	var datas_order_send = {
-		'status_admin_compare':'<>'
-	}
-	
-	var datas_order_send_x = {...ojs_configs.orders_all};
-	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);		
-	
-	//@
-	//@
-	//@
-	var datas_note_send = {
-		'status_admin_compare':'<>'
-	}
-	
-	var datas_note_send_x = {...ojs_configs.datas_all};
-	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);	
-	
-	
-	//res.send( datas_order_send_s );	
-	//return;	
-	
-
-	
-	
-	var datas_check_news_bussiness_menu = {
-		'token':token,
-		'token_job':ojs_configs.token_supper_job,
-		'user_id':user_id,
-		'store_id':store_id,
-		'compare':ojs_configs.datas_news_bussiness,
-		'news_user':'news_user',
-		'news_order': datas_order_send_s,
-		'news_cat': 'news_cat',
-		'news_option': 'news_option',
-		'news_brand': 'news_brand',
-		'news_product': 'news_product',
-		'news_note':datas_note_send_s		
-
-	}
-	var fn_get_datas_news_bussiness_menu = new Promise((resolve, reject) => {
-		var result = ojs_shares_news_bussiness_menu.get_news_bussiness_menu(datas_check_news_bussiness_menu);
-		resolve(result);
-	});	
-	promise_all.push(fn_get_datas_news_bussiness_menu);
-	//[1]
-
-
-
-	//--------------------------------------------------
-	//               datas count
-	// -------------------------------------------------
-
-
-
-	//@
-	//@
-	//@
-	//@ datas_get_all_list_datas
-	var datas_order_send = {
-		'date_star':ojs_shares_date.get_current_month_now()
-	}
-	var datas_order_send_x = {...ojs_configs.orders_all};
-	var datas_order_send_s = Object.assign(datas_order_send_x,datas_order_send);	
-	
-	
-	//@
-	//@
-	//@
-	var datas_note_send = {
-		'status_admin_compare':'<>'
-	}
-	var datas_note_send_x = {...ojs_configs.datas_all};
-	var datas_note_send_s = Object.assign(datas_note_send_x,datas_note_send);		
-	
-	
-	var datas_get_all_list_datas_count = {
-		'token':token,
-		'token_job':ojs_configs.token_supper_job,
-		'user_id' : user_id,
-		'store_id' : store_id,
-		'datas_order':datas_order_send_s,
-		'datas_cat':ojs_configs.datas_all,
-		'datas_option':ojs_configs.datas_all,
-		'datas_brand':ojs_configs.datas_all,
-		'datas_product':ojs_configs.datas_all,	
-		'datas_note' : datas_note_send_s
-	}
-	var fn_get_all_list_datas_count = new Promise((resolve, reject) => {
-		var result = ojs_shares_get_all_list_datas_count.get_all_list_datas_count(datas_get_all_list_datas_count);
-		resolve(result);
-	});	
-	promise_all.push(fn_get_all_list_datas_count);		
-	//[2]
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////
-	
-	
-	
-	
-	// -----------------------------------------------------
-				//list_datas
-	//------------------------------------------------------	
-	
-	
-	
-	
-
-	//@
-	//@
-	//@
-	//@ datas brand
-	var datas_get_all_list_datas = {
-		'token':token,
-		'token_job':ojs_configs.token_supper_job,
-		'user_id' : user_id,
-		'store_id' : store_id,
-		'datas_store':ojs_configs.datas_all,
-		//'datas_brand': data_brand_ok
-	}
-	//@ get_all_list_datas
-	var fn_get_all_list_datas = new Promise((resolve, reject) => {
-		var result = ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas);
-		resolve(result);
-	});	
-	promise_all.push(fn_get_all_list_datas);		
-	//[3]
-
-
-
-
-	// -----------------------------------------------------
-				//list_datas_all
-	//------------------------------------------------------
-
-	//res.send( [user_id, store_id]);	
-	//return;	
-
-	//@
-	//@
-	//@ datas_brand
-	var data_brand_order = [{'field':'brands_date_created','compare':'DESC'}];
-	var data_brand_order_edit = {'order':data_brand_order};
-	var data_brand_order_copy = {...ojs_configs.datas_all};	
-	var data_brand_order_assign = Object.assign(data_brand_order_copy,data_brand_order_edit);
-	
-	var data_brand_order_data_edit = {
-		'status_admin_compare':'<>',
-		'status_admin_value':'1000',
-		'status_store_compare':'<>'	,	
-		'status_store_value':'1000',
-		'store_compare':'=',
-		};
-	var data_brand_order_ok = Object.assign(data_brand_order_assign,data_brand_order_data_edit);	
-	
-
-	//@
-	//@
-	//@
-	//@ datas brand
-	var datas_get_all_list_datas_all = {
-		'token':token,
-		'token_job':ojs_configs.token_supper_job,
-		'user_id' : user_id,
-		'store_id' : store_id,
-		'datas_brand': data_brand_order_ok,
-	}
-	//@ get_all_list_datas
-	var fn_get_all_list_datas_all = new Promise((resolve, reject) => {
-		var result = ojs_shares_get_all_list_datas.get_all_list_datas(datas_get_all_list_datas_all);
-		resolve(result);
-	});	
-	promise_all.push(fn_get_all_list_datas_all);		
-	//[4]
-
-
-	//@
-	///////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////
-	var promise_result = await Promise.all(promise_all);
-	//res.send(promise_result);
-	//return;
-
-
-	//@
-	//@
-	//@
-	//@
-	//@	
-	try {	
-		data_info = {
-			'title' 				: 'Danh sách thương hiệu',
-			'users_type' 			: ojs_shares_others.get_users_type(token),
-			'user_role' 			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: user_id,
-			'store_id'				: store_id,
-			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'		: ojs_configs.js_css_version,
-			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_thuong_hieu',
-			'menu_taget_child'		:'sidebar_add_thuong_hieu',			
-			
-			'store_list' 			: store_info.datas,
-			'news_bussiness_menu' 	: promise_result[1],
-			'list_data_count' 		: promise_result[2],
-			'service_type_name' : store_info.datas[0].service_type_name,
-			'datas' : promise_result[4][6].datas,
-			'store_name' : store_info.datas[0].stores_name			
-			
-		}
-		
-		data_send = {
-			'title' 				: 'Danh sách thương hiệu',
-			'users_type' 			: ojs_shares_others.get_users_type(token),
-			'user_role' 			: ojs_shares_others.get_users_type(token),
-			'user_id' 				: user_id,
-			'store_id'				: store_id,
-			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'		: ojs_configs.js_css_version,
-			'sidebar_type'			: 4,
-			'menu_taget'			:'sidebar_thuong_hieu',
-			'menu_taget_child'		:'sidebar_add_thuong_hieu',			
-			
-			'store_list' 			: store_info.datas,
-			'news_bussiness_menu' 	: promise_result[1],
-			'list_data_count' 		: promise_result[2],
-			'service_type_name' : store_info.datas[0].service_type_name,
-			'datas' : promise_result[4][6].datas,
-			'store_name' : store_info.datas[0].stores_name,	
-			'data_info' : 		data_info
-			
-		}		
-
-		//res.send(data_send);
-		//return;
-		res.render( ojs_configs.view_version + '/brands/show-all', data_send );
-	}
-	catch(error){
-			var evn = ojs_configs.evn;
-			////evn = "dev";;
-			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-			res.send({ "error" : "35.router_app->brands->get", "message": error_send } ); 
-			return;	
-	}
-}
-catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";;
-		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : "113.router_app->brands->get", "message": error_send } ); 
-		return;	
-}		
-});
-
-//@
-//@
-//@
-//@
-//@
-//@ end of
-//@ 4. [/:store_id]
 
 
 

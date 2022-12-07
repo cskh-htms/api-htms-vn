@@ -1,0 +1,39 @@
+
+
+<% if( typeof brand_list == 'object' && brand_list && brand_list.length > 0){ brand_list = brand_list } else{ brand_list=[] } %>
+
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tên thương hiệu</th>
+
+		</tr>
+	</thead>
+	<tbody>
+
+
+
+	<% 
+	if(brand_list.length > 0){
+	for(var  x in brand_list) { %>
+  
+	   <tr class="">
+			<td class="user-name">
+				<%- brand_list[x].brands_name %>
+			</td>
+	   </tr>	
+		   
+	<% } %>
+	<% } %>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên thương hiệu</th>
+		</tr>
+	</tfoot>
+</table>
+	

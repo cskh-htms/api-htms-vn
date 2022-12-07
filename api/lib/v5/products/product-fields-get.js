@@ -130,6 +130,39 @@ const link_category = 	" " +
 	config_database.PREFIX + "users_ID ";
 
 
+
+//@	
+const link_option = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "options_product_speciality_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "options_product_speciality_link_product_id " +   
+
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "options_product_speciality ON  " + 
+	config_database.PREFIX + "options_product_speciality_link_option_id  = " + 
+	config_database.PREFIX + "options_product_speciality_ID " +  
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +    
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "service_type  ON  " + 
+	config_database.PREFIX + "stores_service_type_id  = " + 
+	config_database.PREFIX + "service_type_ID  " +    	
+	
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "stores_user_id  = " + 
+	config_database.PREFIX + "users_ID ";
+
+
+
 //@	
 const link_discount_category = 	" " +
 
@@ -294,6 +327,7 @@ module.exports = {
 				from_default,
 				link_default,
 				link_category,
+				link_option,
 				link_brand,
 				link_sale,
 				link_fillter,
