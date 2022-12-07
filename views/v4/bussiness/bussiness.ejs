@@ -35,6 +35,57 @@ content
 	--------------------- -->
 	<% for(x in datas) { %>
 	
+		<% 
+		//@
+		//@ sale sum
+		var count_product_sale = 0;
+		var sum_product_sale = 0;
+		for(i in product_sale) { 
+			if(datas[x].stores_ID == product_sale[i].stores_ID){
+				count_product_sale = count_product_sale + product_sale[i].orders_details_speciality_qty;
+				sum_product_sale = sum_product_sale + product_sale[i].price_caution;
+			}
+		}
+		
+		//@
+		//@ sale sum ok
+		var sum_product_sale_ok = 0;
+		for(i in product_sale) { 
+			if(
+			datas[x].stores_ID == product_sale[i].stores_ID 
+			&& product_sale[i].orders_speciality_status_orders == 100 
+			){
+				sum_product_sale_ok = sum_product_sale_ok + product_sale[i].price_caution;
+			}
+		}		
+		
+		
+		//@
+		//@ order_sum	
+		var order_count = 0;		
+		for(s in order_list) { 
+			if(datas[x].stores_ID == order_list[s].orders_speciality_store_id){
+				order_count = order_count + order_list[s].count_orders_speciality_store_id;
+			}
+		}		
+		
+		
+		//@
+		//@ order_sum_ok	
+		var order_count_ok = 0;		
+		for(a in order_list) { 
+			if(
+			datas[x].stores_ID == order_list[a].orders_speciality_store_id 
+			&& order_list[a].orders_speciality_status_orders == 100 
+			){
+				order_count_ok = order_count_ok + order_list[a].count_orders_speciality_store_id;
+			}
+		}		
+		
+		%>
+		
+	
+	
 		<div class="store_box">
 			<div class="store_name">
 				<h3>
@@ -56,6 +107,31 @@ content
 				Quản lý
 			</a>
 			</div>
+			
+			<div class="report">
+				<div class="report-box">
+					<span> Có <strong> [  <%= order_count %>  ] </strong> Đơn hàng mới vừa bán</span>
+				</div>				
+			
+				<div class="report-box">
+					<span> Mới bán <strong> [ <%= count_product_sale %> ] </strong> Sản phẩm</span>
+				</div>
+				
+				<div class="report-box">
+					<span> Vừa bán được <strong> [ <%= ojs_share.show_price_format(sum_product_sale,0,",",".","") %> ] </strong> VND</span>
+				</div>
+			</div>
+			<p>-----------------</p>
+			<div class="report">
+				<div class="report-box">
+					<span> Có  <strong> [  <%= order_count_ok %>  ] </strong> Đơn hàng đã giao</span>
+				</div>				
+			
+				<div class="report-box">
+					<span> Tiền có thể rút về <strong> [ <%= ojs_share.show_price_format(sum_product_sale_ok,0,",",".","") %> ] </strong> VND</span>
+				</div>
+			</div>			
+			
 		</div>	
 	<% 
 	} 

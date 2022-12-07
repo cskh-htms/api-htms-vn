@@ -10,7 +10,7 @@ const ojs_configs = require('../../../../configs/config');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const option_fields_get = require('./option-fields-get.js');
 
-const option_news_bussiness = async function (user_id,res) {
+const option_news_bussiness = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -22,7 +22,7 @@ const option_news_bussiness = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "options_product_speciality_status_admin in (3) " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 
 	//@
 	try {	

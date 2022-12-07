@@ -11,7 +11,7 @@ const ojs_configs = require('../../../../configs/config');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const category_fields_get = require('./category-fields-get.js');
 
-const category_news_bussiness_count = async function (user_id,res) {
+const category_news_bussiness_count = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -23,7 +23,7 @@ const category_news_bussiness_count = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "category_general_speciality_admin_status = 1 " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 
 	//@
 	try {	

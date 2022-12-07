@@ -19,14 +19,9 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 //@
 //@
 //@ controller link
-const controllers_store_order_get_all =  
+const controllers_category_store =  
 require(
-	'../../controllers/stores/controllers-stores-order-get-all-api-appdalacom-api.js'
-);
-
-const controllers_store_manage =  
-require(
-	'../../controllers/stores/controllers-stores-manage.js'
+	'../../controllers/categorys/controllers-category-store.js'
 );
 
 
@@ -39,21 +34,19 @@ require(
 //@
 //@ router
 router.get('/', function(req, res, next) {
-  res.end('api appdalacom stores welcom');
+  res.end('api appdalacom categorys welcom');
 });
 
 
 router.get(
-	'/manage/orders/:store_id/:status_int',
+	'/store/',
 	middle_ware, 
-	controllers_store_order_get_all 
+	controllers_category_store
 );
 
-router.get(
-	'/manage/',
-	middle_ware, 
-	controllers_store_manage
-);
+
+
+
 
 
 

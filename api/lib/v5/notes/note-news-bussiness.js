@@ -10,7 +10,7 @@ const ojs_configs = require('../../../../configs/config');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const note_fields_get = require('./note-fields-get.js');
 
-const note_news_bussiness = async function (user_id,res) {
+const note_news_bussiness = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -22,7 +22,7 @@ const note_news_bussiness = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "notes_status in (0) " +
 		" and " + 
-		config_database.PREFIX + "notes_user_id  = " + user_id + " " ; 		
+		config_database.PREFIX + "notes_store_id  = " + store_id + " " ; 		
 
 	//@
 	try {	

@@ -14,7 +14,7 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 
 const orders_fields_get = require('./orders-fields-get.js');
 
-const orders_search_news_bussiness = async function (user_id,res) {
+const orders_search_news_bussiness = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -29,7 +29,7 @@ const orders_search_news_bussiness = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "orders_speciality_status_orders <> 100 " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 
 	//@
 	try {	

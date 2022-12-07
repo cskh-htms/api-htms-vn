@@ -18,6 +18,8 @@ const config_api = require('../../../../configs/config-api');
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 
+
+
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
@@ -25,6 +27,7 @@ const check_owner_user = require('../../../../shares/' + config_api.API_SHARES_V
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const product_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search.js');
 //@
 
 
@@ -187,7 +190,8 @@ async  function function_export(req, res, next) {
 					"orders_details_speciality_qty" ,
 					"orders_details_speciality_price",
 					"price_caution",
-					"orders_speciality_status_pull_money"
+					"orders_speciality_status_pull_money",
+					"orders_speciality_status_orders"
 				],
 				"condition" : 
 				[
@@ -196,6 +200,10 @@ async  function function_export(req, res, next) {
 						[
 						{	"field"		:"users_ID",
 							"value" 	: user_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
 							"compare" : "="
 						}
 						]	
@@ -211,10 +219,55 @@ async  function function_export(req, res, next) {
 		
 		
 		
-
-
-
 		
+		//@
+		//@
+		//@
+		//@ order list
+		let data_order_list = 	
+			{
+				"select_field" :
+				[ 
+					"count(orders_speciality_store_id)",
+					"orders_speciality_store_id",
+					"orders_speciality_status_orders"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"users_ID",
+							"value" 	: user_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
+							"compare" : "="
+						}
+						]	
+					}				
+				],
+				"group_by" :
+				 [
+					"orders_speciality_store_id"
+				 ]   			
+			}	
+		var fn_get_order_list = new Promise((resolve, reject) => {
+			let result = order_search(data_order_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_order_list);			
+		
+		
+		
+
+
+
+		//@
+		//@
+		//@
+		//@ promise go	
 		var promise_result = await Promise.all(promise_all);
 	}
 	catch(error){
@@ -235,8 +288,9 @@ async  function function_export(req, res, next) {
 	
 	let notes = {
 		"0":"no", 
-		"3":"store list",
-		"4":"product sale"	
+		"1":"store list",
+		"2":"product sale",
+		"3":"order list"			
 	}
 	promise_result.push(notes);
 

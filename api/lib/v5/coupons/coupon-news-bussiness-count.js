@@ -10,7 +10,7 @@ const ojs_configs = require('../../../../configs/config');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const coupon_fields_get = require('./coupon-fields-get.js');
 
-const coupon_news_bussiness_count = async function (user_id,res) {
+const coupon_news_bussiness_count = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -22,7 +22,7 @@ const coupon_news_bussiness_count = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "coupon_speciality_status_admin = 4 " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 
 	//@
 	try {	

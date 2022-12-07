@@ -10,7 +10,7 @@ const ojs_configs = require('../../../../configs/config');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const discount_product_fields_get = require('./discount-product-fields-get.js');
 
-const discount_product_news_bussiness = async function (user_id,res) {
+const discount_product_news_bussiness = async function (store_id,res) {
 	
 	var sql_text = 	"" + 
 	"SELECT " + 
@@ -22,7 +22,7 @@ const discount_product_news_bussiness = async function (user_id,res) {
 	" where " + 
 		config_database.PREFIX + "discount_program_product_link_status in (3) " +
 		" and " + 
-		config_database.PREFIX + "stores_user_id = " + user_id + " " ; 		
+		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 
 	//@
 	try {	
