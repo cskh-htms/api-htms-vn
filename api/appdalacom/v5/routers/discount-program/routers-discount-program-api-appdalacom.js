@@ -41,7 +41,9 @@ const controllers_discount_program_product_save= require(
 	'../../controllers/discount-program/controllers-discount-program-product-save-api-appdalacom.js'
 );
 
-
+const controllers_discount_program_product_delete= require(
+	'../../controllers/discount-program/controllers-discount-program-delete.js'
+);
 
 
 
@@ -114,7 +116,11 @@ router.post(
 	controllers_discount_program_product_save
 );
 
-
+router.get(
+	'/speciality/product-delete/',
+	middle_ware, 
+	controllers_discount_program_product_delete
+);
 
 
 

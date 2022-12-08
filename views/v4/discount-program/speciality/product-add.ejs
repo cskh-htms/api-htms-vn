@@ -53,16 +53,21 @@ content
 							   <option value="0">Chọn sản phẩm</option>
 							   <%
 							   for(var x in products_list){
+							   if(
+							   products_list[x].discount_program_product_link_discount_program_id <= 0 
+							   )
+							   {
 							   %>
-								<option 
-								value="<%= products_list[x].products_speciality_ID %>" 
-								data_price="<%= products_list[x].products_speciality_price %>" 
-								data_sale_of_price="<%= products_list[x].products_speciality_sale_of_price %>" 
-								>
-									<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
-								</option>
-							    <%
-								} //end of for
+									<option 
+									value="<%= products_list[x].products_speciality_ID %>" 
+									data_price="<%= products_list[x].products_speciality_price %>" 
+									data_sale_of_price="<%= products_list[x].products_speciality_sale_of_price %>" 
+									>
+										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+									</option>
+							   <%
+							   }
+							   } //end of for
 								%>
 						</select>
 					</div>
@@ -88,14 +93,82 @@ content
 			</div>	
 		</div>
 		
+
 		
 		
 	</div>
 
 
+	<div class="pro_col01">	
+		<div class="pro_box ten_sp_box">
+			<h3>Sản phẩm đã tham gia</h3>
+		</div>	
+		
+			<%
+			if(typeof products_list == 'object' && products_list.length > 0){  
+			%>
+				<div class="inside">
+					<table name="cars" id="">
+						   <%
+						   for(var x in products_list){
+						   if(
+						   products_list[x].discount_program_product_link_discount_program_id == discount_program_id 
+						   ){
+						   %>
+								<tr>	
+									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
+										<img style="width:50px;" src="<%- ojs_share.unCape(products_list[x].products_speciality_featured_image) -%>"/>
+									</td>								
+									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
+										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+									</td>
+									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
+										<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
+											<td class="pro-price">
+												<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+												<span class="price-off">
+												<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+												<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+											</td>
+										<% } else { %>
+											<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+										<% } %>	
+									</td>									
+									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
+										<%- ojs_share.show_status_table_share_all(products_list[x].discount_program_product_link_status) -%>
+									</td>									
+									<td style="padding:0px 10px;">
+										<a href="#" class="submitdelete" data_id="<%= products_list[x].discount_program_product_link_ID %>">Huỷ tham gia</a>
+									</td>										
+									
+									
+								 </tr>	
+						   <%
+						   }
+						   } //end of for
+							%>
+					</table>
+				</div>
+			<%
+			}else{
+			%>
+				<h1> Cửa hàng chưa có sản phẩm nào, Hẫy tạo sản phẩm
+			<%
+			}//end of typeof products_list
+			%>			
+	</div>
+
+
+
+
+
+
+
+
+
 <div class="btn_box">
-	<a href="/discount-program/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Đăng</button>
+	<a href="/discount-program/speciality/stores/<%= store_id %>/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Thêm sản phẩm vào chương trình</button>
 </div>	
 	
 
@@ -162,6 +235,28 @@ $(document).ready(function($){
 	});
 
 
+
+
+
+
+
+	//
+	//@
+	//xoa
+	$(document).on('click','.submitdelete',function(e) {	
+		//@
+		e.preventDefault();		
+		let data_id = $(this).attr("data_id");
+		//console.log(data_id );
+		//return;
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_discount_program_link_id";//function name in callback 
+		let z = ' { "discount_program_link_id" : "' + data_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});		
 	
 	
 	//@
@@ -183,48 +278,6 @@ $(document).ready(function($){
 		
 		return datas;
 	}
-	
-	
-	//@
-	//@
-	//@
-	//@
-	/*
-	$(document).on('change','#discount_program_product_link_product_speciality_id',function(e) {		
-		e.preventDefault();
-		var product_id = $(this).find('option:selected').val();	
-		var product_price = $(this).find('option:selected').attr("data_price");	
-		var product_sale_of_price = $(this).find('option:selected').attr("data_sale_of_price");	
-		
-		var gift_type_id = $('#gift_type_id').val();
-		console.log([gift_type_id, product_id,product_price,product_sale_of_price ]);
-		
-
-		if(gift_type_id == 1){
-			$('#price-wrap').css('display','none');			
-		}else{
-			if( product_id == 0 ){
-				$('#products_speciality_price').attr('data_value','0');
-				$('#products_speciality_price').val('0');
-				
-				$('#products_speciality_sale_of_price').attr('data_value','0');
-				$('#products_speciality_sale_of_price').val('0');
-				$('#price-wrap').css('display','none');
-			}else{
-				$('#price-wrap').css('display','block');
-				$('#products_speciality_price').attr('data_value',product_price);
-				$('#products_speciality_price').val(ojs_loader.show_price_format(product_price,0,",",".",""));
-				
-				$('#products_speciality_sale_of_price').attr('data_value',product_sale_of_price);
-				$('#products_speciality_sale_of_price').val(ojs_loader.show_price_format(product_sale_of_price,0,",",".",""));
-			}
-		}
-	});
-	*/
-	
-	
-	
-	
 	
 
 	//

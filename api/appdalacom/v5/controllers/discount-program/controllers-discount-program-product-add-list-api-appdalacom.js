@@ -279,6 +279,7 @@ async  function function_export(req, res, next) {
 				"select_field" :
 				[
 				"products_speciality_ID",
+				"discount_program_product_link_ID",
 				"products_speciality_featured_image",
 				"products_speciality_name",
 				"products_speciality_price",

@@ -57,7 +57,11 @@ const controllers_discount_program_product_save = require(
 		'/discount-program/controllers-discount-program-product-save-web-appdalacom.js'
 	);	
 
-
+const controllers_discount_program_product_delete = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-delete.js'
+	);	
 
 
 
@@ -203,7 +207,7 @@ router.get('/show/:discount_program_id/:store_id', controllers_discount_program_
 //router.post('/save/', controllers_discount_program_save);
 
 router.post('/product-save/', controllers_discount_program_product_save);
-
+router.get('/product-delete/:discount_program_product_link_id/', controllers_discount_program_product_delete);
 
 
 //@ admin
@@ -214,6 +218,61 @@ router.get('/admin/add/:store_id', controllers_discount_program_admin_add);
 
 
 
+//@
+//@
+//@
+//@
+//@ 12 [/product-delete/:discount_program_product_link_id/]
+router.get('asdasdasd/product-delete/:discount_program_product_link_id/', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//@
+	//@	
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var discount_program_product_link_id = req.params.discount_program_product_link_id;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers discount-program web -> delete product -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+	
+	//@
+	//@
+	//var  user_id = ojs_shares_others.get_users_id(token);	
+	
+	//res.send( [token,store_id] );	
+	//return;	
+		
+	
+	
+	//@
+	//@
+	//@
+	//@
+	try {	
+		//Lấy danh sách loại danh mục
+		var active_delete = await ojs_shares_fetch_data.get_data_send_token_delete(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/discount-program-product-link/' + discount_program_product_link_id, token);
+		res.send(active_delete);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";;
+		var error_send = ojs_shares.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : "2.5.router_app->router_options_speciality(app)->devare", "message": error_send } ); 
+		return;	
+	}		
+});
 
 
 
