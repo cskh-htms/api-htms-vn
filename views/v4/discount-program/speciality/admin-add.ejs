@@ -1,5 +1,7 @@
 
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
 <% include ../../masterpage/loader %>
 
 <script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
@@ -12,6 +14,37 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-discount.ejs %>
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+
+
+
+
+<% //neu admin thi hien muc nay
+var	enable_text = " disabled " ;
+var	enable_text2 = " " ;
+var	enable_text3 = " disabled " ;
+
+
+var admin_view = " admin_hide ";
+
+
+
+if(user_role =="admin"){ 
+	enable_text3 = "" ;
+	enable_text2 = " disabled ";
+	admin_view = " admin_show "
+}
+
+%>
+
 
 
 
@@ -20,176 +53,271 @@ content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1><a href="/admin">Admin</a><i class="fas fa-chevron-right"></i>
-	<a href="/discount-program/speciality/">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Thêm chương trình khuyến mãi</h1>
-	
+	<h1><a href="/discount-program/speciality/quan-ly-show-all/">HOME </a><i class="fas fa-chevron-right"></i>
+	<a href="/discount-program/speciality/quan-ly-show-all/">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Tạo chương trình khuyến mãi</h1>
+
+
 	<div class="pro_content_edit">
 		<div class="pro_col01">
-			<!-- ------------------
-			//Tên CT khuyến mãi
-			------------------- -->
+		
+		
+		
+		
+		
 			<div class="pro_box ten_sp_box">
 				<h3>Tên chương trình khuyến mãi</h3>
 				<div class="inside">
-					<input type="text" class= "" value="" id="discount_program_name" />
+					<input type="text" class= "" value="" id="discount_program_name"/>
 				</div>
 			</div>
 			
+			
 			<div class="pro_box trang_thai_box">
-				<h3>Kiểu chương trình khuyến mãi</h3>
+				<h3>Kiểu chương trình khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-chuong-trinh" target="_blank"><span>Loại khuyến mãi thường(giảm giá), hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></a></h3>
 				<div class="inside">
-					<span>Hướng dẫn : </span><span class="giai-thich"><span>Loại chương trình thường, hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span>
 					<select id="discount_program_gift_type">
 						<%- ojs_share_discount.show_discount_program_gift_type(0) -%>
 					</select>						
 				</div>
-			</div>								
+			</div>				
 			
-			<!-- ------------------
-			//Kiểu khuyến mãi
-			------------------- -->
-			<div class="pro_box kieu_km">
-				<h3>Kiểu khuyến mãi</h3>
+			
+			
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Phí tham gia 
+					<span class="giai-thich">
+					<span>
+						Phí tham gia chương trình khuyến mãi, phí khởi tạo
+					</span>
+					</span>
+				</h3>
 				<div class="inside">
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="giamgia" checked="checked"/>
-						<div>Giảm <input type="text" value=""> % sản phẩm</div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="donggia" />
-						<div>Đồng giá <input type="text" value=""> đ</div>
-					</label>
-					<label class="labl">
-						<input type="radio" name="kieu_km" value="mua1tang1" />
-						<div>Mua 1 tặng 1</div>
-					</label>
+					<input type="text" class="number_change" data_value="0" value="0" id="discount_program_price_created"/>
 				</div>
-			</div>
+			</div>			
 			
-			<!-- ------------------
-			//Link chương trình
-			------------------- -->
-			<div class="pro_box">
-				<h3>Link CTKM<span class="giai-thich"><span>Khách được dẫn đến đâu khi ấn banner trên app</span></span></h3>
+		
+			<div class="pro_box ten_sp_box" >
+				<h3>Phí tham gia
+					<span class="giai-thich">
+					<span>
+						tính phí bao nhiu cho mỗi sản phẩm bán ra, bán ra mới tình phí
+					</span>
+					</span>				
+				</h3>
 				<div class="inside">
-					<input type="text" class= "" value="" id="" />
+					<input type="text" class="number_change" data_value="0" value="0" id="discount_program_price_sale"/>
 				</div>
-			</div>
+			</div>	
+
+		
+		
+		
 			
+			<div class="pro_box trang_thai_box  <%= admin_view %>" style="display:none;">
+				<h3>Loại chương trình khuyến mãi</h3>
+				<div class="inside">
+					<span>Hướng dẫn:</span><span class="giai-thich"><span>Dùng cho chỉ cửa hàng tạo hay tất cả các cửa hàng</span></span>
+					<select id="discount_program_type">
+						<%- ojs_share.show_ddiscount_program_type(0) -%>
+					</select>						
+				</div>
+			</div>				
+			
+			
+			<div class="pro_box trang_thai_box" >
+				<h3>Vị trí chương trình khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#vi-tri" target="_blank"><span>Vị trí hiển thị banner CTKM trên trang chủ app, ấn "?" để xem chi tiết</span></a></h3>
+				<div class="inside">
+					<select id="discount_program_position">
+						<%- ojs_share_discount.show_discount_program_position_store(4) -%>
+					</select>						
+				</div>
+			</div>				
 			
 			
 			<!-- ------------------
-			//Nội dung
+			//thông tin danh mục
 			------------------- -->
 			<div class="pro_box">
 				<h3>Nội dung chương trình</h3>
 				<div class="inside">
-					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%">
-					
-					</textarea>
+					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%" placeholder="Nhập nội dung mô tả cho chương trình khuyến mãi"></textarea>
 				</div>
 			</div>
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->			
 			
 			
+		
 		</div>
 		<div class="pro_col02">
-			
+		
+		
 			<!-- ------------------
-			//Vị trí banner
-			------------------- -->
-			<div class="pro_box trang_thai_box ">
-				<h3>Vị trí CTKM trên app<span class="giai-thich"><span>Vị trí hiển thị CTKM trên trang chủ app</span></span></h3>
-				<div class="inside">
-					<select id="discount_program_position">
-						<option>Slider (Banner:1000x460px)</option>
-						<option>Flashsale (Không cần banner)</option>
-						<option>Banner ngang (Banner:1000x275px)</option>
-						<option>Banner vuông 1 (Banner:300x300px)</option>
-						<option>Banner vuông 2 (Banner:300x300px)</option>
-						<option>Banner vuông 3 (Banner:300x300px)</option>
-						<option>Cuối app (Không cần banner)</option>
-					</select>						
-				</div>
-			</div>
-			
-			<!-- ------------------
-			//Banner
+			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Banner chương trình<span class="giai-thich"><span>Kích thước tùy vào vị trí đã chọn ở trên</span></span></h3>	
+				<h3>Banner CTKM <span class="giai-thich"><span>Chọn ảnh có tỉ lệ 3:1</span></span></h3>	
 				<div class="inside">
-					<input type="text" 
-						value="" 
-						id="featured_image" 
-						data_value="" style="display:none;" 
-					/>
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
 					<div id="img_box_dai_dien"></div>
 					<input type='file' accept="image/*" id='upload_image' style="display:none;">
 				</div>
 			</div>
-			
 			<!-- ------------------
-			//Chiết khấu
-			------------------- -->
-			<div class="pro_box ten_sp_box">
-				<h3>Chiết khấu % trên mỗi SP
+			//end of hình đại diện 
+			------------------- -->		
+		
+		
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giá tính mỗi ngày
 					<span class="giai-thich">
 					<span>
-						Chiết khấu cho mỗi sản phẩm bán ra(theo giá đã giảm), bán ra mới tính phí.
+						Mỗi gnày tham gia chương trình khuyến mãi tính bao nhiu tiền,
+						Dựa vào số ngày * với số sản phẩm tham gia để tính tiền phí tham gia khuyến  mãi
 					</span>
-					</span>				
+					</span>					
 				</h3>
 				<div class="inside">
-					<input type="text" class="number_change" 
-					data_value="" 
-					value="" 
-					id="discount_program_price_sale"/>
+					<input type="text" class="number_change" data_value="0" value="0" id="discount_program_price_one_day"/>
 				</div>
-			</div>	
+			</div>			
+		
+		
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giá tính mỗi sản phẩm
+					<span class="giai-thich">
+					<span>
+						Mỗi sản phẩm tham gia chương trình khuyến mãi tính bao nhiu tiền,
+						Dựa vào số ngày * với số sản phẩm tham gia để tính tiền phí tham gia khuyến  mãi						
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class="number_change" data_value="0" value="0" id="discount_program_price_one_product"/>
+				</div>
+			</div>			
+		
+		
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giới hạn sản phẩm mỗi cửa hàng
+					<span class="giai-thich">
+					<span>
+						giới hạn mỗi cửa hàng tham gia tối đa bao nhiu sản phẩm,
+						để 0 là không có giới hạn
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class= "" value="3" id="discount_program_limit_product"/>
+				</div>
+			</div>			
+		
+	
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giới hạn ngày tham gia mỗi cửa hàng
+					<span class="giai-thich">
+					<span>
+						giới hạn mỗi cửa hàng tham gia tối đa bao nhiu ngày, 
+						để 0 là không có thời hạn
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class= "" value="0" id="discount_program_limit_day"/>
+				</div>
+			</div>				
 			
-					
-			<!-- ------------------
-			//Thời gian KM
-			------------------- -->
+			
 			<div class="pro_box trang_thai_box ">
-				<h3>Thời gian khuyến mãi<span class="giai-thich"><span>Thời giạn chạy chương trình, vô thời hạn hoặc chọn TG cố định</span></span></h3>
+				<h3>Kiểu thời gian khuyến mãi <a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-thoi-gian" target="_blank"><span>Khuyến mãi vô thời hạn sẽ chạy liên tục đến khi chương trình bị xóa</span></a></h3>
 				<div class="inside">
 					<select id="discount_program_time_type">
-						<option>KM vô thời hạn</option>
-						<option>KM có thời hạn</option>
-					</select>	
-					<!-- /* Nếu chọn KM có thời hạn thì hiện time pinker, không thì ẩn */ -->
-					<div class="timepicker">
-						<p><span>Từ ngày</span>
-							<input type="text" value="" id="discount_program_date_star" /> 
-						</p>	
-						<p><span>Đến ngày</span>
-							<input type="text" value="" id="discount_program_date_end" /> 
-						</p>		
-					</div>
+						<%- ojs_share.show_discount_program_time_type(1) -%>
+					</select>						
 				</div>
 			</div>	
+		
+			<div class="pro_box ten_sp_box" id="thoi-han-khuyen-mai">
+				<h3>Thời gian diễn ra CTKM</h3>
+				<div class="inside">
+					<p><span>Ngày bắt đầu KM</span><input type="text" value="" id="discount_program_date_star" /> </p>	
+					<p><span>Ngày kết thúc KM</span><input type="text" value="" id="discount_program_date_end" /> </p>		
+				</div>
+			</div>			
+		
+		
+			<div class="pro_box ten_sp_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea class=""  id="discount_program_qoute"  rows="10" cols="100%" placeholder="Chỉ nhập khi chat với admin"></textarea>
+				</div>
+			</div>	
+
 			
-				
+		
+			<div class="pro_box trang_thai_box <%= admin_view %>" >
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<span>ADMIN:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
+					<select id="discount_program_status_admin" <%= enable_text3 %>>
+						<%- ojs_share.show_status_discount_programs(0) -%>
+					</select>						
+				</div>
+			</div>		
+		
+
+
+
+
 		
 		</div>
 	</div>
 	
-	
+
+
+
+
+
+<div class="btn_box">
+	<a href="/discount-program/speciality/quan-ly-show-all/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Đăng</button>
+</div>	
 	
 
-	<div class="btn_box">
-		<a href="/discount-program/speciality/" class="btn_back">Quay về</a>
-		
-		<button id="btn_save" class="btn_save">Đăng</button>
-	</div>	
-	
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
+
 
 </div>
 <!-- --------------------
 end content
 --------------------- -->
+	
+
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,7 +344,7 @@ $(document).ready(function($){
 	
 	var user_id = $('#user_id').val();
 	var store_id = $('#user_id').val();
-	var discount_program_id = $('#discount_program_id').val();
+	
 	
 	
 	$( "#discount_program_date_star" ).datepicker({
@@ -232,7 +360,6 @@ $(document).ready(function($){
 		}
 	);
 
-	//
 	
 	//@
 	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
@@ -275,6 +402,17 @@ $(document).ready(function($){
 	//	
 	
 	
+	
+	$(document).on('change','#discount_program_time_type',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0){
+			$('#thoi-han-khuyen-mai').css('display','none');
+		}else{
+			$('#thoi-han-khuyen-mai').css('display','block');
+		}
+	});	
+	
 	//@
 	//@
 	//@
@@ -289,7 +427,7 @@ $(document).ready(function($){
 		//console.log(datas);
 		//return;
 		
-		ojs_discount_program_speciality.ajax_update(datas,discount_program_id);	
+		ojs_discount_program_speciality.ajax_save(datas);	
 	});
 	
 	//@
@@ -298,11 +436,34 @@ $(document).ready(function($){
 	//@
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
+		
+		var date_01 = $('#discount_program_date_star').datepicker( "getDate" );
+		var discount_program_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#discount_program_date_end').datepicker( "getDate" );
+		var discount_program_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);		
+		
+		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();		
+		
+		
+		//console.log([discount_program_date_star,discount_program_date_end,discount_program_time_type]);
+		//return;
+		if(
+		discount_program_time_type == 1
+		&& (discount_program_date_star == "" 
+		|| discount_program_date_end == "")
+		){
+			ojs_message.message_ok_show("Vui lòng chọn ngày khuyến mãi");
+			return;
+		}
+		
 		var datas = get_datas();	
+		
 		//console.log(datas);
 		//return;
 		
-		ojs_discount_program_speciality.ajax_update(datas,discount_program_id);	
+		ojs_discount_program_speciality.ajax_save(datas);	
 	});
 
 
@@ -389,4 +550,29 @@ $(document).ready(function($){
 </script>
 
 
+
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

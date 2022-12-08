@@ -8,7 +8,7 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./discount-product-fields-get');
+const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
@@ -23,13 +23,14 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const discount_search = async function (datas,res) {
+const product_search_by_category = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
 		var sql_select_fields = get_select_fields(datas,res);	
 		var sql_condition = get_conditions(datas,res);	
 		var sql_limit = get_limit(datas,res);
+		
 		var sql_order = get_order(datas,res);
 		var sql_group_by = get_group_by(datas,res);
 		var sql_having = get_having(datas,res);	
@@ -38,34 +39,31 @@ const discount_search = async function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_discount_program + 
 			sql_condition +
 			sql_group_by + 
 			sql_order + 
 			sql_having + 
 			sql_limit;
-			
-			//return get_sql_search_group;
 		
+		
+		//return get_sql_search_group;
 	}
-	
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi discount search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "discount search", 
+			"position" : "lib/products/product search by category",
 			"message": error_send 
 			}); 
 		return;	
 	}	
-	
-	
 
 	//@
 	try {	
@@ -77,30 +75,30 @@ const discount_search = async function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi discount search, Vui lòng liên hệ admin" 
+							"Lỗi product search by category, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/discounts/discount search", 
+						"position" : "lib/products/product search by category",
 						"message": error_send 
 					}); 
 					return;
 				}
 				resolve(results);
-			});
+			} );
 		} );
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi discount search, Vui lòng liên hệ admin" 
+				"Lỗi product search by category, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/discounts/discount search", 
+			"position" : "lib/products/product search by category", 
 			"message": error_send 
 		}); 
 		return;
@@ -108,8 +106,7 @@ const discount_search = async function (datas,res) {
 };	
 
 
-
-module.exports = discount_search;
+module.exports = product_search_by_category;
 
 
 /*

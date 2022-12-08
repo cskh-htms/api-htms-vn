@@ -235,6 +235,27 @@ const link_discount_product_add = 	" " +
 	config_database.PREFIX + "discount_program_ID ";
 	
 	
+//@	
+const link_discount_program = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_product_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "discount_program_product_link_product_speciality_id " +   
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "stores  ON  " + 
+	config_database.PREFIX + "products_speciality_store_id  = " + 
+	config_database.PREFIX + "stores_ID " +     
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program ON  " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_id = " + 
+	config_database.PREFIX + "discount_program_ID ";	
+	
+	
+	
+	
 	
 	
 //@	
@@ -332,7 +353,8 @@ module.exports = {
 				link_sale,
 				link_fillter,
 				link_discount_category,
-				link_discount_product_add
+				link_discount_product_add,
+				link_discount_program
 };
 
 

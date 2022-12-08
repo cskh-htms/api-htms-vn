@@ -27,6 +27,18 @@ content
 
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Quản lý chương trình khuyến mãi</h1>
 
+
+	<div class="sap_xep_loc">
+		<div class="loc_wrap">
+			<select id="loc_trang_thai">
+				<option id="dis-new" value="[0]">Các chương trình mới tạo, cần phê duyệt</option>
+				<option id="dis-all" value="[0]" selected>Tất cả Các chương trình đang chạy</option>
+				<option id="details-new" value="[0]">Cửa hàng yêu cầu tham gia chương trình cần phê duyệt </option>
+				<option id="pro-new" value="[0]">Sản phẩm yêu cầu tham gia chươgn trình, cần phê duyệt</option>
+			</select>
+		</div>
+	</div>	
+	
 	
 	<div id="ajax-wrap">	
 		<% include ../../masterpage/widget-discount-program-show-admin-all %>

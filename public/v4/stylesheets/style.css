@@ -2263,14 +2263,15 @@ end of van luc 07.04.2021
 }
 .discount-box {
 	display: flex;
-    padding: 10px;
-    margin: 0 2% 2% 0;
-    flex-direction: column;
+    padding: 36px;
+    margin: 0;
     box-sizing: border-box;
-	max-width: 32%;
-	background: white;
-	border-radius: 5px;
-	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    max-width: 100%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    width: 100%;
+    margin-bottom: 60px;
 }
 .discount-wrap .discount-box:nth-child(3n) {
 	margin-right: 0;
@@ -2283,6 +2284,7 @@ end of van luc 07.04.2021
     overflow: hidden;
     display: flex;
     align-items: center;
+	width: 30%;	
 }
 .discount-box .discount-image-wrap img{
 	max-width:100%;

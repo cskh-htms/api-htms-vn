@@ -42,7 +42,7 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/discount-program/speciality/stores/' + 
+				'/discount-program/speciality/store?c1=' + 
 				store_id ,
 				token
 			);	
@@ -66,6 +66,10 @@ async  function function_export(req, res, next) {
 	}
 	
 	if(data_api_resuilt.error){
+		if(data_api_resuilt.position == "middle-ware"){
+			res.send("Vui lòng đăng nhập");
+			return;
+		}
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
@@ -81,8 +85,20 @@ async  function function_export(req, res, next) {
 		return;
 	}		
 	
+	//res.send([data_api_resuilt]);
+	//return;
 
-		
+
+
+
+
+
+
+
+
+	//@
+	//@
+	//@	
 	//@
 	try {
 
@@ -96,16 +112,17 @@ async  function function_export(req, res, next) {
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
 			'menu_taget'			:'sidebar_discount_program',		
-			'store_list' 			: data_api_resuilt[3],
+			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],
-			'service_type_name' 	: data_api_resuilt[3][0].service_type_name,
-			'store_name' 			: data_api_resuilt[3][0].stores_name,			
-			
+			'service_type_name' 	: "speciality",
+			'store_name' 			: data_api_resuilt[3][0].stores_name,
+
+
+			'store_list' 			: data_api_resuilt[3],			
 			'discount_program_list' : data_api_resuilt[4],
-			'discount_program_details_list' : data_api_resuilt[5],
-			'discount_program_product_list' : data_api_resuilt[6],
-			'discount_program_product_gift_list' : data_api_resuilt[7],				
+			'discount_program_product_list' : data_api_resuilt[5],
+			
 		}
 		
 		
@@ -119,16 +136,16 @@ async  function function_export(req, res, next) {
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: 4,
 			'menu_taget'			:'sidebar_discount_program',		
-			'store_list' 			: data_api_resuilt[3],
+			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],
-			'service_type_name' 	: data_api_resuilt[3][0].service_type_name,
-			'store_name' 			: data_api_resuilt[3][0].stores_name,			
-			
+			'service_type_name' 	: "speciality",
+			'store_name' 			: data_api_resuilt[3][0].stores_name,
+
+
+			'store_list' 			: data_api_resuilt[3],			
 			'discount_program_list' : data_api_resuilt[4],
-			'discount_program_details_list' : data_api_resuilt[5],
-			'discount_program_product_list' : data_api_resuilt[6],
-			'discount_program_product_gift_list' : data_api_resuilt[7],				
+			'discount_program_product_list' : data_api_resuilt[5],			
 			
 			'datas_info'			: datas_info			
 		}

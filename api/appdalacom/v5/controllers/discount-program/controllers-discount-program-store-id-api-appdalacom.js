@@ -32,7 +32,19 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		var store_id = req.params.store_id;
+		//@
+		//@
+		var store_id = 0;
+		if(req.query.c1){
+			store_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "01", 
+				"position" : "controller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -132,38 +144,6 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	//res.send(["check owner store ok"]);
 	//return;	
 
-
-	//@ 3. lấy store taget
-	let data_user_store =    
-	{
-	   "select_field" :
-		[
-			"stores_ID",
-			"stores_user_id"			
-		],
-		"condition" :
-		[
-			{    
-			"relation": "and",
-			"where" :
-				[
-				{   
-					"field"     :"stores_ID",
-					"value"     : store_id,
-					"compare" : "="
-				}           
-				]    
-			}         
-		]   
-	}
-	
-	var user_store_result = await store_search(data_user_store,res);
-	var user_id = user_store_result[0].stores_user_id;
-	//res.send([user_id]);
-	//return;	
-	
-	
-	
 	
 	
 	/////////////////////
@@ -176,7 +156,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_news_bussiness(user_id,res);
+			let result = get_data_news_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_news_bussiness);
@@ -184,7 +164,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 
 		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_count_bussiness(user_id,res);
+			let result = get_data_count_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_count_bussiness);
@@ -270,9 +250,14 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 						"where" :
 						[  							
 							{   
-								"field"     :"discount_program_store_id_created",
-								"value"     : [store_id,17],
-								"compare" 	: 'in'
+								"field"     :"discount_program_status_admin",
+								"value"     : 4,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"check_expired",
+								"value"     : 1,
+								"compare" : "="
 							}								
 						]    
 					}
@@ -289,137 +274,50 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 
 		//@
 		//@
-		//@ 5. discount program details taget
-		let data_discount_program_details_taget =    
-			{
-				"select_field" :
-				[
-				"discount_program_details_ID",
-				"discount_program_details_discount_program_id",
-				"discount_program_details_store_id",
-				"discount_program_details_status_admin",
-				"discount_program_details_price",
-				"discount_program_details_limit_day",
-				"discount_program_details_limit_product",
-				"discount_program_details_qoute",
-				"discount_program_details_date_created",
-				"discount_program_ID",
-				"discount_program_name",
-				"check_date"
-				],
-				"condition" :
-				[				
-					{    
-						"relation": "and",
-						"where" :
-						[  
-							{   
-								"field"     :"discount_program_details_status_admin",
-								"value"     : -1,
-								"compare" 	: '<>'
-							},
-							{   
-								"field"     :"discount_program_store_id_created",
-								"value"     : [store_id,17],
-								"compare" 	: 'in'
-							},
-							{   
-								"field"     :"check_date",
-								"value"     : 0,
-								"compare" 	: '<'
-							}	
-						]    
-					}
-				]
-			}
-		
-		var fn_get_discount_program_details_taget = new Promise((resolve, reject) => {
-			let result = discount_detail_search(data_discount_program_details_taget,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_discount_program_details_taget);			
-	
-		
-		
-		//@
-		//@
-		//@ 6. discount program product
+		//@ 4. discount program product
 		let data_discount_program_product =    
 			{
 				"select_field" :
 				[
-				"discount_program_product_link_discount_program_details_id",
+				"discount_program_product_link_discount_program_id",
 				"discount_program_product_link_product_speciality_id",
 				"discount_program_product_link_status",
 				"discount_program_ID",
 				"products_speciality_ID",
 				"products_speciality_name",
 				"products_speciality_price",
-				"products_speciality_sale_of_price",
-				"products_speciality_price_caution",
-				"discount_program_product_link_sale_of_price"
+				"discount_program_product_link_sale_of_price",
+				"stores_ID",
+				"stores_name"
 				],
 				"condition" :
 				[				
 					{    
 						"relation": "and",
 						"where" :
-						[  
+						[  							
 							{   
-								"field"     :"discount_program_product_link_status",
-								"value"     : -1,
-								"compare" 	: '<>'
-							},
-							{   
-								"field"     :"products_speciality_store_id",
-								"value"     : [store_id],
-								"compare" 	: 'in'
-							}									
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" 	: '='
+							}							
 						]    
 					}
-				]
+				],
+				"order" :
+				 [		 
+					{    
+						"field"  :"discount_program_product_link_date_created",
+						"compare" : "DESC"
+					}			
+				]			
 			}
 		
 		var fn_get_discount_program_product = new Promise((resolve, reject) => {
 			let result = discount_product_search(data_discount_program_product,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_discount_program_product);			
-			
-		
-		//@
-		//@
-		//@ 7. discount program product gift
-		let data_discount_program_product_gift =    
-			{
-				"select_field" :
-				[
-				"discount_program_gift_link_product_speciality_id",
-				"discount_program_gift_link_product_speciality_gift_id",
-				"products_speciality_name",
-				"products_speciality_featured_image"
-				],
-				"condition" :
-				[				
-					{    
-						"relation": "and",
-						"where" :
-						[  
-							{   
-								"field"     :"products_speciality_store_id",
-								"value"     : [store_id],
-								"compare" 	: 'in'
-							}									
-						]    
-					}
-				]
-			}
-		
-		var fn_get_discount_program_product_gift = new Promise((resolve, reject) => {
-			let result = discount_product_gift_search(data_discount_program_product_gift,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_discount_program_product_gift);					
+		promise_all.push(fn_get_discount_program_product);					
 		
 		
 		
@@ -452,10 +350,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		"2":"count item",
 		"3":"data_store_taget",
 		"4":"discount list",
-		"5":"discount-details-list",
-		"6":"discount-product-list",
-		"7":"discount-product-gift-list",
-		
+		"5":"discount-product-list",		
 	}
 	promise_result.push(notes);
 	

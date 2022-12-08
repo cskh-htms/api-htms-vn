@@ -1,0 +1,392 @@
+
+<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+<% include ../../masterpage/loader %>
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+<% include ../../masterpage/header %>
+
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/admin">Admin</a><i class="fas fa-chevron-right"></i>
+	<a href="/discount-program/speciality/">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Thêm chương trình khuyến mãi</h1>
+	
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<!-- ------------------
+			//Tên CT khuyến mãi
+			------------------- -->
+			<div class="pro_box ten_sp_box">
+				<h3>Tên chương trình khuyến mãi</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="discount_program_name" />
+				</div>
+			</div>
+			
+			<div class="pro_box trang_thai_box">
+				<h3>Kiểu chương trình khuyến mãi</h3>
+				<div class="inside">
+					<span>Hướng dẫn : </span><span class="giai-thich"><span>Loại chương trình thường, hay loại khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></span>
+					<select id="discount_program_gift_type">
+						<%- ojs_share_discount.show_discount_program_gift_type(0) -%>
+					</select>						
+				</div>
+			</div>								
+			
+			<!-- ------------------
+			//Kiểu khuyến mãi
+			------------------- -->
+			<div class="pro_box kieu_km">
+				<h3>Kiểu khuyến mãi</h3>
+				<div class="inside">
+					<label class="labl">
+						<input type="radio" name="kieu_km" value="giamgia" checked="checked"/>
+						<div>Giảm <input type="text" value=""> % sản phẩm</div>
+					</label>
+					<label class="labl">
+						<input type="radio" name="kieu_km" value="donggia" />
+						<div>Đồng giá <input type="text" value=""> đ</div>
+					</label>
+					<label class="labl">
+						<input type="radio" name="kieu_km" value="mua1tang1" />
+						<div>Mua 1 tặng 1</div>
+					</label>
+				</div>
+			</div>
+			
+			<!-- ------------------
+			//Link chương trình
+			------------------- -->
+			<div class="pro_box">
+				<h3>Link CTKM<span class="giai-thich"><span>Khách được dẫn đến đâu khi ấn banner trên app</span></span></h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="" />
+				</div>
+			</div>
+			
+			
+			
+			<!-- ------------------
+			//Nội dung
+			------------------- -->
+			<div class="pro_box">
+				<h3>Nội dung chương trình</h3>
+				<div class="inside">
+					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%">
+					
+					</textarea>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="pro_col02">
+			
+			<!-- ------------------
+			//Vị trí banner
+			------------------- -->
+			<div class="pro_box trang_thai_box ">
+				<h3>Vị trí CTKM trên app<span class="giai-thich"><span>Vị trí hiển thị CTKM trên trang chủ app</span></span></h3>
+				<div class="inside">
+					<select id="discount_program_position">
+						<option>Slider (Banner:1000x460px)</option>
+						<option>Flashsale (Không cần banner)</option>
+						<option>Banner ngang (Banner:1000x275px)</option>
+						<option>Banner vuông 1 (Banner:300x300px)</option>
+						<option>Banner vuông 2 (Banner:300x300px)</option>
+						<option>Banner vuông 3 (Banner:300x300px)</option>
+						<option>Cuối app (Không cần banner)</option>
+					</select>						
+				</div>
+			</div>
+			
+			<!-- ------------------
+			//Banner
+			------------------- -->
+			<div class="pro_box">
+				<h3>Banner chương trình<span class="giai-thich"><span>Kích thước tùy vào vị trí đã chọn ở trên</span></span></h3>	
+				<div class="inside">
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="" style="display:none;" 
+					/>
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			
+			<!-- ------------------
+			//Chiết khấu
+			------------------- -->
+			<div class="pro_box ten_sp_box">
+				<h3>Chiết khấu % trên mỗi SP
+					<span class="giai-thich">
+					<span>
+						Chiết khấu cho mỗi sản phẩm bán ra(theo giá đã giảm), bán ra mới tính phí.
+					</span>
+					</span>				
+				</h3>
+				<div class="inside">
+					<input type="text" class="number_change" 
+					data_value="" 
+					value="" 
+					id="discount_program_price_sale"/>
+				</div>
+			</div>	
+			
+					
+			<!-- ------------------
+			//Thời gian KM
+			------------------- -->
+			<div class="pro_box trang_thai_box ">
+				<h3>Thời gian khuyến mãi<span class="giai-thich"><span>Thời giạn chạy chương trình, vô thời hạn hoặc chọn TG cố định</span></span></h3>
+				<div class="inside">
+					<select id="discount_program_time_type">
+						<option>KM vô thời hạn</option>
+						<option>KM có thời hạn</option>
+					</select>	
+					<!-- /* Nếu chọn KM có thời hạn thì hiện time pinker, không thì ẩn */ -->
+					<div class="timepicker">
+						<p><span>Từ ngày</span>
+							<input type="text" value="" id="discount_program_date_star" /> 
+						</p>	
+						<p><span>Đến ngày</span>
+							<input type="text" value="" id="discount_program_date_end" /> 
+						</p>		
+					</div>
+				</div>
+			</div>	
+			
+				
+		
+		</div>
+	</div>
+	
+	
+	
+
+	<div class="btn_box">
+		<a href="/discount-program/speciality/" class="btn_back">Quay về</a>
+		
+		<button id="btn_save" class="btn_save">Đăng</button>
+	</div>	
+	
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	
+	var user_id = $('#user_id').val();
+	var store_id = $('#user_id').val();
+	var discount_program_id = $('#discount_program_id').val();
+	
+	
+	$( "#discount_program_date_star" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( "#discount_program_date_end" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+
+	//
+	
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_loader.delete_s3(url);
+		ojs_loader.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
+	});			
+	//		
+	//	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	var store_id = $('#store_id').val();		
+	$(document).on('click','#btn_draf',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		
+		datas.datas.discount_program_status_admin = -1;
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_discount_program_speciality.ajax_update(datas,discount_program_id);	
+	});
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		var datas = get_datas();	
+		//console.log(datas);
+		//return;
+		
+		ojs_discount_program_speciality.ajax_update(datas,discount_program_id);	
+	});
+
+
+	
+	
+	function get_datas(){
+		
+		var discount_program_store_id_created = store_id;
+		
+		var discount_program_name = $('#discount_program_name').val();		
+		var discount_program_qoute = $('#discount_program_qoute').val();		
+
+
+		var discount_program_limit_product = $('#discount_program_limit_product').val();		
+		var discount_program_limit_day = $('#discount_program_limit_day').val();
+
+
+		var discount_program_price_created = $('#discount_program_price_created').attr("data_value");
+		var discount_program_price_sale = $('#discount_program_price_sale').attr("data_value");
+		var discount_program_price_one_day = $('#discount_program_price_one_day').attr("data_value");
+		var discount_program_price_one_product = $('#discount_program_price_one_product').attr("data_value");	
+		
+		
+		var discount_program_type = $('#discount_program_type  option:selected').val();		
+		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();
+		var discount_program_gift_type = $('#discount_program_gift_type  option:selected').val();
+		var discount_program_position = $('#discount_program_position  option:selected').val();
+		var discount_program_status_admin = $('#discount_program_status_admin').val();
+		
+		
+		var discount_program_information = $('#noi_dung').val();		
+		var discount_program_featured_image = $('#featured_image').attr("data_value");		
+		
+		
+		var date_01 = $('#discount_program_date_star').datepicker( "getDate" );
+		var discount_program_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#discount_program_date_end').datepicker( "getDate" );
+		var discount_program_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		
+		if(discount_program_date_end.length > 0){			
+			discount_program_date_end = discount_program_date_end + " 23:59:59"
+		}
+		
+		if(discount_program_name == "" ){
+			ojs_message.message_ok_show("Chưa nhập tên chương trình");
+		}
+
+		
+		
+		let datas = {
+			"datas":{
+				discount_program_name:discount_program_name,
+				discount_program_qoute:discount_program_qoute,
+				discount_program_limit_product:discount_program_limit_product,
+				discount_program_limit_day:discount_program_limit_day,
+				discount_program_price_created:discount_program_price_created,
+				discount_program_price_sale:discount_program_price_sale,
+				discount_program_price_one_day:discount_program_price_one_day,
+				discount_program_price_one_product:discount_program_price_one_product,
+				discount_program_type:discount_program_type,
+				discount_program_time_type:discount_program_time_type,
+				discount_program_gift_type:discount_program_gift_type,
+				discount_program_position:discount_program_position,
+				discount_program_store_id_created:discount_program_store_id_created,
+				
+				discount_program_featured_image:discount_program_featured_image,
+				discount_program_information:discount_program_information,
+				discount_program_status_admin:discount_program_status_admin,
+				discount_program_date_star:discount_program_date_star,
+				discount_program_date_end:discount_program_date_end,
+				
+			}
+		}
+		
+		return datas;
+	}
+
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+<% include ../../masterpage/loader-end %>

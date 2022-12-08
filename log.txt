@@ -1,5 +1,97 @@
 
 
+---------------------------
+các việc cần làm trên database
+----------------------------
+
+1. xóa cac chuogn trinh khuyến mãi link
+	DELETE FROM `dala_discount_program_product_link`;
+	DELETE FROM `dala_discount_program_details`;
+	DELETE FROM `dala_discount_program_gift_link`;
+	
+	ALTER TABLE `dala_discount_program_product_link` 
+	ADD `dala_discount_program_product_link_discount_program_id` INT NOT NULL 
+	AFTER `dala_discount_program_product_link_discount_program_details_id`;
+
+
+	DROP TRIGGER trig_discount_program_product_link_after_insert; 
+	DROP TRIGGER trig_discount_program_product_link_delete; 
+	DROP TRIGGER trig_discount_program_product_link_insert; 
+	DROP TRIGGER trig_discount_program_product_link_update; 
+	DROP TRIGGER trig_discount_program_product_link_update_after; 
+
+	DROP TRIGGER trig_discount_program_delete;
+
+
+
+
+
+
+	-- 
+	-- 
+	-- 
+	-- 
+	-- 
+	-- star
+	START TRANSACTION;
+
+
+
+	--
+	-- data type
+	DROP TRIGGER  IF EXISTS  trig_discount_program_product_link_insert;
+	--
+
+	DELIMITER $$ 
+	CREATE TRIGGER trig_discount_program_product_link_insert BEFORE INSERT ON dala_discount_program_product_link 
+	FOR EACH ROW  
+	BEGIN  
+
+		SET @checkID = (select 	dala_discount_program_product_link_ID 
+			from dala_discount_program_product_link  
+			where 	
+			dala_discount_program_product_link_discount_program_id  =  NEW.dala_discount_program_product_link_discount_program_id 
+			and 
+			dala_discount_program_product_link_product_speciality_id  =  NEW.dala_discount_program_product_link_product_speciality_id  
+			);
+		IF (@checkID > 0) THEN  
+			SIGNAL SQLSTATE '12341' 
+			SET MESSAGE_TEXT = 'trig_discount_program_product_link_insert'; 	
+		END IF;	
+		
+	END $$
+	DELIMITER ;
+
+
+	--
+	--
+	--
+	-- commit 
+	COMMIT;
+	-- 
+	-- 
+	-- 
+	-- 
+	-- 
+	-- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if( !req.session.token ){
 	res.send('<h1 style="text-align:center;">Vui lòng đăng nhập</h1>' );

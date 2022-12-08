@@ -11,7 +11,7 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 const controller_bussiness_by_user_id = require('../../controllers/' + ojs_configs.controller_version + '/bussiness/controllers-bussiness-by-user-id.js');
-const controller_store_add = require('../../controllers/' + ojs_configs.controller_version + '/stores/controllers-stores-add.js');
+const controller_store_add = require('../../controllers/' + ojs_configs.controller_version + '/admin/stores/controllers-stores-add.js');
 
 //end of v5
 

@@ -1,0 +1,91 @@
+<!-- -----------------------------------------
+	//Chương trình khuyến mãi của hệ thống DALA
+------------------------------------------- -->
+<%		
+var i_loop = 0;
+if(discount_program_list.length > 0){ %>	
+	<br>
+	<h1 style="font-weight:bold; font-size:20px;margin:0;">Các Chương trình khuyến mãi có thể tham gia</h1>
+	
+	
+	<hr>
+	<br>
+	
+	<div class="discount-wrap">	
+	<% 
+	for( var  x in discount_program_list ) { 
+	if(
+	discount_program_list[x].discount_program_type == "1" ){
+	i_loop = i_loop + 1;
+	%>	
+		<div class="discount-box" style="flex-wrap:wrap;">
+			<div class="discount-image-wrap">
+				<img  style="cursor: pointer;"   
+				class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" 
+				src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+			</div>
+			
+			<div style="padding: 0px 20px;">
+				<span >Tên chương trình : </span>
+				<div class="discount-title">
+					<div style="cursor: pointer;"  class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
+					<%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong>
+					</div>
+
+				</div>
+		
+			
+				<div class="discount-posittiom">
+					<span> 
+						Vị trí khuyến mãi : 
+						<%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %>
+					</span>
+				</div>	
+				
+				<div class="discount-posittiom">
+					<a href="/discount-program/speciality/product/add/<%= discount_program_list[x].discount_program_ID %>
+					/<%= store_id %>">Tham gia
+					</a>
+				</div>					
+				
+				
+			</div>
+		</div>
+	<%
+	} //end if
+	}// end for
+	%>		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</div>
+	
+	
+	
+<%
+} //end if
+%>		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

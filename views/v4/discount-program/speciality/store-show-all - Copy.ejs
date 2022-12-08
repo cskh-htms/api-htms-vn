@@ -12,7 +12,7 @@ page wrap
 --------------------- -->
 <% include ../../masterpage/header %>
 <% include ../../masterpage/function-share-all %>
-<% include ../../masterpage/function-share-discount %>
+
 
 
 
@@ -21,24 +21,46 @@ page wrap
 </script>	
 
 
+
+<%
+//tính số lượng mã giảm giá cửa cửa hàng
+var discount_store = 0;
+for(x in discount_program_list){
+	if(discount_program_list[x].discount_program_store_id_created == store_id){
+		discount_store = discount_store + 1;
+	}
+}
+
+%>
+
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
-	<h1>
-		<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
-			<%= store_name %>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Chương trình khuyến mãi đang hoạt động</h1>
+	<div class="mb20" style="text-align:right;">
+		<a href="/discount-program/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">
+			Quản lý CTKM của bạn
+			<span class="red"><%= discount_store %></span>
 		</a>
-		<i class="fas fa-chevron-right"></i>Chương trình khuyến mãi
-	</h1>
-
-
-	<div style="">
-		<% include ../../masterpage/widget-discount-program-show-store-all %>
+		
 	</div>
-
-
+	
+	<div id="ajax-wrap">
+		<% 
+		if(store_id == 17){
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no-dala %>
+		<% 
+		}else{
+		%>
+			<% include ../../masterpage/widget-discount-program-show-no %>		
+		<% 
+		}
+		%>		
+		
+	</div>
 
 
 
@@ -197,15 +219,3 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
-
-
-
-
-
-
-
-
-
-
-
-

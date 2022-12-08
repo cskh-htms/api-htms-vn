@@ -19,9 +19,15 @@ require(
 	'../../controllers/admin/stores/controllers-admin-stores-add'
 );
 
+const controllers_admin_discount_program_add =  
+require(
+	'../../controllers/admin/discount-programs/controllers-admin-discount-program-add'
+);
 
-
-
+const controllers_admin_discount_program_show_all =  
+require(
+	'../../controllers/admin/discount-programs/controllers-admin-discount-program-show-all.js'
+);
 
 
 //@
@@ -43,8 +49,8 @@ router.get('/', function(req, res, next) {
 router.get('/store-add',	middle_ware, controllers_admin_store_add );
 
 
-
-
+router.get('/discount-program-add',	middle_ware, controllers_admin_discount_program_add );
+router.get('/discount-program-show-all',	middle_ware, controllers_admin_discount_program_show_all );
 
 
 

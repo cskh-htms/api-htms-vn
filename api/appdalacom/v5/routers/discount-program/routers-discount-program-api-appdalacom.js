@@ -76,13 +76,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get(
-	'/speciality/product/add/:discount_program_details_id/:store_id/:user_id',
+	'/speciality/product/add',
 	middle_ware, 
 	controllers_discount_program_product_add_list 
 );
 
 router.get(
-	'/speciality/stores/:store_id',
+	'/speciality/store',
 	middle_ware, 
 	controllers_discount_program_store_id 
 );
