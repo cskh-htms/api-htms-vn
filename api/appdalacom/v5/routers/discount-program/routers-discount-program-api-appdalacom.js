@@ -53,7 +53,9 @@ const controllers_discount_program_product_save_gift= require(
 	'../../controllers/discount-program/controllers-discount-program-product-save-gift-api-appdalacom.js'
 );
 
-
+const controllers_discount_program_product_save_meny= require(
+	'../../controllers/discount-program/controllers-discount-program-product-save-meny-api-appdalacom.js'
+);
 
 
 const controllers_discount_program_product_delete= require(
@@ -157,6 +159,13 @@ router.post(
 	middle_ware, 
 	controllers_discount_program_product_save_gift
 );
+
+router.post(
+	'/speciality/product-save-meny/',
+	middle_ware, 
+	controllers_discount_program_product_save_meny
+);
+
 
 
 router.get(

@@ -71,7 +71,14 @@ const controllers_discount_program_product_save_gift = require(
 		'/discount-program/controllers-discount-program-product-save-gift-web-appdalacom.js'
 	);		
 	
-		
+const controllers_discount_program_product_save_meny = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-save-meny-web-appdalacom.js'
+	);		
+
+
+	
 const controllers_discount_program_product_save = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
@@ -229,10 +236,11 @@ router.get('/product/add-meny/:discount_program_id/:store_id/', controllers_disc
 router.get('/stores/:store_id/', controllers_discount_program_store_id);
 router.get('/store-quan-ly/:store_id', controllers_discount_program_store_quan_ly);
 router.get('/show/:discount_program_id/:store_id', controllers_discount_program_show);
-//router.post('/save/', controllers_discount_program_save);
+
 
 router.post('/product-save/', controllers_discount_program_product_save);
 router.post('/product-save-gift/', controllers_discount_program_product_save_gift);
+router.post('/product-save-meny/', controllers_discount_program_product_save_meny);
 router.get('/product-delete/:discount_program_product_link_id/', controllers_discount_program_product_delete);
 
 
