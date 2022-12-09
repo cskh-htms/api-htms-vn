@@ -19,6 +19,11 @@ const discount_detail_search = require('../../../../../lib/' + config_api.API_LI
 const discount_product_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search');
 
 
+const product_search_gift_in = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
+
+
+
+
 //@
 async  function function_export(req, res, next) {
 	
@@ -165,16 +170,26 @@ async  function function_export(req, res, next) {
 			{
 				"select_field" :
 				[
-				"discount_program_product_link_discount_program_id",
-				"discount_program_product_link_product_speciality_id",
-				"discount_program_product_link_status",
-				"discount_program_ID",
 				"products_speciality_ID",
+				"discount_program_product_link_ID",
+				"products_speciality_featured_image",
 				"products_speciality_name",
 				"products_speciality_price",
-				"discount_program_product_link_sale_of_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
 				"stores_ID",
-				"stores_name"
+				"discount_program_product_link_status",
+				"discount_program_product_link_discount_program_id",
+				"check_expired"
 				],
 				"order" :
 				 [		 
@@ -192,6 +207,42 @@ async  function function_export(req, res, next) {
 		promise_all.push(fn_get_discount_program_product);				
 
 
+		
+		
+		//@
+		//@
+		//@ 4. product_gift_in
+		let data_product_gift_in =    
+			{
+				"select_field" :
+				[
+				"products_speciality_ID",
+				"products_speciality_featured_image",
+				"products_speciality_name",
+				"products_speciality_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
+				"stores_ID",
+				"discount_program_gift_link_product_speciality_id",
+				"discount_program_ID"
+				]			
+			}
+		
+		var fn_get_product_gift_in = new Promise((resolve, reject) => {
+			let result = product_search_gift_in(data_product_gift_in,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_product_gift_in);		
+		
 		
 	
 		

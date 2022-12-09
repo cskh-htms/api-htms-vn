@@ -63,13 +63,19 @@ ojs_share_discount = {
 		//
 		if(status == 0){
 			result = "" +
-			'<option value="0" selected>Khuyến mãi thường</option>' + 
-			'<option value="1"> Khuyến mãi mua 1 tặng 1 - 2 -3 </option>';	
+			'<option value="0"  selected>Khuyến mãi thường</option>' + 
+			'<option value="1"> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2"> Khuyến mãi mua nhiều càng rẻ </option>';
 		}else if(status == 1){
 			result = "" +
 			'<option value="0">Khuyến mãi thường</option>' + 
-			'<option value="1" selected> Khuyến mãi mua 1 tặng 1 - 2 -3 </option>';				
-		
+			'<option value="1" selected> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2"> Khuyến mãi mua nhiều càng rẻ </option>';			
+		}else if(status == 2){
+			result = "" +
+			'<option value="0">Khuyến mãi thường</option>' + 
+			'<option value="1"> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2" selected> Khuyến mãi mua nhiều càng rẻ </option>';			
 		}else{
 			result = "" + 
 			'<option value="0">error</option>';

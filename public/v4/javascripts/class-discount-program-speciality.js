@@ -207,13 +207,16 @@ $(document).ready(function($){
 		//@
 		//@ 9.[no_product_to_discount]
 		no_product_to_discount: function(datas,link_id){		
-			//alert(link_id);
+			//console.log(datas,link_id);
 			//return;
+			
+			
+			
 			//goi api
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/discount-program/speciality/no_product_to_discount/" + link_id,
+			  url : ojs_loader.host + "/admin/discount-program/product-denied/" + link_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -224,21 +227,16 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				    //ojs_loadding.ajax_hide_loadding();
+					//console.log(result);
+					//return;
+					
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show(result.message);
-								}else{
-									ojs_message.message_ok_show(result.message);
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã từ chối sản phẩm tham gia chương trình ",location.href);
-						}
+						ojs_message.message_ok_show(" Đã từ chối sản phẩm tham gia chương trình ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
 			  }//end of success			  
@@ -256,9 +254,9 @@ $(document).ready(function($){
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "GET",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/discount-program/speciality/add_product_to_discount/" + link_id,
+			  url : ojs_loader.host + "/admin/discount-program/product-add/" + link_id,
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -268,21 +266,16 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+					//ojs_loadding.ajax_hide_loadding();	
+					//console.log(result);
+					//return;
+				  
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show(result.message);
-								}else{
-									ojs_message.message_ok_show(result.message);
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã phê duyệt sản phẩm ",location.href);
-						}
+						ojs_message.message_ok_show(" Đã phê duyệt sản phẩm ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();				  
 			  }//end of success			  
@@ -505,6 +498,62 @@ $(document).ready(function($){
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save	
+	
+	
+	
+		//@
+		//@	
+		//@
+		//@
+		//@  3. [ajax_save_product_gift]
+		ajax_save_product_gift: function(datas){		
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/discount-program/speciality/product-save-gift",
+			  data : JSON.stringify(datas),
+			  dataType : 'json',
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_loader.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//ojs_loadding.ajax_hide_loadding();
+					//console.log(result);
+					//return;
+				  
+					//ojs_loader.evn = "dev";
+					if(ojs_loader.evn == "dev"){
+						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
+						console.log(result);
+					}else{
+						if(result.error.length > 0){
+								if(ojs_loader.evn == "demo"){
+									console.log(result);
+									ojs_message.message_ok_show(result.message);
+								}else{
+									ojs_message.message_ok_show(result.message);
+								}
+						}else{
+							ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình",location.href);
+						}
+					}				
+					ojs_loadding.ajax_hide_loadding();				  
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save		
+	
+	
+	
+	
+	
+	
 	
 	
 		//@

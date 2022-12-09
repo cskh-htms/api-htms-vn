@@ -142,15 +142,17 @@ $(document).ready(function($){
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
+		let data_id = $(this).attr("data_id");
+		//console.log(data_id );
+		//return;
 		//
 		//@
-		let x = "xác nhận huỷ tham gia sản phẩm";		
+		let x = "xác nhận xoá";		
 		let y = "delete_discount_program_link_id";//function name in callback 
-		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
+		let z = ' { "discount_program_link_id" : "' + data_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
-	});			
+	});		
 		
 	
 	//

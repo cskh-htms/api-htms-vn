@@ -19,27 +19,25 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
-const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search');
-const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search');
-const discount_detail_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-details/discount-detail-search');
-const discount_product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search');
-const discount_product_gift_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
-const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
-
+const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount.js');
+const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search.js');
+const product_search_gift = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const product_search_gift_in = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
 
-
-
 //@
-async  function controllers_discount_program_product_add_list(req, res, next) {
+//@
+//@
+//@ function export
+async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
+		
 		//@
-		//@
-		var store_id = 0;
+		//@		
+		var discount_program_id = 0;
 		if(req.query.c1){
-			store_id = req.query.c1;
+			discount_program_id = req.query.c1;
 		}else{
 			res.send({ 
 				"error" : "01", 
@@ -47,7 +45,23 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
+		}	
+		
+		//@
+		//@
+		var store_id = 0;
+		if(req.query.c2){
+			store_id = req.query.c2;
+		}else{
+			res.send({ 
+				"error" : "02", 
+				"position" : "controller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
 		}			
+		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -66,8 +80,10 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}	
 	
 
-	//res.send([token,store_id]);
-	//return;	
+
+	//res.send([discount_program_id] );
+	//return;
+
 
 
 	// check role;
@@ -88,19 +104,13 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js", 
 			"message": error_send 
 		}); 
 		return;			
 	}
 	
-	//res.send(["check owner ok"]);
-	//return;	
-
-
-
-	//@
-	//@
+	
 	//@ check owner store
 	try{		
 		//@ check owner store
@@ -121,7 +131,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
+				"position" : "ctroller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js", 
 				"message": error_send 
 			}); 
 			return;			
@@ -129,7 +139,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -137,17 +147,16 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js", 
 			"message": error_send 
 		}); 
 		return;	
 	}	
 
 
-	//res.send(["check owner store ok"]);
-	//return;	
+	//res.send(["owner ok"] );
+	//return;
 
-	
 	
 	/////////////////////
 	////////////////////
@@ -156,14 +165,14 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		promise_all.push(0);
 
 
-		
+
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
 			let result = get_data_news_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_news_bussiness);
-		
+
 
 		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
@@ -181,7 +190,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			[
 				"stores_ID",
 				"stores_user_id",
-				"stores_name" ,
+				"stores_name",
 				"stores_date_created",
 				"stores_adress",
 				"service_type_name",
@@ -194,9 +203,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 				"stores_status_stores",
 				"stores_wards",
 				"stores_district",
-				"stores_province"
-
-				
+				"stores_province"				
 			],
 			"condition" :
 			[
@@ -222,59 +229,48 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		
 		
 		
-		//@
-		//@ 4. discount program list
-		let data_discount_program_list =    
-			{
-				"select_field" :
-				[
+		//@ 3. lấy discount taget
+		let data_discount_taget =    
+		{
+		   "select_field" :
+			[
 				"discount_program_ID",
-				"discount_program_price_created",
-				"discount_program_featured_image",
-				"discount_program_information",
 				"discount_program_name",
 				"discount_program_position",
-				"discount_program_status_admin",
-				"discount_program_status_update",
-				"discount_program_store_id_created",
 				"discount_program_type",
-				"discount_program_gift_type",
 				"discount_program_time_type",
 				"discount_program_date_star",
 				"discount_program_date_end",
-				"check_expired",
-				"stores_ID",
-				"stores_name"
-				],
-				"condition" :
-				[				
-					{    
-						"relation": "and",
-						"where" :
-						[  							
-							{   
-								"field"     :"discount_program_status_admin",
-								"value"     : 4,
-								"compare" 	: '='
-							},
-							{   
-								"field"     :"check_expired",
-								"value"     : 1,
-								"compare" : "="
-							}								
-						]    
-					}
-				]
-			}
+				"discount_program_information",
+				"discount_program_featured_image"			
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"discount_program_ID",
+						"value"     : discount_program_id,
+						"compare" : "="
+					}           
+					]    
+				}         
+			]   
+		}
 		
-		var fn_get_discount_program_list = new Promise((resolve, reject) => {
-			let result = discount_search(data_discount_program_list,res);
+		var fn_get_discount_taget = new Promise((resolve, reject) => {
+			let result = discount_search(data_discount_taget,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_discount_program_list);			
-	
-
-
+		promise_all.push(fn_get_discount_taget);			
+		
+		
+		
+		
+		
+		
 		//@
 		//@
 		//@ 4. discount program product
@@ -313,7 +309,12 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 								"field"     :"stores_ID",
 								"value"     : store_id,
 								"compare" 	: '='
-							}							
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : 1,
+								"compare" 	: '='
+							}								
 						]    
 					}
 				],
@@ -327,18 +328,78 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			}
 		
 		var fn_get_discount_program_product = new Promise((resolve, reject) => {
-			let result = discount_product_search(data_discount_program_product,res);
+			let result = product_search(data_discount_program_product,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_discount_program_product);					
+		promise_all.push(fn_get_discount_program_product);	
 		
 		
 		
+
+
+		//@
+		//@
+		//@ 4. product_gift
+		let data_product_gift =    
+			{
+				"select_field" :
+				[
+				"products_speciality_ID",
+				"products_speciality_featured_image",
+				"products_speciality_name",
+				"products_speciality_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
+				"stores_ID"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  							
+							{   
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : 1,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"products_speciality_type",
+								"value"     : 2,
+								"compare" 	: '='
+							}									
+						]    
+					}
+				]			
+			}
 		
-		
-		
-		
-		
+		var fn_get_product_gift = new Promise((resolve, reject) => {
+			let result = product_search_gift(data_product_gift,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_product_gift);	
+
+
+
+
+
+
+
+
 
 
 		//@
@@ -387,29 +448,28 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			let result = product_search_gift_in(data_product_gift_in,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_product_gift_in);			
+		promise_all.push(fn_get_product_gift_in);	
+
+
+		
+		
+
+		
+	
 		
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//@
+		//@
+		//@		
 		//@ gogo
 		var promise_result = await Promise.all(promise_all);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -417,7 +477,7 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
+			"position" : "ctroller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js", 
 			"message": error_send 
 		}); 
 		return;	
@@ -428,9 +488,11 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		"1":"news bussiness",
 		"2":"count item",
 		"3":"data_store_taget",
-		"4":"discount list",
-		"5":"discount-product-list",		
+		"4":"discount taget",
+		"5":"product_list",
+		"6":"product_list gift",		
 	}
+
 	promise_result.push(notes);
 	
 
@@ -438,4 +500,34 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	return;
 }
 
-module.exports = controllers_discount_program_product_add_list;
+
+
+
+
+//@
+//@
+//@
+//@ export
+module.exports = function_export;
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ file end
+
+
+
+
+
+
+
+
+

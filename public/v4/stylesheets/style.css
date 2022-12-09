@@ -560,6 +560,10 @@ a {
 	margin-right: 5px;
 	display: block;
 }
+.price-off{
+    color: #ccc;
+    text-decoration: line-through;
+}
 
 
 .sap_xep_loc {

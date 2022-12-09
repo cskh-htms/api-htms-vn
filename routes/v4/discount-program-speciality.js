@@ -24,6 +24,20 @@ const controllers_discount_program_product_add_list = require(
 		'/discount-program/controllers-discount-program-product-add-list-web-appdalacom.js'
 	);
 	
+	
+const controllers_discount_program_product_add_gift = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-add-gift-web-appdalacom.js'
+	);	
+	
+const controllers_discount_program_product_add_meny = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-add-meny-web-appdalacom.js'
+	);		
+	
+	
 const controllers_discount_program_store_id = require(
 		'../../controllers/' + 
 		ojs_configs.controller_version + 
@@ -50,6 +64,13 @@ const controllers_discount_program_save = require(
 		ojs_configs.controller_version + 
 		'/discount-program/controllers-discount-save-web-appdalacom.js'
 	);	
+	
+const controllers_discount_program_product_save_gift = require(
+		'../../controllers/' + 
+		ojs_configs.controller_version + 
+		'/discount-program/controllers-discount-program-product-save-gift-web-appdalacom.js'
+	);		
+	
 		
 const controllers_discount_program_product_save = require(
 		'../../controllers/' + 
@@ -201,12 +222,17 @@ const ojs_datas_discount_program = require('../../models/ojs-datas-discount-prog
 
 //@ bussiness
 router.get('/product/add/:discount_program_id/:store_id/', controllers_discount_program_product_add_list);
+router.get('/product/add-gift/:discount_program_id/:store_id/', controllers_discount_program_product_add_gift);
+router.get('/product/add-meny/:discount_program_id/:store_id/', controllers_discount_program_product_add_meny);
+
+
 router.get('/stores/:store_id/', controllers_discount_program_store_id);
 router.get('/store-quan-ly/:store_id', controllers_discount_program_store_quan_ly);
 router.get('/show/:discount_program_id/:store_id', controllers_discount_program_show);
 //router.post('/save/', controllers_discount_program_save);
 
 router.post('/product-save/', controllers_discount_program_product_save);
+router.post('/product-save-gift/', controllers_discount_program_product_save_gift);
 router.get('/product-delete/:discount_program_product_link_id/', controllers_discount_program_product_delete);
 
 

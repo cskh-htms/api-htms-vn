@@ -19,16 +19,30 @@ require(
 	'../../controllers/admin/stores/controllers-admin-stores-add'
 );
 
+//@
 const controllers_admin_discount_program_add =  
 require(
 	'../../controllers/admin/discount-programs/controllers-admin-discount-program-add'
 );
 
+
+//@
 const controllers_admin_discount_program_show_all =  
 require(
 	'../../controllers/admin/discount-programs/controllers-admin-discount-program-show-all.js'
 );
 
+//@
+const controllers_admin_discount_program_product_add =  
+require(
+	'../../controllers/admin/discount-programs/controllers-admin-discount-program-product-add'
+);
+
+//@
+const controllers_admin_discount_program_product_denied =  
+require(
+	'../../controllers/admin/discount-programs/controllers-admin-discount-program-product-denied'
+);
 
 //@
 //@
@@ -51,8 +65,8 @@ router.get('/store-add',	middle_ware, controllers_admin_store_add );
 
 router.get('/discount-program-add',	middle_ware, controllers_admin_discount_program_add );
 router.get('/discount-program-show-all',	middle_ware, controllers_admin_discount_program_show_all );
-
-
+router.get('/discount-program-product-add',	middle_ware, controllers_admin_discount_program_product_add );
+router.post('/discount-program-product-denied',	middle_ware, controllers_admin_discount_program_product_denied );
 
 
 

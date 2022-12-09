@@ -316,11 +316,6 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"compare" : "in"
 					},
 					{   
-						"field"     :"check_date",
-						"value"     : 0,
-						"compare" : "<"
-					},
-					{   
 						"field"     :"check_expired",
 						"value"     : 1,
 						"compare" : "="

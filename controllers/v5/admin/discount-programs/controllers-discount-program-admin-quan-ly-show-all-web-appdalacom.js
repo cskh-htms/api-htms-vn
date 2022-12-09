@@ -111,7 +111,8 @@ async  function function_export(req, res, next) {
 			
 			'news_admin_menu' 	: data_api_resuilt[1],
 			'discount_program_list' : data_api_resuilt[2],
-			'discount_program_product_add_list' : data_api_resuilt[3]			
+			'discount_program_product_list' : data_api_resuilt[3],		
+			'products_gift_in' : data_api_resuilt[4]				
 		}
 		
 		
@@ -126,7 +127,8 @@ async  function function_export(req, res, next) {
 			
 			'news_admin_menu' 	: data_api_resuilt[1],
 			'discount_program_list' : data_api_resuilt[2],
-			'discount_program_product_add_list' : data_api_resuilt[3],		
+			'discount_program_product_list' : data_api_resuilt[3],		
+			'products_gift_in' : data_api_resuilt[4],
 			
 			'datas_info'			: datas_info			
 		}

@@ -97,22 +97,7 @@ $(document).ready(function($){
 	});
 	
 	
-	//
-	//@
-	//xoa
-	$(document).on('click','.submitdelete',function(e) {	
-		//@
-		e.preventDefault();		
-		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
-		//
-		//@
-		let x = "xác nhận xoá";		
-		let y = "delete_discount_program_link_id";//function name in callback 
-		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
-	});			
-	
+
 	
 	
 	//
@@ -179,7 +164,7 @@ $(document).ready(function($){
 	$(document).on('click','.btn-duyet',function(e) {	
 		//@
 		e.preventDefault();		
-		var link_add_id = $(this).attr("data_product_add_id");
+		var link_add_id = $(this).attr("data_id");
 		//ojs_discount_program_speciality.add_product_to_discount(link_add_id);
 		
 		
@@ -199,7 +184,7 @@ $(document).ready(function($){
 	$(document).on('click','.btn-tu-choi',function(e) {	
 		//@
 		e.preventDefault();	
-		var link_no_id = $(this).attr("data_product_no_id");
+		var link_no_id = $(this).attr("data_id");
 		let html = "" + 
 		'<div class="ajax-box">' + 
 			'<div class="ajax-box-inner">' + 
@@ -212,7 +197,7 @@ $(document).ready(function($){
 		'</div>';
 		
 		
-		ojs_loadding.ajax_show_content( html);
+		ojs_loadding.ajax_show_content(html);
 		//@
 	});		
 	
@@ -233,7 +218,7 @@ $(document).ready(function($){
 		}
 		
 		
-		//alert(content);
+		//console.log(datas);
 		//return;
 
 		ojs_discount_program_speciality.no_product_to_discount(datas,link_no_id);

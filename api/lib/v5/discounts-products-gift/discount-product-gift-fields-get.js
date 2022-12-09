@@ -29,23 +29,15 @@ const link_default = 	" " +
 	
 	
 	" LEFT JOIN " + 
-	config_database.PREFIX + "discount_program_details  ON  " + 
-	config_database.PREFIX + "discount_program_product_link_discount_program_details_id  = " + 
-	config_database.PREFIX + "discount_program_details_ID" +  		
-	
-	
-	
-	" LEFT JOIN " + 
 	config_database.PREFIX + "discount_program  ON  " + 
-	config_database.PREFIX + "discount_program_details_discount_program_id  = " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_id  = " + 
 	config_database.PREFIX + "discount_program_ID " +  	
 	
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "products_speciality  ON  " + 
 	config_database.PREFIX + "discount_program_gift_link_product_speciality_gift_id  = " + 
-	config_database.PREFIX + "products_speciality_ID "	+ 
-	
+	config_database.PREFIX + "products_speciality_ID "	+ 	
 	
 	
 	" LEFT JOIN " + 

@@ -50,7 +50,7 @@ content
 				%>
 					<div class="inside">
 						<select name="cars" id="discount_program_product_link_product_speciality_id">
-							   <option value="0">Chọn sản phẩm</option>
+							   <option value="0">Chọn sản phẩm tham gia</option>
 							   <%
 							   for(var x in products_list){
 							   if(
@@ -74,15 +74,63 @@ content
 				<%
 				}else{
 				%>
-					<h1> Cửa hàng chưa có sản phẩm nào, Hẫy tạo sản phẩm
+					<h1> Cửa hàng chưa có sản phẩm nào, Hẫy tạo sản phẩm</h1>
 				<%
 				}//end of typeof products_list
 				%>			
+				
+				
+				
+				
+				<!-- --------------------------------------
+					//product gift
+				---------------------------------------- -->
+				
+				<br>
+				<br>
+				<%
+				if(typeof products_gift == 'object' && products_gift.length > 0){  
+				%>
+					<div class="inside">
+						<select name="cars" id="select_product_gift">
+							   <option value="0">Chọn sản phẩm quà tặng</option>
+							   <%
+							   for(var x in products_gift){
+							   %>
+									<option 
+									value="<%= products_gift[x].products_speciality_ID %>" 
+									data_price="<%= products_gift[x].products_speciality_price %>" 
+									data_sale_of_price="<%= products_gift[x].products_speciality_sale_of_price %>" 
+									>
+										<%- ojs_share.unCape(products_gift[x].products_speciality_name) -%>
+									</option>
+							   <%
+							   } //end of for
+								%>
+						</select>
+					</div>
+				<%
+				}else{
+				%>
+					<div> Cửa hàng chưa có sản phẩm nào, Hẫy tạo sản phẩm </div>
+				<%
+				}//end of typeof 
+				%>					
+				
+				
+				<br>
+				<br>	
+				
+				<!-- --------------------------------------
+					//product gift
+				---------------------------------------- -->				
+				
+				
 		</div>
 		
 		
 		
-		
+	
 		<div class="pro_col02">
 
 			<div class="pro_box ten_sp_box">
@@ -116,8 +164,27 @@ content
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<img style="width:50px;" src="<%- ojs_share.unCape(products_list[x].products_speciality_featured_image) -%>"/>
 									</td>								
-									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
+									<td style="padding:10px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+										
+										   <%
+										   for(var s in products_gift_in){
+										   if(
+										   products_list[x].products_speciality_ID 
+										   == 
+										   products_gift_in[s].discount_program_gift_link_product_speciality_id 
+										   ){
+										   %>
+										   
+											 <div style="font-size:12px;color:#9bcdc1;">
+											 <span> Sản phẩm tặng : </span>
+											 <%- ojs_share.unCape(products_gift_in[s].products_speciality_name) -%>
+											</div>
+											
+										   <% 
+										   }
+										   }
+										   %>
 									</td>
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
@@ -222,13 +289,16 @@ $(document).ready(function($){
 			ojs_message.message_ok_show("chưa chọn sản phẩm");
 			return;
 		}
-
+		if(datas.gift_datas.product_gift_id == 0){
+			ojs_message.message_ok_show("chưa chọn sản phẩm quà tặng");
+			return;
+		}
 		//console.log(datas );
 		//return;	
 	
 	
 	
-		ojs_discount_program_speciality.ajax_save_product(datas);	
+		ojs_discount_program_speciality.ajax_save_product_gift(datas);	
 	});
 
 
@@ -263,6 +333,7 @@ $(document).ready(function($){
 	function get_datas(){
 		
 		var product_id = $('#discount_program_product_link_product_speciality_id  option:selected').val();
+		var product_gift_id = $('#select_product_gift  option:selected').val();
 		var discount_program_id = $('#discount_program_id').val();
 		
 		
@@ -270,6 +341,9 @@ $(document).ready(function($){
 			"datas":{
 				discount_program_product_link_product_speciality_id : product_id,
 				discount_program_product_link_discount_program_id : discount_program_id				
+			},
+			"gift_datas":{
+				product_gift_id: product_gift_id
 			}
 		}
 		

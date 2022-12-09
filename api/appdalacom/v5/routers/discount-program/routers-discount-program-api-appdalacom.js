@@ -16,6 +16,14 @@ const controllers_discount_program_product_add_list = require(
 	'../../controllers/discount-program/controllers-discount-program-product-add-list-api-appdalacom'
 );
 
+const controllers_discount_program_product_add_gift = require(
+	'../../controllers/discount-program/controllers-discount-program-product-add-gift-api-appdalacom'
+);
+
+const controllers_discount_program_product_add_meny = require(
+	'../../controllers/discount-program/controllers-discount-program-product-add-meny-api-appdalacom'
+);
+
 const controllers_discount_program_store_id = require(
 	'../../controllers/discount-program/controllers-discount-program-store-id-api-appdalacom'
 );
@@ -40,6 +48,13 @@ const controllers_discount_program_save= require(
 const controllers_discount_program_product_save= require(
 	'../../controllers/discount-program/controllers-discount-program-product-save-api-appdalacom.js'
 );
+
+const controllers_discount_program_product_save_gift= require(
+	'../../controllers/discount-program/controllers-discount-program-product-save-gift-api-appdalacom.js'
+);
+
+
+
 
 const controllers_discount_program_product_delete= require(
 	'../../controllers/discount-program/controllers-discount-program-delete.js'
@@ -84,6 +99,22 @@ router.get(
 );
 
 router.get(
+	'/speciality/product/add-gift',
+	middle_ware, 
+	controllers_discount_program_product_add_gift 
+);
+
+
+
+router.get(
+	'/speciality/product/add-meny',
+	middle_ware, 
+	controllers_discount_program_product_add_meny
+);
+
+
+
+router.get(
 	'/speciality/store',
 	middle_ware, 
 	controllers_discount_program_store_id 
@@ -110,11 +141,23 @@ router.post(
 	controllers_discount_program_save
 );
 
+
+
+
+
 router.post(
 	'/speciality/product-save/',
 	middle_ware, 
 	controllers_discount_program_product_save
 );
+
+
+router.post(
+	'/speciality/product-save-gift/',
+	middle_ware, 
+	controllers_discount_program_product_save_gift
+);
+
 
 router.get(
 	'/speciality/product-delete/',
