@@ -1,4 +1,3 @@
-
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
 
@@ -21,86 +20,31 @@ page wrap
 </script>	
 
 
-
-<%
-// coupon count
-var list_of_store_quan_ly = 0;
-var list_of_store = 0;
-var list_of_dala = 0;
-
-for (x in coupon_list){
-	//@
-	if(
-	coupon_list[x].coupon_speciality_stores_id_created == store_id 
-	&& 
-	coupon_list[x].coupon_speciality_status_admin == 4 
-	){
-		list_of_store = list_of_store + 1;
-	}
-	
-	//@
-	if(
-	coupon_list[x].coupon_speciality_stores_id_created == store_id 
-	){
-		list_of_store_quan_ly = list_of_store_quan_ly + 1;
-	}
-	//@	
-	if(
-	coupon_list[x].coupon_speciality_stores_id_created == "17" 
-	&& 
-	coupon_list[x].coupon_speciality_type == "1" 
-	){
-		list_of_dala = list_of_dala + 1;
-	}	
-}
-%>
-
-
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Mã giảm giá DALA</h1>
-	<div style="display:flex;    justify-content: space-between;align-items: center;">
+	<div style="display:flex; justify-content: space-between;align-items: center;flex-wrap:wrap;">
 		<div class="sap_xep_wrap">
 			<a href="/coupon/speciality/add/<%= store_id %>/<%= user_id %>" class="btn_green">Tạo mã giảm giá</a>
 		</div>
-		<br>
-		<div class="mb20">
-			<a href="/coupon/speciality/store-quan-ly/<%= store_id %>/" class="btn_green">
-			Quản lý mã giảm giá của <%= store_name %>
-			<span  class="red"><%= list_of_store_quan_ly %></span>
-			</a>
-		</div>
-	</div>
-	<br>
-	<hr>
-	<br>	
-	
-	<h1>Mã giảm giá của <%= store_name %></h1>
-	<%
-	if(list_of_store_quan_ly > 0){
-	%>
-	<div class="coupon_content">
-		
+
+
 		<%
-		for(x in coupon_list ){
-		%>	
+		if(coupon_list.length > 0){
+		%>
+		<div class="coupon_content" style="width: 100%; padding-top: 50px;">
 			<%
-			//-----------------------------
-			//		coupon thuộc cửa hàng
-			//------------------------------
-			if(
-			coupon_list[x].stores_ID == store_id 
-			&& coupon_list[x].coupon_speciality_status_admin == '4' 
-			&& coupon_list[x].coupon_speciality_type == '0'
-			){
-			%>	
-					
+			for(x in coupon_list ){
+			%>
 				<div class="coupon">
 					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
 					<div class="coupon_info">
+
+
+
 						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
 						coupon_list[x].coupon_speciality_formula_price,
 						coupon_list[x].coupon_speciality_formula_price_value
@@ -115,167 +59,48 @@ content
 							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
 						</div>	
 
-						<%
-						if(coupon_list[x].coupon_speciality_type == "0"){
-						%>
-							<div class="">
-								Chỉ áp dụng cho cửa hàng : <strong><%- coupon_list[x].stores_name -%></strong>					
-							</div>	
-							<br>						
-						<%
-						}else{
-						%>
-						
-							<div class="">
-								Áp dụng cho mọi cửa hàng trên DALA				
-							</div>	
-							<br>						
-						
-						<%
-						}
-						%>					
-						
 						<div class="discount-status">
 							<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
 						</div>	
-						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
-					
-						<%
-						if(coupon_list[x].coupon_speciality_show_hide == 0){
-						%>
-							<p style="color:red;"> Ẩn </p>						
-						<%
-						}
-						%>
-					
-
-					</div>
-
-				</div>
-			<%
-			}//check coupon thuộc cửa hàng
-			%>	
-		<%
-		}//end of for
-		%>
-		</div>
-	<%
-	} else{
-	%>	
-	
-	<p>Cửa hàng bạn chưa có mã giảm giá nào đang hoạt động.</p> 
-	
-	<%
-	}
-	%>		
-	
-	
-	
-	
-	
-	
-<div class="content">	
-	<!-- -------------------------------
-	// coupon dalaDALA
-	-------------------------- ------ -->
-	<br>
-	<br>
-	<hr>
-	<h1>Mã giảm giá trên toàn hệ thống DALA</h1>
-	<br>
-	<br>	
-	<%
-	if(list_of_dala > 0){
-	%>
-	<div class="coupon_content">
-		
-		<%
-		for(x in coupon_list ){
-		if(
-		coupon_list[x].coupon_speciality_stores_id_created == "17" 
-		&& coupon_list[x].coupon_speciality_type == "1" 
-		&& coupon_list[x].coupon_speciality_show_hide == "1" 
-		){	
-		%>	
-			<%
-			//-----------------------------
-			//		coupon thuộc cửa hàng
-			//------------------------------
-			%>	
-					
-				<div class="coupon">
-					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
-					<div class="coupon_info">
-						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
-						coupon_list[x].coupon_speciality_formula_price,
-						coupon_list[x].coupon_speciality_formula_price_value
-						) -%></div>
-						<div class="coupon_don_tu">
-							<%- ojs_share_coupon.show_name_formula_condition_coupon(
-							0,
-							1
-							) -%>					
 						
-						</div>
-						<div class="coupon_don_tu">
-							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
-						</div>	
-
 						<%
-						if(coupon_list[x].coupon_speciality_type == "0"){
-						%>
-							<div class="">
-								Chỉ áp dụng cho cửa hàng : <strong><%- coupon_list[x].stores_name -%></strong>					
-							</div>	
-							<br>						
+						if(coupon_list[x].check_expired_coupon == 0){
+						%>						
+							<div class="coupon_da_dung" style="color:red;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:red;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 						<%
 						}else{
-						%>
-						
-							<div class="">
-								Áp dụng cho mọi cửa hàng trên DALA				
-							</div>	
-							<br>						
+						%>	
+							<div class="coupon_da_dung" style="color:green;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:green;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
 						
 						<%
 						}
-						%>					
+						%>	
 
-						<div class="coupon_da_dung">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-						<div class="coupon_thoi_han">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
-						<%
-						if(coupon_list[x].coupon_speciality_show_hide == 0){
-						%>
-							<p style="color:red;"> Ẩn </p>						
-						<%
-						}
-						%>					
 
+						
+						<div style="">
+						<a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID %>/<%= store_id %>"> Update </a>  |  
+						<a href="#" class="submitdelete" data_id="<%= coupon_list[x].coupon_speciality_ID %>"> Delete </a>
+						</div>
 					</div>
+					
+					
+					
 
-				</div>
+					
+				</div>	
+			<%
+			}//end of for
+			%>
+		</div>
 		<%
-		}
-		}
+		}//end of length
 		%>
-	<%
-	} else{
-	%>	
-	
-	<p>Không có mã giảm giá nào của DALA đang hoạt động</p> 
-	
-	<%
-	}
-	%>		
-	
-	</div>	
-
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
-
-
-
+	</div>
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>
 </div>
 <!-- --------------------
 end content
@@ -332,7 +157,7 @@ $(document).ready(function($){
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let coupon_id = $(this).attr("data_coupon_id");
+		let coupon_id = $(this).attr("data_id");
 		//
 		//@
 		let x = "xác nhận xoá";		
@@ -358,3 +183,28 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

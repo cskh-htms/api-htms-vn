@@ -33,7 +33,7 @@ router.get('/show/:coupon_id/:store_id',middle_ware, controllers_coupon_show );
 router.post('/save',middle_ware, controllers_coupon_save );
 router.delete('/delete/:coupon_id',middle_ware, controllers_coupon_delete );
 router.put('/update/:coupon_id',middle_ware, controllers_coupon_update );
-router.get('/store/:store_id',middle_ware, controllers_coupon_store_id );
+router.get('/store/',middle_ware, controllers_coupon_store_id );
 
 
 //@ admin
@@ -44,5 +44,10 @@ router.get('/quan-ly-admin/',middle_ware, controllers_coupon_quan_ly_admin );
 
 
 router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
+
+
+
+
+
 
 module.exports = router;

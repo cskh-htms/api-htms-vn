@@ -24,8 +24,22 @@ const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + 
 async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
-		var store_id = req.params.store_id;
 		var token = req.headers['token'];
+		
+		//@
+		//@
+		var store_id = 0;
+		if(req.query.c1){
+			store_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "01", 
+				"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -37,7 +51,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -64,7 +78,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;			
@@ -96,7 +110,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3333",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+				"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 				"message": error_send 
 			}); 
 			return;			
@@ -147,7 +161,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "105", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
@@ -172,7 +186,7 @@ async  function function_export(req, res, next) {
 
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_news_bussiness(user_id,res);
+			let result = get_data_news_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_news_bussiness);
@@ -180,7 +194,7 @@ async  function function_export(req, res, next) {
 
 		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_count_bussiness(user_id,res);
+			let result = get_data_count_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_count_bussiness);
@@ -263,14 +277,9 @@ async  function function_export(req, res, next) {
 					[
 					{   
 						"field"     :"coupon_speciality_stores_id_created",
-						"value"     : [store_id,17],
-						"compare" : "in"
-					},
-					{   
-						"field"     :"check_expired_coupon",
-						"value"     : 1,
+						"value"     : store_id,
 						"compare" : "="
-					}  					
+					}				
 					]    
 				}         
 			],
@@ -306,7 +315,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	

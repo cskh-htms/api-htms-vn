@@ -13,7 +13,7 @@ page wrap
 <% include ../../masterpage/function-share-coupon %>
 <% include ../../masterpage/function-share-all %>
 
-
+<script src="../../../../<%= js_css_version %>/javascripts/class-coupon-speciality.js"></script>	
 
 
 
@@ -22,198 +22,182 @@ page wrap
 </script>	
 
 
-
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i> Mã giảm giá</h1>
-	<div class="mb20" style="text-align:right;"><a href="/coupon/speciality/quan-ly" class="btn_green">quản lý</a></div>
-	
-	
-	
-	<!-- -------------------------------
-	// coupon dalaDALA
-	-------------------------- ------ -->	
-	
-	
-	<br>
-	<br>
-	<hr>
-	<h1>Mã giảm giá đang hoạt động Trên hệ thống DALA áp dụng cho mọi cửa hàng</h1>
-	<br>
-	<br>		
-		
-	<div class="coupon_content">
-	<%
-	if(coupon_list.length > 0){
-	%>
+
+	<div style="display:flex; justify-content: space-between;align-items: center;flex-wrap:wrap;">
+		<div class="sap_xep_wrap">
+			<a href="/coupon/speciality/add/17/<%= user_id %>" class="btn_green">Tạo mã giảm giá</a>
+		</div>
+
+
+
+
+		<!--  -----------------------------------
+			//dala
+		------------------------------------- -->
+
 		<%
-		for(x in coupon_list ){
-		%>			
+		if(coupon_list.length > 0){	
+		%>
+		<div class="coupon_content" style="width: 100%; padding-top: 50px;">
 			<%
-			//-----------------------------
-			//		coupon thuộc cửa hàng
-			//------------------------------
-			if(
-			coupon_list[x].stores_ID == 17 
-			&& 
-			coupon_list[x].coupon_speciality_type == 1 
-			){
-			%>			
-		
-			<div class="coupon">
-				<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
-				<div class="coupon_info">
-					<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
-					coupon_list[x].coupon_speciality_formula_price,
-					coupon_list[x].coupon_speciality_formula_price_value
-					) -%></div>
-					<div class="coupon_don_tu">
-						<%- ojs_share_coupon.show_name_formula_condition_coupon(
-						coupon_list[x].coupon_speciality_condition,
-						coupon_list[x].coupon_speciality_condition_value
-						) -%>					
-					
+			for(x in coupon_list ){
+			if(coupon_list[x].stores_ID == 17){	
+			%>
+				<div class="coupon">
+					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
+					<div class="coupon_info">
+						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
+						coupon_list[x].coupon_speciality_formula_price,
+						coupon_list[x].coupon_speciality_formula_price_value
+						) -%></div>
+						<div class="coupon_don_tu">
+							<%- ojs_share_coupon.show_name_formula_condition_coupon(coupon_list[x].coupon_speciality_condition,
+							ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_condition_value,0,",",".","đ")
+							) -%>								
+						</div>
+
+
+						<div class="coupon_don_tu">
+							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
+						</div>	
+
+						<div class="discount-status">
+							<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
+						</div>	
+						
+						
+						<%
+						if(coupon_list[x].check_expired_coupon == 0){
+						%>						
+							<div class="coupon_da_dung" style="color:red;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:red;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						<%
+						}else{
+						%>	
+							<div class="coupon_da_dung" style="color:green;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:green;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						
+						<%
+						}
+						%>							
+						
+						<div style="">
+						<a href="/coupon/speciality/show/<%= coupon_list[x].coupon_speciality_ID %>/<%= coupon_list[x].stores_ID %>"> Update </a>  |  
+						<a href="#" class="submitdelete" data_id="<%= coupon_list[x].coupon_speciality_ID %>"> Delete </a>
+						</div>
+
 					</div>
-					<div class="coupon_don_tu">
-						Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
-					</div>					
-					
-					<%
-					if(coupon_list[x].coupon_speciality_type == "1"){
-					%>
-						<p> <span style="color:blue;"> Dùng cho mọi cửa hàng </span></p>	
-					<%
-					}else{
-					%>
-					
-					
-						<p> <span> chỉ dùng cho cửa hàng : </span>	
-							<span><%- ojs_share.unCape(coupon_list[x].stores_name ) %> </span>
-						</p>						
-					
-					<%
-					}
-					%>	
-					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
-				</div>
-				<div class="coupon_btn">
-					<a href="/admin/coupon/show/<%= coupon_list[x].coupon_speciality_ID %>/<%=coupon_list[x].stores_ID %>" 
-					title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-					<!-- <a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a> -->
-				</div>
-			</div>
+				</div>	
 			<%
 			}
-			%>		
+			}//end of for
+			%>
+		</div>
 		<%
-		}//for
+		}//end of length
 		%>
-	
-	<%
-	} else{
-	%>	
-	
-	<h1 style="text-align:center">Chưa có mã giảm giá nào </h1> 
-	
-	<%
-	}
-	%>	
-	</div>
-	
-	
-	
-	
-	<!-- -------------------------------
-	// coupon dalaDALA
-	-------------------------- ------ -->	
-	
-	
-	<br>
-	<br>
-	<hr>
-	<h1>Mã giảm giá đang hoạt động của các cửa hàng</h1>
-	<br>
-	<br>		
-		
-	<div class="coupon_content">
-	<%
-	if(coupon_list.length > 0){
-	%>
+
+		<!--  -----------------------------------
+			//dala
+		------------------------------------- -->
+
+
+
+
+
+
+		<!--  -----------------------------------
+			//cửa hàng
+		------------------------------------- -->
+
 		<%
-		for(x in coupon_list ){
-		%>			
+		if(coupon_list.length > 0){	
+		%>
+		<div class="coupon_content" style="width: 100%; padding-top: 50px;">
 			<%
-			//-----------------------------
-			//		coupon thuộc cửa hàng
-			//------------------------------
-			if(coupon_list[x].coupon_speciality_type != 1 ){
-			%>			
-		
-			<div class="coupon">
-				<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
-				<div class="coupon_info">
-					<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
-					coupon_list[x].coupon_speciality_formula_price,
-					coupon_list[x].coupon_speciality_formula_price_value
-					) -%></div>
-					<div class="coupon_don_tu">
-						<%- ojs_share_coupon.show_name_formula_condition_coupon(
-						coupon_list[x].coupon_speciality_condition,
-						coupon_list[x].coupon_speciality_condition_value
-						) -%>					
-					
+			for(x in coupon_list ){
+			if(coupon_list[x].stores_ID != 17){	
+			%>
+				<div class="coupon">
+					<div class="coupon_title"><%- ojs_share.unCape(coupon_list[x].coupon_speciality_code) -%></div>
+					<div class="coupon_info">
+						<div class="coupon_giam"><%- ojs_share_coupon.show_name_formula_coupon(
+						coupon_list[x].coupon_speciality_formula_price,
+						coupon_list[x].coupon_speciality_formula_price_value
+						) -%></div>
+						<div class="coupon_don_tu">
+							<%- ojs_share_coupon.show_name_formula_condition_coupon(coupon_list[x].coupon_speciality_condition,
+							ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_condition_value,0,",",".","đ")
+							) -%>								
+						</div>
+
+
+
+
+						<div class="coupon_don_tu">
+							Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
+						</div>	
+
+
+						<div class="coupon_don_tu">
+							Cửa hàng : <strong> [ <%- coupon_list[x].stores_name -%> ] </strong>						
+						</div>	
+
+						<div class="discount-status">
+							<span>Trạng thái : <%- ojs_share.show_status_discount_detail_html(coupon_list[x].coupon_speciality_status_admin) -%>
+						</div>	
+						
+						
+						<%
+						if(coupon_list[x].check_expired_coupon == 0){
+						%>						
+							<div class="coupon_da_dung" style="color:red;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:red;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						<%
+						}else{
+						%>	
+							<div class="coupon_da_dung" style="color:green;font-size:10px;">Bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
+							<div class="coupon_thoi_han" style="color:green;font-size:10px;">Kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
+						
+						<%
+						}
+						%>							
+						
+						<div style="">
+						<a href="#" class="btn-duyet" data_id="<%= coupon_list[x].coupon_speciality_ID %>"> Duyệt </a>  |  
+						<a href="#" class="btn-tu-choi" data_id="<%= coupon_list[x].coupon_speciality_ID %>"> từ chối </a>
+						</div>
+
 					</div>
-					<div class="coupon_don_tu">
-						Tối đa : <%- ojs_share_all.show_price_vnd(coupon_list[x].coupon_speciality_price_max,0,",",".","đ") -%>						
-					</div>					
-					
-					<%
-					if(coupon_list[x].coupon_speciality_type == "1"){
-					%>
-						<p> <span style="color:blue;"> Dùng cho mọi cửa hàng </span></p>	
-					<%
-					}else{
-					%>
-					
-					
-						<p> <span> chỉ dùng cho cửa hàng : </span>	
-							<span><%- ojs_share.unCape(coupon_list[x].stores_name ) %> </span>
-						</p>						
-					
-					<%
-					}
-					%>	
-					<div class="coupon_da_dung">ngày bắt đầu: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_star) %></div>
-					<div class="coupon_thoi_han">ngày kết thúc: <%- ojs_share_all.format_date_coupon(coupon_list[x].coupon_speciality_date_end) %></div>
-				</div>
-				<div class="coupon_btn">
-					<a href="/admin/coupon/show/<%= coupon_list[x].coupon_speciality_ID %>/<%=coupon_list[x].stores_ID %>" 
-					title="Quản lý" class="ctkm_btn_ql"><i class="fas fa-pen"></i></a>
-					<!-- <a href="#" title="Xóa" class="ctkm_btn_xoa"><i class="fas fa-trash"></i></a> -->
-				</div>
-			</div>
+				</div>	
 			<%
 			}
-			%>		
+			}//end of for
+			%>
+		</div>
 		<%
-		}//for
+		}//end of length
 		%>
-	
-	<%
-	} else{
-	%>	
-	
-	<h1 style="text-align:center">Chưa có mã giảm giá nào </h1> 
-	
-	<%
-	}
-	%>	
+
+
+		<!--  -----------------------------------
+			//cửa hàng
+		------------------------------------- -->
+
+
+
+
+
+
+
+
 	</div>
-		
 	
 </div>
 <!-- --------------------
@@ -251,161 +235,99 @@ $(document).ready(function($){
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let option_id = $(this).attr("data_option_id");
+		let coupon_id = $(this).attr("data_id");
 		//
 		//@
-		let x = "xác nhận xoá";		
-		let y = "delete_option_speciality";//function name in callback 
-		let z = ' { "option_id" : "' + option_id + '" }';
+		let x = "xác nhận xoá coupon";		
+		let y = "delete_coupon";//function name in callback 
+		let z = ' { "coupon_id" : "' + coupon_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});			
-	//		
+	
 		
+	//@
+	//xoa
+	$(document).on('click','.btn-duyet',function(e) {	
+		//@
+		e.preventDefault();		
+		let coupon_id = $(this).attr("data_id");
+		
+		var datas = {
+			"datas": {
+				"coupon_speciality_status_admin":"4"
+			}
+		}
+		
+		//
+		//@
+		ojs_coupon_speciality.ajax_update(datas,coupon_id);		
+		//@
+	});	
+	
+	
+	
+	
+	
 	//
 	//@
-	//add class active
-	$(document).on('click','.btn_add_store',function(e) {	
-		e.preventDefault();
-		$('.store_row').find('.btn_add_store').removeClass('active');
-		$(this).addClass('active');
-	});//end of function	
-	//@
-	//@	
+	//duyệt
+	$(document).on('click','.btn-tu-choi',function(e) {	
+		//@
+		e.preventDefault();	
+		var coupon_id = $(this).attr("data_id");
+		//alert(product_id);
+		//return;		
+		
+
+		let html = "" + 
+		'<div class="ajax-box">' + 
+			'<div class="ajax-box-inner">' + 
+				'<h1> lý do từ chối</h1>' + 
+				'<textarea rows="10" cols="50" id="tu-choi-content"></textarea>' + 
+				'<div class="btn-tu-choi-go" style="text-align:right">' + 
+					'<span id="btn-tu-choi-go" data_product_no_id="' + coupon_id + '" class="btn-design">save</span>' + 
+				'</div>' + 
+			'</div>';	
+		'</div>';
+		
+		
+		ojs_loadding.ajax_show_content(html);
+		//@
+	});				
 	
-	//Loc trang thai
-	///////////////////////////
-	$("#loc_trang_thai").change(function() {
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = $('#loc_trang_thai').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: 0,
-				store_id	:0,
-				status_admin : JSON.parse(status_admin)
-			}
-		}	
-		///console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option(datas);	
-	});
 	
-	/*
-	//@
-	//goi ajax
-	$(document).on('click','#all',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let status_admin = [0,1,2,3];
-		
-		var datas = {
-			"datas":{
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_bussiness(datas);	
-
-	});//end of function		
-
-	//@
-	//goi ajax
-	$(document).on('click','#complate',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [1]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#new',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#update',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [2]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-
-	//@
-	//goi ajax
-	$(document).on('click','#not',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function	
 	
-	*/
+	//
+	//@
+	//duyệt
+	$(document).on('click','#btn-tu-choi-go',function(e) {	
+		//@
+		e.preventDefault();		
+		var coupon_id = $(this).attr("data_product_no_id");
+		var content = $('#tu-choi-content').val();
+		
+		//alert(product_id);
+		//return;		
+		
+		var datas = {
+			"datas": {   
+				"coupon_speciality_status_admin" :"3",
+				"coupon_speciality_qoute":content
+			}
+		}
+		
+		
+		//alert(content);
+		//return;
+
+		ojs_coupon_speciality.ajax_update(datas,coupon_id);	
+		//@
+	});		
+	
+	
+	
+
 	//
 ///////////////////////////////////////////////////////
 });//end of document
@@ -419,6 +341,19 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

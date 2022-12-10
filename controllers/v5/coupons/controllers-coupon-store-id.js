@@ -37,7 +37,7 @@ async  function function_export(req, res, next) {
 	//return;	
 	
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
-			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/coupons/store/' + store_id, 
+			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/coupons/store?c1=' + store_id, 
 			token
 		);	
 		
@@ -46,6 +46,10 @@ async  function function_export(req, res, next) {
 	//return;		
 		
 	if(data_api_resuilt.error){
+		if(data_api_resuilt.position == "middle-ware"){
+			res.send("Vui lòng đăng nhập");
+			return;
+		}
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
