@@ -21,7 +21,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount.js');
 const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search.js');
-
+const price_meta_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/product-speciality-price-meta/product-speciality-price-meta-search.js');
 
 
 //@
@@ -332,6 +332,75 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_discount_program_product);	
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@ 4. price_meta_search
+		let data_price_meta_search =    
+			{
+				"select_field" :
+				[
+				"products_speciality_ID",
+				"discount_program_product_link_ID",
+				"products_speciality_featured_image",
+				"products_speciality_name",
+				"products_speciality_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
+				"stores_ID",
+				"products_speciality_price_meta_discount_product_link_id",
+				"products_speciality_price_meta_from",
+				"products_speciality_price_meta_to",
+				"products_speciality_price_meta_price"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  							
+							{   
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" 	: '='
+							}								
+						]    
+					}
+				],
+				"order" :
+				 [		 
+					{    
+						"field"  :"discount_program_product_link_date_created",
+						"compare" : "DESC"
+					}			
+				]			
+			}
+		
+		var fn_get_price_meta_search = new Promise((resolve, reject) => {
+			let result = price_meta_search(data_price_meta_search,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_price_meta_search);			
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

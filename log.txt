@@ -30,6 +30,28 @@ các việc cần làm trên database
 
 
 
+
+
+	DROP TABLE IF EXISTS `dala_products_speciality_price_meta`;
+	CREATE TABLE IF NOT EXISTS `dala_products_speciality_price_meta` (
+	  `dala_products_speciality_price_meta_ID` int NOT NULL AUTO_INCREMENT,
+	  `dala_products_speciality_price_meta_discount_product_link_id` int NOT NULL,
+	  `dala_products_speciality_price_meta_product_id` int NOT NULL,
+	  `dala_products_speciality_price_meta_from` int NOT NULL,
+	  `dala_products_speciality_price_meta_to` int NOT NULL,
+	  `dala_products_speciality_price_meta_price` double NOT NULL,
+	  PRIMARY KEY (`dala_products_speciality_price_meta_ID`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='giá càng nhiều càng rẻ';
+	COMMIT;
+
+
+
+
+
+
+
+
+
 	-- 
 	-- 
 	-- 
@@ -112,6 +134,13 @@ các việc cần làm trên database
 		dala_discount_program_gift_link_discount_program_product_link_id  =  
 		OLD.dala_discount_program_product_link_ID ;
 		
+		DELETE FROM  dala_products_speciality_price_meta 
+		where 	
+		dala_products_speciality_price_meta_discount_product_link_id  =  
+		OLD.dala_discount_program_product_link_ID ;	
+
+
+	
 	END $$
 	DELIMITER ;
 	--

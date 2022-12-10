@@ -85,14 +85,14 @@ content
 					<div class="price-box"></div>
 					<div style="display: flex; align-items: center; white-space: nowrap;padding:20px 0px;">
 						<span style="">số lượng từ : </span>
-						<input class="number_change" data_value="0" 
-						type="text" value="0" id="price_from" 
+						<input class="number_change" data_value="1" 
+						type="text" value="1" id="price_from" 
 						style="width:60px; min-width:60px;text-align:center;">
 						<span style="">Đến : </span>
-						<input class="number_change" data_value="0" type="text" value="0" id="price_to"  
+						<input class="number_change" data_value="5" type="text" value="5" id="price_to"  
 						style="width:60px;min-width:60px;text-align:center;">
 						<span style="">Giá  : </span>
-						<input class="number_change" data_value="0" type="text" value="0" id="price_meny"  
+						<input class="number_change" data_value="10000" type="text" value="10.000" id="price_meny"  
 						style="width:100px;min-width:100px;text-align:center;">
 						<div class="btn-add-meny" 
 						style="cursor: pointer;background-color: #44b795;display: flex; padding: 5px 20px; 
@@ -141,6 +141,30 @@ content
 									</td>								
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+										
+									   <%
+									   for(var s in price_list){
+									   if(
+									   products_list[x].products_speciality_ID 
+									   == 
+									   price_list[s].products_speciality_ID  
+									   ){
+									   %>									   
+										   <div style="font-size:12px;color:#9bcdc1;">
+												 <span> Số lượng từ  :  </span>
+												 <%= price_list[s].products_speciality_price_meta_from %>
+												 <span> --->  </span>
+												  <%= price_list[s].products_speciality_price_meta_to  %>
+												 <span> giá bán  --->  </span>
+												  <%- ojs_share_all.show_price_vnd(price_list[s].products_speciality_price_meta_price,0,",",".","đ") %>													 
+										   </div>
+									   <% 
+									   }
+									   }
+									   %>											
+										
+										
+										
 									</td>
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
@@ -246,8 +270,8 @@ $(document).ready(function($){
 			return;
 		}
 
-		console.log(datas );
-		return;	
+		//console.log(datas);
+		//return;	
 	
 	
 	
@@ -301,7 +325,7 @@ $(document).ready(function($){
 		'<div class="price-line" style="display:flex;padding:10px 10px";>' + 
 			'Số lượng từ : <strong>  [  <span class="from">' + from + '</span>  ]  </strong>' + 
 			' ---->   <strong>  [  <span class="to">' + to + '</span>  ]  </strong>' + 
-			'----> Giá :  <strong>  [  <span class="price">' + ojs_loader.show_price_vnd(price,0,",",".","đ") + '</span>  ]  </strong>' + 
+			'----> Giá :  <strong>  [  <span class="price" data_value="' + price + '">' + ojs_loader.show_price_vnd(price,0,",",".","đ") + '</span>  ]  </strong>' + 
 			'<span class="price_delete" style="cursor: pointer;color:red;padding:0px 20px;"> X </span>' + 
 		'</div>';
 		html_ok = html_ok + x;
@@ -336,6 +360,19 @@ $(document).ready(function($){
 		var discount_program_id = $('#discount_program_id').val();
 		var price_datas = [];
 		
+		var ojs_price = $('.price-box .price-line');
+
+		for(i = 0; i < ojs_price.length ; i++ ){
+			let x = {
+				from:$(ojs_price[i]).find('.from').html(),
+				to:$(ojs_price[i]).find('.to').html(),
+				price:$(ojs_price[i]).find('.price').attr('data_value')				
+			}
+			 price_datas.push(x); 
+		}
+
+		//@
+		//@
 		var datas = {
 			"datas":{
 				discount_program_product_link_product_speciality_id : product_id,

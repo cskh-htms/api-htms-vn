@@ -91,6 +91,37 @@ if(discount_program_list.length > 0){ %>
 												   %>												
 												
 												
+																								
+												
+												   <%
+												   for(var s in price_list){
+												   if(
+												   discount_program_product_list[xx].products_speciality_ID 
+												   == 
+												   price_list[s].products_speciality_ID  
+												   ){
+												   %>									   
+													   <div style="font-size:12px;color:#9bcdc1;">
+															 <span> Số lượng từ  :  </span>
+															 <%= price_list[s].products_speciality_price_meta_from %>
+															 <span> --->  </span>
+															  <%= price_list[s].products_speciality_price_meta_to  %>
+															 <span> giá bán  --->  </span>
+															  <%- ojs_share_all.show_price_vnd(price_list[s].products_speciality_price_meta_price,0,",",".","đ") %>													 
+													   </div>
+												   <% 
+												   }
+												   }
+												   %>													
+												
+												
+																								
+												
+												
+												
+												
+												
+												
 												
 											</td>
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">

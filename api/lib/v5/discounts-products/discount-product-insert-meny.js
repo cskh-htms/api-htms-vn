@@ -20,7 +20,7 @@ const function_export = function (data,res) {
 	//return;	
 	
 	var datas_main = data.datas;
-	var gift_datas = data.gift_datas;
+	var price_datas = data.price_datas;
 	var sql_text = "";
 	//@
 	//@
@@ -51,7 +51,7 @@ const function_export = function (data,res) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "lib->discount-product-insert-gift.js",
+			"position" : "lib->discount-product-insert-meny.js",
 			"message": error_send 
 		}); 
 		return;
@@ -75,19 +75,32 @@ const function_export = function (data,res) {
 
 	//@
 	//@
-	//@ insert gift
-	sql_text  = sql_text + "INSERT INTO " + config_database.PREFIX + "discount_program_gift_link  ";
-	sql_text = sql_text + "(" +
-					config_database.PREFIX + "discount_program_gift_link_discount_program_product_link_id" + "," + 
-					config_database.PREFIX + "discount_program_gift_link_product_speciality_id" + "," + 
-					config_database.PREFIX + "discount_program_gift_link_product_speciality_gift_id " + 
-				") " + 
-				"values(" + 
-				"@aa, '" + 
-				datas_main.discount_program_product_link_product_speciality_id +  "', " + 
-				gift_datas.product_gift_id + 
-				") ; ";	
+	//@ insert price data
+	if(price_datas.length > 0){
+		var sql_text2 = "";
+		for(x in price_datas){				
+			sql_text2  = sql_text2 + "INSERT INTO " + config_database.PREFIX + "products_speciality_price_meta  ";
+			sql_text2 = sql_text2 + "(" +
+							config_database.PREFIX + "products_speciality_price_meta_discount_product_link_id" + "," + 
+							config_database.PREFIX + "products_speciality_price_meta_product_id" + "," + 
+							config_database.PREFIX + "products_speciality_price_meta_from" + "," + 
+							config_database.PREFIX + "products_speciality_price_meta_to" + "," + 
+							config_database.PREFIX + "products_speciality_price_meta_price " + 
+						") " + 
+						"values(" + 
+						"@aa, " + 
+						datas_main.discount_program_product_link_product_speciality_id +  ", " + 
+						price_datas[x].from +  ", " + 
+						price_datas[x].to +  ", " + 
+						price_datas[x].price + 
+						") ; ";
+		}
+	}				
 
+
+	//@
+	//@
+	sql_text = sql_text + sql_text2;
 	sql_text = sql_text + " COMMIT;"	
 
 
@@ -114,7 +127,7 @@ const function_export = function (data,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->discount-product-insert-gift.js",
+						"position" : "lib->discount-product-insert-meny.js",
 						"message": error_send 
 					}); 
 					return;					
@@ -133,7 +146,7 @@ const function_export = function (data,res) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->discount-product-insert-gift.js",
+			"position" : "lib->discount-product-insert-meny.js",
 			"message": error_send 
 		}); 
 		return;	

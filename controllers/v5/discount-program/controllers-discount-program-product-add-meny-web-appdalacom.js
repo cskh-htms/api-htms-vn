@@ -135,7 +135,8 @@ async  function function_export(req, res, next) {
 			'store_name' 			: data_api_resuilt[3][0].stores_name,	
 			'store_list' 			: data_api_resuilt[3],
 			'discount_tager'		: data_api_resuilt[4],
-			'products_list'			: data_api_resuilt[5]			
+			'products_list'			: data_api_resuilt[5],
+			'price_list'			: data_api_resuilt[6]				
 		}
 		
 		
@@ -158,7 +159,8 @@ async  function function_export(req, res, next) {
 			'store_name' 			: data_api_resuilt[3][0].stores_name,	
 			'store_list' 			: data_api_resuilt[3],
 			'discount_tager'		: data_api_resuilt[4],
-			'products_list'			: data_api_resuilt[5],				
+			'products_list'			: data_api_resuilt[5],	
+			'price_list'			: data_api_resuilt[6],				
 			
 			'datas_info'			: datas_info			
 		}
