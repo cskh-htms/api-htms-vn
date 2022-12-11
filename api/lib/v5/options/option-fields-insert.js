@@ -19,20 +19,24 @@ const  default_fields = {
 //@
 function get_message_error(error){
 			
-		if(error.sqlMessage.search("trig_options_product_speciality_name_name_empty") >= 0 ){
-			return "Tên options không được để trống";
-		}else if(error.sqlMessage.search("trig_options_product_speciality_name_data_type") >= 0){
-			return " Tên options không hợp lệ ";	
-			
-			
-		}else if(error.sqlMessage.search("trig_options_product_speciality_stores_id_empty") >= 0){
-			return " Chưa nhập id cửa hàng ";
-		}else if(error.sqlMessage.search("options_product_speciality_stores_id") >= 0){
-			return " Không tìm thấy cửa hàng này tạo option này ";
-			
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
-		}
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Chưa nhập tên option";
+	}else if(error.sqlState == '12302'){
+		return "Không tìm thấy cửa hàng id";
+	}else if(error.sqlState == '12303'){
+		return "Không tìm thấy option cha";	
+		
+
+	//update
+	}else if(error.sqlState == '12311'){
+		return "Không tìm thấy cửa hàng id";
+	}else if(error.sqlState == '12312'){
+		return "Không tìm thấy option cha";	
+		
+	}else{
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}
 }	
 
 //@

@@ -19,23 +19,24 @@ const  default_fields = {
 //@
 function get_message_error(error){
 			
-		if(error.sqlMessage.search("trig_category_general_speciality_name_name_empty") >= 0 ){
-			return "Tên Danh mục không được để trống";
-		}else if(error.sqlMessage.search("trig_category_general_speciality_name_data_type") >= 0){
-			return " Tên category không hợp lệ ";		
-			
-		}else if(error.sqlMessage.search("trig_category_general_speciality_stores_id_empty") >= 0){
-			return " chưa nhập  id cửa hàng ";		
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Chưa nhập tên danh mục";
+	}else if(error.sqlState == '12302'){
+		return "Không tìm thấy cửa hàng id";
+	}else if(error.sqlState == '12303'){
+		return "Không tìm thấy danh mục cha";	
+		
 
-		}else if(error.sqlMessage.search("trig_check_category_general_speciality_category_parent_id_no_parent") >= 0){
-			return " Không tìm thấy danh mục cha ";			
-
-		}else if(error.sqlMessage.search("category_general_speciality_stores_id") >= 0){
-			return " id cửa hàng chưa có  trong hệ thống ";		
-
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
-		}
+	//update
+	}else if(error.sqlState == '12311'){
+		return "Không tìm thấy cửa hàng id";
+	}else if(error.sqlState == '12312'){
+		return "Không tìm thấy danh mục cha";	
+		
+	}else{
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}
 }	
 
 //@

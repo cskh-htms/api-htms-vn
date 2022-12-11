@@ -45,10 +45,7 @@
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
 			
-			if(item == "stores_name"){
-				if(check_data_fields.check_datas.check_empty(datas.stores_name) == false){check_errer =  "Tên cửa hàng  là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
-				if(check_data_fields.check_datas.check_name(datas.stores_name) == false){check_errer =  "Tên cửa hàng không hợp lệ, bạn chưa nhập dữ liệu";	return;}
-			}		
+	
 			
 		});
 		//data ok cho phép insert
@@ -61,36 +58,31 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("trig_stores_name_empty") >= 0 ){
-			return "Tên cửa hàng chưa có dữ liệu";
-		}else if(error.sqlMessage.search("trig_check_store_double") >= 0){
-			return " user đã có cửa hàng ";
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Chưa nhập tên cửa hàng";
+		}else if(error.sqlState == '12302'){
+			return "Tài khoản tạo cửa hàng không có trong hệ thống";
+		}else if(error.sqlState == '12303'){
+			return "Số điện thoại không hợp lệ";	
+		}else if(error.sqlState == '12304'){
+			return "email không hợp lệ";
+		}else if(error.sqlState == '12305'){
+			return "Bạn chưa nhập id loại cửa hàng";
+			
+		//update
+		}else if(error.sqlState == '12311'){
+			return "User tạo cửa hàng không có trên hệ thống"
+		}else if(error.sqlState == '12312'){
+			return "Số điện thoại không hợp lệ";
+		}else if(error.sqlState == '12313'){
+			return "Email không hợp lệ";
+		}else if(error.sqlState == '12314'){
+			return "Bạn chưa nhập id loại cửa hàng";			
 			
 			
-	
-		}else if(error.sqlMessage.search("stores_user_id") >= 0 ){
-			return " Không tìm thấy user doanh nghiệp ";		
-		}else if(error.sqlMessage.search("stores_service_type_id") >= 0){
-			return " chưa nhập loại dịch vụ, hoặc Không tìm thấy dịch vụ  ";	
-
-
-		}else if(error.sqlMessage.search("parent row") >= 0){
-			return "  Cửa hàng đã có liên kết, không thể xoá  ";
-
-
-		}else if(error.sqlMessage.search("trig_stores_phone_empty") >= 0){
-			return "  Vui lòng nhập số điện thoại ";
-	
-		}else if(error.sqlMessage.search("trig_stores_phone_data_type") >= 0){
-			return "  số điện thoại không hợp lệ ";
-
-		}else if(error.sqlMessage.search("trig_stores_insert_adress_empty") >= 0){
-			return "  vui lòng nhập đầu đủ địa chỉ ";
-
-			
-	
 		}else{
-			return "Lỗi liên quan đến datas cửa hàng, vui lòng liên hệ admin dala";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//@

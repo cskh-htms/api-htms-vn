@@ -9,15 +9,31 @@
 
 const express = require('express');
 const router = express.Router();
-
 const config_api = require('../../../../configs/config-api');
-
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
 
+
+
+
+
+//@
+//@
+//@
+//@ stores
 const controllers_admin_store_add =  
 require(
 	'../../controllers/admin/stores/controllers-admin-stores-add'
 );
+
+const controllers_admin_store_save =  
+require(
+	'../../controllers/admin/stores/controllers-admin-stores-save'
+);
+
+
+
+
+
 
 //@
 const controllers_admin_discount_program_add =  
@@ -70,8 +86,11 @@ router.get('/', function(req, res, next) {
 //@
 //@ stores
 router.get('/store-add',	middle_ware, controllers_admin_store_add );
+router.post('/store-save',	middle_ware, controllers_admin_store_save );
 
 
+//@
+//@ discount
 router.get('/discount-program-add',	middle_ware, controllers_admin_discount_program_add );
 router.get('/discount-program-show-all',	middle_ware, controllers_admin_discount_program_show_all );
 router.get('/discount-program-product-add',	middle_ware, controllers_admin_discount_program_product_add );

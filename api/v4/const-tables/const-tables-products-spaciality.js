@@ -49,9 +49,7 @@
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {		
-			if(item == "products_speciality_names"){
-				if(check_data_fields.check_datas.check_empty(datas.products_speciality_name) == false){check_errer =  "tên phẩm là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
-			}
+	
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer ;
@@ -564,42 +562,45 @@ const get_having = function(condition_arr){
 //@
 //phan tich loi~
 function get_message_error(error){
-	if(error.sqlMessage.search("trig_products_speciality_name_empty") >= 0 ){
-		return "Tên sản phẩm không được để trống";
-	}else if(error.sqlMessage.search("trig_products_speciality_price_empty") >= 0 ){
-		return "Bạn chưa nhập giá sản phẩm";		
-	}else if(error.sqlMessage.search("trig_products_speciality_store_id_empty") >= 0 ){
-		return "Bạn chưa chọn cửa hàng";			
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Chưa nhập tên sản phẩm";
+	}else if(error.sqlState == '12302'){
+		return "Chưa nhập khối lượng sản phẩm";
+	}else if(error.sqlState == '12303'){
+		return "Ngày tháng không hợp lệ";	
+	}else if(error.sqlState == '12304'){
+		return "Không tìm thấy thương hiệu sản phẩm";
+	}else if(error.sqlState == '12305'){
+		return "Không tìm thấy sản phẩm cha";
 		
+	//update
+	}else if(error.sqlState == '12311' ){
+		return "Chưa nhập tên sản phẩm";
+	}else if(error.sqlState == '12312'){
+		return "Chưa nhập khối lượng sản phẩm";
+	}else if(error.sqlState == '12313'){
+		return "Giá bán không hợp lệ";	
+	}else if(error.sqlState == '12314'){
+		return "Giá bán không hợp lệ";			
+	}else if(error.sqlState == '12315'){
+		return "Giá bán không hợp lệ";			
 		
+	}else if(error.sqlState == '12316'){
+		return "Ngày tháng không hợp lệ";
+	}else if(error.sqlState == '12317'){
+		return "Không tìm thấy thương hiệu";
+		
+	}else if(error.sqlState == '12318'){
+		return "Không tìm thấy sản phẩm cha";
 
-	}else if(error.sqlMessage.search("trig_products_speciality_brand_no_refe") >= 0 ){
-		return " Thương hiệu chưa có trong hệ thống ";		
-	}else if(error.sqlMessage.search("products_speciality_store_id") >= 0 ){
-		return "Cửa hàng không có trong hệ thống";	
-
-
-	}else if(error.sqlMessage.search("options_product_speciality_link_option_id") >= 0 ){
-		return " một số option chưa có trong hệ thống ";		
-	}else if(error.sqlMessage.search("category_general_speciality_link_category_general_id") >= 0 ){
-		return " Một số danh mục chưa được tạo sãn ";			
-	}else if(error.sqlMessage.search("a foreign key constraint fails") >= 0 ){
-		return " Danh mục hoặc option id không tìm thấy ";		
+	}else if(error.sqlState == '12319'){
+		return "Mả SKU bị trùng";		
 		
-	}else if(error.sqlMessage.search("trig_products_speciality_insert_weight_empty") >= 0 ){
-		return " vui lòng nhập cân nặng của sản phẩm, có thể ước lượng khoảng 200 gram ";			
-		
-	}else if(error.sqlMessage.search("trig_products_speciality_update_date_end_less_star") >= 0 ){
-		return " ngày khuyến mãi không hợp lệ ";			
-	
-	}else if(error.sqlMessage.search("trig_products_speciality_insert_peice_less_then") >= 0 ){
-		return " giá khuyến mãi không hợp lệ ";
-	
-	
 		
 		
 	}else{
-		return "Lỗi data type insert, xem lại dữ liệu gữi lên";
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}
 }	//
 //
@@ -609,16 +610,16 @@ function get_message_error(error){
 	
 	
 	
-	//
-	module.exports = { 
-			default_fields,
-			check_datas,
-			get_select_fields,
-			get_order_text,
-			get_condition,
-			get_having,
-			get_message_error
-	};
+//
+module.exports = { 
+	default_fields,
+	check_datas,
+	get_select_fields,
+	get_order_text,
+	get_condition,
+	get_having,
+	get_message_error
+};
 	
 	
 	

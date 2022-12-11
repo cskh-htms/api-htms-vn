@@ -11,13 +11,14 @@ const  default_fields = {
 
 //@
 function get_message_error(error){
-	if(error.sqlMessage.search("shipping_tracking_users_id") >= 0 ){
-		return " Không tìm thấy user ";
-	}else if(error.sqlMessage.search("shipping_tracking_orders_id") >= 0){
-		return " Không tìm thấy orders ";
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Không tìm thấy đơn hàng";
+	}else if(error.sqlState == '12302'){
+		return "Không tìm thấy shipping";
 		
 	}else{
-		return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}
 }	
 

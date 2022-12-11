@@ -12,7 +12,16 @@ const discount_search_product = require('../../lib/' + config_api.API_LIB_VERSIO
 const review_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
 const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-sale-by-store.js');
 
-const discount_product_gift_search = require('../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
+//@
+const discount_product_gift_search = require('../../lib/' + 
+config_api.API_LIB_VERSION + 
+'/discounts-products-gift/discount-product-gift-search.js');
+
+//@
+const price_search = require('../../lib/' + 
+config_api.API_LIB_VERSION + 
+'/product-speciality-price-meta/product-speciality-price-meta-search.js');
+
 
 
 const get_meta_product = async function (data_product,model_product_arr,res) {
@@ -45,19 +54,14 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 					},
 					{   
 						"field"     :"check_expired",
-						"value"     : 0,
-						"compare" : ">"
-					},
-					{   
-						"field"     :"check_date",
-						"value"     : 0,
-						"compare" : "<"
-					},   
+						"value"     : 1,
+						"compare" : "="
+					},  
 					{   
 						"field"     :"products_speciality_status_store",
 						"value"     : "1",
 						"compare" : "="
-					} ,				
+					},				
 					{   
 						"field"     :"stores_status_admin",
 						"value"     : "1",
@@ -66,11 +70,6 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 					{   
 						"field"     :"discount_program_product_link_status",
 						"value"     : "1",
-						"compare" : "="
-					},					
-					{   
-						"field"     :"discount_program_details_status_admin",
-						"value"     : "4",
 						"compare" : "="
 					},					
 					{   
@@ -119,6 +118,11 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 
 
 
+
+
+	//@
+	//@
+	//@
 	//@ 3. get product sale
 	try{
 		let data_get =    
@@ -358,6 +362,74 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			"message": error_send 
 		});
 	}		
+	
+	
+	
+	//@ 3. get product price
+	try{
+		let data_get =    
+		{
+		   "select_field" :
+			[
+				"products_speciality_price_meta_product_id",
+				"products_speciality_price_meta_from",
+				"products_speciality_price_meta_to",
+				"products_speciality_price_meta_price"		
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"products_speciality_price_meta_product_id",
+						"value"     : model_product_arr,
+						"compare" : "in"
+					},
+					{   
+						"field"     :"check_expired",
+						"value"     : 1,
+						"compare" : "="
+					}					
+					]    
+				}         
+			]   
+		}
+		
+		//@ get datas
+		var data_product_price = await price_search(data_get,res);
+		//@ đưa comment vào data return
+		let add_data = [];	
+		for(let x in data_product){
+			let add_data_line = [];
+			for(let y in data_product_gift){
+				if(data_product[x].products_speciality_ID == data_product_price[y].discount_program_gift_link_product_speciality_id){
+					let data_push_line = {
+						"from": data_product_price[y].products_speciality_price_meta_from,
+						"to": data_product_price[y].products_speciality_price_meta_to,
+						"price": data_product_price[y].products_speciality_price_meta_price,
+					}
+					add_data_line.push(data_push_line);
+				}							
+			}
+			data_product[x].product_price = add_data_line;
+		}			
+	}
+	catch(error){
+		let evn = ojs_configs.evn;
+		//evn = "dev";
+		let error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			error, 
+			"lỗi get product discount gift, liên hệ admin" 
+		);
+		res.send ({ 
+			"error" : "22", 
+			"position" : "api/shares/get meta product",
+			"message": error_send 
+		});
+	}			
 	
 	
 	

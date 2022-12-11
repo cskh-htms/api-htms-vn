@@ -25,50 +25,30 @@ const  default_fields = {
 
 //@
 function get_message_error(error){
-		if(error.sqlMessage.search("trig_check_users_email_data_double") >= 0 ){
-			return "Email đã có người đăng ký";
-		}else if(error.sqlMessage.search("trig_check_users_email_double") >= 0){
-			return "Email đã có người đăng ký";
-		}else if(error.sqlMessage.search("users_phone_unique") >= 0){
-			return "Số điện thoại này đã đăng ký";
-			
-			
-		}else if(error.sqlMessage.search("trig_check_users_full_name_insert") >= 0){
-			return "Dữ liệu tên full khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("trig_check_users_first_name_insert") >= 0){
-			return "Dữ liệu tên khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("trig_check_users_last_name_insert") >= 0){
-			return "Dữ liệu họ khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("trig_check_users_phone_data_empty") >= 0){
-			return "Chưa nhập số điện thoại";
-		}else if(error.sqlMessage.search("trig_check_users_phone_data_type") >= 0){
-			return "Số điện thoại không hợp lệ";
-			
-		}else if(error.sqlMessage.search("trig_check_users_full_name_update") >= 0){
-			return "Dữ liệu tên full khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("trig_check_users_first_name_update") >= 0){
-			return "Dữ liệu tên khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("trig_check_users_last_name_update") >= 0){
-			return "Dữ liệu họ khách hàng không hợp lệ";
-		}else if(error.sqlMessage.search("users_users_type_id") >= 0){
-			return "Loại user không hợp lệ";
-			
-			
-		}else if(error.sqlMessage.search("trig_dala_users_email_data_type") >= 0){
-			return " Email không hợp lệ, vui lòng đổi email ";
-		}else if(error.sqlMessage.search("users_users_type_id") >= 0){
-			return "Loại user không hợp lệ";			
-			
 	
-			
-		}else if(error.sqlMessage.search("a parent row") >= 0){
-			return " Tài khảon đã có data liên kết, không thể xoá, (ví dụ : tài khoản đã có cửa hàng) ";			
-			
-			
-			
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Chưa nhập số điện thoại, hoặc số điện thoại không hợp lệ";
+		}else if(error.sqlState == '12302'){
+			return "Email không hợp lệ";
+		}else if(error.sqlState == '12303'){
+			return "Chưa nhập user type id, lỗi này là do không bạn chưa nhập kiểu user";	
+		}else if(error.sqlState == '23000'){
+			return "Số điện thoại này đã có trong hệ thống";
+
+		//update
+		}else if(error.sqlState == '12311'){
+			return "Chưa nhập số điện thoại, hoặc số điện thoại không hợp lệ"
+		}else if(error.sqlState == '12312'){
+			return "Email không hợp lệ";
+		}else if(error.sqlState == '12313'){
+			return "Số điện thoại này đã có trong hệ thống";
+
+
+
 			
 		}else{
-			return "Lỗi data type  vui lòng liên hệ admin";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 }	
 

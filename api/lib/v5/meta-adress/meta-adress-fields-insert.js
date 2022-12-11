@@ -16,15 +16,18 @@ const  default_fields = {
 //@
 function get_message_error(error){
 	
-		if(error.sqlMessage.search("adress_meta_user_id") >= 0 ){
-			return " Chưa nhập tên cửa hàng ";
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Không tìm thấy user id";
+	}else if(error.sqlState == '12302'){
+		return "Số điện thoại không hợp lệ";
+	}else if(error.sqlState == '12303'){
+		return "Địa chỉ đã trùng";	
+
+	}else{
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}
 	
-		}else if(error.sqlMessage.search("trig_adress_meta_insert_douple") >= 0 ){
-			return " Địa chỉ đã có rồi ";	
-	
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
-		}	
 }	
 
 //@

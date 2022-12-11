@@ -13,14 +13,16 @@ const  default_fields = {
 }
 
 //@
-function get_message_error(error){
-		if(error.sqlMessage.search("trig_discount_program_product_link_insert_double") >= 0 ){
-			return "Sản phẩm đã có trong chương trình khuyến mãi rồi";
-		}else if(error.sqlMessage.search("trig_discount_program_product_link_insert_bug") >= 0){
-			return "Sản phẩm đã tham chương trình khuyến mãi khác";
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin thêm sản phẩm vào chương trình";
-		}
+function get_message_error(error){		
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Sản phẩm đã có trong chương trình khuyến mãi rồi";
+	}else if(error.sqlState == '12302'){
+		return "Sản phẩm đã tham chương trình khuyến mãi khác";
+
+	}else{
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}				
 }	
 
 //@

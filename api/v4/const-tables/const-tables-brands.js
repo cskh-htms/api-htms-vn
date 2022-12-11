@@ -23,9 +23,7 @@
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
-			if(item == "brands_name"){
-				if(check_data_fields.check_datas.check_empty(datas.brands_name) == false){check_errer =  "Tên brand là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}
+
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer ;
@@ -39,24 +37,18 @@
 	//phan tich loi~
 	
 	function get_message_error(error){
-		if(error.sqlMessage.search("trig_brands_name_data_type") >= 0 ){
-			return "Tên brands không được để trống";
-			
-		}else if(error.sqlMessage.search("trig_brands_name_data_type") >= 0){
-			return " Tên brands không hợp lệ ";		
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Chưa nhập tên thương hiệu";
+		}else if(error.sqlState == '12302'){
+			return "Không tìm thấy cửa hàng id";
 
-		}else if(error.sqlMessage.search("trig_brands_stores_id_empty") >= 0){
-			return " Chưa nhập id cửa hàng ";	
-
-		}else if(error.sqlMessage.search("brands_stores_id") >= 0){
-			return " Không tìm thấy id cửa hàng ";
-
-		}else if(error.sqlMessage.search("trig_brands_name_name_empty") >= 0){
-			return " Tên thương chưa nhập ";				
-						
+		//update
+		}else if(error.sqlState == '12311'){
+			return "Không tìm thấy cửa hàng id";
 
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//

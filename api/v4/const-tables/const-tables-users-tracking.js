@@ -29,13 +29,12 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("users_tracking_user_id") >= 0 ){
-			return " Không tìm thấy user ";
-		}else if(error.sqlMessage.search("trig_users_tracking_insert_lock") >= 0){
-			return " user đã bị loked ";
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Không tìm thấy user khi nhập users-tracking";
 			
 		}else{
-			return "Lỗi nhập dữ liệu tracking users vui lòng liên hệ admin";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//@

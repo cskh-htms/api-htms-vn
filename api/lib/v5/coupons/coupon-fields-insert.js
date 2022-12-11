@@ -26,20 +26,28 @@ const  default_fields = {
 
 //@
 function get_message_error(error){
-		if(error.sqlMessage.search("trig_coupon_speciality_code_empty") >= 0 ){
-			return "Chưa nhập code";
-		}else if(error.sqlMessage.search("coupon_speciality_stores_id_created") >= 0){
-			return " Không tìm thấy cửa hàng ";
-			
-		}else if(error.sqlMessage.search("trig_coupon_speciality_code_date_end_less_star") >= 0){
-			return "Bạn chưa nhập ngày tháng, hoặc ngày tháng không hợp lệ ";			
-			
-		}else if(error.sqlMessage.search("trig_coupon_speciality_code_data_type") >= 0){
-			return "Vui lòng chỉ nhập chữ cái và số và [-], Không nhập khoảng trắng ";				
-			
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
-		}
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Tên coupon không hợp lệ";
+	}else if(error.sqlState == '12302'){
+		return "Chưa nhập tên coupon";
+	}else if(error.sqlState == '12303'){
+		return "Ngày khuyến mãi không hợp lệ";	
+	}else if(error.sqlState == '12304'){
+		return "Không tìm thấy cửa hàng";
+		
+	//update
+	}else if(error.sqlState == '12311'){
+		return "Tên coupon không hợp lệ";
+	}else if(error.sqlState == '12312'){
+		return "Ngày khuyến mãi không hợp lệ";	
+	}else if(error.sqlState == '12313'){
+		return "Không tìm thấy cửa hàng";
+		
+		
+	}else{
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}
 }	
 
 //@

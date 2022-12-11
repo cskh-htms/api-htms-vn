@@ -46,7 +46,7 @@ const controllers_user_get_verification_code_app =  require('../../controllers/u
 const controllers_user_verification_code_app =  require('../../controllers/users/controllers-user-verification-code-app.js');
 const controllers_user_change_password_app =  require('../../controllers/users/controllers-user-change-password-app.js');
 const controllers_user_lost_password_app =  require('../../controllers/users/controllers-user-lost-password-app.js');
-
+const controllers_user_update_app =  require('../../controllers/users/controllers-user-update-app.js');
 //@
 //@
 //@
@@ -60,6 +60,7 @@ router.get('/get-verification-code', middle_ware, controllers_user_get_verificat
 router.post('/verification-code', middle_ware, controllers_user_verification_code_app);
 router.post('/change-password/:user_id', middle_ware, controllers_user_change_password_app);
 router.post('/lost-password', controllers_user_lost_password_app);
+router.post('/update/:user_id', middle_ware, controllers_user_update_app);
 //@
 //@
 //@

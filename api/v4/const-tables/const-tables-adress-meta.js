@@ -20,9 +20,7 @@
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
-			if(item == "adress_meta_user_id"){
-				if(check_data_fields.check_datas.check_empty(datas.adress_meta_user_id) == false){check_errer =  " Chưa nhập user_id ";	return;}	
-			}
+
 		});
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer ;
@@ -34,14 +32,16 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("adress_meta_user_id") >= 0 ){
-			return " Chưa nhập tên cửa hàng ";
-	
-		}else if(error.sqlMessage.search("trig_adress_meta_insert_douple") >= 0 ){
-			return " Địa chỉ đã có rồi ";	
-	
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Không tìm thấy user id";
+		}else if(error.sqlState == '12302'){
+			return "Số điện thoại không hợp lệ";
+		}else if(error.sqlState == '12303'){
+			return "Địa chỉ đã trùng";	
+
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//@

@@ -44,17 +44,7 @@
 		let arr_check_name = Object.keys(datas);
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
-			if(item == "coupon_speciality_code"){
-				if(check_data_fields.check_datas.check_empty(datas.coupon_speciality_code) == false){check_errer =  "ma code là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}
-			
-			if(item == "coupon_speciality_price"){
-				if(check_data_fields.check_datas.check_empty(datas.coupon_speciality_price) == false){check_errer =  "tiền khuyến mãi là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}			
-			
-			if(item == "coupon_speciality_formula"){
-				if(check_data_fields.check_datas.check_empty(datas.coupon_speciality_formula) == false){check_errer =  "mã cônt thức là bắt buộc, bạn chưa nhập dữ liệu";	return;}					
-			}			
+	
 			
 		});
 		//data ok cho phép insert
@@ -67,18 +57,27 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("trig_coupon_speciality_code_empty") >= 0 ){
-			return "Chưa nhập code";
-		}else if(error.sqlMessage.search("coupon_speciality_stores_id_created") >= 0){
-			return " Không tìm thấy cửa hàng ";
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Tên coupon không hợp lệ";
+		}else if(error.sqlState == '12302'){
+			return "Chưa nhập tên coupon";
+		}else if(error.sqlState == '12303'){
+			return "Ngày khuyến mãi không hợp lệ";	
+		}else if(error.sqlState == '12304'){
+			return "Không tìm thấy cửa hàng";
 			
-		}else if(error.sqlMessage.search("trig_coupon_speciality_code_date_end_less_star") >= 0){
-			return " ngày tháng không hợp lệ ";			
-			
+		//update
+		}else if(error.sqlState == '12311'){
+			return "Tên coupon không hợp lệ";
+		}else if(error.sqlState == '12312'){
+			return "Ngày khuyến mãi không hợp lệ";	
+		}else if(error.sqlState == '12313'){
+			return "Không tìm thấy cửa hàng";
 			
 			
 		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ admin";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//@
