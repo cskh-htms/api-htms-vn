@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const md5 = require('md5');
-const multer = require('multer');
-const WPAPI = require( 'wpapi' );
+
 
 const ojs_configs = require('../../../../../configs/config');
 const config_database = require('../../../../configs/config-database');
@@ -23,6 +20,11 @@ const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '
 const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search');
 const category_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-link');
 
+const category_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/category-links/category-link-search-by-product-store.js');
+
+
+
+
 
 
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search');
@@ -36,6 +38,10 @@ const coupon_search_by_store = require('../../../../lib/' + config_api.API_LIB_V
 
 const product_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-store.js');
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
+
+
+
+
 
 
 
@@ -305,7 +311,8 @@ async  function controllers_products_by_store(req, res, next) {
 		  {
 			"select_field": [
 				"category_general_speciality_ID",
-				"category_general_speciality_name"
+				"category_general_speciality_name",
+				"count(category_general_speciality_name)"
 			],
 			"condition": [
 			  {
@@ -317,16 +324,25 @@ async  function controllers_products_by_store(req, res, next) {
 					"compare": "="
 				  },
 				  {
-					"field": "category_general_speciality_stores_id",
+					"field": "category_general_speciality_category_parent_id	",
+					"value": "0",
+					"compare": "<>"
+				  },	
+				  {
+					"field": "stores_ID",
 					"value": store_id,
 					"compare": "="
 				  } 				  
 				]
 			  }
-			]
+			],
+			"group_by":
+				[
+				"category_general_speciality_ID"
+				]
 		  }
 		//@ get datas
-		var category_by_store_resuilt = await category_search.search_category_spaciality(data_category_list_by_store,res);
+		var category_by_store_resuilt = await category_search_by_store(data_category_list_by_store,res);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -356,7 +372,7 @@ async  function controllers_products_by_store(req, res, next) {
 
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_news_bussiness(user_id,res);
+			let result = get_data_news_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_news_bussiness);
@@ -364,7 +380,7 @@ async  function controllers_products_by_store(req, res, next) {
 
 		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_count_bussiness(user_id,res);
+			let result = get_data_count_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_count_bussiness);
