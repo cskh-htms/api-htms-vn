@@ -71,7 +71,9 @@ function get_message_error(error){
 	}else if(error.sqlState == '12319'){
 		return "Mả SKU bị trùng";		
 		
-		
+	//delete
+	}else if(error.sqlState == '34501' ){
+		return "Sản phẩm đã có đơn hàng không thể xóa";		
 		
 	}else{
 		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";

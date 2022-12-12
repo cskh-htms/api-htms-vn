@@ -12,11 +12,12 @@ const  default_fields = {
 //@
 function get_message_error(error){
 	
-	if(error.sqlMessage.search("trig_stores_name_empty") >= 0 ){
-		return "Tên cửa hàng chưa có dữ liệu";
-
+	//insert
+	if(error.sqlState == '12301' ){
+		return "Chưa nhập tiêu đề";
+		
 	}else{
-		return "Lỗi liên quan đến datas cửa hàng, vui lòng liên hệ admin dala";
+		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}
 	
 }	

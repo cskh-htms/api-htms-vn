@@ -32,9 +32,7 @@
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
 
-			if(item == "discount_program_name"){
-				if(check_data_fields.check_datas.check_empty(datas.discount_program_name) == false){check_errer =  "Tên cửa hàng  là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
-			}
+
 		});	
 		//data ok cho phép insert
 		if(check_errer.length > 0) return check_errer ;
@@ -46,13 +44,28 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("trig_discount_program_name_empty") >= 0 ){
-			return "Tên chương trình chưa có dữ liệu";
-			
-		}else if(error.sqlMessage.search("discount_program_name_store_id_created") >= 0){
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Chưa nhập tên chương trình";
+		}else if(error.sqlState == '12302'){
 			return "Không tìm thấy cửa hàng";
+		}else if(error.sqlState == '12303'){
+			return "Ngày tháng không hợp lệ";	
+
+			
+		//update
+		}else if(error.sqlState == '12311'){
+			return "Cửa hàng không có trên hệ thống"
+		}else if(error.sqlState == '12312'){
+			return "Ngày tháng không hợp lệ";
+
+
+		//update
+		}else if(error.sqlState == '34501'){
+			return "Chương trình đã có đơn hàng không thể xóa"
+			
 		}else{
-			return "Có lỗi thao tác. nếu bạn muốn xoá chương trình thì hãy xoá các cửa hàng tham gia trước, nếu bạn đang tạo chương trình mới hãy kiểm tra lại dữ liệu. nếu không hãy thông báo admin DALA";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 	//@

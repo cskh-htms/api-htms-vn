@@ -6,9 +6,9 @@ START TRANSACTION;
 
 -- @
 -- @
-DROP TRIGGER  IF EXISTS  trig_products_speciality_before_update_before_update;
+DROP TRIGGER  IF EXISTS  trig_products_speciality_before_update;
 DELIMITER $$ 
-CREATE TRIGGER trig_products_speciality_before_update_before_update BEFORE UPDATE ON dala_products_speciality 
+CREATE TRIGGER trig_products_speciality_before_update BEFORE UPDATE ON dala_products_speciality 
 FOR EACH ROW  
 BEGIN  
 --

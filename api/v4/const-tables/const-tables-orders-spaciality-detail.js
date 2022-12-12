@@ -31,10 +31,6 @@
 		let check_errer = "";
 		arr_check_name.forEach(function(item) {
 			
-			if(item == "orders_details_speciality_order_id"){
-				if(check_data_fields.check_datas.check_empty(datas.orders_details_speciality_order_id) == false){check_errer =  "mã đơn hàng là bắt buộc, bạn chưa nhập dữ liệu";	return;}	
-				
-			}
 				
 
 		});
@@ -49,20 +45,31 @@
 	//@
 	//phan tich loi~
 	function get_message_error(error){
-		if(error.sqlMessage.search("orders_details_speciality_order_id") >= 0 ){
-			return "Không tìm thấy đơn hàng trong chi tiết đơn hàng";
+		//insert
+		if(error.sqlState == '12301' ){
+			return "Không tìm thấy đơn hàng";
+		}else if(error.sqlState == '12302'){
+			return "Không tìm thấy sản phẩm";
+		}else if(error.sqlState == '12303'){
+			return "Chưa nhập số lượng sản phẩm ";	
+		}else if(error.sqlState == '12304'){
+			return "Số lượng tồn kho không đủ";
+		}else if(error.sqlState == '12305'){
+			return "Không tìm thấy mã giảm giá";
 			
-
-			
-		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_product_id_not_refer") >= 0){
-			return " Không tìm thấy sản phẩm để tạo đơn hàng ";				
-		}else if(error.sqlMessage.search("trig_orders_details_speciality_insert_coupon_id_not_refer") >= 0){
-			return " Không tìm thấy mã coupon để tạo đơn hàng ";				
-			
+		//update
+		}else if(error.sqlState == '12311'){
+			return "Không tìm thấy đơn hàng"
+		}else if(error.sqlState == '12312'){
+			return "Không thể update mã sản phẩm trong order";
+		}else if(error.sqlState == '12313'){
+			return "Số lượng tồn kho không đủ";
+		}else if(error.sqlState == '12314'){
+			return "Không tìm thấy mã giảm giá";			
 			
 			
 		}else{
-			return "Lỗi insert details orders ";
+			return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 		}
 	}	
 			
