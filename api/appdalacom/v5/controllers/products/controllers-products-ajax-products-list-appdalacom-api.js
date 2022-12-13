@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const md5 = require('md5');
-const multer = require('multer');
-const WPAPI = require( 'wpapi' );
+
+
 
 const ojs_configs = require('../../../../../configs/config');
 const config_database = require('../../../../configs/config-database');
@@ -40,9 +38,16 @@ const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_V
 
 
 
+const product_fillter = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-fillter.js');
+
+
+
 
 //@
 async  function controllers_products_ajax_products_list(req, res, next) {
+
+	//res.send(req.body.datas);
+	//return;
 
 	//@ lấy req data
 	try {
@@ -276,7 +281,49 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 	}	
 	
 	
-	//@ discount
+	
+	
+	//@
+	//@
+	//@ loc type
+	condition_data.push(
+		{   
+			"field"     :"products_speciality_type",
+			"value"     : datas.loc_type_data,
+			"compare" : "in"
+		} 
+	)		
+
+	
+	
+	
+	
+
+	//@
+	//@
+	//@ loc_khuyen_mai
+	if(datas.loc_khuyen_mai_data == "all"){
+		//skip
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"discount_program_ID",
+				"value"     : datas.loc_khuyen_mai_data,
+				"compare" : "="
+			} 
+		)		
+	}		
+	
+
+	
+
+		
+	
+	
+		
+	//@
+	//@	
+	//@ sản phẩm khuyến mãi
 	var having_data = [];
 	having_data.push(
 		{   
@@ -286,6 +333,10 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 		} 
 	)	
 	
+	
+	
+	//res.send(condition_data);
+	//return;
 	
 	
 	
@@ -311,7 +362,8 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 				"products_speciality_status_admin",	
 				"products_speciality_sort_by_percen",				
 				"stores_name",
-				"stores_ID"
+				"stores_ID",
+				"discount_program_ID"
 			],
 			"condition" :
 			[
@@ -332,8 +384,10 @@ async  function controllers_products_ajax_products_list(req, res, next) {
 		}
 	
 		//@ get datas
-		var data_product = await product_search_by_discount_category(data_get,res);
+		var data_product = await product_fillter(data_get,res);
 		
+		//res.send([data_product]);
+		//return;
 		
 		//@ create arr ID product
 		var model_product_arr = [0];

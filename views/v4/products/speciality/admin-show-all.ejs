@@ -28,22 +28,67 @@ content
 	
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
+
 			<select id="sap_xep_sp">
-				<option value="moinhat">Mới nhất</option>
+				<option value="moinhat">Sản phẩm mới nhất</option>
 				<option value="giacao">Giá cao > thấp</option>
 				<option value="giathap">Giá thấp < cao</option>
 			</select>
 		</div>
 		
-		<select id="loc_km">
-			<option value="[0,1,2,3,4]">Tất cả sản phẩm</option>
-			<option value="[1,4]">Đang khuyến mãi</option>
-			<option value="[3]">Khuyến mãi đã quá hạn</option>
-			<option value="[0]">Không có khuyến mãi</option>
+	
+
+		<div class="loc_type">
+			<select id="loc_type">
+				<option value="[0,1,2,3,4]">Các loại sản phẩm -> tất cả</option>
+				<option value="[0]">Sản phẩm thường</option>
+				<option value="[1]">Sản phẩm biến thể</option>
+				<option value="[2]">Sản phẩm quà tặng</option>
+			</select>
+		</div>
 			
-		</select>		
+		
+		<div class="loc_khuyen_mai">
+			<select id="loc_khuyen_mai">
+				<option value="all">Chương trình khuyến mãi -> tất cả</option>
+				
+				<% 
+				if( discount_list.length > 0){
+				for(x in discount_list){
+				%>	
+					<option value="<%= discount_list[x].discount_program_ID %>">
+						<%= discount_list[x].discount_program_name %>
+						( <%= discount_list[x].count_discount_program_ID %> )
+					</option>
+				<%
+				}
+				}
+				%>
+				
+			</select>
+		</div>		
+		
 		
 		<div class="loc_wrap">
+			<select id="loc_km">
+				<option value="[0,1,2,3,4]">Sản phẩm khuyến mãi -> tất cả </option>
+				<option value="[1,4]">Đang khuyến mãi</option>
+				<option value="[3]">Khuyến mãi đã quá hạn</option>
+				<option value="[0]">Không có khuyến mãi</option>
+			</select>
+
+
+
+			
+			
+			<select id="loc_stock">
+				<option value="tat_ca">Tồn kho -> tất cả</option>
+				<option value="het_hang">Hết hàng</option>
+				<option value="sap_het_hang">Sắp hết hàng</option>
+			</select>				
+			
+			
+			
 			<select id="loc_danh_muc" >
 				<option value="all">Tất cả danh mục</option>
 				<% 
@@ -51,21 +96,32 @@ content
 				%>	
 					<option value="<%= category_by_store[x].category_general_speciality_ID %>">
 						<%= category_by_store[x].category_general_speciality_name %>
+						( <%= category_by_store[x].count_category_general_speciality_name %> )
 					</option>
 				<%
 				}
 				%>
 			</select>
-
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3,4]">Tất cả trạng thái</option>
+				<option id="all" value="[0,1,2,3,4]" selected>Tất cả trạng thái</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
 				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
-	</div>		
+	</div>	
+	
+	
+	<div style="" id="fillter-wrap">
+		<div style="" id="fillter-inner">
+			<div class="loc-theo-theo-gia"></div>
+			<div class="loc-theo-khuyen mai"></div>
+			<div class="loc-theo-ton-kho"></div>
+			<div class="loc-theo-danh-muc"></div>
+			<div class="loc-theo-trang-thai"></div>
+		</div>
+	</div>	
 
 
 	<div id="ajax-wrap">
@@ -81,6 +137,69 @@ content
 <!----------------------
 end content
 ----------------------->
+
+
+
+
+
+
+
+<style>
+#fillter-inner {
+    display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.filletr-btn{
+    display: flex;
+    position: relative;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+	margin-right: 30px;
+	margin-bottom: 10px;
+}
+.f-x {
+	position: absolute;
+    right: -25px;
+    top: 5px;
+    border: 1px solid #27ad43;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    border-radius: 50px;
+    text-indent: -100px;
+    overflow: hidden;
+}
+
+.filletr-btn.reset-btn {
+    background-color: #4a914b;
+    color: white;
+    cursor: pointer;
+}
+.sap_xep_loc {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.sap_xep_loc .loc_wrap {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+</style>
+
+
+
+
+
+
+
 
 
 <% include ../../masterpage/footer %>
@@ -99,22 +218,50 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
 	
 	
 	
-	//Loc danh muc
+	//@
+	//@
+	//@
+	//@
+	add_data_fillter();
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@Loc danh muc
 	///////////////////////////	
-	$("#loc_danh_muc,#loc_km,#sap_xep_sp,#loc_trang_thai").change(function() {
+	$("#loc_danh_muc,#loc_km,#loc_stock,#sap_xep_sp,#loc_trang_thai,#loc_type,#loc_khuyen_mai").change(function() {
 		var datas = get_data_ajax();
+		add_data_fillter();
 		//console.log(datas);
 		//return;
 		ojs_bussiness.ajax_load_products_admin(datas);	
 	});	
 	
 	
+	//@
+	//@
+	//@
+	//@ refresh fillter
+	$(document).on('click','.reset-btn',function(e) {	
+		//@
+		e.preventDefault();	
+		location.reload();
+	});		
+		
 	
-	//
+	
+	
+	
+	//@
+	//@
 	//@
 	//xem
 	$(document).on('click','.page-nav-inner a',function(e) {	
@@ -136,40 +283,7 @@ $(document).ready(function($){
 	
 	
 	
-	
-	
-	
-	function get_data_ajax(){
-		let user_id = $('#user_id').val();
-		let status_data = $('#loc_trang_thai').val();
-		let category_data = $('#loc_danh_muc').val();
-		let discount_data = $('#loc_km').val();
-		let sort_data = $('#sap_xep_sp').val();
 		
-		var data_limit = $('.page-nav-inner a.active').attr('data-limit') || 20;
-		var data_offset = $('.page-nav-inner a.active').attr('data-offset') || 0;
-		
-		
-		var datas = {
-			"user_id" : user_id,
-			"status_data" : JSON.parse(status_data),
-			"category_data" :category_data,
-			"discount_data" :JSON.parse(discount_data),
-			"sort_data" :sort_data,	
-			"data_limit" :data_limit,	
-			"data_offset" :data_offset,				
-		}
-		return datas;
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -299,7 +413,100 @@ $(document).ready(function($){
 
 		ojs_products_speciality.ajax_tu_choi(datas,product_id);
 		//@
-	});			
+	});		
+
+
+
+	//@
+	//@
+	//@
+	//@ get_data_ajax	
+	function get_data_ajax(){
+		let user_id = $('#user_id').val();
+		let status_data = $('#loc_trang_thai').val();
+		let category_data = $('#loc_danh_muc').val();
+		let discount_data = $('#loc_km').val();
+		let sort_data = $('#sap_xep_sp').val();
+		let stock_data = $('#loc_stock').val();
+		var data_limit = $('.page-nav-inner a.active').attr('data-limit') || 20;
+		var data_offset = $('.page-nav-inner a.active').attr('data-offset') || 0;
+		
+		let loc_type_data = $('#loc_type').val();
+		let loc_khuyen_mai_data = $('#loc_khuyen_mai').val();
+		
+		
+		var datas = {
+			"user_id" : user_id,
+			"status_data" : JSON.parse(status_data),
+			"category_data" :category_data,
+			"discount_data" :JSON.parse(discount_data),
+			"sort_data" :sort_data,	
+			"stock_data" :stock_data,	
+			"data_limit" :data_limit,	
+			"data_offset" :data_offset,	
+			"loc_type_data" :JSON.parse(loc_type_data),
+			"loc_khuyen_mai_data" : loc_khuyen_mai_data,
+		}
+		return datas;
+	}	
+	
+	
+	//@
+	//@
+	//@
+	//@ function add_data_fillter
+	function add_data_fillter(){
+		
+		let sort_data = $('#sap_xep_sp').val();
+		let sort_data_text = $( "#sap_xep_sp option:selected" ).text();
+		
+		let loc_type = $('#loc_type').val();
+		let loc_type_text = $( "#loc_type option:selected" ).text();		
+		
+		let loc_khuyen_mai	 = $('#loc_khuyen_mai	').val();
+		let loc_khuyen_mai_text = $( "#loc_khuyen_mai option:selected" ).text();				
+	
+		
+		
+		let discount_data = $('#loc_km').val();		
+		let discount_data_text = $( "#loc_km option:selected" ).text();	
+		
+		let stock_data = $('#loc_stock').val();		
+		let stock_data_text = $( "#loc_stock option:selected" ).text();		
+		
+		let category_data = $('#loc_danh_muc').val();
+		let category_data_text = $( "#loc_danh_muc option:selected" ).text();	
+		
+		let status_data = $('#loc_trang_thai').val();
+		let status_data_text = $( "#loc_trang_thai option:selected" ).text();	
+	
+
+		var x = "";
+		x = x + '<div class="filletr-btn" data_va="' + 'moinhat' + '" data_id="sap_xep_sp">' + sort_data_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + 'loc_type' + '"  data_id="loc_type">' + loc_type_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + 'loc_khuyen_mai' + '"  data_id="loc_khuyen_mai">' + loc_khuyen_mai_text + '<span class="f-x"> X </span></div>'; 
+		
+			
+		x = x + '<div class="filletr-btn" data_va="' + discount_data + '"  data_id="loc_km">' + discount_data_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + stock_data + '"  data_id="loc_stock">' + stock_data_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + category_data + '"  data_id="loc_danh_muc">' + category_data_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + status_data + '"  data_id="loc_trang_thai">' + status_data_text + '<span class="f-x"> X </span></div>'; 		
+		x = x + '<div  class="filletr-btn reset-btn">reset</div>'; 
+		$('#fillter-inner').html(x);
+	}	
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 ///////////////////////////////////////////////////////
 });//end of document

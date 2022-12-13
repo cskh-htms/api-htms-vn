@@ -39,7 +39,7 @@ const coupon_search_by_store = require('../../../../lib/' + config_api.API_LIB_V
 const product_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-store.js');
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 
-
+const discount_product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search.js');
 
 
 
@@ -191,6 +191,12 @@ async  function controllers_products_by_store(req, res, next) {
 	var limit_data = [];
 	limit_data.push({"limit_number" : 20});
 	
+	
+	
+	
+	//@
+	//@
+	//@
 	//@ product_list
 	try {
 		let data_get =    
@@ -234,12 +240,7 @@ async  function controllers_products_by_store(req, res, next) {
 						"field"     :"stores_status_admin",
 						"value"     : "1",
 						"compare" : "="
-					},				
-					{   
-						"field"     :"products_speciality_status_admin",
-						"value"     : "1",
-						"compare" : "="
-					} 	
+					}	
 					] 				
 				}         
 			],
@@ -305,6 +306,15 @@ async  function controllers_products_by_store(req, res, next) {
 		return;	
 	}
 
+
+
+
+
+
+
+	//@
+	//@
+	//@
 	//@ 6. category list by store
 	try{		
 		let data_category_list_by_store =    
@@ -433,6 +443,10 @@ async  function controllers_products_by_store(req, res, next) {
 		promise_all.push(fn_get_store_taget);	
 		
 		
+		
+		
+		
+		
 		//@ 4. category list
 		let data_category_list =    
 		  {
@@ -506,6 +520,60 @@ async  function controllers_products_by_store(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_product_count_all);				
+		
+		
+		
+		
+		
+
+		//@
+		//@
+		//@
+		//@ discount_list
+		let data_discount_list =    
+		  {
+			"select_field": [
+				"discount_program_ID",
+				"discount_program_name",
+				"count(discount_program_ID)"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+						{   
+							"field"     :"stores_ID",
+							"value"     : store_id,
+							"compare" : "="
+						}, 
+						{   
+							"field"     :"discount_program_product_link_status",
+							"value"     : "1",
+							"compare" : "="
+						} ,					
+						{   
+							"field"     :"check_expired",
+							"value"     : 1,
+							"compare" : "="
+						}  						
+					]    
+				}         
+			],
+			"group_by": 
+				[
+					"discount_program_ID"
+				]			
+		 }
+		
+		var fn_get_discount_list = new Promise((resolve, reject) => {
+			let result = discount_product_search(data_discount_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_discount_list);				
+
+		
 		
 		
 		

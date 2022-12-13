@@ -56,6 +56,9 @@ async  function ajax_products_list(req, res, next) {
 				token
 			);	
 			
+			//res.send([data_api_resuilt]);
+			//return;
+			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -98,8 +101,11 @@ async  function ajax_products_list(req, res, next) {
 			"product_count_all"		: data_api_resuilt[2],				
 		}
 		
+		
 		//res.send(data_send);
 		//return;
+		
+		
 		
 		res.render( ojs_configs.view_version + '/masterpage/widget-product-speciality-show-tables-v5', data_send );
 	}

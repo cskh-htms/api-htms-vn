@@ -290,7 +290,17 @@ const link_fillter = 	" " +
 	config_database.PREFIX + "options_product_speciality_link_option_id  = " + 
 	config_database.PREFIX + "options_product_speciality_ID  " + 
 	
-
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program_product_link ON  " + 
+	config_database.PREFIX + "products_speciality_ID  = " + 
+	config_database.PREFIX + "discount_program_product_link_product_speciality_id " +   		
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "discount_program ON  " + 
+	config_database.PREFIX + "discount_program_product_link_discount_program_id = " + 
+	config_database.PREFIX + "discount_program_ID " + 
+	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "products_speciality_store_id  = " + 

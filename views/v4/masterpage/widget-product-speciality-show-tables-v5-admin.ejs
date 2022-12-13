@@ -21,8 +21,7 @@
 			<th>Đã bán</th>
 			<th>Chương trình khuyến mãi đang tham gia</th>
 			<th>Tồn kho</th>
-			<th>Cửa hàng phê duyệt</th>
-			<th>Admin phê duyệt</th>
+			<th>Trạng thái</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -67,9 +66,18 @@
 				
 				<div class="row-actions">
 					<span class="edit"><a href="/admin/product/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>				
-					<span class="btn-duyet"  data_product_id="<%= products_list[x].products_speciality_ID  %>" ><a href="#">duyệt</a> | </span>
-					<span class="btn-tu-choi"  data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#" >từ chối</a> | </span>					
+					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>	
+
+					<%
+					if(products_list[x].products_speciality_status_admin != "1"){
+					%>
+						<span class="btn-duyet"  data_product_id="<%= products_list[x].products_speciality_ID  %>" ><a href="#">duyệt</a> | </span>
+						<span class="btn-tu-choi"  data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#" >từ chối</a> | </span>	
+					<%
+					}
+					%>
+
+					
 					<span class="btn-delete"  data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">Xóa</a></span>
 				</div>
 			</td>
@@ -101,7 +109,6 @@
 			) -%>
 			
 		</td>			
-		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
 		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>			
 			
 	   </tr>
@@ -119,8 +126,7 @@
 			<th>Đã bán</th>
 			<th>Chương trình khuyến mãi đang tham gia</th>
 			<th>Tồn kho</th>
-			<th>Cửa hàng phê duyệt</th>
-			<th>Admin phê duyệt</th>
+			<th>Trạng thái</th>
 		</tr>
 	</tfoot>
 </table>

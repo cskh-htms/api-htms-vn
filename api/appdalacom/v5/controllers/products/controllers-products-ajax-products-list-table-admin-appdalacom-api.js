@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const md5 = require('md5');
-const multer = require('multer');
-const WPAPI = require( 'wpapi' );
+
 
 const ojs_configs = require('../../../../../configs/config');
 const config_database = require('../../../../configs/config-database');
@@ -39,8 +36,14 @@ const product_search_by_store = require('../../../../lib/' + config_api.API_LIB_
 const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product.js');
 
 
+const product_fillter = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-fillter.js');
 
 
+
+
+//@
+//@
+//@
 //@
 async  function controllers_products_ajax_products_list_admin(req, res, next) {
 
@@ -175,6 +178,97 @@ async  function controllers_products_ajax_products_list_admin(req, res, next) {
 	}
 	
 	
+	
+	
+	
+	//@
+	//@
+	//@ stock
+	if(datas.stock_data == "het_hang"){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock_status",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 0,
+				"compare" : "<="
+			} 
+		)				
+	}
+	
+	//gần hết hàng
+	if(datas.stock_data == "sap_het_hang"){
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock_status",
+				"value"     : 1,
+				"compare" : "="
+			} 
+		)
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 0,
+				"compare" : ">"
+			} 
+		)		
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_stock",
+				"value"     : 5,
+				"compare" : "<="
+			} 
+		)			
+	}	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@ loc type
+	condition_data.push(
+		{   
+			"field"     :"products_speciality_type",
+			"value"     : datas.loc_type_data,
+			"compare" : "in"
+		} 
+	)		
+
+	
+	
+	
+	
+
+	//@
+	//@
+	//@ loc_khuyen_mai
+	if(datas.loc_khuyen_mai_data == "all"){
+		//skip
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"discount_program_ID",
+				"value"     : datas.loc_khuyen_mai_data,
+				"compare" : "="
+			} 
+		)		
+	}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@ discount
 	var having_data = [];
 	having_data.push(
@@ -231,7 +325,7 @@ async  function controllers_products_ajax_products_list_admin(req, res, next) {
 		}
 	
 		//@ get datas
-		var data_product = await product_search_by_discount_category(data_get,res);
+		var data_product = await product_fillter(data_get,res);
 		
 		
 		//@ create arr ID product

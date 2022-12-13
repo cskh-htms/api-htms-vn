@@ -90,12 +90,14 @@ async  function product_get_all(req, res, next) {
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: "",
 			'menu_taget'		:'sidebar_product',
-
-			"products_list" 		: data_api_resuilt[4],		
 			'news_admin_menu' 		: data_api_resuilt[1],
+			
+			
+			"products_list" 		: data_api_resuilt[5],	
 			'category_link_datas'	: data_api_resuilt[2],	
-			"category_by_store" 	: data_api_resuilt[5],
+			"category_by_store" 	: data_api_resuilt[6],
 			"product_count_all" 	: data_api_resuilt[3],
+			"discount_list" 		: data_api_resuilt[4],
 			
 		}
 		
@@ -109,12 +111,14 @@ async  function product_get_all(req, res, next) {
 			'js_css_version'		: ojs_configs.js_css_version,
 			'sidebar_type'			: "",
 			'menu_taget'		:'sidebar_product',
-
-			"products_list" 		: data_api_resuilt[4],		
 			'news_admin_menu' 		: data_api_resuilt[1],
+			
+			
+			"products_list" 		: data_api_resuilt[5],	
 			'category_link_datas'	: data_api_resuilt[2],	
-			"category_by_store" 	: data_api_resuilt[5],
-			"product_count_all" 	: data_api_resuilt[3],			
+			"category_by_store" 	: data_api_resuilt[6],
+			"product_count_all" 	: data_api_resuilt[3],
+			"discount_list" 		: data_api_resuilt[4],	
 			'datas_info'			: datas_info			
 		}
 		

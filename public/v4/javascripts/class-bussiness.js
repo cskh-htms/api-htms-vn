@@ -151,7 +151,9 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+					//ojs_loadding.ajax_hide_loadding();
 					//console.log(result);
+					//return;
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;

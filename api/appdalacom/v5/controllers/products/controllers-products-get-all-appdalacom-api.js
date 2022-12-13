@@ -21,6 +21,15 @@ const get_meta_product = require('../../../../shares/' + config_api.API_SHARES_V
 const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search');
 const category_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-link');
 
+
+
+const discount_product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search.js');
+
+
+const category_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/category-links/category-link-search-by-product-store.js');
+
+
+
 //@
 async  function controllers_products_get_all(req, res, next) {
 
@@ -105,11 +114,11 @@ async  function controllers_products_get_all(req, res, next) {
 					[  
 						{
 							"field" : "products_speciality_status_admin",
-							"value" : 1,
-							"compare" : "="
+							"value" : 3,
+							"compare" : "<>"
 						},	
 						{
-							"field" : "stores_status_admin",
+							"field" : "products_speciality_status_store",
 							"value" : 1,
 							"compare" : "="
 						}								
@@ -179,13 +188,21 @@ async  function controllers_products_get_all(req, res, next) {
 	}	
 	
 	
+
+
+
+	
+	//@
+	//@
+	//@
 	//@ 6. category list by store
 	try{		
-		let data_category_list =    
+		let data_category_list_by_store =    
 		  {
 			"select_field": [
 				"category_general_speciality_ID",
-				"category_general_speciality_name"
+				"category_general_speciality_name",
+				"count(category_general_speciality_name)"
 			],
 			"condition": [
 			  {
@@ -195,13 +212,22 @@ async  function controllers_products_get_all(req, res, next) {
 					"field": "category_general_speciality_admin_status",
 					"value": "1",
 					"compare": "="
-				  }			  
+				  },
+				  {
+					"field": "category_general_speciality_category_parent_id	",
+					"value": "0",
+					"compare": "<>"
+				  }				  
 				]
 			  }
-			]
+			],
+			"group_by":
+				[
+				"category_general_speciality_ID"
+				]
 		  }
 		//@ get datas
-		var category_resuilt = await category_search.search_category_spaciality(data_category_list,res);
+		var category_by_store_resuilt = await category_search_by_store(data_category_list_by_store,res);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -212,12 +238,29 @@ async  function controllers_products_get_all(req, res, next) {
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
-			"error" : "33", 
+			"error" : "44", 
 			"position" : "api/appdalacom/contriller/products/controllers-product-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
 	}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/////////////////////
 	////////////////////
@@ -309,6 +352,52 @@ async  function controllers_products_get_all(req, res, next) {
 
 
 
+		//@
+		//@
+		//@
+		//@ discount_list
+		let data_discount_list =    
+		  {
+			"select_field": [
+				"discount_program_ID",
+				"discount_program_name",
+				"count(discount_program_ID)"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+						{   
+							"field"     :"discount_program_product_link_status",
+							"value"     : "1",
+							"compare" : "="
+						} ,					
+						{   
+							"field"     :"check_expired",
+							"value"     : 1,
+							"compare" : "="
+						}  						
+					]    
+				}         
+			],
+			"group_by": 
+				[
+					"discount_program_ID"
+				]			
+		 }
+		
+		var fn_get_discount_list = new Promise((resolve, reject) => {
+			let result = discount_product_search(data_discount_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_discount_list);		
+
+
+
+
+
 
 
 
@@ -346,7 +435,7 @@ async  function controllers_products_get_all(req, res, next) {
 		"5":"category-link"
 	}
 	promise_result.push(data_product);	
-	promise_result.push(category_resuilt);	
+	promise_result.push(category_by_store_resuilt);	
 	
 	
 	

@@ -29,7 +29,7 @@ content
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
 			<select id="sap_xep_sp">
-				<option value="moinhat">Mới nhất</option>
+				<option value="moinhat">Sản phẩm mới nhất</option>
 				<option value="giacao">Giá cao > thấp</option>
 				<option value="giathap">Giá thấp < cao</option>
 			</select>
@@ -39,7 +39,7 @@ content
 
 		<div class="loc_type">
 			<select id="loc_type">
-				<option value="[0,1,2,3,4]">Tất cả các loại</option>
+				<option value="[0,1,2,3,4]">Các loại sản phẩm -> tất cả</option>
 				<option value="[0]">Sản phẩm thường</option>
 				<option value="[1]">Sản phẩm biến thể</option>
 				<option value="[2]">Sản phẩm quà tặng</option>
@@ -47,9 +47,30 @@ content
 		</div>
 			
 		
+		<div class="loc_khuyen_mai">
+			<select id="loc_khuyen_mai">
+				<option value="all">Chương trình khuyến mãi -> tất cả</option>
+				
+				<% 
+				if( discount_list.length > 0){
+				for(x in discount_list){
+				%>	
+					<option value="<%= discount_list[x].discount_program_ID %>">
+						<%= discount_list[x].discount_program_name %>
+						( <%= discount_list[x].count_discount_program_ID %> )
+					</option>
+				<%
+				}
+				}
+				%>
+				
+			</select>
+		</div>		
+		
+		
 		<div class="loc_wrap">
 			<select id="loc_km">
-				<option value="[0,1,2,3,4]">Tất cả khuyếnn mãi</option>
+				<option value="[0,1,2,3,4]">Sản phẩm khuyến mãi -> tất cả </option>
 				<option value="[1,4]">Đang khuyến mãi</option>
 				<option value="[3]">Khuyến mãi đã quá hạn</option>
 				<option value="[0]">Không có khuyến mãi</option>
@@ -60,7 +81,7 @@ content
 			
 			
 			<select id="loc_stock">
-				<option value="tat_ca">Tồn kho tất cả</option>
+				<option value="tat_ca">Tồn kho -> tất cả</option>
 				<option value="het_hang">Hết hàng</option>
 				<option value="sap_het_hang">Sắp hết hàng</option>
 			</select>				
@@ -81,12 +102,12 @@ content
 				%>
 			</select>
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3,4]">Tất cả trạng thái</option>
+				<option id="all" value="[0,1,2,3,4]" selected>Tất cả trạng thái</option>
 				<option id="draf" value="[-1]">Bản nháp</option>
 				<option id="checking" value="[0]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
-				<option id="checked" value="[1]" selected >Đã duyệt</option>
+				<option id="checked" value="[1]">Đã duyệt</option>
 			</select>
 		</div>
 	</div>	
@@ -124,6 +145,7 @@ end content
 #fillter-inner {
     display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 .filletr-btn{
     display: flex;
@@ -132,6 +154,7 @@ end content
     border: 1px solid #ccc;
     border-radius: 10px;
 	margin-right: 30px;
+	margin-bottom: 10px;
 }
 .f-x {
 	position: absolute;
@@ -284,7 +307,7 @@ $(document).ready(function($){
 	
 	//Loc danh muc
 	///////////////////////////	
-	$("#loc_danh_muc,#loc_km,#loc_stock,#sap_xep_sp,#loc_trang_thai").change(function() {
+	$("#loc_danh_muc,#loc_km,#loc_stock,#sap_xep_sp,#loc_trang_thai,#loc_type,#loc_khuyen_mai").change(function() {
 		var datas = get_data_ajax();
 		add_data_fillter();
 		//console.log(datas);
@@ -325,6 +348,9 @@ $(document).ready(function($){
 		var data_limit = $('.page-nav-inner a.active').attr('data-limit') || 20;
 		var data_offset = $('.page-nav-inner a.active').attr('data-offset') || 0;
 		
+		let loc_type_data = $('#loc_type').val();
+		let loc_khuyen_mai_data = $('#loc_khuyen_mai').val();
+		
 		
 		var datas = {
 			"user_id" : user_id,
@@ -335,7 +361,9 @@ $(document).ready(function($){
 			"sort_data" :sort_data,	
 			"stock_data" :stock_data,	
 			"data_limit" :data_limit,	
-			"data_offset" :data_offset,				
+			"data_offset" :data_offset,	
+			"loc_type_data" :JSON.parse(loc_type_data),
+			"loc_khuyen_mai_data" : loc_khuyen_mai_data,
 		}
 		return datas;
 	}
@@ -344,6 +372,14 @@ $(document).ready(function($){
 		
 		let sort_data = $('#sap_xep_sp').val();
 		let sort_data_text = $( "#sap_xep_sp option:selected" ).text();
+		
+		let loc_type = $('#loc_type').val();
+		let loc_type_text = $( "#loc_type option:selected" ).text();		
+		
+		let loc_khuyen_mai	 = $('#loc_khuyen_mai	').val();
+		let loc_khuyen_mai_text = $( "#loc_khuyen_mai option:selected" ).text();				
+	
+		
 		
 		let discount_data = $('#loc_km').val();		
 		let discount_data_text = $( "#loc_km option:selected" ).text();	
@@ -360,6 +396,10 @@ $(document).ready(function($){
 
 		var x = "";
 		x = x + '<div class="filletr-btn" data_va="' + 'moinhat' + '" data_id="sap_xep_sp">' + sort_data_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + 'loc_type' + '"  data_id="loc_type">' + loc_type_text + '<span class="f-x"> X </span></div>'; 
+		x = x + '<div class="filletr-btn" data_va="' + 'loc_khuyen_mai' + '"  data_id="loc_khuyen_mai">' + loc_khuyen_mai_text + '<span class="f-x"> X </span></div>'; 
+		
+			
 		x = x + '<div class="filletr-btn" data_va="' + discount_data + '"  data_id="loc_km">' + discount_data_text + '<span class="f-x"> X </span></div>'; 
 		x = x + '<div class="filletr-btn" data_va="' + stock_data + '"  data_id="loc_stock">' + stock_data_text + '<span class="f-x"> X </span></div>'; 
 		x = x + '<div class="filletr-btn" data_va="' + category_data + '"  data_id="loc_danh_muc">' + category_data_text + '<span class="f-x"> X </span></div>'; 

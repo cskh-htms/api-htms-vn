@@ -47,6 +47,9 @@ const product_search = function (datas,res) {
 			
 			
 		//return get_sql_search_group;
+		
+		//res.send([get_sql_search_group]);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
