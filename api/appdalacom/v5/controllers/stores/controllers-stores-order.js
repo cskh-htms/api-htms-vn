@@ -15,6 +15,10 @@ const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-ap
 const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+const order_count_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search.js');
+
+
 
 
 //@
@@ -23,8 +27,40 @@ async  function store_order_get_all(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		var store_id = req.params.store_id;
-		var status_int = req.params.status_int;		
+
+		//@
+		//@
+		var store_id = 0;
+		if(req.query.c1){
+			store_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "1", 
+				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}	
+
+
+
+		//@
+		//@
+		var status_int = 0;
+		if(req.query.c2){
+			status_int = req.query.c2;
+		}else{
+			res.send({ 
+				"error" : "1", 
+				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}	
+
+
+
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -36,7 +72,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controller->store_order_get_all",
+			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
 			"message": error_send 
 		}); 
 		return;	
@@ -67,7 +103,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controller->store_order_get_all",
+			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
 			"message": error_send 
 		}); 
 		return;			
@@ -95,7 +131,7 @@ async  function store_order_get_all(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "ctroller->api-appdalacom->controller->store_order_get_all",
+				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
 				"message": error_send 
 			}); 
 			return;			
@@ -111,7 +147,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "ctroller->api-appdalacom->controller->store_order_get_all",
+			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
 			"message": error_send 
 		}); 
 		return;	
@@ -119,43 +155,13 @@ async  function store_order_get_all(req, res, next) {
 	
 	
 	
-	//@
-	//@lấy store taget
-	let data_store =    
-	{
-	   "select_field" :
-		[
-			"stores_ID",
-			"stores_user_id",
-			"stores_name" ,
-			"stores_adress",
-			"stores_province",
-			"stores_district",
-			"stores_wards" ,
-			"stores_payment_limit",
-			"stores_discount_price"						
-		],
-		"condition" :
-		[
-			{    
-			"relation": "and",
-			"where" :
-				[
-				{   
-					"field"     :"stores_ID",
-					"value"     : store_id,
-					"compare" : "="
-				}           
-				]    
-			}         
-		]   
-	}
 	
-	var store_taget_result = await store_search(data_store,res);
-	
-	//res.send(result);
+	//res.send(["ok"]);
 	//return;	
 	
+	
+	
+
 	
 
 	/////////////////////
@@ -166,7 +172,7 @@ async  function store_order_get_all(req, res, next) {
 
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_news_bussiness(store_taget_result[0].stores_user_id,res);
+			let result = get_data_news_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_news_bussiness);
@@ -174,12 +180,63 @@ async  function store_order_get_all(req, res, next) {
 
 		//@ 2. lấy count datas
 		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_count_bussiness(store_taget_result[0].stores_user_id,res);
+			let result = get_data_count_bussiness(store_id,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_count_bussiness);
 
 
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 3. lấy store taget
+		let data_store =    
+		{
+		   "select_field" :
+			[
+				"stores_ID",
+				"stores_user_id",
+				"stores_name" ,
+				"stores_adress",
+				"stores_province",
+				"stores_district",
+				"stores_wards" ,
+				"stores_payment_limit",
+				"stores_discount_price",
+				"service_type_name"						
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					}           
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_store_list = new Promise((resolve, reject) => {
+			let result = store_search(data_store,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_store_list);	
+
+
+
+		//@
+		//@
+		//@
 		//@
 		//@ 3. lấy order list
 		let data_order =    
@@ -190,7 +247,7 @@ async  function store_order_get_all(req, res, next) {
 				"orders_speciality_date_orders" ,
 				"orders_speciality_status_orders",
 				"sum(orders_details_speciality_qty)",
-				"sum(price_caution)"					
+				"sum_price_caution"					
 			],
 			"condition" :
 			[
@@ -199,12 +256,28 @@ async  function store_order_get_all(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"stores_user_id",
-						"value"     : user_id,
+						"field"     :"orders_speciality_store_id",
+						"value"     : store_id,
 						"compare" : "="
-					}           
+					},
+					{   
+						"field"     :"orders_speciality_status_pull_money",
+						"value"     : 1,
+						"compare" : "<>"
+					}	          
 					]    
 				}         
+			],
+			"group_by":
+			[
+				"orders_speciality_ID"
+			],
+			"order":
+			 [
+				{ 
+					"field"  :"orders_speciality_date_orders",
+					"compare" : "DESC"
+				}   
 			]   
 		}
 		
@@ -215,7 +288,55 @@ async  function store_order_get_all(req, res, next) {
 		promise_all.push(fn_get_order_list);	
 
 
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 3. lấy order count
+		let data_order_count =    
+		{
+		   "select_field" :
+			[
+				"orders_speciality_ID",
+				"orders_speciality_date_orders" ,
+				"orders_speciality_status_orders"			
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_store_id",
+						"value"     : store_id,
+						"compare" : "="
+					},
+					{   
+						"field"     :"orders_speciality_status_pull_money",
+						"value"     : 1,
+						"compare" : "<>"
+					}					
+					]    
+				}         
+			]  
+		}
 		
+		var fn_get_order_count = new Promise((resolve, reject) => {
+			let result = order_count_search(data_order_count,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_order_count);	
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ 3. lấy order list		
 		var promise_result = await Promise.all(promise_all);
 		
 	}
@@ -229,7 +350,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->controller->store_order_get_all",
+			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
 			"message": error_send 
 		}); 
 		return;	

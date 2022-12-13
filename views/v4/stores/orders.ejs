@@ -17,10 +17,10 @@ page wrap
 
 
 
-<% menu_taget = "sidebar_don_hang" %>
 <script>
-	//console.log(<%- JSON.stringify(orders_list) %>);
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
 </script>
+
 
 
 <%
@@ -53,19 +53,9 @@ page wrap
 		})
 %>
 
-
-<script>
-	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>		
-
-
-<!-- --------------------
-content
---------------------- -->
-
-
 <div id="content" class="content">
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
+
 
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
@@ -108,16 +98,12 @@ content
 				</ul>
 			</div>
 			<ul class="report_link_box">
-
 				<li class="one report_link">
 					<a href="#"  class="report_active"  data_send="tat_ca">Tất cả</a>
 				</li>	
-
 				<li class="one report_link">
 					<a href="#"  class=""  data_send="thang_nay">Tháng này</a>
 				</li>
-
-
 				<li class="one report_link">
 					<a href="#" class="" data_send="hom_nay">Hôm nay</a>
 				</li>
@@ -131,37 +117,31 @@ content
 				<li class="one report_link">
 					<a href="#"  data_send="thang_truoc">Tháng trước</a>
 				</li>	
-
-
 				<li class="one report_link">
 					<a  data_send="tat_ca"href="#" class="">Từ trước đến nay</a>
 				</li>				
-				
-				
-				
-			
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
-			
-			
-		</div>
-		
+		</div>		
 	</div>
-	
-	<div id="ajax-wrap">
-	
-	<% include ../masterpage/widget-order-show-table-stores %>
-	
+
+
+
+
+	<div id="ajax-wrap">	
+		<% include ../masterpage/widget-order-show-table-stores %>	
 	</div>
 
 
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>	
-	<input type="hidden" id="store_id" value="<%= store_id %>"/>		
-	
-	
-	
-	
-	
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>	
+
+
+
+
+
+
+
 	
 
 
@@ -530,17 +510,22 @@ $(document).ready(function($){
 
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

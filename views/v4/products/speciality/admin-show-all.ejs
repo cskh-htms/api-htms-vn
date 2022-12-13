@@ -69,6 +69,32 @@ content
 		</div>		
 		
 		
+		
+		<div class="loc_cua_hang">
+			<select id="loc_cua_hang">
+				<option value="all">Cửa hàng -> tất cả</option>
+				
+				<% 
+				if( discount_list.length > 0){
+				for(x in store_fillter){
+				%>	
+					<option value="<%= store_fillter[x].stores_ID %>">
+						<%= store_fillter[x].stores_name  %>
+						( <%= store_fillter[x].count_stores_name %> )
+					</option>
+				<%
+				}
+				}
+				%>
+				
+			</select>
+		</div>			
+		
+		
+		
+		
+		
+		
 		<div class="loc_wrap">
 			<select id="loc_km">
 				<option value="[0,1,2,3,4]">Sản phẩm khuyến mãi -> tất cả </option>

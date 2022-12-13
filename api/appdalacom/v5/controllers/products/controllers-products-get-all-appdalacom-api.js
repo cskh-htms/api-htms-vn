@@ -398,6 +398,43 @@ async  function controllers_products_get_all(req, res, next) {
 
 
 
+		//@
+		//@
+		//@
+		//@ 5.store_list
+		let data_store_list =    
+		{
+		   "select_field" :
+			[
+				"stores_ID",
+				"stores_name",
+				"count(stores_name)",
+        ],
+        "condition" :
+        [
+            {    
+            "relation": "and",
+            "where" :
+                [
+                {   
+                    "field"     :"stores_status_admin",
+                    "value"     : "1",
+                    "compare" : "="
+                }           
+                ]    
+            }         
+        ],
+		"group_by":
+			[
+				"stores_ID"
+			]
+		}
+		
+		var fn_get_store_list = new Promise((resolve, reject) => {
+			let result = product_search(data_store_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_store_list);	
 
 
 
