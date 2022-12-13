@@ -70,6 +70,15 @@ require(
 	'../../controllers/admin/coupons/controllers-admin-coupon-show-all'
 );
 
+
+const controllers_admin_main =  
+require(
+	'../../controllers/admin/main/controllers-admin-main.js'
+);
+
+
+
+
 //@
 //@
 //@
@@ -98,7 +107,7 @@ router.get('/discount-program-product-add',	middle_ware, controllers_admin_disco
 router.post('/discount-program-product-denied',	middle_ware, controllers_admin_discount_program_product_denied );
 
 router.get('/coupon-show-all',	middle_ware, controllers_admin_coupon_show_all );
-
+router.get('/main',	middle_ware, controllers_admin_main );
 //@
 //@
 //@

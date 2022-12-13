@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <% 
 if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
 if( typeof js_css_version == 'string' && js_css_version  && js_css_version.length > 0){} else{ js_css_version="" } 
@@ -29,14 +21,6 @@ page wrap
 
 
 
-<script>
-	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
-
-
-
-
 <!-- --------------------
 content
 --------------------- -->
@@ -44,139 +28,100 @@ content
 
 	<h1><%= title %></h1>
 
+
+
+
+
+
+	<!-- --------------------
+		// 2. hiển thị cửa hàng
+	--------------------- -->
 	
-
 	
-		<!-- -----------------------------------
-		// thanh toan
-		--------------------------------------->
-
-		<%
-		for(let i in store_arr){
-		%>		
-			<div class="store_box_content" style="margin-top:25px;">
-				<div class="store_thang_nay">
-					<p><strong><%- store_arr[i].stores_name %></strong></p>
-					<p>
-						<%- store_arr[i].stores_adress %>, 
-						<%- store_arr[i].stores_wards %>, 
-						<%- store_arr[i].stores_district %>, 
-						<%- store_arr[i].stores_province %> 						
-					</p>
-					<p>
-						ĐT : <%- store_arr[i].stores_phone %>						
-					</p>					
-				</div>
-				
-				<div class="store_thang_nay" style="width: 66%;background-color: transparent;border: 1px solid #ccc;color: #000;">
-					<!-- 
-						//show line
-					-->
-					
-					
-					
-					<%
-					//@
-					//@
-					//@
-					//@show order line
-					for(let s in orders_arr){
-					if(orders_arr[s].orders_speciality_store_id == store_arr[i].orders_speciality_store_id){					
-					%>
-						<%
-						let data_sum = 0;
-						let line_product = 0;
-						let coupon = 0;
-						let coupon_of = 0;
-						let add = 0;
-						let reduce = 0;
-						let shipping = 0;
-						let tax = 0;
-						let percen = 0;
-						let qty = 0;
-						let chiec_khau = 0;
-						let pull_price = 0;	
-						for(let x in orders_details){
-						if(orders_details[x].orders_speciality_ID == orders_arr[s].orders_speciality_ID){
-							if(orders_details[x].orders_details_speciality_line_order == "product"){
-								line_product = line_product + orders_details[x].price_caution;
-								qty = qty + orders_details[x].orders_details_speciality_qty;
-								
-							}else if(orders_details[x].orders_details_speciality_line_order == "coupon" ){
-								
-								if(orders_details[x].coupon_speciality_type = '0'){
-									coupon_of = coupon_of + orders_details[x].orders_details_speciality_price
-								}else{
-									coupon = coupon + orders_details[x].orders_details_speciality_price	
-								}				
-
-							}else if(orders_details[x].orders_details_speciality_line_order == "add"){
-								add = add + orders_details[x].orders_details_speciality_price
-
-							}else if(orders_details[x].orders_details_speciality_line_order == "tax"){
-								tax = tax + orders_details[x].orders_details_speciality_price
-								
-							}else if(orders_details[x].orders_details_speciality_line_order == "reduce"){
-								reduce = reduce + orders_details[x].orders_details_speciality_price
-								
-							}else if(orders_details[x].orders_details_speciality_line_order == "shipping"){
-								shipping = shipping + orders_details[x].orders_details_speciality_price		
-							}			
-						}//end of for 
-						}
-						
-						chiec_khau = line_product *  store_arr[i].stores_discount_price / 100;
-						pull_price = line_product - chiec_khau - coupon_of;						
-						%>	
-						
-						<div class="line-box" style="display: flex;justify-content: space-between;">
-							<div class="inner">
-								<p><strong>Mã đơn hàng</strong></p>
-								<p>[ #<%= orders_arr[s].orders_speciality_ID %> ]</p>
-							</div>
-						
-							<div class="inner">
-								<p><strong>Tổng tiền yêu cầu rút về</strong></p>
-								<p><%- ojs_share_all.show_price_vnd( pull_price ,0,",",".","đ")  -%></p>
-							</div>								
-							
-							<div class="inner"  style="display: flex; justify-content: center; align-items: center;">
-								<div class="btn-pull btn-design no-pull" style="padding:5px;" dala_order_id="<%= orders_arr[s].orders_speciality_ID %>" >Đồng ý thanh toán</div>
-							</div>							
-							
-							
-						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-					
-					<%
-					}//end of for line
-					}
-					%>	
-
-
-					
-					<!-- 
-						//show line
-					-->					
-				</div>	
-			</div>	
-		<%
-		}//enf od for store_arr
-		%>		
-			
-
-
+	<% 
+	//@
+	//@ sale sum
+	var count_product_sale = 0;
+	var sum_product_sale = 0;
+	for(i in product_sale) { 
+		count_product_sale = count_product_sale + product_sale[i].orders_details_speciality_qty;
+		sum_product_sale = sum_product_sale + product_sale[i].price_caution;
+	}
+	
+	var sum_product_sale_ok = 0;
+	for(i in product_sale) { 
+		if(product_sale[i].orders_speciality_status_orders == 100 ){
+			sum_product_sale_ok = sum_product_sale_ok + product_sale[i].price_caution;
+		}
+	}	
+	
+	
+	
+	//@
+	//@ order_sum	
+	var order_count = 0;		
+	for(s in order_list) { 
+		order_count = order_count + order_list[s].count_orders_speciality_store_id;
+	}		
+	
+	
+	//@
+	//@ order_sum_ok	
+	var order_count_ok = 0;		
+	for(a in order_list) { 
+		if(order_list[a].orders_speciality_status_orders == 100 ){
+			order_count_ok = order_count_ok + order_list[a].count_orders_speciality_store_id;
+		}
+	}		
+	
+	%>
+	
+	
+	
+	<div class="report">
+			<div class="report-box">
+				<span> Có <strong> [  <%= order_count %>  ] </strong> Đơn hàng mới vừa bán</span>
+			</div>				
 		
-		<!-- -----------------------------------
-		// end of thanh toan
-		--------------------------------------->			
+			<div class="report-box">
+				<span> Mới bán <strong> [ <%= count_product_sale %> ] </strong> Sản phẩm</span>
+			</div>
+			
+			<div class="report-box">
+				<span> Vừa bán được <strong> [ <%= ojs_share.show_price_format(sum_product_sale,0,",",".","") %> ] </strong> VND</span>
+			</div>
+		</div>
+		<p>-----------------</p>
+		<div class="report">
+			<div class="report-box">
+				<span> Có  <strong> [  <%= order_count_ok %>  ] </strong> Đơn hàng đã giao</span>
+			</div>				
+		
+			<div class="report-box">
+				<span> Tổng thu về <strong> [ <%= ojs_share.show_price_format(sum_product_sale_ok,0,",",".","") %> ] </strong> VND</span>
+			</div>
+		</div>			
+	</div>	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	<!-- --------------------
+		//2. end of hiển thị cửa hàng
+	--------------------- -->	
+
+
+
+
+
+
 	
 	
 	
@@ -249,3 +194,32 @@ end content
 
 
 <% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,6 +21,11 @@ const controller_discount_program_product_denied = require(
 	'../../controllers/' + ojs_configs.controller_version + '/admin/discount-programs/controllers-discount-program-product-denied.js'
 );
 
+const controller_admin_main = require(
+	'../../controllers/' + ojs_configs.controller_version + '/admin/main/controllers-admin-main.js'
+);
+
+
 
 //@
 //@
@@ -88,7 +93,7 @@ const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-dis
 
 
 router.get('/coupon/show/:coupon_id/:store_id', controller_coupon_show_admin);
-
+router.get('/', controller_admin_main);
 router.get('/discount-program/product-add/:link_id', controller_discount_program_product_add);
 router.post('/discount-program/product-denied/:link_id', controller_discount_program_product_denied);
 
@@ -2564,7 +2569,7 @@ router.get('/category/show/:cat_id/:store_id', async function(req, res, next) {
 //@
 //@
 //@ 1. [/]
-router.get('/', async  function(req, res, next) {
+router.get('3123123123/', async  function(req, res, next) {
 try {	
 	//@
 	//@
