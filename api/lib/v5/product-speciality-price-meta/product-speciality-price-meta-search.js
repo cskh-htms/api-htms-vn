@@ -65,7 +65,8 @@ const function_export = async function (datas,res) {
 		return;	
 	}	
 	
-	
+	//res.send([get_sql_search_group]);
+	//return;
 
 	//@
 	try {	

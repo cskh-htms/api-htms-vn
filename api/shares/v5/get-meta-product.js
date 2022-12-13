@@ -13,6 +13,8 @@ const review_search = require('../../lib/' + config_api.API_LIB_VERSION + '/revi
 const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-sale-by-store.js');
 
 //@
+
+
 const discount_product_gift_search = require('../../lib/' + 
 config_api.API_LIB_VERSION + 
 '/discounts-products-gift/discount-product-gift-search.js');
@@ -329,6 +331,11 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			]   
 		}
 		
+		
+		
+		
+		
+		
 		//@ get datas
 		var data_product_gift = await discount_product_gift_search(data_get,res);
 		//@ đưa comment vào data return
@@ -350,7 +357,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
@@ -365,6 +372,10 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	
 	
 	
+	
+	//@
+	//@
+	//@
 	//@ 3. get product price
 	try{
 		let data_get =    
@@ -400,10 +411,11 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		//@ get datas
 		var data_product_price = await price_search(data_get,res);
 		//@ đưa comment vào data return
+
 		let add_data = [];	
 		for(let x in data_product){
 			let add_data_line = [];
-			for(let y in data_product_gift){
+			for(let y in data_product_price){
 				if(data_product[x].products_speciality_ID == data_product_price[y].discount_program_gift_link_product_speciality_id){
 					let data_push_line = {
 						"from": data_product_price[y].products_speciality_price_meta_from,
@@ -414,18 +426,19 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 				}							
 			}
 			data_product[x].product_price = add_data_line;
-		}			
+		}	
+		
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
-			"lỗi get product discount gift, liên hệ admin" 
+			"lỗi get product price, liên hệ admin" 
 		);
 		res.send ({ 
-			"error" : "22", 
+			"error" : "222", 
 			"position" : "api/shares/get meta product",
 			"message": error_send 
 		});

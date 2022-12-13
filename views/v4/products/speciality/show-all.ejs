@@ -35,15 +35,29 @@ content
 			</select>
 		</div>
 		
-		
+	
+
+		<div class="loc_type">
+			<select id="loc_type">
+				<option value="[0,1,2,3,4]">Tất cả các loại</option>
+				<option value="[0]">Sản phẩm thường</option>
+				<option value="[1]">Sản phẩm biến thể</option>
+				<option value="[2]">Sản phẩm quà tặng</option>
+			</select>
+		</div>
+			
 		
 		<div class="loc_wrap">
 			<select id="loc_km">
-				<option value="[0,1,2,3,4]">Tất cả sản phẩm</option>
+				<option value="[0,1,2,3,4]">Tất cả khuyếnn mãi</option>
 				<option value="[1,4]">Đang khuyến mãi</option>
 				<option value="[3]">Khuyến mãi đã quá hạn</option>
 				<option value="[0]">Không có khuyến mãi</option>
-			</select>	
+			</select>
+
+
+
+			
 			
 			<select id="loc_stock">
 				<option value="tat_ca">Tồn kho tất cả</option>
@@ -139,6 +153,18 @@ end content
     background-color: #4a914b;
     color: white;
     cursor: pointer;
+}
+.sap_xep_loc {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.sap_xep_loc .loc_wrap {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 </style>
 
