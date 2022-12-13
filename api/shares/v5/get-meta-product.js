@@ -26,6 +26,11 @@ config_api.API_LIB_VERSION +
 
 
 
+
+//@
+//@
+//@
+//@
 const get_meta_product = async function (data_product,model_product_arr,res) {
 	var data_return = {};
 	//@ 3. get discount program 
@@ -402,21 +407,23 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"field"     :"check_expired",
 						"value"     : 1,
 						"compare" : "="
-					}					
+					},
+					{   
+						"field"     :"discount_program_product_link_status",
+						"value"     : 1,
+						"compare" : "="
+					}	
 					]    
 				}         
-			]   
+			]  
 		}
 		
 		//@ get datas
 		var data_product_price = await price_search(data_get,res);
-		//@ đưa comment vào data return
-
-		let add_data = [];	
 		for(let x in data_product){
 			let add_data_line = [];
 			for(let y in data_product_price){
-				if(data_product[x].products_speciality_ID == data_product_price[y].discount_program_gift_link_product_speciality_id){
+				if(data_product[x].products_speciality_ID == data_product_price[y].products_speciality_price_meta_product_id){
 					let data_push_line = {
 						"from": data_product_price[y].products_speciality_price_meta_from,
 						"to": data_product_price[y].products_speciality_price_meta_to,
@@ -427,7 +434,6 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			}
 			data_product[x].product_price = add_data_line;
 		}	
-		
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
