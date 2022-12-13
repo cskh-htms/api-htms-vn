@@ -82,25 +82,6 @@ async  function insert_reviews_spaciality_web(req, res, next) {
 	}	
 	
 
-	//@ check role phân quyền
-	const check_role_result = await check_role.check_role(token,res);
-	if(check_role_result != "customer"){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "22",
-			"position" : "api-ctl-review->insert", 
-			"message": error_send 
-		}); 
-		return;			
-	}
-		
-
 	//@ upload hinh sang wp
 	try {
 		var url_images = "";

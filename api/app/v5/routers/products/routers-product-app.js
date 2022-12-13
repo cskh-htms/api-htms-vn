@@ -4,7 +4,8 @@ const router = express.Router();
 
 
 const config_api = require('../../../../configs/config-api');
-const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
+
+const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-app.js');
 
 const controllers_product_by_category_app =  require('../../controllers/products/controllers-product-by-category-app.js');
 const controllers_product_by_category2_app =  require('../../controllers/products/controllers-product-by-category2-app.js');

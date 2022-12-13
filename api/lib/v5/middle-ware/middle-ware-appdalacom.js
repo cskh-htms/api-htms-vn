@@ -7,6 +7,8 @@ const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+
+
 const token_insert = require('../token/token-insert');
 const token_search = require('../token/token-search');
 const get_one_users = require('../users/get-one-users');
@@ -41,19 +43,18 @@ async function middle_ware(req, res, next){
 						get_one_users.get_one_users(token_value_decode.users_ID).then( results2 => {
 							if(Object.entries(results2).length  > 0) {
 								if(token_value_decode.users_phone == results2[0].users_phone && token_value_decode.users_password == results2[0].users_password){
-									
-								//@
-								//@
-								//@ phan quyen
-								if(token_value_decode.user_role == "bussiness"  
-								|| token_value_decode.user_role == "shipping" 
-								|| token_value_decode.user_role == "customer" 	
-								|| token_value_decode.user_role == "default" 									
-								){
-								}else{
-									res.send({ "error" : "88", "position":"middle-ware", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
-									return;
-								}												
+									//@
+									//@
+									//@ phan quyen
+									if(token_value_decode.user_role =="admin" 
+									|| token_value_decode.user_role == "bussiness"  
+									|| token_value_decode.user_role == "supper-job" 
+									|| token_value_decode.user_role == "shipping" 			
+									){
+									}else{
+										res.send({ "error" : "88", "position":"middle-ware", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
+										return;
+									}
 									next();
 								}else{
 									res.send({ "error" : "3", "postition":"middle-ware","message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 

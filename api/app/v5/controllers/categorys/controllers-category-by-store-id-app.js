@@ -27,6 +27,7 @@ const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION
 const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-product.js');
 
 
+const category_link_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/category-links/category-link-search-by-product-store.js');
 
 
 
@@ -68,41 +69,19 @@ async  function function_export(req, res, next) {
 	}
 
 
-	//@ check role phân quyền
-	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "customer" 
-	|| check_role_result == "default" 
-	){
-		//go
-	}
-	else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				check_role_result, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "2",
-			"position" : "api/app/v5/ctroller/category/controllers-category-by-store-id-app",
-			"message": error_send 
-		}); 
-		return;			
-	}
+
 
 	//@ lấy req data
 	try {
 		//@ 3. get model
 		let data_get =    
 		{
-		   "select_type": "DISTINCT",	
 		   "select_field" :
 			[
 				"category_general_speciality_ID",
 				"category_general_speciality_name",
-				"category_general_speciality_featured_image"				
+				"category_general_speciality_featured_image",
+				"count(category_general_speciality_name)"				
 			],
 			"condition" :
 			[
@@ -119,15 +98,24 @@ async  function function_export(req, res, next) {
 						"field"     :"category_general_speciality_admin_status",
 						"value"     : 1,
 						"compare" : "="
+					},
+					{   
+						"field"     :"category_general_speciality_category_parent_id",
+						"value"     : 0,
+						"compare" : "<>"
 					}
 					]    
 				}         
-			]   
-		}
+				],
+				"group_by": 
+				[
+				"category_general_speciality_ID"
+				]			
+			}
 	
 	
 		//@ get datas
-		let result = await category_search.search_category_spaciality(data_get,res);
+		let result = await category_link_search(data_get,res);
 		res.send({"error":"","datas":result}); 
 		return;
 

@@ -263,7 +263,21 @@ async  function controllers_products_ajax_products_list_admin(req, res, next) {
 	
 	
 	
-	
+
+	//@
+	//@
+	//@ loc_cua hang
+	if(datas.loc_cua_hang_data == "all"){
+		//skip
+	}else{
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_store_id",
+				"value"     : datas.loc_cua_hang_data,
+				"compare" : "="
+			} 
+		)		
+	}	
 	
 	
 	

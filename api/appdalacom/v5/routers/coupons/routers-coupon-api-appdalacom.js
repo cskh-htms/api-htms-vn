@@ -5,7 +5,8 @@ const router = express.Router();
 
 const config_api = require('../../../../configs/config-api');
 
-const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
+
+const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-appdalacom.js');
 
 const controllers_bussiness_by_user_id =  require('../../controllers/bussiness/controllers-bussiness-by-user-id-appdalacom-api');
 const controllers_coupon_add =  require('../../controllers/coupons/controllers-coupon-add-api-appdalacom');

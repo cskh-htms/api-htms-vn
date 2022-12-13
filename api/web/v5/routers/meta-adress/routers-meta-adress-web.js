@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const config_api = require('../../../../configs/config-api');
-const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware');
+const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-web.js');
 
 const controllers_meta_adress_get_by_user_id_web =  require('../../controllers/meta-adress/controllers-meta-adress-get-by-user-id-web.js');
 const controllers_meta_adress_add_web =  require('../../controllers/meta-adress/controllers-meta-adress-add-web.js');

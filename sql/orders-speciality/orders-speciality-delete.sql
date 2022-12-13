@@ -18,6 +18,8 @@ BEGIN
 	delete from dala_orders_details_speciality 
 	where dala_orders_details_speciality_order_id = OLD.dala_orders_speciality_ID;
 	
+	delete from dala_shipping_tracking 
+	where dala_shipping_tracking_orders_id = OLD.dala_orders_speciality_ID;	
 		
 -- @
 -- @	

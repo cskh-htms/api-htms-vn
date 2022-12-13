@@ -83,37 +83,6 @@ async  function function_export(req, res, next) {
 
 
 
-
-	//@ check role phân quyền
-	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "customer"
-	){
-		//go
-	}
-	else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				check_role_result, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "22",
-			"position" : "api/app/v5/controller/controllers-meta-adress-get-by-user-id-app",
-			"message": error_send 
-		}); 
-		return;			
-	}
-
-
-	//res.send(check_role_result);
-	//return;
-
-
-
-
 	//@
 	//@
 	//@

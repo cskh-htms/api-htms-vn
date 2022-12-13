@@ -420,7 +420,12 @@ async  function controllers_products_get_all(req, res, next) {
                     "field"     :"stores_status_admin",
                     "value"     : "1",
                     "compare" : "="
-                }           
+                },
+                {   
+                    "field"     :"products_speciality_status_store",
+                    "value"     : "0",
+                    "compare" : "<>"
+                }  				
                 ]    
             }         
         ],

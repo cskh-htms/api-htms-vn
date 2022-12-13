@@ -46,36 +46,6 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		return;	
 	}
 
-	//res.send([token,order_id]);
-	//return;
-
-	//@ check role phân quyền
-	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "customer" 
-	){
-		//go
-	}
-	else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				check_role_result, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "4",
-			"position" : "api/app/v5/ctroller/order/khach-hang-huy-don",
-			"message": error_send 
-		}); 
-		return;			
-	}
-	
-	
-	//res.send(check_role_result);
-	//return;	
-
 
 	//@ check owner user
 	const check_owner_order_customer_resuilt = await check_owner_order_customer(token,order_id,res);

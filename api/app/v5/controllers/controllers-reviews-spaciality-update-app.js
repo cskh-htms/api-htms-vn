@@ -65,17 +65,6 @@ async  function update_reviews_spaciality_app(req, res, next) {
 	}	
 
 
-	//@ check role 
-	const check_role_resuilt = await check_role.check_role(token,res);
-	if(check_role_resuilt != "customer"){
-		res.send({ 
-			"error" : "5",
-			"position" : "ctl-review->update-app", 
-			"message": "Lỗi phân quyền , bạn không có quyền chỉnh sữa đánh giá này" 
-			}); 
-		return;				
-	}
-
 
 	//@ upload hinh sang wp
 	try {

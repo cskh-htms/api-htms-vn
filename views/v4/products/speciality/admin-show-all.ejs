@@ -75,7 +75,7 @@ content
 				<option value="all">Cửa hàng -> tất cả</option>
 				
 				<% 
-				if( discount_list.length > 0){
+				if( store_fillter.length > 0){
 				for(x in store_fillter){
 				%>	
 					<option value="<%= store_fillter[x].stores_ID %>">
@@ -263,7 +263,7 @@ $(document).ready(function($){
 	//@
 	//@Loc danh muc
 	///////////////////////////	
-	$("#loc_danh_muc,#loc_km,#loc_stock,#sap_xep_sp,#loc_trang_thai,#loc_type,#loc_khuyen_mai").change(function() {
+	$("#loc_danh_muc,#loc_km,#loc_stock,#sap_xep_sp,#loc_trang_thai,#loc_type,#loc_khuyen_mai,#loc_cua_hang").change(function() {
 		var datas = get_data_ajax();
 		add_data_fillter();
 		//console.log(datas);
@@ -459,7 +459,7 @@ $(document).ready(function($){
 		
 		let loc_type_data = $('#loc_type').val();
 		let loc_khuyen_mai_data = $('#loc_khuyen_mai').val();
-		
+		let loc_cua_hang_data = $('#loc_cua_hang').val();
 		
 		var datas = {
 			"user_id" : user_id,
@@ -472,6 +472,7 @@ $(document).ready(function($){
 			"data_offset" :data_offset,	
 			"loc_type_data" :JSON.parse(loc_type_data),
 			"loc_khuyen_mai_data" : loc_khuyen_mai_data,
+			"loc_cua_hang_data" : loc_cua_hang_data,
 		}
 		return datas;
 	}	
@@ -489,10 +490,11 @@ $(document).ready(function($){
 		let loc_type = $('#loc_type').val();
 		let loc_type_text = $( "#loc_type option:selected" ).text();		
 		
-		let loc_khuyen_mai	 = $('#loc_khuyen_mai	').val();
+		let loc_khuyen_mai = $('#loc_khuyen_mai').val();
 		let loc_khuyen_mai_text = $( "#loc_khuyen_mai option:selected" ).text();				
 	
-		
+		let loc_cua_hang = $('#loc_cua_hang').val();
+		let loc_cua_hang_text = $( "#loc_cua_hang option:selected" ).text();		
 		
 		let discount_data = $('#loc_km').val();		
 		let discount_data_text = $( "#loc_km option:selected" ).text();	
@@ -511,7 +513,7 @@ $(document).ready(function($){
 		x = x + '<div class="filletr-btn" data_va="' + 'moinhat' + '" data_id="sap_xep_sp">' + sort_data_text + '<span class="f-x"> X </span></div>'; 
 		x = x + '<div class="filletr-btn" data_va="' + 'loc_type' + '"  data_id="loc_type">' + loc_type_text + '<span class="f-x"> X </span></div>'; 
 		x = x + '<div class="filletr-btn" data_va="' + 'loc_khuyen_mai' + '"  data_id="loc_khuyen_mai">' + loc_khuyen_mai_text + '<span class="f-x"> X </span></div>'; 
-		
+		x = x + '<div class="filletr-btn" data_va="' + 'loc_cua_hang' + '"  data_id="loc_cua_hang">' + loc_cua_hang_text + '<span class="f-x"> X </span></div>';		
 			
 		x = x + '<div class="filletr-btn" data_va="' + discount_data + '"  data_id="loc_km">' + discount_data_text + '<span class="f-x"> X </span></div>'; 
 		x = x + '<div class="filletr-btn" data_va="' + stock_data + '"  data_id="loc_stock">' + stock_data_text + '<span class="f-x"> X </span></div>'; 

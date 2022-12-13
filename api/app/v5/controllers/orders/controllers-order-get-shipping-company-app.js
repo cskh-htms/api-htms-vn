@@ -54,33 +54,6 @@ async  function function_export(req, res, next) {
 
 
 
-	//@ check role phân quyền
-	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "customer" || 
-	check_role_result == "default" 
-	){
-		//go
-	}
-	else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				check_role_result, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "4",
-			"position" : "api/app/v5/ctroller/order/get-shipping-company",
-			"message": error_send 
-		}); 
-		return;			
-	}
-	
-	
-	//res.send(check_role_result);
-	//return;	
 
 
 

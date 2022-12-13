@@ -116,7 +116,12 @@ async  function function_export(req, res, next) {
 					//@
 					//@
 					// chỉ có khách hàng với chủ cửa hàng mới dc thay đổi mật khẩu
-					if(users_role == "customer"){
+					if(
+					users_role == "customer"
+					|| users_role == "bussiness" 
+					|| users_role == "shipping"
+					
+					){
 					}else{
 						res.send({ 
 						"error" : "5",

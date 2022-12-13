@@ -133,8 +133,8 @@ async  function function_export(req, res, next) {
 			
 			if(role_text =="admin" 
 			|| role_text == "bussiness"  
-			|| role_text == "supper-job"  
-			
+			|| role_text == "supper-job" 
+			|| role_text == "shipping" 			
 			){
 			}else{
 				res.send({ "error" : "8", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
