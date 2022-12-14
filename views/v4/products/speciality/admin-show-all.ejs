@@ -139,6 +139,14 @@ content
 	</div>	
 	
 	
+	<div class="sap_xep_loc">
+		<div class="sap_xep_wrap"  style="padding-left: 14px;">
+			<input type="text" id="text-search" value="" placeholder="Tìm tên sản phẩm">
+			<button id="btn-text-search"> Tìm </button>
+		</div>	
+	</div>	
+	
+	
 	<div style="" id="fillter-wrap">
 		<div style="" id="fillter-inner">
 			<div class="loc-theo-theo-gia"></div>
@@ -270,6 +278,88 @@ $(document).ready(function($){
 		//return;
 		ojs_bussiness.ajax_load_products_admin(datas);	
 	});	
+	
+	
+	
+	
+	
+	//tim theo ten
+	///////////////////////////	
+	$(document).on('click','#btn-text-search',function(e) {
+
+		let user_id = $('#user_id').val();
+		var x  = $('#text-search').val();		
+
+		if(x.length < 3 ){
+			ojs_message.message_ok_show("Vui lòng nhập từ 3 ký tự trổ lên");
+			return;
+		}
+		
+		var datas = {
+			"user_id" : user_id,
+			"status_data" : JSON.parse("[0,1,2,3,4]"),
+			"category_data" :"all",
+			"discount_data" :JSON.parse("[0,1,2,3,4]"),
+			"sort_data" :'moinhat',	
+			"stock_data" :"tat_ca",	
+			"data_limit" :200,	
+			"data_offset" :0,	
+			"loc_type_data" :JSON.parse("[0,1,2,3,4]"),
+			"loc_khuyen_mai_data" : "all",
+			"text_search_data" : x,
+			"loc_cua_hang_data" : 'all',	
+		}		
+		
+	
+		//console.log(datas);
+		//return;
+		ojs_bussiness.ajax_load_products_admin(datas);		
+	});	
+	
+	
+	$( "#text-search" ).keypress(function( event ) {
+	  if ( event.which == 13 ) {
+		 event.preventDefault();
+		let user_id = $('#user_id').val();
+		let store_id = $('#store_id').val();		
+		var x  = $('#text-search').val();		
+
+		if(x.length < 3 ){
+			ojs_message.message_ok_show("Vui lòng nhập từ 3 ký tự trổ lên");
+			return;
+		}
+		
+		var datas = {
+			"user_id" : user_id,
+			"status_data" : JSON.parse("[0,1,2,3,4]"),
+			"category_data" :"all",
+			"discount_data" :JSON.parse("[0,1,2,3,4]"),
+			"sort_data" :'moinhat',	
+			"stock_data" :"tat_ca",	
+			"data_limit" :200,	
+			"data_offset" :0,	
+			"loc_type_data" :JSON.parse("[0,1,2,3,4]"),
+			"loc_khuyen_mai_data" : "all",
+			"text_search_data" : x,
+			"loc_cua_hang_data" : 'all'
+		}	
+		ojs_bussiness.ajax_load_products_admin(datas);			
+	  }
+	});	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//@

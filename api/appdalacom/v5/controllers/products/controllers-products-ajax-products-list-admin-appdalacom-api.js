@@ -279,6 +279,22 @@ async  function controllers_products_ajax_products_list_admin(req, res, next) {
 		)		
 	}	
 	
+
+
+
+	//@
+	//@
+	//@ name search
+	if(datas.text_search_data && datas.text_search_data.length > 2){
+	condition_data.push(
+		{   
+			"field"     :"products_speciality_name",
+			"value"     : datas.text_search_data,
+			"compare" : "like"
+		} 
+	)		
+	}	
+	
 	
 	
 	

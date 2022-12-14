@@ -1,5 +1,5 @@
 -- source ./sql/go/go-all.sql;	
--- source ./sql/go/go-all.sql;	
+-- source ./sql/go/go-all-server.sql;	
 
 
 
@@ -140,8 +140,8 @@ source ./sql/orders-details-speciality-discount/orders-details-speciality-discou
 
 
 -- category-general-speciality-link
-source ./sql/category-general-speciality-linkt/category-general-speciality-link-insert.sql;
-source ./sql/category-general-speciality-linkt/category-general-speciality-link-update.sql;
+source ./sql/category-general-speciality-link/category-general-speciality-link-insert.sql;
+source ./sql/category-general-speciality-link/category-general-speciality-link-update.sql;
 
 
 
