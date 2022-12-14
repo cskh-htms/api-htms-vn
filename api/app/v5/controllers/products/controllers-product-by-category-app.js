@@ -84,7 +84,8 @@ async  function controllers_product_by_category_app(req, res, next) {
 				"products_speciality_sku",
 				"products_speciality_type",				
 				"stores_name",
-				"stores_ID"
+				"stores_ID",
+				"products_speciality_sort_by_percen"
 			],
 			"condition" :
 			[
@@ -123,7 +124,7 @@ async  function controllers_product_by_category_app(req, res, next) {
 			"order" :
 			 [		 
 				{    
-					"field"  :"products_speciality_date_created",
+					"field"  :"products_speciality_sort_by_percen",
 					"compare" : "DESC"
 				}			
 			 ],

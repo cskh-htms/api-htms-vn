@@ -478,9 +478,9 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loadding.ajax_hide_loadding();
-					console.log(result);
-					return;
+					//ojs_loadding.ajax_hide_loadding();
+					//console.log(result);
+					//return;
 					
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
@@ -528,9 +528,9 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loadding.ajax_hide_loadding();
-					console.log(result);
-					return;
+					//ojs_loadding.ajax_hide_loadding();
+					//console.log(result);
+					//return;
 				  
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
@@ -579,9 +579,9 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loadding.ajax_hide_loadding();
-					console.log(result);
-					return;
+					//ojs_loadding.ajax_hide_loadding();
+					//console.log(result);
+					//return;
 				  
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){

@@ -23,7 +23,7 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const discount_search_product = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search-product.js');
+const discount_search_product = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search.js');
 const review_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
 const product_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-sale-by-store.js');
 
@@ -140,11 +140,6 @@ async  function controllers_discount_by_product_app(req, res, next) {
 						"compare" : ">"
 					},
 					{   
-						"field"     :"check_date",
-						"value"     : 0,
-						"compare" : "<"
-					},   
-					{   
 						"field"     :"products_speciality_status_store",
 						"value"     : "1",
 						"compare" : "="
@@ -159,11 +154,7 @@ async  function controllers_discount_by_product_app(req, res, next) {
 						"value"     : "1",
 						"compare" : "="
 					},					
-					{   
-						"field"     :"discount_program_details_status_admin",
-						"value"     : "4",
-						"compare" : "="
-					},					
+				
 					{   
 						"field"     :"discount_program_status_admin",
 						"value"     : "4",
