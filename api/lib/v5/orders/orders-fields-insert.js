@@ -25,31 +25,8 @@ const  default_fields = {
 //@
 function get_message_error(error){
 	//insert
-	if(error.sqlState == '12301' ){
-		return "Không tìm thấy cửa hàng";
-	}else if(error.sqlState == '12302'){
-		return "Không tìm thấy khách hàng";
-	}else if(error.sqlState == '12303'){
-		return "Vui lòng thêm số điện thoại nhận hàng";	
-	}else if(error.sqlState == '12304'){
-		return "Số điện thoại không hợp lệ";
-	}else if(error.sqlState == '12305'){
-		return "Email không hợp lệ";
-	}else if(error.sqlState == '12306'){
-		return "Chưa có địa chỉ nhận hàng";	
-	
-	//update
-	}else if(error.sqlState == '12311'){
-		return "Số điện thoại không hợp lệ"
-	}else if(error.sqlState == '12312'){
-		return "Email không hợp lệ";
-	}else if(error.sqlState == '12313'){
-		return "Không tìm thấy cửa hàng";
-	}else if(error.sqlState == '12314'){
-		return "Không tìm thấy kh1ch hàng";			
-	}else if(error.sqlState == '12315'){
-		return "Không tìm thấy shipper";			
-		
+	if(error.sqlMessage.length > 0 ){
+		return error.sqlMessage;			
 	}else{
 		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}

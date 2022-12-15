@@ -21,7 +21,7 @@ const fields_get = require('../../../../lib/' + config_api.API_LIB_VERSION + '/u
 const user_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search.js');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-
+const get_meta_user = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-user.js');
 
 
 //@
@@ -39,7 +39,7 @@ async  function function_export(req, res, next) {
 		if(user_id != de_token.users_ID){
 			res.send({ 
 				"error" : "01", 
-				"position" : "api/web/v5/ctronller/controllers-user-get-by-id-web",
+				"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 				"message": "user không khớp với phiên làm việc"
 			}); 	
 			return;			
@@ -58,7 +58,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-web",
+			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 			"message": error_send 
 		}); 
 		return;	
@@ -73,13 +73,12 @@ async  function function_export(req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
+		res.send({ "error" : "2", "position":"controllers-user-get-by-id-app", "message": error_send } ); 
 		return;
 	}	
 		
 	//res.send(de_token);
 	//return;
-
 
 
 
@@ -98,7 +97,9 @@ async  function function_export(req, res, next) {
 				"users_email",
 				"users_verification_status",
 				"users_type_name",
-				"users_status"				
+				"users_status",
+				"users_ID",	
+				"users_adress"			
 		   ],
 			"condition" :
 			[
@@ -119,9 +120,49 @@ async  function function_export(req, res, next) {
 		//res.send(data_get);
 		//return ;
 		
-		var user_taget = await user_search(data_get,res);
+		var data_user = await user_search(data_get,res);
 		
-		res.send(user_taget);
+		
+		
+		//@ create arr ID product
+		var model_user_arr = [0];
+		if(data_user.length > 0){
+			for(x in data_user){
+				if(data_user[x].users_ID){
+					model_user_arr.push(data_user[x].users_ID);
+				}
+			}
+		}			
+		
+		
+		
+	
+
+		//@ lấy meta
+		try {
+			var get_meta_user_resuilt = await get_meta_user(data_user,model_user_arr,res);
+		}
+		catch(error){
+			var evn = ojs_configs.evn;
+			//evn = "dev";
+			var error_send = ojs_shares_show_errors.show_error( 
+					evn, 
+					error, 
+					"Lỗi get data, Vui lòng liên hệ admin" 
+				);
+			res.send({ 
+				"error" : "44", 
+				"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
+				"message": error_send 
+			}); 
+			return;	
+		}
+
+
+
+		
+		
+		res.send({"error":"","datas":get_meta_user_resuilt});
 		return ;
 	}
 	catch(error){
@@ -134,7 +175,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "5", 
-			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-web",
+			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 			"message": error_send 
 		}); 
 		return;	

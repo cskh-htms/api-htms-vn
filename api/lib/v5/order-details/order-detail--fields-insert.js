@@ -13,50 +13,8 @@ const  default_fields = {
 //@
 function get_message_error(error){
 	//insert
-	if(error.sqlState == '12301' ){
-		return "Không tìm thấy đơn hàng";
-	}else if(error.sqlState == '12302'){
-		return "Không tìm thấy sản phẩm";
-	}else if(error.sqlState == '12303'){
-		return "Chưa nhập số lượng sản phẩm ";	
-	}else if(error.sqlState == '12304'){
-		return "Số lượng tồn kho không đủ";
-	}else if(error.sqlState == '12305'){
-		return "Không tìm thấy mã giảm giá";
-		
-	}else if(error.sqlState == '12391'){
-		return "Giá sản phẩm đã thay đổi, hoặc sản phẩm đã ngưng bán";		
-	}else if(error.sqlState == '12392'){
-		return "Giá sản phẩm đã thay đổi, hoặc sản phẩm đã ngưng bán";			
-		
-		
-		
-		
-	//update
-	}else if(error.sqlState == '12311'){
-		return "Không tìm thấy đơn hàng"
-	}else if(error.sqlState == '12312'){
-		return "Không thể update mã sản phẩm trong order";
-	}else if(error.sqlState == '12313'){
-		return "Số lượng tồn kho không đủ";
-	}else if(error.sqlState == '12314'){
-		return "Không tìm thấy mã giảm giá";			
-		
-		
-		
-	//discount product
-	}else if(error.sqlState == '22301'){
-		return "Không tìm thấy đơn hàng discount product"
-	}else if(error.sqlState == '22302'){
-		return "Không tìm thấy chi tiết đơn hàng discount product";
-	}else if(error.sqlState == '22303'){
-		return "Không tìm thấy đơn hàng discount product";
-	}else if(error.sqlState == '12314'){
-		return "Không tìm thấy sản phẩm discount product";			
-		
-		
-		
-		
+	if(error.sqlMessage.length > 0 ){
+		return error.sqlMessage;			
 	}else{
 		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}

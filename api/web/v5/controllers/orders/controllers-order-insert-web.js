@@ -122,8 +122,8 @@ async  function controllers_order_insert_app(req, res, next) {
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
-				"Không tìm thấy cửa hàng", 
-				"Không tìm thấy cửa hàng" 
+				"Không tìm thấy cửa hàng bán sản phẩm này", 
+				"Không tìm thấy cửa hàng bán sản phẩm này" 
 			);
 			res.send({ 
 				"error" : "7", 

@@ -4,6 +4,7 @@
 START TRANSACTION;
 
 
+
 -- @
 -- @
 DROP TRIGGER  IF EXISTS  trig_orders_details_speciality_before_insert;
@@ -13,6 +14,46 @@ FOR EACH ROW
 BEGIN  
 --
 --
+	
+	
+	
+	--
+	-- cac line order sau moi dc add vao ch tiet don hang
+	IF(
+	NEW.dala_orders_details_speciality_line_order = 'product' 
+	or NEW.dala_orders_details_speciality_line_order = 'shipping' 
+	or NEW.dala_orders_details_speciality_line_order = 'coupon' 
+	or NEW.dala_orders_details_speciality_line_order = 'add_fee' 
+	) THEN 
+		SIGNAL SQLSTATE '01000';
+	ELSE 
+		SIGNAL SQLSTATE '22381' 
+		SET MESSAGE_TEXT = 'Chỉ hổ trợ line order product,shipping,coupon,add_fee'; 
+	END IF;	
+	
+	
+	
+	
+	
+	
+	--
+	-- lay ten product de gui thong bao
+	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 		
+		SET @name = ( select dala_products_speciality_name 
+						 from dala_products_speciality 
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+						);
+		IF (LENGTH(@name) > 0) THEN  
+			SIGNAL SQLSTATE '01000'; 
+		ELSE
+			SIGNAL SQLSTATE '22300' 
+			SET MESSAGE_TEXT = 'Không tìm thấy tên sản phẩm'; 
+		END IF;		
+	END IF;	
+	
+	
+	
+	
 	
 	
 	--
@@ -26,8 +67,8 @@ BEGIN
 	IF( @check_order_id > 0 ) THEN 
 		SIGNAL SQLSTATE '01000'; 
 	ELSE
-		SIGNAL SQLSTATE '12301' 
-		SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_order_id_not_refer'; 
+		SIGNAL SQLSTATE '22301' 
+		SET MESSAGE_TEXT = 'Đơn hàng không có trong hệ thống'; 
 	END IF;		
 	
 	
@@ -48,9 +89,10 @@ BEGIN
 						);
 		IF (@checkID > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
-		ELSE
-			SIGNAL SQLSTATE '12302' 
-			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_product_id_not_refer'; 
+		ELSE		
+			set @m = CONCAT('sản phẩm [ ',NEW.dala_orders_details_speciality_product_id,' ] ',@name,' không có trong hệ thống'); 		
+			SIGNAL SQLSTATE '22302' 
+			SET MESSAGE_TEXT = @m; 
 		END IF;		
 	END IF;
 	
@@ -63,8 +105,8 @@ BEGIN
 	-- kiem tra bat buoc so luong phai mua lon hon 0
 	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 		
 		IF (NEW.dala_orders_details_speciality_qty < 1) THEN  
-			SIGNAL SQLSTATE '12303' 
-			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_qty_empty'; 
+			SIGNAL SQLSTATE '22303' 
+			SET MESSAGE_TEXT = 'Số lượng mua phải lớn hơn [0]'; 
 		END IF;		
 	END IF;
 
@@ -111,8 +153,9 @@ BEGIN
 			IF(@productPrice = NEW.dala_orders_details_speciality_price ) THEN 
 				SIGNAL SQLSTATE '01000'; 
 			ELSE 
-				SIGNAL SQLSTATE '12391' 
-				SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_price_not_ok'; 	
+				set @m = CONCAT('sản phẩm [',@name,' ] giá bán đã thay đổi '); 
+				SIGNAL SQLSTATE '22391' 
+				SET MESSAGE_TEXT = @m; 	
 			END IF;
 			
 		--
@@ -188,8 +231,9 @@ BEGIN
 			IF(@productPrice = NEW.dala_orders_details_speciality_price ) THEN 
 				SIGNAL SQLSTATE '01000'; 
 			ELSE 
-				SIGNAL SQLSTATE '12392' 
-				SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_price_not_ok'; 	
+				set @m = CONCAT('sản phẩm [ ',NEW.dala_orders_details_speciality_product_id,' ] ',@name,'  giá bán đã thay đổi '); 
+				SIGNAL SQLSTATE '22392' 
+				SET MESSAGE_TEXT = @m;  	
 			END IF;			
 		END IF;	
 	END IF;
@@ -216,8 +260,9 @@ BEGIN
 		) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
-			SIGNAL SQLSTATE '12304' 
-			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_qty_not_ok'; 
+			set @m = CONCAT('sản phẩm [ ',NEW.dala_orders_details_speciality_product_id,' ] ',@name,' số lượng tồn không đủ'); 
+			SIGNAL SQLSTATE '22304' 
+			SET MESSAGE_TEXT = @m; 
 		END IF;		
 	END IF;		
 
@@ -244,12 +289,13 @@ BEGIN
 			IF (@checkID > 0) THEN  
 				SIGNAL SQLSTATE '01000'; 
 			ELSE
-				SIGNAL SQLSTATE '12305' 
-				SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_coupon_id_not_refer'; 
+				set @m = CONCAT('mã giảm giá  [ ',NEW.dala_orders_details_medium_text,' ] ',' không có trong hệ thống'); 
+				SIGNAL SQLSTATE '22305' 
+				SET MESSAGE_TEXT = @m; 
 			END IF;	
 		ELSE 
-			SIGNAL SQLSTATE '12306' 
-			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_coupon_text_empty'; 		
+			SIGNAL SQLSTATE '22306' 
+			SET MESSAGE_TEXT = 'Không tìm thấy mã giảm giá'; 		
 		END IF;		
 	END IF;
 	
@@ -335,7 +381,9 @@ BEGIN
 			dala_products_speciality_stock = @check_stock_number  -  NEW.dala_orders_details_speciality_qty 
 			where 
 			dala_products_speciality_ID  =  NEW.dala_orders_details_speciality_product_id ;
-		END IF;					
+		END IF;				
+
+		
 	END IF;	
 
 

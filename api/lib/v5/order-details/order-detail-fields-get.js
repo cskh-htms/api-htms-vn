@@ -198,8 +198,24 @@ const link_product_by_customer= " " +
 
 
 
+//@
+//@
+//@ link by customer
+const link_by_coupon = " " +
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_order_id = " + 
+	config_database.PREFIX + "orders_speciality_ID " + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "coupon_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_medium_text  = " + 
+	config_database.PREFIX + "coupon_speciality_code " + 
 
-
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "coupon_speciality_intro  = " + 
+	config_database.PREFIX + "users_ID ";
 
 
 //export module
@@ -211,7 +227,8 @@ module.exports = {
 	link_by_store,
 	link_by_customer,
 	link_product_by_store,
-	link_product_by_customer		
+	link_product_by_customer,
+	link_by_coupon	
 };
 
 
