@@ -390,7 +390,8 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 				"products_speciality_price_meta_product_id",
 				"products_speciality_price_meta_from",
 				"products_speciality_price_meta_to",
-				"products_speciality_price_meta_price"		
+				"products_speciality_price_meta_price",
+				"products_speciality_price"				
 			],
 			"condition" :
 			[
@@ -428,6 +429,10 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"from": data_product_price[y].products_speciality_price_meta_from,
 						"to": data_product_price[y].products_speciality_price_meta_to,
 						"price": data_product_price[y].products_speciality_price_meta_price,
+						"percent": Math.floor((
+						data_product_price[y].products_speciality_price_meta_price * 100 ) / 
+						data_product_price[y].products_speciality_price)
+						,
 					}
 					add_data_line.push(data_push_line);
 				}							
