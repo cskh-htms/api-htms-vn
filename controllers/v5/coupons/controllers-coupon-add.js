@@ -81,7 +81,8 @@ async  function bussiness_by_user_id(req, res, next) {
 			'news_bussiness_menu' 	: data_api_resuilt[1],
 			'list_data_count' 		: data_api_resuilt[2],				
 			
-			'store_list' 			: data_api_resuilt[3],				
+			'store_list' 			: data_api_resuilt[3],	
+			'user_list' 			: data_api_resuilt[4],				
 
 		}
 		
@@ -106,6 +107,7 @@ async  function bussiness_by_user_id(req, res, next) {
 			'list_data_count' 		: data_api_resuilt[2],				
 			
 			'store_list' 			: data_api_resuilt[3],
+			'user_list' 			: data_api_resuilt[4],	
 			'datas_info'			: datas_info			
 		}
 	

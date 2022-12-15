@@ -11,6 +11,8 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "coupon_speciality_info as coupon_speciality_info, " + 
 	
 	config_database.PREFIX  + "coupon_speciality_type as coupon_speciality_type, " + 
+	config_database.PREFIX  + "coupon_speciality_intro as coupon_speciality_intro, " + 	
+	config_database.PREFIX  + "coupon_speciality_intro_price as coupon_speciality_intro_price, " + 	
 	config_database.PREFIX  + "coupon_speciality_type as coupon_speciality_pay_type, " + 
 	config_database.PREFIX  + "coupon_speciality_featured_image as coupon_speciality_featured_image, " + 
 	

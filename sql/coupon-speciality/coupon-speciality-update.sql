@@ -55,13 +55,28 @@ BEGIN
 			SIGNAL SQLSTATE '01000'; 
 		ELSE 
 			SIGNAL SQLSTATE '12304' 
-			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_user_not_refer'; 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_store_not_refer'; 
 		END IF;		
 	END IF;		
 	
 	
 	
-	
+		--
+	-- check user gioi thieu
+	-- xem nguoi gioi thieu da co hay chya
+	if(NEW.dala_coupon_speciality_intro  > 0 ) THEN 
+		SET @checkID = (
+				select dala_users_ID   
+				from dala_users   
+				where dala_users_ID  =  NEW.dala_coupon_speciality_intro 
+			);		
+		IF (@checkID > 0) THEN  
+			SIGNAL SQLSTATE '01000'; 
+		ELSE 
+			SIGNAL SQLSTATE '12315' 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_user_not_refer'; 
+		END IF;		
+	END IF;	
 	
 	
 	

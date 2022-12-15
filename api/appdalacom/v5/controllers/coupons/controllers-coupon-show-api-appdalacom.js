@@ -18,7 +18,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search');
-
+const user_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 
 //@
 async  function function_export(req, res, next) {
@@ -259,6 +259,8 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_stores_id_created",
 				"coupon_speciality_info",
 				"coupon_speciality_type",
+				"coupon_speciality_intro",
+				"coupon_speciality_intro_price",
 				"coupon_speciality_pay_type",
 				"coupon_speciality_formula_price",
 				"coupon_speciality_formula_price_value",
@@ -297,6 +299,34 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_coupon_taget);	
+
+
+
+
+
+		//@ 3. lấy users list
+		let data_user_list =    
+		{
+		   "select_field" :
+			[
+				"users_ID",
+				"users_full_name",
+				"users_phone"
+			] 
+		}
+		
+		var fn_get_user_list = new Promise((resolve, reject) => {
+			let result = user_search(data_user_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_user_list);	
+
+
+
+
+
+
+
 
 
 		//@

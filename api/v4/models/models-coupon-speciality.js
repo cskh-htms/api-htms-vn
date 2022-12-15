@@ -80,6 +80,8 @@ var sql_select_all = 	"" +
 	ojs_configs.db_prefix  + "coupon_speciality_info as coupon_speciality_info, " + 
 	
 	ojs_configs.db_prefix  + "coupon_speciality_type as coupon_speciality_type, " + 
+	ojs_configs.db_prefix  + "coupon_speciality_intro as coupon_speciality_intro, " + 
+	ojs_configs.db_prefix  + "coupon_speciality_intro_price as coupon_speciality_intro_price, " + 
 	ojs_configs.db_prefix  + "coupon_speciality_featured_image as coupon_speciality_featured_image, " + 
 	
 	ojs_configs.db_prefix  + "coupon_speciality_formula_price as coupon_speciality_formula_price, " + 
@@ -408,7 +410,9 @@ var insert_coupon_speciality = async function (datas) {
 			"coupon_speciality_code"						: mysql.escape(datas.coupon_speciality_code).replace(/^'|'$/gi, ""),		
 			"coupon_speciality_stores_id_created"			: datas.coupon_speciality_stores_id_created,
 			"coupon_speciality_info"						: mysql.escape(datas.coupon_speciality_info).replace(/^'|'$/gi, ""),
-			"coupon_speciality_type"						: datas.coupon_speciality_type,				
+			"coupon_speciality_type"						: datas.coupon_speciality_type,		
+			"coupon_speciality_intro"						: datas.coupon_speciality_intro,		
+			"coupon_speciality_intro_price"					: datas.coupon_speciality_intro_price,					
 			
 			"coupon_speciality_formula_price"				: datas.coupon_speciality_formula_price,
 			"coupon_speciality_formula_price_value"			: datas.coupon_speciality_formula_price_value,

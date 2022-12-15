@@ -17,6 +17,7 @@ const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-ap
 const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+const user_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 
 //@
 async  function coupon_add(req, res, next) {
@@ -184,6 +185,29 @@ async  function coupon_add(req, res, next) {
 		});	
 		promise_all.push(fn_get_store_taget);	
 		
+
+
+
+
+
+
+		//@ 3. lấy users list
+		let data_user_list =    
+		{
+		   "select_field" :
+			[
+				"users_ID",
+				"users_full_name",
+				"users_phone"
+			] 
+		}
+		
+		var fn_get_user_list = new Promise((resolve, reject) => {
+			let result = user_search(data_user_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_user_list);	
+
 
 
 

@@ -64,10 +64,9 @@ const order_insert = function (datas,data_details,res) {
 		let sql_details_all = "";
 		for(let i = 0; i < data_details.length; i ++){
 			///ex
+			var orders_details_medium_text = "";
 			if(data_details[i].orders_details_medium_text){
 				var orders_details_medium_text = data_details[i].orders_details_medium_text;
-			}else{
-				var orders_details_medium_text = "";
 			}
 			
 			
@@ -121,7 +120,7 @@ const order_insert = function (datas,data_details,res) {
 					
 					var error_massage = fields_insert.get_message_error(err);
 					
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 

@@ -87,6 +87,7 @@ async  function function_export(req, res, next) {
 			
 			'store_list' 			: data_api_resuilt[3],
 			'datas' 				: data_api_resuilt[4],
+			'user_list' 			: data_api_resuilt[5],
 
 		}
 		
@@ -109,7 +110,8 @@ async  function function_export(req, res, next) {
 			'list_data_count' 		: data_api_resuilt[2],			
 			
 			'store_list' 			: data_api_resuilt[3],
-			'datas' 				: data_api_resuilt[4],			
+			'datas' 				: data_api_resuilt[4],	
+			'user_list' 			: data_api_resuilt[5],			
 			'datas_info'			: datas_info			
 		}
 	

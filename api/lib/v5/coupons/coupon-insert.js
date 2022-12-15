@@ -27,7 +27,9 @@ const function_export = function (data,res) {
 			"coupon_speciality_code"						: mysql.escape(datas.coupon_speciality_code).replace(/^'|'$/gi, ""),		
 			"coupon_speciality_stores_id_created"			: datas.coupon_speciality_stores_id_created,
 			"coupon_speciality_info"						: mysql.escape(datas.coupon_speciality_info).replace(/^'|'$/gi, ""),
-			"coupon_speciality_type"						: datas.coupon_speciality_type,				
+			"coupon_speciality_type"						: datas.coupon_speciality_type,	
+			"coupon_speciality_intro"						: datas.coupon_speciality_intro,	
+			"coupon_speciality_intro_price"					: datas.coupon_speciality_intro_price,				
 			
 			"coupon_speciality_formula_price"				: datas.coupon_speciality_formula_price,
 			"coupon_speciality_formula_price_value"			: datas.coupon_speciality_formula_price_value,

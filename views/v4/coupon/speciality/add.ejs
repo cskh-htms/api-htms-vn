@@ -150,6 +150,54 @@ content
 			</div>
 			
 			
+			
+			
+			
+			
+			
+			
+			<h3>Người giới thiệu</h3>
+			<div class="noi_dung_coupon inside">
+				<div class="thong_tin_coupon">	
+					<span>Chọn người giới thiệu<span>
+					<a href="#"  target="_blank"  class="giai_thich_link">
+						<span class="giai-thich"><span>Chọn người hưởng ưu đãi khi giới thiệu coupon</span></span>	
+						</a>
+						<select id="coupon_speciality_intro">
+							<option value="">Chọn người giới thiệu</option>
+							<%
+							for(x in user_list){
+							%>	
+								<option value="<%= user_list[x].users_ID %>">
+									<%- user_list[x].users_full_name %> (
+									<%- user_list[x].users_phone %> )
+								</option>							
+							<%
+							}
+							%>								
+						</select>												
+					</p>		
+						
+
+					<p>
+						<span>Phần trăm chiếc khấu<span>
+						<a class="giai-thich" href="#" target="_blank"><span>Phần trăm được hưởng trên mã coupon này</span></a>	
+						<input 
+						class="number_change" type="text" 
+						data_value="0"
+						value="0" 
+						id="coupon_speciality_intro_price" 
+					/>	
+					</p>		
+				</div>
+			</div>		
+
+			
+			
+			
+			
+			
+			
 		<p class="<%- admin_view %>"><span>Tiền khuyến mãi<span>
 			<select id="coupon_speciality_pay_type">
 				<%- ojs_share_coupon.show_coupon_pay_type_select(0) %>
@@ -531,13 +579,14 @@ $(document).ready(function($){
 		let coupon_speciality_limit_user = $('#coupon_speciality_limit_user').val();
 		let coupon_speciality_limit_number = $('#coupon_speciality_limit_number').val();	
 			
-			
+		let coupon_speciality_intro_price = $('#coupon_speciality_intro_price').attr('data_value');	
 		//@
 		let coupon_speciality_featured_image = $('#featured_image').attr('data_value');			
 			
 		//@
 		//@
 		let coupon_speciality_type = $('#coupon_speciality_type  option:selected').val();
+		let coupon_speciality_intro = $('#coupon_speciality_intro  option:selected').val();
 		let coupon_speciality_pay_type = $('#coupon_speciality_pay_type  option:selected').val();
 		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();
 		let coupon_speciality_show_hide = $('#coupon_speciality_show_hide  option:selected').val();			
@@ -565,6 +614,8 @@ $(document).ready(function($){
 				
 				coupon_speciality_price_max : coupon_speciality_price_max,	
 				coupon_speciality_type : coupon_speciality_type,
+				coupon_speciality_intro : coupon_speciality_intro,
+				coupon_speciality_intro_price : coupon_speciality_intro_price,
 				coupon_speciality_pay_type : coupon_speciality_pay_type,				
 				
 				coupon_speciality_featured_image : coupon_speciality_featured_image,
