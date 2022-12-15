@@ -24,6 +24,14 @@ function get_message_error(error){
 	}else if(error.sqlState == '12305'){
 		return "Không tìm thấy mã giảm giá";
 		
+	}else if(error.sqlState == '12391'){
+		return "Giá sản phẩm đã thay đổi, hoặc sản phẩm đã ngưng bán";		
+	}else if(error.sqlState == '12392'){
+		return "Giá sản phẩm đã thay đổi, hoặc sản phẩm đã ngưng bán";			
+		
+		
+		
+		
 	//update
 	}else if(error.sqlState == '12311'){
 		return "Không tìm thấy đơn hàng"
@@ -33,6 +41,20 @@ function get_message_error(error){
 		return "Số lượng tồn kho không đủ";
 	}else if(error.sqlState == '12314'){
 		return "Không tìm thấy mã giảm giá";			
+		
+		
+		
+	//discount product
+	}else if(error.sqlState == '22301'){
+		return "Không tìm thấy đơn hàng discount product"
+	}else if(error.sqlState == '22302'){
+		return "Không tìm thấy chi tiết đơn hàng discount product";
+	}else if(error.sqlState == '22303'){
+		return "Không tìm thấy đơn hàng discount product";
+	}else if(error.sqlState == '12314'){
+		return "Không tìm thấy sản phẩm discount product";			
+		
+		
 		
 		
 	}else{

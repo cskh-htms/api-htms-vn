@@ -80,7 +80,8 @@ async  function function_export(req, res, next) {
 				"products_speciality_stock",
 				"products_speciality_sku",
 				"products_speciality_type",
-				"out_of_stock"
+				"out_of_stock",
+				"products_speciality_sort_by_percen"
 			],
 			"condition" :
 			[

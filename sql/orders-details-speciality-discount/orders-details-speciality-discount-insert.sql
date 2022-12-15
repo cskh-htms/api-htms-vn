@@ -25,7 +25,7 @@ BEGIN
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '01000'; 
 	ELSE 
-		SIGNAL SQLSTATE '12301' 
+		SIGNAL SQLSTATE '22301' 
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_order_not_refer'; 
 	END IF;	
 
@@ -46,7 +46,7 @@ BEGIN
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '01000'; 
 	ELSE 
-		SIGNAL SQLSTATE '12302' 
+		SIGNAL SQLSTATE '22302' 
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_order_details_not_refer'; 
 	END IF;	
 	
@@ -63,7 +63,7 @@ BEGIN
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '01000'; 
 	ELSE 
-		SIGNAL SQLSTATE '12303' 
+		SIGNAL SQLSTATE '22303' 
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_discount_not_refer'; 
 	END IF;
 	
@@ -81,7 +81,7 @@ BEGIN
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '01000'; 
 	ELSE 
-		SIGNAL SQLSTATE '12302' 
+		SIGNAL SQLSTATE '22302' 
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_product_not_refer'; 
 	END IF;	
 

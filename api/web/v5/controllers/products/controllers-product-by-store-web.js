@@ -75,7 +75,8 @@ async  function controllers_product_by_store_app(req, res, next) {
 				"products_speciality_sku",
 				"products_speciality_type",				
 				"stores_name",
-				"stores_ID"
+				"stores_ID",
+				"products_speciality_sort_by_percen"
 			],
 			"condition" :
 			[

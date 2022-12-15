@@ -92,6 +92,11 @@ BEGIN
 				select dala_coupon_speciality_ID 
 					 from dala_coupon_speciality 
 					 where dala_coupon_speciality_code = NEW.dala_orders_details_medium_text 
+					 and 			
+						(CASE  
+							WHEN ( (UNIX_TIMESTAMP(dala_coupon_speciality_date_end) - UNIX_TIMESTAMP()) > 0 ) THEN  1  					
+							ELSE  0 
+						END )  = 1 						 
 					);
 			IF (@checkID > 0) THEN  
 				SIGNAL SQLSTATE '01000'; 

@@ -116,7 +116,7 @@ const select_field_special = function(field,res){
 
 					// date_star = yes 	
 					// date_end = null 
-					// date_now - date_star > 0 (da toi han khuyen mai)
+					// date_now - date_star > 0 (chua toi han khuyen mai)
 					"WHEN " +  
 						config_database.PREFIX  + "products_speciality_date_start IS NOT NULL and " + 
 						config_database.PREFIX  + "products_speciality_date_end IS NULL and " + 
@@ -128,7 +128,7 @@ const select_field_special = function(field,res){
 						
 					// date_star = null 	
 					// date_end = yes 
-					// date_now - date_end  < 0 (da toi han khuyen mai chưa het han khuyen mai)
+					// date_now - date_end  < 0 (het han khuyen mai)
 					"WHEN " +  
 						config_database.PREFIX  + "products_speciality_date_start IS NULL and " + 
 						config_database.PREFIX  + "products_speciality_date_end IS NOT NULL and " + 

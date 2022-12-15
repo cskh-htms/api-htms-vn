@@ -233,7 +233,8 @@ async  function function_export(req, res, next) {
 				"products_speciality_type",	
 				"products_speciality_price_caution",				
 				"stores_name",
-				"stores_ID"
+				"stores_ID",
+				"products_speciality_sort_by_percen"
 			],
 			"condition" :
 			[

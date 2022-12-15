@@ -17,10 +17,12 @@ BEGIN
 	
 	--
 	-- check order link
-	SET @check_order_id = ( select dala_orders_speciality_ID 
-						 from dala_orders_speciality 
-						 where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id 
-						);	
+	-- kiem tra xem don hang co trong he thong chua
+	SET @check_order_id = 
+		( select dala_orders_speciality_ID 
+		 from dala_orders_speciality 
+		 where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id 
+		);	
 	IF( @check_order_id > 0 ) THEN 
 		SIGNAL SQLSTATE '01000'; 
 	ELSE
@@ -30,31 +32,175 @@ BEGIN
 	
 	
 	
+	
+	
 	--
 	-- check product id
+	-- kiem tra xem san pham co trong he thong hay khong
 	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 		
 		SET @checkID = ( select dala_products_speciality_ID
 						 from dala_products_speciality 
-						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id
+						 LEFT JOIN dala_stores  ON 
+						 dala_products_speciality_store_id = dala_stores_ID  						 
+						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
+						 and dala_products_speciality_status_admin = 1 
+						 and dala_stores_status_admin = 1 
 						);
 		IF (@checkID > 0) THEN  
 			SIGNAL SQLSTATE '01000'; 
 		ELSE
 			SIGNAL SQLSTATE '12302' 
 			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_product_id_not_refer'; 
-		END IF;	
-		
-		
-		IF (NEW.dala_orders_details_speciality_qty < 1) THEN  
-			SIGNAL SQLSTATE '12303' 
-			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_qty_empty'; 
-		END IF;			
+		END IF;		
 	END IF;
 	
 	
+	
+	
+	
+	--
+	-- check qty
+	-- kiem tra bat buoc so luong phai mua lon hon 0
+	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 		
+		IF (NEW.dala_orders_details_speciality_qty < 1) THEN  
+			SIGNAL SQLSTATE '12303' 
+			SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_qty_empty'; 
+		END IF;		
+	END IF;
+
+	
+		
+	
+
+	--
+	-- check product price
+	-- kiem tra gia ban la gia moi nhat chua
+	-- bao dam luon lay gia moi nhat
+	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 		
+		SET @productID = ( select count(dala_products_speciality_price_meta_ID) 
+			 from dala_products_speciality_price_meta 			
+
+			 LEFT JOIN  dala_discount_program_product_link  ON 
+			 dala_products_speciality_price_meta_product_id = dala_discount_program_product_link_product_speciality_id 
+
+			 LEFT JOIN  dala_discount_program  ON 
+			 dala_discount_program_product_link_discount_program_id = dala_discount_program_product_link_discount_program_id 
+			 
+			 where dala_products_speciality_price_meta_product_id = NEW.dala_orders_details_speciality_product_id 
+			 and dala_discount_program_product_link_status = 1 
+			 and dala_discount_program_status_admin = 4 
+			 and 			
+				(CASE  
+					WHEN ( dala_discount_program_time_type  = 0 ) THEN  1  					
+					WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) - UNIX_TIMESTAMP() > 0 ) THEN 1 
+					ELSE  0 
+				END )  = 1
+			 );
+			 
+		--
+		-- nếu co trong chuong trinh khuyen mai mua nhiu tang nhieu	
+		-- kiem tra gia trong discoutn neu dung thi ok ko thi bao error
+		IF (@productID > 0) THEN  			
+			SET @productPrice = ( select dala_products_speciality_price_meta_price  
+				 from dala_products_speciality_price_meta 
+				 where 
+				 dala_products_speciality_price_meta_from < NEW.dala_orders_details_speciality_qty 
+				 and 
+				 dala_products_speciality_price_meta_to > NEW.dala_orders_details_speciality_qty 
+				 );			
+			IF(@productPrice = NEW.dala_orders_details_speciality_price ) THEN 
+				SIGNAL SQLSTATE '01000'; 
+			ELSE 
+				SIGNAL SQLSTATE '12391' 
+				SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_price_not_ok'; 	
+			END IF;
+			
+		--
+		-- nếu khong co trong chuong trinh khuyen mai mua nhiu tang nhieu
+		-- kiem tra gia = nhau thi cho qua con khong thi bao error		
+		ELSE 			
+			SET @productPrice = (select  
+			(CASE   
+				WHEN    
+					dala_products_speciality_sale_of_price IS NULL   
+				THEN   
+					dala_products_speciality_price   					
+					
+				-- date_star = null 	
+				-- date_end = null 
+				WHEN    
+					dala_products_speciality_date_start IS NULL and   
+					dala_products_speciality_date_end IS NULL   
+				THEN   
+					dala_products_speciality_sale_of_price  					
+					
+				-- date_star = yes 	
+				-- date_end = null 
+				-- date_now - date_star > 0 (da toi han khuyen mai)
+				WHEN    
+					dala_products_speciality_date_start IS NOT NULL and   
+					dala_products_speciality_date_end IS NULL and   
+					UNIX_TIMESTAMP(NOW()) -   
+					UNIX_TIMESTAMP(  dala_products_speciality_date_start ) > 0   
+				THEN   
+					dala_products_speciality_sale_of_price   		
+
+					
+				-- date_star = null 	
+				-- date_end = yes 
+				-- date_now - date_end  < 0 (da toi han khuyen mai chưa het han khuyen mai)
+				WHEN    
+					dala_products_speciality_date_start IS NULL and   
+					dala_products_speciality_date_end IS NOT NULL and   
+					UNIX_TIMESTAMP(NOW()) -   
+					UNIX_TIMESTAMP(  dala_products_speciality_date_end ) < 0   
+				THEN   
+					dala_products_speciality_sale_of_price   																	
+					
+					
+				-- date_star = yes 	
+				-- date_end = yes 
+				-- date_now - date_star > 0 (da toi han khuyen mai)
+				-- date_now - date_star > 0 (da toi han khuyen mai)
+				WHEN    
+					dala_products_speciality_date_start IS NOT NULL and   
+					dala_products_speciality_date_end IS NOT NULL and   
+					UNIX_TIMESTAMP(NOW()) -   
+					UNIX_TIMESTAMP(  dala_products_speciality_date_start ) > 0  and   
+					UNIX_TIMESTAMP(NOW()) -   
+					UNIX_TIMESTAMP(  dala_products_speciality_date_end ) < 0    								
+				THEN   
+					dala_products_speciality_sale_of_price   			
+
+				ELSE    
+					dala_products_speciality_price   
+			END )				
+			from dala_products_speciality 			
+			LEFT JOIN  dala_stores  ON 
+			 dala_products_speciality_store_id = dala_stores_ID 			
+			 where 
+			 dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id  
+			 and 
+			 dala_products_speciality_status_admin = 1 
+			 and 			 
+			 dala_stores_status_admin = 1 
+			 );							
+			IF(@productPrice = NEW.dala_orders_details_speciality_price ) THEN 
+				SIGNAL SQLSTATE '01000'; 
+			ELSE 
+				SIGNAL SQLSTATE '12392' 
+				SET MESSAGE_TEXT = 'trig_orders_details_speciality_before_insert_price_not_ok'; 	
+			END IF;			
+		END IF;	
+	END IF;
+	
+	
+	
+
 
 	--
 	-- check ton kho
+	-- kiem tra so luong ton con du de ban hay khong
 	IF(NEW.dala_orders_details_speciality_line_order = 'product' ) THEN 	
 		SET @check_stock_status = ( select  dala_products_speciality_stock_status 
 						 from dala_products_speciality    
@@ -80,12 +226,20 @@ BEGIN
 
 	--
 	-- check coupon
+	-- kiem tra coupon co trong he thong và con han hay khong hay khong
 	IF(NEW.dala_orders_details_speciality_line_order = 'coupon' ) THEN 		
 		IF(LENGTH(NEW.dala_orders_details_medium_text) > 0) THEN 	
 			SET @checkID = ( 
 				select dala_coupon_speciality_ID 
 					 from dala_coupon_speciality 
+					 
 					 where dala_coupon_speciality_code = NEW.dala_orders_details_medium_text 
+					 and 			
+						(CASE  
+							WHEN ( (UNIX_TIMESTAMP(dala_coupon_speciality_date_end) - UNIX_TIMESTAMP()) > 0 ) THEN  1  					
+							ELSE  0 
+						END )  = 1 					 
+					 
 					);
 			IF (@checkID > 0) THEN  
 				SIGNAL SQLSTATE '01000'; 
@@ -100,6 +254,7 @@ BEGIN
 	END IF;
 	
 	
+
 	
 	
 -- 
@@ -122,7 +277,8 @@ DELIMITER ;
 -- @
 -- @
 -- @
--- @
+-- @ trigger chay sau khi inser chi tiet order
+-- @ update lai ton kho
 DROP TRIGGER  IF EXISTS  trig_orders_details_speciality_after_insert;
 DELIMITER $$ 
 CREATE TRIGGER trig_orders_details_speciality_after_insert AFTER INSERT ON dala_orders_details_speciality  
@@ -165,6 +321,7 @@ BEGIN
 		
 		--
 		-- tru ton kho
+		-- tru so luong ton khi ban 
 		SET @stock_status = ( select  dala_products_speciality_stock_status 
 						 from dala_products_speciality    
 						 where dala_products_speciality_ID = NEW.dala_orders_details_speciality_product_id 
@@ -188,11 +345,6 @@ BEGIN
 -- 
 END $$
 DELIMITER ;
-
-
-
-
-
 
 
 
