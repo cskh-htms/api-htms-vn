@@ -170,7 +170,7 @@ const select_field_special = function(field,res){
 			
 		}else if(field == "products_speciality_sort_by_percen"){
 			sql_field_check  = " " + 	
-			"(CASE " + 
+			"ROUND((CASE " + 
 				"WHEN " +  
 					config_database.PREFIX  + "products_speciality_sale_of_price IS NULL " + 
 				"THEN " + 
@@ -179,7 +179,7 @@ const select_field_special = function(field,res){
 					"(" + config_database.PREFIX  + "products_speciality_price - " + 
 					config_database.PREFIX  + "products_speciality_sale_of_price) / " + 
 					config_database.PREFIX  + "products_speciality_price * 100 " + 
-			"END ) ";
+			"END ),0) ";
 				
 			return sql_field_check;
 			
