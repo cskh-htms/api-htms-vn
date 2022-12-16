@@ -162,7 +162,7 @@ async  function function_export(req, res, next) {
 
 		
 		
-		res.send({"error":"","datas":get_meta_user_resuilt});
+		res.send(get_meta_user_resuilt);
 		return ;
 	}
 	catch(error){
