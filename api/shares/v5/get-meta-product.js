@@ -430,7 +430,8 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"to": data_product_price[y].products_speciality_price_meta_to,
 						"price": data_product_price[y].products_speciality_price_meta_price,
 						"percent": Math.floor((
-						data_product_price[y].products_speciality_price_meta_price * 100 ) / 
+						(data_product_price[y].products_speciality_price - data_product_price[y].products_speciality_price_meta_price)
+						* 100 ) / 
 						data_product_price[y].products_speciality_price)
 						,
 					}
