@@ -123,7 +123,12 @@ async  function function_export(req, res, next) {
 		var data_user = await user_search(data_get,res);
 		
 		
+		res.send({"error":"","datas":data_user});
+		return ;		
 		
+		
+		
+		/*
 		//@ create arr ID product
 		var model_user_arr = [0];
 		if(data_user.length > 0){
@@ -167,6 +172,7 @@ async  function function_export(req, res, next) {
 		
 		res.send({"error":"","datas":get_meta_user_resuilt});
 		return ;
+		*/
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
