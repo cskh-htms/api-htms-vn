@@ -14,7 +14,7 @@ BEGIN
 
 
 
-	/*
+
 	--
 	-- check order refer
 	SET @checkID = (
@@ -85,7 +85,7 @@ BEGIN
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_product_not_refer'; 
 	END IF;	
 
-	*/
+	
 	
 	
 	

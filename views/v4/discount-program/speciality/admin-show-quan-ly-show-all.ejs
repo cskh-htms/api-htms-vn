@@ -97,7 +97,23 @@ $(document).ready(function($){
 	});
 	
 	
-
+	//
+	//@
+	//xoa
+	$(document).on('click','.submitdelete_add',function(e) {	
+		//@
+		e.preventDefault();		
+		let data_id = $(this).attr("data_id");
+		//console.log(data_id );
+		//return;
+		//
+		//@
+		let x = "xác nhận xoá";		
+		let y = "delete_discount_program_link_id";//function name in callback 
+		let z = ' { "discount_program_link_id" : "' + data_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);		
+		//@
+	});		
 	
 	
 	//

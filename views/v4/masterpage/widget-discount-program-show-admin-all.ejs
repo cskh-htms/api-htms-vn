@@ -69,8 +69,8 @@ if(discount_program_list.length > 0){ %>
 											</td>	
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
 												<%- ojs_share.unCape(discount_program_product_list[xx].products_speciality_name) -%>
-												
-												
+												<strong>( <%- ojs_share.unCape(discount_program_product_list[xx].stores_name) -%> )</strong>
+												<a href="#" class="submitdelete_add" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Huỷ tham gia</a>
 												   <%
 												   for(var s in products_gift_in){
 												   if(
@@ -116,12 +116,6 @@ if(discount_program_list.length > 0){ %>
 												
 												
 																								
-												
-												
-												
-												
-												
-												
 												
 											</td>
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">

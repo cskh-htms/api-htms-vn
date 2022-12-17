@@ -134,13 +134,8 @@ async  function function_export(req, res, next) {
 					[
 					{   
 						"field"     :"discount_program_status_admin",
-						"value"     : 4,
-						"compare" 	: '='
-					},
-					{   
-						"field"     :"check_expired",
-						"value"     : 1,
-						"compare" : "="
+						"value"     : 3,
+						"compare" 	: '<>'
 					}
 					] 				
 				}         

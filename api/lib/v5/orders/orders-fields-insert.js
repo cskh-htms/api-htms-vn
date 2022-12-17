@@ -24,6 +24,7 @@ const  default_fields = {
 
 //@
 function get_message_error(error){
+	return error;
 	//insert
 	if(error.sqlMessage.length > 0 ){
 		return error.sqlMessage;			

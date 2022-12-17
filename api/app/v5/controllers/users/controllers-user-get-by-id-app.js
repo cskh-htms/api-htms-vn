@@ -135,7 +135,8 @@ async  function function_export(req, res, next) {
 		}			
 		
 		
-		
+		//res.send([model_user_arr]);
+		//return ;
 	
 
 		//@ lấy meta
@@ -158,7 +159,8 @@ async  function function_export(req, res, next) {
 			return;	
 		}
 
-
+		//res.send([get_meta_user_resuilt]);
+		//return ;
 
 		
 		
