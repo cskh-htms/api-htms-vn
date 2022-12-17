@@ -14,13 +14,13 @@ BEGIN
 
 
 
-	/*
+
 	--
 	-- check order refer
 	SET @checkID = (
-			select dala_orders_details_speciality_ID   
-			from dala_orders_details_speciality 
-			where dala_orders_details_speciality_ID  = NEW.dala_orders_details_speciality_discount_order_id  
+			select 	dala_orders_speciality_ID    
+			from dala_orders_speciality 
+			where dala_orders_speciality_ID  = NEW.dala_orders_details_speciality_discount_order_id  
 		);		
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '01000'; 
@@ -85,7 +85,7 @@ BEGIN
 		SET MESSAGE_TEXT = 'trig_orders_details_speciality_discount_before_insert_product_not_refer'; 
 	END IF;	
 
-	*/
+
 	
 	
 	

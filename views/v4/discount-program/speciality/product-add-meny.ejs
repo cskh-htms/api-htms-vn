@@ -64,7 +64,21 @@ content
 									data_sale_of_price="<%= products_list[x].products_speciality_sale_of_price %>" 
 									>
 										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%> (  
-										<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price_caution,0,",",".","đ") -%> )
+										
+										<%
+										if(products_list[x].products_speciality_sale_of_price == null){
+										%>
+											( <%- ojs_share.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") -%> ) 										
+										
+										<%
+										}else{
+										%>	
+											( <%- ojs_share.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") -%> 
+											   -- 
+											 <%- ojs_share.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") -%> )  
+										<%
+										}
+										%>	
 									</option>
 							   <%
 							   }

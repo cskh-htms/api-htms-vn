@@ -22,14 +22,14 @@ const category_search = require('../../../../lib/' + config_api.API_LIB_VERSION 
 const category_search_by_link = require('../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-search-by-link');
 
 
-
 const discount_product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-search.js');
-
-
 const category_search_by_store = require('../../../../lib/' + config_api.API_LIB_VERSION + '/category-links/category-link-search-by-product-store.js');
 
 
-
+//@
+//@
+//@
+//@
 //@
 async  function controllers_products_get_all(req, res, next) {
 
@@ -114,8 +114,8 @@ async  function controllers_products_get_all(req, res, next) {
 					[  
 						{
 							"field" : "products_speciality_status_admin",
-							"value" : 3,
-							"compare" : "<>"
+							"value" : [0,2],
+							"compare" : "in"
 						},	
 						{
 							"field" : "products_speciality_status_store",
