@@ -32,6 +32,22 @@ async  function controllers_discount_by_position_app(req, res, next) {
 		
 		
 		var condition_where = [];
+		
+		
+		condition_where.push(
+			{   
+				"field"     :"discount_program_status_admin",
+				"value"     : 4,
+				"compare" : "="
+			} 
+		);			
+		
+		
+		
+		
+		
+		
+		
 		if(position_number == 0){
 			condition_where.push(
 				{   
