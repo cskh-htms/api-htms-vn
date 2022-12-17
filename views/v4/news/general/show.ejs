@@ -74,17 +74,43 @@ if(user_role =="admin"){
 			------------------- -->
 			<div class="pro_box">
 				<h3>Nội dung</h3>
-				<div class="inside">
-					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%">
-						<%- ojs_share.unCape(datas[0].news_contents ) -%>
-					</textarea>
-				</div>
+				<div class="inside"><textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].news_contents ) -%></textarea></div>
 			</div>
 			<!-- ------------------
 			//Nội dung
 			------------------- -->
 		</div>
 		<div class="pro_col02">
+		
+		
+		
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
+				</a></h3>	
+				<div class="inside">
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share.unCape( datas[0].news_featured_image ) %>" 
+						style="display:none;" 
+					/>
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//end of hình đại diện 
+			------------------- -->
+		
+		
+		
+		
+		
 
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái</h3>	
@@ -151,9 +177,34 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	var news_id = $('#news_id').val();
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
 	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	//
+	//xua image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		ojs_loader.delete_wp(url);
+
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});	
+	
+	
 	//@
 	$(document).on('click','#btn_draf',function(e) {		
 		e.preventDefault();
@@ -191,12 +242,14 @@ $(document).ready(function($){
 		let news_title = $('#news_title').val();
 		let news_status_admin = $('#news_status_admin  option:selected').val();
 		let news_contents = $('#noi_dung').val();
+		let news_featured_image = $('#featured_image').attr('data_value');
 		
 		let datas = {
 			"datas":{
 				news_title : news_title,
 				news_status_admin : news_status_admin,
-				news_contents : news_contents
+				news_contents : news_contents,
+				news_featured_image : news_featured_image
 			}
 		}
 		

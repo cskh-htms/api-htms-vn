@@ -82,7 +82,35 @@ if(user_role =="admin"){
 			//Nội dung
 			------------------- -->
 		</div>
-		<div class="pro_col02">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div class="pro_col02">		
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//end of hình đại diện 
+			------------------- -->
+		
+		
+		
+		
 
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái</h3>	
@@ -144,6 +172,9 @@ $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	//
 	//@
+	
+	//ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");	
+
 	//@
 	//@
 	$(document).on('click','#btn_draf',function(e) {		
@@ -175,19 +206,58 @@ $(document).ready(function($){
 	});
 
 
+	//@
+	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
 	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+	});		
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		ojs_loader.delete_s3(url);
+		
+		//$('#featured_image').attr("data_s3","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
+	});			
+	//		
+	//		
 	
 	function get_datas(){
 		
 		let news_title = $('#news_title').val();
 		let news_status_admin = $('#news_status_admin  option:selected').val();
 		let news_contents = $('#noi_dung').val();
+		let news_featured_image = $('#featured_image').attr('data_value');
 		
 		let datas = {
 			"datas":{
 				news_title : news_title,
 				news_status_admin : news_status_admin,
-				news_contents : news_contents
+				news_contents : news_contents,
+				news_featured_image : news_featured_image
 			}
 		}
 		
