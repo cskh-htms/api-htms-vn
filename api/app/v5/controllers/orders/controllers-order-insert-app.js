@@ -225,8 +225,14 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(meta_adress_search_resuilt.length > 0){
 			// nothing!
 		}else{
-			var meta_adress_insert_resuilt = await meta_adress_insert(meta_adress,res);
+			//var meta_adress_insert_resuilt = await meta_adress_insert(meta_adress,res);
 		}
+		
+		
+		
+		
+		
+		
 		
 		//@
 		//@
