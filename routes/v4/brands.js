@@ -28,6 +28,15 @@ require(
 	'/brands/controllers-brand-store-product.js'
 );
 
+
+const controller_brand_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/brands/controllers-brand-update.js'
+);
+
+
 //end of v5
 
 
@@ -93,10 +102,66 @@ const ojs_datas_brands = require('../../models/ojs-datas-brands');
 
 router.get('/:store_id', controller_brand_store);
 router.get('/product/:brand_id/:store_id', controller_store_brand_product);
+router.post('/update/:brand_id/', controller_brand_update);
+
+
+
+//@
+//@
+//@
+//@
+//@
+//@
+//@
+//@ 7. [/update/:brand_id]
+router.post('asdasasd/update/:brand_id', async function(req, res, next) {
+	//@
+	//@
+	//@
+	//lấy token
+	try {
+		var token = req.session.token;	
+		var brand_id = req.params.brand_id;
+		var datas  = req.body;
+		
+		if(token == "" || token == null || token == undefined || token == 'null'){
+			res.redirect("/login");
+			return;
+		}		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
+		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
+		return;			
+	}
+		
+	//@
+	//@
+	//@
+	//@
+	//@
+	try {	
+		//Lấy danh sách loại danh mục
+		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/brands/' + brand_id,datas, token);
+		res.send(active_update);	
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
+		res.send({ "error" : ".1.4.router_app->router_brands(app)->update", "message": error_send } ); 
+		return;	
+	}		
+});
 
 
 
 
+//@
+//@ end of 
+//@ 7. [/update/:brand_id]
 
 
 
@@ -945,59 +1010,6 @@ router.get('/delete/:brand_id', async function(req, res, next) {
 
 
 
-//@
-//@
-//@
-//@
-//@
-//@
-//@
-//@ 7. [/update/:brand_id]
-router.post('/update/:brand_id', async function(req, res, next) {
-	//@
-	//@
-	//@
-	//lấy token
-	try {
-		var token = req.session.token;	
-		var brand_id = req.params.brand_id;
-		var datas  = req.body;
-		
-		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.redirect("/login");
-			return;
-		}		
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers brands web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
-	}
-		
-	//@
-	//@
-	//@
-	//@
-	//@
-	try {	
-		//Lấy danh sách loại danh mục
-		var active_update = await ojs_shares_fetch_data.get_data_send_token_put(ojs_configs.domain + '/api/' + ojs_configs.api_version + '/brands/' + brand_id,datas, token);
-		res.send(active_update);	
-	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : ".1.4.router_app->router_brands(app)->update", "message": error_send } ); 
-		return;	
-	}		
-});
-
-//@
-//@ end of 
-//@ 7. [/update/:brand_id]
 
 
 

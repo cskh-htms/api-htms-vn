@@ -79,6 +79,26 @@ require(
 
 
 
+
+
+//@
+//@
+//@ brands
+const controllers_admin_brand_update =  
+require(
+	'../../controllers/admin/brands/controllers-admin-brand-update.js'
+);
+
+
+
+
+
+
+
+
+
+
+
 //@
 //@
 //@
@@ -108,6 +128,52 @@ router.post('/discount-program-product-denied',	middle_ware, controllers_admin_d
 
 router.get('/coupon-show-all',	middle_ware, controllers_admin_coupon_show_all );
 router.get('/main',	middle_ware, controllers_admin_main );
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ brands
+router.post('/brand-update', middle_ware, controllers_admin_brand_update );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@
 //@
 //@
