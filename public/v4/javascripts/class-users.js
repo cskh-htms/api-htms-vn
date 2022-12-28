@@ -13,7 +13,7 @@ $(document).ready(function($){
 		//@
 		//@
 		//@ 2. [/ajax-users-list/]			
-		ajax_load_users_list	: function(datas){		
+		ajax_load_users_list: function(datas){		
 			//alert("no");
 			//console.log(datas);
 			//return;
@@ -32,6 +32,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();	
+					//return;
+					
 					$('#ajax-wrap').html(result);
 					ojs_loadding.ajax_hide_loadding();	
 					//return;
@@ -65,6 +68,11 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  //console.log(result);
+				  //ojs_loadding.ajax_hide_loadding();
+				  //return;
+				  
+				  
 					//ojs_loader.evn = "publish";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");

@@ -31,6 +31,14 @@ require(
 	'../../controllers/admin/stores/controllers-admin-stores-save'
 );
 
+const controllers_admin_store_show_all =  
+require(
+	'../../controllers/admin/stores/controllers-admin-stores-show-all'
+);
+
+
+
+
 
 
 
@@ -115,11 +123,20 @@ const controllers_admin_users_delete =
 require(
 	'../../controllers/admin/users/controllers-admin-users-delete.js'
 );
+const controllers_admin_users_add =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-add.js'
+);
 
+const controllers_admin_users_save =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-save.js'
+);
 
-
-
-
+const controllers_admin_users_ajax_users_list =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-ajax-users-list.js'
+);
 
 
 
@@ -156,6 +173,15 @@ router.get('/', function(req, res, next) {
 //@ stores
 router.get('/store-add',	middle_ware, controllers_admin_store_add );
 router.post('/store-save',	middle_ware, controllers_admin_store_save );
+router.get('/stores-show-all',	middle_ware, controllers_admin_store_show_all );
+
+
+
+
+
+
+
+
 
 
 //@
@@ -196,9 +222,9 @@ router.get('/users-show-all/', middle_ware, controllers_admin_users_show_all );
 router.get('/users-show/', middle_ware, controllers_admin_users_show );
 router.put('/users-update/', middle_ware, controllers_admin_users_update );
 router.delete('/users-delete/', middle_ware, controllers_admin_users_delete );
-
-
-
+router.get('/users-add/', middle_ware, controllers_admin_users_add );
+router.post('/users-save/', middle_ware, controllers_admin_users_save );
+router.post('/users-ajax-users-list/', middle_ware, controllers_admin_users_ajax_users_list );
 
 
 
