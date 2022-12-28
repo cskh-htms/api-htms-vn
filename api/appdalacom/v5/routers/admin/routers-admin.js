@@ -95,6 +95,45 @@ require(
 
 
 
+//@
+//@
+//@ users
+const controllers_admin_users_show_all =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-show-all.js'
+);
+
+const controllers_admin_users_show =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-show.js'
+);
+const controllers_admin_users_update =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-update.js'
+);
+const controllers_admin_users_delete =  
+require(
+	'../../controllers/admin/users/controllers-admin-users-delete.js'
+);
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
+
+
+
+
 
 
 
@@ -149,13 +188,14 @@ router.post('/brand-update', middle_ware, controllers_admin_brand_update );
 
 
 
-
-
-
-
-
-
-
+//@
+//@
+//@
+//@ users
+router.get('/users-show-all/', middle_ware, controllers_admin_users_show_all );
+router.get('/users-show/', middle_ware, controllers_admin_users_show );
+router.put('/users-update/', middle_ware, controllers_admin_users_update );
+router.delete('/users-delete/', middle_ware, controllers_admin_users_delete );
 
 
 

@@ -13,7 +13,7 @@ async  function function_export(req, res, next) {
 		var brand_id = req.params.brand_id;
 		var datas = req.body.datas;
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 			return;
 		}		
 	}
@@ -37,8 +37,8 @@ async  function function_export(req, res, next) {
 	//return;	
 	
 	
-	
-	
+
+
 	//@
 	//@
 	//@
@@ -68,9 +68,11 @@ async  function function_export(req, res, next) {
 		return;			
 	}
 	
+	
+	
 	if(data_api_resuilt.error){
 		if(data_api_resuilt.position =="middle_ware"){
-			res.send("Vui lòng đăng nhập");
+			res.send({"error":"10","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 			return;
 		}
 		var evn = ojs_configs.evn;

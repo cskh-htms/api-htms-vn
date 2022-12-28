@@ -101,6 +101,11 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
@@ -134,9 +139,11 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				//console.log(result);
-				///ojs_loadding.ajax_hide_loadding();	
+				//ojs_loadding.ajax_hide_loadding();				
+				//return;		
+
+
 				
-				//return;				
 				//ojs_loader.evn = "dev";
 				if(ojs_loader.evn == "dev"){
 					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");

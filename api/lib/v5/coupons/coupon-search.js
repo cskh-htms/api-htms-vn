@@ -1,19 +1,49 @@
 
+//@
+//@
+//@
+//@ file start
 
-const mysql = require('mysql');
+
+//@
+//@
+//@
+//@ require
+const mysql = require('mysql2');
 
 
+
+//@
+//@
+//@
+//@ config
+const ojs_configs = require('../../../../configs/config');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
 
-const connection = require('../connections/connections');
+
+//@
+//@
+//@
+//@ share
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./coupon-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
+
+
+//@
+//@
+//@
+//@ model
+const connection = require('../connections/connections');
+const fields_get = require('./coupon-fields-get');
 
 
 
+
+//@
+//@
+//@
+//@ share filed
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
 const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
 const get_conditions = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-conditions');
@@ -23,7 +53,15 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const coupon_search = function (datas,res) {
+
+
+
+
+//@
+//@
+//@
+//@ function export
+const function_export = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -103,15 +141,25 @@ const coupon_search = function (datas,res) {
 };	
 
 
-module.exports = coupon_search;
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
+
+//@
+//@
+//@
+//@ function export
+module.exports = function_export;
+
+
+
+
+
+
+//@
+//@
+//@
+//@ file end
+
 
 
 

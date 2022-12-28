@@ -11,7 +11,7 @@ async  function function_export(req, res, next) {
 	try {
 		var token = req.session.token;	
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}		
 	}
@@ -46,6 +46,13 @@ async  function function_export(req, res, next) {
 		
 		
 	if(data_api_resuilt.error){
+		
+		if(data_api_resuilt.position =="middle_ware"){
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			return;
+		}		
+		
+		
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 

@@ -54,7 +54,7 @@ const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERS
 const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const coupon_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search');
+const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 
 
 
@@ -75,6 +75,21 @@ async  function function_export(req, res, next) {
 		//@ lấy req data
 		try {
 			var token = req.headers['token'];
+			//@
+			//@
+			var user_id = 0;
+			if(req.query.c1){
+				user_id = req.query.c1;
+			}else{
+				res.send({ 
+					"error" : "01", 
+					"position" : "api/appdalacom/controller/admin/users/controllers-admin-users-show",
+					"message": "vui lòng nhập id"
+				}); 	
+				return;
+			}				
+			
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -86,7 +101,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/controller/admin/coupons/controllers-admin-coupon-show-all",
+				"position" : "api/appdalacom/controller/admin/users/controllers-admin-users-show",
 				"message": error_send 
 			}); 
 			return;	
@@ -111,12 +126,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api/appdalacom/controller/admin/coupons/controllers-admin-coupon-show-all",
+				"position" : "api/appdalacom/controller/admin/users/controllers-admin-users-show",
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send(["ok"]);
+		//res.send([user_id]);
 		//return;
 		
 			
@@ -141,52 +156,52 @@ async  function function_export(req, res, next) {
 			
 			
 			//@ 4. lấy coupon list
-			let data_coupon =    
+			let data_users_list =    
 			{
 			   "select_field" :
 				[
-					"coupon_speciality_ID",
-					"coupon_speciality_code",
-					"coupon_speciality_featured_image",
-					"coupon_speciality_stores_id_created",
-					"coupon_speciality_info",
-					"coupon_speciality_type",
-					"coupon_speciality_pay_type",
-					"coupon_speciality_formula_price",
-					"coupon_speciality_formula_price_value",
-					"coupon_speciality_condition",
-					"coupon_speciality_condition_value",
-					"coupon_speciality_price_max",
-					"coupon_speciality_date_star",
-					"coupon_speciality_date_end",
-					"coupon_speciality_multiple",
-					"coupon_speciality_show_hide",
-					"coupon_speciality_status_admin",
-					"coupon_speciality_limit_user",
-					"coupon_speciality_limit_number",
-					"coupon_speciality_qoute",
-					"stores_ID",
-					"stores_name",
-					"check_expired_coupon"
-				],
-				"order" :
+					"users_ID",
+					"users_adress",
+					"users_date_created",
+					"users_email",
+					"users_full_name",
+					"users_phone",
+					"users_status",
+					"users_type_ID",
+					"users_type_name"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"users_ID",
+						"value"     : user_id,
+						"compare" : "="
+					}           
+					]    
+				}         
+			],  
+			"order" :
 				 [
-						{
-							"field"  :"coupon_speciality_date_created",
-							"compare" : "DESC"
-						}   
+					{
+						"field"  :"users_date_created",
+						"compare" : "DESC"
+					}   
 				] 
 				
 			}
 			
-			var fn_get_coupon_taget = new Promise((resolve, reject) => {
-				let result = coupon_search(data_coupon,res);
+			var fn_get_users_list = new Promise((resolve, reject) => {
+				let result = user_search(data_users_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_coupon_taget);		
+			promise_all.push(fn_get_users_list);		
 
 
-
+			
 
 
 
@@ -210,7 +225,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api/appdalacom/controller/admin/coupons/controllers-admin-coupon-show-all",
+				"position" : "api/appdalacom/controller/admin/users/controllers-admin-users-show",
 				"message": error_send 
 			}); 
 			return;	
@@ -225,7 +240,7 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"coupon_list",
+			"2":"user_taget",
 			"3":"notes"
 		}
 		//promise_result.push(data_product);	
@@ -261,7 +276,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api/appdalacom/controller/admin/coupons/controllers-admin-coupon-show-all",
+			"position" : "api/appdalacom/controller/admin/users/controllers-admin-users-show",
 			"message": error_send 
 		}); 
 		return;	
@@ -274,7 +289,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api/appdalacom/controller/admin/coupons/controllers-admin-coupon-show-all",
+		"position":"api/appdalacom/controller/admin/users/controllers-admin-users-show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

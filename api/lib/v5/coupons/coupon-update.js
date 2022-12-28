@@ -1,20 +1,66 @@
 
+//@
+//@
+//@
+//@ file start
 
-const mysql = require('mysql');
 
 
+
+
+
+
+//@
+//@
+//@
+//@ require
+const mysql = require('mysql2');
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ config
+const ojs_configs = require('../../../../configs/config');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
 
-const connection = require('../connections/connections');
+
+
+
+
+//@
+//@
+//@
+//@ share
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
+
+//@
+//@
+//@
+//@ model
+const connection = require('../connections/connections');
 const fields_insert = require('./coupon-fields-insert.js');
 
 
 
+
+
+
+
+//@
+//@
+//@
+//@ function export
 const function_export = async function (datas,coupon_id,res) {
 	
 	let sqlSet = "";
@@ -97,6 +143,14 @@ const function_export = async function (datas,coupon_id,res) {
 };	
 
 
+
+
+
+
+//@
+//@
+//@
+//@ function export
 module.exports = function_export;
 
 
@@ -104,7 +158,10 @@ module.exports = function_export;
 
 
 
-
+//@
+//@
+//@
+//@ file end
 
 
 

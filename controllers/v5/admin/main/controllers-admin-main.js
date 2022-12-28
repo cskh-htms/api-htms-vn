@@ -17,6 +17,7 @@ const ojs_shares_fetch_data = require('../../../../shares/ojs-shares-fetch-data'
 
 
 
+
 //@
 //@
 //@
@@ -26,7 +27,7 @@ async  function function_export(req, res, next) {
 		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}		
 	}
@@ -52,6 +53,7 @@ async  function function_export(req, res, next) {
 	
 	
 	
+	
 	//@
 	//@
 	//@ get api
@@ -66,10 +68,13 @@ async  function function_export(req, res, next) {
 	//return;	
 		
 		
+		
+		
+		
 	if(data_api_resuilt.error){
 		
 		if(data_api_resuilt.position =="middle-ware"){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}
 		

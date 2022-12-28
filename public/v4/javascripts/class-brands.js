@@ -75,14 +75,9 @@ $(document).ready(function($){
 						console.log(result);
 					}else{
 						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được brands \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được brands");
-							}
+							ojs_message.message_ok_show(result.message);
 						}else{
-							ojs_message.message_ok_show(" Đã update brands",location.href);
+							ojs_message.message_ok_show(" Đã update thành công",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

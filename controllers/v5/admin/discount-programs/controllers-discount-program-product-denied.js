@@ -31,7 +31,7 @@ async  function function_export(req, res, next) {
 		var datas = req.body.datas;
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 			return;
 		}		
 	}
@@ -70,8 +70,8 @@ async  function function_export(req, res, next) {
 		);	
 		
 	if(data_api_resuilt.error){
-		if(data_api_resuilt.position == "middle-ware"){
-			res.send("vui lòng đăng nhập");
+		if(data_api_resuilt.position =="middle_ware"){
+			res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 			return;
 		}
 		

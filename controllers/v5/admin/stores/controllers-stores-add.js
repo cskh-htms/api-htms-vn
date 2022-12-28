@@ -26,7 +26,7 @@ async  function store_order_get_all(req, res, next) {
 		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}		
 	}
@@ -68,8 +68,8 @@ async  function store_order_get_all(req, res, next) {
 		
 	if(data_api_resuilt.error){
 		
-		if(data_api_resuilt.position =="middle-ware"){
-			res.send( "vui lòng đăng nhập" );
+		if(data_api_resuilt.position =="middle_ware"){
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}
 		

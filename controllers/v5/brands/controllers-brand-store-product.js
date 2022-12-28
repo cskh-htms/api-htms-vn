@@ -23,7 +23,7 @@ async  function function_export(req, res, next) {
 		var brand_id = req.params.brand_id;
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}		
 	}
@@ -64,7 +64,7 @@ async  function function_export(req, res, next) {
 		
 	if(data_api_resuilt.error){		
 		if(data_api_resuilt.position == "middle_ware"){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;	
 		}
 		

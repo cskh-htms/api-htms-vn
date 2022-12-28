@@ -1,44 +1,65 @@
 
+//@
+//@
+//@
+//@ file start
 
+
+
+
+//@
+//@
+//@
+//@ require
 const mysql = require('mysql2');
 
 
+
+//@
+//@
+//@
+//@ config
+const ojs_configs = require('../../../../configs/config');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
 
-const connection = require('../connections/connections');
+
+
+//@
+//@
+//@
+//@ share
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
-const fields_insert = require('./coupon-fields-insert.js');
 
-const function_export = function (coupon_id,res) {
-	
 
-	var sql_text = 'SELECT COUNT(' + 
-	config_database.PREFIX + 'orders_details_speciality_ID' + ') AS coupons_sum ' + 
-	'FROM ' + 
-		config_database.PREFIX + 'orders_details_speciality ' + 
-		
-	" LEFT JOIN " + 
-		config_database.PREFIX + "orders_speciality  ON  " + 
-		config_database.PREFIX + "orders_details_speciality_order_id  = " + 
-		config_database.PREFIX + "orders_speciality_ID " + 
-	
-	" LEFT JOIN " + 
-	config_database.PREFIX + "coupon_speciality  ON  " + 
-	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
-	config_database.PREFIX + "coupon_speciality_ID " + 
-	
-	" WHERE " + 
-		config_database.PREFIX + "coupon_speciality_ID = " + coupon_id + 
-	" AND " + 
-		config_database.PREFIX + "orders_speciality_status_orders <> -1" + 
-	" AND " + 
-		config_database.PREFIX + "orders_details_speciality_line_order = 'coupon'";
-	
+//@
+//@
+//@
+//@ model
+const connection = require('../connections/connections');
+const fields_insert = require('./user-fields-insert.js');
 
+
+
+
+
+//@
+//@
+//@
+//@ function export
+const function_export = function (id,res) {
+	
+	//return id;
+	
+	var table_name  = config_database.PREFIX + "users ";
+	var field_where  = config_database.PREFIX + "users_ID ";
+	//create sql text
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ id + '"';
+	
+	
 	//return sql_text;
+	
 	
 	//@
 	//@
@@ -56,7 +77,7 @@ const function_export = function (coupon_id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->coupon->limit-number",
+						"position" : "lib->users->delete",
 						"message": error_send 
 					}); 
 					return;					
@@ -75,7 +96,7 @@ const function_export = function (coupon_id,res) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->coupon->limit-number",
+			"position" : "lib->users->delete",
 			"message": error_send 
 		}); 
 		return;	
@@ -83,15 +104,25 @@ const function_export = function (coupon_id,res) {
 };	
 
 
+
+
+//@
+//@
+//@
+//@ export
 module.exports = function_export;
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
+
+
+
+
+
+
+//@
+//@
+//@
+//@ model
 
 
 

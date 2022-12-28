@@ -17,6 +17,7 @@ const fields_insert = require('./user-fields-insert.js');
 
 const function_export = async function (datas,user_id,res) {
 	
+	
 	let sqlSet = "";
 	
 	//tao arr key
@@ -80,7 +81,7 @@ const function_export = async function (datas,user_id,res) {
 					
 					var error_massage = fields_insert.get_message_error(err);
 					
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -99,9 +100,9 @@ const function_export = async function (datas,user_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
 				"Lỗi insert data user add, Vui lòng liên hệ admin" 
 			);
