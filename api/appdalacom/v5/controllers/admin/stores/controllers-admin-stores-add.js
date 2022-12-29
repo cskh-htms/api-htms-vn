@@ -53,7 +53,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/appdalacom/controller/admin/stores/controllers-admin-store-add.js",
+			"position" : "api/appdalacom/controller/admin/stores/add",
 			"message": error_send 
 		}); 
 		return;	
@@ -75,7 +75,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/controller/admin/stores/controllers-admin-store-add.js",
+			"position" : "api/appdalacom/controller/admin/stores/add",
 			"message": error_send 
 		}); 
 		return;			
@@ -185,7 +185,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/controller/admin/stores/controllers-admin-store-add.js",
+			"position" : "api/appdalacom/controller/admin/stores/add",
 			"message": error_send 
 		}); 
 		return;	

@@ -50,7 +50,7 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 //@
 //@ model
 const connection = require('../connections/connections');
-const fields_insert = require('./coupon-fields-insert.js');
+const fields_insert = require('./store-fields-insert.js');
 
 
 
@@ -63,8 +63,8 @@ const function_export = function (id,res) {
 	
 	//return id;
 	
-	var table_name  = config_database.PREFIX + "coupon_speciality ";
-	var field_where  = config_database.PREFIX + "coupon_speciality_ID ";
+	var table_name  = config_database.PREFIX + "stores ";
+	var field_where  = config_database.PREFIX + "stores_ID ";
 	//create sql text
 	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ id + '"';
 	
@@ -88,7 +88,7 @@ const function_export = function (id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->coupon->delete",
+						"position" : "lib->store->delete",
 						"message": error_send 
 					}); 
 					return;					
@@ -103,11 +103,11 @@ const function_export = function (id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				//evn, 
 				error, 
-				"Lỗi  delete, Vui lòng liên hệ admin" 
+				"Lỗi delete, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->coupon->delete",
+			"position" : "lib->store->delete",
 			"message": error_send 
 		}); 
 		return;	

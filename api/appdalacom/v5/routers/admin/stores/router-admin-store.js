@@ -34,6 +34,22 @@ require(
 );
 
 
+const controllers_admin_store_delete =  
+require(
+	'../../../controllers/admin/stores/controllers-admin-stores-delete'
+);
+
+
+const controllers_admin_store_show =  
+require(
+	'../../../controllers/admin/stores/controllers-admin-stores-show'
+);
+
+const controllers_admin_store_update =  
+require(
+	'../../../controllers/admin/stores/controllers-admin-stores-update'
+);
+
 //@
 //@
 //@
@@ -41,9 +57,9 @@ require(
 router.get('/add',	middle_ware, controllers_admin_store_add );
 router.post('/save',	middle_ware, controllers_admin_store_save );
 router.get('/show-all',	middle_ware, controllers_admin_store_show_all );
-
-
-
+router.delete('/delete',	middle_ware, controllers_admin_store_delete );
+router.get('/show',	middle_ware, controllers_admin_store_show );
+router.put('/update',	middle_ware, controllers_admin_store_update );
 
 
 

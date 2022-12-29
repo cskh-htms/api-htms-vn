@@ -49,12 +49,11 @@ const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_
 //@
 //@
 //@ model database
-const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const store_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
 
 
 
@@ -86,7 +85,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/orders/show-all",
 				"message": error_send 
 			}); 
 			return;	
@@ -111,7 +110,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/orders/show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -142,31 +141,50 @@ async  function function_export(req, res, next) {
 			
 			//@
 			//@
-			//@lấy store list
-			var data_store_list =    
+			//@lấy order list
+			var data_order_list =    
 			{
 			   "select_field" :
 				[
-					"stores_ID",
-					"stores_user_id",
-					"stores_name" ,
-					"stores_adress",
-					"stores_province",
-					"stores_district",
-					"stores_wards" ,
-					"stores_payment_limit",
-					"stores_discount_price",
-					"service_type_name",
-					"stores_status_admin",
-					"users_full_name"					
-				]  
+					"orders_speciality_ID",
+					"orders_speciality_adress",
+					"orders_speciality_date_orders" ,
+					"orders_speciality_notes",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"stores_ID" ,
+					"stores_name",
+					"users_full_name"				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_status_pull_money",
+						"value"     : 1,
+						"compare" : "<>"
+					}
+					] 				
+				}         
+			],
+			"order" :
+			 [		 
+				{    
+					"field"  :"orders_speciality_date_orders",
+					"compare" : "DESC"
+				}			
+			]	 
+				
 			}
 			
-			var fn_get_store_list = new Promise((resolve, reject) => {
-				let result = store_search(data_store_list,res);
+			var fn_get_order_list = new Promise((resolve, reject) => {
+				let result = order_search(data_order_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_store_list);		
+			promise_all.push(fn_get_order_list);		
 
 
 			
@@ -193,7 +211,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/orders/show-all",
 				"message": error_send 
 			}); 
 			return;	
@@ -208,7 +226,7 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"stores_list",
+			"2":"order_list",
 			"3":"notes"
 		}
 		//promise_result.push(data_product);	
@@ -244,7 +262,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api/appdalacom/controller/admin/stores/show-all",
+			"position" : "api/appdalacom/controller/admin/orders/show-all",
 			"message": error_send 
 		}); 
 		return;	
@@ -257,7 +275,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api/appdalacom/controller/admin/stores/show-all",
+		"position":"api/appdalacom/controller/admin/orders/show-all",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

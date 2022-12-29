@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "controller->api-appdalacom->controllers-admin/store-save",
+			"position" : "api/appdalacom/controller/admin/stores/save",
 			"message": error_send 
 		}); 
 		return;	
@@ -73,7 +73,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "controller->api-appdalacom->controllers-admin/store-save", 
+			"position" : "api/appdalacom/controller/admin/stores/save", 
 			"message": error_send 
 		}); 
 		return;			

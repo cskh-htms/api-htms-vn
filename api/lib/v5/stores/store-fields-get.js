@@ -18,6 +18,7 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "stores_wards as stores_wards, " + 
 	
 	config_database.PREFIX  + "stores_phone as stores_phone, " + 
+	config_database.PREFIX  + "stores_email as stores_email, " + 
 	config_database.PREFIX  + "stores_logo_image as stores_logo_image, " + 
 	config_database.PREFIX  + "stores_banner_image as stores_banner_image, " + 	
 	config_database.PREFIX  + "stores_information as stores_information, " +
@@ -81,7 +82,7 @@ const fields_search_arr = [
 	"stores_upload_limit_month"
 ]
 
-
+const fields_get_one = fields_search_arr;
 
 
 
@@ -117,7 +118,8 @@ module.exports = {
 				fields_search,
 				from_default,
 				link_default,
-				fields_search_arr
+				fields_search_arr,
+				fields_get_one
 };
 
 

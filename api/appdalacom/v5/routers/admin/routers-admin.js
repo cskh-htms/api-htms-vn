@@ -28,7 +28,7 @@ router.use('/mains', require('./mains/router-admin-main.js'));
 router.use('/brands', require('./brands/router-admin-brand.js'));
 router.use('/discounts', require('./discounts/router-admin-discount.js'));
 router.use('/coupons', require('./coupons/router-admin-coupon.js'));
-
+router.use('/orders', require('./orders/router-admin-order.js'));
 
 
 

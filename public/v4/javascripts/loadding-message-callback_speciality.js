@@ -358,6 +358,16 @@ ojs_loadding_message_callback = {
 		let store_id = datas_parse.store_id;
 		ojs_bussiness.ajax_delete(store_id);
 	},//end of xoa san pham dac san
+	
+	//
+	//
+	//xoa users
+	admin_delete_store:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let store_id = datas_parse.store_id;
+		ojs_stores.ajax_delete_admin(store_id);
+	},//end of xoa san pham dac san	
+	
 	//
 	//	
 	//

@@ -4,7 +4,7 @@
 <% include ../masterpage/loader %>
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
-
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
 
 
 <div id="page_wrap" class="page_wrap">
@@ -131,7 +131,7 @@ $(document).ready(function($){
 		//
 		//@
 		let x = "xác nhận xoá";		
-		let y = "delete_store";//function name in callback 
+		let y = "admin_delete_store";//function name in callback 
 		let z = ' { "store_id" : "' + store_id + '"}';
 
 		ojs_message.message_yes_no_show(x,y,z);		

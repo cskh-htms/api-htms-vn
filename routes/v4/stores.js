@@ -40,6 +40,27 @@ require(
 	'/admin/stores/controllers-admin-stores-show-all.js'
 );
 
+const controller_admin_stores_delete = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/stores/controllers-admin-stores-delete.js'
+);
+
+const controller_admin_stores_show = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/stores/controllers-admin-stores-show.js'
+);
+
+
+const controller_admin_stores_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/stores/controllers-admin-stores-update.js'
+);
 
 
 //@
@@ -49,8 +70,9 @@ require(
 router.get('/manage/orders/:store_id/:status_int', controller_store_order_get_all);
 router.get('/manage/:store_id/:user_id', controller_store_manage);
 router.get('/', controller_admin_stores_show_all);
-
-
+router.get('/delete/:store_id', controller_admin_stores_delete);
+router.get('/show/:store_id', controller_admin_stores_show);
+router.put('/update/:store_id', controller_admin_stores_update);
 
 
 //@

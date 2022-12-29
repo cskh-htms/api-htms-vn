@@ -62,7 +62,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->controllers->admin-->stores->show-all",
+				"position":"web->controllers->admin-->orders->show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -81,7 +81,7 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/stores/show-all/',
+					'/admin/orders/show-all/',
 					token
 				);	
 			//res.send([data_api_resuilt]);
@@ -97,7 +97,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->controllers->admin-->stores->show-all",
+				"position":"web->controllers->admin-->orders->show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -117,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->controllers->admin-->stores->show-all",
+				"position":"web->controllers->admin-->orders->show-all",
 				"message": error_send 
 			}); 
 			return;
@@ -137,37 +137,39 @@ async  function function_export(req, res, next) {
 		try {
 
 			datas_info = {
-				'title' 			: 'Danh sách cửa hàng',
+				'title' 			: 'Danh sách đơn hàng',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
+				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_danh_sach_cua_hang',
+				'menu_taget'		: 'sidebar_don_hang_dac_san',
 				'sidebar_type'		:  "",
 				
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'stores_list' 		: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],
 			}
 			
 			
 			data_send = {
-				'title' 			: 'Danh sách cửa hàng',
+				'title' 			: 'Danh sách đơn hàng',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
+				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_danh_sach_cua_hang',
+				'menu_taget'		: 'sidebar_don_hang_dac_san',
 				'sidebar_type'		:  "",
 				
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'stores_list' 		: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],
 				
 				'datas_info'			: datas_info			
 			}			
 			//res.send(data_send);
 			//return;
 			
-			res.render( ojs_configs.view_version + '/stores/admin-show-all', data_send );
+			res.render( ojs_configs.view_version + '/orders/speciality/admin-show-all', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -179,7 +181,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->controllers->admin-->stores->show-all",
+				"position":"web->controllers->admin-->orders->show-all",
 				"message": error_send 
 			}); 
 			return;
@@ -198,7 +200,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->controllers->admin-->stores->show-all",
+			"position":"web->controllers->admin-->orders->show-all",
 			"message": error_send 
 		}); 
 		return;			
@@ -211,7 +213,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->controllers->admin-->stores->show-all",
+		"position":"web->controllers->admin-->orders->show-all",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	
