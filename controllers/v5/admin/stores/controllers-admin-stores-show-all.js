@@ -81,7 +81,7 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/stores-show-all/',
+					'/admin/stores/show-all/',
 					token
 				);	
 			//res.send([data_api_resuilt]);

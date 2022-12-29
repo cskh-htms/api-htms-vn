@@ -82,7 +82,7 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/users-show?c1=' + user_id,
+					'/admin/users/show?c1=' + user_id,
 					token
 				);	
 			//res.send([data_api_resuilt]);

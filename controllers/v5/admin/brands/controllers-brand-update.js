@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/admin/brand-update?c1=' + brand_id,
+				'/admin/brands/update?c1=' + brand_id,
 				datas,
 				token
 			);	

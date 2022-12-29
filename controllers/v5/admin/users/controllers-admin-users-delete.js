@@ -84,7 +84,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@ call api
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_delete(
-				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/users-delete?c1='+ user_id,
+				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/users/delete?c1='+ user_id,
 				token
 			);	
 			

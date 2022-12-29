@@ -60,7 +60,7 @@ async  function function_export(req, res, next) {
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
 			config_api.API_APPDALACOM_VERSION + 
-			'/admin/main', 
+			'/admin/mains', 
 			token
 		);	
 		

@@ -63,7 +63,8 @@ async  function function_export(req, res, next) {
 	//@
 	//@ go 
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
-			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/discount-program-product-denied?c1=' +  
+			ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + 
+			'/admin/discounts/product-denied?c1=' +  
 			link_id,
 			datas,
 			token
