@@ -155,30 +155,29 @@ async  function function_export(req, res, next) {
 					"stores_ID" ,
 					"stores_name",
 					"users_full_name"				
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"orders_speciality_status_pull_money",
-						"value"     : 1,
-						"compare" : "<>"
-					}
-					] 				
-				}         
-			],
-			"order" :
-			 [		 
-				{    
-					"field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				}			
-			]	 
-				
-			}
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"orders_speciality_status_pull_money",
+							"value"     : 1,
+							"compare" : "<>"
+						}
+						] 				
+					}         
+				],
+				"order" :
+				[		 
+					{    
+						"field"  :"orders_speciality_date_orders",
+						"compare" : "DESC"
+					}			
+				]				
+			 }
 			
 			var fn_get_order_list = new Promise((resolve, reject) => {
 				let result = order_search(data_order_list,res);

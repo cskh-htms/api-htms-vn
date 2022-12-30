@@ -3,16 +3,31 @@ const config_database = require('../../../configs/config-database');
 
 
 //@
-const fields_get = 	"" + 
-	config_database.PREFIX  + "reviews_speciality_ID as reviews_speciality_ID, " + 
-	"DATE_FORMAT(" + config_database.PREFIX  + "reviews_speciality_date_created," + "'%Y/%m/%d %H:%i:%s'"  + ") as reviews_speciality_date_created, " + 	
-	config_database.PREFIX  + "reviews_speciality_user_id as reviews_speciality_user_id, " + 
-	config_database.PREFIX  + "reviews_speciality_product_id as reviews_speciality_product_id, " + 
-	config_database.PREFIX  + "reviews_speciality_contents as reviews_speciality_contents, " + 
-	config_database.PREFIX  + "reviews_speciality_images as reviews_speciality_images, " + 
-	config_database.PREFIX  + "reviews_speciality_videos as reviews_speciality_videos, " + 	
-	config_database.PREFIX  + "reviews_speciality_status_admin as reviews_speciality_status_admin, " +  
-	config_database.PREFIX  + "reviews_speciality_number_star as reviews_speciality_number_star " ;
+const fields_search = 	"" + 
+
+	config_database.PREFIX  + "orders_speciality_ID as orders_speciality_ID, " +
+	config_database.PREFIX  + "orders_speciality_user_id as orders_speciality_user_id, " + 
+	"DATE_FORMAT(" + config_database.PREFIX  + "orders_speciality_date_orders," + "'%Y/%m/%d %H:%i:%s'"  + ") as orders_speciality_date_orders, " + 	
+		
+	config_database.PREFIX  + "orders_speciality_store_id as orders_speciality_store_id, " + 
+	config_database.PREFIX  + "orders_speciality_status_orders as orders_speciality_status_orders, " + 
+	config_database.PREFIX  + "orders_speciality_status_payment as orders_speciality_status_payment, " + 
+		
+	config_database.PREFIX  + "orders_speciality_adress as orders_speciality_adress, " + 
+	config_database.PREFIX  + "orders_speciality_notes as orders_speciality_notes, " + 
+	config_database.PREFIX  + "orders_speciality_phone as orders_speciality_phone, " + 	
+		
+	config_database.PREFIX  + "orders_speciality_email as orders_speciality_email, " + 
+	config_database.PREFIX  + "orders_speciality_company as orders_speciality_company, " + 
+	config_database.PREFIX  + "orders_speciality_province as orders_speciality_province, " + 		
+	
+	config_database.PREFIX  + "orders_speciality_district as orders_speciality_district, " + 
+	config_database.PREFIX  + "orders_speciality_wards as orders_speciality_wards, " + 
+	config_database.PREFIX  + "orders_speciality_name as orders_speciality_name, " + 		
+		
+	config_database.PREFIX  + "orders_speciality_shipping_code as orders_speciality_shipping_code, " + 	
+	config_database.PREFIX  + "stores_name as stores_name, " +  
+	config_database.PREFIX  + "stores_ID as stores_ID " ;
 
 
 
@@ -22,23 +37,29 @@ const fields_get = 	"" +
 
 const fields_search_arr = [
 	"orders_speciality_ID",
-	"stores_name",
-	"stores_ID",
 	"orders_speciality_date_orders",
 	"orders_speciality_user_id",
+	
 	"orders_speciality_store_id",
 	"orders_speciality_status_orders",	
 	"orders_speciality_status_payment",	
+	
 	"orders_speciality_adress",
 	"orders_speciality_notes",
 	"orders_speciality_phone",
+	
 	"orders_speciality_email",
 	"orders_speciality_company",		
 	"orders_speciality_province",
+	
+	
 	"orders_speciality_district",
 	"orders_speciality_wards",
 	"orders_speciality_name",
-	"orders_speciality_shipping_code"
+	
+	"orders_speciality_shipping_code",
+	"stores_name",
+	"stores_ID"
 ]
 
 
@@ -157,7 +178,7 @@ const link_order_by_customer = 	" " +
 
 //export module
 module.exports = { 
-	fields_get,
+	fields_search,
 	from_default,
 	from_product_sale_by_store,
 	link_default,

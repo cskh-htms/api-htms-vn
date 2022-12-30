@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req	
 		try {
 			var token = req.session.token;	
-			var user_id = req.params.user_id;
+			var order_id = req.params.order_id;
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 				return;
@@ -63,12 +63,12 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->users->show",
+				"position":"web->appdalacom->controller->orders->show",
 				"message": error_send 
 			}); 
 			return;			
 		}	
-		//res.send([user_id]);
+		//res.send([order_id]);
 		//return;	
 		
 		
@@ -82,11 +82,12 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/users/show?c1=' + user_id,
+					'/admin/orders/show?c1=' + order_id,
 					token
 				);	
-			//res.send([data_api_resuilt]);
-			//return;				
+			res.send([data_api_resuilt]);
+			return;		
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -98,7 +99,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->appdalacom->controller->users->show",
+				"position":"web->appdalacom->controller->orders->show",
 				"message": error_send 
 			}); 
 			return;			
@@ -118,7 +119,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->users->show",
+				"position":"web->appdalacom->controller->orders->show",
 				"message": error_send 
 			}); 
 			return;
@@ -140,7 +141,7 @@ async  function function_export(req, res, next) {
 			datas_info = {
 				'title' 			: 'Chỉnh sửa tài khoản',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'user_id' 			: ojs_shares_others.get_users_id(token),
+				'order_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
 				'menu_taget'		: 'sidebar_danh_sach_tai_khoan',
@@ -154,7 +155,7 @@ async  function function_export(req, res, next) {
 			data_send = {
 				'title' 			: 'Chỉnh sửa tài khoản',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'user_id' 			: ojs_shares_others.get_users_id(token),
+				'order_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
 				'menu_taget'		: 'sidebar_danh_sach_tai_khoan',
@@ -182,7 +183,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->appdalacom->controller->users->show",
+				"position":"web->appdalacom->controller->orders->show",
 				"message": error_send 
 			}); 
 			return;

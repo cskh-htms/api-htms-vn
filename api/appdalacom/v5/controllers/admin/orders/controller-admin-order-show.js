@@ -54,11 +54,11 @@ const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERS
 const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
+const orders_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-get-one');
+const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search');
+
 const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
-
-
-
-
+const shipping_tracking_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/shipping-tracking/shipping-tracking-search');
 //@
 //@
 //@
@@ -77,13 +77,13 @@ async  function function_export(req, res, next) {
 			var token = req.headers['token'];
 			//@
 			//@
-			var user_id = 0;
+			var order_id = 0;
 			if(req.query.c1){
-				user_id = req.query.c1;
+				order_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->users->show",
+					"position" : "api->appdalacom->controller->admin->orders->show",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -101,14 +101,14 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;	
 		}	
-		//res.send([user_id]);
+		//res.send([order_id]);
 		//return;
-
+		
 		
 		
 		
@@ -129,17 +129,19 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send([user_id]);
+		//res.send([order_id]);
 		//return;
 		
-			
 
-		
+
+
+
+	
 		//@
 		//@
 		//@
@@ -156,9 +158,66 @@ async  function function_export(req, res, next) {
 			promise_all.push(fn_get_data_news_admin);
 
 
+
+
+			//@
+			//@
+			//@ order_taget
+			var fn_get_order_taget = new Promise((resolve, reject) => {
+				var  result = orders_get_one(order_id,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_order_taget);
+
 			
+
+
+			//@
+			//@
+			//@ order details
+			let data_order_detail =    
+			{
+			   "select_field" :
+				[
+					"orders_details_speciality_ID",
+					"orders_details_speciality_order_id",
+					"orders_details_medium_text",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_price",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"price_caution"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"orders_details_speciality_order_id",
+							"value"     : order_id,
+							"compare" : "="
+						}           
+						]    
+					}         
+				]				
+			}
 			
-			//@ 4. lấy coupon list
+			var fn_get_order_detail = new Promise((resolve, reject) => {
+				let result = order_detail_search(data_order_detail,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_order_detail);		
+
+
+
+
+
+
+			//@
+			//@			
+			//@user list
 			let data_users_list =    
 			{
 			   "select_field" :
@@ -172,27 +231,20 @@ async  function function_export(req, res, next) {
 					"users_status",
 					"users_type_ID",
 					"users_type_name"
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"users_ID",
-						"value"     : user_id,
-						"compare" : "="
-					}           
-					]    
-				}         
-			],  
-			"order" :
-				 [
-					{
-						"field"  :"users_date_created",
-						"compare" : "DESC"
-					}   
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"users_type_name",
+							"value"     : "shipping",
+							"compare" : "="
+						}           
+						]    
+					}         
 				] 
 				
 			}
@@ -201,10 +253,12 @@ async  function function_export(req, res, next) {
 				let result = user_search(data_users_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_users_list);		
+			promise_all.push(fn_get_users_list);	
 
 
-			
+
+
+
 
 
 
@@ -228,7 +282,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;	
@@ -279,7 +333,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->users->show",
+			"position" : "api->appdalacom->controller->admin->orders->show",
 			"message": error_send 
 		}); 
 		return;	
@@ -292,7 +346,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->users->show",
+		"position":"api->appdalacom->controller->admin->orders->show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

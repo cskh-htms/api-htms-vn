@@ -54,7 +54,7 @@ const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERS
 const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
+const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
 
 
 
@@ -75,21 +75,7 @@ async  function function_export(req, res, next) {
 		//@ lấy req data
 		try {
 			var token = req.headers['token'];
-			//@
-			//@
-			var user_id = 0;
-			if(req.query.c1){
-				user_id = req.query.c1;
-			}else{
-				res.send({ 
-					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->users->show",
-					"message": "vui lòng nhập id"
-				}); 	
-				return;
-			}				
-			
-			
+			var datas  = req.body;
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -101,15 +87,16 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->ajax-load",
 				"message": error_send 
 			}); 
 			return;	
 		}	
-		//res.send([user_id]);
-		//return;
+		//res.send([datas]);
+		//return;	
 
-		
+
+	
 		
 		
 		//@
@@ -129,7 +116,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->ajax-load",
 				"message": error_send 
 			}); 
 			return;			
@@ -148,60 +135,66 @@ async  function function_export(req, res, next) {
 			var promise_all = [];
 			promise_all.push(0);
 
-			//@ 1. lấy news admin
-			var fn_get_data_news_admin = new Promise((resolve, reject) => {
-				let result = get_data_news_admin(res);
-				resolve(result);
-			});	
-			promise_all.push(fn_get_data_news_admin);
-
-
 			
 			
-			//@ 4. lấy coupon list
-			let data_users_list =    
+			//@ 4. lấy order list
+			let data_order_list =    
 			{
 			   "select_field" :
 				[
-					"users_ID",
-					"users_adress",
-					"users_date_created",
-					"users_email",
-					"users_full_name",
-					"users_phone",
-					"users_status",
-					"users_type_ID",
-					"users_type_name"
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"users_ID",
-						"value"     : user_id,
-						"compare" : "="
-					}           
-					]    
-				}         
-			],  
-			"order" :
-				 [
-					{
-						"field"  :"users_date_created",
+					"orders_speciality_ID",
+					"orders_speciality_adress",
+					"orders_speciality_date_orders" ,
+					"orders_speciality_notes",
+					"orders_speciality_status_orders",
+					"orders_speciality_status_payment",
+					"stores_ID" ,
+					"stores_name",
+					"users_full_name"				
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"orders_speciality_status_pull_money",
+							"value"     : 1,
+							"compare" : "<>"
+						},
+						{   
+							"field"     :"orders_speciality_status_orders",
+							"value"     : JSON.parse(datas.status_send),
+							"compare" : "in"
+						},
+						{   
+							"field"     :"orders_speciality_date_orders",
+							"value"     : datas.date_star,
+							"compare" : ">"
+						},
+						{   
+							"field"     :"orders_speciality_date_orders",
+							"value"     : datas.date_end,
+							"compare" : "<"
+						}				
+						] 				
+					}         
+				],
+				"order" :
+				[		 
+					{    
+						"field"  :"orders_speciality_date_orders",
 						"compare" : "DESC"
-					}   
-				] 
-				
-			}
+					}			
+				]				
+			 }
 			
-			var fn_get_users_list = new Promise((resolve, reject) => {
-				let result = user_search(data_users_list,res);
+			var fn_get_order_list = new Promise((resolve, reject) => {
+				let result = order_search(data_order_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_users_list);		
+			promise_all.push(fn_get_order_list);		
 
 
 			
@@ -228,7 +221,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api->appdalacom->controller->admin->users->show",
+				"position" : "api->appdalacom->controller->admin->orders->ajax-load",
 				"message": error_send 
 			}); 
 			return;	
@@ -242,9 +235,8 @@ async  function function_export(req, res, next) {
 		//@ add notes
 		let notes = {
 			"0":"no", 
-			"1":"news admin",
-			"2":"user_taget",
-			"3":"notes"
+			"1":"order_list",
+			"2":"notes"
 		}
 		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);
@@ -279,7 +271,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->users->show",
+			"position" : "api->appdalacom->controller->admin->orders->ajax-load",
 			"message": error_send 
 		}); 
 		return;	
@@ -292,7 +284,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->users->show",
+		"position":"api->appdalacom->controller->admin->orders->ajax-load",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

@@ -52,7 +52,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var datas  = req.body;		
+			var datas  = req.body.datas;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				return;
@@ -68,7 +68,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->users->save",
+				"position":"web->appdalacom->controller->orders->ajax-load",
 				"message": error_send 
 			}); 
 			return;			
@@ -84,7 +84,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@ call api
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
-				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/users/save',
+				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/orders/ajax-load',
 				datas,
 				token
 			);	
@@ -114,7 +114,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->users->save",
+				"position":"web->appdalacom->controller->orders->ajax-load",
 				"message": error_send 
 			}); 
 			return;
@@ -126,7 +126,15 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		//@ send data resuilt		
+		//@ send to web	
+		data_send = {
+			'datas' 	: 	data_api_resuilt[1]
+		}
+		res.render( ojs_configs.view_version + '/masterpage/widget-orders-show-tables', data_send );	
+
+
+
+		
 		res.send({"error":"","datas":data_api_resuilt});
 		return;	
 		
@@ -145,7 +153,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controller->users->save",
+			"position":"web->appdalacom->controller->orders->ajax-load",
 			"message": error_send 
 		}); 
 		return;			
@@ -158,7 +166,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controller->users->save",
+		"position":"web->appdalacom->controller->orders->ajax-load",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

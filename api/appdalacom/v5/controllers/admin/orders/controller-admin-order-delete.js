@@ -48,7 +48,7 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 //@
 //@ model
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const user_update = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-update');
+const order_delete = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-delete');
 
 
 
@@ -70,18 +70,16 @@ async  function function_export(req, res, next) {
 		//@
 		//@ lấy data req	
 		try {
-			var token = req.headers['token'];
-			var datas  = req.body.datas;
-			
+			var token = req.headers['token'];			
 			//@
 			//@
-			var user_id = 0;
+			var order_id = 0;
 			if(req.query.c1){
-				user_id = req.query.c1;
+				order_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->users->update",
+					"position" : "api->appdalacom->controller->admin->orders->delete",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -97,12 +95,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->users->update",
+				"position" : "api->appdalacom->controller->admin->orders->delete",
 				"message": error_send 
 			}); 
 			return;	
 		}			
-		//res.send([user_id,datas]);
+		//res.send([order_id]);
 		//return;
 		
 		
@@ -129,7 +127,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->users->update", 
+				"position" : "api->appdalacom->controller->admin->orders->delete", 
 				"message": error_send 
 			}); 
 			return;			
@@ -147,7 +145,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ run database
-		var result = await user_update(datas,user_id,res);
+		var result = await order_delete(order_id,res);
 		
 		
 			
@@ -177,7 +175,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->users->update",
+			"position" : "api->appdalacom->controller->admin->orders->delete",
 			"message": error_send 
 		}); 
 		return;	
@@ -190,7 +188,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->users->update",
+		"position":"api->appdalacom->controller->admin->orders->delete",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

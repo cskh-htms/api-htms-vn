@@ -69,7 +69,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"controller->users-update",
+				"position":"web->appdalacom->controller->users->update",
 				"message": error_send 
 			}); 
 			return;			
@@ -115,7 +115,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"controller->users-update",
+				"position":"web->appdalacom->controller->users->update",
 				"message": error_send 
 			}); 
 			return;
@@ -146,7 +146,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"controller->users-update",
+			"position":"web->appdalacom->controller->users->update",
 			"message": error_send 
 		}); 
 		return;			
@@ -159,7 +159,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"controller->users-update",
+		"position":"web->appdalacom->controller->users->update",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

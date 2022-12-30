@@ -241,7 +241,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/orders/speciality/load/" ,
+			  url : ojs_loader.host + "/orders/speciality/ajax-load/" ,
 			  data : JSON.stringify(datas),
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -252,9 +252,12 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 					//console.log(result);
-					ojs_loadding.ajax_hide_loadding();
+					//ojs_loadding.ajax_hide_loadding();
 					//return;
+					
+					
 					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();
 					
 			  }//end of success			  
 			});	//end of ajax
@@ -416,18 +419,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				ojs_loader.evn = "demo";
+				  
+				//console.log(result);
+				//ojs_loadding.ajax_hide_loadding();
+				//return;			
+				  
+				  
+				//ojs_loader.evn = "demo";
 				if(ojs_loader.evn == "dev"){
 					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 					console.log(result);
 				}else{
 					if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được orders \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được orders");
-							}
+						ojs_message.message_ok_show(result.message);
 					}else{
 						ojs_message.message_ok_show(" Đã xoá orders",location.href);
 					}

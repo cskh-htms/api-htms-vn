@@ -53,11 +53,11 @@ const function_export = function (id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi store search, Vui lòng liên hệ admin" 
+				"Lỗi lib->stores->get one, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "store search", 
+			"position" : "lib->stores->get one", 
 			"message": error_send 
 			}); 
 		return;	
@@ -69,11 +69,11 @@ const function_export = function (id,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi store search, Vui lòng liên hệ admin" 
+							"Lỗi lib->stores->get one, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
@@ -88,11 +88,11 @@ const function_export = function (id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi store search, Vui lòng liên hệ admin" 
+				"Lỗi lib->stores->get one, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
