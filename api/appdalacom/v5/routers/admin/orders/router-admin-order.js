@@ -49,6 +49,27 @@ require(
 	'../../../controllers/admin/orders/controller-admin-order-detail-delete'
 );
 
+
+const controllers_admin_order_push_dala =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-push-dala'
+);
+
+
+const controllers_admin_order_push_ghtk =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-push-ghtk'
+);
+
+
+const controllers_admin_order_save_fee =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-save-fee'
+);
+
+
+
+
 //@
 //@
 //@
@@ -59,8 +80,40 @@ router.delete('/delete',	middle_ware, controllers_admin_order_delete );
 router.get('/show',	middle_ware, controllers_admin_order_show );
 router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
 router.delete('/detail-delete',	middle_ware, controllers_admin_order_detail_delete );
+router.post('/push-dala',	middle_ware, controllers_admin_order_push_dala );
+router.post('/push-ghtk',	middle_ware, controllers_admin_order_push_ghtk );
+router.post('/save-fee',	middle_ware, controllers_admin_order_save_fee );
+
+
+
+
+
+
+
+
+
 //@
 //@
 //@
 //@ export
 module.exports = router;
+
+
+
+
+
+
+//@
+//@
+//@
+//@ export
+
+
+
+
+
+
+
+
+
+

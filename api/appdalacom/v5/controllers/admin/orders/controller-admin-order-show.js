@@ -242,7 +242,12 @@ async  function function_export(req, res, next) {
 							"field"     :"users_type_name",
 							"value"     : "shipping",
 							"compare" : "="
-						}           
+						},
+						{   
+							"field"     :"users_full_name",
+							"value"     : "shipping_ghtk",
+							"compare" : "<>"
+						} 						
 						]    
 					}         
 				] 
@@ -283,8 +288,8 @@ async  function function_export(req, res, next) {
 					"where" :
 						[
 						{   
-							"field"     :"users_type_name",
-							"value"     : "shipping",
+							"field"     :"shipping_tracking_orders_id",
+							"value"     : order_id,
 							"compare" : "="
 						}           
 						]    

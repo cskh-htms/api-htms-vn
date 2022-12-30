@@ -122,18 +122,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
+					console.log(result);
+					ojs_loadding.ajax_hide_loadding();	
+					return;
+				  
+				  
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
 					}else{
 						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee");
-							}
+							ojs_message.message_ok_show(result.message);
 						}else{
 							ojs_message.message_ok_show(" Đã push đơn hàng lên ghtk",location.href);
 						}
@@ -164,9 +165,9 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				  console.log(result);
-				  ojs_loadding.ajax_hide_loadding();
-				  return;
+				  //console.log(result);
+				  //ojs_loadding.ajax_hide_loadding();
+				  //return;
 				  
 				  
 					//ojs_loader.evn = "dev";
@@ -208,18 +209,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
+					console.log(result)
+					ojs_loadding.ajax_hide_loadding();
+					return;
+					
+					
 					//ojs_loader.evn = "dev";
 					if(ojs_loader.evn == "dev"){
 						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
 						console.log(result);
 					}else{
 						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được fee");
-							}
+							ojs_message.message_ok_show(result.message);
 						}else{
 							ojs_message.message_ok_show(" Đã thêm fee",location.href);
 						}
