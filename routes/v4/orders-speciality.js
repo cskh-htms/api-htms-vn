@@ -49,16 +49,36 @@ require(
 );
 
 
+const controller_admin_orders_detail_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/orders/controller-admin-order-detail-update.js'
+);
+
+const controller_admin_orders_detail_delete = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/orders/controller-admin-order-detail-delete.js'
+);
 
 //@
 //@
 //@
 //@ router
-
 router.get('/', controller_admin_orders_show_all);
 router.post('/ajax-load', controller_admin_orders_ajax_load_order);
 router.get('/delete/:order_id', controller_admin_orders_delete);
 router.get('/show/:order_id', controller_admin_orders_show);
+router.put('/detail/update/:detail_id', controller_admin_orders_detail_update);
+router.delete('/detail/delete/:detail_id', controller_admin_orders_detail_delete);
+
+
+
+
+
+
 //@
 //@
 //@

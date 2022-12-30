@@ -259,6 +259,45 @@ async  function function_export(req, res, next) {
 
 
 
+			//@
+			//@			
+			//@ shipping tracking
+			let data_shipping_tracking =    
+			{
+			   "select_field" :
+				[
+					"shipping_tracking_ID",
+					"shipping_tracking_users_id",
+					"shipping_tracking_date_created",
+					"shipping_tracking_orders_id",
+					"shipping_tracking_infomation",
+					"shipping_tracking_orders_status",
+					"shipping_tracking_qoute",
+					"users_full_name",
+					"users_phone"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"users_type_name",
+							"value"     : "shipping",
+							"compare" : "="
+						}           
+						]    
+					}         
+				] 
+				
+			}
+			
+			var fn_get_shipping_tracking = new Promise((resolve, reject) => {
+				let result = shipping_tracking_search(data_shipping_tracking,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_shipping_tracking);	
 
 
 

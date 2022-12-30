@@ -63,7 +63,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->orders->show",
+				"position":"web->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;			
@@ -85,8 +85,8 @@ async  function function_export(req, res, next) {
 					'/admin/orders/show?c1=' + order_id,
 					token
 				);	
-			res.send([data_api_resuilt]);
-			return;		
+			//res.send([data_api_resuilt]);
+			//return;		
 			
 		}
 		catch(error){
@@ -99,7 +99,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->appdalacom->controller->orders->show",
+				"position":"web->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;			
@@ -119,7 +119,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->orders->show",
+				"position":"web->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;
@@ -139,30 +139,43 @@ async  function function_export(req, res, next) {
 		try {
 
 			datas_info = {
-				'title' 			: 'Chỉnh sửa tài khoản',
+				'title' 			: 'Chỉnh sửa đơn hàng',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'order_id' 			: ojs_shares_others.get_users_id(token),
+				'users_role' 		: ojs_shares_others.get_users_type(token),
+				'user_id' 			: ojs_shares_others.get_users_id(token),				
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_danh_sach_tai_khoan',
-				'sidebar_type'		:  "",
 				
+				'menu_taget'		: 'sidebar_don_hang_dac_san',
+				'sidebar_type'		:  "",
+				'order_id' 			: order_id,
+								
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 		: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],				
+				'orders_detail' 	: data_api_resuilt[3],
+				'shipper_list' 		: data_api_resuilt[4],	
+				'order_tracking' 	: data_api_resuilt[5],				
+				
 			}
 			
 			
 			data_send = {
-				'title' 			: 'Chỉnh sửa tài khoản',
+				'title' 			: 'Chỉnh sửa đơn hàng',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'order_id' 			: ojs_shares_others.get_users_id(token),
+				'users_role' 		: ojs_shares_others.get_users_type(token),
+				'user_id' 			: ojs_shares_others.get_users_id(token),				
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_danh_sach_tai_khoan',
-				'sidebar_type'		:  "",
 				
+				'menu_taget'		: 'sidebar_don_hang_dac_san',
+				'sidebar_type'		:  "",
+				'order_id' 			: order_id,
+								
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 			: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],				
+				'orders_detail' 	: data_api_resuilt[3],
+				'shipper_list' 		: data_api_resuilt[4],	
+				'order_tracking' 	: data_api_resuilt[5],	
 				
 				'datas_info'			: datas_info			
 			}
@@ -171,7 +184,7 @@ async  function function_export(req, res, next) {
 			//res.send(data_send);
 			//return;
 			
-			res.render( ojs_configs.view_version + '/users/admin-show', data_send );
+			res.render( ojs_configs.view_version + '/orders/speciality/admin-show', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -183,7 +196,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->appdalacom->controller->orders->show",
+				"position":"web->appdalacom->controller->admin->orders->show",
 				"message": error_send 
 			}); 
 			return;

@@ -40,6 +40,15 @@ require(
 	'../../../controllers/admin/orders/controller-admin-order-show'
 );
 
+const controllers_admin_order_detail_update =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-detail-update'
+);
+const controllers_admin_order_detail_delete =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-detail-delete'
+);
+
 //@
 //@
 //@
@@ -48,8 +57,8 @@ router.get('/show-all',	middle_ware, controllers_admin_order_show_all );
 router.post('/ajax-load',	middle_ware, controllers_admin_order_ajax_load );
 router.delete('/delete',	middle_ware, controllers_admin_order_delete );
 router.get('/show',	middle_ware, controllers_admin_order_show );
-
-
+router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
+router.delete('/detail-delete',	middle_ware, controllers_admin_order_detail_delete );
 //@
 //@
 //@

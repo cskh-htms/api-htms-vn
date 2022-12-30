@@ -380,6 +380,12 @@ ojs_loadding_message_callback = {
 	},//end of xoa san pham dac san
 	//
 	//				
+	//xoa order detail
+	delete_order_speciality_detail_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let detail_id = datas_parse.detail_id;
+		ojs_orders.ajax_delete_detail_admin(detail_id);
+	},//end of xoa san pham dac san
 	//	
 	//
 	//
