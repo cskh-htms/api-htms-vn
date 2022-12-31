@@ -28,7 +28,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"controller->coupon-show-admin",
+			"position":"web->appdalacom->controllers->coupons->admin-show",
 			"message": error_send 
 		}); 
 		return;			
@@ -63,7 +63,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"controller->coupon-show-admin",
+			"position":"web->appdalacom->controllers->coupons->admin-show",
 			"message": error_send 
 		}); 
 		return;
@@ -133,7 +133,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"controller->coupon-show-admin",
+			"position":"web->appdalacom->controllers->coupons->admin-show",
 			"message": error_send 
 		}); 
 		return;

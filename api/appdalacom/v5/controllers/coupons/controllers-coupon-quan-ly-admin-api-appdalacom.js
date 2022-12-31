@@ -32,7 +32,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->quan-ly-admin",
 			"message": error_send 
 		}); 
 		return;	
@@ -56,7 +56,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->quan-ly-admin",
 			"message": error_send 
 		}); 
 		return;			
@@ -153,7 +153,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "ctroller->api-appdalacom->controllers-coupon-quan-ly-admin-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->quan-ly-admin",
 			"message": error_send 
 		}); 
 		return;	

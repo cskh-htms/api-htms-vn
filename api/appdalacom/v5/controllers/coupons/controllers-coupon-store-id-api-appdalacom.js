@@ -34,7 +34,7 @@ async  function function_export(req, res, next) {
 		}else{
 			res.send({ 
 				"error" : "01", 
-				"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+				"position" : "api->appdalacom->controllers->coupons->store-id",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
@@ -51,7 +51,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->store-id",
 			"message": error_send 
 		}); 
 		return;	
@@ -78,7 +78,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->store-id",
 			"message": error_send 
 		}); 
 		return;			
@@ -110,7 +110,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3333",
-				"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+				"position" : "api->appdalacom->controllers->coupons->store-id",
 				"message": error_send 
 			}); 
 			return;			
@@ -161,7 +161,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "105", 
-			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->store-id",
 			"message": error_send 
 		}); 
 		return;	
@@ -315,7 +315,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "controller->api-appdalacom->controllers-coupon-store-id-appdalacom-api.js",
+			"position" : "api->appdalacom->controllers->coupons->store-id",
 			"message": error_send 
 		}); 
 		return;	

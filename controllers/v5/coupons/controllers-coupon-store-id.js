@@ -27,7 +27,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"controller->coupon-show",
+			"position":"web->appdalacom->controllers->coupons->store-id",
 			"message": error_send 
 		}); 
 		return;			

@@ -81,7 +81,7 @@ async  function function_export(req, res, next) {
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "controller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+					"position" : "api->appdalacom->controllers->coupons->add",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -96,7 +96,7 @@ async  function function_export(req, res, next) {
 			}else{
 				res.send({ 
 					"error" : "02", 
-					"position" : "controller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+					"position" : "api->appdalacom->controllers->coupons->add",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -113,7 +113,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+				"position" : "api->appdalacom->controllers->coupons->add",
 				"message": error_send 
 			}); 
 			return;	
@@ -145,7 +145,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->add", 
 				"message": error_send 
 			}); 
 			return;			
@@ -175,7 +175,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->add", 
 				"message": error_send 
 			}); 
 			return;			
@@ -205,7 +205,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3333",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->add", 
 				"message": error_send 
 			}); 
 			return;			
@@ -325,7 +325,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+				"position" : "api->appdalacom->controllers->coupons->add",
 				"message": error_send 
 			}); 
 			return;	

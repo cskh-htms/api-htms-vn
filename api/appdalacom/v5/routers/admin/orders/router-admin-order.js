@@ -10,7 +10,6 @@
 const express = require('express');
 const router = express.Router();
 const config_api = require('../../../../../configs/config-api');
-
 const middle_ware =  require('../../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-appdalacom.js');
 
 
@@ -67,6 +66,15 @@ require(
 	'../../../controllers/admin/orders/controller-admin-order-save-fee'
 );
 
+const controllers_admin_order_update =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-update'
+);
+
+
+
+
+
 
 
 
@@ -75,14 +83,20 @@ require(
 //@
 //@ router
 router.get('/show-all',	middle_ware, controllers_admin_order_show_all );
-router.post('/ajax-load',	middle_ware, controllers_admin_order_ajax_load );
-router.delete('/delete',	middle_ware, controllers_admin_order_delete );
 router.get('/show',	middle_ware, controllers_admin_order_show );
-router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
-router.delete('/detail-delete',	middle_ware, controllers_admin_order_detail_delete );
+
+router.post('/ajax-load',	middle_ware, controllers_admin_order_ajax_load );
 router.post('/push-dala',	middle_ware, controllers_admin_order_push_dala );
 router.post('/push-ghtk',	middle_ware, controllers_admin_order_push_ghtk );
 router.post('/save-fee',	middle_ware, controllers_admin_order_save_fee );
+
+router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
+router.put('/update',	middle_ware, controllers_admin_order_update );
+
+router.delete('/delete',	middle_ware, controllers_admin_order_delete );
+router.delete('/detail-delete',	middle_ware, controllers_admin_order_detail_delete );
+
+
 
 
 

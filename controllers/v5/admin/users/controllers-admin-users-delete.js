@@ -68,7 +68,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->users->delete",
+				"position":"web->appdalacom->controllers->admin->users->delete",
 				"message": error_send 
 			}); 
 			return;			
@@ -113,7 +113,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->users->delete",
+				"position":"web->appdalacom->controllers->admin->users->delete",
 				"message": error_send 
 			}); 
 			return;
@@ -144,7 +144,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controller->users->delete",
+			"position":"web->appdalacom->controllers->admin->users->delete",
 			"message": error_send 
 		}); 
 		return;			
@@ -157,7 +157,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controller->users->delete",
+		"position":"web->appdalacom->controllers->admin->users->delete",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

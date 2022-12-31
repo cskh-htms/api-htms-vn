@@ -62,7 +62,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->users->show-alll",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -108,7 +108,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->users->show-alll",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;

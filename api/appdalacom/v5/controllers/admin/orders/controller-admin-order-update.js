@@ -23,9 +23,9 @@ const router = express.Router();
 //@
 //@
 //@ configs
-const ojs_configs = require('../../../../../configs/config');
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+const ojs_configs = require('../../../../../../configs/config');
+const config_database = require('../../../../../configs/config-database');
+const config_api = require('../../../../../configs/config-api');
 
 
 
@@ -35,8 +35,8 @@ const config_api = require('../../../../configs/config-api');
 //@
 //@
 //@ share
-const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+const ojs_shares_show_errors = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 
 
 
@@ -47,9 +47,8 @@ const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_
 //@
 //@
 //@ model
-const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_coupon = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-coupon');
-const coupon_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-update');
+const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const order_update = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-update');
 
 
 
@@ -76,13 +75,13 @@ async  function function_export(req, res, next) {
 			
 			//@
 			//@
-			var coupon_id = 0;
+			var order_id = 0;
 			if(req.query.c1){
-				coupon_id = req.query.c1;
+				order_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controllers->coupons->update",
+					"position" : "api->appdalacom->controller->admin->orders->update",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -98,12 +97,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controllers->coupons->update",
+				"position" : "api->appdalacom->controller->admin->orders->update",
 				"message": error_send 
 			}); 
 			return;	
 		}			
-		//res.send(datas);
+		//res.send([order_id,datas]);
 		//return;
 		
 		
@@ -116,8 +115,7 @@ async  function function_export(req, res, next) {
 		//@ check phan quyen
 		const check_role_result = await check_role.check_role(token,res);
 		if(
-		check_role_result == "bussiness" 
-		|| check_role_result == "admin" 
+			check_role_result == "admin" 
 		){
 			//go
 		}
@@ -131,7 +129,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controllers->coupons->update", 
+				"position" : "api->appdalacom->controller->admin->orders->update", 
 				"message": error_send 
 			}); 
 			return;			
@@ -143,42 +141,13 @@ async  function function_export(req, res, next) {
 		
 		
 		
-		//@
-		//@
-		//@ lấy id cửa hàng để check owner store
-		if(check_role_result == "bussiness"){
-			var check_owner_coupon_resuilt = await check_owner_coupon(token,coupon_id,res);
-			if(	check_owner_coupon_resuilt == "1" ){
-				//go
-			}
-			else{
-				var evn = ojs_configs.evn;
-				//evn = "dev";
-				var error_send = ojs_shares_show_errors.show_error( 
-						evn, 
-						check_role_result, 
-						"Lỗi phân quyền, Vui lòng liên hệ admin" 
-					);
-				res.send({ 
-					"error" : "232",
-					"position" : "api->appdalacom->controllers->coupons->update", 
-					"message": error_send 
-				}); 
-				return;			
-			}		
-		
-		}		
-		//res.send([check_owner_coupon_resuilt]);
-		//return;	
-		
-		
-		
+
 		
 		
 		//@
 		//@	
 		//@ run database
-		var coupon_update_result = await coupon_update(datas,coupon_id,res);
+		var result = await order_update(datas,order_id,res);
 		
 		
 			
@@ -189,7 +158,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ send data result	
-		res.send({"error":"", "datas": coupon_update_result});
+		res.send({"error":"", "datas": result });
 		return;	
 		
 		
@@ -208,7 +177,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controllers->coupons->update",
+			"position" : "api->appdalacom->controller->admin->orders->update",
 			"message": error_send 
 		}); 
 		return;	
@@ -221,7 +190,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controllers->coupons->update",
+		"position":"api->appdalacom->controller->admin->orders->update",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

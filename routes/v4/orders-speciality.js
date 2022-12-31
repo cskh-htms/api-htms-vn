@@ -86,22 +86,36 @@ require(
 );
 
 
+const controller_admin_orders_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/orders/controller-admin-order-update.js'
+);
+
 
 //@
 //@
 //@
 //@ router
 router.get('/', controller_admin_orders_show_all);
-router.post('/ajax-load', controller_admin_orders_ajax_load_order);
 router.get('/delete/:order_id', controller_admin_orders_delete);
 router.get('/show/:order_id', controller_admin_orders_show);
-router.put('/detail/update/:detail_id', controller_admin_orders_detail_update);
-router.delete('/detail/delete/:detail_id', controller_admin_orders_detail_delete);
 
+router.post('/ajax-load', controller_admin_orders_ajax_load_order);
 router.post('/push-data', controller_admin_orders_push_dala);
 router.post('/push-ghtk', controller_admin_orders_push_ghtk);
-
 router.post('/save_fee', controller_admin_orders_save_fee);
+
+router.put('/update/:order_id', controller_admin_orders_update);
+router.put('/detail/update/:detail_id', controller_admin_orders_detail_update);
+
+router.delete('/detail/delete/:detail_id', controller_admin_orders_detail_delete);
+
+
+
+
+
 
 //@
 //@

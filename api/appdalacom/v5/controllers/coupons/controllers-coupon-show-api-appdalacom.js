@@ -79,7 +79,7 @@ async  function function_export(req, res, next) {
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "controller->api-appdalacom->controllers-coupon-show-appdalacom-api.js",
+					"position" : "api->appdalacom->controllers->coupons->show",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -94,7 +94,7 @@ async  function function_export(req, res, next) {
 			}else{
 				res.send({ 
 					"error" : "02", 
-					"position" : "controller->api-appdalacom->controllers-coupon-show-appdalacom-api.js",
+					"position" : "api->appdalacom->controllers->coupons->show",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -112,7 +112,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "ctroller->api-appdalacom->controllers-coupon-add-appdalacom-api.js",
+				"position" : "api->appdalacom->controllers->coupons->show",
 				"message": error_send 
 			}); 
 			return;	
@@ -144,7 +144,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->show", 
 				"message": error_send 
 			}); 
 			return;			
@@ -176,7 +176,7 @@ async  function function_export(req, res, next) {
 					);
 				res.send({ 
 					"error" : "3333",
-					"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+					"position" : "api->appdalacom->controllers->coupons->show", 
 					"message": error_send 
 				}); 
 				return;			
@@ -205,7 +205,7 @@ async  function function_export(req, res, next) {
 					);
 				res.send({ 
 					"error" : "232",
-					"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js",  
+					"position" : "api->appdalacom->controllers->coupons->show",  
 					"message": error_send 
 				}); 
 				return;			
@@ -257,7 +257,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "105", 
-				"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->show", 
 				"message": error_send 
 			}); 
 			return;	
@@ -433,7 +433,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "ctroller->api-appdalacom->controllers-coupon-show-appdalacom-api.js", 
+				"position" : "api->appdalacom->controllers->coupons->show", 
 				"message": error_send 
 			}); 
 			return;	
@@ -481,7 +481,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"controller->coupon-update",
+			"position":"api->appdalacom->controllers->coupons->show",
 			"message": error_send 
 		}); 
 		return;			
@@ -494,7 +494,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"controller->coupon-update",
+		"position":"api->appdalacom->controllers->coupons->show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

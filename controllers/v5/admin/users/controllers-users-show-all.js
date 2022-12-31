@@ -62,7 +62,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->users->show-all",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -97,7 +97,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->appdalacom->controller->users->show-all",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -117,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->users->show-all",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;
@@ -181,7 +181,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->appdalacom->controller->users->show-all",
+				"position":"web->appdalacom->controllers->admin->users->show-all",
 				"message": error_send 
 			}); 
 			return;
