@@ -65,7 +65,7 @@
 				%>					
 				
 				<div class="row-actions">
-					<span class="edit"><a href="/admin/product/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>	
 
 					<%
@@ -109,7 +109,7 @@
 			) -%>
 			
 		</td>			
-		<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>			
+		<td><%- ojs_share_product.show_status_html(products_list[x].products_speciality_status_admin) %></td>			
 			
 	   </tr>
 

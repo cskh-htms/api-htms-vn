@@ -13,8 +13,8 @@
 //@
 //@
 //@ file config
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../../api/configs/config-api');
+const ojs_configs = require('../../../../configs/config');
+const config_api = require('../../../../api/configs/config-api');
 
 
 
@@ -24,9 +24,9 @@ const config_api = require('../../../api/configs/config-api');
 //@
 //@
 //@ file share
-const ojs_shares_show_errors = require('../../../shares/ojs-shares-show-errors');
-const ojs_shares_others = require('../../../shares/ojs-shares-others.js');
-const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
+const ojs_shares_show_errors = require('../../../../shares/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../../shares/ojs-shares-others.js');
+const ojs_shares_fetch_data = require('../../../../shares/ojs-shares-fetch-data');
 
 
 
@@ -74,9 +74,13 @@ async  function function_export(req, res, next) {
 		
 		try {
 			var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
-					ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/products/speciality/get-all', 
+					ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + '/admin/products/show-all', 
 					token
 				);	
+				
+			//res.send(data_api_resuilt);
+			//return;			
+				
 		}
 		catch(error){
 			var evn = ojs_configs.evn;

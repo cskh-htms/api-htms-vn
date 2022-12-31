@@ -1,8 +1,4 @@
 
-//@
-//@
-//@
-//@ file start
 
 const mysql = require('mysql');
 
@@ -14,7 +10,7 @@ const ojs_configs = require('../../../../configs/config');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./option-link-fields-get.js');
+const fields_get = require('./category-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
@@ -30,10 +26,6 @@ const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + 
 
 
 
-//@
-//@
-//@
-//@ export
 const function_export = async function (datas,res) {
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -67,7 +59,7 @@ const function_export = async function (datas,res) {
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "lib/options/option link search", 
+			"position" : "lib/categorys/categorys-search", 
 			"message": error_send 
 			}); 
 		return;	
@@ -79,15 +71,15 @@ const function_export = async function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi  search, Vui lòng liên hệ admin" 
+							"Lỗi category search, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/options/option link search", 
+						"position" : "lib/categorys/categorys-search", 
 						"message": error_send 
 					}); 
 					return;
@@ -102,11 +94,11 @@ const function_export = async function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				err, 
-				"Lỗi  search, Vui lòng liên hệ admin" 
+				"Lỗi category search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/options/option link search", 
+			"position" : "lib/categorys/categorys-search", 
 			"message": error_send 
 		}); 
 		return;
@@ -114,23 +106,15 @@ const function_export = async function (datas,res) {
 };	
 
 
-
-
-
-
-
-
-
-
-
-
-//@
-//@
-//@
-//@ export
 module.exports = function_export;
 
 
+/*
+@@@@
+@@@@@
+@@@@@
+@@@@@
+*/
 
 
 
@@ -139,10 +123,6 @@ module.exports = function_export;
 
 
 
-//@
-//@
-//@
-//@ file end
 
 
 

@@ -39,12 +39,13 @@ const link_default = 	" " +
 	" LEFT JOIN " + 
 		config_database.PREFIX + "service_type  ON  " + 
 		config_database.PREFIX + "stores_service_type_id  = " + 
-		config_database.PREFIX + "service_type_ID  " +    			
+		config_database.PREFIX + "service_type_ID  " +    	
+		
 		
 	" LEFT JOIN " + 
 		config_database.PREFIX +  "users  ON  " + 
 		config_database.PREFIX +  "stores_user_id = " + 
-		config_database.PREFIX +  "users_ID  " ; 
+		config_database.PREFIX +  "users_ID " ; 
 
 		
 const link_category_link = 	" " +

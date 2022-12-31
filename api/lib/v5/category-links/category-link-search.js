@@ -4,7 +4,7 @@
 //@
 //@ file start
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
@@ -59,7 +59,7 @@ const function_export = async function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -79,7 +79,7 @@ const function_export = async function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -98,7 +98,7 @@ const function_export = async function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				err, 
@@ -128,7 +128,7 @@ const function_export = async function (datas,res) {
 //@
 //@
 //@ export
-module.exports = search_category_spaciality;
+module.exports = function_export;
 
 
 

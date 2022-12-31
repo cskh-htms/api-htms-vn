@@ -1,30 +1,22 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
-<% include ../../masterpage/function-share-product %>
-<script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
 
+<script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality-admin.js"></script>	
 
-
-<% 
-if(users_type == "admin"){
-	var status_disebale = "";
-}else{
-	var status_disebale = "disabled";
-}
-%>
-
-
-
-<% menu_taget = "sidebar_san_pham" %>
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-product %>
 <% include ../../masterpage/function-share-all %>
 
 <script>
@@ -43,19 +35,23 @@ content
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
-				<h3>Tên Sản phẩm</h3>
+				<h3>Tên sản phẩm</h3>
 				<div class="inside">
 					<input type="text" value="<%-  ojs_share.unCape(datas[0].products_speciality_name) %>" id="products_speciality_name"/>
 				</div>
 			</div>
 			
 			<div class="pro_box ten_sp_box">
-				<p  style=""><span>Loại sản phẩm</span><span class="giai-thich"><span>Normal product:Bình thường, Variation product: Biến thể(đang phát triển),gift product:Sản phẩm quà tặng</span></span>	
+				<h3>Loại sản phẩm 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#loai-san-pham" target="_blank">
+				<span>Sản phẩm bình thường, Biến thể(đang phát triển) hoặc sản phẩm làm quà tặng</span>
+				</a></h3>
+				<div class="inside">
 					<select id="products_speciality_type">
 						<%- ojs_share_product.show_product_type(datas[0].products_speciality_type) %>
 					</select>	
-				</p>			
-			</div>			
+				</div>			
+			</div>
 			
 			
 			<div class="pro_box thuoc_tinh_box">
@@ -115,35 +111,34 @@ content
 			</div>
 			
 			<div class="pro_box gia_box"  style="" >
-				<h3>khuyến mãi</h3>
+				<h3>Khuyến mãi 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala" target="_blank"><span>Nội dung này chỉ hiển thị khi sản phẩm tham gia CTKM</span>
+				</a></h3>
 				<div class="inside">
-
-					
-					<p style=""><span>Giá khuyến mãi</span><span class="giai-thich"><span>Để trống nếu không KM</span></span>
+					<p style=""><span>Giá khuyến mãi</span>
 						<input 
-						class="number_change_empty" 						
+						class="number_change_empty" 
 						data_value="<%= datas[0].products_speciality_sale_of_price %>" 						
-						type="text" 
+						type="text"  
 						value=" <%- ojs_share_all.show_price_format(datas[0].products_speciality_sale_of_price,0,",",".","") %>" 
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p style="" ><span>Ngày bắt đầu KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p style="" ><span>Ngày kết thúc KM</span><span class="giai-thich"><span>Để trống nếu không KM, hoặc KM vô thời hạn</span></span><input  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p style="" ><span>Ngày bắt đầu KM</span><input  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
+					<p style="" ><span>Ngày kết thúc KM</span><input  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
 					
 					
 				</div>
 			</div>	
 			
 			<div class="pro_box ten_sp_box">
-				<h3>
-				Tồn kho
+				<h3>Tồn kho</h3>
+				<div class="inside">
 				<p style="display: inline-flex;align-items: center;cursor: pointer;" >
 					<%- ojs_share_product.show_stauts_stock(datas[0].products_speciality_stock_status) %>
 					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  for="products_speciality_stock_status" >Quản lý tồn kho</label>
-				</p>				
-				</h3>
-			
+					<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#ton-kho" target="_blank"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></a>
+				</p>
 				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  ><span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
 					<input 
 					class="number_change" 
@@ -153,6 +148,7 @@ content
 					id="products_speciality_stock" 
 					/> 
 				</p>
+				</div>
 						
 			</div>
 			
@@ -228,25 +224,7 @@ content
 			<!-- ------------------
 			//end of option
 			------------------- -->	
-		
-			<%
-			let date_create = new Date(datas[0].products_speciality_date_created);
-			let hours = date_create.getHours();
-			let minutes = date_create.getMinutes();
-			let seconds = date_create.getSeconds();
-			%>
-			<div class="pro_box thuong_hieu_box">
-				<h3>Ngày đăng</h3>	
-				<div class="inside">
-					<input  type="text" value="<%= datas[0].products_speciality_date_created %>" id="products_speciality_date_created" /> 
-					<div id="time-product">
-						<input  type="text" value="<%= hours %>" id="product-hours-create" /> 
-						<input  type="text" value="<%= minutes %>" id="product-minutes-create" /> 
-						<input  type="text" value="<%= seconds %>" id="product-seconds-create" /> 
-					</div>
-				</div>
-			</div>
-		
+			
 			<div class="pro_box thuong_hieu_box">
 				<h3>Thương hiệu</h3>	
 				<div class="inside">
@@ -265,7 +243,9 @@ content
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Ảnh đại diện 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
+				</a></h3>	
 				<div class="inside">
 					<input type="text" 
 						value="" 
@@ -286,7 +266,9 @@ content
 			//hình slider 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Bộ sưu tập (giới hạn 6 ảnh)</h3>	
+				<h3>Bộ sưu tập 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#bo-suu-tap" target="_blank"><span>Chọn thêm hình cho sản phẩm, tối đa 6 hình, tỉ lệ vuông</span>
+				</a></h3>	
 				<div class="inside">
 					
 					<input type="text" 
@@ -313,12 +295,14 @@ content
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái admin</h3>	
 				<div class="inside">
-					<!--<span>Cửa hàng:</span><span class="giai-thich"><span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.</span></span>
-					<select id="products_speciality_status_store">
-						<%- ojs_share.show_status_select_share_all_two(datas[0].products_speciality_status_store) %>
-					</select>	-->
-					<select id="products_speciality_status_admin"  <%- status_disebale %> >
-						<%- ojs_share.show_status_select_share_all(datas[0].products_speciality_status_admin) %>
+				
+					<span style="display:none;">Ẩn hiện</span><span class="giai-thich"style="display:none;"><span style="display:none;">Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
+					<select id="products_speciality_show_hide" style="display:none;">
+						<%- ojs_share.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
+					</select>	
+					
+					<select id="products_speciality_status_admin">
+						<%- ojs_share_product.show_status(datas[0].products_speciality_status_admin) %>
 					</select>
 				</div>
 			</div>
@@ -332,16 +316,8 @@ content
 	
 	
 <div class="btn_box">
-	<a href="/products/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	
-	<%
-	if( datas[0].products_speciality_status_store == "0" ){
-	%>	
-		<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
-	<%	
-	}
-	%>
-	<button id="btn_save" class="btn_save">update</button>
+	<a href="/products/speciality/" class="btn_back">Quay về</a>
+	<button id="btn_save" class="btn_save">Save</button>
 </div>	
 	
 	
@@ -387,17 +363,6 @@ $(document).ready(function($){
 	var user_id = $('#user_id').val();
 	let date_s1 = $('#products_speciality_date_start').val();
 	let date_s2 = $('#products_speciality_date_end').val();
-		
-	let date_s3 = $('#products_speciality_date_created').val();		
-
-	$( "#products_speciality_date_created" ).datepicker({
-			dateFormat: "yy-mm-dd",
-			timeFormat:  "hh:mm:ss",
-			language: 'vi'
-		}
-	).datepicker ('setDate',  new Date (date_s3));
-
-
 		
 	if(date_s1.length > 0){
 		$( "#products_speciality_date_start" ).datepicker({
@@ -569,8 +534,21 @@ $(document).ready(function($){
 	$(document).on('click','.level-2 > .cat_check_edit',function(e) {		
 		if($(this).prop( "checked" )){
 			$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
-			
+			$('#cat_87').prop('checked', false);
 		}else{
+			
+			
+			var i_check = 0;
+			$( ".cat_check_edit" ).each(function( index ) {
+				 if($(this).prop( "checked" )){
+					 i_check = i_check + 1;
+				 }
+			});			
+			
+			if(i_check <= 1){
+				$('#cat_87').prop('checked', true);
+			}
+			
 			//$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
 			$(this).parent('li').find('ul li .cat_check_edit ').prop('checked', false);
 			var ox = $(this).parent('li').parent('ul').parent('li').find('.cat_check_edit');
@@ -586,15 +564,22 @@ $(document).ready(function($){
 		}		
 	});
 	
-	
-	
 	$(document).on('click','.level-3 > .cat_check_edit',function(e) {		
 		if($(this).prop( "checked" )){
 			$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
 			$(this).parent('li').parent('ul').parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', true);
+			$('#cat_87').prop('checked', false);
 		}else{
-			//$(this).parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
-			//$(this).parent('li').parent('ul').parent('li').parent('ul').parent('li').children('.cat_check_edit').prop('checked', false);
+			var i_check = 0;
+			$( ".cat_check_edit" ).each(function( index ) {
+				 if($(this).prop( "checked" )){
+					 i_check = i_check + 1;
+				 }
+			});			
+			
+			if(i_check <= 1){
+				$('#cat_87').prop('checked', true);
+			}
 		}		
 	});	
 	
@@ -607,19 +592,27 @@ $(document).ready(function($){
 		var datas = get_datas();
 		datas.datas.products_speciality_status_store = 0;
 		console.log(datas);
-		ojs_products_speciality.ajax_update(datas,product_id);	
+		ojs_products_speciality.ajax_update_store(datas,product_id);	
 		
 	});//end of save ajax	
 	
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();	
+		
+		//alert('asdasd');
+		//return;
+	
 		var product_id = $('#product_id').val();
-		var datas = get_datas();
-		datas.datas.products_speciality_status_store = 1;		
+		var datas = get_datas();	
+		datas.datas.products_speciality_status_store = 1;
 		//console.log(datas);	
 		//return;
-		ojs_products_speciality.ajax_update_store(datas,product_id);			
+		ojs_products_speciality.ajax_update_admin(datas,product_id);			
 	});//end of save ajax
+
+
+
+
 
 
 	$(document).on('click','#products_speciality_stock_status',function(e) {		
@@ -638,6 +631,50 @@ $(document).ready(function($){
 	}
 
 
+
+	// ajax update ton kho
+	$(document).on('change','#products_speciality_stock_status,#products_speciality_stock',function(e) {		
+		e.preventDefault();
+		if($( '#products_speciality_stock_status' ).prop( "checked" )){
+			var products_speciality_stock_status = 1;	
+		}else{
+			var products_speciality_stock_status = 0;	
+		}
+		
+		//@@
+		//@@
+		var product_id = $('#product_id').val();
+		var products_speciality_stock = $('#products_speciality_stock').val();
+		var datas = {
+			"datas":{
+				products_speciality_stock : products_speciality_stock,
+				products_speciality_stock_status : products_speciality_stock_status,
+			}
+		}		
+		//console.log([datas,product_id]);
+		//return;
+		ojs_products_speciality.ajax_update_stock_admin(datas,product_id);
+		
+	});//end of save ajax
+
+
+	// ajax update ton kho
+	$(document).on('change','#products_speciality_show_hide',function(e) {		
+		e.preventDefault();
+		//@@
+		//@@
+		var product_id = $('#product_id').val();
+		var products_speciality_show_hide = $('#products_speciality_show_hide').val();
+		var datas = {
+			"datas":{
+				products_speciality_show_hide : products_speciality_show_hide
+			}
+		}		
+		//console.log([datas,product_id]);
+		//return;
+		ojs_products_speciality.ajax_update_show_hide(datas,product_id);
+		
+	});//end of save ajax
 
 
 
@@ -693,7 +730,7 @@ $(document).ready(function($){
 		var products_speciality_type = $('#products_speciality_type  option:selected').val();
 		
 		var products_speciality_status_admin = $('#products_speciality_status_admin  option:selected').val();
-		
+		var products_speciality_show_hide = $('#products_speciality_show_hide  option:selected').val();
 		
 		
 		var products_speciality_sku = $('#products_speciality_sku').val();
@@ -718,39 +755,6 @@ $(document).ready(function($){
 		
 		var date_01 = $('#products_speciality_date_start').datepicker( "getDate" );
 		var products_speciality_date_start = $.datepicker.formatDate("yy-mm-dd", date_01);
-
-		var date_03 = $('#products_speciality_date_created').datepicker( "getDate" );
-		var products_speciality_date_created = $.datepicker.formatDate("yy-mm-dd", date_03);
-		
-		var hours = $('#product-hours-create').val();
-		var minutes = $('#product-minutes-create').val();
-		var seconds = $('#product-seconds-create').val();
-		
-		//@hour
-		if(hours == ""){
-			hours = 00;
-		}
-		if(hours.length == 1 ){
-			hours = "0" + hours;
-		}
-		
-		//@minutes
-		if(minutes == ""){
-			minutes = 00;
-		}
-		if(minutes.length == 1 ){
-			minutes = "0" + minutes;
-		}		
-		
-		//@seconds
-		if(seconds == ""){
-			seconds = 00;
-		}
-		if(seconds.length == 1 ){
-			seconds = "0" + seconds;
-		}			
-		
-		products_speciality_date_created = products_speciality_date_created + " " + hours + ":" + minutes + ":" + seconds
 
 		
 		var date_02 = $('#products_speciality_date_end').datepicker( "getDate" );
@@ -831,7 +835,6 @@ $(document).ready(function($){
 				products_speciality_price : products_speciality_price,
 				products_speciality_sale_of_price : products_speciality_sale_of_price,
 				products_speciality_date_start : products_speciality_date_start,
-				products_speciality_date_created : products_speciality_date_created,
 				products_speciality_date_end : products_speciality_date_end,
 				products_speciality_stock : products_speciality_stock,
 				products_speciality_stock_status : products_speciality_stock_status,
@@ -842,7 +845,8 @@ $(document).ready(function($){
 				products_speciality_length : products_speciality_length,
 				products_speciality_weight : products_speciality_weight,
 				products_speciality_qoute : products_speciality_qoute,
-				products_speciality_status_admin : products_speciality_status_admin				
+				products_speciality_status_admin : products_speciality_status_admin,
+				products_speciality_show_hide :products_speciality_show_hide				
 			}
 		}
 		return datas;
@@ -871,6 +875,48 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

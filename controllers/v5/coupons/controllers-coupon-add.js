@@ -101,7 +101,7 @@ async  function function_export(req, res, next) {
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
-				"Lỗi lấy api" 
+				data_api_resuilt.message
 			);
 			res.send({ 
 				"error" : "99", 

@@ -70,67 +70,8 @@ $(document).ready(function($){
 		//@
 		//@
 		//@
-		//@
-		//@
-		//@
-		//@	4. [ajax_load_products]		
-		ajax_load_products_admin : function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/ajax-products-list-admin/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					console.log(result);
-					//ojs_loadding.ajax_hide_loadding();	
-					//return;
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save			
-		//@
-		//@
-		//@	4. [ajax_load_products]		
-		ajax_load_products_table_admin	: function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/ajax-products-list-table-admin/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					console.log(result);
-					//ojs_loadding.ajax_hide_loadding();	
-					//return;
-					$('#ajax-table').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save
-		//@
-		//@
+			
+
 		//@
 		//@
 		//@	4. [ajax_load_products]		

@@ -1,6 +1,6 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
