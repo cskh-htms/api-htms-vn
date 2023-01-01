@@ -28,6 +28,9 @@ const  default_fields = {
 				products_speciality_excerpt : '',	
 				products_speciality_qoute : '',
 				
+				products_speciality_show_hide : 0,
+				
+				
 				products_speciality_height : null,
 				products_speciality_width : null,
 				products_speciality_length : null,

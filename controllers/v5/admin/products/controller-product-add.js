@@ -112,8 +112,8 @@ async  function function_export(req, res, next) {
 			}); 
 			return;			
 		}		
-		res.send(data_api_resuilt);
-		return;
+		//res.send([data_api_resuilt.datas[0].insertId]);
+		//return;
 		
 		
 		
@@ -145,14 +145,11 @@ async  function function_export(req, res, next) {
 		
 		
 		
-		
-		
-		
-		
 		//@ send 
-		res.send({"error":"","datas":data_api_resuilt});
-		return;
-			
+		res.redirect("/products/speciality/show/" + data_api_resuilt.datas[0].insertId + "/" + store_id + "/");
+		return;		
+		
+		
 
 	//@
 	//@

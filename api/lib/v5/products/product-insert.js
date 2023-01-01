@@ -15,17 +15,17 @@ const fields_insert = require('./product-fields-insert.js');
 
 const function_export = function (data,res) {
 	
-	var datas = data.datas;
+	var datao = data.datas;
 	var cat_string = JSON.parse(data.cat_string);
 	
-	
+	var datas = Object.assign(fields_insert.default_fields, datao);
 	
 	
 	var sql_text = "";
 	var dataGo = {
-		"products_speciality_name" : mysql.escape(datas.products_speciality_name).replace(/^'|'$/gi, ""),
-		"products_speciality_type" :  datas.products_speciality_type,
-		"products_speciality_sku" : mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
+		"products_speciality_name" 	: mysql.escape(datas.products_speciality_name).replace(/^'|'$/gi, ""),
+		"products_speciality_type" 	:  datas.products_speciality_type,
+		"products_speciality_sku" 	: mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
 		"products_speciality_store_id" : datas.products_speciality_store_id,
 		"products_speciality_parent_id" : datas.products_speciality_parent_id,
 		
@@ -77,8 +77,13 @@ const function_export = function (data,res) {
 	
 	
 	sql_text = sql_text + " COMMIT;"		
+	//res.send([sql_text]);
+	//return;
 	
+
+
 	
+
 
 	//@
 	//@
@@ -89,7 +94,7 @@ const function_export = function (data,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -108,7 +113,7 @@ const function_export = function (data,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
