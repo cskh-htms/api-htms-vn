@@ -27,7 +27,7 @@ const ojs_configs = require('../../../../configs/config');
 //@ model
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./store-fields-get');
+const fields_get = require('./category-fields-get.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 
@@ -42,14 +42,14 @@ const function_export = function (id,res) {
 
 	try{	
 		var get_sql_search_group = "SELECT " + 
-			fields_get.fields_search + 
+			fields_get.fields_get + 
 			fields_get.from_default + 
 			fields_get.link_default + 
-			"where " + config_database.PREFIX + "stores_ID =" + id;  
+			"where " + config_database.PREFIX + "category_general_speciality_ID =" + id;  
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -77,7 +77,7 @@ const function_export = function (id,res) {
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/stores/store-get-one", 
+						"position" : "lib/stores/category-get-one", 
 						"message": error_send 
 					}); 
 					return;
@@ -92,11 +92,11 @@ const function_export = function (id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get one, Vui lòng liên hệ admin" 
+				"Lỗi gett one, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/store-get-one", 
+			"position" : "lib/stores/category-get-one", 
 			"message": error_send 
 		}); 
 		return;
