@@ -49,7 +49,7 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 //@
 //@ model
 const connection = require('../connections/connections');
-const fields_insert = require('./store-fields-insert.js');
+const fields_insert = require('./category-fields-insert.js');
 
 
 
@@ -94,8 +94,8 @@ const function_export = async function (datas,id,res) {
 		i = i + 1 ;
 	});		
 
-	let table_name  = config_database.PREFIX + "stores ";
-	let field_where  = config_database.PREFIX + "stores_ID ";
+	let table_name  = config_database.PREFIX + "category_general_speciality ";
+	let field_where  = config_database.PREFIX + "category_general_speciality_ID ";
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ id + '"';
 	
 	//return(sql_text);
@@ -116,7 +116,7 @@ const function_export = async function (datas,id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib/stores/store-update",
+						"position" : "lib/category_general_speciality/store-update",
 						"message": error_send 
 					}); 
 					return;	
@@ -135,7 +135,7 @@ const function_export = async function (datas,id,res) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/store-update",
+			"position" : "lib/category_general_speciality/store-update",
 			"message": error_send 
 		}); 
 		return;

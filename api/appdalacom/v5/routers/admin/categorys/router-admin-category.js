@@ -46,6 +46,22 @@ require(
 	'../../../controllers/admin/categorys/controller-admin-category-show.js'
 );
 
+const controller_admin_category_update =  
+require(
+	'../../../controllers/admin/categorys/controller-admin-category-update.js'
+);
+
+
+const controller_admin_category_delete =  
+require(
+	'../../../controllers/admin/categorys/controller-admin-category-delete.js'
+);
+
+
+
+
+
+
 
 
 //@
@@ -57,6 +73,9 @@ router.post('/ajax-list/', middle_ware, controller_admin_category_ajax_list );
 router.get('/add/', middle_ware, controller_admin_category_add );
 router.post('/save/', middle_ware, controller_admin_category_save );
 router.get('/show/', middle_ware, controller_admin_category_show );
+
+router.put('/update/', middle_ware, controller_admin_category_update );
+router.delete('/delete/', middle_ware, controller_admin_category_delete );
 
 
 

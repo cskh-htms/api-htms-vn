@@ -151,22 +151,27 @@ async  function function_export(req, res, next) {
 				'menu_taget'		: 'sidebar_category',
 				'sidebar_type'		:  "",
 				
-				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 			: data_api_resuilt[2],
+				'news_admin_menu' 		: data_api_resuilt[1],
+				'datas' 				: data_api_resuilt[2],
+				'datas_category_general'	: data_api_resuilt[3],
 			}
 			
 			
 			data_send = {
-				'title' 			: 'Chỉnh sửa tài khoản',
+				'title' 			: 'Chỉnh sửa danh mục',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'category_id' 			: ojs_shares_others.get_users_id(token),
+				'users_role' 		: ojs_shares_others.get_users_type(token),
+				'user_id' 			: ojs_shares_others.get_users_id(token),
+				'cat_id' 			: category_id,
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_danh_sach_tai_khoan',
+				'service_type'		: "speciality",
+				'menu_taget'		: 'sidebar_category',
 				'sidebar_type'		:  "",
 				
-				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 			: data_api_resuilt[2],
+				'news_admin_menu' 		: data_api_resuilt[1],
+				'datas' 				: data_api_resuilt[2],
+				'datas_category_general'	: data_api_resuilt[3],
 				
 				'datas_info'			: datas_info			
 			}
@@ -175,7 +180,7 @@ async  function function_export(req, res, next) {
 			//res.send(data_send);
 			//return;
 			
-			res.render( ojs_configs.view_version + '/users/admin-show', data_send );
+			res.render( ojs_configs.view_version + '/categorys/general/speciality/admin-show', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;

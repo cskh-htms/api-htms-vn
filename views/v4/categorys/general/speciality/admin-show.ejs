@@ -4,29 +4,9 @@
 
 
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality.js"></script>	
+<script src="../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality-admin.js"></script>	
 
 
-
-
-
-
-
-
-
-<% //neu admin thi hien muc nay
-sidebar_type = 3;
-menu_taget = "sidebar_category";
-var	enable_text = " disabled " ;
-var	enable_text2 = " " ;
-var	enable_text3 = " disabled " ;
-
-if(user_role =="admin"){ 
-	enable_text3 = "" ;
-	enable_text2 = " disabled "
-}
-
-%>
 
 
 
@@ -39,7 +19,7 @@ if(user_role =="admin"){
 page wrap 
 --------------------- -->
 <% include ../../../masterpage/header %>
-
+<% include ../../../masterpage/function-share-category %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -49,9 +29,12 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content category">
+	<h1><a href="/admin/">home</a><i class="fas fa-chevron-right"></i>
+	<a href="/categorys/general/speciality/">Danh mục</a><i class="fas fa-chevron-right"></i>Sửa danh mục</h1>
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/categorys/general/speciality/<%= store_id %>">Danh mục</a><i class="fas fa-chevron-right"></i>Sửa danh mục</h1>
+
+
+
 
 	<div class="pro_content_edit">
 		<div class="pro_col01">
@@ -93,7 +76,7 @@ content
 				<h3>Danh mục cha</h3>
 				<div id="category_general_box" class="inside">
 					<select name="category_general" id="category_general_speciality_category_parent_id" >
-						<% include ../../../masterpage/widget-category-general-check-box %>
+						<% include ../../../masterpage/widget-category-general-check-box-admin-show %>
 					</select>
 				</div>
 			</div>
@@ -130,17 +113,17 @@ content
 			<div class="pro_box">
 				<h3>Ẩn hiện danh mục</h3>
 				<div class="select-wrap inside">
-					<select id="category_general_speciality_show" <%- enable_text3 %>>
+					<select id="category_general_speciality_show">
 						<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
 					</select>		
 				</div>
 			</div>
 			
 
-			<div class="pro_box">
+			<div class="pro_box" style="display:none;">
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
-					<select id="category_general_speciality_stores_status"  <%- enable_text3 + " " + enable_text2 %> >
+					<select id="category_general_speciality_stores_status">
 						<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
 					</select>
 				</div>
@@ -150,8 +133,8 @@ content
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
-					<select id="category_general_speciality_admin_status" <%- enable_text3 %>>
-						<%- ojs_share.show_status_select_share_all(datas[0].category_general_speciality_admin_status ) %>
+					<select id="category_general_speciality_admin_status">
+						<%- ojs_share_category.show_status(datas[0].category_general_speciality_admin_status ) %>
 					</select>
 				</div>
 			</div>
@@ -163,16 +146,10 @@ content
 
 
 
-	<div class="btn_box">
-		<a href="/categorys/general/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-		<%
-		if( datas[0].category_general_speciality_stores_status == "0" ){
-		%>	
-			<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
-		<%	
-		}
-		%>			
 
+
+	<div class="btn_box">
+		<a href="/categorys/general/speciality/" class="btn_back">Quay về</a>
 		<button id="btn_save" class="btn_save">Lưu</button>
 	</div>	
 		
@@ -180,10 +157,6 @@ content
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>
 	<input type="hidden" id="cat_id" value="<%= cat_id %>"/>
 	<input type="hidden" id="store_id" value="<%= datas[0].category_general_speciality_stores_id %>"/>
-
-
-
-
 
 
 
@@ -263,24 +236,9 @@ $(document).ready(function($){
 	
 	
 	
-	//@
-	//@
-	//@
-	//@
-	var store_id = $('#store_id').val();	
-	var cat_id = $('#cat_id').val();	
-	$(document).on('click','#btn_draf',function(e) {		
-		e.preventDefault();
-		var datas = get_datas();	
-		
-		datas.datas.category_general_speciality_stores_status = 0;
-		
-		//console.log(datas);
-		//return;
-		
-		ojs_category_general_speciality.ajax_update(datas,cat_id);
-	});
-	
+
+
+
 	//@
 	//@
 	//@
@@ -288,12 +246,12 @@ $(document).ready(function($){
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
-		datas.datas.category_general_speciality_stores_status = 1;
-		
+		datas.datas.category_general_speciality_update_status = 1;
+		var cat_id = $('#cat_id').val();
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_update(datas,cat_id);
+		ojs_category_general_speciality.ajax_update_admin(datas,cat_id);
 	});	
 	
 	
@@ -324,7 +282,7 @@ $(document).ready(function($){
 		let category_general_speciality_qoute = $('#category_general_speciality_qoute').val();
 		
 		
-			
+		var store_id = $('#store_id').val();	
 		
 		//
 		let datas = {
@@ -358,3 +316,14 @@ $(document).ready(function($){
 
 
 <% include ../../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+

@@ -288,8 +288,22 @@ ojs_loadding_message_callback = {
 		let cat_id = datas_parse.cat_id;
 		ojs_category_general_speciality.ajax_delete(cat_id);
 	},
-	//
-	//
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@xoa category admin
+	delete_category_general_speciality_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let cat_id = datas_parse.cat_id;
+		ojs_category_general_speciality.ajax_delete_admin(cat_id);
+	},	
+	
+	
 	//
 	//xoa option
 	delete_option_speciality:function(datas){

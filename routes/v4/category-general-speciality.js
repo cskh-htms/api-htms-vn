@@ -64,6 +64,23 @@ require(
 	'/admin/categorys/controller-category-show.js'
 );
 
+const controller_category_update= 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/categorys/controller-category-update.js'
+);
+
+const controller_category_delete= 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/categorys/controller-category-delete.js'
+);
+
+
+
+
 
 
 
@@ -77,8 +94,8 @@ router.post('/ajax-list/', controller_category_ajax_list);
 router.get('/add/:store_id', controller_category_add);
 router.post('/save/', controller_category_save);
 router.get('/show/:category_id', controller_category_show);
-
-
+router.put('/update/:category_id', controller_category_update);
+router.delete('/delete/:category_id', controller_category_delete);
 
 
 
