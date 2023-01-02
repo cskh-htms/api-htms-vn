@@ -1,8 +1,8 @@
 <% include ../masterpage/loader %>
-
-
-<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/style-level-2.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <script src="../../../../<%= js_css_version %>/javascripts/class-stores-admin.js"></script>	
+
+
 
 
 <div id="page_wrap" class="page_wrap">
@@ -13,7 +13,7 @@ page wrap
 --------------------- -->
 <% include ../masterpage/header %>
 <% include ../masterpage/function-share-all-admin %>
-
+<% include ../masterpage/function-share-store %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -44,9 +44,6 @@ content
 		<thead>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
-				<th class="user-role">Doanh thu tháng này</th>
-				<th class="user-role">Doanh thu<span class="hanmuc">Hạn mức</span></th>
-				<th>Thanh toán</th>
 				<th>Chủ cửa hàng</th>
 				<th class="user-name">Địa chỉ</th>
 				<th class="user-role">Admin duyệt</th>
@@ -60,9 +57,6 @@ content
 		<tfoot>
 			<tr>
 				<th class="user-name">Tên cửa hàng</th>
-				<th class="user-role">Doanh thu tháng này</th>
-				<th class="user-role">Doanh thu<span class="hanmuc">Hạn mức</span></th>
-				<th>Thanh toán</th>
 				<th>Chủ cửa hàng</th>
 				<th class="user-name">Địa chỉ</th>
 				<th class="user-role">Admin duyệt</th>

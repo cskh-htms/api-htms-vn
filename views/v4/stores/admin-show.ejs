@@ -1,9 +1,14 @@
-
-
 <% include ../masterpage/loader %>
-<% include ../masterpage/function-share-store %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store.css' />
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores-admin.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-local.js"></script>	
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -15,7 +20,13 @@ page wrap
 
 
 
+
+<% include ../masterpage/function-share-store %>
+<% include ../masterpage/function-share-all-admin %>
 <% include ../masterpage/header %>
+
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -37,7 +48,7 @@ content
 	---------------------------- -->
 	<div class="store_content">
 	<div class="white_box">
-		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
+		<p><span>Tên cửa hàng</span><input type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].stores_name) %>" id="stores_name"/></p>
 		<div id="loai_service_wrap"  style="display:none;" >
 			<span >Loại dịch vụ </span>
 			<select name="stores_service_type_id" id="stores_service_type_id" style="display:none;" >
@@ -55,13 +66,13 @@ content
 		<div class="select-box-tinh-thanh">
 		<span>Tỉnh thành</span>
 		<select id="select_stores_province">
-			<%- ojs_share.show_local_province(datas_local,datas[0].stores_province) %>
+			<%- ojs_share_store.show_local_province(datas_local,datas[0].stores_province) %>
 		</select>
 		<p style="display:none"><span>Tỉnh thành</span>
 			<input type="text" class= "" 
-			value="<%- ojs_share.unCape(datas[0].stores_province) %>" 
+			value="<%- ojs_share_all.unCape(datas[0].stores_province) %>" 
 			id="stores_province" 
-			data_value="<%- ojs_share.unCape(datas[0].stores_province) %>"
+			data_value="<%- ojs_share_all.unCape(datas[0].stores_province) %>"
 			/>
 		</p>
 		</div>	
@@ -76,13 +87,13 @@ content
 		<div class="select-box-tinh-thanh">
 		<span>Quận huyện</span>
 		<select id="select_stores_district">
-			<%- ojs_share.show_local_district(datas_local,datas[0].stores_province,datas[0].stores_district) %>
+			<%- ojs_share_store.show_local_district(datas_local,datas[0].stores_province,datas[0].stores_district) %>
 		</select>	
 		<p style="display:none"><span>Quận huyện</span>
 			<input type="text" 
 			class= "" 
-			value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
-			data_value="<%- ojs_share.unCape(datas[0].stores_district) %>" 
+			value="<%- ojs_share_all.unCape(datas[0].stores_district) %>" 
+			data_value="<%- ojs_share_all.unCape(datas[0].stores_district) %>" 
 			id="stores_district"
 			/>
 		</p>
@@ -97,13 +108,13 @@ content
 		<div class="select-box-tinh-thanh">
 		<span>Phường xã</span>
 		<select id="select_stores_wards">
-			<%- ojs_share.show_local_wards(datas_local,datas[0].stores_district,datas[0].stores_wards) %>
+			<%- ojs_share_store.show_local_wards(datas_local,datas[0].stores_district,datas[0].stores_wards) %>
 		</select>		
 		<p style="display:none"><span>Phường xã</span>
 			<input type="text" 
 			class= "" 
-			value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
-			data_value="<%- ojs_share.unCape(datas[0].stores_wards) %>" 
+			value="<%- ojs_share_all.unCape(datas[0].stores_wards) %>" 
+			data_value="<%- ojs_share_all.unCape(datas[0].stores_wards) %>" 
 			id="stores_wards"
 			/>
 		</p>
@@ -113,10 +124,10 @@ content
 		
 		
 		
-		<p><span>Địa chỉ</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_adress) %>" id="stores_adress"/></p>
+		<p><span>Địa chỉ</span><input type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].stores_adress) %>" id="stores_adress"/></p>
 		<p>
 			<span>Điện thoại liên hệ</span><input type="text" class= "" 
-			value="<%- ojs_share.unCape(datas[0].stores_phone) %>" id="stores_phone"/>
+			value="<%- ojs_share_all.unCape(datas[0].stores_phone) %>" id="stores_phone"/>
 			<span class="giai-thich"><span>Điện thoại để shipper liên hệ lấy hàng đi giao</span></span>
 		</p>
 		<br>		
@@ -124,16 +135,16 @@ content
 
 		<p>
 			<span>Email liên hệ</span><input type="text" class= "" 
-			value="<%- ojs_share.unCape(datas[0].stores_email) %>" id="stores_email"/>
+			value="<%- ojs_share_all.unCape(datas[0].stores_email) %>" id="stores_email"/>
 			<span class="giai-thich"><span>Email nhận thông tin đơn hàng</span></span>
 		</p>
 		<br>	
 		
 
-		<p  style="display:none;" ><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
+		<p  style="display:none;" ><span>Tọa độ X</span><input type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].stores_local_x) %>" id="stores_local_x"/>
 		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
-		<p  style="display:none;" ><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
-		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>	
+		<p  style="display:none;" ><span>Tọa độ Y</span><input type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].stores_local_y) %>" id="stores_local_y"/></p>
+		<p style="display:none"><span>Local adress</span><input type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].stores_local_adress) %>" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>	
 	
 	</div>	
 	<!-- --------------------------
@@ -163,11 +174,11 @@ content
 	
 	
 	
-		<p>
+		<p style="display:none;">
 			<span>Hạn mức thanh toán</span>
 			<input type="text" class= "number_change" 
 				data_value="<%= datas[0].stores_payment_limit %>" 
-				value="<%- ojs_share.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>" 
+				value="<%- ojs_share_all.show_price_format(datas[0].stores_payment_limit,0,",",".","") %>" 
 				id="stores_payment_limit"
 			/>
 			<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng. Để trống sẽ thanh toán theo ngày</span></span>
@@ -183,7 +194,7 @@ content
 			<textarea id="stores_info_banking" 
 				class="area365" rows="10" cols="100%" 
 				placeholder="Nhập số tài khoản, ngân hàng và tên chủ tài khoản." >
-				<%- ojs_share.unCape(datas[0].stores_info_banking) %>
+				<%- ojs_share_all.unCape(datas[0].stores_info_banking) %>
 			</textarea>
 		</p>	
 		
@@ -199,6 +210,13 @@ content
 		<p>Sắp xếp<span class="giai-thich"><span>Để sắp xếp thứ tự cửa hàng, ưu tiên số cao(muốn đứng đầu nhập số lớn nhất)</span></span>
 			<input type="text"  id="stores_sort_order" value="<%= datas[0].stores_sort_order %>"/>
 		</p>	
+	
+	
+	
+	
+
+	
+	
 	
 	
 	
@@ -219,18 +237,35 @@ content
 		<h3>Logo cửa hàng</h3>	
 		<div class="inside l-ed">
 			<input type="text" value="" id="featured_image"
-			data_value="<%-  ojs_share.unCape( datas[0].stores_logo_image ) %>"
+			data_value="<%-  ojs_share_all.unCape( datas[0].stores_logo_image ) %>"
 			style="display:none;" />
 			<input type="button" value="Thêm ảnh" id="btn_featured_image">
 			<div id="img_box_dai_dien"></div>
 			<input type='file' accept="image/*" id='upload_image' style="display:none;">
 		</div>
+		
+		
+		
+		
+		<br>
+		<div class="pro_box">
+			<h3>Trạng thái</h3>
+			<div class="inside">
+				<select id="stores_status_admin">
+					<%- ojs_share_store.show_status_select_store(datas[0].stores_status_admin ) %>
+				</select>
+			</div>
+		</div>			
+		
 	</div>
 	<!-- ------------------
 	// end of hình đại diện 
 	------------------- -->		
 	
 	
+	
+	
+
 	
 	
 	
@@ -293,7 +328,7 @@ $(document).ready(function($){
 	//
 
 	//@
-	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
 	
@@ -310,7 +345,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	
 	
@@ -332,12 +367,12 @@ $(document).ready(function($){
 		//return;
 		
 		
-		//ojs_loader.delete_s3(url);
-		ojs_loader.delete_wp(url);
+		//ojs_share_upload.delete_s3(url);
+		ojs_share_upload.delete_wp(url);
 		$('#featured_image').attr("data_value","");
 		//xoa html
 		$(this).parent(".img_box").remove();
-		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
 	});			
 	//		
 	//		
@@ -426,16 +461,16 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_stores.ajax_update_admin(datas,store_id);	
+		ojs_stores_admin.ajax_update_admin(datas,store_id);	
 		
 	});//end of save ajax
 	//
 	
 	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
 		//console.log(datas);
-		var tinh_thanh = ojs_loader.get_tinh_thanh(datas);
-		ojs_loader.tinh_thanh_datas = datas;
-		console.log(ojs_loader.tinh_thanh_datas);
+		var tinh_thanh = ojs_share_local.get_tinh_thanh(datas);
+		ojs_share_local.tinh_thanh_datas = datas;
+		console.log(ojs_share_local.tinh_thanh_datas);
 	});	
 	
 	
@@ -448,14 +483,14 @@ $(document).ready(function($){
 
 		//@		
 		var taget = $(this).val();
-		var quan_huyen =  ojs_loader.get_quan_huyen(ojs_loader.tinh_thanh_datas,taget);
+		var quan_huyen =  ojs_share_local.get_quan_huyen(ojs_share_local.tinh_thanh_datas,taget);
 		
 		$('#select_stores_district').html(quan_huyen);
 		$('#select_stores_wards').html('<option value="0"></option>');
 		
 		//@
 		//@		
-		ojs_loader.set_value_local();
+		ojs_share_local.set_value_local();
 		//return;	
 	});//end of
 	//
@@ -464,13 +499,13 @@ $(document).ready(function($){
 		e.preventDefault();
 		
 		var taget = $(this).val();
-		var phuong_xa =  ojs_loader.get_phuong_xa(ojs_loader.tinh_thanh_datas,taget);
+		var phuong_xa =  ojs_share_local.get_phuong_xa(ojs_share_local.tinh_thanh_datas,taget);
 		
 		$('#select_stores_wards').html(phuong_xa);
 		
 		//@
 		//@		
-		ojs_loader.set_value_local();		
+		ojs_share_local.set_value_local();		
 		//return;	
 	});//end of	
 	
@@ -481,7 +516,7 @@ $(document).ready(function($){
 		e.preventDefault();
 		//@
 		//@		
-		ojs_loader.set_value_local();		
+		ojs_share_local.set_value_local();		
 		//return;	
 	});//end of			
 	

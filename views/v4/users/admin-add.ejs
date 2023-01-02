@@ -1,11 +1,6 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-<% if( typeof js_css_version == 'string' && js_css_version){ } else{ js_css_version="" } %>
-
-
-
-
-
 <% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/user.css' />
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-users.js"></script>	
 

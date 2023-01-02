@@ -40,15 +40,18 @@ async  function store_order_get_all(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"web/controller/admin/stores/controllers-admin-store-add.js",
+			"position":"web->controllers->admin->stores->controllers-admin-store-add.js",
 			"message": error_send 
 		}); 
 		return;			
-	}
-	
-	
-	//res.send( [token] );
+	}	
+	//res.send( ["ok"]);
 	//return;	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -64,6 +67,9 @@ async  function store_order_get_all(req, res, next) {
 		
 	//res.send( [data_api_resuilt] );
 	//return;	
+		
+		
+		
 		
 		
 	if(data_api_resuilt.error){
@@ -82,7 +88,7 @@ async  function store_order_get_all(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"web/controller/admin/stores/controllers-admin-store-add.js",
+			"position":"web->controllers->admin->stores->controllers-admin-store-add.js",
 			"message": error_send 
 		}); 
 		return;
@@ -141,7 +147,7 @@ async  function store_order_get_all(req, res, next) {
 			'datas_info'			: datas_info			
 		}
 	
-		res.render( ojs_configs.view_version + '/bussiness/admin-bussiness-store-add', data_send  );	
+		res.render( ojs_configs.view_version + '/stores/admin-add', data_send  );	
 		
 		
 	}
@@ -149,7 +155,7 @@ async  function store_order_get_all(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","position":"web/controller/admin/stores/controllers-admin-store-add.js", "message": error_send } ); 
+			res.send({ "error" : "100","position":"web->controllers->admin->stores->controllers-admin-store-add.js", "message": error_send } ); 
 			return;		
 	}			
 };

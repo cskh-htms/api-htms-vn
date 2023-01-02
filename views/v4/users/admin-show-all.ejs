@@ -1,13 +1,10 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-<% if( typeof js_css_version == 'string' && js_css_version){ } else{ js_css_version="" } %>
-
-
-
-
-
 <% include ../masterpage/loader %>
-
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <script src="../../../../<%= js_css_version %>/javascripts/class-users.js"></script>	
+
+
+
+
 
 
 <div id="page_wrap" class="page_wrap">
@@ -17,7 +14,7 @@
 page wrap 
 --------------------- -->
 <% include ../masterpage/header %>
-
+<% include ../masterpage/function-share-all-admin %>
 
 
 <script>

@@ -11,7 +11,7 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 const controller_bussiness_by_user_id = require('../../controllers/' + ojs_configs.controller_version + '/bussiness/controllers-bussiness-by-user-id.js');
-const controller_store_add = require('../../controllers/' + ojs_configs.controller_version + '/admin/stores/controllers-stores-add.js');
+//const controller_store_add = require('../../controllers/' + ojs_configs.controller_version + '/admin/stores/controllers-stores-add.js');
 
 //end of v5
 
@@ -68,7 +68,7 @@ const ojs_datas_orders = require('../../models/ojs-datas-orders');
 
 
 router.get('/:user_id', controller_bussiness_by_user_id);
-router.get('/stores/add/', controller_store_add);
+//router.get('/stores/add/', controller_store_add);
 
 
 //@

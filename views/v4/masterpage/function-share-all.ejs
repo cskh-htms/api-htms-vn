@@ -9,73 +9,20 @@
 - Ưu tiên viết thêm vào không ưu tiên sữa và xoá
 */
 
-/* 
 
+
+
+
+
+/* 
 -------------------------------------------------
-*  [format_date] -> format_date(datas)
-	- Hàm này format kiểu ngày tháng trong database thàng chuỗi ngày tháng
-	. datas là một ngày tháng kiễu dữ liệu từ database
-	-> chuỗi ngày tháng đã format (2022/12/22 00:00:00)
-	
-	
-	
-*  [show_price_format] -> show_price_format(ojs,c, d, t,dv)
-	- 	Hàm này format kiểu số sang kiểu có dấu chấm ở việt nam
-			có thể thêm format đơn vị như (VND đ ....)
-	. 	datas là 1 số nguên chưa format (10000000)
-			ojs : số nguyên (10000000)
-			c : Số sau dấu phẩy (0,123)
-			d : Dấu phân cách phầ lể (100,123)
-			t : Dấu phân cách phần đơn vị(1.000.000,0000)
-			dv : Đơn vị (VND -Đ ....)
-	-> 	số đã format 
-			(100.000.000)	
-			(100.000.000 vnd)	
-	
-	~  show_price_format(100000,0,",",".","đ")
-	
-	
-	
-*  [[unCape]] -> loai (datas)
-	- Hàm này format kiểu ngày tháng trong database thàng chuỗi ngày tháng
-	. datas là một ngày tháng kiễu dữ liệu từ database
-	-> chuỗi ngày tháng đã format (2022/12/22 00:00:00)	
-	
-	
-	
-	
+*  [format_date]	
+*  [show_price_format]
+*  [unCape]	
 *  [unCape]
-	- 	Hàm này loại bỏ các ký tự đặt biệt dữ liệu từ trong databae
-			tránh gặp lỗi trong html 
-	. 	datas là 1 chuỗi text từ trong databas
-	
-	-> 	chuỗi đã lam sạch	
-	~  unCape(string)	
-	
-	
-	
-	
+*  [show_status]	
 *  [show_status_html]
-	- 	Hàm này hiễn thị trạng thái trên bảng show html
-	. 	datas là 1 số trạng thái [0.2.3.....]
-	
-	-> 	trạng thái dạng html	
-	~   show_status_html(status_number)		
-	
-	
-	
-*  [show_status_html]
-	- 	Hàm này hiễn thị trạng thái dạng delect box
-	. 	datas là 1 số trạng thái [0.2.3.....]
-	
-	-> 	một select box dạng trạng thái	
-	~   show_status(status_number)			
-	
-	
-	
-	
-	
-	
+		
 --------------------------------------------------
 */
 
@@ -85,14 +32,17 @@
 
 
 
-
+//@
+//@
+//@
+//@ object start
 ojs_share_all = {	
 	
 	
 	//@
 	//@
 	//@
-	//@
+	//@ [show_status_html]
 	//@ hien thi trang  thai san pham html	
 	show_status_html: function(status){
 		//
@@ -123,7 +73,7 @@ ojs_share_all = {
 	//@
 	//@
 	//@
-	//@ hien thi trang  thai san pham update
+	//@ [show_status]
 	show_status: function(status){
 		let t = "";
 		let s = " selected ";
@@ -150,10 +100,6 @@ ojs_share_all = {
 		//	
 		return result;	
 	},		
-	
-	
-	
-	
 	
 	
 	
@@ -225,6 +171,12 @@ ojs_share_all = {
 	},	
 	
 
+
+
+//@
+//@
+//@
+//@ end of object
 }
 %>
 

@@ -1,8 +1,8 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-
-
 <% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/user-show.css' />
+
+
 
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-users.js"></script>
@@ -14,7 +14,7 @@
 page wrap 
 --------------------- -->
 <% include ../masterpage/header %>
-
+<% include ../masterpage/function-share-all-admin %>
 
 
 <script>

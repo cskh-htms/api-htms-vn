@@ -379,7 +379,7 @@ ojs_loadding_message_callback = {
 	admin_delete_store:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let store_id = datas_parse.store_id;
-		ojs_stores.ajax_delete_admin(store_id);
+		ojs_stores_admin.ajax_delete_admin(store_id);
 	},//end of xoa san pham dac san	
 	
 	//

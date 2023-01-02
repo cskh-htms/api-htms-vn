@@ -63,16 +63,45 @@ require(
 );
 
 
+
+const controller_admin_stores_add = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/stores/controllers-admin-stores-add.js'
+);
+
+
+const controller_admin_stores_save = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/stores/controllers-admin-stores-save.js'
+);
+
+
+
+
+
 //@
 //@
 //@
 //@ router
-router.get('/manage/orders/:store_id/:status_int', controller_store_order_get_all);
-router.get('/manage/:store_id/:user_id', controller_store_manage);
 router.get('/', controller_admin_stores_show_all);
-router.get('/delete/:store_id', controller_admin_stores_delete);
 router.get('/show/:store_id', controller_admin_stores_show);
 router.put('/update/:store_id', controller_admin_stores_update);
+router.get('/delete/:store_id', controller_admin_stores_delete);
+router.get('/add/', controller_admin_stores_add);
+router.post('/save/', controller_admin_stores_save);
+
+
+
+router.get('/manage/orders/:store_id/:status_int', controller_store_order_get_all);
+router.get('/manage/:store_id/:user_id', controller_store_manage);
+
+
+
+
 
 
 //@

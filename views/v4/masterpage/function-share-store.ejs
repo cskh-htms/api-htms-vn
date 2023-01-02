@@ -4,8 +4,10 @@
 
 /* 
 -------------------------------------------------
-
-	
+[show local province]
+[show_local_district]
+[show_local_wards]
+[show_status_select_store]	
 
 --------------------------------------------------
 */
@@ -18,13 +20,132 @@
 
 
 ojs_share_store = {
+	
+	
+	//@
+	//@
+	//@
+	//@ [show local province]
+	show_local_province: function(datas,taget){
+		//@
+		//@
+		let data_return = "";
+		//@
+		
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			if(datas[i].Name == taget){
+				txt_for = txt_for + '<option selected  value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
+			}else{
+				txt_for = txt_for + '<option value="' +  datas[i].Name + '">' + datas[i].Name + '</option>';
+			}
+			
+		}
+		data_return = data_return + txt_for;		
+		
+		//@
+		//@	
+		return data_return;	
+	},
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//@	
+	//@
+	//@ [show_local_district]
+	show_local_district: function(datas,parent_taget,taget){
+		//@
+		//@
+		let data_return = "";
+		//return '<option value="asdasd">dasdas</option>';
+		//@
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			//@
+			//perent taget
+			if(datas[i].Name == parent_taget){
+				//@
+				//loop districts
+				for(let ii = 0; ii < datas[i].Districts.length ; ii ++ ){
+					if(datas[i].Districts[ii].Name == taget){
+						txt_for = txt_for + '<option selected  value="' +  datas[i].Districts[ii].Name + '">' + datas[i].Districts[ii].Name + '</option>';
+					}else{
+						txt_for = txt_for + '<option value="' +  datas[i].Districts[ii].Name + '">' + datas[i].Districts[ii].Name + '</option>';
+					}
+				}
+			}//end of parent taget
+		}
+		data_return = data_return + txt_for;		
+		//@
+		//@	
+		return data_return;	
+	},
 
+
+
+
+
+
+
+
+
+	//@	
+	//@
+	//@ [show_local_wards]
+	show_local_wards: function(datas,parent_taget,taget){
+		//@
+		//@
+		let data_return = "";
+		//return '<option value="asdasd">dasdas</option>';
+		//@
+		let i;
+		let txt_for = '<option value="0"></option>';
+		for(i = 0; i < datas.length ; i ++ ){
+			//@
+			//@
+			for(let ii = 0; ii < datas[i].Districts.length ; ii ++ ){
+				//@
+				//@
+				//parent taget
+				if(datas[i].Districts[ii].Name == parent_taget){
+					for(let iii = 0; iii < datas[i].Districts[ii].Wards.length ; iii ++ ){
+						if(datas[i].Districts[ii].Wards[iii].Name == taget){
+							txt_for = txt_for + '<option selected  value="' +  datas[i].Districts[ii].Wards[iii].Name  + '">' + datas[i].Districts[ii].Wards[iii].Name + '</option>';
+						}else{
+							txt_for = txt_for + '<option value="' +  datas[i].Districts[ii].Wards[iii].Name + '">' + datas[i].Districts[ii].Wards[iii].Name + '</option>';
+						}
+					}	
+				}
+			}
+			//@
+			//@
+		}
+		data_return = data_return + txt_for;		
+		//@
+		//@	
+		return data_return;	
+	},	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@
 	//@ hiển thị trạng thái duyệt
 	//dùng cho tất cả 
-	//@
+	//@ [show_status_select_store]
 	show_status_select_store: function(status){
 		let t = "";
 		let s = " selected ";
@@ -33,11 +154,12 @@ ojs_share_store = {
 		
 		
 		let arr = [
-			['<option value="0"',' >Chờ duyệt</option>'],
+			['<option value="0"',' >bản nháp</option>'],
 			['<option value="1"',' >Đã duyệt</option>'],
 			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
-			['<option value="3"',' >Từ chối</option>'],
-			['<option value="4"',' >Cửa hàng ngừng hoạt động</option>']
+			['<option value="3"',' >Từ chối</option>'],			
+			['<option value="4"',' >Chờ duyệt</option>'],
+			['<option value="5"',' >Cửa hàng ngừng hoạt động</option>']
 		]
 		var i;
 		
@@ -50,8 +172,47 @@ ojs_share_store = {
 		}
 		//	
 		return result;	
-	}		
+	},		
 
+
+
+	//@
+	//@
+	//@
+	//@ [show_status_html]
+	show_status_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle gray" title="bản nháp"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 5){
+			result = "" + 
+			'<i class="fas fa-minus-circle red" title="Ngừng hoạt động"></i>'
+		}		
+		//	
+		return result;	
+	},	
+	
+	
+
+//@
+//@
+//@
+//@ end of object
 }
 %>
 

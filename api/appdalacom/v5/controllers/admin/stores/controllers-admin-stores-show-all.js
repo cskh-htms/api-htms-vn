@@ -159,7 +159,14 @@ async  function function_export(req, res, next) {
 					"service_type_name",
 					"stores_status_admin",
 					"users_full_name"					
-				]  
+				],
+				"order" :
+				 [
+					{    
+						"field"  :"stores_date_created",
+						"compare" : "DESC"
+					}   
+				]				
 			}
 			
 			var fn_get_store_list = new Promise((resolve, reject) => {

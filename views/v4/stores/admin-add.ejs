@@ -1,0 +1,462 @@
+<% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store.css' />
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores-admin.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>	
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-local.js"></script>	
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+<!-- --------------------
+page wrap 
+--------------------- -->
+
+
+
+<% include ../masterpage/header %>
+<% include ../masterpage/function-share-all-admin %>
+<% include ../masterpage/function-share-store %>
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content user_edit">
+
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i><a href="/stores/">Cửa hàng</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<div class="store_content">
+	<div class="white_box">
+		<p><span>Tên cửa hàng</span><input type="text" class= "" value="" id="stores_name"/></p>
+	
+	
+	
+		<!-- -----------
+		//chon user
+		-------------- -->
+		
+		<p>
+		<span>Chọn TK doanh nghiệp</span>
+		<select id="stores_user_id">
+			<option value="0">Tài khoản đăng nhập</option>
+		<%
+		for(var i = 0; i < users_list.length; i ++){ %>
+			<option value="<%= users_list[i].users_ID %>"><%= users_list[i].users_full_name %></option>
+		<%	
+		}
+		%>
+		
+		
+		</select>
+		<span class="giai-thich"><span>Tài khoản quản lý cửa hàng</span></span>
+		</p>		
+		
+		
+		<!-- -----------
+		//chon user
+		-------------- -->			
+		
+		
+		
+		<br>		
+		<br>
+		<div class="select-box-tinh-thanh">
+		<span>Tỉnh thành</span>
+		<select id="select_stores_province">
+			<option value=""></option>
+		</select>
+		<p style="display:none"><span>Tỉnh thành</span><input type="text" data_value="" value="" id="stores_province"/></p>
+		</div>
+		
+		</br>
+		<div class="select-box-tinh-thanh">
+		<span>Quận huyện</span>
+		<select id="select_stores_district">
+			<option value=""></option>
+		</select>	
+		<p style="display:none"><span>Quận huyện</span><input type="text" data_value="" value="" id="stores_district"/></p>
+		</div>
+		
+		
+		<br>
+		<div class="select-box-tinh-thanh">
+		<span>Phường xã</span>
+		<select id="select_stores_wards">
+			<option value=""></option>
+		</select>		
+		<p style="display:none"><span>Phường xã</span><input type="text" data_value="" value="" id="stores_wards"/></p>
+		</div>
+		<p><span>Số nhà, tên đường</span><input type="text" class= "" value="" id="stores_adress"/></p>
+	
+		<p>
+			<span>Điện thoại liên hệ</span><input type="text" class= "" value="" id="stores_phone"/>
+			<span class="giai-thich"><span>Điện thoại để shipper liên hệ lấy hàng đi giao</span></span>
+		</p>
+		<br>	
+		
+		
+		
+		
+		<p style="display:none;"><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
+		<span class="giai-thich"><span>Vào <a href="https://www.google.com/maps" target="_blank">Google Map</a> ấn chuột phải vào vị trí cửa hàng của mình và chọn dãy số X,Y để copy.</span></span></p>
+		<p style="display:none;"><span>Tọa độ y</span><input type="text" class= "" value="" id="stores_local_y"/></p>
+		<p style="display:none"><span>Local address</span><input type="text" class= "" value="" id="stores_local_adress"/><span class="giai-thich"><span>không bắt buộc</span></span></p>
+		<br>
+		<br>
+		<p style="display:none"><span>giới hạn upload hình trong ngày</span><input type="text" class= "" value="20" id="stores_upload_limit_day"/></p>
+		<p style="display:none"><span>giới hạn upload hình trong tháng</span><input type="text" class= "" value="300" id="stores_upload_limit_month"/></p>
+	</div>
+	<div class="white_box">
+
+
+		<div id="loai_service_wrap" style="display:none;">
+		<span>Loại dịch vụ</span>
+		<select name="stores_service_type_id" id="stores_service_type_id">
+			<option value="0">Chọn dịch vụ</option>
+			<% include ../masterpage/widget-service-type %>
+		</select>
+		<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
+		</div>	
+
+		
+		<p style="display:none;">
+			<span>Hạn mức thanh toán</span>
+			<input type="text" class= "number_change" 
+				data_value="10000000" 
+				value="10.000.000" 
+				id="stores_payment_limit"
+			/>
+			<span class="giai-thich"><span>Khi doanh số đạt hạn mức, Dala sẽ chuyển khoản cho cửa hàng. Để trống sẽ thanh toán theo ngày</span></span>
+		</p>
+		
+		
+		<p>
+			<span>Thông tin chuyển khoản</span>
+			<textarea id="stores_info_banking" class="area365" rows="10" cols="100%" placeholder="Nhập số tài khoản, ngân hàng và tên chủ tài khoản."></textarea>
+		</p>	
+		
+		<p>
+			<span>% Chiết khấu DALA</span>
+			<input type="text"  id="stores_discount_price" value="0"/>
+		</p>		
+		
+		
+	
+		
+		<!--
+		<p>
+			<span>Lời nhắn</span>
+			<textarea id="stores_qoute" class="area365" rows="10" cols="100%" placeholder="Trong quá trình xét duyệt cửa hàng, nếu lỗi admin sẽ để lại lời nhắn ở đây."></textarea>
+		</p> 
+		-->
+		
+		
+		
+		
+		
+	</div>
+	
+	
+	<!-- ------------------
+	//hình đại diện 
+	------------------- -->
+	<div class="pro_box">
+		<h3>Logo cửa hàng</h3>	
+		<div class="inside l-ed">
+			<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+			<input type="button" value="Thêm ảnh" id="btn_featured_image">
+			<div id="img_box_dai_dien"></div>
+			<input type='file' accept="image/*" id='upload_image' style="display:none;">
+		</div>
+		<br>
+		<div class="pro_box">
+			<h3>Trạng thái</h3>
+			<div class="inside">
+				<select id="stores_status_admin">
+					<%- ojs_share_store.show_status_select_store(0) %>
+				</select>
+			</div>
+		</div>			
+		
+		
+	</div>
+	<!-- ------------------
+	// end of hình đại diện 
+	------------------- -->	
+	
+	
+	
+	</div>	
+	
+	
+	
+	
+	
+	
+	
+	
+<div class="btn_box">
+	<button id="btn_save" class="btn_save">Tạo cửa hàng</button>
+</div>	
+	
+
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+
+
+
+
+
+
+
+</div>
+<!-- --------------------
+//end content
+--------------------- -->
+
+
+
+
+
+
+
+<% include ../masterpage/footer %>
+</div><!-- //content_wrap -->	
+<% include ../masterpage/sidebar %>
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+
+	var user_id = $('#user_id').val();
+
+	//@
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
+	
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_share_upload.delete_s3(url);
+		ojs_share_upload.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
+	//		
+	//	
+	
+	
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		
+		
+		
+		
+			
+		//@
+		var stores_name = $('#stores_name').val();
+		var stores_phone = $('#stores_phone').val();
+		var stores_user_id = $('#stores_user_id  option:selected').val();
+		
+		
+		var stores_logo_image = $('#featured_image').attr('data_value');
+		
+		
+		var stores_info_banking = $('#stores_info_banking').val();
+		var stores_qoute = $('#stores_qoute').val();
+		
+		var stores_status_admin = $('#stores_status_admin  option:selected').val();
+		
+		var stores_payment_limit = $('#stores_payment_limit').attr("data_value");	
+		var stores_discount_price = $('#stores_discount_price').val();		
+		
+		
+		var stores_province = $('#stores_province').attr("data_value");
+		var stores_district = $('#stores_district').attr("data_value");
+		var stores_wards = $('#stores_wards').attr("data_value");
+		var stores_adress = $('#stores_adress').val();
+		
+		
+		
+		var stores_local_x = $('#stores_local_x').val();
+		var stores_local_y = $('#stores_local_y').val();
+		var stores_local_adress = $('#stores_local_adress').val();
+		
+		
+		var stores_service_type_id = $('#stores_service_type_id  option:selected').val();		
+
+		
+		if(stores_user_id == 0  || stores_user_id == "0"){
+			ojs_message.message_ok_show("chọn một tài khoản doanh nghiệp");
+			return;
+		}		
+		
+		//@
+		
+		//@
+		//@
+
+		//
+		var datas = {
+			"datas":{
+				stores_name : stores_name,
+				stores_phone :stores_phone,
+				stores_logo_image : stores_logo_image,
+				stores_user_id: stores_user_id,
+				stores_service_type_id : 3,
+				stores_province : stores_province,
+				stores_district : stores_district,
+				stores_wards : stores_wards,
+				stores_adress : stores_adress,
+				stores_local_x : stores_local_x,
+				stores_local_y : stores_local_y,
+				stores_local_adress : stores_local_adress,		
+				stores_payment_limit : stores_payment_limit,
+				stores_info_banking : stores_info_banking,
+				stores_status_admin : stores_status_admin,
+				stores_status_stores : 1,
+				stores_discount_price : stores_discount_price
+			}
+		}
+		
+		
+		//console.log(datas);		
+		//return;		
+		ojs_stores_admin.ajax_save_admin(datas);	
+		
+		
+	});//end of save ajax
+	
+	
+	
+	$.getJSON( "../../../../uploads/files/local.json", function( datas ) {
+		//console.log(datas);
+		var tinh_thanh = ojs_share_local.get_tinh_thanh(datas);
+		$('#select_stores_province').html(tinh_thanh);
+		ojs_share_local.tinh_thanh_datas = datas;
+		console.log(ojs_share_local.tinh_thanh_datas);
+	});
+	
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_province',function(e) {		
+		e.preventDefault();
+		
+
+		//@		
+		var taget = $(this).val();
+		var quan_huyen =  ojs_share_local.get_quan_huyen(ojs_share_local.tinh_thanh_datas,taget);
+		
+		$('#select_stores_district').html(quan_huyen);
+		$('#select_stores_wards').html('<option value=""></option>');
+		
+		//@
+		//@		
+		ojs_share_local.set_value_local();
+		//return;	
+	});//end of
+	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_district',function(e) {		
+		e.preventDefault();
+		
+		var taget = $(this).val();
+		var phuong_xa =  ojs_share_local.get_phuong_xa(ojs_share_local.tinh_thanh_datas,taget);
+		
+		$('#select_stores_wards').html(phuong_xa);
+		
+		//@
+		//@		
+		ojs_share_local.set_value_local();		
+		//return;	
+	});//end of	
+	
+	
+	//
+	// thay đổi quận huyện
+	$(document).on('change','#select_stores_wards',function(e) {		
+		e.preventDefault();
+		//@
+		//@		
+		ojs_share_local.set_value_local();		
+		//return;	
+	});//end of		
+	
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
