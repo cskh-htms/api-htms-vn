@@ -2,8 +2,8 @@
 <% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality.js"></script>	
-<script src="../../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>
+<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality-admin.js"></script>	
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -12,7 +12,7 @@
 page wrap 
 --------------------- -->
 <% include ../../masterpage/header %>
-
+<% include ../../masterpage/function-share-option %>
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -25,16 +25,17 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách tuỳ chọn</h1>
-	
-	<div class="sap_xep_loc">
+
+
+
+	<div class="sap_xep_loc" style="display:none;">
 		<div class="sap_xep_wrap">
 		</div>
 		<div class="loc_wrap">
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="all" value="[1,2,4]">Tất cả trạng thái</option>
+				<option id="checking" value="[4]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
 			</select>
@@ -42,14 +43,16 @@ content
 	</div>
 	
 	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-option-show-tables %>
+		<% include ../../masterpage/widget-option-show-tables-admin %>
 	</div>
-	
+
+
+
 
 
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
 
 
 
@@ -138,121 +141,7 @@ $(document).ready(function($){
 		
 	});
 	
-	/*
-	//@
-	//goi ajax
-	$(document).on('click','#all',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let status_admin = [0,1,2,3];
-		
-		var datas = {
-			"datas":{
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_bussiness(datas);	
 
-	});//end of function		
-
-	//@
-	//goi ajax
-	$(document).on('click','#complate',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [1]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#new',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#update',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [2]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-
-	//@
-	//goi ajax
-	$(document).on('click','#not',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function	
-	
-	*/
-	//
 ///////////////////////////////////////////////////////
 });//end of document
 </script>
@@ -265,6 +154,19 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

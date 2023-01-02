@@ -5,28 +5,50 @@
 </html>
 
 
-<script>
-$(document).ready(function($){
-/////////////////////////////////////////////////////	
-	//
-	//@active sidebar
-	//hien thi active bên sidebar
-	let id_value = $('#id_taget').val();
-	if(id_value != "abc"){
-		$('#' + id_value).addClass('menu_taget');
-	}
-	
-	
-	//hien thi active child bên sidebar
-	let id_value_child = $('#id_taget_child').val();
-	if(id_value_child != "abc"){
-		$('#' + id_value_child).addClass('menu_taget_child');
-	}	
 
-	//
-///////////////////////////////////////////////////////
-});//end of document
-</script>
+
+
+<script>
+	$(document).ready(function(){
+	//////////////////////////////////////////////
+		
+	//@
+	//@
+	//@
+	$(document).on('click','.btn-pull',function(e) {	
+	
+	
+	
+		//@
+		//@
+		//@
+		e.preventDefault();		
+		let order_id = $(this).attr("dala_order_id");
+		var datas={
+			"datas":
+				{
+					"orders_speciality_status_pull_money":1
+				}
+		}
+		
+		
+		//@
+		//@
+		//@
+		let x = "xác nhận thanh toan tiền cho cửa hàng";		
+		let y = "thanh_toan_yeu_cau_rut_tien";//function name in callback 
+		let z = ' { "order_id" : "' + order_id + '", "datas":' + JSON.stringify(datas) + ' }';
+		ojs_message.message_yes_no_show(x,y,z);				
+
+	});	
+
+	/////////////////////////////////////////////////		
+	});
+</script>	
+
+
+
+
 
 
 

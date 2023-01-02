@@ -1,0 +1,66 @@
+
+
+<%
+
+var check_variable  = 1;
+try {	
+	var x = option_list.length;
+} catch (error) {
+	var check_variable  = 0;
+}
+%>
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tên option</th>
+			<th>Trạng thái</th>
+		</tr>
+	</thead>
+	<tbody>
+
+
+
+	<% 
+	if(check_variable && option_list.length > 0){
+	for(var  x in option_list) { %>
+
+		<tr>
+		<% 
+		if(option_list[x].options_product_speciality_parent_id == 0) { 
+		%>		
+			<td class="user-name">
+				<a href="/options/speciality/show-product/<%= option_list[x].options_product_speciality_ID %>">
+				<%= option_list[x].options_product_speciality_name %>
+				( <%= option_list[x].count_options_product_speciality_link_product_id %> )
+				</a>
+				<div class="row-actions">						
+					<span class="edit"><a href="/categorys/general/speciality/show/<%= option_list[x].options_product_speciality_ID %>/">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_option_id="<%= option_list[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>		
+			<td><%- ojs_share_option.show_status_html(option_list[x].options_product_speciality_status_admin) %></td>
+		<% 
+		} 
+		%>	
+		<tr>		
+	
+		
+		
+		
+	<% 
+	} // end of for
+	}
+	%>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên danh mục</th>
+			<th>Trạng thái</th>
+		</tr>
+	</tfoot>
+</table>
+	

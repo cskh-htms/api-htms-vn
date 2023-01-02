@@ -1,6 +1,8 @@
 <% include function-share-sidebar %>
 
 
+
+
 <% 
 //order check
 if (typeof orders_check == 'object' && orders_check && orders_check.length > 0 ) { 
@@ -24,14 +26,17 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 	news_sum = "";
 }
 
-
-
 %>
+
+
 
 
 <div id="sidebar" class="sidebar admin">
 	<ul class="admin-menu">
 		<li class="sidebar_name">Quản lý Admin</li>
+		
+		
+		
 			
 		<!-- --------------------------------
 					//tổng quan
@@ -45,6 +50,14 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				</a>
 			</li>
 
+
+
+
+
+
+
+
+
 		<!-- --------------------------------
 					//users
 		--------------------------------- -->		
@@ -57,6 +70,14 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				</a>
 				<a href="/users/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
+
+
+
+
+
+
+
+
 		<!-- --------------------------------
 					//store
 		--------------------------------- -->	
@@ -70,8 +91,12 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				</a>
 				<a href="/bussiness/stores/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
-			
-		
+
+
+
+
+
+
 		<!-- --------------------------------
 					//orders
 		--------------------------------- -->	
@@ -80,10 +105,15 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/orders/speciality/">
 					<i class="fas fa-clipboard-list"></i>
 					<div class="menu-name">
-						Đơn hàng  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,3); -%>								
+						Đơn hàng  <%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,3); -%>								
 					</div>
 				</a>
 			</li>
+			
+			
+			
+			
+			
 			
 		<!-- --------------------------------
 					//sản phẩm
@@ -93,14 +123,20 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/products/speciality/">
 					<i class="fas fa-box-open"></i>
 					<div class="menu-name">
-						Sản phẩm  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,7); -%>		
+						Sản phẩm  <%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,7); -%>		
 												
 					</div>
 				</a>
 				<a href="/products/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>	
 				
-			</li>
+			</li>			
 			
+			
+			
+
+		
+		
+		
 		
 		<!-- --------------------------------
 					//category
@@ -110,13 +146,18 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/categorys/general/speciality/">
 					<i class="fas fa-archive"></i>
 					<div class="menu-name">
-						Danh mục  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,4); -%>		
+						Danh mục  <%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,4); -%>		
 												
 					</div>
 				</a>
 				<a href="/categorys/general/speciality/add/17/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
+		
+
+		
+		
+		
 		
 		<!-- --------------------------------
 					//option
@@ -126,11 +167,18 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/options/speciality/">
 					<i class="fas fa-filter"></i>
 					<div class="menu-name">
-						Tuỳ chọn  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,5); -%>		
+						Tuỳ chọn  <%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,5); -%>		
 					</div>
 				</a>
 				<a href="/options/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>				
-			</li>
+			</li>		
+		
+		
+		
+		
+		
+		
+		
 			
 		
 		<!-- --------------------------------
@@ -141,13 +189,18 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/brands/">
 					<i class="fas fa-award"></i>
 					<div class="menu-name">
-						Thương hiệu  <%- ojs_share.show_news_admin_menu_html(news_admin_menu,6); -%>							
+						Thương hiệu  <%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,6); -%>							
 					</div>
 				</a>
 				<a href="/brands/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>
 			
-		
+			
+			
+			
+			
+			
+			
 		<!-- --------------------------------
 					//notes
 		--------------------------------- -->	
@@ -163,6 +216,11 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 			
 			
 			
+			
+			
+			
+				
+			
 		<!-- --------------------------------
 			//chương trìh khuyến mãi
 		--------------------------------- -->	
@@ -171,12 +229,14 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/discount-program/speciality/quan-ly-show-all/">
 					<i class="fas fa-percent"></i>
 					<div class="menu-name">
-						CT khuyến mãi	<%- ojs_share_sidebar.show_count_status_order_by_store(news_admin_menu,[8,9,10]); -%>												
+						CT khuyến mãi	<%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,[8,9,10]); -%>												
 					</div>
 				</a>
 				<a href="/discount-program/speciality/admin/add/17/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>			
 			
+			
+					
 			
 			
 		<!-- --------------------------------
@@ -187,11 +247,21 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/coupon/speciality/">
 					<i class="fas fa-ticket-alt"></i>
 					<div class="menu-name">
-						Mã giảm giá	<%- ojs_share.show_news_admin_menu_html(news_admin_menu,14); -%>												
+						Mã giảm giá	<%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,14); -%>												
 					</div>
 				</a>
 				<a href="/coupon/speciality/add/17/51" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>				
+			
+			
+			
+			
+					
+		
+			
+			
+			
+			
 			
 			
 		<!-- --------------------------------
@@ -207,6 +277,11 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				</a>
 				<a href="/news/general/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>			
+			
+			
+			
+			
+			
 			
 		
 		
@@ -224,34 +299,40 @@ if (typeof news_sum == 'number' && news_sum && news_sum > 0 ) {
 				<a href="/shipping/speciality/add/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			</li>			
 		
+		
+		
+		
+		
+		
+		
+		
 		<!-- --------------------------------
-			// shipping
+			// review
 		--------------------------------- -->	
 	
 			<li id="sidebar_reviews">
 				<a href="/reviews/speciality/">
 					<i class="fas fa-newspaper"></i>
 					<div class="menu-name">
-						Reviews	<%- ojs_share.show_news_admin_menu_html(news_admin_menu,12); -%>											
+						Reviews	<%- ojs_share_all_admin.show_news_admin_menu_html(news_admin_menu,12); -%>											
 					</div>
 				</a>
 			</li>				
 		
-		<!-- 
-		//cửa hàng
 		
-		<li>
-		<i class="fas fa-store"></i>
-		<div class="menu-name">Quản lý</div>
-		<ul>
-			<liid="sidebar_cua_hang"><a href="/stores/">Cửa hàng</a></li>
-			<li id="sidebar_don_hang_dac_san"><a href="/orders/speciality">Đơn hàng</a>  </li>
-			<li><a href="/products/speciality/17"> Sản phẩm</a></li>
-			<li><a href="/categorys/general/speciality/17">Danh mục</a></li>
-			<li><a href="/options/speciality/17">options</a></li>
-			<li><a href="/brands/17">Danh sách thương hiệu</a></li>
-		</ul>
-		</li>	
-		-->
+		
+		
+		
+		
+		
+		
+		
 	</ul>
 </div>
+
+
+
+
+
+
+

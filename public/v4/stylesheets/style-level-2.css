@@ -1,0 +1,19 @@
+
+
+
+/*
+* Đây là file css dùng chung mức độ 2
+* Chỉ một số format mới dùng chung
+* File nào cần thì loader
+*/
+
+.action-title-box {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+
+
+
+

@@ -1,13 +1,6 @@
-<% 
-if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
-if( typeof js_css_version == 'string' && js_css_version  && js_css_version.length > 0){} else{ js_css_version="" } 
-%>
-
-
 <% include ../masterpage/loader %>
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-admins.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -16,16 +9,19 @@ if( typeof js_css_version == 'string' && js_css_version  && js_css_version.lengt
 page wrap 
 --------------------- -->
 <% include ../masterpage/header %>
-<% include ../masterpage/function-share-orders %>
-<% include ../masterpage/function-share-all %>
+<% include ../masterpage/function-share-all-admin %>
 
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>	
 
 
 <!-- --------------------
-content
+//content
 --------------------- -->
-<div id="content" class="content">
 
+<div id="content" class="content">
 	<h1><%= title %></h1>
 
 
@@ -33,98 +29,11 @@ content
 
 
 
-	<!-- --------------------
-		// 2. hiển thị cửa hàng
-	--------------------- -->
-	
-	
-	<% 
-	//@
-	//@ sale sum
-	var count_product_sale = 0;
-	var sum_product_sale = 0;
-	for(i in product_sale) { 
-		count_product_sale = count_product_sale + product_sale[i].orders_details_speciality_qty;
-		sum_product_sale = sum_product_sale + product_sale[i].price_caution;
-	}
-	
-	var sum_product_sale_ok = 0;
-	for(i in product_sale) { 
-		if(product_sale[i].orders_speciality_status_orders == 100 ){
-			sum_product_sale_ok = sum_product_sale_ok + product_sale[i].price_caution;
-		}
-	}	
-	
-	
-	
-	//@
-	//@ order_sum	
-	var order_count = 0;		
-	for(s in order_list) { 
-		order_count = order_count + order_list[s].count_orders_speciality_store_id;
-	}		
-	
-	
-	//@
-	//@ order_sum_ok	
-	var order_count_ok = 0;		
-	for(a in order_list) { 
-		if(order_list[a].orders_speciality_status_orders == 100 ){
-			order_count_ok = order_count_ok + order_list[a].count_orders_speciality_store_id;
-		}
-	}		
-	
-	%>
-	
-	
-	
-	<div class="report">
-			<div class="report-box">
-				<span> Có <strong> [  <%= order_count %>  ] </strong> Đơn hàng mới vừa bán</span>
-			</div>				
-		
-			<div class="report-box">
-				<span> Mới bán <strong> [ <%= count_product_sale %> ] </strong> Sản phẩm</span>
-			</div>
-			
-			<div class="report-box">
-				<span> Vừa bán được <strong> [ <%= ojs_share.show_price_format(sum_product_sale,0,",",".","") %> ] </strong> VND</span>
-			</div>
-		</div>
-		<p>-----------------</p>
-		<div class="report">
-			<div class="report-box">
-				<span> Có  <strong> [  <%= order_count_ok %>  ] </strong> Đơn hàng đã giao</span>
-			</div>				
-		
-			<div class="report-box">
-				<span> Tổng thu về <strong> [ <%= ojs_share.show_price_format(sum_product_sale_ok,0,",",".","") %> ] </strong> VND</span>
-			</div>
-		</div>			
-	</div>	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-	<!-- --------------------
-		//2. end of hiển thị cửa hàng
-	--------------------- -->	
 
 
 
 
 
-
-	
-	
-	
 	
 </div>
 <!-- --------------------
@@ -194,16 +103,6 @@ end content
 
 
 <% include ../masterpage/loader-end %>
-
-
-
-
-
-
-
-
-
-
 
 
 

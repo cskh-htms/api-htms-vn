@@ -1,40 +1,56 @@
-<%- stores_list[0].stores_ID %>
-	<% 
-	if(stores_list.length > 0){
-		
-	for( var  x in stores_list ) { %>
-		<tr>
-			<td class="user-name"><a href="#"><%- ojs_share.unCape(stores_list[x].stores_name) %></a>
-				<div class="row-actions">
-					<span class="edit"><a href="/stores/manage/<%= stores_list[x].stores_ID %>/<%= stores_list[x].stores_user_id %>">Quản lý</a> | </span>
-					<span class="edit"><a href="/notes/add/store/<%= stores_list[x].stores_user_id %>">Gửi tin nhắn</a> | </span>
-					<span class="edit"><a href="/stores/show/<%= stores_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_users_id ="<%= stores_list[x].stores_user_id  %>" data_stores_id="<%= stores_list[x].stores_ID  %>" class="submitdelete">Xóa</a> | </span>
-				</div>	
-			</td>
-			<td>
-				<span class="doanhthu">120.000.xxx</span>
-			</td>
-			<td>
-				<span class="doanhthu">4.000.000</span>
-				<span class="hanmuc"><%- ojs_share.show_price_format(stores_list[x].stores_payment_limit,0,",",".","") %></span>
-			</td>
-			<th>
-				<span class="ck-ok" title="Đủ ĐK thanh toán"><i class="fab fa-cc-visa"></i></span> <!-- /* Đủ Dk nhận tiền thì hiện icon màu cam này */ -->
-				<span class="ck" title="Chưa đủ ĐK"><i class="fab fa-cc-visa"></i></span>
-			</th>			
-			<td><%- ojs_share.unCape(stores_list[x].users_full_name) %></td>			
-			<td class="user-name">
-				<%- ojs_share.unCape(stores_list[x].stores_province) %>, 
-				<%- ojs_share.unCape(stores_list[x].stores_district) %>, 
-				<%- ojs_share.unCape(stores_list[x].stores_wards) %>, 
-				<%- ojs_share.unCape(stores_list[x].stores_adress) %>, 
-			</td>			
-			<td><%- ojs_share.show_status_table_share_all(stores_list[x].stores_status_admin  ) %></td>				
-		</tr>
-	<% 
-	} 
-	%>
-	<% 
-	} 
-	%>
+<%
+//@ kiểm tra nếu biến không có thì set empty
+//@ tránh trường hợp báo lỗi
+
+
+//@
+//@ stores_list
+try {	
+	var x = stores_list.length;
+} catch (error) {
+	stores_list = [];
+}
+
+
+//@
+//@
+%>
+
+
+
+<% 
+if(stores_list.length > 0){	
+for( var  x in stores_list ) { %>
+	<tr>
+		<td class="user-name"><a href="#"><%- ojs_share_all.unCape(stores_list[x].stores_name) %></a>
+			<div class="row-actions">
+				<span class="edit"><a href="/stores/manage/<%= stores_list[x].stores_ID %>/<%= stores_list[x].stores_user_id %>">Quản lý</a> | </span>
+				<span class="edit"><a href="/notes/add/store/<%= stores_list[x].stores_user_id %>">Gửi tin nhắn</a> | </span>
+				<span class="edit"><a href="/stores/show/<%= stores_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+				<span class="delete"><a href="#" data_users_id ="<%= stores_list[x].stores_user_id  %>" data_stores_id="<%= stores_list[x].stores_ID  %>" class="submitdelete">Xóa</a> | </span>
+			</div>	
+		</td>
+		<td>
+			<span class="doanhthu">120.000.xxx</span>
+		</td>
+		<td>
+			<span class="doanhthu">4.000.000</span>
+			<span class="hanmuc"><%- ojs_share_all.show_price_format(stores_list[x].stores_payment_limit,0,",",".","") %></span>
+		</td>
+		<th>
+			<span class="ck-ok" title="Đủ ĐK thanh toán"><i class="fab fa-cc-visa"></i></span> <!-- /* Đủ Dk nhận tiền thì hiện icon màu cam này */ -->
+			<span class="ck" title="Chưa đủ ĐK"><i class="fab fa-cc-visa"></i></span>
+		</th>			
+		<td><%- ojs_share_all.unCape(stores_list[x].users_full_name) %></td>			
+		<td class="user-name">
+			<%- ojs_share_all.unCape(stores_list[x].stores_province) %>, 
+			<%- ojs_share_all.unCape(stores_list[x].stores_district) %>, 
+			<%- ojs_share_all.unCape(stores_list[x].stores_wards) %>, 
+			<%- ojs_share_all.unCape(stores_list[x].stores_adress) %>, 
+		</td>			
+		<td><%- ojs_share_all.show_status_html(stores_list[x].stores_status_admin  ) %></td>				
+	</tr>
+<% 
+} 
+} 
+%>

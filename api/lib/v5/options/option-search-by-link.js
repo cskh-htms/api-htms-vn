@@ -38,7 +38,7 @@ const function_export = function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_by_link + 
 			sql_condition +
 			sql_group_by + 
 			sql_having + 			
@@ -55,7 +55,7 @@ const function_export = function (datas,res) {
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "lib/options/option search", 
+			"position" : "lib/options/option-search-by-link", 
 			"message": error_send 
 			}); 
 		return;	
@@ -71,11 +71,11 @@ const function_export = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi lib/options/option search, Vui lòng liên hệ admin" 
+							"Lỗi search, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/options/option search", 
+						"position" : "lib/options/option-search-by-link", 
 						"message": error_send 
 					}); 
 					return;
@@ -90,11 +90,11 @@ const function_export = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi lib/options/option search, Vui lòng liên hệ admin" 
+				"Lỗi store search, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/options/option search", 
+			"position" : "lib/options/option-search-by-link", 
 			"message": error_send 
 		}); 
 		return;

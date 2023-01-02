@@ -22,6 +22,7 @@ router.get('/', function(req, res, next) {
 
 
 
+
 router.use('/stores', require('./stores/router-admin-store.js'));
 router.use('/users', require('./users/router-admin-user.js'));
 router.use('/mains', require('./mains/router-admin-main.js'));
@@ -31,6 +32,11 @@ router.use('/coupons', require('./coupons/router-admin-coupon.js'));
 router.use('/orders', require('./orders/router-admin-order.js'));
 router.use('/products', require('./products/router-admin-product.js'));
 router.use('/categorys', require('./categorys/router-admin-category.js'));
+router.use('/options', require('./options/router-admin-option.js'));
+
+
+
+
 
 
 

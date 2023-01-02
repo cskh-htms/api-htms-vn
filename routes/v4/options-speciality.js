@@ -12,6 +12,13 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 
+
+
+
+//@
+//@
+//@
+//@ controller
 const controller_option_store = 
 require(
 	'../../controllers/' + 
@@ -25,6 +32,49 @@ require(
 	ojs_configs.controller_version + 
 	'/options/controllers-option-store-product.js'
 );
+
+
+
+//@ admin
+const controller_option_show_all = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/options/controller-option-show-all.js'
+);
+
+
+
+//@
+//@
+//@
+//@ touter 
+router.get('/', controller_option_show_all);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/:store_id', controller_option_store);
+router.get('/product/:option_id/:store_id', controller_store_option_product);
+
+
+
+
+
+
 
 //end of v5
 
@@ -87,8 +137,7 @@ const ojs_datas_option = require('../../models/ojs-datas-option');
 
 
 
-router.get('/:store_id', controller_option_store);
-router.get('/product/:option_id/:store_id', controller_store_option_product);
+
 
 
 

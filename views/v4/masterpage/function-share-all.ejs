@@ -1,20 +1,81 @@
 
 <%
-
+/*
+- ojs_share_all
+- Đây là file viết các function dùng chung
+- File này loader cho tất cả các trang web
+- Không nên sữa file nếu bạn không hiểu rõ về chức năng muốn sữa
+	vì nò liên qua tới nhiều file khác
+- Ưu tiên viết thêm vào không ưu tiên sữa và xoá
+*/
 
 /* 
+
 -------------------------------------------------
-
-1. [show_price_vnd]
-
-2. [show_price_format]
-
-3. [format_date]
-
-
-
-
-
+*  [format_date] -> format_date(datas)
+	- Hàm này format kiểu ngày tháng trong database thàng chuỗi ngày tháng
+	. datas là một ngày tháng kiễu dữ liệu từ database
+	-> chuỗi ngày tháng đã format (2022/12/22 00:00:00)
+	
+	
+	
+*  [show_price_format] -> show_price_format(ojs,c, d, t,dv)
+	- 	Hàm này format kiểu số sang kiểu có dấu chấm ở việt nam
+			có thể thêm format đơn vị như (VND đ ....)
+	. 	datas là 1 số nguên chưa format (10000000)
+			ojs : số nguyên (10000000)
+			c : Số sau dấu phẩy (0,123)
+			d : Dấu phân cách phầ lể (100,123)
+			t : Dấu phân cách phần đơn vị(1.000.000,0000)
+			dv : Đơn vị (VND -Đ ....)
+	-> 	số đã format 
+			(100.000.000)	
+			(100.000.000 vnd)	
+	
+	~  show_price_format(100000,0,",",".","đ")
+	
+	
+	
+*  [[unCape]] -> loai (datas)
+	- Hàm này format kiểu ngày tháng trong database thàng chuỗi ngày tháng
+	. datas là một ngày tháng kiễu dữ liệu từ database
+	-> chuỗi ngày tháng đã format (2022/12/22 00:00:00)	
+	
+	
+	
+	
+*  [unCape]
+	- 	Hàm này loại bỏ các ký tự đặt biệt dữ liệu từ trong databae
+			tránh gặp lỗi trong html 
+	. 	datas là 1 chuỗi text từ trong databas
+	
+	-> 	chuỗi đã lam sạch	
+	~  unCape(string)	
+	
+	
+	
+	
+*  [show_status_html]
+	- 	Hàm này hiễn thị trạng thái trên bảng show html
+	. 	datas là 1 số trạng thái [0.2.3.....]
+	
+	-> 	trạng thái dạng html	
+	~   show_status_html(status_number)		
+	
+	
+	
+*  [show_status_html]
+	- 	Hàm này hiễn thị trạng thái dạng delect box
+	. 	datas là 1 số trạng thái [0.2.3.....]
+	
+	-> 	một select box dạng trạng thái	
+	~   show_status(status_number)			
+	
+	
+	
+	
+	
+	
 --------------------------------------------------
 */
 
@@ -25,48 +86,85 @@
 
 
 
-ojs_share_all = {
-	
+ojs_share_all = {	
 	
 	
 	//@
 	//@
 	//@
-	//@ 
-	//@ 
-	//@ 3. [format_date_coupon]
-	format_date_coupon : function(datas){
-		
-		//return datas;
-		
-		if(datas == ""  || datas == null || datas == "NULL"){
-			return "Không có thời hạn";
-		}
-		
-		var time_string = "";
-		var time_add_zone = new Date(datas);
-		//@
-		//@
-		let y = time_add_zone.getFullYear();
-		let m = time_add_zone.getMonth() + 1;
-		let d = time_add_zone.getDate();
-		let h = time_add_zone.getHours();
-		let p = time_add_zone.getMinutes();
-		let g = time_add_zone.getSeconds();
-		
-		
-		//@
-		//@
-		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
-		return time_string ;		
+	//@
+	//@ hien thi trang  thai san pham html	
+	show_status_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle gray" title="bản nháp"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}	
+		//	
+		return result;	
 	},	
 	
+
+	
+	//@
+	//@
+	//@
+	//@ hien thi trang  thai san pham update
+	show_status: function(status){
+		let t = "";
+		let s = " selected ";
+		let result = "";
+		
+		
+		
+		let arr = [
+			['<option value="0"',' >Bản nháp</option>'],
+			['<option value="1"',' >Đã duyệt</option>'],
+			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
+			['<option value="3"',' >Từ chối</option>'],
+			['<option value="4"',' >Chờ duyệt</option>']			
+		]
+		var i;
+		
+		for(i = 0; i < arr.length; i ++){
+			if(status == i){
+				result = result + arr[i][0] + " selected " + arr[i][1];
+			}else{
+				result = result + arr[i][0] + "" + arr[i][1];
+			}
+		}
+		//	
+		return result;	
+	},		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@
 	//@ 
 	//@ 
-	//@ 3. [format_date]
+	//@ [format_date]
 	format_date : function(datas){
 		
 		//return datas;
@@ -94,31 +192,14 @@ ojs_share_all = {
 	},	
 	
 	
-	//@
-	//@
-	//@
-	//function show money 
-	//su dung: gia_shipping =  show_price_vnd(gia_shipping_check,0,",",".","đ")
-	//1.[show_price_vnd]
-	show_price_vnd:function(ojs,c, d, t,dv){
-		var n = ojs, 
-		c = isNaN(c = Math.abs(c)) ? 2 : c, 
-		d = d == undefined ? "." : d, 
-		t = t == undefined ? "," : t, 
-		s = n < 0 ? "-" : "", 
-		i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
-		j = (j = i.length) > 3 ? j % 3 : 0;
-	   var kq =  s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-	   return kq + " đ";
-	},
+	
+	
 	
 	
 	//@
 	//@
 	//@
-	//function show money 
-	//su dung: gia_shipping =  show_price_format(gia_shipping_check,0,",",".","đ")
-	// 2. [show_price_format]
+	//@ [show_price_format]
 	show_price_format:function(ojs,c, d, t,dv){
 		var n = ojs, 
 		c = isNaN(c = Math.abs(c)) ? 2 : c, 
@@ -129,7 +210,20 @@ ojs_share_all = {
 		j = (j = i.length) > 3 ? j % 3 : 0;
 	   var kq =  s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 	   return kq + dv;
-	}
+	},
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ [unCape]	
+	unCape: function(datas){
+		let res = datas.replace(/\\n/g, '');
+		let resResult = res.replace(/\\/g, '');
+		return  resResult;
+	},	
+	
 
 }
 %>

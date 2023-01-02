@@ -1,9 +1,32 @@
 <%
 //@
+//@ check biến nếu ko tồn tịa thì set empty 
+//@ tránh báo lỗi
+
+
 //@
-//@ hiển thị tên user
-if(typeof users_full_name == 'string' && users_full_name && users_full_name.length > 0){}else{users_full_name="";}
+//@ user full name
+try {	
+	var x = users_full_name.length;
+} catch (error) {
+	users_full_name = "";
+}
+
+
+//@
+//@ user id
+try {	
+	var x = user_id.length;
+} catch (error) {
+	user_id = "";
+}
+
 %>
+
+
+
+
+
 
 <div id="header" class="header">
 	<div class="logo">

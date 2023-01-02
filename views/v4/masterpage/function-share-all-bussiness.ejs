@@ -1,0 +1,191 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+1. [show_price_vnd]
+
+2. [show_price_format]
+
+3. [format_date]
+
+
+
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_all = {
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 3. [format_date_coupon]
+	format_date_coupon : function(datas){
+		
+		//return datas;
+		
+		if(datas == ""  || datas == null || datas == "NULL"){
+			return "Không có thời hạn";
+		}
+		
+		var time_string = "";
+		var time_add_zone = new Date(datas);
+		//@
+		//@
+		let y = time_add_zone.getFullYear();
+		let m = time_add_zone.getMonth() + 1;
+		let d = time_add_zone.getDate();
+		let h = time_add_zone.getHours();
+		let p = time_add_zone.getMinutes();
+		let g = time_add_zone.getSeconds();
+		
+		
+		//@
+		//@
+		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
+		return time_string ;		
+	},	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 3. [format_date]
+	format_date : function(datas){
+		
+		//return datas;
+		
+		if(datas == ""  || datas == null || datas == "NULL"){
+			return "";
+		}
+		
+		var time_string = "";
+		var time_add_zone = new Date(datas);
+		//@
+		//@
+		let y = time_add_zone.getFullYear();
+		let m = time_add_zone.getMonth() + 1;
+		let d = time_add_zone.getDate();
+		let h = time_add_zone.getHours();
+		let p = time_add_zone.getMinutes();
+		let g = time_add_zone.getSeconds();
+		
+		
+		//@
+		//@
+		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
+		return time_string ;		
+	},	
+	
+	
+	//@
+	//@
+	//@
+	//function show money 
+	//su dung: gia_shipping =  show_price_vnd(gia_shipping_check,0,",",".","đ")
+	//1.[show_price_vnd]
+	show_price_vnd:function(ojs,c, d, t,dv){
+		var n = ojs, 
+		c = isNaN(c = Math.abs(c)) ? 2 : c, 
+		d = d == undefined ? "." : d, 
+		t = t == undefined ? "," : t, 
+		s = n < 0 ? "-" : "", 
+		i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+		j = (j = i.length) > 3 ? j % 3 : 0;
+	   var kq =  s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+	   return kq + " đ";
+	},
+	
+	
+	//@
+	//@
+	//@
+	//function show money 
+	//su dung: gia_shipping =  show_price_format(gia_shipping_check,0,",",".","đ")
+	// 2. [show_price_format]
+	show_price_format:function(ojs,c, d, t,dv){
+		var n = ojs, 
+		c = isNaN(c = Math.abs(c)) ? 2 : c, 
+		d = d == undefined ? "." : d, 
+		t = t == undefined ? "," : t, 
+		s = n < 0 ? "-" : "", 
+		i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+		j = (j = i.length) > 3 ? j % 3 : 0;
+	   var kq =  s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+	   return kq + dv;
+	}
+
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

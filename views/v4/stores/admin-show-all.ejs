@@ -1,10 +1,8 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-
 <% include ../masterpage/loader %>
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
+
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/style-level-2.css' />
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores-admin.js"></script>	
 
 
 <div id="page_wrap" class="page_wrap">
@@ -14,7 +12,7 @@
 page wrap 
 --------------------- -->
 <% include ../masterpage/header %>
-
+<% include ../masterpage/function-share-all-admin %>
 
 
 <script>
@@ -33,29 +31,15 @@ content
 	
 
 	<div class="sap_xep_loc">
-		<div class="sap_xep_wrap">
+		<div class="action-title-box">
 			<a href="/bussiness/stores/add/" class="btn_green">Tạo cửa hàng</a>
-		</div>
-		<div class="loc_wrap">
-			<select id="loc_kieu_thanh_toan">
-				<option id="" value="">Tất cả kiểu T.Toán</option>
-				<option id="" value="">T.Toán theo hạn mức</option>
-				<option id="" value="">T.Toán theo ngày</option>
-			</select>
-			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
-				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
-				<option id="refuse" value="[3]">Bị từ chối</option>
-				<option id="checked" value="[1]">Đã duyệt</option>
-			</select>
 		</div>
 	</div>	
 	
-	
-	
-	
-	
+
+
+
+
 	<table class="table-list">
 		<thead>
 			<tr>
@@ -86,7 +70,11 @@ content
 		</tfoot>
 	</table>
 
-	
+
+
+
+
+
 
 </div>
 <!-- --------------------
@@ -152,6 +140,20 @@ $(document).ready(function($){
 
 
 <% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
