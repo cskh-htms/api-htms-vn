@@ -76,7 +76,7 @@ end content
 					ojs_loadding.ajax_show_loadding();
 				},			  
 				error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 				},
 				success : function(result) {
@@ -99,7 +99,7 @@ end content
 							){
 								ojs_message.message_ok_show("user GUEST, Shipping  hoặc user supper job  không thể login trên web");
 							}else{
-								ojs_loader.header_manage(result.datas.user_role,result.datas.users_ID);
+								ojs_share_all.header_manage(result.datas.user_role,result.datas.users_ID);
 							}
 						}
 					}	
@@ -130,7 +130,7 @@ end content
 					myVar = setInterval(myTimer,1);
 				},			  
 				error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 					clearInterval(myVar);
 				},
