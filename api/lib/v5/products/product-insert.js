@@ -73,7 +73,28 @@ const function_export = function (data,res) {
 	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "category_general_speciality_link  " + 
 	"SET " + 
 		config_database.PREFIX + "category_general_speciality_link_product_id = @aa , " + 
-		config_database.PREFIX + "category_general_speciality_link_category_general_id = " + cat_string + "; "
+		config_database.PREFIX + "category_general_speciality_link_category_general_id = " + cat_string + " ;  "
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//update sku
+	var ram = Math.random().toString(36).substring(11).toUpperCase();
+	var sql_sku = 	" " + 
+					" UPDATE " +  
+					config_database.PREFIX + "products_speciality SET " + 
+					config_database.PREFIX + "products_speciality_sku = CONCAT('" + 
+					mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, "") + "',@aa,'" + ram + "')  " + 
+					"WHERE " + 
+					config_database.PREFIX + "products_speciality_ID = @aa; ";
+
+
+	sql_text = sql_text + sql_sku ;	
 	
 	
 	sql_text = sql_text + " COMMIT;"		

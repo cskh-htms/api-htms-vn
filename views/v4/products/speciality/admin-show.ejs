@@ -1,9 +1,16 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show.css' />
 
+
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-date.js"></script>
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
 <script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality-admin.js"></script>	
-
-
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -15,9 +22,12 @@ page wrap
 --------------------- -->
 
 
+
 <% include ../../masterpage/header %>
 <% include ../../masterpage/function-share-product %>
 <% include ../../masterpage/function-share-all %>
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -28,16 +38,18 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/products/<%= service_type_name %>/<%= store_id %>">Sản phẩm</a><i class="fas fa-chevron-right"></i>Chỉnh sửa sản phẩm</h1>
+<div id="content" class="content">
+	<h1><a href="/admin/">home</a><i class="fas fa-chevron-right"></i>
+	<a href="/products/speciality/">Sản phẩm</a><i class="fas fa-chevron-right"></i>Thêm sản phẩm</h1>
 	
-	
+
+
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
 				<h3>Tên sản phẩm</h3>
 				<div class="inside">
-					<input type="text" value="<%-  ojs_share.unCape(datas[0].products_speciality_name) %>" id="products_speciality_name"/>
+					<input type="text" value="<%-  ojs_share_all.unCape(datas[0].products_speciality_name) %>" id="products_speciality_name"/>
 				</div>
 			</div>
 			
@@ -58,7 +70,7 @@ content
 				<h3>Thuộc tính</h3>
 				<div class="inside">
 					<p><span>Mã sku</span>
-						<input type="text" disabled value="<%-  ojs_share.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
+						<input type="text" disabled value="<%-  ojs_share_all.unCape( datas[0].products_speciality_sku ) %>" id="products_speciality_sku" /> </p>	
 
 					<p><span>Cân nặng(g)</span>
 						<input 
@@ -109,10 +121,11 @@ content
 
 				</div>
 			</div>
-			
+
 			<div class="pro_box gia_box"  style="" >
 				<h3>Khuyến mãi 
-				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala" target="_blank"><span>Nội dung này chỉ hiển thị khi sản phẩm tham gia CTKM</span>
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala" 
+				target="_blank"><span>Nội dung này chỉ hiển thị khi sản phẩm tham gia CTKM</span>
 				</a></h3>
 				<div class="inside">
 					<p style=""><span>Giá khuyến mãi</span>
@@ -124,22 +137,30 @@ content
 						id="products_speciality_sale_of_price" 
 						/> 
 					</p>
-					<p style="" ><span>Ngày bắt đầu KM</span><input  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> </p>	
-					<p style="" ><span>Ngày kết thúc KM</span><input  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> </p>
+					<p style="" ><span>Ngày bắt đầu KM</span>
+						<input  type="text" value="<%= datas[0].products_speciality_date_start %>" id="products_speciality_date_start" /> 
+					</p>	
+					<p style="" ><span>Ngày kết thúc KM</span>
+						<input  type="text" value="<%= datas[0].products_speciality_date_end %>" id="products_speciality_date_end" /> 
+					</p>
 					
 					
 				</div>
 			</div>	
-			
+
+
 			<div class="pro_box ten_sp_box">
 				<h3>Tồn kho</h3>
 				<div class="inside">
 				<p style="display: inline-flex;align-items: center;cursor: pointer;" >
 					<%- ojs_share_product.show_stauts_stock(datas[0].products_speciality_stock_status) %>
-					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  for="products_speciality_stock_status" >Quản lý tồn kho</label>
-					<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#ton-kho" target="_blank"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></a>
+					<label   style="cursor: pointer;white-space: nowrap; padding-right: 10px;width: 150px;"  
+					for="products_speciality_stock_status" >Quản lý tồn kho</label>
+					<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#ton-kho" 
+					target="_blank"><span>Chọn để đặt số lượng tồn kho, không chọn là luôn có hàng.</span></a>
 				</p>
-				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  ><span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
+				<p id="stock-wrap"  style="align-items: center;cursor: pointer;"  >
+					<span style="white-space: nowrap; padding-right: 10px;">Số lượng tồn</span>
 					<input 
 					class="number_change" 
 					data_value="<%= datas[0].products_speciality_stock %>"  
@@ -156,17 +177,19 @@ content
 				<h3>Quy cách</h3>
 				<div class="inside">
 					
-					<p><span>Option variation</span><input type="text" value="<%-  ojs_share.unCape( datas[0].products_speciality_variation_option ) %>" id="products_speciality_variation_option" /> </p>
+					<p><span>Option variation</span><input type="text" 
+					value="<%-  ojs_share_all.unCape( datas[0].products_speciality_variation_option ) %>" 
+					id="products_speciality_variation_option" /> </p>
 				</div>
 			</div>
-			
+
 			<!-- ------------------
 			//Mô tả ngắn
 			------------------- -->
 			<div class="pro_box" style="display:none">
 				<h3>Mô tả ngắn (excerpt)</h3>
 				<div class="inside">
-					<textarea class="noi_dung"  id="excerpt"  rows="10" cols="100%"><%-  ojs_share.unCape( datas[0].products_speciality_excerpt ) %></textarea>
+					<textarea class="noi_dung"  id="excerpt"  rows="10" cols="100%"><%-  ojs_share_all.unCape( datas[0].products_speciality_excerpt ) %></textarea>
 				</div>
 			</div>
 			<!-- ------------------
@@ -175,21 +198,17 @@ content
 			<div class="pro_box">
 				<h3>Mô tả sản phẩm</h3>
 				<div class="inside">
-					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%= ojs_share.unCape( datas[0].products_speciality_contents ) %></textarea>
+					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%= ojs_share_all.unCape( datas[0].products_speciality_contents ) %></textarea>
 				</div>
 			</div>
 			
 			<div class="pro_box">
 				<h3>Lời nhắn từ admin</h3>	
 				<div class="inside">
-					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ><%-  ojs_share.unCape( datas[0].products_speciality_qoute ) %></textarea>
+					<textarea id="products_speciality_qoute"  rows="10" cols="100%" ><%-  ojs_share_all.unCape( datas[0].products_speciality_qoute ) %></textarea>
 				</div>	
 			</div>
 		</div>	
-	
-	
-
-
 
 
 
@@ -209,6 +228,7 @@ content
 			<!-- ------------------
 			//end of category
 			------------------- -->	
+			
 			
 			<!-- ------------------
 			//option
@@ -236,21 +256,20 @@ content
 
 
 
-
-
-
 			<!-- ------------------
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
 				<h3>Ảnh đại diện 
-				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
+				<a class="giai-thich" 
+				href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" 
+				target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
 				</a></h3>	
 				<div class="inside">
 					<input type="text" 
 						value="" 
 						id="featured_image" 
-						data_value="<%-  ojs_share.unCape( datas[0].products_speciality_featured_image ) %>" 
+						data_value="<%-  ojs_share_all.unCape( datas[0].products_speciality_featured_image ) %>" 
 						style="display:none;" 
 					/>
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
@@ -267,13 +286,15 @@ content
 			------------------- -->
 			<div class="pro_box">
 				<h3>Bộ sưu tập 
-				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#bo-suu-tap" target="_blank"><span>Chọn thêm hình cho sản phẩm, tối đa 6 hình, tỉ lệ vuông</span>
+				<a class="giai-thich" 
+				href="https://hotro.appdala.com/them-san-pham-tren-dala/#bo-suu-tap" 
+				target="_blank"><span>Chọn thêm hình cho sản phẩm, tối đa 6 hình, tỉ lệ vuông</span>
 				</a></h3>	
 				<div class="inside">
 					
 					<input type="text" 
 						value="" 
-						data_value="<%-  ojs_share.unCape( datas[0].products_speciality_image_slider ) %>" 
+						data_value="<%-  ojs_share_all.unCape( datas[0].products_speciality_image_slider ) %>" 
 						id="slider_image"  
 						style="display:none;" 
 					/> 					
@@ -296,9 +317,11 @@ content
 				<h3>Trạng thái admin</h3>	
 				<div class="inside">
 				
-					<span style="display:none;">Ẩn hiện</span><span class="giai-thich"style="display:none;"><span style="display:none;">Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
+					<span style="display:none;">Ẩn hiện</span><span 
+					class="giai-thich"style="display:none;"><span style="display:none;">
+					Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
 					<select id="products_speciality_show_hide" style="display:none;">
-						<%- ojs_share.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
+						<%- ojs_share_all.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
 					</select>	
 					
 					<select id="products_speciality_status_admin">
@@ -307,26 +330,30 @@ content
 				</div>
 			</div>
 
+
 			
 		</div>
 	</div>
 
-	
-	
-	
-	
-<div class="btn_box">
-	<a href="/products/speciality/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
-</div>	
-	
-	
-	
-<input type="hidden" id="store_id" value="<%= datas[0].products_speciality_store_id %>"/>
-<input type="hidden" id="products_speciality_status_update" value="<%= datas[0].products_speciality_status_update %>"/>
 
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="product_id" value="<%= product_id %>"/>
+
+
+
+
+
+
+	<div class="btn_box">
+		<a href="/products/speciality/" class="btn_back">Quay về</a>
+		<button id="btn_save" class="btn_save">Save</button>
+	</div>	
+		
+		
+		
+	<input type="hidden" id="store_id" value="<%= datas[0].products_speciality_store_id %>"/>
+	<input type="hidden" id="products_speciality_status_update" value="<%= datas[0].products_speciality_status_update %>"/>
+
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="product_id" value="<%= product_id %>"/>
 
 
 
@@ -399,9 +426,9 @@ $(document).ready(function($){
 
 	
 	//@
-	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
-	ojs_loader.show_anh_slider('slider_image','arrImgBox',"","");
+	ojs_share_upload.show_anh_slider('slider_image','arrImgBox',"","");
 	//@
 	
 	
@@ -413,7 +440,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	//
 	//xua image dai dien
@@ -423,11 +450,11 @@ $(document).ready(function($){
 		// xoa image s3
 		let products_speciality_featured_image = $('#featured_image').attr("data_value");
 		let url = products_speciality_featured_image;
-		ojs_loader.delete_wp(url);
+		ojs_share_upload.delete_wp(url);
 
 		//xoa html
 		$(this).parent(".img_box").remove();
-		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
 	});			
 	//		
 	//	
@@ -442,12 +469,12 @@ $(document).ready(function($){
 		//console.log(url);
 		//return;
 		
-		ojs_loader.delete_wp(url);		
+		ojs_share_upload.delete_wp(url);		
 		
 		
 		$(this).parent(".img-box").remove();
-		ojs_loader.set_value_anh_slider('slider_image','arrImgBox');
-		//ojs_loader.set_value_anh_slider_s3('slider_image_h','arrImgBox');
+		ojs_share_upload.set_value_anh_slider('slider_image','arrImgBox');
+		//ojs_share_upload.set_value_anh_slider_s3('slider_image_h','arrImgBox');
 	});			
 	//
 	//	
@@ -463,7 +490,7 @@ $(document).ready(function($){
 	$("#upload_image_arr").on("change",function(){
 		let input = this;
 		//alert('change');
-		ojs_loader.upload_anh_slider(input,"slider_image","arrImgBox",user_id);
+		ojs_share_upload.upload_anh_slider(input,"slider_image","arrImgBox",user_id);
 	});			
 	//		
 	//	
@@ -586,15 +613,6 @@ $(document).ready(function($){
 	
 	
 	
-	$(document).on('click','#btn_draf',function(e) {		
-		e.preventDefault();	
-		var product_id = $('#product_id').val();
-		var datas = get_datas();
-		datas.datas.products_speciality_status_store = 0;
-		console.log(datas);
-		ojs_products_speciality.ajax_update_store(datas,product_id);	
-		
-	});//end of save ajax	
 	
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();	
@@ -607,7 +625,7 @@ $(document).ready(function($){
 		datas.datas.products_speciality_status_store = 1;
 		//console.log(datas);	
 		//return;
-		ojs_products_speciality.ajax_update_admin(datas,product_id);			
+		ojs_products_speciality_admin.ajax_update_admin(datas,product_id);			
 	});//end of save ajax
 
 
@@ -653,7 +671,7 @@ $(document).ready(function($){
 		}		
 		//console.log([datas,product_id]);
 		//return;
-		ojs_products_speciality.ajax_update_stock_admin(datas,product_id);
+		ojs_products_speciality_admin.ajax_update_stock_admin(datas,product_id);
 		
 	});//end of save ajax
 
@@ -672,7 +690,7 @@ $(document).ready(function($){
 		}		
 		//console.log([datas,product_id]);
 		//return;
-		ojs_products_speciality.ajax_update_show_hide(datas,product_id);
+		ojs_products_speciality_admin.ajax_update_show_hide(datas,product_id);
 		
 	});//end of save ajax
 
@@ -880,44 +898,28 @@ $(document).ready(function($){
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -401,8 +401,27 @@ px
 
 
 
-
-
+.xoaAnhSlider {
+    cursor: pointer;
+    position: absolute;
+    right: -15px;
+    top: -12px;
+    border: 1px solid #ffffff;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+.img-box {
+    max-width: 150px;
+    box-sizing: border-box;
+    position: relative;
+    margin: 15px;
+}
 
 
 /* -----------------

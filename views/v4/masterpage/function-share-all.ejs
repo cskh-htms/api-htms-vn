@@ -42,6 +42,31 @@ ojs_share_all = {
 	//@
 	//@
 	//@
+	//@ [show_status_select_share_show_hide]	
+	show_status_select_share_show_hide: function(status){
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Hiện</option>' + 
+			'<option value="1">Ẩn</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Hiện</option>' + 
+			'<option value="1" selected>Ẩn</option>'
+		}		
+		//	
+		return result;	
+	},		
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
 	//@ [show_status_html]
 	//@ hien thi trang  thai san pham html	
 	show_status_html: function(status){

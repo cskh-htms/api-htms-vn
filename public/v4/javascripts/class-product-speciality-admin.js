@@ -20,7 +20,7 @@ $(document).ready(function($){
 	
 	
 	
-	ojs_products_speciality = {	
+	ojs_products_speciality_admin = {	
 	
 		//@
 		//@
