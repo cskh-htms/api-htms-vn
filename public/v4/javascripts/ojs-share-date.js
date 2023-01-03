@@ -322,21 +322,21 @@ ojs_share_date = {
 	get_date_star : function(date_send){
 		var date_star = "";
 		if(date_send == "hom_nay"){
-			date_star = ojs_loader.get_current_date_string_star();
+			date_star = ojs_share_date.get_current_date_string_star();
 		}else if(date_send == "tat_ca"){
 			date_star = "2021/01/01 00:00:00"				
 		}else if(date_send == "hom_qua"){
-			date_star = ojs_loader.get_current_date_string_star_minus_date(1)
+			date_star = ojs_share_date.get_current_date_string_star_minus_date(1)
 			
 		}else if(date_send == "tuan_nay"){
-			date_star = ojs_loader.get_current_date_string_star_week()
+			date_star = ojs_share_date.get_current_date_string_star_week()
 			
 		}else if(date_send == "thang_nay"){
 			
-			date_star = ojs_loader.get_current_date_string_star_month()	
+			date_star = ojs_share_date.get_current_date_string_star_month()	
 		}else if(date_send == "thang_truoc"){
 			
-			date_star = ojs_loader.get_current_date_string_star_month_prve()	
+			date_star = ojs_share_date.get_current_date_string_star_month_prve()	
 	
 		}else if(date_send == "view_all"){
 			
@@ -346,7 +346,7 @@ ojs_share_date = {
 			date_star = "2020/01/01 00:00:0";			
 		}else if(date_send == "ky_nay"){
 			
-			date_star =  ojs_loader.get_current_date_string_star_month();
+			date_star =  ojs_share_date.get_current_date_string_star_month();
 		}	
 
 
@@ -372,33 +372,33 @@ ojs_share_date = {
 		var date_end = "";
 		if(date_send == "hom_nay"){
 
-			date_end =  ojs_loader.get_current_date_string_end();
+			date_end =  ojs_share_date.get_current_date_string_end();
 			
 		}else if(date_send == "tat_ca"){
-			date_end = ojs_loader.get_current_date_string_end()	
+			date_end = ojs_share_date.get_current_date_string_end()	
 			
 		}else if(date_send == "hom_qua"){
 
-			date_end = ojs_loader.get_current_date_string_end_minus_date(1)	
+			date_end = ojs_share_date.get_current_date_string_end_minus_date(1)	
 			
 		}else if(date_send == "tuan_nay"){
 
-			date_end = ojs_loader.get_current_date_string_end();			
+			date_end = ojs_share_date.get_current_date_string_end();			
 		}else if(date_send == "thang_nay"){
 			
-			date_end = ojs_loader.get_current_date_string_end();			
+			date_end = ojs_share_date.get_current_date_string_end();			
 		}else if(date_send == "thang_truoc"){
 			
-			date_end = ojs_loader.get_current_date_string_end_month_prve();			
+			date_end = ojs_share_date.get_current_date_string_end_month_prve();			
 		}else if(date_send == "view_all"){
 			
-			date_end = ojs_loader.get_current_date_string_end();			
+			date_end = ojs_share_date.get_current_date_string_end();			
 		}else if(date_send == "ky_truoc"){
 			
-			date_end = ojs_loader.get_current_date_string_end_month_prve();			
+			date_end = ojs_share_date.get_current_date_string_end_month_prve();			
 		}else if(date_send == "ky_nay"){
 			
-			date_end = ojs_loader.get_current_date_string_end();			
+			date_end = ojs_share_date.get_current_date_string_end();			
 		}			
 
 		
@@ -424,10 +424,10 @@ ojs_share_date = {
 			date_status =  "";
 			
 		}else if(date_send == "chua_thanh_toan"){
-			date_status = ojs_loader.get_current_date_string_end_minus_date(1)	
+			date_status = ojs_share_date.get_current_date_string_end_minus_date(1)	
 			
 		}else if(date_send == "chua_hoan_thanh"){
-			date_status = ojs_loader.get_current_date_string_end();		
+			date_status = ojs_share_date.get_current_date_string_end();		
 			
 		}	
 		return date_status ;	

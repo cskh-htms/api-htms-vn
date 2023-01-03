@@ -23,6 +23,9 @@
 	
 6.[tong_tien_don_hang_theo_line_order]	
 	
+7. [show_status_checkout]
+
+8. [show_order_caution_discount_line]	
 
 --------------------------------------------------
 */
@@ -37,6 +40,24 @@
 ojs_share_orders = {
 	
 	
+	//@
+	//@
+	//@ 
+	//@ [show_order_caution_discount_line]		
+	show_order_caution_discount_line: function(total,discount,unit,qty){
+		//
+		//
+		let result;
+		//
+		if(unit == 0){
+			result = total * discount / 100;
+		}else{
+			result = discount * qty;
+		}
+		//	
+		return result;	
+	},	
+	
 	
 	//@
 	//@
@@ -47,7 +68,23 @@ ojs_share_orders = {
 	},
 	
 	
-	
+	//@ [show_status_checkout]
+	show_status_checkout: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Chưa thanh toan</option>' + 
+			'<option value="1">Đã thanh toán</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Chưa thanh toán</option>' + 
+			'<option value="1" selected>Đã thanh toán</option>'
+		}		
+		//	
+		return result;	
+	},	
 	
 	//@
 	//@

@@ -55,7 +55,7 @@ const check_owner_user = require('../../../../../shares/' + config_api.API_SHARE
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 const orders_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-get-one');
-const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search');
+const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-product');
 
 const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 const shipping_tracking_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/shipping-tracking/shipping-tracking-search');
@@ -186,7 +186,8 @@ async  function function_export(req, res, next) {
 					"orders_details_speciality_price",
 					"orders_details_speciality_product_id",
 					"orders_details_speciality_qty",
-					"price_caution"
+					"price_caution",
+					"products_speciality_name"
 				],
 				"condition" :
 				[

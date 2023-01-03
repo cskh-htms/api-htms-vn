@@ -559,20 +559,54 @@ select, input[type="button"] {
     position: static;
 }
 
-
+.grey {
+	color: #999;
+}
 .dark_red {
-    color: #ee4d2d;
+	color: #ee4d2d;
 }
-
-.green {
-    color: #4a914b;
-}
-
 .yellow {
-    color: #ffc800;
+	color: #ffc800;
+}
+.orange {
+	color: #ee4d2d;
+}
+.status_green, .status_blue, .status_red, .status_yellow, .status_gray {
+	display: block;
+	color: #4a914b;
+    background: #e4fbe6;
+    font-size: 88%;
+    padding: 3px 10px;
+    border-radius: 25px;
+	text-align: center;
+}
+.status_red {
+	color: #ee4d2d;
+    background: #ffeae6;
+}
+.status_blue {
+	background: #dcf5f7;
+    color: #009ba5;
+}
+.status_yellow {
+	color: #e69212;
+    background: #ffefd6;
+}
+.status_gray {
+	color: #555;
+    background: #eaeaea;
+}
+.status_ok {
+    color: #23ca3f;
 }
 
-
+.demo {
+    color: #e69212;
+    background: #ffefd6;
+    font-size: 85%;
+    padding: 4px 10px;
+    border-radius: 25px;
+}
 
 /* -----------------
     END OF CSS-TABLE

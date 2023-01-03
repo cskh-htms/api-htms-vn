@@ -120,7 +120,7 @@ ojs_loadding_message_callback = {
 		//console.log(datas_parse);
 		//return;
 		
-		ojs_orders.push_dala(datas_parse);
+		ojs_orders_admin.push_dala(datas_parse);
 		
 	},//huy_tham_gia_discount
 
@@ -136,7 +136,7 @@ ojs_loadding_message_callback = {
 		//console.log(datas_parse);
 		//return;
 		
-		ojs_orders.push_ghtk(datas_parse);
+		ojs_orders_admin.push_ghtk(datas_parse);
 		
 	},//huy_tham_gia_discount
 
@@ -398,7 +398,7 @@ ojs_loadding_message_callback = {
 	delete_order_speciality_detail_admin:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let detail_id = datas_parse.detail_id;
-		ojs_orders.ajax_delete_detail_admin(detail_id);
+		ojs_orders_admin.ajax_delete_detail_admin(detail_id);
 	},//end of xoa san pham dac san
 	//	
 	//

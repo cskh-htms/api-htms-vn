@@ -1,6 +1,6 @@
 <% include ../../masterpage/loader %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
-<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store-order.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/order.css' />
 
 
 <script src="../../../<%= js_css_version %>/javascripts/ojs-share-date.js"></script>	
@@ -21,8 +21,8 @@ page wrap
 
 
 <% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-order %>
-
+<% include ../../masterpage/function-share-orders %>
+<% include ../../masterpage/function-share-all-admin %>
 
 
 
@@ -221,7 +221,7 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_orders.ajax_load_order(datas);	
+		ojs_orders_admin.ajax_load_order(datas);	
 		
 		//
 		//@
@@ -243,8 +243,8 @@ $(document).ready(function($){
 		//
 		//lay thòi gian
 		var date_send = $(this).attr("data_send");
-		var date_star = ojs_loader.get_date_star(date_send);
-		var date_end = ojs_loader.get_date_end(date_send);
+		var date_star = ojs_share_date.get_date_star(date_send);
+		var date_end = ojs_share_date.get_date_end(date_send);
 		
 		//
 		//lấy atatus
@@ -265,7 +265,7 @@ $(document).ready(function($){
 		
 		
 		
-		ojs_orders.ajax_load_order(datas);	
+		ojs_orders_admin.ajax_load_order(datas);	
 				
 		//@
 	});			
@@ -283,7 +283,7 @@ $(document).ready(function($){
 		//
 		if($("#btn_date").hasClass( "report_active" ) == false && check_day.length == 0){
 			var date_star = "2020/01/01 00:00:00";
-			var date_end = ojs_loader.get_date_end('hom_nay');	
+			var date_end = ojs_share_date.get_date_end('hom_nay');	
 		}else{
 			var date_star="";
 			var date_end="";
@@ -309,8 +309,8 @@ $(document).ready(function($){
 			}else{
 			//lay thòi gian
 				var date_send = $('.report_link_box').find('.report_active').attr("data_send");
-				var date_star = ojs_loader.get_date_star(date_send);
-				var date_end = ojs_loader.get_date_end(date_send);			
+				var date_star = ojs_share_date.get_date_star(date_send);
+				var date_end = ojs_share_date.get_date_end(date_send);			
 			}
 		}
 		//
@@ -339,7 +339,7 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_orders.ajax_load_order(datas);			
+		ojs_orders_admin.ajax_load_order(datas);			
 		
 	});			
 	//		
@@ -358,7 +358,7 @@ $(document).ready(function($){
 		//
 		if($("#btn_date").hasClass( "report_active" ) == false && check_day.length == 0){
 			var date_star = "2020/01/01 00:00:00";
-			var date_end = ojs_loader.get_date_end('hom_nay');	
+			var date_end = ojs_share_date.get_date_end('hom_nay');	
 		}else{
 			var date_star="";
 			var date_end="";
@@ -384,8 +384,8 @@ $(document).ready(function($){
 			}else{
 			//lay thòi gian
 				var date_send = $('.report_link_box').find('.report_active').attr("data_send");
-				var date_star = ojs_loader.get_date_star(date_send);
-				var date_end = ojs_loader.get_date_end(date_send);			
+				var date_star = ojs_share_date.get_date_star(date_send);
+				var date_end = ojs_share_date.get_date_end(date_send);			
 			}
 		}
 		//
@@ -414,7 +414,7 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_orders.ajax_load_order(datas);			
+		ojs_orders_admin.ajax_load_order(datas);			
 		
 	});			
 	//		
