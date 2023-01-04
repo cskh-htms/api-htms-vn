@@ -65,7 +65,7 @@ $(document).ready(function($){
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
 			  url : ojs_loader.host + "/options/speciality/update/" + option_id,
 			  data : JSON.stringify(datas),
@@ -80,9 +80,9 @@ $(document).ready(function($){
 			  success : function(result) {
 				  
 				  
-					  console.log(result);
-					  ojs_loadding.ajax_hide_loadding();	
-					  return;
+					  //console.log(result);
+					  //ojs_loadding.ajax_hide_loadding();	
+					  //return;
 				  
 				  
 					//ojs_loader.evn = "dev";
@@ -116,7 +116,7 @@ $(document).ready(function($){
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
+			  type : "delete",	  
 			  url : ojs_loader.host + "/options/speciality/delete/" + option_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -127,9 +127,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 
-					 console.log(result);
-					 ojs_loadding.ajax_hide_loadding();	
-					 return;
+					 //console.log(result);
+					 //ojs_loadding.ajax_hide_loadding();	
+					 //return;
 				  
 				  
 					//ojs_loader.evn = "dev";

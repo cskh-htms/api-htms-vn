@@ -1,31 +1,4 @@
-.test {
-    display: flex;
+.value_row {
+    display: grid;
+    margin-top: 50px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

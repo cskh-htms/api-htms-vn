@@ -26,7 +26,10 @@ require(
 	'../../../controllers/admin/brands/controllers-admin-brand-update.js'
 );
 
-
+const controllers_admin_brand_show_all =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-show-all.js'
+);
 
 
 
@@ -34,6 +37,9 @@ require(
 //@
 //@
 //@ router
+router.get('/show-all', middle_ware, controllers_admin_brand_show_all );
+
+
 router.post('/update', middle_ware, controllers_admin_brand_update );
 
 

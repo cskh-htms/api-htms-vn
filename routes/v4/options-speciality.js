@@ -68,6 +68,33 @@ require(
 );
 
 
+const controller_option_delete = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/options/controller-option-delete.js'
+);
+
+
+
+const controller_option_show = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/options/controller-option-show.js'
+);
+
+
+const controller_option_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/options/controller-option-update.js'
+);
+
+
+
+
 //@
 //@
 //@
@@ -75,6 +102,9 @@ require(
 router.get('/', controller_option_show_all);
 router.get('/add/:store_id/', controller_option_add);
 router.post('/save/', controller_option_save);
+router.delete('/delete/:option_id', controller_option_delete);
+router.put('/update/:option_id', controller_option_update);
+router.get('/show/:option_id', controller_option_show);
 
 
 

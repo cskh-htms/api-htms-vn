@@ -1,52 +1,41 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 
 
 <% include ../../masterpage/loader %>
-
-
-<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality.js"></script>	
-
-
-
-
-
-<% //neu admin thi hien muc nay
-sidebar_type = 3;
-menu_taget = "sidebar_option";
-var	enable_text = " disabled " ;
-var	enable_text2 = " " ;
-var	enable_text3 = " disabled " ;
-
-if(user_role =="admin"){ 
-	enable_text3 = "" ;
-	enable_text2 = " disabled "
-}
-
-%>	
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/option.css' />
 
 
 
 
-<% menu_taget = "sidebar_option" %>
+
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../../<%= js_css_version %>/javascripts/class-option-speciality-admin.js"></script>
+
+
+
 
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
-
-
+<% include ../../masterpage/function-share-option %>
+<% include ../../masterpage/function-share-all %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
+</script>
 
 
 
@@ -54,27 +43,31 @@ page wrap
 <!-- --------------------
 content
 --------------------- -->
-<div id="content" class="content">
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/options/speciality/<%= store_id %>">Tùy chọn</a><i class="fas fa-chevron-right"></i>Sửa tùy chọn</h1>
+<div id="content" class="content">
+	<h1><a href="/options/speciality/">Tùy chọn</a><i class="fas fa-chevron-right"></i>Chỉnh sửa tùy chọn</h1>
 
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
 				<h3>Tên tùy chọn</h3>
 				<div class="inside">
-					<input type="text" class= "" value="<%- ojs_share.unCape(datas[0].options_product_speciality_name) %>" id="options_product_speciality_name"/>
+					<input type="text" class= "" 
+					value="<%- ojs_share_all.unCape(datas[0].options_product_speciality_name) %>" 
+					id="options_product_speciality_name"/>
 				</div>
 			</div>
 			
 			<div class="pro_box">
 				<h3>Lời nhắn từ admin</h3>
 				<div class="inside">
-					<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].options_product_speciality_qoute) %></textarea>
+					<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share_all.unCape(datas[0].options_product_speciality_qoute) %></textarea>
 				</div>
 			</div>
 		</div>
+
+
+
 		<div class="pro_col02">
 			<!-- ------------------
 			//option cha
@@ -91,29 +84,28 @@ content
 			//option cha
 			------------------- -->
 
-			<div class="pro_box">
+			<div class="pro_box" style="display:none;">
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
-					<select id="options_product_speciality_status_stores"  <%- enable_text %>>
-						<%- ojs_share.show_status_select_share_all_two(datas[0].options_product_speciality_status_stores ) %> 
+					<select id="options_product_speciality_status_stores">
+						<%- ojs_share_all.show_status_select_share_all_two(datas[0].options_product_speciality_status_stores ) %> 
 					</select>
 				</div>
 			</div>
 
-					
+
+
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
-					<select id="options_product_speciality_status_admin" <%- enable_text3 %>>
-						<%- ojs_share.show_status_select_share_all(datas[0].options_product_speciality_status_admin ) %>
+					<select id="options_product_speciality_status_admin">
+						<%- ojs_share_all.show_status(datas[0].options_product_speciality_status_admin ) %>
 					</select>
 				</div>
 			</div>
 
 		</div>
 	</div>
-	
-	
 
 
 
@@ -122,10 +114,12 @@ content
 	<!-- ------------------
 	//hình đại diện 
 	------------------- -->
-	<div class="pro_box" style="display: none">
+	<div class="pro_box" style="display:none;">
 		<h3>Ảnh đại diện</h3>	
 		<div class="inside">
-			<input type="text" value="" id="featured_image" data_value="<%- ojs_share.unCape(datas[0].options_product_speciality_featured_image ) %>" style="display:none;" />
+			<input type="text" value="" id="featured_image" 
+			data_value="<%- ojs_share_all.unCape(datas[0].options_product_speciality_featured_image ) %>" 
+			style="display:none;" />
 			<input type="button" value="Thêm ảnh" id="btn_featured_image">
 			<div id="img_box_dai_dien"></div>
 			<input type='file' accept="image/*" id='upload_image' style="display:none;">
@@ -141,29 +135,14 @@ content
 	<!-- ------------------
 	thông tin options
 	------------------- -->
-	<div class="value_row" style="display: none">
+	<div class="value_row">
 		<span>Mô tả tùy chọn</span>
-		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share.unCape(datas[0].options_product_speciality_information) %></textarea>
+		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share_all.unCape(datas[0].options_product_speciality_information) %></textarea>
 	</div>
 	<!-- ------------------
 	//thông tin danh mục
 	------------------- -->
 	
-	
-
-		
-	
-
-
-
-
-		
-	
-
-
-
-
-
 
 
 
@@ -173,14 +152,7 @@ content
 
 
 <div class="btn_box">
-	<a href="/options/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-	<%
-	if( datas[0].options_product_speciality_status_stores == "0" ){
-	%>	
-		<a href="#" class="btn_back" id="btn_draf">Lưu & Ẩn</a>
-	<%	
-	}
-	%>	
+	<a href="/options/speciality/" class="btn_back">Quay về</a>
 	<button id="btn_save" class="btn_save">Lưu</button>
 </div>	
 	
@@ -228,7 +200,7 @@ $(document).ready(function($){
 		
 	
 	//@
-	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
 	//@
@@ -239,7 +211,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
 	});		
 	//
 	//
@@ -255,12 +227,12 @@ $(document).ready(function($){
 		//return;
 		
 		
-		ojs_loader.delete_s3(url);
+		ojs_share_upload.delete_s3(url);
 		
 		//$('#featured_image').attr("data_s3","");
 		//xoa html
 		$(this).parent(".img_box").remove();
-		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
 		
 	});			
 	//		
@@ -274,30 +246,13 @@ $(document).ready(function($){
 	//@
 	var store_id = $('#store_id').val();
 	var option_id = $('#option_id').val();	
-	$(document).on('click','#btn_draf',function(e) {		
-		e.preventDefault();
-		var datas = get_datas();	
-		
-		datas.datas.options_product_speciality_status_stores = 0;
-		
-		//console.log(datas);
-		//return;
-		
-		ojs_option_speciality.ajax_update(datas,option_id);	
-	});
-	
-	//@
-	//@
-	//@
-	//@
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
-		datas.datas.options_product_speciality_status_stores = 1;
 		//console.log(datas);
 		//return;
 		
-		ojs_option_speciality.ajax_update(datas,option_id);	
+		ojs_option_speciality_admin.ajax_update_admin(datas,option_id);	
 	});
 
 
@@ -352,6 +307,28 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

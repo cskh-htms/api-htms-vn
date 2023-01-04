@@ -37,8 +37,10 @@ try {
 				( <%= option_list[x].count_options_product_speciality_link_product_id %> )
 				</a>
 				<div class="row-actions">						
-					<span class="edit"><a href="/categorys/general/speciality/show/<%= option_list[x].options_product_speciality_ID %>/">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_option_id="<%= option_list[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
+					<span class="edit"><a href="/options/speciality/show/
+					<%= option_list[x].options_product_speciality_ID %>/">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" 
+					data_option_id="<%= option_list[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>		
 			<td><%- ojs_share_all.show_status_html(option_list[x].options_product_speciality_status_admin) %></td>
@@ -70,8 +72,11 @@ try {
 				( <%= option_list[y].count_options_product_speciality_link_product_id %> )
 				</a>
 				<div class="row-actions">						
-					<span class="edit"><a href="/categorys/general/speciality/show/<%= option_list[y].options_product_speciality_ID %>/">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_option_id="<%= option_list[y].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
+					<span class="edit">
+					<a href="/options/speciality/show/
+					<%= option_list[y].options_product_speciality_ID %>/">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" 
+					data_option_id="<%= option_list[y].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>		
 			<td><%- ojs_share_all.show_status_html(option_list[y].options_product_speciality_status_admin) %></td>

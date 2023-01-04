@@ -36,24 +36,16 @@ require(
 );
 
 
-
-
-
-/*
-const controller_admin_option_ajax_list =  
+const controller_admin_option_delete =  
 require(
-	'../../../controllers/admin/options/controller-admin-option-ajax-list.js'
+	'../../../controllers/admin/options/controller-admin-option-delete.js'
 );
-
-
-
-
-
 
 const controller_admin_option_show =  
 require(
 	'../../../controllers/admin/options/controller-admin-option-show.js'
 );
+
 
 const controller_admin_option_update =  
 require(
@@ -61,13 +53,6 @@ require(
 );
 
 
-const controller_admin_option_delete =  
-require(
-	'../../../controllers/admin/options/controller-admin-option-delete.js'
-);
-
-
-*/
 
 
 
@@ -80,8 +65,9 @@ require(
 router.get('/show-all/', middle_ware, controller_admin_option_show_all );
 router.get('/add/', middle_ware, controller_admin_option_add );
 router.post('/save/', middle_ware, controller_admin_option_save );
-
-
+router.delete('/delete/', middle_ware, controller_admin_option_delete );
+router.get('/show/', middle_ware, controller_admin_option_show );
+router.put('/update/', middle_ware, controller_admin_option_update );
 
 
 /*
@@ -89,10 +75,10 @@ router.post('/save/', middle_ware, controller_admin_option_save );
 router.post('/ajax-list/', middle_ware, controller_admin_option_ajax_list );
 router.get('/add/', middle_ware, controller_admin_option_add );
 
-router.get('/show/', middle_ware, controller_admin_option_show );
 
-router.put('/update/', middle_ware, controller_admin_option_update );
-router.delete('/delete/', middle_ware, controller_admin_option_delete );
+
+
+
 
 */
 

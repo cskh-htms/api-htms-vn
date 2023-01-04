@@ -224,7 +224,11 @@ a{
 /* -----------------
     CSS-CONTENT
 -------------------*/
-
+.pro_content_edit {
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}
 
 .white_box {
     background: #fff;
