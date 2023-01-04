@@ -1,14 +1,12 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category.css' />
+
 
 
 
 <script src="../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality-admin.js"></script>	
-
-
-
-
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>	
 
 
 
@@ -18,8 +16,17 @@
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
+
 <% include ../../../masterpage/header %>
 <% include ../../../masterpage/function-share-category %>
+<% include ../../../masterpage/function-share-all %>
+
+
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -41,7 +48,9 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên danh mục</h3>
 				<div class="inside">
-					<input type="text" value="<%- ojs_share.unCape(datas[0].category_general_speciality_name) %>" id="category_general_speciality_name"/>
+					<input type="text" 
+					value="<%- ojs_share_all.unCape(datas[0].category_general_speciality_name) %>" 
+					id="category_general_speciality_name"/>
 				</div>
 			</div>
 			
@@ -52,7 +61,7 @@ content
 				<h3>Mô tả danh mục</h3>
 				<div class="inside">
 					<textarea  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
-					<%- ojs_share.unCape(datas[0].category_general_speciality_infomation) %>
+					<%- ojs_share_all.unCape(datas[0].category_general_speciality_infomation) %>
 					</textarea>
 				</div>
 			</div>
@@ -63,7 +72,9 @@ content
 			<div class="pro_box">
 				<h3>Lời nhắn từ admin</h3>
 				<div class="inside">
-					<textarea  id="category_general_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share.unCape(datas[0].category_general_speciality_qoute) %></textarea>
+					<textarea  
+					id="category_general_speciality_qoute"  
+					rows="10" cols="100%" ><%- ojs_share_all.unCape(datas[0].category_general_speciality_qoute) %></textarea>
 				</div>
 			</div>	
 
@@ -92,7 +103,7 @@ content
 					<input type="text" 
 						value="" 
 						id="featured_image" 
-						data_value="<%-  ojs_share.unCape( datas[0].category_general_speciality_featured_image ) %>" 
+						data_value="<%-  ojs_share_all.unCape( datas[0].category_general_speciality_featured_image ) %>" 
 						style="display:none;" 
 					/>
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
@@ -104,9 +115,11 @@ content
 			//sap xep 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Sắp xếp<span class="giai-thich"><span>Để sắp xếp thứ tự danh mục, ưu tiên số cao(muốn danh mục đứng đầu nhập số lớn nhất)</span></span></h3>
+				<h3>Sắp xếp<span class="giai-thich">
+				<span>Để sắp xếp thứ tự danh mục, ưu tiên số cao(muốn danh mục đứng đầu nhập số lớn nhất)</span></span></h3>
 				<div class="inside">
-					<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" id="category_general_speciality_sort_order" />
+					<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" 
+					id="category_general_speciality_sort_order" />
 				</div>
 			</div>
 			
@@ -114,7 +127,7 @@ content
 				<h3>Ẩn hiện danh mục</h3>
 				<div class="select-wrap inside">
 					<select id="category_general_speciality_show">
-						<%- ojs_share.show_hide(datas[0].category_general_speciality_show) %>
+						<%- ojs_share_all.show_status_select_share_show_hide(datas[0].category_general_speciality_show) %>
 					</select>		
 				</div>
 			</div>
@@ -124,7 +137,7 @@ content
 				<h3>Trạng thái cửa hàng</h3>
 				<div class="inside">
 					<select id="category_general_speciality_stores_status">
-						<%- ojs_share.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
+						<%- ojs_share_all.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
 					</select>
 				</div>
 			</div>
@@ -134,7 +147,7 @@ content
 				<h3>Trạng thái admin</h3>
 				<div class="inside">
 					<select id="category_general_speciality_admin_status">
-						<%- ojs_share_category.show_status_select_store(datas[0].category_general_speciality_admin_status ) %>
+						<%- ojs_share_all.show_status(datas[0].category_general_speciality_admin_status ) %>
 					</select>
 				</div>
 			</div>
@@ -196,7 +209,7 @@ $(document).ready(function($){
 		
 	
 	//@
-	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
 	//@
@@ -207,9 +220,15 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	//
+	
+	
+	
+	
+	
+	
 	//xóa image dai dien
 	$(document).on('click','.xoaAnhDaiDien',function(e) {		
 		e.preventDefault();		
@@ -223,12 +242,12 @@ $(document).ready(function($){
 		//return;
 		
 		
-		//ojs_loader.delete_s3(url);
-		ojs_loader.delete_wp(url);
+		//ojs_share_upload.delete_s3(url);
+		ojs_share_upload.delete_wp(url);
 		$('#featured_image').attr("data_value","");
 		//xoa html
 		$(this).parent(".img_box").remove();
-		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
 		
 	});			
 	//		
@@ -251,7 +270,7 @@ $(document).ready(function($){
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_update_admin(datas,cat_id);
+		ojs_category_general_speciality_admin.ajax_update_admin(datas,cat_id);
 	});	
 	
 	

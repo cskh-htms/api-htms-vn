@@ -300,7 +300,7 @@ ojs_loadding_message_callback = {
 	delete_category_general_speciality_admin:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let cat_id = datas_parse.cat_id;
-		ojs_category_general_speciality.ajax_delete_admin(cat_id);
+		ojs_category_general_speciality_admin.ajax_delete_admin(cat_id);
 	},	
 	
 	
@@ -312,6 +312,21 @@ ojs_loadding_message_callback = {
 		ojs_option_speciality.ajax_delete(option_id);
 	},
 	//
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ [delete_option_speciality_admin]
+	delete_option_speciality_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let option_id = datas_parse.option_id;
+		ojs_option_speciality_admin.ajax_delete_admin(option_id);
+	},	
+	
+	
+	
 	//
 	//
 	//xoa brands
@@ -337,7 +352,7 @@ ojs_loadding_message_callback = {
 		//console.log(product_id);
 		//return;
 		
-		ojs_products_speciality.ajax_delete_admin(product_id);
+		ojs_products_speciality_admin.ajax_delete_admin(product_id);
 	},//end of xoa san pham dac san	
 	
 	//xoa product speciality

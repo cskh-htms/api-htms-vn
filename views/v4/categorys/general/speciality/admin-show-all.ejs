@@ -1,8 +1,15 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category.css' />
+
+
+
+
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-category-general-speciality-admin.js"></script>	
+
+
+
 
 
 <div id="page_wrap" class="page_wrap">
@@ -10,13 +17,22 @@
 <div id="content-wrap" class="content_wrap">
 
 
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
 
 
+
+
 <% include ../../../masterpage/header %>
 <% include ../../../masterpage/function-share-category %>
+<% include ../../../masterpage/function-share-all %>
+
+
+
+
 
 
 
@@ -140,6 +156,45 @@ $(document).ready(function($){
 
 
 <% include ../../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

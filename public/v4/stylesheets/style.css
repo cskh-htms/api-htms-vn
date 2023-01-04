@@ -122,14 +122,28 @@ a{
 
 
 
+/* -----------------
+    CSS-AJAX
+-------------------*/
 
 
+.ajax-box-inner {
+    background-color: white;
+    padding: 30px;
+}
 
+.btn-design {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #b1d2b2;
+    padding: 0px 5px;
+    border-radius: 5px;
+    color: #656565;
+}
 
-
-
-
-
+/* -----------------
+    END OF CSS-AJAX
+-------------------*/
 
 
 
@@ -626,6 +640,15 @@ select, input[type="button"] {
     padding: 4px 10px;
     border-radius: 25px;
 }
+
+.green {
+    color: #4a914b;
+}
+
+
+
+
+
 
 /* -----------------
     END OF CSS-TABLE

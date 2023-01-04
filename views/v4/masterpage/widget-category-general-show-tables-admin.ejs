@@ -26,7 +26,7 @@ try {
 	<% 
 	if(check_variable && category_list.length > 0){
 	for(var  x in category_list) { %>
-		<tr>
+		<tr style="background-color: #e3edf5;">
 		<% 
 		if(category_list[x].category_general_speciality_category_parent_id == 0) { 
 		%>		
@@ -40,7 +40,7 @@ try {
 					<span class="delete"><a href="#" data_cat_id="<%= category_list[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>		
-			<td><%- ojs_share_category.show_status_html(category_list[x].category_general_speciality_admin_status) %></td>
+			<td><%- ojs_share_all.show_status_html(category_list[x].category_general_speciality_admin_status) %></td>
 		<% 
 		} 
 		%>	
@@ -72,7 +72,7 @@ try {
 						<span class="delete"><a href="#" data_cat_id="<%= category_list[y].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
 					</div>
 				</td>		
-				<td><%- ojs_share_category.show_status_html(category_list[y].category_general_speciality_admin_status) %></td>
+				<td><%- ojs_share_all.show_status_html(category_list[y].category_general_speciality_admin_status) %></td>
 			<% 
 			} 
 			%>	

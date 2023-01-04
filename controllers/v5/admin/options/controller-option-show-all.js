@@ -84,8 +84,8 @@ async  function function_export(req, res, next) {
 					'/admin/options/show-all/',
 					token
 				);	
-			//res.send([data_api_resuilt]);
-			//return;		
+		//res.send([data_api_resuilt]);
+		//return;		
 			
 		}
 		catch(error){
@@ -140,7 +140,6 @@ async  function function_export(req, res, next) {
 			datas_info = {
 				'title' 			: 'Danh sách option',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
@@ -156,7 +155,6 @@ async  function function_export(req, res, next) {
 			data_send = {
 				'title' 			: 'Danh sách option',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
-				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,

@@ -1,7 +1,7 @@
 
 $(document).ready(function($){
 
-	ojs_category_general_speciality = {	
+	ojs_category_general_speciality_admin = {	
 	
 	
 	

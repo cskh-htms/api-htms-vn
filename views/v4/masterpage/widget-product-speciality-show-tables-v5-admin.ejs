@@ -31,8 +31,10 @@
 
 	   <tr>
 			<td class="user-name">
-				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
-				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem"><%- products_list[x].products_speciality_name %></a>
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" 
+				class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" 
+				class="btn-xem"><%- products_list[x].products_speciality_name %></a>
 				
 				<%
 				if(products_list[x].products_speciality_type == 2){
@@ -65,7 +67,9 @@
 				%>					
 				
 				<div class="row-actions">
-					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="edit">
+					<a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa
+					</a> | </span>
 					<span class="btn-xem" data_product_id="<%= products_list[x].products_speciality_ID  %>"><a href="#">xem</a> | </span>	
 
 					<%
@@ -84,18 +88,18 @@
 			
 			<td><%= products_list[x].stores_name %></td>
 			
-			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>			
+			<td><%- ojs_share_product.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>			
 			
 			
 			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
 				<td class="pro-price" style="white-space: nowrap;">
-					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+					<%- ojs_share_product.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
 					<span class="price-off">
-					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
-					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+					<%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_format(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
 				</td>
 			<% } else { %>
-				<td class="pro-price"  style="white-space: nowrap;"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+				<td class="pro-price"  style="white-space: nowrap;"><%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
 			<% } %>				
 			
 			
@@ -109,7 +113,7 @@
 			) -%>
 			
 		</td>			
-		<td><%- ojs_share_product.show_status_html(products_list[x].products_speciality_status_admin) %></td>			
+		<td><%- ojs_share_all.show_status_html(products_list[x].products_speciality_status_admin) %></td>			
 			
 	   </tr>
 

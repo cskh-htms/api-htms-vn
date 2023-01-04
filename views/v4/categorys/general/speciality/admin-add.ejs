@@ -1,17 +1,36 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category.css' />
+
+
+
+
+
 <script src="../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality-admin.js"></script>	
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>	
+
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../../masterpage/header %>
 <% include ../../../masterpage/function-share-category %>
+<% include ../../../masterpage/function-share-all %>
+
+
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
@@ -104,7 +123,7 @@ content
 				<h3>Ẩn hiện danh mục</h3>
 				<div class="select-wrap inside">
 					<select id="category_general_speciality_show">
-						<%- ojs_share.show_hide(0) %>
+						<%- ojs_share_all.show_status_select_share_show_hide(0) %>
 					</select>	
 				</div>
 			</div>
@@ -114,7 +133,7 @@ content
 				<h3>Trạng thái</h3>
 				<div class="inside">
 					<select id="category_general_speciality_admin_status">
-						<%- ojs_share_category.show_status(0) %>
+						<%- ojs_share_all.show_status(0) %>
 					</select>
 				</div>
 			</div>
@@ -177,7 +196,7 @@ $(document).ready(function($){
 		
 	
 	//@
-	ojs_loader.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
 	
@@ -194,7 +213,7 @@ $(document).ready(function($){
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
-		ojs_loader.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
 	
 	
@@ -217,11 +236,11 @@ $(document).ready(function($){
 		
 		
 		//ojs_loader.delete_s3(url);
-		ojs_loader.delete_wp(url);
+		ojs_share_upload.delete_wp(url);
 		$('#featured_image').attr("data_value","");
 		//xoa html
 		$(this).parent(".img_box").remove();
-		ojs_loader.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
 	});			
 	//		
 	//	
@@ -241,7 +260,7 @@ $(document).ready(function($){
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_save_admin(datas);
+		ojs_category_general_speciality_admin.ajax_save_admin(datas);
 	});
 	
 	//@
@@ -254,7 +273,7 @@ $(document).ready(function($){
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_save_admin(datas);
+		ojs_category_general_speciality_admin.ajax_save_admin(datas);
 	});	
 	
 	

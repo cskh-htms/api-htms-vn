@@ -4,9 +4,12 @@
 
 /* 
 -------------------------------------------------
-	* show_stauts_stock ()
-	* show_stock_html()
-	
+
+[show_category_products]
+[show_stauts_stock]
+[show_stock_html]
+[show_product_type]
+[show_han_km]
 
 --------------------------------------------------
 */
@@ -15,15 +18,77 @@
 
 
 
-
-
-
 ojs_share_product = {
 
+
+
+
+
+
 	//@
 	//@
 	//@
+	//@ [show_han_km]
+	show_han_km: function(hankm){
+		//
+		let result = "";
+		//
+		switch(hankm) {
+				case 'đãhếthạn': 
+					result = '<span class="status_red mb5">Hết hạn giảm giá</span>';
+					break;
+				case 'đangkhuyếnmãi':
+					result = '<span class="status_green mb5">Đang giảm giá</span>';
+					break;
+				case 'khuyếnmãivôthờihạn':
+					result = '<span class="status_blue mb5">Luôn giảm giá</span>';
+					break;
+				default:
+					break;
+			}
+			return result;
+	},
+	
+	
+	
+	
+	
+	
+	
 	//@
+	//@
+	//@
+	//@ [show_category_products]
+	show_category_products: function(product_id,datas_link){
+		//
+		let result = "";
+		
+
+		//
+		for(let i = 0; i < datas_link.length; i ++){
+			if( product_id == datas_link[i].category_general_speciality_link_product_id ){
+				if(result == "" ){
+					result =  datas_link[i].category_general_speciality_name;
+				}else{
+					result = result + " , " + datas_link[i].category_general_speciality_name;
+				}
+			}
+		}
+
+		//	
+		return result;	
+	},
+
+
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ [show_stauts_stock]
 	show_stauts_stock: function(status){
 		let result = "";
 		
@@ -35,6 +100,17 @@ ojs_share_product = {
 		//	
 		return result;	
 	},
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@	[show_stock_html]
 	show_stock_html: function(status,qty){
 		let result = "";
 		
@@ -56,7 +132,18 @@ ojs_share_product = {
 		//	
 		return result;	
 	},
-	//@ hiển thị trạng thái sản phẩm (cửa hàng)
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	
+	//@ [show_product_type]
 	show_product_type: function(type){
 		let type_arr = ["normal product","variation product","Gift product"];
 		//
@@ -83,71 +170,7 @@ ojs_share_product = {
 	
 	
 	
-	
-	
-	
-	//@
-	//@
-	//@
-	//@ hien thi trang  thai san pham update
-	show_status: function(status){
-		let t = "";
-		let s = " selected ";
-		let result = "";
 		
-		
-		
-		let arr = [
-			['<option value="0"',' >Bản nháp</option>'],
-			['<option value="1"',' >Đã duyệt</option>'],
-			['<option value="2"',' >Chỉnh sửa chờ duyệt</option>'],
-			['<option value="3"',' >Từ chối</option>'],
-			['<option value="4"',' >Chờ duyệt</option>']			
-		]
-		var i;
-		
-		for(i = 0; i < arr.length; i ++){
-			if(status == i){
-				result = result + arr[i][0] + " selected " + arr[i][1];
-			}else{
-				result = result + arr[i][0] + "" + arr[i][1];
-			}
-		}
-		//	
-		return result;	
-	},		
-	
-	
-	
-	
-	
-	//@
-	//@
-	//@
-	//@ hien thi trang  thai san pham html	
-	show_status_html: function(status){
-		//
-		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<i class="fas fa-minus-circle gray" title="bản nháp"></i>'
-		}else if(status == 1){
-			result = "" + 
-			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
-		}else if(status == 2){
-			result = "" + 
-			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
-		}else if(status == 3){
-			result = "" + 
-			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
-		}else if(status == 4){
-			result = "" + 
-			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
-		}	
-		//	
-		return result;	
-	},	
 	
 	
 	

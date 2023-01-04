@@ -125,13 +125,15 @@ async  function function_export(req, res, next) {
 		
 		
 		
+		
+		
 		//@
 		//@
 		//@ send to web	
 		data_send = {
 			'datas' 		: 	data_api_resuilt[2]
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-show-product', data_send );	
+		res.render( ojs_configs.view_version + '/masterpage/widget-product-view', data_send );	
 		
 	//@
 	//@

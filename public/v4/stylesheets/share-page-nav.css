@@ -1,0 +1,70 @@
+
+/* 
+file này chỉ format cho phân trang 
+*/
+
+
+.page-nav-inner {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0px;
+}
+
+.page-nav-inner a.active {
+    background-color: #4a914b;
+    color: #fff;
+}
+.page-nav-inner a {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #4a914b;
+    border-radius: 50%;
+    margin: 0px 1px;
+    color: #4a914b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

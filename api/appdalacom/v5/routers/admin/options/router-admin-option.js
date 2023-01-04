@@ -25,43 +25,45 @@ require(
 	'../../../controllers/admin/options/controller-admin-option-show-all.js'
 );
 
+const controller_admin_option_add =  
+require(
+	'../../../controllers/admin/options/controller-admin-option-add.js'
+);
+
+const controller_admin_option_save =  
+require(
+	'../../../controllers/admin/options/controller-admin-option-save.js'
+);
+
+
+
+
 
 /*
-
-
-
-
-const controller_admin_category_ajax_list =  
+const controller_admin_option_ajax_list =  
 require(
-	'../../../controllers/admin/categorys/controller-admin-category-ajax-list.js'
+	'../../../controllers/admin/options/controller-admin-option-ajax-list.js'
 );
 
 
-const controller_admin_category_add =  
+
+
+
+
+const controller_admin_option_show =  
 require(
-	'../../../controllers/admin/categorys/controller-admin-category-add.js'
+	'../../../controllers/admin/options/controller-admin-option-show.js'
+);
+
+const controller_admin_option_update =  
+require(
+	'../../../controllers/admin/options/controller-admin-option-update.js'
 );
 
 
-const controller_admin_category_save =  
+const controller_admin_option_delete =  
 require(
-	'../../../controllers/admin/categorys/controller-admin-category-save.js'
-);
-
-const controller_admin_category_show =  
-require(
-	'../../../controllers/admin/categorys/controller-admin-category-show.js'
-);
-
-const controller_admin_category_update =  
-require(
-	'../../../controllers/admin/categorys/controller-admin-category-update.js'
-);
-
-
-const controller_admin_category_delete =  
-require(
-	'../../../controllers/admin/categorys/controller-admin-category-delete.js'
+	'../../../controllers/admin/options/controller-admin-option-delete.js'
 );
 
 
@@ -76,17 +78,21 @@ require(
 //@
 //@ router
 router.get('/show-all/', middle_ware, controller_admin_option_show_all );
+router.get('/add/', middle_ware, controller_admin_option_add );
+router.post('/save/', middle_ware, controller_admin_option_save );
+
+
 
 
 /*
 
-router.post('/ajax-list/', middle_ware, controller_admin_category_ajax_list );
-router.get('/add/', middle_ware, controller_admin_category_add );
-router.post('/save/', middle_ware, controller_admin_category_save );
-router.get('/show/', middle_ware, controller_admin_category_show );
+router.post('/ajax-list/', middle_ware, controller_admin_option_ajax_list );
+router.get('/add/', middle_ware, controller_admin_option_add );
 
-router.put('/update/', middle_ware, controller_admin_category_update );
-router.delete('/delete/', middle_ware, controller_admin_category_delete );
+router.get('/show/', middle_ware, controller_admin_option_show );
+
+router.put('/update/', middle_ware, controller_admin_option_update );
+router.delete('/delete/', middle_ware, controller_admin_option_delete );
 
 */
 

@@ -63,7 +63,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->admin->categorys->add",
+				"position":"web->appdalacom->controllers->admin->options->add",
 				"message": error_send 
 			}); 
 			return;			
@@ -81,7 +81,7 @@ async  function function_export(req, res, next) {
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 				ojs_configs.domain + '/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/admin/categorys/add?c1=' + store_id, 
+				'/admin/options/add?c1=' + store_id, 
 				token
 			);	
 		//res.send(data_api_resuilt);
@@ -109,7 +109,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->admin->categorys->add",
+				"position":"web->appdalacom->controllers->admin->options->add",
 				"message": error_send 
 			}); 
 			return;
@@ -129,9 +129,8 @@ async  function function_export(req, res, next) {
 		try {
 
 			datas_info = {
-				'title' 				: 'Tạo danh mục',
+				'title' 				: 'Tạo thương hiệu',
 				'users_type' 			: ojs_shares_others.get_users_type(token),
-				'user_role'				: ojs_shares_others.get_users_type(token),	
 				'user_id' 				: ojs_shares_others.get_users_id(token),
 				'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'		: ojs_configs.js_css_version,
@@ -141,30 +140,34 @@ async  function function_export(req, res, next) {
 				'menu_taget'			: "sidebar_category",
 				'sidebar_type'			: "",				
 				'news_admin_menu' 		: data_api_resuilt[1],
-				'datas_category_general': data_api_resuilt[2],
+				'option_list'			: data_api_resuilt[2],
 				
 			}
 				
 			
 			data_send = {
-				'title' 				: 'Tạo danh mục',
+				'title' 				: 'Tạo thương hiệu',
 				'users_type' 			: ojs_shares_others.get_users_type(token),
-				'user_role'				: ojs_shares_others.get_users_type(token),	
 				'user_id' 				: ojs_shares_others.get_users_id(token),
 				'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'		: ojs_configs.js_css_version,
 				'service_type_name'		: "speciality",
-				
 				'store_id'				: store_id,
+				
 				'menu_taget'			: "sidebar_category",
 				'sidebar_type'			: "",				
 				'news_admin_menu' 		: data_api_resuilt[1],
-				'datas_category_general': data_api_resuilt[2],
+				'option_list'			: data_api_resuilt[2],
 				
 				'datas_info'			: datas_info			
 			}
 		
-			res.render( ojs_configs.view_version + '/categorys/general/speciality/admin-add',  data_send );
+		
+			//res.send(data_send);
+			//return;
+		
+		
+			res.render( ojs_configs.view_version + '/options/speciality/admin-add',  data_send );
 		}
 		catch(error){
 				var evn = ojs_configs.evn;
@@ -187,7 +190,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"controller->users-add",
+			"position":"web->appdalacom->controllers->admin->options->add",
 			"message": error_send 
 		}); 
 		return;			
@@ -200,7 +203,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"controller->users-add",
+		"position":"web->appdalacom->controllers->admin->options->add",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

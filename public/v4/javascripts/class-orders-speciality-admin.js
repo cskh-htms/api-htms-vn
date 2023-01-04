@@ -1,7 +1,7 @@
 
 $(document).ready(function($){
 
-	ojs_orders_admin = {	
+	ojs_orders_admin_admin = {	
 	
 	
 

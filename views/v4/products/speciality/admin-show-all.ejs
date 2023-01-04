@@ -1,8 +1,14 @@
-
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-page-nav.css' />
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-product-speciality-admin.js"></script>	
+
+
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -10,13 +16,18 @@
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
 <% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-product %>
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
 </script>	
-
 
 
 <!-- --------------------
@@ -25,7 +36,9 @@ content
 <div id="content" class="content">
 
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách sản phẩm</h1>
-	
+
+
+
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 
@@ -163,7 +176,20 @@ content
 	<% include ../../masterpage/widget-product-speciality-show-tables-v5-admin %>
 	
 	</div>		
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 
@@ -174,59 +200,6 @@ end content
 
 
 
-
-
-
-
-<style>
-#fillter-inner {
-    display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-.filletr-btn{
-    display: flex;
-    position: relative;
-    padding: 7px 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-	margin-right: 30px;
-	margin-bottom: 10px;
-}
-.f-x {
-	position: absolute;
-    right: -25px;
-    top: 5px;
-    border: 1px solid #27ad43;
-    display: flex;
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    border-radius: 50px;
-    text-indent: -100px;
-    overflow: hidden;
-}
-
-.filletr-btn.reset-btn {
-    background-color: #4a914b;
-    color: white;
-    cursor: pointer;
-}
-.sap_xep_loc {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-.sap_xep_loc .loc_wrap {
-    text-align: right;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-</style>
 
 
 
@@ -276,7 +249,7 @@ $(document).ready(function($){
 		add_data_fillter();
 		//console.log(datas);
 		//return;
-		ojs_products_speciality.ajax_load_products_admin(datas);	
+		ojs_products_speciality_admin.ajax_load_products_admin(datas);	
 	});	
 	
 	
@@ -313,7 +286,7 @@ $(document).ready(function($){
 	
 		//console.log(datas);
 		//return;
-		ojs_products_speciality.ajax_load_products_admin(datas);		
+		ojs_products_speciality_admin.ajax_load_products_admin(datas);		
 	});	
 	
 	
@@ -343,7 +316,7 @@ $(document).ready(function($){
 			"text_search_data" : x,
 			"loc_cua_hang_data" : 'all'
 		}	
-		ojs_products_speciality.ajax_load_products_admin(datas);			
+		ojs_products_speciality_admin.ajax_load_products_admin(datas);			
 	  }
 	});	
 		
@@ -391,7 +364,7 @@ $(document).ready(function($){
 		var datas = get_data_ajax();
 		//console.log(datas);
 		//return;
-		ojs_products_speciality.ajax_load_products_table_admin(datas);
+		ojs_products_speciality_admin.ajax_load_products_table_admin(datas);
 		
 	});		
 	//
@@ -446,7 +419,7 @@ $(document).ready(function($){
 		var product_id = $(this).attr("data_product_id");
 		//alert(product_id);
 		//return;
-		ojs_products_speciality.show_content_product(product_id);
+		ojs_products_speciality_admin.show_content_product(product_id);
 		//@
 	});		
 	//
@@ -468,7 +441,7 @@ $(document).ready(function($){
 			}
 		}
 
-		ojs_products_speciality.ajax_duyet(datas,product_id);
+		ojs_products_speciality_admin.ajax_duyet(datas,product_id);
 		//@
 	});		
 	//
@@ -527,7 +500,7 @@ $(document).ready(function($){
 		//alert(content);
 		//return;
 
-		ojs_products_speciality.ajax_tu_choi(datas,product_id);
+		ojs_products_speciality_admin.ajax_tu_choi(datas,product_id);
 		//@
 	});		
 
@@ -640,15 +613,6 @@ $(document).ready(function($){
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 
 
 

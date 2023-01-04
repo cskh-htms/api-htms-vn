@@ -65,17 +65,37 @@ input[type="checkbox"] {
 }
 
 
+.table-list tbody .pro-price .price-off {
+    color: #d0d0d0;
+    text-decoration: line-through;
+    font-size: 85%;
+    margin-right: 5px;
+    display: block;
+}
+.price-off {
+    color: #ccc;
+    text-decoration: line-through;
+}
+
+
+.contents-ajax-view-product{
+    width: 100%;
+    max-width: 70%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.content-image {
+    text-align: center;
+}
 
 
 
-
-
-
-
-
-
-
-
+#content-ajax-product .content-image img{
+	max-width: 320px !important;	
+}
 
 
 

@@ -54,7 +54,12 @@ const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERS
 
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const category_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/categorys-search');
+const option_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/options/option-search');
+
+
+
+
+
 
 
 //@
@@ -81,7 +86,7 @@ async  function function_export(req, res, next) {
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->categorys->add",
+					"position" : "api->appdalacom->controller->admin->options->add",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -97,13 +102,16 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->options->add",
 				"message": error_send 
 			}); 
 			return;	
 		}	
 		//res.send([store_id]);
 		//return;
+		
+		
+		
 		
 		
 		
@@ -126,7 +134,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->options->add",
 				"message": error_send 
 			}); 
 			return;			
@@ -160,15 +168,15 @@ async  function function_export(req, res, next) {
 			//@			
 			//@
 			//@
-			//@lấy category_list
-			var data_category_list =    
+			//@lấy option_list
+			var data_option_list =    
 			{
 			   "select_field" :
 				[
-					"category_general_speciality_ID",
-					"category_general_speciality_name",
-					"category_general_speciality_category_parent_id",
-					"category_general_speciality_admin_status"		
+					"options_product_speciality_ID",
+					"options_product_speciality_name",
+					"options_product_speciality_parent_id",
+					"options_product_speciality_status_admin"		
 				],
 				"condition" :
 				[
@@ -177,7 +185,7 @@ async  function function_export(req, res, next) {
 					"where" :
 						[
 						{
-							"field"     :"category_general_speciality_admin_status",
+							"field"     :"options_product_speciality_status_admin",
 							"value"     : 1,
 							"compare" : "="						
 						}
@@ -186,15 +194,15 @@ async  function function_export(req, res, next) {
 				],
 				"group_by":
 				[
-					"category_general_speciality_ID"
+					"options_product_speciality_ID"
 				]
 			}
 			
-			var fn_get_category_list = new Promise((resolve, reject) => {
-				let result = category_search(data_category_list,res);
+			var fn_get_option_list = new Promise((resolve, reject) => {
+				let result = option_search(data_option_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_category_list);	
+			promise_all.push(fn_get_option_list);	
 
 
 
@@ -227,7 +235,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->options->add",
 				"message": error_send 
 			}); 
 			return;	
@@ -277,7 +285,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->categorys->add",
+			"position" : "api->appdalacom->controller->admin->options->add",
 			"message": error_send 
 		}); 
 		return;	
@@ -290,7 +298,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->categorys->add",
+		"position":"api->appdalacom->controller->admin->options->add",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

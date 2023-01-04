@@ -18,10 +18,10 @@
 -------------------------------------------------
 *  [format_date]	
 *  [show_price_format]
-*  [unCape]	
 *  [unCape]
 *  [show_status]	
 *  [show_status_html]
+*  [unCape_content]
 		
 --------------------------------------------------
 */
@@ -37,6 +37,31 @@
 //@
 //@ object start
 ojs_share_all = {	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ [show_status_select_share_all_two]	
+	show_status_select_share_all_two: function(status){
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Chưa duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'
+		}		
+		//	
+		return result;	
+	},		
+	
+	
 	
 	
 	//@
@@ -192,6 +217,32 @@ ojs_share_all = {
 	unCape: function(datas){
 		let res = datas.replace(/\\n/g, '');
 		let resResult = res.replace(/\\/g, '');
+		return  resResult;
+	},	
+	
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ [unCape_content]	
+	unCape_content: function(datas){
+		let res = datas.replace(/\\n/g, '');
+		res = res.replace(/\\/g, '');
+		let resResult = "";
+		
+		const myArray = res.split(".");
+		
+		for(x in myArray){
+			resResult = resResult + myArray[x] + '<br><br>';
+		}
+		
+		
+		
+		
 		return  resResult;
 	},	
 	

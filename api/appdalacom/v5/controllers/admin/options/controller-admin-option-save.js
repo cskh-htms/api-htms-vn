@@ -48,7 +48,7 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 //@
 //@ model
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const category_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-insert');
+const option_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/options/option-insert');
 
 
 
@@ -83,7 +83,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->users->save",
+				"position" : "api->appdalacom->controller->admin->options->save",
 				"message": error_send 
 			}); 
 			return;	
@@ -115,7 +115,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->users->save", 
+				"position" : "api->appdalacom->controller->admin->options->save", 
 				"message": error_send 
 			}); 
 			return;			
@@ -133,7 +133,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ run database
-		var result = await category_insert(datas,res);
+		var result = await option_insert(datas,res);
 		
 		
 			
@@ -163,7 +163,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->users->save",
+			"position" : "api->appdalacom->controller->admin->options->save",
 			"message": error_send 
 		}); 
 		return;	
@@ -176,7 +176,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->users->save",
+		"position":"api->appdalacom->controller->admin->options->save",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

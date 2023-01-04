@@ -13,7 +13,8 @@ if (typeof datas == 'object' && datas && datas.length > 0) {
 	data_parent_id = DanhMucChungMacDinhID;
 	data_id = DanhMucChungMacDinhID;
 }
-if (typeof options_list == 'object' && options_list  && options_list.length > 0) { } else {options_list = [];}
+if (typeof option_list == 'object' && 
+option_list  && option_list.length > 0) { } else {option_list = [];}
 %>	
 
 
@@ -22,20 +23,24 @@ if (typeof options_list == 'object' && options_list  && options_list.length > 0)
 
 <option value="0">Chọn option cha</option>
 <% 
-if( options_list.length > 0){
-for(var  x in options_list) { %>
+if( option_list.length > 0){
+for(var  x in option_list) { %>
 	<% 
-	if(options_list[x].options_product_speciality_parent_id == 0) { %>
+	if(option_list[x].options_product_speciality_parent_id == 0) { %>
 
 		<% 
-		if(options_list[x].options_product_speciality_ID  == data_parent_id ){ 	%>
-			<option  style="font-weight:bold;color:red;"  selected value="<%= options_list[x].options_product_speciality_ID %>"><%= options_list[x].options_product_speciality_name %></option>
+		if(option_list[x].options_product_speciality_ID  == data_parent_id ){ 	%>
+			<option  style="font-weight:bold;color:red;"  
+			selected value="<%= option_list[x].options_product_speciality_ID %>">
+			<%= option_list[x].options_product_speciality_name %></option>
 		<% 
-		}else if(options_list[x].options_product_speciality_ID  == data_id){ %>
-			<option value ="<%= options_list[x].options_product_speciality_ID %>" disabled><%= options_list[x].options_product_speciality_name %></option>
+		}else if(option_list[x].options_product_speciality_ID  == data_id){ %>
+			<option value ="<%= option_list[x].options_product_speciality_ID %>" 
+			disabled><%= option_list[x].options_product_speciality_name %></option>
 		<% 
 		}else{ 	%>
-			<option value ="<%= options_list[x].options_product_speciality_ID %>"><%= options_list[x].options_product_speciality_name %></option>
+			<option value ="<%= option_list[x].options_product_speciality_ID %>">
+			<%= option_list[x].options_product_speciality_name %></option>
 		<% 
 		} 
 		%>			

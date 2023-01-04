@@ -216,6 +216,7 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
 					//console.log(result);
 					//ojs_loadding.ajax_hide_loadding();	
 					//return;
