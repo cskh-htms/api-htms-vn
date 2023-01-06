@@ -336,6 +336,13 @@ ojs_loadding_message_callback = {
 		ojs_brands.ajax_delete(brand_id);
 	},
 	//
+	
+	//xoa brands
+	delete_brand_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let brand_id = datas_parse.brand_id;
+		ojs_brands_admin.ajax_delete_admin(brand_id);
+	},	
 	//
 	//
 	//xoa product speciality

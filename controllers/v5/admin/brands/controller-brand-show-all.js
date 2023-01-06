@@ -84,8 +84,8 @@ async  function function_export(req, res, next) {
 					'/admin/brands/show-all/',
 					token
 				);	
-			res.send([data_api_resuilt]);
-			return;		
+			//res.send([data_api_resuilt]);
+			//return;		
 			
 		}
 		catch(error){
@@ -138,33 +138,33 @@ async  function function_export(req, res, next) {
 		try {
 
 			datas_info = {
-				'title' 			: 'Danh sách category',
+				'title' 			: 'Danh sách brand',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
 				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_category',
+				'menu_taget'		: 'sidebar_brand',
 				'sidebar_type'		:  "",
 				
 				'news_admin_menu' 		: data_api_resuilt[1],
-				'category_list'			: data_api_resuilt[2],
+				'brand_list'			: data_api_resuilt[2],
 				
 			}
 			
 			
 			data_send = {
-				'title' 			: 'Danh sách category',
+				'title' 			: 'Danh sách brand',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
 				'users_role' 		: ojs_shares_others.get_users_type(token),
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
-				'menu_taget'		: 'sidebar_category',
+				'menu_taget'		: 'sidebar_brand',
 				'sidebar_type'		:  "",
 				
 				'news_admin_menu' 		: data_api_resuilt[1],
-				'category_list'			: data_api_resuilt[2],
+				'brand_list'			: data_api_resuilt[2],
 				
 				'datas_info'			: datas_info			
 			}
@@ -173,7 +173,7 @@ async  function function_export(req, res, next) {
 			//res.send(data_send);
 			//return;
 			
-			res.render( ojs_configs.view_version + '/categorys/general/speciality/admin-show-all', data_send );
+			res.render( ojs_configs.view_version + '/brands/admin-show-all', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;

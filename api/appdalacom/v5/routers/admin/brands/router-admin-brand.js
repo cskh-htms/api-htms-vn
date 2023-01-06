@@ -40,6 +40,13 @@ require(
 router.get('/show-all', middle_ware, controllers_admin_brand_show_all );
 
 
+
+
+
+
+
+
+
 router.post('/update', middle_ware, controllers_admin_brand_update );
 
 

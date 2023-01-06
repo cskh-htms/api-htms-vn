@@ -1,31 +1,40 @@
-<% 
-//@
-//@
-//@
-//@
-if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
-%>
-<% include ../masterpage/loader %>
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-brands.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+<% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand.css' />
+
+
+
+
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../<%= js_css_version %>/javascripts/class-brands-admin.js"></script>	
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../masterpage/header %>
+<% include ../masterpage/function-share-brand %>
+<% include ../masterpage/function-share-all %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
-
+</script>
 
 
 <!-- --------------------
@@ -35,32 +44,44 @@ content
 
 
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách Thương hiệu</h1>
+
+
+
+
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách Thương hiệu</h1>
 	<div class="sap_xep_loc" style="justify-content: flex-end;">
-		<!--
-		<div class="sap_xep_wrap">
-			<select id="sap_xep_sp">
-				<option value="">Sắp xếp theo tên</option>
-				<option value="">Ít sản phẩm</option>
-				<option value="">Nhiều sản phẩm</option>
-			</select>
-		</div>
-		-->
-		<div class="loc_wrap">
+
+		<div class="loc_wrap" style="display:none;">
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3]">Tất cả trạng thái</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="all" value="[1,2,3,4]">Tất cả trạng thái</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
 				<option id="checked" value="[1]">Đã duyệt</option>
+				<option id="checking" value="[4]">Chờ duyệt</option>
 			</select>
 		</div>
 	</div>
 	
 	<div id="ajax-wrap">
 	
-	<% include ../masterpage/widget-brand-show-tables %>
+	<% include ../masterpage/widget-brand-show-tables-admin %>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,8 +90,6 @@ content
 
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
-
 
 
 </div>
@@ -148,126 +167,7 @@ $(document).ready(function($){
 		ojs_bussiness.ajax_load_brand_admin(datas);	
 	});
 	
-	
-	/*
-	//goi ajax
-	$(document).on('click','#all',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0,1,2,3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id:store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
 
-	});//end of function		
-		
-	//@
-	//goi ajax
-	$(document).on('click','#complate',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [1]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id:store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#new',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id:store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#update',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [2]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id:store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
-
-	});//end of function
-
-
-	//@
-	//goi ajax
-	$(document).on('click','#not',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id:store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_brand(datas);	
-
-	});//end of function
-	
-	*/
-	
-	//
 ///////////////////////////////////////////////////////
 });//end of document
 </script>

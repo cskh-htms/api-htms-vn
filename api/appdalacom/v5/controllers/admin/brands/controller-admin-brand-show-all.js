@@ -54,11 +54,11 @@ const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERS
 const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const category_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/categorys-search');
+
 
 const brand_search = require('../../../../../lib/' + 
 	config_api.API_LIB_VERSION + 
-	'/brands/brand-search.js'
+	'/brands/brand-search-product.js'
 );
 
 
@@ -145,20 +145,20 @@ async  function function_export(req, res, next) {
 
 			
 			
+			
 			//@
 			//@			
 			//@
 			//@
-			//@lấy category_list
-			var data_category_list =    
+			//@lấy brand_list
+			var data_brand_list =    
 			{
 			   "select_field" :
 				[
-					"category_general_speciality_ID",
-					"category_general_speciality_name",
-					"category_general_speciality_category_parent_id",
-					"category_general_speciality_admin_status",
-					"count(category_general_speciality_link_product_id)"		
+					"brands_ID",
+					"brands_name",
+					"brands_status_admin",
+					"count(brands_name)"		
 				],
 				"condition" :
 				[
@@ -167,24 +167,24 @@ async  function function_export(req, res, next) {
 					"where" :
 						[
 						{
-							"field"     :"category_general_speciality_admin_status",
+							"field"     :"brands_status_admin",
 							"value"     : [1,2,4],
 							"compare" : "in"						
-						}
+						}					
 						]    
 					}         
 				],
 				"group_by":
 				[
-					"category_general_speciality_ID"
+					"brands_name"
 				]
 			}
 			
-			var fn_get_category_list = new Promise((resolve, reject) => {
-				let result = category_link_search(data_category_list,res);
+			var fn_get_brand_list = new Promise((resolve, reject) => {
+				let result = brand_search(data_brand_list,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_category_list);			
+			promise_all.push(fn_get_brand_list);			
 
 
 			
@@ -226,9 +226,8 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"category_sale",
-			"3":"category_list",
-			"4":"notes"
+			"2":"brand_list",
+			"3":"notes"
 		}
 		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);

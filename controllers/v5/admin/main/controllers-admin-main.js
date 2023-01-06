@@ -58,6 +58,7 @@ async  function function_export(req, res, next) {
 	
 	
 	
+	
 	//@
 	//@
 	//@ get api
@@ -68,8 +69,8 @@ async  function function_export(req, res, next) {
 			token
 		);	
 		
-	res.send( [data_api_resuilt] );
-	return;	
+	//res.send( [data_api_resuilt] );
+	//return;	
 		
 		
 		
