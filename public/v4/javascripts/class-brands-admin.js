@@ -24,9 +24,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-				    console.log(result);
-				    ojs_loadding.ajax_hide_loadding();	
-				    return;
+				   /// console.log(result);
+				   /// ojs_loadding.ajax_hide_loadding();	
+				  //  return;
 				  
 				  
 					//ojs_loader.evn = "dev";
@@ -46,10 +46,14 @@ $(document).ready(function($){
 					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//
-		//load danh muc cua hang
+		},//end of ajax save
+
+
+
+		
+		//@
+		//@
+		//@load danh muc cua hang
 		ajax_update_admin: function(datas,brands_id){		
 			//console.log(datas,brands_id);
 			//return;
@@ -70,9 +74,9 @@ $(document).ready(function($){
 			  success : function(result) {
 				  
 				  
-				    console.log(result);
-				    ojs_loadding.ajax_hide_loadding();	
-				    return;
+				   // console.log(result);
+				    //ojs_loadding.ajax_hide_loadding();	
+				    //return;
 				  
 				  
 					//ojs_loader.evn = "dev";
@@ -92,14 +96,21 @@ $(document).ready(function($){
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
-		//
-		//load danh muc cua hang
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@update
 		ajax_delete_admin: function(brands_id){		
 			//alert(brands_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
+			  type : "delete",	  
 			  url : ojs_loader.host + "/brands/delete/" + brands_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -111,9 +122,9 @@ $(document).ready(function($){
 			  success : function(result) {
 				  
 				  
-				    console.log(result);
-				    ojs_loadding.ajax_hide_loadding();	
-				    return;
+				    //console.log(result);
+				   // ojs_loadding.ajax_hide_loadding();	
+				   // return;
 				  
 				  
 					//ojs_loader.evn = "dev";

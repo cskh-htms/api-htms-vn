@@ -30,6 +30,8 @@ const config_api = require('../../../../../configs/config-api');
 
 
 
+
+
 //@
 //@
 //@
@@ -42,14 +44,15 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 
 
 
+
+
 //@
 //@
 //@
 //@
 //@ model
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const category_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/category-insert');
-
+const brand_delete = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-delete');
 
 
 
@@ -70,8 +73,20 @@ async  function function_export(req, res, next) {
 		//@
 		//@ lấy data req	
 		try {
-			var token = req.headers['token'];
-			var datas  = req.body.datas;
+			var token = req.headers['token'];			
+			//@
+			//@
+			var brand_id = 0;
+			if(req.query.c1){
+				brand_id = req.query.c1;
+			}else{
+				res.send({ 
+					"error" : "01", 
+					"position" : "api->appdalacom->controller->admin->brands->delete",
+					"message": "vui lòng nhập id"
+				}); 	
+				return;
+			}				
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -83,12 +98,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->users->save",
+				"position" : "api->appdalacom->controller->admin->brands->delete",
 				"message": error_send 
 			}); 
 			return;	
 		}			
-		//res.send(["dfsdfsdfsdfsdf"]);
+		//res.send([brand_id]);
 		//return;
 		
 		
@@ -115,12 +130,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->users->save", 
+				"position" : "api->appdalacom->controller->admin->brands->delete", 
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send(["ok"]);
+		///res.send([check_role_result]);
 		//return;
 		
 		
@@ -133,7 +148,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ run database
-		var result = await category_insert(datas,res);
+		var result = await brand_delete(brand_id,res);
 		
 		
 			
@@ -163,7 +178,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->users->save",
+			"position" : "api->appdalacom->controller->admin->brands->delete",
 			"message": error_send 
 		}); 
 		return;	
@@ -176,7 +191,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->users->save",
+		"position":"api->appdalacom->controller->admin->brands->delete",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

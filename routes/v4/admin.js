@@ -30,68 +30,7 @@ const controller_admin_main = require(
 //@
 //@
 //@
-//@ loader extends module
-const md5 = require('md5');
-
-
-//@
-//@
-//@
-//@ loader function shares
-const ojs_shares_get_all_list_datas_count = require('../../models/ojs-shares-get-all-list-datas-count');
-const ojs_shares_get_all_list_datas = require('../../models/ojs-shares-get-all-list-datas');
-const ojs_shares_get_all_list_datas_all = require('../../models/ojs-shares-get-all-list-datas-all');
-const ojs_shares_get_orders_datas = require('../../models/ojs-shares-get-orders-datas');
-const ojs_shares_news_admin_menu = require('../../models/ojs-shares-news-admin-menu');
-
-const ojs_shares_others = require('../../models/ojs-shares-others');
-
-const ojs_shares_date = require('../../models/ojs-shares-date');
-const ojs_shares_fetch_data = require('../../models/ojs-shares-fetch-data');
-
-
-
-const ojs_datas_orders = require('../../models/ojs-datas-orders');
-const ojs_datas_coupon = require('../../models/ojs-datas-coupon');
-const ojs_datas_products = require('../../models/ojs-datas-products');
-
-const ojs_datas_discount_program_store_add = require('../../models/ojs-datas-discount-program-store-add');
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-/* 
----------------------------------------------------------------
-
-* 1. [/]
-
-* 2. [/category/show/:cat_id/:store_id]
-
-* 3. [/option/show/:option_id/:store_id]
-
-* 4. [/brand/show/:brand_id/:store_id]
-
-* 5. [/discount/show/:discount_program_id/:store_id]
-
-* 6. [/discount-details/show/:discount_program_details_id/:store_id/:discount_program_id]
-
-* 7. [/discount-details/show-admin/:discount_program_details_id]
-
-* 8. [/coupon/show/:coupon_id/:store_id]
-
-* 9.[/product/show/:product_id/:store_id/]
-
-
---------------------------------------------------------------
-*/
-
-
+//@ router
 router.get('/coupon/show/:coupon_id/:store_id', controller_coupon_show_admin);
 router.get('/', controller_admin_main);
 router.get('/discount-program/product-add/:link_id', controller_discount_program_product_add);

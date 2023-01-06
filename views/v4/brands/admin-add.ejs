@@ -1,0 +1,331 @@
+
+<% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand.css' />
+
+
+
+
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../<%= js_css_version %>/javascripts/class-brands-admin.js"></script>	
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+
+
+
+
+<!-- --------------------
+page wrap 
+--------------------- -->
+
+
+
+<% include ../masterpage/header %>
+<% include ../masterpage/function-share-brand %>
+<% include ../masterpage/function-share-all %>
+
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+
+	<h1><a href="/admin/">Home</a><i class="fas fa-chevron-right"></i>
+	<a href="/brands/">Thương hiệu</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	
+	
+	<div class="pro_content_edit">
+		<div class="pro_col01">
+			<!-- ------------------
+			//Ten thuong hieu
+			------------------- -->
+			<div class="pro_box ten_sp_box">
+				<h3>Tên thương hiệu</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="brands_name"/>
+				</div>
+			</div>	
+			
+			
+			
+			
+	
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div  style="display:none;" class="value_row">
+				<span>Mô tả ngắn</span><br>
+				<textarea class="noi_dung"  id="brands_excerpt"  rows="5" cols="100%"></textarea>
+			</div>
+			<!-- ------------------
+			//thông tin mô tả
+			------------------- -->
+			
+			
+			
+		
+			
+	
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
+			<div class="pro_box"">
+				<h3>Chi tiết thương hiệu</h3>
+				<div class="inside">
+					<textarea class="noi_dung"  id="noi_dung"  rows="10" cols="100%"></textarea>
+				</div>
+			</div>
+			
+			
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="brands_qoute"  rows="5" cols="100%" ></textarea>
+				</div>
+			</div>			
+			
+			
+			
+			
+					
+			
+			
+			
+		</div>
+		<div class="pro_col02">
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện</h3>	
+				<div class="inside">
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			// end of hình đại diện 
+			------------------- -->	
+	
+	
+			<div class="pro_box">
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<select id="brands_status_admin">
+						<%- ojs_share_all.show_status(0) %>
+					</select>
+				</div>
+			</div>	
+	
+	
+
+
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<div class="btn_box">
+		<a href="/brands/" class="btn_back">Quay về</a>
+		<button id="btn_save" class="btn_save">Đăng</button>
+	</div>
+
+
+
+
+<input type="hidden" id="user_id" value="<%= user_id %>"/>
+<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+
+
+
+
+
+<% include ../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+
+<% include ../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+
+	var user_id = $('#user_id').val();
+	//@
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");	
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	
+	
+	
+	
+	
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	
+	
+	
+	
+	
+	
+	
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_share_upload.delete_s3(url);
+		ojs_share_upload.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});			
+	//		
+
+	
+	// ajax luu san pham
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		//alert("hú hú");
+		//return;
+		
+		var brands_name = $('#brands_name').val();	
+		var store_id = $('#store_id').val();
+		var brands_qoute =$("#brands_qoute").val();
+		
+		var brands_featured_image = $('#featured_image').attr('data_value');
+		let brands_information = $('#noi_dung').val();	
+		
+		
+		let brands_status_admin = $('#brands_status_admin  option:selected').val();
+		
+		
+		
+		if(brands_name == ""){
+			ojs_message.message_ok_show("Nhập tên thương hiệu");
+			return;
+		}
+		
+		
+		
+		
+		//
+		var datas = {
+			"datas":{
+				brands_name : brands_name,
+				brands_featured_image : brands_featured_image,
+				brands_information : brands_information,
+				brands_stores_id : store_id,
+				brands_qoute : brands_qoute,
+				brands_status_admin : brands_status_admin
+			}
+		}
+		//console.log(datas);		
+		//return;
+		
+		ojs_brands_admin.ajax_save_admin(datas);
+		
+	});//end of save ajax
+	
+	
+	
+	
+	
+	
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../masterpage/loader-end %>
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

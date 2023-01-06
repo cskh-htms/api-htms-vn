@@ -52,9 +52,10 @@ const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_
 const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const category_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/categorys/categorys-search');
+const brand_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/brands/brand-get-one');
+
+
 
 
 //@
@@ -75,17 +76,19 @@ async  function function_export(req, res, next) {
 			var token = req.headers['token'];
 			//@
 			//@
-			var store_id = 0;
+			var brand_id = 0;
 			if(req.query.c1){
-				store_id = req.query.c1;
+				brand_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->categorys->add",
+					"position" : "api->appdalacom->controller->admin->brands->show",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
-			}	
+			}				
+			
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -97,15 +100,14 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->brands->show",
 				"message": error_send 
 			}); 
 			return;	
 		}	
-		//res.send([store_id]);
+		//res.send([brand_id]);
 		//return;
-		
-		
+
 		
 		
 		
@@ -126,12 +128,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->brands->show",
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send([store_id]);
+		//res.send(["ok"]);
 		//return;
 		
 			
@@ -153,57 +155,18 @@ async  function function_export(req, res, next) {
 			promise_all.push(fn_get_data_news_admin);
 
 
-
-
-
-			//@
-			//@			
-			//@
-			//@
-			//@lấy category_list
-			var data_category_list =    
-			{
-			   "select_field" :
-				[
-					"category_general_speciality_ID",
-					"category_general_speciality_name",
-					"category_general_speciality_category_parent_id",
-					"category_general_speciality_admin_status"		
-				],
-				"condition" :
-				[
-					{    
-					"relation": "and",
-					"where" :
-						[
-						{
-							"field"     :"category_general_speciality_admin_status",
-							"value"     : 1,
-							"compare" : "="						
-						}
-						]    
-					}         
-				],
-				"group_by":
-				[
-					"category_general_speciality_ID"
-				]
-			}
 			
-			var fn_get_category_list = new Promise((resolve, reject) => {
-				let result = category_search(data_category_list,res);
+			
+			
+			//@
+			//@
+			//@
+			//@ category taget
+			var fn_get_brand_taget = new Promise((resolve, reject) => {
+				let result = brand_get_one(brand_id,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_category_list);	
-
-
-
-
-
-
-
-
-
+			promise_all.push(fn_get_brand_taget);		
 
 
 
@@ -227,7 +190,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api->appdalacom->controller->admin->categorys->add",
+				"position" : "api->appdalacom->controller->admin->brands->show",
 				"message": error_send 
 			}); 
 			return;	
@@ -242,7 +205,9 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"notes"
+			"2":"brand_taget",
+			"3":"category-list",
+			"3":"notes"
 		}
 		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);
@@ -277,7 +242,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->categorys->add",
+			"position" : "api->appdalacom->controller->admin->brands->show",
 			"message": error_send 
 		}); 
 		return;	
@@ -290,7 +255,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->categorys->add",
+		"position":"api->appdalacom->controller->admin->brands->show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

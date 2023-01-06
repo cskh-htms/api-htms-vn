@@ -31,6 +31,33 @@ require(
 	'../../../controllers/admin/brands/controller-admin-brand-show-all.js'
 );
 
+const controllers_admin_brand_show =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-show.js'
+);
+
+const controllers_admin_brand_add =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-add.js'
+);
+
+const controllers_admin_brand_save =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-save.js'
+);
+
+const controllers_admin_brand_delete =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-delete.js'
+);
+
+
+
+
+
+
+
+
 
 
 //@
@@ -38,10 +65,10 @@ require(
 //@
 //@ router
 router.get('/show-all', middle_ware, controllers_admin_brand_show_all );
-
-
-
-
+router.get('/show', middle_ware, controllers_admin_brand_show );
+router.get('/add', middle_ware, controllers_admin_brand_add );
+router.post('/save', middle_ware, controllers_admin_brand_save );
+router.delete('/delete', middle_ware, controllers_admin_brand_delete );
 
 
 
