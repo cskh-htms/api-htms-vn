@@ -33,7 +33,7 @@ router.use('/orders', require('./orders/router-admin-order.js'));
 router.use('/products', require('./products/router-admin-product.js'));
 router.use('/categorys', require('./categorys/router-admin-category.js'));
 router.use('/options', require('./options/router-admin-option.js'));
-
+router.use('/notes', require('./notes/router-admin-notes.js'));
 
 
 
