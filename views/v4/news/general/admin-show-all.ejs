@@ -1,9 +1,16 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/news.css' />
 
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-news-general.js"></script>	
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../../<%= js_css_version %>/javascripts/class-news-general.js"></script>
+
 
 
 
@@ -12,32 +19,42 @@
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-option %>
+<% include ../../masterpage/function-share-all %>
+
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
+</script>
 
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Tin tức</h1>
-
-
-
-
-	<% include ../../masterpage/widget-news-show-tables %>
-
-
-
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách tin tức</h1>
+	
+	
+	
+	
+		<% include ../../masterpage/widget-news-show-tables %>
+	
+	
+	
+		
+	
+	
+	
 </div>
 <!-- --------------------
 end content
@@ -114,122 +131,9 @@ $(document).ready(function($){
 		//return;
 		ojs_bussiness.ajax_load_option(datas);	
 	});
-	
-	/*
-	//@
-	//goi ajax
-	$(document).on('click','#all',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let status_admin = [0,1,2,3];
-		
-		var datas = {
-			"datas":{
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_bussiness(datas);	
-
-	});//end of function		
-
-	//@
-	//goi ajax
-	$(document).on('click','#complate',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [1]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#new',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [0]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
-
-	//@
-	//goi ajax
-	$(document).on('click','#update',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [2]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
-
-	});//end of function
 
 
-	//@
-	//goi ajax
-	$(document).on('click','#not',function(e) {	
-		e.preventDefault();
-		//@
-		//@
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = [3]
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id 	: store_id,
-				status_admin : status_admin
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_bussiness.ajax_load_option_no(datas);	
 
-	});//end of function	
-	
-	*/
-	//
 ///////////////////////////////////////////////////////
 });//end of document
 </script>
@@ -253,7 +157,17 @@ $(document).ready(function($){
 
 
 
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

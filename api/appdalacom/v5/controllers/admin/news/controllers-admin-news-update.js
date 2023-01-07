@@ -48,7 +48,7 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 //@
 //@ model
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const store_update = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-update');
+const new_update = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/news/news-update');
 
 
 
@@ -75,13 +75,13 @@ async  function function_export(req, res, next) {
 			
 			//@
 			//@
-			var store_id = 0;
+			var news_id = 0;
 			if(req.query.c1){
-				store_id = req.query.c1;
+				news_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->controller->admin->stores->update",
+					"position" : "api->controller->admin->news->update",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
@@ -97,12 +97,12 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->controller->admin->stores->update",
+				"position" : "api->controller->admin->news->update",
 				"message": error_send 
 			}); 
 			return;	
 		}			
-		//res.send([store_id,datas]);
+		//res.send([news_id,datas]);
 		//return;
 		
 		
@@ -129,7 +129,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api->controller->admin->stores->update", 
+				"position" : "api->controller->admin->news->update", 
 				"message": error_send 
 			}); 
 			return;			
@@ -147,7 +147,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ run database
-		var result = await store_update(datas,store_id,res);
+		var result = await new_update(datas,news_id,res);
 		
 		
 			
@@ -177,7 +177,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->controller->admin->stores->update",
+			"position" : "api->controller->admin->news->update",
 			"message": error_send 
 		}); 
 		return;	
@@ -190,7 +190,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->controller->admin->stores->update",
+		"position":"api->controller->admin->news->update",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req	
 		try {
 			var token = req.session.token;	
-			var store_id = req.params.store_id;
+			var news_id = req.params.news_id;
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 				return;
@@ -63,12 +63,12 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->controllers->admin-->stores->show",
+				"position":"web->controllers->admin->news->show",
 				"message": error_send 
 			}); 
 			return;			
 		}	
-		//res.send([store_id]);
+		//res.send([news_id]);
 		//return;	
 		
 		
@@ -82,7 +82,7 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/stores/show?c1=' + store_id,
+					'/admin/news/show?c1=' + news_id,
 					token
 				);	
 			//res.send([data_api_resuilt]);
@@ -98,7 +98,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->controllers->admin-->stores->show",
+				"position":"web->controllers->admin->news->show",
 				"message": error_send 
 			}); 
 			return;			
@@ -118,7 +118,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->controllers->admin-->stores->show",
+				"position":"web->controllers->admin->news->show",
 				"message": error_send 
 			}); 
 			return;
@@ -138,40 +138,37 @@ async  function function_export(req, res, next) {
 		try {
 
 			datas_info = {
-				'title' 			: 'Chỉnh sửa cửa hàng',
+				'title' 			: 'Chỉnh sửa tin tức',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
 				'users_role' 		: ojs_shares_others.get_users_type(token),
-				'store_id' 			: store_id,
+				'news_id' 			: news_id,
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
 				
-				'menu_taget'		: 'sidebar_danh_sach_cua_hang',
+				'menu_taget'		: 'sidebar_news',
 				'sidebar_type'		:  "",
-				'store_name' 		: data_api_resuilt[2][0].stores_name,	
-			
+				
 				'news_admin_menu' 	: data_api_resuilt[1],				
 				'datas' 			: data_api_resuilt[2],
-				'datas_local'		: data_api_resuilt[3],
+
 			}
 			
 			
 			data_send = {
-				'title' 			: 'Chỉnh sửa cửa hàng',
+				'title' 			: 'Chỉnh sửa tin tức',
 				'users_type' 		: ojs_shares_others.get_users_type(token),
 				'users_role' 		: ojs_shares_others.get_users_type(token),
-				'store_id' 			: store_id,
+				'news_id' 			: news_id,
 				'user_id' 			: ojs_shares_others.get_users_id(token),
 				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
 				'js_css_version'	: ojs_configs.js_css_version,
 				
-				'menu_taget'		: 'sidebar_danh_sach_cua_hang',
+				'menu_taget'		: 'sidebar_news',
 				'sidebar_type'		:  "",
-				'store_name' 		: data_api_resuilt[2][0].stores_name,	
-			
+				
 				'news_admin_menu' 	: data_api_resuilt[1],				
 				'datas' 			: data_api_resuilt[2],
-				'datas_local'		: data_api_resuilt[3],
 				
 				'datas_info'			: datas_info			
 			}
@@ -180,7 +177,7 @@ async  function function_export(req, res, next) {
 			//res.send(data_send);
 			//return;
 			
-			res.render( ojs_configs.view_version + '/stores/admin-show', data_send );
+			res.render( ojs_configs.view_version + '/news/general/admin-show', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -192,7 +189,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->controllers->admin-->stores->show",
+				"position":"web->controllers->admin->news->show",
 				"message": error_send 
 			}); 
 			return;

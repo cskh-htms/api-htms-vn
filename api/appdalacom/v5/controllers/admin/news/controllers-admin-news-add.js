@@ -49,12 +49,10 @@ const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_
 //@
 //@
 //@ model database
-const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const store_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-get-one');
+const news_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/news/news-search');
 
 
 
@@ -75,21 +73,6 @@ async  function function_export(req, res, next) {
 		//@ lấy req data
 		try {
 			var token = req.headers['token'];
-			//@
-			//@
-			var store_id = 0;
-			if(req.query.c1){
-				store_id = req.query.c1;
-			}else{
-				res.send({ 
-					"error" : "01", 
-					"position" : "api/appdalacom/controller/admin/stores/show",
-					"message": "vui lòng nhập id"
-				}); 	
-				return;
-			}				
-			
-			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -101,7 +84,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/controller/admin/stores/show",
+				"position" : "api->appdalacom->controllers->admin->news->add",
 				"message": error_send 
 			}); 
 			return;	
@@ -126,16 +109,16 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api/appdalacom/controller/admin/stores/show",
+				"position" : "api->appdalacom->controllers->admin->news->add",
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send([store_id]);
+		//res.send(["fdsdfsdf"]);
 		//return;
 		
 			
-		var local_json = await ojs_shares_fetch_data.get_data_no_token_get(ojs_configs.domain + '/uploads/files/local.json'); 
+
 		
 		//@
 		//@
@@ -151,20 +134,6 @@ async  function function_export(req, res, next) {
 				resolve(result);
 			});	
 			promise_all.push(fn_get_data_news_admin);
-
-
-			
-			
-			var fn_get_store_taget = new Promise((resolve, reject) => {
-				let result = store_get_one(store_id,res);
-				resolve(result);
-			});	
-			promise_all.push(fn_get_store_taget);		
-
-
-			
-
-
 
 
 			//@
@@ -186,7 +155,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api/appdalacom/controller/admin/stores/show",
+				"position" : "api->appdalacom->controllers->admin->news->add",
 				"message": error_send 
 			}); 
 			return;	
@@ -201,11 +170,9 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"store_taget",
-			"3":"local_json",
-			"4":"notes"
+			"2":"notes"
 		}
-		promise_result.push(local_json);	
+		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);
 		promise_result.push(notes);
 		
@@ -238,7 +205,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api/appdalacom/controller/admin/stores/show",
+			"position" : "api->appdalacom->controllers->admin->news->add",
 			"message": error_send 
 		}); 
 		return;	
@@ -251,7 +218,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api/appdalacom/controller/admin/stores/show",
+		"position":"api->appdalacom->controllers->admin->news->add",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

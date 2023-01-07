@@ -49,12 +49,9 @@ const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_
 //@
 //@
 //@ model database
-const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
-
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-const store_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+const new_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/news/new-get-one');
 
 
 
@@ -75,6 +72,21 @@ async  function function_export(req, res, next) {
 		//@ lấy req data
 		try {
 			var token = req.headers['token'];
+			//@
+			//@
+			var news_id = 0;
+			if(req.query.c1){
+				news_id = req.query.c1;
+			}else{
+				res.send({ 
+					"error" : "01", 
+					"position" : "api/appdalacom/controller/admin/news/show",
+					"message": "vui lòng nhập id"
+				}); 	
+				return;
+			}				
+			
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -86,11 +98,15 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/news/show",
 				"message": error_send 
 			}); 
 			return;	
 		}	
+		//res.send([news_id]);
+		//return;
+		
+		
 		
 		
 		
@@ -111,17 +127,20 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "3",
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/news/show",
 				"message": error_send 
 			}); 
 			return;			
 		}
-		//res.send(["ok"]);
+		//res.send([news_id]);
 		//return;
 		
 			
 
-		
+
+
+
+	
 		//@
 		//@
 		//@
@@ -139,41 +158,12 @@ async  function function_export(req, res, next) {
 
 
 			
-			
-			//@
-			//@
-			//@lấy store list
-			var data_store_list =    
-			{
-			   "select_field" :
-				[
-					"stores_ID",
-					"stores_user_id",
-					"stores_name" ,
-					"stores_adress",
-					"stores_province",
-					"stores_district",
-					"stores_wards" ,
-					"stores_payment_limit",
-					"stores_discount_price",
-					"service_type_name",
-					"stores_status_admin",
-					"users_full_name"					
-				],
-				"order" :
-				 [
-					{    
-						"field"  :"stores_date_created",
-						"compare" : "DESC"
-					}   
-				]				
-			}
-			
-			var fn_get_store_list = new Promise((resolve, reject) => {
-				let result = store_search(data_store_list,res);
+
+			var fn_get_new_taget = new Promise((resolve, reject) => {
+				let result = new_get_one(news_id,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_store_list);		
+			promise_all.push(fn_get_new_taget);		
 
 
 			
@@ -200,7 +190,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api/appdalacom/controller/admin/stores/show-all",
+				"position" : "api/appdalacom/controller/admin/news/show",
 				"message": error_send 
 			}); 
 			return;	
@@ -215,10 +205,9 @@ async  function function_export(req, res, next) {
 		let notes = {
 			"0":"no", 
 			"1":"news admin",
-			"2":"stores_list",
+			"2":"new_taget",
 			"3":"notes"
 		}
-		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);
 		promise_result.push(notes);
 		
@@ -251,7 +240,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api/appdalacom/controller/admin/stores/show-all",
+			"position" : "api/appdalacom/controller/admin/news/show",
 			"message": error_send 
 		}); 
 		return;	
@@ -264,7 +253,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api/appdalacom/controller/admin/stores/show-all",
+		"position":"api/appdalacom/controller/admin/news/show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		

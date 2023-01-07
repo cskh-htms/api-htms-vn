@@ -23,6 +23,42 @@ const controller_news_show_all = require(
 );
 
 
+const controller_news_show = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/news/controllers-admin-news-show.js'
+);
+
+const controller_news_update = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/news/controllers-admin-news-update.js'
+);
+
+
+const controller_news_add = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/news/controllers-admin-news-add.js'
+);
+
+
+const controller_news_save = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/news/controllers-admin-news-save.js'
+);
+
+
+const controller_news_delete = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/news/controllers-admin-news-delete.js'
+);
+
+
+
+
+
+
+
+
+
 
 
 //@
@@ -30,7 +66,11 @@ const controller_news_show_all = require(
 //@
 //@ router
 router.get('/', controller_news_show_all);
-
+router.get('/show/:news_id', controller_news_show);
+router.put('/update/:news_id', controller_news_update);
+router.get('/add/', controller_news_add);
+router.post('/save/', controller_news_save);
+router.delete('/delete/:news_id', controller_news_delete);
 
 
 
