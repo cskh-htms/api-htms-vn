@@ -17,18 +17,18 @@ if(discount_program_list.length > 0){ %>
 	%>	
 		<div class="discount-box" style="flex-wrap:wrap;">
 			<div class="discount-image-wrap">
-				<img  style="cursor: pointer;"   class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" src="<%- ojs_share.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+				<img  style="cursor: pointer;"   class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" src="<%- ojs_share_all.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
 			</div>
 			
 			<div style="padding: 0px 20px;">
 			<span >Tên chương trình : </span>
 				<div class="discount-title">
 					<div style="cursor: pointer;"  class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
-					<%- ojs_share.unCape(discount_program_list[x].discount_program_name) -%></strong>
+					<%- ojs_share_all.unCape(discount_program_list[x].discount_program_name) -%></strong>
 					</div>
 
 				</div>
-				<a href="/admin/discount/show/<%= discount_program_list[x].discount_program_ID %>
+				<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>
 				/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>			
 			
 				<div class="discount-posittiom">
@@ -37,7 +37,7 @@ if(discount_program_list.length > 0){ %>
 
 				
 				<div class="discount-status">
-					<span> trạng thái : <%- ojs_share.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
+					<span> trạng thái : <%- ojs_share_discount.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
 				</div>
 			</div>
 			
@@ -65,11 +65,11 @@ if(discount_program_list.length > 0){ %>
 								   %>
 										<tr>	
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
-												<img style="width:30px;" src="<%- ojs_share.unCape(discount_program_product_list[xx].products_speciality_featured_image) -%>"/>
+												<img style="width:30px;" src="<%- ojs_share_all.unCape(discount_program_product_list[xx].products_speciality_featured_image) -%>"/>
 											</td>	
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
-												<%- ojs_share.unCape(discount_program_product_list[xx].products_speciality_name) -%>
-												<strong>( <%- ojs_share.unCape(discount_program_product_list[xx].stores_name) -%> )</strong>
+												<%- ojs_share_all.unCape(discount_program_product_list[xx].products_speciality_name) -%>
+												<strong>( <%- ojs_share_all.unCape(discount_program_product_list[xx].stores_name) -%> )</strong>
 												<a href="#" class="submitdelete_add" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Huỷ tham gia</a>
 												   <%
 												   for(var s in products_gift_in){
@@ -82,7 +82,7 @@ if(discount_program_list.length > 0){ %>
 												   
 													 <div style="font-size:12px;color:#9bcdc1;">
 													 <span> Sản phẩm tặng : </span>
-													 <%- ojs_share.unCape(products_gift_in[s].products_speciality_name) -%>
+													 <%- ojs_share_all.unCape(products_gift_in[s].products_speciality_name) -%>
 													</div>
 													
 												   <% 
@@ -107,7 +107,7 @@ if(discount_program_list.length > 0){ %>
 															 <span> --->  </span>
 															  <%= price_list[s].products_speciality_price_meta_to  %>
 															 <span> giá bán  --->  </span>
-															  <%- ojs_share_all.show_price_vnd(price_list[s].products_speciality_price_meta_price,0,",",".","đ") %>													 
+															  <%- ojs_share_all.show_price_format(price_list[s].products_speciality_price_meta_price,0,",",".","đ") %>													 
 													   </div>
 												   <% 
 												   }
@@ -121,17 +121,17 @@ if(discount_program_list.length > 0){ %>
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
 												<% if( discount_program_product_list[xx].products_speciality_sale_of_price != null ){ %>
 													<td class="pro-price">
-														<%- ojs_share.show_han_km(discount_program_product_list[xx].products_speciality_sale_of_price_time_check) %>
+														<%- ojs_share_all.show_han_km(discount_program_product_list[xx].products_speciality_sale_of_price_time_check) %>
 														<span class="price-off">
-														<%- ojs_share_all.show_price_vnd(discount_program_product_list[xx].products_speciality_price,0,",",".","đ") %></span>
-														<%- ojs_share_all.show_price_vnd(discount_program_product_list[xx].products_speciality_sale_of_price,0,",",".","đ") %>
+														<%- ojs_share_all.show_price_format(discount_program_product_list[xx].products_speciality_price,0,",",".","đ") %></span>
+														<%- ojs_share_all.show_price_format(discount_program_product_list[xx].products_speciality_sale_of_price,0,",",".","đ") %>
 													</td>
 												<% } else { %>
-													<td class="pro-price"><%- ojs_share_all.show_price_vnd(discount_program_product_list[xx].products_speciality_price,0,",",".","đ")  %></td>		
+													<td class="pro-price"><%- ojs_share_all.show_price_format(discount_program_product_list[xx].products_speciality_price,0,",",".","đ")  %></td>		
 												<% } %>	
 											</td>	
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
-												<%- ojs_share.show_status_table_share_all(discount_program_product_list[xx].discount_program_product_link_status) -%>
+												<%- ojs_share_all.show_status_html(discount_program_product_list[xx].discount_program_product_link_status) -%>
 											</td>	
 											
 											<% 

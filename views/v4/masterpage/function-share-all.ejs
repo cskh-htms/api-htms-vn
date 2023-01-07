@@ -22,7 +22,7 @@
 *  [show_status]	
 *  [show_status_html]
 *  [unCape_content]
-		
+*  [show_han_km]			
 --------------------------------------------------
 */
 
@@ -37,6 +37,39 @@
 //@
 //@ object start
 ojs_share_all = {	
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ [show_han_km]		
+	show_han_km: function(hankm){
+		//
+		let result = "";
+		//
+		switch(hankm) {
+				case 'đãhếthạn': 
+					result = '<span class="status_red mb5">Hết hạn giảm giá</span>';
+					break;
+				case 'đangkhuyếnmãi':
+					result = '<span class="status_green mb5">Đang giảm giá</span>';
+					break;
+				case 'khuyếnmãivôthờihạn':
+					result = '<span class="status_blue mb5">Luôn giảm giá</span>';
+					break;
+				default:
+					break;
+			}
+			return result;
+	},	
+	
+	
+	
 	
 	
 	

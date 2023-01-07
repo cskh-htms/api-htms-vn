@@ -6,13 +6,10 @@
 -------------------------------------------------
 
 
-1. [show_discount_position_html]
-
-2. [caution_date_product_add]
-	* tính ngày thêm vào
-
-3. [format_date_discount]
-
+[show_discount_position_html]
+[caution_date_product_add]
+[format_date_discount]
+[show_status_discount_detail_html]
 
 --------------------------------------------------
 */
@@ -25,6 +22,47 @@
 
 
 ojs_share_discount = {
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_status_discount_detail_html]
+	show_status_discount_detail_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},	
+	
+	
+	
+	
+	
+	
+	
 	
 	//@
 	//@

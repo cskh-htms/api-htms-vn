@@ -1,48 +1,67 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount.css' />
+
+
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality-admin.js"></script>
+
+
+
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
 <% include ../../masterpage/function-share-discount %>
+<% include ../../masterpage/function-share-all %>
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
+</script>
 
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Quản lý chương trình khuyến mãi</h1>
 
 
-	<div class="sap_xep_loc">
-		<div class="loc_wrap">
-			<select id="loc_trang_thai">
-				<option id="dis-new" value="[0]">Các chương trình mới tạo, cần phê duyệt</option>
-				<option id="dis-all" value="[0]" selected>Tất cả Các chương trình đang chạy</option>
-				<option id="details-new" value="[0]">Cửa hàng yêu cầu tham gia chương trình cần phê duyệt </option>
-				<option id="pro-new" value="[0]">Sản phẩm yêu cầu tham gia chươgn trình, cần phê duyệt</option>
-			</select>
-		</div>
-	</div>	
-	
-	
+
+
+
+
+
 	<div id="ajax-wrap">	
 		<% include ../../masterpage/widget-discount-program-show-admin-all %>
 	</div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -112,19 +131,20 @@ $(document).ready(function($){
 	//
 	//@
 	//xoa
-	$(document).on('click','.submitdelete',function(e) {	
+	$(document).on('click','.submitdelete_add',function(e) {	
 		//@
 		e.preventDefault();		
-		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
+		let data_id = $(this).attr("data_id");
+		//console.log(data_id );
+		//return;
 		//
 		//@
 		let x = "xác nhận xoá";		
 		let y = "delete_discount_program_link_id";//function name in callback 
-		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
+		let z = ' { "discount_program_link_id" : "' + data_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
-	});			
-	
+	});		
 	
 	
 	//
@@ -191,7 +211,7 @@ $(document).ready(function($){
 	$(document).on('click','.btn-duyet',function(e) {	
 		//@
 		e.preventDefault();		
-		var link_add_id = $(this).attr("data_product_add_id");
+		var link_add_id = $(this).attr("data_id");
 		//ojs_discount_program_speciality.add_product_to_discount(link_add_id);
 		
 		
@@ -211,7 +231,7 @@ $(document).ready(function($){
 	$(document).on('click','.btn-tu-choi',function(e) {	
 		//@
 		e.preventDefault();	
-		var link_no_id = $(this).attr("data_product_no_id");
+		var link_no_id = $(this).attr("data_id");
 		let html = "" + 
 		'<div class="ajax-box">' + 
 			'<div class="ajax-box-inner">' + 
@@ -224,7 +244,7 @@ $(document).ready(function($){
 		'</div>';
 		
 		
-		ojs_loadding.ajax_show_content( html);
+		ojs_loadding.ajax_show_content(html);
 		//@
 	});		
 	
@@ -245,7 +265,7 @@ $(document).ready(function($){
 		}
 		
 		
-		//alert(content);
+		//console.log(datas);
 		//return;
 
 		ojs_discount_program_speciality.no_product_to_discount(datas,link_no_id);
@@ -268,3 +288,25 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
