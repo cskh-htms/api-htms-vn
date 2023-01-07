@@ -9,7 +9,7 @@ if(datas.length > 0){
 for(var  x in datas) { %>
 
 	<div class="check_box_wrap">
-		<input type="checkbox" id="<%= datas[x].users_ID %>"/><label for="<%= datas[x].users_ID %>"><%= datas[x].users_full_name %></label>
+		<input type="checkbox"  data_id_user = "<%= datas[x].users_ID %>"  id="<%= datas[x].users_ID %>"/><label for="<%= datas[x].users_ID %>"><%= datas[x].users_full_name %></label>
 	</div>
 	
 <% 

@@ -1,40 +1,54 @@
-<%
 
-
-//@
-//@
-//@
-//@ check variable
-if( typeof title == 'string' && title && title.length > 0){} else{ title="" }
-%>
 
 <% include ../masterpage/loader %>
-<script src="../../../../<%= js_css_version %>/javascripts/class-notes.js"></script>	
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/notes.css' />
+
+
+
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-notes.js"></script>
+
+
+
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../masterpage/header %>
+<% include ../masterpage/function-share-all %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>		
+</script>
+
+
+
+
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
-
-
-
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Danh sách tuỳ chọn</h1>
+	
+	
+	
+	
+	
 	<div class="send-box">
 		<div class="pro_content_edit">
 			<div class="pro_col01">
@@ -83,18 +97,12 @@ content
 					</div>
 				</div>
 			</div>
-		</div>	
-
-		
-
-
-		
-		
+		</div>		
+	
 	</div>
 
 	<div class="btn_box">
 		<a href="/admin/" class="btn_back">Quay về</a>
-
 		<button id="btn_save" class="btn_save">Gửi</button>
 	</div>
 
@@ -102,7 +110,6 @@ content
 
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
-
 
 </div>
 <!-- --------------------
@@ -191,7 +198,7 @@ $(document).ready(function($){
 		$( ".check_box_wrap input" ).each(function( index) {
 			//console.log( $( this ).attr("id") );
 			if($(this).prop( "checked" )){
-				id_arr.push($( this ).attr("id"));
+				id_arr.push($( this ).attr("data_id_user"));
 			}
 		});			
 		
@@ -224,13 +231,7 @@ $(document).ready(function($){
 			}
 		}
 		
-		
-		
-		//console.log(datas);		
-		//return;
-		
-		
-		
+		console.log(datas);		
 		ojs_notes.ajax_save_all(datas);
 		
 	});//end of save ajax
@@ -248,33 +249,20 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<% include ../masterpage/loader-end %>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

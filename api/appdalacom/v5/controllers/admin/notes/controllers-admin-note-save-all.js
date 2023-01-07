@@ -18,8 +18,7 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 
 
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-
-const store_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-insert');
+const note_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/notes/note-insert');
 
 
 
@@ -47,15 +46,23 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/appdalacom/controller/admin/stores/save",
+			"position" : "api/appdalacom/controller/admin/notes/save",
 			"message": error_send 
 		}); 
 		return;	
 	}	
-	
 	//res.send(datas);
 	//return;
 	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
 	if(
@@ -73,7 +80,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/controller/admin/stores/save", 
+			"position" : "api/appdalacom/controller/admin/notes/save", 
 			"message": error_send 
 		}); 
 		return;			
@@ -90,7 +97,7 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@go  
-	var store_insert_result = await store_insert(datas,res);
+	var store_insert_result = await note_insert(datas,res);
 	
 	res.send({"error":"","datas":store_insert_result});
 	return;

@@ -166,10 +166,10 @@ async  function function_export(req, res, next) {
 				
 				'datas_info'			: datas_info			
 			}			
-			res.send(data_send);
-			return;
+			//res.send(data_send);
+			//return;
 			
-			res.render( ojs_configs.view_version + '/notes/send', data_send );
+			res.render( ojs_configs.view_version + '/notes/admin-send', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
