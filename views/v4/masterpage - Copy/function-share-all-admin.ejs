@@ -1,0 +1,101 @@
+<%
+/*
+- file này chỉ loader các function dùng chung cho các trang admin
+- chỉ admin mới dùng  
+-------------------------------------------------
+
+
+[show_news_admin_menu_html]	
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_all_admin = {
+	
+	//@
+	//@
+	//@ 
+	//@ [show_news_admin_menu_html]	
+	show_news_admin_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_red">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	},	
+
+}
+
+
+
+
+//@
+//@
+//@ end of oject
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

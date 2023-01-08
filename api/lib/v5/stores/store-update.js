@@ -116,7 +116,7 @@ const function_export = async function (datas,id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib/stores/store-update",
+						"position" : "lib/stores/update",
 						"message": error_send 
 					}); 
 					return;	
@@ -135,7 +135,7 @@ const function_export = async function (datas,id,res) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/store-update",
+			"position" : "lib/stores/update",
 			"message": error_send 
 		}); 
 		return;

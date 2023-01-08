@@ -1,0 +1,287 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+
+1. [show_coupon_formula_select]
+
+2. [show_coupon_condition_select]
+
+3. [show_status_discount_detail_html]
+
+4. [show_name_formula_coupon]
+
+5. [show_name_formula_condition_coupon]
+
+6. [show_coupon_show_hide]
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_coupon = {
+	
+	
+	//@
+	//@ 6. [show_coupon_show_hide]
+	show_coupon_show_hide: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Ẩn</option>' + 
+			'<option value="1">Hiện</option>'
+		}else{
+			result = "" + 
+			'<option value="0">Ẩn</option>' + 
+			'<option value="1" selected>Hiện</option>'
+		}		
+		//	
+		return result;	
+	},	
+	
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 5. [show_name_formula_condition_coupon]
+	show_name_formula_condition_coupon: function(formula,price){
+		if(formula == 0 || formula == null){
+			result = "" + 
+			'điều kiện : chấp nhận moại điều kiện ';
+		}else if(formula == 1){
+			result = "" + 
+			'điều kiện : Tổng đơn hàng lớn hơn ' + price;
+		}else if(formula == 2){
+			result = "" + 
+			'điều kiện : Tổng số sản phẩm lớn hơn ' + price;
+		}else if(formula == 3){
+			result = "" + 
+			'điều kiện : áp dụng cho đơn hàng đầu tiên';
+		}else{			
+			result = "" + 
+			'error';
+		}
+		return result;	
+	},	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 4. [show_name_formula_coupon]
+	show_name_formula_coupon: function(formula,price){
+		if(formula == 0 || formula == null){
+			result = "" + 
+			'giảm ' + price + '% theo đơn hàng '
+		}else if(formula == 1){
+			result = "" + 
+			'giảm ngay ' + price + 'đ';
+		}else if(formula == 2){
+			result = "" + 
+			'Miễn phí vận chuyển';
+		}else{
+			result = "" + 
+			'error';
+		}
+		return result;	
+	},
+
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 3. [show_status_discount_detail_html]
+	show_status_coupon_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},
+	//@ 
+	//@ 
+	//@ 
+	//@
+	//@ 1. [show_coupon_formula_select]
+	show_coupon_formula_select: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Giảm giá theo phần trăm đơn hàng</option>' + 
+			'<option value="1">Giảm giá tiền cố định theo đơn hàng</option>' + 
+			'<option value="2">Miễn phí vận chuyển</option>'
+		}else if(status == 1 ){
+			result = "" + 
+			'<option value="0">Giảm giá theo phần trăm đơn hàng</option>' + 
+			'<option value="1" selected>Giảm giá tiền cố định theo đơn hàng</option>' + 
+			'<option value="2">Miễn phí vận chuyển</option>'
+		}else if(status == 2 ){
+			result = "" + 
+			'<option value="0">Giảm giá theo phần trăm đơn hàng</option>' + 
+			'<option value="1" >Giảm giá tiền cố định theo đơn hàng</option>' + 
+			'<option value="2" selected>Miễn phí vận chuyển</option>'
+		}			
+		//	
+		return result;	
+	},
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 
+	//@
+	//@ 2. [show_coupon_condition_select]
+	show_coupon_condition_select : function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng sản phẩm tối thiểu</option>' + 
+			'<option value="3">Mua hàng lần đầu</option>'
+		}else if(status == 1){
+			result = "" + 
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1" selected>Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng sản phẩm tối thiểu</option>' + 
+			'<option value="3">Mua hàng lần đầu</option>'
+		}else if(status == 2){
+			result = "" + 
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2"  selected>Số lượng sản phẩm tối thiểu</option>' + 
+			'<option value="3">Mua hàng lần đầu</option>'
+	
+		}else if(status == 3){
+			result = "" + 
+			'<option value="0">Mọi điều kiện </option>' + 
+			'<option value="1">Tổng đơn hàng tối thiểu</option>' + 
+			'<option value="2">Số lượng sản phẩm tối thiểu</option>' + 
+			'<option value="3"  selected>Mua hàng lần đầu</option>'
+		}		
+		//	
+		return result;	
+	},
+	
+	//@
+	//@ hiển thị trạng thái thanh toán
+	show_coupon_pay_type_select: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>Cửa hàng tạo trả tiền giảm giá </option>' + 
+			'<option value="1">DALA trả tiền giảm giá </option>'
+		}else{
+			result = "" + 
+			'<option value="0">Cửa hàng tạo trả tiền giảm giá </option>' + 
+			'<option value="1"  selected>DALA trả tiền giảm giá </option>'
+		}		
+		//	
+		return result;	
+	},	
+	
+	
+	
+	
+	
+	
+	
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

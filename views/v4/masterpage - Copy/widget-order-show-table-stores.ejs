@@ -1,0 +1,124 @@
+
+
+<% if( typeof orders_list == 'object' && orders_list && orders_list.length > 0){  } else{ orders_list=[] } %>
+
+
+
+<%
+	var sum_qty = 0;
+	var sum_price = 0;
+	var sum_discount = 0;
+	var sum_all = 0;
+	//@
+
+	//@
+	var tong_tien_thanh_toan = 0;
+%>
+
+
+
+<table class="table-list ordres-list">
+	<thead>
+		<tr>
+			<th>Mã đơn hàng</th>
+			<th>Trạng thái</th>
+			<th>Ngày đặt hàng</th>
+			<th>Số sản phẩm</th>
+			<th>Tổng đơn hàng</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% 
+	if(orders_list.length > 0){
+	for(var  x in orders_list) { 
+	%>
+	   <tr>
+			<td class="line_order user-name">
+				<a href="#" class="view_detail" data_order_id="<%= orders_list[x].orders_speciality_ID %>">    #     <%= orders_list[x].orders_speciality_ID %>      </a>
+			</td>	
+			<td>
+				<%- ojs_share_orders.show_order_status_html(orders_list[x].orders_speciality_status_orders) %>
+			</td>	
+			<td class="qty_box">
+				<%- orders_list[x].orders_speciality_date_orders %>
+			</td>	
+
+			<td class="qty_box" data_qty="<%= orders_list[x].sum_orders_details_speciality_qty %>">
+				<%= orders_list[x].sum_orders_details_speciality_qty %>
+			</td>			
+
+			<td data_price="<%= orders_list[x].sum_price_caution %>">
+				<%= ojs_share.show_price_format(orders_list[x].sum_price_caution,0,",",".","") %>
+			</td>
+			
+		
+
+			<% 
+			let sum_line = 
+				(orders_list[x].sum_orders_details_speciality_qty *  
+				orders_list[x].sum_price_caution) 
+			%>
+
+	
+
+		</tr>
+		
+		<%
+		sum_qty = sum_qty + parseInt(orders_list[x].sum_orders_details_speciality_qty);
+		sum_price = sum_price + orders_list[x].sum_price_caution;
+		sum_all = sum_all + sum_line;
+		%>
+		
+	<% 
+	} 
+	%>
+	<% 
+	} 
+	%>	
+	</tbody>
+	<tfoot>
+
+		<tr>
+			<th colspan="3">Tổng cộng</th>
+			<th> <%=  sum_qty  %> </th>
+			<th> <%= ojs_share.show_price_format(sum_price,0,",",".","")   %> </th>
+		</tr>
+
+	</tfoot>
+</table>
+
+
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	$('.status_nomal').each(function(index, value) {
+		if($(this).html() == "Cửa hàng đã từ chối đơn hàng"){
+			$(this).css('color','red');
+		}
+	});
+	
+});//end of document
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

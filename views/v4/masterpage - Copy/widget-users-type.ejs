@@ -1,0 +1,74 @@
+
+<% if( typeof users_type_list == 'object' && users_type_list){ users_type_list = users_type_list  } else{ users_type_list=[] } %>
+<% if( typeof type_role == 'string' && type_role){ } else{ type_role="" } %>
+<% if( typeof user_role == 'string' && user_role && user_role.length > 0){ user_role = user_role } else{ user_role="" } %>
+
+
+
+
+<% 
+if (typeof datas == 'object' && datas) { 
+	user_type = datas[0].users_users_type_id;
+}else{ 
+	user_type  = "";
+}
+%>	  
+
+
+
+<option value="0"></option>
+<% 
+for(var i = 0; i < users_type_list.length ; i ++ ) { 
+%>
+
+	<%	
+	//nếu  là trang đăng ký thì
+	if(type_role == "register" ){	%>
+	
+			<% // nếu là customer va bussiness thi hien ra 
+			if	(users_type_list[i].users_type_name  == "customer" 
+			||  users_type_list[i].users_type_name  ==  "bussiness" )
+			{ %>
+			
+				<option value ="<%= users_type_list[i].users_type_ID %>"><%= users_type_list[i].users_type_name %></option>
+				
+			<% //end of customer va bussiness 
+			} %>	
+	
+	<% 	//nếu không phải là rtang đăng ký thì	
+	} else{ %>
+			<%//neu la admin thi hien tat ca 
+			if(user_role == "admin" ){	%>
+				<% if(users_type_list[i].users_type_ID  == 	user_type   ){ %>
+					<option  style="font-weight:bold;color:red;"  selected value="<%= users_type_list[i].users_type_ID %>"><%= users_type_list[i].users_type_name %></option>
+				<% }else{ %>	
+					<option value ="<%= users_type_list[i].users_type_ID %>"><%= users_type_list[i].users_type_name %></option>
+				<% } %>
+			<% 	//neu ko phai admin
+			} else{	%>
+			
+				<% //neu la bussiness hoat customer moi hien ra
+				if(users_type_list[i].users_type_name  == "bussiness" 
+				|| 	users_type_list[i].users_type_name  == "customer" 			
+				){ %>
+				
+					<% if(users_type_list[i].users_type_ID  == 	user_type   ){ %>
+						<option  style="font-weight:bold;color:red;"  selected value="<%= users_type_list[i].users_type_ID %>"><%= users_type_list[i].users_type_name %></option>
+					<% }else{ %>	
+						<option value ="<%= users_type_list[i].users_type_ID %>"><%= users_type_list[i].users_type_name %></option>
+					<% } %>
+				<% //end of neu la bussiness hoat customer moi hien ra
+				} %>	
+				
+			<% //neu la amon	
+			} %>	
+	
+	<% // end of nếu là trang đăng ký	
+	} %>	
+	
+<% 
+} //end of fore
+%>
+
+
+	

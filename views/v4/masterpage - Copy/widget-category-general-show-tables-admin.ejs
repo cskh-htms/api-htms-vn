@@ -1,0 +1,153 @@
+
+
+<%
+
+var check_variable  = 1;
+try {	
+	var x = category_list.length;
+} catch (error) {
+	var check_variable  = 0;
+}
+%>
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tên danh mục</th>
+			<th>Trạng thái</th>
+		</tr>
+	</thead>
+	<tbody>
+
+
+
+	<% 
+	if(check_variable && category_list.length > 0){
+	for(var  x in category_list) { %>
+		<tr style="background-color: #e3edf5;">
+		<% 
+		if(category_list[x].category_general_speciality_category_parent_id == 0) { 
+		%>		
+			<td class="user-name">
+				<a href="/categorys/general/speciality/show-product/<%= category_list[x].category_general_speciality_ID %>">
+				<%= category_list[x].category_general_speciality_name %>
+				( <%= category_list[x].count_category_general_speciality_link_product_id %> )
+				</a>
+				<div class="row-actions">						
+					<span class="edit"><a href="/categorys/general/speciality/show/<%= category_list[x].category_general_speciality_ID %>/">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_cat_id="<%= category_list[x].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>		
+			<td><%- ojs_share_all.show_status_html(category_list[x].category_general_speciality_admin_status) %></td>
+		<% 
+		} 
+		%>	
+		<tr>
+		
+		
+		
+		
+		
+		<!-- -----------------------------------------			
+		      // cấp 2		
+		 ------------------------------------------ -->		
+		<%
+		for(var  y in category_list) { %>
+			<tr>
+			<% 
+			if(
+			category_list[y].category_general_speciality_category_parent_id == 
+			category_list[x].category_general_speciality_ID 			
+			){ 
+			%>		
+				<td class="user-name" style="padding-left:30px;">
+					- <a href="/categorys/general/speciality/show-product/<%= category_list[y].category_general_speciality_ID %>">
+					<%= category_list[y].category_general_speciality_name %>
+					( <%= category_list[y].count_category_general_speciality_link_product_id %> )
+					</a>
+					<div class="row-actions">						
+						<span class="edit"><a href="/categorys/general/speciality/show/<%= category_list[y].category_general_speciality_ID %>/">Chỉnh sửa</a> | </span>
+						<span class="delete"><a href="#" data_cat_id="<%= category_list[y].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
+					</div>
+				</td>		
+				<td><%- ojs_share_all.show_status_html(category_list[y].category_general_speciality_admin_status) %></td>
+			<% 
+			} 
+			%>	
+			<tr>		
+		<% 
+		} 
+		%>			
+		
+		
+		<!-- -----------------------------------------			
+		      // end of cấp 2		
+		 ------------------------------------------ -->			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- -----------------------------------------			
+		      // cấp 3		
+		 ------------------------------------------ -->		
+		<%
+		for(var  z in category_list) { %>
+			<tr>
+			<% 
+			if(
+			category_list[z].category_general_speciality_category_parent_id == 
+			category_list[y].category_general_speciality_ID 			
+			){ 
+			%>		
+				<td class="user-name" style="padding-left:30px;">
+					- - <a href="/categorys/general/speciality/show-product/<%= category_list[y].category_general_speciality_ID %>">
+					<%= category_list[z].category_general_speciality_name %>
+					( <%= category_list[z].count_category_general_speciality_link_product_id %> )
+					</a>
+					<div class="row-actions">						
+						<span class="edit"><a href="/categorys/general/speciality/show/<%= category_list[z].category_general_speciality_ID %>/">Chỉnh sửa</a> | </span>
+						<span class="delete"><a href="#" data_cat_id="<%= category_list[z].category_general_speciality_ID %>" class="submitdelete">Xóa</a></span>
+					</div>
+				</td>		
+				<td><%- ojs_share_category.show_status_html(category_list[z].category_general_speciality_admin_status) %></td>
+			<% 
+			} 
+			%>	
+			<tr>		
+		<% 
+		} 
+		%>			
+		
+		
+		<!-- -----------------------------------------			
+		      // end of cấp 3		
+		 ------------------------------------------ -->			
+		
+		
+		
+		
+		
+		
+		
+		
+	<% 
+	} // end of for
+	}
+	%>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên danh mục</th>
+			<th>Trạng thái</th>
+		</tr>
+	</tfoot>
+</table>
+	

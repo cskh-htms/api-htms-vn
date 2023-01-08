@@ -88,7 +88,7 @@ const function_export = function (id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->store->delete",
+						"position" : "lib->stores->delete",
 						"message": error_send 
 					}); 
 					return;					
@@ -101,13 +101,13 @@ const function_export = function (id,res) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
 				"Lỗi delete, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->store->delete",
+			"position" : "lib->stores->delete",
 			"message": error_send 
 		}); 
 		return;	

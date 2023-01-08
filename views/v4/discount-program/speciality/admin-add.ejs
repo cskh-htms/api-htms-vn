@@ -1,0 +1,559 @@
+
+
+<% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount-add.css' />
+
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
+<script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality-admin.js"></script>
+
+
+
+
+
+
+<div id="page_wrap" class="page_wrap">
+<div id="layout" class="page_width layout">
+<div id="content-wrap" class="content_wrap">
+
+
+<!-- --------------------
+page wrap 
+--------------------- -->
+
+
+
+<% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-discount %>
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-admin %>
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
+</script>
+
+
+<!-- --------------------
+content
+--------------------- -->
+<div id="content" class="content">
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Tạo trình khuyến mãi</h1>
+	
+	
+	
+	<div class="pro_content_edit">
+		<div class="pro_col01">		
+			<div class="pro_box ten_sp_box">
+				<h3>Tên chương trình khuyến mãi</h3>
+				<div class="inside">
+					<input type="text" class= "" value="" id="discount_program_name"/>
+				</div>
+			</div>
+			
+			
+			<div class="pro_box trang_thai_box">
+				<h3>Kiểu chương trình khuyến mãi 
+				<a class="giai-thich" 
+				href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-chuong-trinh" 
+				target="_blank">
+				<span>Loại khuyến mãi thường(giảm giá), hay loại 
+				khuyến mãi quà tặng (mua 1 tặng 1-2-3)</span></a></h3>
+				<div class="inside">
+					<select id="discount_program_gift_type">
+						<%- ojs_share_discount.show_discount_program_gift_type(0) -%>
+					</select>						
+				</div>
+			</div>			
+	
+	
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Phí tham gia 
+					<span class="giai-thich">
+					<span>
+						Phí tham gia chương trình khuyến mãi, phí khởi tạo
+					</span>
+					</span>
+				</h3>
+				<div class="inside">
+					<input type="text" class="number_change" 
+					data_value="0" value="0" 
+					id="discount_program_price_created"/>
+				</div>
+			</div>			
+			
+		
+			<div class="pro_box ten_sp_box" style="display:none;" >
+				<h3>Phí tham gia
+					<span class="giai-thich">
+					<span>
+						tính phí bao nhiu cho mỗi sản phẩm bán ra, bán ra mới tình phí
+					</span>
+					</span>				
+				</h3>
+				<div class="inside">
+					<input type="text" 
+					class="number_change" data_value="0" 
+					value="0" id="discount_program_price_sale"/>
+				</div>
+			</div>	
+	
+	
+			
+			<div class="pro_box trang_thai_box  style="display:none;">
+				<h3>Loại chương trình khuyến mãi</h3>
+				<div class="inside">
+					<span>Hướng dẫn:</span>
+					<span class="giai-thich"><span>Dùng cho chỉ cửa hàng 
+					tạo hay tất cả các cửa hàng</span></span>
+					<select id="discount_program_type">
+						<%- ojs_share_discount.show_ddiscount_program_type(0) -%>
+					</select>						
+				</div>
+			</div>				
+			
+			
+			<div class="pro_box trang_thai_box" >
+				<h3>Vị trí chương trình khuyến mãi 
+				<a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#vi-tri" 
+				target="_blank"><span>Vị trí hiển thị banner CTKM trên trang chủ app, ấn "?" 
+				để xem chi tiết</span></a></h3>
+				<div class="inside">
+					<select id="discount_program_position">
+						<%- ojs_share_discount.show_discount_program_position_store(4) -%>
+					</select>						
+				</div>
+			</div>				
+			
+			
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
+			<div class="pro_box">
+				<h3>Nội dung chương trình</h3>
+				<div class="inside">
+					<textarea class="noi_dung"  
+					id="noi_dung"  rows="20" 
+					cols="100%" placeholder="Nhập nội dung mô tả cho chương trình khuyến mãi"></textarea>
+				</div>
+			</div>
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->			
+
+			<div class="pro_box ten_sp_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea class=""  
+					id="discount_program_qoute"  
+					rows="10" cols="100%" 
+					placeholder="Chỉ nhập khi chat với admin"></textarea>
+				</div>
+			</div>	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+		</div>
+		<div class="pro_col02">	
+	
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Banner CTKM <span class="giai-thich"><span>Chọn ảnh có tỉ lệ 3:1</span></span></h3>	
+				<div class="inside">
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			//end of hình đại diện 
+			------------------- -->		
+	
+	
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giá tính mỗi ngày
+					<span class="giai-thich">
+					<span>
+						Mỗi gnày tham gia chương trình khuyến mãi tính bao nhiu tiền,
+						Dựa vào số ngày * với số sản phẩm tham gia để tính tiền phí tham gia khuyến  mãi
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class="number_change" 
+					data_value="0" value="0" id="discount_program_price_one_day"/>
+				</div>
+			</div>			
+		
+		
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giá tính mỗi sản phẩm
+					<span class="giai-thich">
+					<span>
+						Mỗi sản phẩm tham gia chương trình khuyến mãi tính bao nhiu tiền,
+						Dựa vào số ngày * với số sản phẩm tham gia để tính tiền phí tham gia khuyến  mãi						
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class="number_change" 
+					data_value="0" value="0" id="discount_program_price_one_product"/>
+				</div>
+			</div>		
+	
+	
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giới hạn sản phẩm mỗi cửa hàng
+					<span class="giai-thich">
+					<span>
+						giới hạn mỗi cửa hàng tham gia tối đa bao nhiu sản phẩm,
+						để 0 là không có giới hạn
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class= "" value="3" id="discount_program_limit_product"/>
+				</div>
+			</div>			
+		
+	
+			<div class="pro_box ten_sp_box"  style="display:none;" >
+				<h3>Giới hạn ngày tham gia mỗi cửa hàng
+					<span class="giai-thich">
+					<span>
+						giới hạn mỗi cửa hàng tham gia tối đa bao nhiu ngày, 
+						để 0 là không có thời hạn
+					</span>
+					</span>					
+				</h3>
+				<div class="inside">
+					<input type="text" class= "" value="0" id="discount_program_limit_day"/>
+				</div>
+			</div>		
+			
+			
+	
+			<div class="pro_box trang_thai_box ">
+				<h3>Kiểu thời gian khuyến mãi 
+				<a class="giai-thich" href="https://hotro.appdala.com/tao-chuong-trinh-khuyen-mai-moi/#kieu-thoi-gian" 
+				target="_blank"><span>Khuyến mãi vô thời hạn sẽ chạy liên tục đến khi chương trình bị xóa</span></a></h3>
+				<div class="inside">
+					<select id="discount_program_time_type">
+						<%- ojs_share_discount.show_discount_program_time_type(1) -%>
+					</select>						
+				</div>
+			</div>	
+		
+			<div class="pro_box ten_sp_box" id="thoi-han-khuyen-mai">
+				<h3>Thời gian diễn ra CTKM</h3>
+				<div class="inside">
+					<p><span>Ngày bắt đầu KM</span><input type="text" value="" id="discount_program_date_star" /> </p>	
+					<p><span>Ngày kết thúc KM</span><input type="text" value="" id="discount_program_date_end" /> </p>		
+				</div>
+			</div>	
+
+
+
+
+
+
+			
+		
+			<div class="pro_box trang_thai_box" >
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<span>ADMIN:</span><span class="giai-thich">
+					<span>Khi thông tin sản phẩm đã sẵn sàng, chọn "đã phê duyệt" để hiển thị sản phẩm.
+					</span></span>
+					<select id="discount_program_status_admin">
+						<%- ojs_share_discount.show_status_discount_programs(0) -%>
+					</select>						
+				</div>
+			</div>	
+
+	</div>	
+	
+			
+	
+	
+	
+	
+	
+
+	<div class="btn_box">
+		<a href="/discount-program/speciality/" class="btn_back">Quay về</a>
+		<button id="btn_save" class="btn_save">Đăng</button>
+	</div>	
+		
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
+
+</div>
+<!-- --------------------
+end content
+--------------------- -->
+	
+
+
+
+
+
+
+
+<% include ../../masterpage/footer %>
+
+</div><!-- //content_wrap -->	
+
+<% include ../../masterpage/sidebar %>
+
+<!-- --------------------
+//end of page wrap 
+--------------------- -->
+</div><!-- //layout -->	
+</div><!-- //pagewrap -->
+
+
+<script>
+$(document).ready(function($){
+/////////////////////////////////////////////////////	
+	//
+	
+	var user_id = $('#user_id').val();
+	var store_id = $('#store_id').val();
+	
+	
+	
+	$( "#discount_program_date_star" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+	$( "#discount_program_date_end" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			timeFormat:  "hh:mm:ss",
+			language: 'vi'
+		}
+	);
+
+	
+	
+	
+	//@
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
+	//
+	//xóa image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		
+		//console.log(url);
+		//return;
+		
+		
+		//ojs_share_upload.delete_s3(url);
+		ojs_share_upload.delete_wp(url);
+		$('#featured_image').attr("data_value","");
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
+	});			
+	//		
+	//	
+	
+	
+	
+	$(document).on('change','#discount_program_time_type',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0){
+			$('#thoi-han-khuyen-mai').css('display','none');
+		}else{
+			$('#thoi-han-khuyen-mai').css('display','block');
+		}
+	});	
+	
+	//@
+	//@
+	//@
+	//@
+	var store_id = $('#store_id').val();		
+	
+	//@
+	//@
+	//@
+	//@
+	$(document).on('click','#btn_save',function(e) {		
+		e.preventDefault();
+		
+		var date_01 = $('#discount_program_date_star').datepicker( "getDate" );
+		var discount_program_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#discount_program_date_end').datepicker( "getDate" );
+		var discount_program_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);		
+		
+		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();		
+		
+		
+		//console.log([discount_program_date_star,discount_program_date_end,discount_program_time_type]);
+		//return;
+		if(
+		discount_program_time_type == 1
+		&& (discount_program_date_star == "" 
+		|| discount_program_date_end == "")
+		){
+			ojs_message.message_ok_show("Vui lòng chọn ngày khuyến mãi");
+			return;
+		}
+		
+		var datas = get_datas();	
+		
+		//console.log(datas);
+		//return;
+		
+		ojs_discount_program_speciality_admin.ajax_save_admin(datas);	
+	});
+
+
+	
+	
+	function get_datas(){
+		
+		var discount_program_store_id_created = store_id;
+		
+		var discount_program_name = $('#discount_program_name').val();		
+		var discount_program_qoute = $('#discount_program_qoute').val();		
+
+
+		var discount_program_limit_product = $('#discount_program_limit_product').val();		
+		var discount_program_limit_day = $('#discount_program_limit_day').val();
+
+
+		var discount_program_price_created = $('#discount_program_price_created').attr("data_value");
+		var discount_program_price_sale = $('#discount_program_price_sale').attr("data_value");
+		var discount_program_price_one_day = $('#discount_program_price_one_day').attr("data_value");
+		var discount_program_price_one_product = $('#discount_program_price_one_product').attr("data_value");	
+		
+		
+		var discount_program_type = $('#discount_program_type  option:selected').val();		
+		var discount_program_time_type = $('#discount_program_time_type  option:selected').val();
+		var discount_program_gift_type = $('#discount_program_gift_type  option:selected').val();
+		var discount_program_position = $('#discount_program_position  option:selected').val();
+		var discount_program_status_admin = $('#discount_program_status_admin').val();
+		
+		
+		var discount_program_information = $('#noi_dung').val();		
+		var discount_program_featured_image = $('#featured_image').attr("data_value");		
+		
+		
+		var date_01 = $('#discount_program_date_star').datepicker( "getDate" );
+		var discount_program_date_star = $.datepicker.formatDate("yy-mm-dd", date_01);
+
+		
+		var date_02 = $('#discount_program_date_end').datepicker( "getDate" );
+		var discount_program_date_end = $.datepicker.formatDate("yy-mm-dd", date_02);
+		
+		if(discount_program_date_end.length > 0){			
+			discount_program_date_end = discount_program_date_end + " 23:59:59"
+		}
+		
+		if(discount_program_name == "" ){
+			ojs_message.message_ok_show("Chưa nhập tên chương trình");
+		}
+
+		
+		if(discount_program_date_star == ""){
+			discount_program_date_star = null;
+		}
+		if(discount_program_date_end == ""){
+			discount_program_date_end = null;
+		}		
+		
+		
+		
+		let datas = {
+			"datas":{
+				discount_program_name:discount_program_name,
+				discount_program_qoute:discount_program_qoute,
+				discount_program_limit_product:discount_program_limit_product,
+				discount_program_limit_day:discount_program_limit_day,
+				discount_program_price_created:discount_program_price_created,
+				discount_program_price_sale:discount_program_price_sale,
+				discount_program_price_one_day:discount_program_price_one_day,
+				discount_program_price_one_product:discount_program_price_one_product,
+				discount_program_type:discount_program_type,
+				discount_program_time_type:discount_program_time_type,
+				discount_program_gift_type:discount_program_gift_type,
+				discount_program_position:discount_program_position,
+				discount_program_store_id_created:discount_program_store_id_created,
+				
+				discount_program_featured_image:discount_program_featured_image,
+				discount_program_information:discount_program_information,
+				discount_program_status_admin:discount_program_status_admin,
+				discount_program_date_star:discount_program_date_star,
+				discount_program_date_end:discount_program_date_end,
+				
+			}
+		}
+		
+		return datas;
+	}
+
+	//
+	//
+///////////////////////////////////////////////////////
+});//end of document
+</script>
+
+
+
+<% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	

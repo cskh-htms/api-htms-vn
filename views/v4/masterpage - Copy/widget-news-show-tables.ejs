@@ -1,0 +1,42 @@
+
+
+<% if( typeof news_list == 'object' && news_list){ } else{ news_list=[] } %>
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tiêu đề</th>
+			<th>Ngày đăng</th>
+			<th>Trạng thái</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<% 
+	for( var  x in news_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name"><a href="#"><%- news_list[x].news_title %></a>
+				<div class="row-actions">
+					<span class="edit"><a href="/news/general/show/<%= news_list[x].news_ID  %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_news_id="<%= news_list[x].news_ID  %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>			
+			<td><%- ojs_share_all.format_date( news_list[x].news_date_created ) %></td>
+			<td><%- ojs_share_all.show_status_html(news_list[x].news_status_admin ) %></td>				
+			
+	   </tr>
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tiêu đề</th>
+			<th>Ngày đăng</th>
+			<th>Trạng thái</th>
+		</tr>
+	</tfoot>
+</table>

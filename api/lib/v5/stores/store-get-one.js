@@ -77,7 +77,7 @@ const function_export = function (id,res) {
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/stores/store-get-one", 
+						"position" : "lib/stores/get-one", 
 						"message": error_send 
 					}); 
 					return;
@@ -96,7 +96,7 @@ const function_export = function (id,res) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/store-get-one", 
+			"position" : "lib/stores/get-one", 
 			"message": error_send 
 		}); 
 		return;

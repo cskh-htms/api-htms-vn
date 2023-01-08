@@ -1,0 +1,114 @@
+<% 
+var shipping_list2 = [...shipping_list]
+
+for(var  x in shipping_list) { 
+%>
+	<% 
+	if(shipping_list[x].shipping_speciality_parent_id == 0) { 
+	%>
+		<%
+		if(datas[0].shipping_speciality_parent_id == shipping_list[x].shipping_speciality_ID){
+		%>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>"  selected style="color:red;" ><%= shipping_list[x].shipping_speciality_name %></option>
+			
+			
+			<!-- --------------------
+			// sub 
+			---------------------- -->
+			<%
+			for(var  y in shipping_list2) {
+			%>
+				<% 
+				if( // nếu cat con
+				shipping_list2[y].shipping_speciality_parent_id == shipping_list[x].shipping_speciality_ID
+				){ 
+				%>	
+					<% 
+					if( // nếu cat con taget
+					datas[0].shipping_speciality_parent_id == shipping_list2[y].shipping_speciality_ID
+					) { 
+					%>						
+						<option 
+						value ="<%= shipping_list2[y].shipping_speciality_ID %>" selected style="color:red;">
+						---  <%= shipping_list2[y].shipping_speciality_name %>
+						</option>					
+					
+					<%
+					}else{ //if else taget
+					%>	
+						<option 
+						value ="<%= shipping_list2[y].shipping_speciality_ID %>">
+						---  <%= shipping_list2[y].shipping_speciality_name %>
+						</option>	
+					<%
+					} //end if taget
+					%>	
+				<%
+				} //if cat con
+				%>					
+			<% 
+			}//for sub
+			%>		
+
+			<!-- --------------------
+			// sub 
+			---------------------- -->
+
+			
+		<%
+		}else{
+		%>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>"><%= shipping_list[x].shipping_speciality_name %></option>
+			
+			
+			<!-- --------------------
+			// sub 
+			---------------------- -->
+			<%
+			for(var  y in shipping_list2) {
+			%>
+				<% 
+				if( // nếu cat con
+				shipping_list2[y].shipping_speciality_parent_id == shipping_list[x].shipping_speciality_ID
+				){ 
+				%>	
+					<% 
+					if( // nếu cat con taget
+					datas[0].shipping_speciality_parent_id == shipping_list2[y].shipping_speciality_ID
+					) { 
+					%>						
+						<option 
+						value ="<%= shipping_list2[y].shipping_speciality_ID %>" selected style="color:red;">
+						---  <%= shipping_list2[y].shipping_speciality_name %>
+						</option>					
+					
+					<%
+					}else{ //if else taget
+					%>	
+						<option 
+						value ="<%= shipping_list2[y].shipping_speciality_ID %>">
+						---  <%= shipping_list2[y].shipping_speciality_name %>
+						</option>	
+					<%
+					} //end if taget
+					%>	
+				<%
+				} //if cat con
+				%>					
+			<% 
+			}//for sub
+			%>		
+
+			<!-- --------------------
+			// sub 
+			---------------------- -->	
+		<%
+		}// end if selected top
+		%>	
+   <% 
+   } //if parrent 0
+   %>
+
+<% 
+} //for all
+%>

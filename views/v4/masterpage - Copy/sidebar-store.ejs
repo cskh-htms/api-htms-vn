@@ -1,0 +1,152 @@
+
+<% include function-share-sidebar %>
+
+
+
+<div id="sidebar" class="sidebar store">
+	<ul class="admin-menu">
+		<!-- //admin -->	
+		<% if(users_type == "admin"){ %>		
+		<li class="admin-back">
+			<a href="/admin/">
+				<i class="fas fa-tachometer-alt"></i>
+				<div class="menu-name">Admin</div>
+			</a>
+		</li>
+		<% } %>
+		
+		<!-- //cua hàng  -->
+		<li class="store_name">
+			<a href="/bussiness/<%= user_id %>" title="Về trang chủ">
+			<i class="fas fa-home"></i><i class="fas fa-chevron-left"></i><div class="menu-name">Quản lý doanh nghiệp</div>	
+			</a>			
+		</li>	
+		
+		<!--
+		//Tổng quan
+		-->
+		<li id="sidebar_quan_ly">
+			<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
+				<i class="fas fa-tachometer-alt"></i>
+				<div class="menu-name">Tổng quan  <%-  ojs_share_sidebar.show_news_bussiness_menu_sum(news_bussiness_menu)  -%></div>
+			</a>
+		</li>
+		<!--
+		//Đơn hàng
+		-->
+		<li id="sidebar_don_hang">
+			<a href="/stores/manage/orders/<%= store_id %>/all">
+				<i class="fas fa-clipboard-list"></i>
+				<div class="menu-name">Đơn hàng <%-  ojs_share.show_count_bussiness_menu_html(list_data_count,3)  -%></div>
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,3)  -%>
+			</a>
+		</li>		
+		
+		<!--
+		//Sản phẩm
+		-->
+		<li id="sidebar_san_pham">
+			<a href="/products/<%= store_list[0].service_type_name %>/<%= store_id %>">
+				<i class="fas fa-box-open"></i>
+				<div class="menu-name">
+					Sản phẩm
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,7)  -%>	
+					<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,7)  -%>						
+				</div>
+			</a>
+			<a href="/products/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+		</li>	
+
+		<!--
+		//Danh mục
+		-->
+		<li id="sidebar_danh_muc">
+			<a href="/categorys/general/<%= store_list[0].service_type_name %>/<%= store_id %>">
+				<i class="fas fa-archive"></i>
+				<div class="menu-name">
+				Danh mục
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,4)  -%>
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,4)  -%>				
+				</div>
+			</a>
+			<a href="/categorys/general/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+		</li>
+		
+		<!--
+		//Tùy chọn
+		-->
+		<li id="sidebar_option">
+			<a href="/options/<%= store_list[0].service_type_name %>/<%= store_id %>">
+				<i class="fas fa-filter"></i>
+				<div class="menu-name">
+				Tùy chọn
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,5)  -%>	
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,5)  -%>					
+				</div>
+			</a>
+			<a href="/options/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+		</li>
+		
+		<!--
+		//Thương hiệu
+		-->
+		<li id="sidebar_thuong_hieu">
+			<a href="/brands/<%= store_id %>"> 
+				<i class="fas fa-award"></i>
+				<div class="menu-name">
+					Thương hiệu
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,6)  -%>	
+					<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,6)  -%>					
+				</div>
+			</a>
+			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+
+		</li>
+		
+		<!--
+		//chương trình khuyến mãi
+		-->
+		<li id="sidebar_discount_program">
+			<a href="/discount-program/<%= store_list[0].service_type_name %>/stores/<%= store_id %>">
+				<i class="fas fa-percent"></i>
+				<div class="menu-name">
+					Chương Trình khuyến mãi										
+				</div>
+			</a>
+			<!-- <a  href="/discount-program/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a> -->
+		</li>		
+		
+		
+		<!--
+		//coupon
+		-->
+		<li id="sidebar_coupon">
+			<a href="/coupon/<%= store_list[0].service_type_name %>/<%= store_id %>">
+				<i class="fas fa-ticket-alt"></i>
+				<div class="menu-name">
+					Mã giảm giá
+					<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,14)  -%>					
+				</div>
+			</a>
+			<a href="/coupon/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			
+		</li>				
+		
+		
+		<!--
+		//notes
+		-->
+		<li id="sidebar_notes">
+			<a href="/notes/<%= store_id %>">
+				<i class="fas fa-comment"></i>
+				<div class="menu-name">
+				Tin nhắn 
+				<%-  ojs_share.show_count_bussiness_menu_html(list_data_count,15)  -%>	
+				<%-  ojs_share_sidebar.show_count_store_menu_html(news_bussiness_menu,15)  -%>				
+				</div>
+			</a>
+		</li>
+				
+		
+	</ul>
+</div>

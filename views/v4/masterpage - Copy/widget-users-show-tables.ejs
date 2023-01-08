@@ -1,0 +1,75 @@
+
+
+
+
+
+
+<% if( typeof users_list == 'object' && users_list){ } else{ users_list=[] } %>
+
+
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Tên tài khoản</th>
+			<th class="user-email">Email</th>
+			<th class="user-phone">Điện thoại</th>
+			<th class="user-role">Phân quyền</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<% 
+	for(var  x in users_list) { %>
+	   <tr>
+				<td class="user-name"><a href="#"><%= users_list[x].users_full_name %></a>
+				<div class="row-actions">
+				
+					<span class="edit"><a href="/users/show/<%= users_list[x].users_ID %>">Chỉnh sửa</a> | </span>
+					<span class="edit"><a href="/notes/add/<%= users_list[x].users_ID %>">Gửi tin nhắn</a> | </span>
+					
+					<%
+					if(users_list[x].users_status == "1"){
+					%>
+						<span class="edit"><a href="/users-tracking/unlock/<%= users_list[x].users_ID %>">unlock</a> | </span>
+					<%
+					}
+					%>					
+					
+					
+					
+					
+					
+					<%
+					if(users_type == "admin"  && users_list[x].users_type_name == "bussiness"){
+					%>	
+					<span class="edit"><a href="/bussiness/<%= users_list[x].users_ID %>" + >Quản lý doanh nghiệp</a> | </span>				
+					<%
+					}
+					%>
+				
+					<span class="delete"><a href="#" class="submitdelete" data_user_id="<%= users_list[x].users_ID %>">Xóa</a></span>
+				</div>
+				</td>
+
+				<td><%= users_list[x].users_email %></td>
+				<td><%= users_list[x].users_phone %></td>
+				<td class="user-role"><%= users_list[x].users_type_name %></td>
+				
+		</tr>
+	<% 
+	} 
+	%>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên tài khoản</th>
+			<th class="user-email">Email</th>
+			<th class="user-phone">Điện thoại</th>
+			<th class="user-role">Phân quyền</th>
+		</tr>
+	</tfoot>
+</table>

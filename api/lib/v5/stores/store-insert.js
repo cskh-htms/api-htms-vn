@@ -1,6 +1,6 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
@@ -64,11 +64,11 @@ const function_export = function (data,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get assign data coupon, Vui lòng liên hệ admin" 
+				"Lỗi get assign data, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "lib->store->inser.js",
+			"position" : "lib->stores->inser",
 			"message": error_send 
 		}); 
 		return;
@@ -102,7 +102,7 @@ const function_export = function (data,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->store->inser.js",
+						"position" : "lib->stores->inser",
 						"message": error_send 
 					}); 
 					return;					
@@ -115,13 +115,13 @@ const function_export = function (data,res) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
-				"Lỗi insert data coupon add, Vui lòng liên hệ admin" 
+				"Lỗi insert, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->store->inser.js",
+			"position" : "lib->stores->inser",
 			"message": error_send 
 		}); 
 		return;	

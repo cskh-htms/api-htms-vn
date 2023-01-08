@@ -1,0 +1,140 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+
+1. [show_count_store_menu_html]
+
+2.[show_news_bussiness_menu_sum]
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_sidebar = {
+	
+	//@
+	//@
+	//@ 
+	//@ 3.[show_count_status_order_by_store]
+	//@ - hiển thị số đơn hàng theo status	
+	show_count_status_order_by_store : function (datas,status_numbet){
+		
+		var data_return = 0;
+		for(let x in datas){
+			for(let y in status_numbet){
+				if(x == status_numbet[y]){
+					data_return = data_return + datas[x];
+				}
+			}
+		}
+		
+		if(data_return > 0 ){
+			return '<span class="news_red">' + data_return + '</span>';	
+		}else{
+			return '';
+		}
+		
+	},
+	//@
+	//@
+	//@ 
+	//@ 5.[show_count_status_order_by_store]
+	//@ - end of		
+	//@
+	//@
+	//@ lấy tổng số từ chối news bussiness
+	//@ 2.[show_news_bussiness_menu_sum]	
+	show_news_bussiness_menu_sum: function(datas){
+		var data_return = 0;
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			data_return = data_return + datas[i];
+		}
+		
+		data_return = '<span class="news_red">' + data_return + '</span>';
+		return data_return;
+	},		
+	//@
+	//@ 
+	//@ 
+	//@
+	//@
+	//@ tạo html hiển thị count span
+	//@ 1.[show_count_bussiness_menu_html]	
+	show_count_store_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_red" title="danh mục bị từ chối">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	}
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

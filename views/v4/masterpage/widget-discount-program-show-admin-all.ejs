@@ -12,32 +12,41 @@ if(discount_program_list.length > 0){ %>
 	<% 
 	for( var  x in discount_program_list ) { 
 	if(
-	discount_program_list[x].discount_program_type == "1" ){
+	discount_program_list[x].discount_program_type != "-1" ){
 	i_loop = i_loop + 1;
 	%>	
 		<div class="discount-box" style="flex-wrap:wrap;">
 			<div class="discount-image-wrap">
-				<img  style="cursor: pointer;"   class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" src="<%- ojs_share_all.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
+				<img  style="cursor: pointer;"   class="view-discount" 
+				data_id="<%= discount_program_list[x].discount_program_ID %>" 
+				src="<%- ojs_share_all.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
 			</div>
 			
 			<div style="padding: 0px 20px;">
 			<span >Tên chương trình : </span>
 				<div class="discount-title">
-					<div style="cursor: pointer;"  class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
+					<div style="cursor: pointer;"  class="view-discount" 
+					data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
 					<%- ojs_share_all.unCape(discount_program_list[x].discount_program_name) -%></strong>
 					</div>
 
 				</div>
 				<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>
-				/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>			
-			
+				/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>   |    		
+		
+				<span class="delete">
+				<a href="#" data_discount_id="<%= discount_program_list[x].discount_program_ID  %>" class="submitdelete_discount">Xóa</a></span>
+
+		
 				<div class="discount-posittiom">
-					<span> Vị trí khuyến mãi : <%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %></span>
+					<span> Vị trí khuyến mãi : 
+					<%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %></span>
 				</div>	
 
 				
 				<div class="discount-status">
-					<span> trạng thái : <%- ojs_share_discount.show_status_discount_detail_html(discount_program_list[x].discount_program_status_admin) -%>
+					<span> trạng thái : 
+					<%- ojs_share_discount.show_status_html_discount_programs(discount_program_list[x].discount_program_status_admin) -%>
 				</div>
 			</div>
 			

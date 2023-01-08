@@ -1,0 +1,81 @@
+
+
+<% if( typeof products_list == 'object' && products_list){ } else{ products_list=[] } %>
+<% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% 
+	for( var  x in products_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name">
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="pro-img btn-xem"><img src="<%- products_list[x].products_speciality_featured_image  %>" /></a>
+				<a href="#"  data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem"><%- products_list[x].products_speciality_name %></a>
+				<div class="row-actions">
+					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>
+			<td><%- ojs_share.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>
+			
+			<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
+				<td class="pro-price">
+					<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+					<span class="price-off">
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+				</td>
+			<% } else { %>
+				<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+			<% } %>	
+			
+			
+			<%
+			// -----------
+			// tính số lượng bán
+			var p_sale = 0;
+			
+			for( var  o in product_sale ) { 
+				if(product_sale[o].orders_details_speciality_product_id == products_list[x].products_speciality_ID){
+					p_sale = product_sale[o].orders_details_speciality_qty;
+				}
+			}			
+			
+			
+			
+			
+			%>
+			<td><%= 	p_sale		%> </td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_store) %></td>	
+			<td><%- ojs_share.show_status_table_share_all(products_list[x].products_speciality_status_admin) %></td>				
+			
+	   </tr>
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>Cửa hàng</th>
+			<th>Admin</th>
+		</tr>
+	</tfoot>
+</table>

@@ -269,6 +269,28 @@ ojs_loadding_message_callback = {
 	
 	
 	
+	
+	
+	
+	//@	
+	//@
+	//@
+	//@ delete_discount_program_admin
+	delete_discount_program_admin:function(datas){
+		//alert("asdasd");
+		//return;
+		let datas_parse = JSON.parse(datas);
+		let discount_program_id = datas_parse.discount_program_id;
+		ojs_discount_program_speciality_admin.ajax_delete_admin(discount_program_id);
+	},//end of xoa san pham dac san
+	
+	
+	
+	
+	
+	
+	
+	
 	//
 	//
 	//xoa san pham dac san

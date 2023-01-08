@@ -1,0 +1,77 @@
+
+
+<% if( typeof datas == 'object' && datas){ datas = datas } else{ datas=[] } %>
+
+
+
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">tên khu vực khu vực</th>
+			<th class="user-name">Giá shipping</th>
+			<th class="user-name">show</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<% 
+	for(var  x in datas) { %>
+		<% if(datas[x].shipping_speciality_parent_id == 0) { %>
+			   <tr>
+					<td class="user-name"><a href="#"><%= datas[x].shipping_speciality_name %></a>
+						<div class="row-actions">
+							<span class="edit"><a href="/shipping/speciality/show/<%= datas[x].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
+							<span class="delete"><a href="#" data_shipping_id="<%= datas[x].shipping_speciality_ID %>" class="submitdelete">Xóa</a></span>
+						</div>
+					</td>
+					<td class="user-name"><%= datas[x].shipping_speciality_price %></td>	
+					<td class="user-name"><%- ojs_share.show_hide_text(datas[x].shipping_speciality_show) %></td>					
+			   </tr>
+			   
+			   <% for(var  y in datas) { %>
+					<% if(datas[x].shipping_speciality_ID == datas[y].shipping_speciality_parent_id) { %>
+						    <tr>
+								<td class="user-name cat_child01" ><a href="#"><%= datas[y].shipping_speciality_name %></a>
+								<div class="row-actions">
+									<span class="edit"><a href="/shipping/speciality/show/<%= datas[y].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
+									<span class="delete"><a  data_shipping_id="<%= datas[y].shipping_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
+								</div>
+								</td>
+								<td class="user-name"><%= datas[y].shipping_speciality_price %></td>	
+								<td class="user-name"><%- ojs_share.show_hide_text(datas[y].shipping_speciality_show) %></td>	
+								
+								
+						   </tr>
+						   
+						   <% for(var  z in datas) { %>
+								<% if(datas[y].shipping_speciality_ID == datas[z].shipping_speciality_parent_id) { %>
+									   <tr>
+											<td class="user-name cat_child02"><a href="#"><%= datas[z].shipping_speciality_name %></a>
+											<div class="row-actions">
+												<span class="edit"><a href="/shipping/speciality/show/<%= datas[z].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
+												<span class="delete"><a href="#"  data_shipping_id="<%= datas[z].shipping_speciality_ID %>"  class="submitdelete">Xóa</a></span>
+											</div>
+											</td>
+											
+											<td class="user-name"><%= datas[z].shipping_speciality_price %></td>	
+											<td class="user-name"><%- ojs_share.show_hide_text(datas[z].shipping_speciality_show) %></td>
+									   </tr>
+								<% } %>	   
+							<% } %>						   
+				    <% } %>	   
+				<% } %>
+	   
+	   <% } %>
+	<% } %>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên khu vực</th>
+			<th class="user-name">Giá shipping</th>
+			<th class="user-name">show</th>
+		</tr>
+	</tfoot>
+</table>
+	

@@ -1,0 +1,375 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+
+[show_discount_position_html]
+[caution_date_product_add]
+[format_date_discount]
+[show_status_discount_detail_html]
+
+--------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+ojs_share_discount = {
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_status_discount_detail_html]
+	show_status_discount_detail_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},	
+	
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@
+	//@ 14.[show_discount_program_type]
+	show_discount_program_type: function(status){	
+		//
+		let result = "";
+		//
+		if(status == '0'){
+			result = "" +
+			'<option value="0" selected > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1"> Dùng cho tất cả mọi cửa hàng </option>';	
+		}else if(status == '1'){
+			result = "" +
+			'<option value="0"  > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';					
+		
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},
+	//@
+	//@
+	//@
+	//@ 13.[show_discount_program_gift_type]
+	show_discount_program_gift_type: function(status){	
+		//
+		let result = "";
+		//
+		if(status == 0){
+			result = "" +
+			'<option value="0"  selected>Khuyến mãi thường</option>' + 
+			'<option value="1"> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2"> Khuyến mãi mua nhiều càng rẻ </option>';
+		}else if(status == 1){
+			result = "" +
+			'<option value="0">Khuyến mãi thường</option>' + 
+			'<option value="1" selected> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2"> Khuyến mãi mua nhiều càng rẻ </option>';			
+		}else if(status == 2){
+			result = "" +
+			'<option value="0">Khuyến mãi thường</option>' + 
+			'<option value="1"> Khuyến mãi mua 1 tặng 1</option>' + 			
+			'<option value="2" selected> Khuyến mãi mua nhiều càng rẻ </option>';			
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},
+
+	//@ 
+	//@ 
+	//@ 3. [format_date_discount]
+	format_date_discount : function(datas){
+		
+		//return datas;
+		
+		if(datas == ""  || datas == null || datas == "NULL" || datas == 0){
+			return "Không có thời hạn";
+		}
+		
+		var time_string = "";
+		var time_add_zone = new Date(datas);
+		//@
+		//@
+		let y = time_add_zone.getFullYear();
+		let m = time_add_zone.getMonth() + 1;
+		let d = time_add_zone.getDate();
+		let h = time_add_zone.getHours();
+		let p = time_add_zone.getMinutes();
+		let g = time_add_zone.getSeconds();
+		
+		
+		//@
+		//@
+		time_string = y + "/" + m + "/" + d + " " + h + ":" + p + ":" + g ;
+		return time_string ;		
+	},	
+	
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 2. [caution_date_product_add]
+	//@ * tính ngày thêm vào
+	caution_date_product_add: function(ojb_date,day_add){
+		//
+		let result = "";
+		var x = new Date(ojb_date);
+		var xx = x.getTime();
+		var xxx = xx + (day_add * 24 * 60 * 60 * 1000);
+		
+		
+		result = new Date(xxx);
+		
+		//	
+		return result;	
+	},	
+	
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ 1. [show_discount_position_html]
+	show_discount_position_html: function(position){
+		//
+		let result = "";
+		//
+		if(position == 0){
+			result = "" +
+			'<span>Khu khuyến mãi slider</span>'
+		}else if(position == 1){
+			result = "" + 
+			'<span>Khu khuyến mãi FLASHSALE</span>'
+		}else if(position == 2){
+			result = "" + 
+			'<span>Khu khuyến mãi giảm giá theo mùa</span>'
+		}else if(position == 3){
+			result = "" + 
+			'<span>Khu khuyến mãi smua 1 tặng 1 </span>'
+		}else{
+			result = "" + 
+			'<span> Chưa có vị trí </span>'
+		}			
+
+		//	
+		return result;	
+	},
+	//@ 
+	
+	//@ 12.[show_status_discount_program_position]
+	show_discount_program_position_store: function(status){
+		//
+		let result = "";
+		//
+		if(status == 4){
+			result = "" +
+			'<option value="4" selected >Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="0">Khu Slider trên cùng app</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';
+		}else if(status == 0){
+			result = "" +
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="0" selected>Khu Slider trên cùng app</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';		
+		}else if(status == 5){
+			result = "" +
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="0">Khu Slider trên cùng app</option>' + 
+			'<option value="5" selected> Khu khuyễn mãi của app</option>' + 
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';		
+		}else if(status == 6){
+			result = "" +
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="0">Khu Slider trên cùng app</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 
+			'<option value="6" selected> Khu slide và khu khuyễn mãi của app</option>';			
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},	
+	
+	
+	//@ 12.[show_status_discount_program_position]
+	show_discount_program_position: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0){
+			result = "" +
+			'<option value="0" selected>Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';
+		}else if(status == 1){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1" selected>Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';	
+		}else if(status == 2){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2" selected> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';		
+		}else if(status == 3){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3" selected>Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';	
+		}else if(status == 4){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4" selected>Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';	
+		}else if(status == 5){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5" selected> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6"> Khu slide và khu khuyễn mãi của app</option>';	
+		}else if(status == 6){
+			result = "" +
+			'<option value="0">Khu slider trên app</option>' + 
+			'<option value="1">Khu flast sale</option>' + 
+			'<option value="2"> Khu giảm giá bốn mùa</option>' + 
+			'<option value="3">Khu mua 1 tặng 1</option>' + 
+			'<option value="4">Chỉ hiển thị trong cửa hàng</option>' + 
+			'<option value="5"> Khu khuyễn mãi của app</option>' + 			
+			'<option value="6" selected> Khu slide và khu khuyễn mãi của app</option>';			
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},		
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

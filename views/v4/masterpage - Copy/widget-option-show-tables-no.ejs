@@ -1,0 +1,62 @@
+
+
+<% if( typeof options_list == 'object' && options_list){ options_list = options_list } else{ options_list=[] } %>
+
+<table class="table-list">
+
+	<thead>
+		<tr>
+			<th class="user-name">Tên option</th>
+			<th>Trạng thái admin</th>
+			<th>Trạng thái cửa hàng</th>		
+		</tr>
+	</thead>
+	<tbody>
+
+	<% 
+	for(var  x in options_list) { %>
+		<tr>
+			<td class="user-name"><a href="#"><%= options_list[x].options_product_speciality_name %></a>
+				<% //neu nếu đã chấp nhận thì ko cho update nua
+				if( options_list[x].options_product_speciality_status_admin != "1" ){ 
+				%>
+			
+			
+					<div class="row-actions">
+						<span class="edit">
+							<a href="/options/speciality/show/<%= options_list[x].options_product_speciality_ID %>/<%= options_list[x].options_product_speciality_stores_id %>">
+								Chỉnh sửa</a> | 
+						</span>
+						<span class="delete">
+							<a href="#" data_option_id="<%= options_list[x].options_product_speciality_ID %>" class="submitdelete">
+								Xóa
+							</a>
+						</span>
+						
+					</div>
+				<%
+				}
+				%>				
+					
+			</td>
+
+			<td><%- ojs_share.show_status_table_share_all(options_list[x].options_product_speciality_status_admin) %></td>
+			<td><%- ojs_share.show_status_table_share_all(options_list[x].options_product_speciality_status_stores) %></td>
+
+	   </tr>
+
+	<% 
+	} 
+	%>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Tên danh option</th>
+			<th>Trạng thái admin</th>
+			<th>Trạng thái cửa hàng</th>			
+		</tr>
+	</tfoot>
+</table>
+	
+	

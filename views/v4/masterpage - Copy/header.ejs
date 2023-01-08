@@ -1,0 +1,43 @@
+<%
+//@
+//@ check biến nếu ko tồn tịa thì set empty 
+//@ tránh báo lỗi
+
+
+//@
+//@ user full name
+try {	
+	var x = users_full_name.length;
+} catch (error) {
+	users_full_name = "";
+}
+
+
+//@
+//@ user id
+try {	
+	var x = user_id.length;
+} catch (error) {
+	user_id = "";
+}
+
+%>
+
+
+
+
+
+
+<div id="header" class="header">
+	<div class="logo">
+	<img src="/images/dala-logo.jpg">
+	</div>
+	<div class="user">
+		<a href="https://hotro.appdala.com/" target="_blank" title="Trợ giúp" class="support_btn"><i class="fas fa-question-circle"></i></a>
+		<div class="user-image"><a href="/users/show/<%= user_id %>" title="Thông tin tài khoản"><img id="test" src="/images/unnamed.png"></a></div>
+		<div class="user-text">
+			<a class="user-name" href="/users/show/<%= user_id %>"><%= users_full_name %></a>
+			<a class="logout" href="/logout" id="logOut">Đăng xuất</a>
+		</div>
+	</div>
+</div>

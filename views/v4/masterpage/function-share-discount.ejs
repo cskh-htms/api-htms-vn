@@ -10,6 +10,11 @@
 [caution_date_product_add]
 [format_date_discount]
 [show_status_discount_detail_html]
+[show_discount_program_time_type]
+[show_status_discount_programs]
+[show_ddiscount_program_type]
+[show_status_html_discount_programs]
+
 
 --------------------------------------------------
 */
@@ -22,6 +27,199 @@
 
 
 ojs_share_discount = {
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ [show_ddiscount_program_type]
+	show_ddiscount_program_type: function(status){	
+		//
+		let result = "";
+		//
+		if(status == '0'){
+			result = "" +
+			'<option value="0" selected > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1"> Dùng cho tất cả mọi cửa hàng </option>';	
+		}else if(status == '1'){
+			result = "" +
+			'<option value="0"  > Chỉ dùng cho cửa hàng tạo ra </option>' + 
+			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';					
+		
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},	
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_status_html_discount_programs]
+	show_status_html_discount_programs: function(status){
+		//
+		let result = "";
+		//
+		if(status == -1){
+			result = "" +
+			'<i class="fas fa-minus-circle gray" title="Bản nháp"></i>'
+			
+		}else if(status == 0){
+			result = "" + 
+			'<i class="fas fa-check-circle yellow" title="Chờ duyệt"></i>'			
+			
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},	
+
+
+
+
+
+
+
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@ [show_status_discount_programs]
+	show_status_discount_programs: function(status){
+		//
+		let result = "";
+		//
+		if(status == -1){
+			result = "" +
+			'<option value="-1" selected >Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>' + 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;			
+		
+		}else if(status == 0){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0"  selected>Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>' + 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;			
+		}else if(status == 1){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 2){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2" selected>Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 3){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3"  selected>Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 4){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4"  selected>Đã thanh toán</option>' ;
+			
+		}else if(status == -1){
+			result = "" +
+			'<option value="-1"  selected>Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;
+			
+		}else{
+			result = "" + 
+			'<option value="-1"  selected>error</option>' ;		
+		}		
+		//	
+		return result;		
+	},
+
+
+
+
+
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@ [show_discount_program_time_type]
+	show_discount_program_time_type: function(status){	
+		//
+		let result = "";
+		//
+		if(status == 0){
+			result = "" +
+			'<option value="0" selected>Khuyến mãi vô thời hạn</option>' + 
+			'<option value="1"> Khuyến mãi có thời hạn</option>';	
+		}else if(status == 1){
+			result = "" +
+			'<option value="0">Khuyến mãi vô thời hạn</option>' + 
+			'<option value="1" selected> Khuyến mãi có thời hạn</option>';				
+		
+		}else{
+			result = "" + 
+			'<option value="0">error</option>';
+		}		
+		//	
+		return result;		
+	},	
+	
+	
+	
+	
 	
 	
 	

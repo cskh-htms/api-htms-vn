@@ -1,0 +1,235 @@
+
+<%
+
+
+/* 
+-------------------------------------------------
+
+[show_category_products]
+[show_stauts_stock]
+[show_stock_html]
+[show_product_type]
+[show_han_km]
+
+--------------------------------------------------
+*/
+
+
+
+
+
+ojs_share_product = {
+
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ [show_han_km]
+	show_han_km: function(hankm){
+		//
+		let result = "";
+		//
+		switch(hankm) {
+				case 'đãhếthạn': 
+					result = '<span class="status_red mb5">Hết hạn giảm giá</span>';
+					break;
+				case 'đangkhuyếnmãi':
+					result = '<span class="status_green mb5">Đang giảm giá</span>';
+					break;
+				case 'khuyếnmãivôthờihạn':
+					result = '<span class="status_blue mb5">Luôn giảm giá</span>';
+					break;
+				default:
+					break;
+			}
+			return result;
+	},
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ [show_category_products]
+	show_category_products: function(product_id,datas_link){
+		//
+		let result = "";
+		
+
+		//
+		for(let i = 0; i < datas_link.length; i ++){
+			if( product_id == datas_link[i].category_general_speciality_link_product_id ){
+				if(result == "" ){
+					result =  datas_link[i].category_general_speciality_name;
+				}else{
+					result = result + " , " + datas_link[i].category_general_speciality_name;
+				}
+			}
+		}
+
+		//	
+		return result;	
+	},
+
+
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ [show_stauts_stock]
+	show_stauts_stock: function(status){
+		let result = "";
+		
+		if(status == '1'){
+			result = '<input type="checkbox" id="products_speciality_stock_status" name="products_speciality_stock_status" value="1" checked> '; 
+		}else{
+			result = '<input type="checkbox" id="products_speciality_stock_status" name="products_speciality_stock_status" value="0"> '; 
+		}
+		//	
+		return result;	
+	},
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
+	//@	[show_stock_html]
+	show_stock_html: function(status,qty){
+		let result = "";
+		
+		if(status == 1){
+			if(qty == 0){
+				result = '' + 
+				'<span style="color:red;"> <b>Hết hàng</b></span>';
+			}else if(qty > 0 && qty < 5){
+				result = '' + 
+				'<span style="color: white;background-color: #c5bf47;display: inline-block; padding: 0px 5px;"> <b>' + qty + '</b></span>';				
+			}else if(qty >= 5){
+				result = '' + 
+				'<span style="color:green;"> <b>' + qty + '</b></span>';				
+			}			 
+		}else{
+				result = '' + 
+				'<span style="color:green;"> <b> Luôn có hàng </b></span>';	
+		}
+		//	
+		return result;	
+	},
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@	
+	//@ [show_product_type]
+	show_product_type: function(type){
+		let type_arr = ["normal product","variation product","Gift product"];
+		//
+		let result = "";
+		//
+		if(type == 0 || type == null){
+			result = "" +
+			'<option value="0"  selected>Normal product</option>' + 
+			'<option value="1">Variation product</option>' + 
+			'<option value="2" >Gift product</option>';		
+			
+		}else{
+			for(let i = 0; i < type_arr.length; i ++){
+				if( type == i){
+					result = result + '<option value="' + i + '" selected>' + type_arr[i] +'</option>';
+				}else{
+					result = result + '<option value="' + i + '">' + type_arr[i] +'</option>';
+				}
+			}
+		}		
+		//	
+		return result;	
+	},	
+	
+	
+	
+		
+	
+	
+	
+	
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

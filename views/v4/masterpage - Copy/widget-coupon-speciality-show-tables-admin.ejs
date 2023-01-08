@@ -1,0 +1,52 @@
+<% if( typeof coupon_list == 'object' && coupon_list){ } else{ coupon_list=[] } %>
+
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Mã code</th>
+			<th class="user-name">Cửa hàng tạo</th>
+			<th class="user-name">Ngày bắt đầu</th>
+			<th class="user-name">Ngày kết thúc</th>
+			<th class="user-name">Tên công thức</th>
+			<th class="user-name">trạng thái</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+
+	<% 
+	for( var  x in coupon_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name"><a href="#"><%- coupon_list[x].coupon_speciality_code %></a>
+				<div class="row-actions">
+						<span class="edit"><a href="/admin/coupon/show/<%= coupon_list[x].coupon_speciality_ID  %>/<%= coupon_list[x].stores_ID  %>">Chỉnh sửa</a> | </span>
+						<span class="delete"><a href="#" data_coupon_id="<%= coupon_list[x].coupon_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+				</div>
+			</td>
+			<td class="user-name"><%= coupon_list[x].stores_name %></td>	
+			<td class="user-name"><%= coupon_list[x].coupon_speciality_date_star %></td>				
+			<td class="user-name"><%= coupon_list[x].coupon_speciality_date_end %></td>	
+			<td class="user-name"><%- ojs_share.show_coupon_formula_table(coupon_list[x].coupon_speciality_formula_price) %></td>	
+			<td class="user-name"><%- ojs_share_coupon.show_status_coupon_html(coupon_list[x].coupon_speciality_status_admin) %></td>			
+					
+
+	   </tr>
+
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Mã code</th>
+			<th class="user-name">Cửa hàng tạo</th>
+			<th class="user-name">Ngày bắt đầu</th>
+			<th class="user-name">Ngày kết thúc</th>
+			<th class="user-name">Tên công thức</th>
+			<th class="user-name">trạng thái</th>			
+		</tr>
+	</tfoot>
+</table>

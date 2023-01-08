@@ -22,7 +22,15 @@
 *  [show_status]	
 *  [show_status_html]
 *  [unCape_content]
-*  [show_han_km]			
+*  [show_han_km]	
+
+* [show_date_if_empty]
+
+
+
+
+
+		
 --------------------------------------------------
 */
 
@@ -41,7 +49,23 @@ ojs_share_all = {
 	
 	
 	
-	
+	//@
+	//@
+	//@
+	//@
+	//@ 15.[show_date_if_empty]
+	show_date_if_empty: function(data_string){	
+		//
+		let result = "";
+		//
+		if(data_string == "0000/00/00 00:00:00"){
+			result = "";
+		}else{
+			result = data_string;
+		}		
+		//	
+		return result;		
+	},	
 	
 	
 	//@

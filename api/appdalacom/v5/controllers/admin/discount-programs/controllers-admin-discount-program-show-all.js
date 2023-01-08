@@ -143,7 +143,7 @@ async  function function_export(req, res, next) {
 			"order" :
 			 [		 
 				{    
-					"field"  :"discount_program_store_id_created",
+					"field"  :"discount_program_date_created",
 					"compare" : "DESC"
 				}			
 			]	
