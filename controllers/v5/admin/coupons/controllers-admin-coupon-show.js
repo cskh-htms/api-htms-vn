@@ -47,6 +47,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req	
 		try {
 			var token = req.session.token;	
+			var coupon_id = req.params.coupon_id;
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 				return;
@@ -62,17 +63,13 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->admin->coupons->show-all",
+				"position":"web->appdalacom->controllers->admin->coupons->show",
 				"message": error_send 
 			}); 
 			return;			
 		}	
-		//res.send(["hú"]);
+		//res.send([coupon_id]);
 		//return;	
-		
-		
-		
-		
 		
 		
 		
@@ -85,7 +82,7 @@ async  function function_export(req, res, next) {
 					ojs_configs.domain + 
 					'/api/appdalacom/' + 
 					config_api.API_APPDALACOM_VERSION + 
-					'/admin/coupons/show-all/',
+					'/admin/coupons/show?c1=' + coupon_id,
 					token
 				);	
 			//res.send([data_api_resuilt]);
@@ -101,7 +98,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "2", 
-				"position":"web->appdalacom->controllers->admin->coupons->show-all",
+				"position":"web->appdalacom->controllers->admin->coupons->show",
 				"message": error_send 
 			}); 
 			return;			
@@ -121,7 +118,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->admin->coupons->show-all",
+				"position":"web->appdalacom->controllers->admin->coupons->show",
 				"message": error_send 
 			}); 
 			return;
@@ -140,42 +137,42 @@ async  function function_export(req, res, next) {
 		//@ goo
 		try {
 
-		datas_info = {
-			'title' 			: 'Quản lý coupon',
-			'users_type' 		: ojs_shares_others.get_users_type(token),
-			'user_id' 			: ojs_shares_others.get_users_id(token),
-			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'	: ojs_configs.js_css_version,
-			'menu_taget'		: 'sidebar_coupon',
-			'sidebar_type'		:  "",
+			datas_info = {
+				'title' 			: 'Chỉnh sửa coupon',
+				'users_type' 		: ojs_shares_others.get_users_type(token),
+				'user_id' 			: ojs_shares_others.get_users_id(token),
+				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+				'js_css_version'	: ojs_configs.js_css_version,
+				'menu_taget'		: 'sidebar_coupon',
+				'sidebar_type'		:  "",
+				'coupon_id'			:  coupon_id,
+				
+				'news_admin_menu' 	: data_api_resuilt[1],
+				'datas' 		: data_api_resuilt[2],
+			}
 			
-			'news_admin_menu' 	: data_api_resuilt[1],
-			'coupon_list' 		: data_api_resuilt[2],
-		}
-		
-		
-		data_send = {
-			'title' 			: 'Quản lý coupon',
-			'users_type' 		: ojs_shares_others.get_users_type(token),
-			'user_id' 			: ojs_shares_others.get_users_id(token),
-			'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'	: ojs_configs.js_css_version,
-			'menu_taget'		: 'sidebar_coupon',
-			'sidebar_type'		:  "",
 			
-			'news_admin_menu' 	: data_api_resuilt[1],
-			'coupon_list' 		: data_api_resuilt[2],
+			data_send = {
+				'title' 			: 'Chỉnh sửa coupon',
+				'users_type' 		: ojs_shares_others.get_users_type(token),
+				'user_id' 			: ojs_shares_others.get_users_id(token),
+				'user_full_name' 	: ojs_shares_others.get_users_full_name(token),
+				'js_css_version'	: ojs_configs.js_css_version,
+				'menu_taget'		: 'sidebar_coupon',
+				'sidebar_type'		:  "",
+				'coupon_id'			:  coupon_id,
+				
+				'news_admin_menu' 	: data_api_resuilt[1],
+				'datas' 		: data_api_resuilt[2],
+				
+				'datas_info'			: datas_info			
+			}
 			
-			'datas_info'			: datas_info			
-		}
-		
-		
-		//res.send(data_send);
-		//return;
-		
-		res.render( ojs_configs.view_version + '/coupon/speciality/admin-show-all', data_send );	
-		
-		
+			
+			//res.send(data_send);
+			//return;
+			
+			res.render( ojs_configs.view_version + '/coupon/speciality/admin-show', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -187,7 +184,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "100", 
-				"position":"web->appdalacom->controllers->admin->coupons->show-all",
+				"position":"web->appdalacom->controllers->admin->coupons->show",
 				"message": error_send 
 			}); 
 			return;
@@ -206,7 +203,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"controller->users-show-all",
+			"position":"web->appdalacom->controllers->admin->coupons->show",
 			"message": error_send 
 		}); 
 		return;			
@@ -219,7 +216,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"controller->users-show-all",
+		"position":"web->appdalacom->controllers->admin->coupons->show",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

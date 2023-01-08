@@ -54,6 +54,14 @@ require(
 );
 
 
+const controllers_admin_discount_program_product_delete =  
+require(
+	'../../../controllers/admin/discount-programs/controllers-admin-discount-program-product-delete'
+);
+
+
+
+
 
 
 
@@ -70,7 +78,7 @@ router.put('/update',	middle_ware, controllers_admin_discount_update );
 router.get('/add',	middle_ware, controllers_admin_discount_program_add );
 router.post('/save',	middle_ware, controllers_admin_discount_program_save );
 router.delete('/delete',	middle_ware, controllers_admin_discount_program_delete );
-
+router.delete('/product-delete',	middle_ware, controllers_admin_discount_program_product_delete );
 
 
 

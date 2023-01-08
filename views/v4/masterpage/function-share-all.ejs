@@ -23,11 +23,11 @@
 *  [show_status_html]
 *  [unCape_content]
 *  [show_han_km]	
-
 * [show_date_if_empty]
 
 
-
+* [show_status_pay_html]
+* [show_status_pay]
 
 
 		
@@ -45,6 +45,132 @@
 //@
 //@ object start
 ojs_share_all = {	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_status_pay_html]
+	show_status_pay_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == -1){
+			result = "" +
+			'<i class="fas fa-minus-circle gray" title="Bản nháp"></i>'
+			
+		}else if(status == 0){
+			result = "" + 
+			'<i class="fas fa-check-circle yellow" title="Chờ duyệt"></i>'			
+			
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
+		}else if(status == 4){
+			result = "" + 
+			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
+		}	
+
+		//	
+		return result;	
+	},	
+
+
+
+
+
+
+	
+	//@
+	//@
+	//@
+	//@
+	//@ [show_status_pay]
+	show_status_pay: function(status){
+		//
+		let result = "";
+		//
+		if(status == -1){
+			result = "" +
+			'<option value="-1" selected >Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>' + 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;			
+		
+		}else if(status == 0){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0"  selected>Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>' + 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;			
+		}else if(status == 1){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1" selected>Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 2){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2" selected>Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 3){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3"  selected>Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;	
+
+		}else if(status == 4){
+			result = "" +
+			'<option value="-1">Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4"  selected>Đã thanh toán</option>' ;
+			
+		}else if(status == -1){
+			result = "" +
+			'<option value="-1"  selected>Draf</option>' + 
+			'<option value="0">Chờ duyệt</option>' + 
+			'<option value="1">Đã duyệt</option>'	+ 
+			'<option value="2">Chỉnh sữa chờ phê duyệt</option>' + 
+			'<option value="3">Từ chối</option>' + 
+			'<option value="4">Đã thanh toán</option>' ;
+			
+		}else{
+			result = "" + 
+			'<option value="-1"  selected>error</option>' ;		
+		}		
+		//	
+		return result;		
+	},
+
+
+
 	
 	
 	
