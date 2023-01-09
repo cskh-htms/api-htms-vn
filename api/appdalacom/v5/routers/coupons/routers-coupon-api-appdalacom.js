@@ -33,7 +33,7 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 //@
 //@
 //@ controller link
-const controllers_bussiness_by_user_id =  require('../../controllers/bussiness/controllers-bussiness-by-user-id-appdalacom-api');
+//const controllers_bussiness_by_user_id =  require('../../controllers/bussiness/controllers-bussiness-by-user-id-appdalacom-api');
 const controllers_coupon_add =  require('../../controllers/coupons/controllers-coupon-add-api-appdalacom');
 const controllers_coupon_show =  require('../../controllers/coupons/controllers-coupon-show-api-appdalacom');
 
@@ -78,7 +78,7 @@ router.get('/quan-ly-admin/',middle_ware, controllers_coupon_quan_ly_admin );
 
 
 
-router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
+//router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
 
 
 

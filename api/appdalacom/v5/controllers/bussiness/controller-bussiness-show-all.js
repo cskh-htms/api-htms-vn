@@ -50,8 +50,20 @@ async  function function_export(req, res, next) {
 	
 	//@ lấy req data
 	try {
-		var user_id = req.params.user_id;
+
 		var token = req.headers['token'];
+		var user_id = 0;
+		if(req.query.c1){
+			user_id = req.query.c1;
+		}else{
+			res.send({ 
+				"error" : "01", 
+				"position" : "api->controller->appdalacom->bussiness->show-all",
+				"message": "vui lòng nhập id"
+			}); 	
+			return;
+		}			
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -63,11 +75,22 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "ctroller->api-appdalacom->controllers-bussiness-by-user-id-appdalacom-api.js",
+			"position" : "api->controller->appdalacom->bussiness->show-all",
 			"message": error_send 
 		}); 
 		return;	
 	}	
+	//res.send([user_id]);
+	//return;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//@ check role phân quyền
@@ -88,7 +111,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "ctroller->api-appdalacom->controllers-bussiness-by-user-id-appdalacom-api.js", 
+			"position" : "api->controller->appdalacom->bussiness->show-all", 
 			"message": error_send 
 		}); 
 		return;			
@@ -114,7 +137,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "333",
-			"position" : "ctroller->api-appdalacom->controllers-bussiness-by-user-id-appdalacom-api.js", 
+			"position" : "api->controller->appdalacom->bussiness->show-all", 
 			"message": error_send 
 		}); 
 		return;			

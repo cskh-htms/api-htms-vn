@@ -58,7 +58,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -93,7 +93,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -129,7 +129,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -172,7 +172,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -223,7 +223,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -262,7 +262,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -298,7 +298,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -332,7 +332,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -377,7 +377,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -428,7 +428,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -474,7 +474,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -524,7 +524,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -575,7 +575,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -625,7 +625,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -672,7 +672,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -707,7 +707,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -748,7 +748,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -785,7 +785,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
