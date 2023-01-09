@@ -1,36 +1,56 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-<% include ../../masterpage/loader %>
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-shipping-speciality.js"></script>	
+<% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/shipping.css' />
+
+
+
+
+
+		
+<script src="../../../../../<%= js_css_version %>/javascripts/class-shipping-speciality-admin.js"></script>
+
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-shipping %>
+<% include ../../masterpage/function-share-all %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
+</script>
 
 
 <!-- --------------------
-//content
+content
 --------------------- -->
 <div id="content" class="content">
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Thêm shipping</h1>
+	
 
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>thêm khu vực shipping</h1>
-	
-	
+
+
+
 	<div class="value_row">
 		<span>Tên khu vực</span>
-		<input type="text" class= "" value="" id="shipping_speciality_name"/>
+		<input type="text" class= "" 
+		value="<%- ojs_share_all.unCape(datas[0].shipping_speciality_name) %>" 
+		id="shipping_speciality_name"/>
 	</div>
 	
 	
@@ -40,13 +60,17 @@ page wrap
 	
 	<div class="value_row">
 		<span>Giá vận chuyển</span>
-		<input type="text" class= "" value="" id="shipping_speciality_price"/>
+		<input type="text" class= "" 
+		value="<%= datas[0].shipping_speciality_price %>" 
+		id="shipping_speciality_price"/>
 	</div>	
 	
 	
 	<div class="value_row">
 		<span>Mã vùng</span>
-		<input type="text" class= "" value="" id="shipping_speciality_code"/>
+		<input type="text" class= "" 
+		value="<%= datas[0].shipping_speciality_code %>" 
+		id="shipping_speciality_code"/>
 	</div>	
 	
 	
@@ -55,14 +79,14 @@ page wrap
 		<span>Ẩn hiện khu vực</span>
 		<div class="select-wrap">
 			<select id="shipping_speciality_show">
-				<%- ojs_share.show_hide(0) %>
+				<%- ojs_share_all.show_hide(datas[0].shipping_speciality_show) %>
 			</select>	
 		</div>
 	</div>	
-	
-	
-	
-	
+
+
+
+
 	<!-- ------------------
 	//danh muc chung
 	------------------- -->
@@ -71,17 +95,22 @@ page wrap
 		<div id="shipping_speciality_box">
 		<select name="shipping_speciality_parent_id" id="shipping_speciality_parent_id"  >
 			<option value="">Chọn khu vực cha</option>
-			<% include ../../masterpage/widget-shipping-check-box %>
+			<% include ../../masterpage/widget-shipping-check-box-update %>
 		</select>
 		</div>
 	</div>	
 	<!-- ------------------
 	//danh muc chung
 	------------------- -->
-<div class="btn_box">
-	<a href="/shipping/speciality/" class="btn_back">Quay về</a>
-	<button id="btn_save" class="btn_save">Save</button>
-</div>	
+
+
+
+
+
+	<div class="btn_box">
+		<a href="/shipping/speciality/" class="btn_back">Quay về</a>
+		<button id="btn_save" class="btn_save">Save</button>
+	</div>	
 	
 
 
@@ -92,7 +121,7 @@ page wrap
 
 
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
-
+<input type="hidden" id="shipping_id" value="<%= datas[0].shipping_speciality_ID %>"/>
 
 
 <% include ../../masterpage/footer %>
@@ -121,6 +150,7 @@ $(document).ready(function($){
 		//return;
 		
 		let shipping_speciality_name = $('#shipping_speciality_name').val();	
+		let shipping_id = $('#shipping_id').val();
 		//@
 		let shipping_speciality_price = $('#shipping_speciality_price').val();
 		let shipping_speciality_code = $('#shipping_speciality_code').val();
@@ -129,11 +159,20 @@ $(document).ready(function($){
 		//@
 		let shipping_speciality_show = $('#shipping_speciality_show  option:selected').val();
 		let shipping_speciality_parent_id = $('#shipping_speciality_parent_id  option:selected').val();
-		//@
+		
+		
+		if(shipping_speciality_name == ""){
+			ojs_message.message_ok_show("Chưa nhập tên khu vực");
+			return;
+		}		
+		
+		
 		if(shipping_speciality_parent_id == ""){
 			ojs_message.message_ok_show("chọn khu vực cha");
 			return;
-		}		
+		}
+		//@
+		
 		//
 		let datas = {
 			"datas":{
@@ -147,9 +186,15 @@ $(document).ready(function($){
 		//console.log(datas,shipping_id);		
 		//return;
 		
-		ojs_shipping_speciality.ajax_save(datas);	
+		ojs_shipping_speciality_admin.ajax_update_admin(datas,shipping_id);	
 		
 	});//end of save ajax
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////
 });//end of document
@@ -161,6 +206,29 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

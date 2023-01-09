@@ -9,7 +9,10 @@ for(var  x in shipping_list) {
 		<%
 		if(datas[0].shipping_speciality_parent_id == shipping_list[x].shipping_speciality_ID){
 		%>
-			<option value ="<%= shipping_list[x].shipping_speciality_ID %>"  selected style="color:red;" ><%= shipping_list[x].shipping_speciality_name %></option>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>"  
+			selected style="color:red;" >
+			<%= shipping_list[x].shipping_speciality_name %>
+			</option>
 			
 			
 			<!-- --------------------
@@ -58,7 +61,9 @@ for(var  x in shipping_list) {
 		<%
 		}else{
 		%>
-			<option value ="<%= shipping_list[x].shipping_speciality_ID %>"><%= shipping_list[x].shipping_speciality_name %></option>
+			<option value ="<%= shipping_list[x].shipping_speciality_ID %>">
+			<%= shipping_list[x].shipping_speciality_name %>
+			</option>
 			
 			
 			<!-- --------------------

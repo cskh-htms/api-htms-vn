@@ -1,0 +1,43 @@
+.table-list tr td, .table-list tr th {
+    padding: 10px;
+    text-align: left;
+}
+.child-01 {
+    padding-left: 50px !important;
+    text-align: left;
+}
+
+.child-01  a:before {
+    content: " -- ";
+    padding-right: 10px;
+}
+
+
+.child-02 {
+    padding-left: 100px !important;
+    text-align: left;
+}
+
+
+.child-02 a:before {
+    content: " -- ";
+    padding-right: 10px;
+}
+
+.value_row {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+

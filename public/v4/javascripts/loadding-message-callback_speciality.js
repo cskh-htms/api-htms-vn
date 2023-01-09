@@ -479,11 +479,17 @@ ojs_loadding_message_callback = {
 	//	
 	//
 	//
+	
+	
+	
+
+	
+	
 	//xoa shipping
-	delete_shipping_speciality:function(datas){
+	delete_shipping_speciality_admin:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let shipping_id = datas_parse.shipping_id;
-		ojs_shipping_speciality.ajax_delete(shipping_id);
+		ojs_shipping_speciality_admin.ajax_delete_admin(shipping_id);
 	},//end of xoa san pham dac san
 	//
 	//				

@@ -35,7 +35,7 @@ router.use('/categorys', require('./categorys/router-admin-category.js'));
 router.use('/options', require('./options/router-admin-option.js'));
 router.use('/notes', require('./notes/router-admin-notes.js'));
 router.use('/news', require('./news/router-admin-news.js'));
-
+router.use('/shippings', require('./shippings/router-admin-shipping.js'));
 
 
 

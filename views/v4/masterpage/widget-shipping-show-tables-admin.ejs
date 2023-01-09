@@ -1,10 +1,5 @@
 
 
-<% if( typeof datas == 'object' && datas){ datas = datas } else{ datas=[] } %>
-
-
-
-
 <table class="table-list">
 	<thead>
 		<tr>
@@ -18,7 +13,7 @@
 	<% 
 	for(var  x in datas) { %>
 		<% if(datas[x].shipping_speciality_parent_id == 0) { %>
-			   <tr>
+			   <tr style="background-color:#fbf4f4;">
 					<td class="user-name"><a href="#"><%= datas[x].shipping_speciality_name %></a>
 						<div class="row-actions">
 							<span class="edit"><a href="/shipping/speciality/show/<%= datas[x].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
@@ -26,20 +21,20 @@
 						</div>
 					</td>
 					<td class="user-name"><%= datas[x].shipping_speciality_price %></td>	
-					<td class="user-name"><%- ojs_share.show_hide_text(datas[x].shipping_speciality_show) %></td>					
+					<td class="user-name"><%- ojs_share_all.show_hide_html(datas[x].shipping_speciality_show) %></td>					
 			   </tr>
 			   
 			   <% for(var  y in datas) { %>
 					<% if(datas[x].shipping_speciality_ID == datas[y].shipping_speciality_parent_id) { %>
 						    <tr>
-								<td class="user-name cat_child01" ><a href="#"><%= datas[y].shipping_speciality_name %></a>
+								<td class="child-01 cat_child01" ><a href="#"><%= datas[y].shipping_speciality_name %></a>
 								<div class="row-actions">
 									<span class="edit"><a href="/shipping/speciality/show/<%= datas[y].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
 									<span class="delete"><a  data_shipping_id="<%= datas[y].shipping_speciality_ID %>" href="#" class="submitdelete">Xóa</a></span>
 								</div>
 								</td>
-								<td class="user-name"><%= datas[y].shipping_speciality_price %></td>	
-								<td class="user-name"><%- ojs_share.show_hide_text(datas[y].shipping_speciality_show) %></td>	
+								<td class="child-01 user-name"><%= datas[y].shipping_speciality_price %></td>	
+								<td class="child-01 user-name"><%- ojs_share_all.show_hide_html(datas[y].shipping_speciality_show) %></td>	
 								
 								
 						   </tr>
@@ -47,15 +42,15 @@
 						   <% for(var  z in datas) { %>
 								<% if(datas[y].shipping_speciality_ID == datas[z].shipping_speciality_parent_id) { %>
 									   <tr>
-											<td class="user-name cat_child02"><a href="#"><%= datas[z].shipping_speciality_name %></a>
+											<td class="child-02 user-name cat_child02"><a href="#"><%= datas[z].shipping_speciality_name %></a>
 											<div class="row-actions">
 												<span class="edit"><a href="/shipping/speciality/show/<%= datas[z].shipping_speciality_ID %>">Chỉnh sửa</a> | </span>
 												<span class="delete"><a href="#"  data_shipping_id="<%= datas[z].shipping_speciality_ID %>"  class="submitdelete">Xóa</a></span>
 											</div>
 											</td>
 											
-											<td class="user-name"><%= datas[z].shipping_speciality_price %></td>	
-											<td class="user-name"><%- ojs_share.show_hide_text(datas[z].shipping_speciality_show) %></td>
+											<td class="child-02 user-name"><%= datas[z].shipping_speciality_price %></td>	
+											<td class="child-02 user-name"><%- ojs_share_all.show_hide_html(datas[z].shipping_speciality_show) %></td>
 									   </tr>
 								<% } %>	   
 							<% } %>						   

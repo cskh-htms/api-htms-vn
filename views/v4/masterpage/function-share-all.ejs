@@ -48,6 +48,59 @@ ojs_share_all = {
 	
 	
 	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_hide]
+	show_hide: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "" +
+			'<option value="0"  selected>hiện</option>' + 
+			'<option value="1">Ẩn</option>'
+		}else{
+			result = "" + 
+			'<option value="0">hiện</option>' + 
+			'<option value="1" selected>ẩn</option>'
+		}		
+		//	
+		return result;	
+	},
+
+
+	
+	
+	//@
+	//@
+	//@
+	//@ 
+	//@ 
+	//@ [show_hide_html]
+	show_hide_html: function(status){
+		//
+		let result = "";
+		//
+		if(status == 0 || status == null){
+			result = "hiện";
+		}else{
+			result = "ẩn";
+		}		
+		//	
+		return result;	
+	},		
+	
+	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@
