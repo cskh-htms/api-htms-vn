@@ -41,6 +41,32 @@ ojs_configs.controller_version +
 
 
 
+const controller_coupon_admin_save = 
+require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/coupons/controllers-admin-coupon-save.js');
+
+
+
+
+const controller_coupon_admin_delete = 
+require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/coupons/controllers-admin-coupon-delete.js');
+
+
+
+const controller_coupon_admin_update = 
+require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/coupons/controllers-admin-coupon-update.js');
+
+
+
+
+
+
+
 
 //@
 //@
@@ -50,9 +76,9 @@ ojs_configs.controller_version +
 router.get('/', controller_coupon_admin_show_all);
 router.get('/show/:coupon_id/', controller_coupon_admin_show);
 router.get('/add/:store_id', controller_coupon_admin_add);
-
-
-
+router.post('/save/', controller_coupon_admin_save);
+router.delete('/delete/:coupon_id', controller_coupon_admin_delete);
+router.put('/update/:coupon_id', controller_coupon_admin_update);
 
 
 

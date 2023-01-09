@@ -52,7 +52,6 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var discount_program_id = req.params.discount_program_id;
 			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
@@ -69,14 +68,13 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->admin->discount->update",
+				"position":"web->appdalacom->controllers->admin->coupons->save",
 				"message": error_send 
 			}); 
 			return;			
 		}		
-		//res.send({"error":"00","message":[discount_program_id,datas]});
+		//res.send({"error":"00","message":[datas]});
 		//return;	
-		
 		
 		
 		
@@ -85,11 +83,11 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ call api
-		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
+		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/admin/discounts/update?c1='+ discount_program_id,
+				'/admin/coupons/save',
 				datas,
 				token
 			);	
@@ -119,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->admin->discount->update",
+				"position":"web->appdalacom->controllers->admin->coupons->save",
 				"message": error_send 
 			}); 
 			return;
@@ -150,7 +148,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controllers->admin->discount->update",
+			"position":"web->appdalacom->controllers->admin->coupons->save",
 			"message": error_send 
 		}); 
 		return;			
@@ -163,7 +161,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controllers->admin->discount->update",
+		"position":"web->appdalacom->controllers->admin->coupons->save",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

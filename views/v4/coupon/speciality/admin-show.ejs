@@ -58,7 +58,7 @@ content
 			</div>
 
 
-
+			<div class="pro_box">
 			<div class="thong_tin_coupon" >	
 		
 				<p style="display:none;"><span>Loại coupon<span>
@@ -100,9 +100,9 @@ content
 						/>			
 				</p>
 			</div>
+			</div>
 			
-			
-			
+			<div class="pro_box">
 			<div class="cong_thuc_coupon-box">
 				<div class="cong_thuc_coupon">
 					<p>
@@ -144,7 +144,7 @@ content
 					</p>
 				</div>
 			</div>
-	
+			</div>
 	
 	
 			<p style="display:none;"><span>Tiền khuyến mãi<span>
@@ -475,6 +475,10 @@ $(document).ready(function($){
 		
 		//console.log(datas);
 		//return;
+		if(datas.datas.coupon_speciality_code == "" ){
+			ojs_message.message_ok_show("Chưa nhập mã coupon");
+			return;
+		}
 		
 		ojs_coupon_speciality_admin.ajax_update_admin(datas,coupon_id);	
 	});
@@ -497,11 +501,6 @@ $(document).ready(function($){
 		if(coupon_speciality_date_end.length > 0){			
 			coupon_speciality_date_end = coupon_speciality_date_end + " 23:59:59"
 		}
-		
-		if(coupon_speciality_code == "" ){
-			ojs_message.message_ok_show("Chưa nhập mã coupon");
-		}
-
 		
 
 		let coupon_speciality_condition = $('#coupon_speciality_condition  option:selected').val();

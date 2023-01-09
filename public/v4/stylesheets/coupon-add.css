@@ -1,5 +1,6 @@
 .pro_col01 {
     width: 70%;
+	padding-bottom: 200px;
 }
 
 
@@ -19,9 +20,14 @@
     display: flex;
 }
 
+.cong_thuc_coupon {
+    display: flex;
+}
 
-
-
+.pro_box {
+    margin-top: 30px;
+    padding-bottom: 20px;
+}
 
 
 

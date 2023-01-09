@@ -60,12 +60,23 @@ content
 				</div>
 			</div>
 			
+			
+			
+			
+			
+			
+			
+			<!-- --------------------------
+				//Điều kiện dùng coupon
+			--------------------------- -->
+			
 			<div class="pro_box">
-			<h3>Qui cách coupon</h3>
+			<h3>Điều kiện áp dụng</h3>
 			<div class="noi_dung_coupon inside">
+			
 				<div class="thong_tin_coupon">	
 
-					<p style="" class="">
+					<p style="display:none;" class="">
 					<span>Loại coupon<span>
 					<a href="#"  target="_blank"  class="giai_thich_link">
 						<span class="giai-thich"><span>Chọn loại coupon chỉ dành cho cửa hàng hay tất cả cửa hàng được dùng</span></span>	
@@ -86,7 +97,7 @@ content
 								<%- ojs_share_coupon.show_coupon_condition_select( 0 ) %>
 							</select>	
 					</p>		
-					<p  id="gia_tri_dieu_kien_coupon" style="display:none;">
+					<p  id="gia_tri_dieu_kien_coupon" style="">
 					<span>Giá trị điều kiện<span>
 					<input 
 						class="number_change" type="text" 
@@ -94,10 +105,27 @@ content
 						value="0" 
 						id="coupon_speciality_condition_value" 
 					/>			
-					</p>
-					
-					
+					</p>				
 				</div>
+			</div>		
+			</div>		
+	
+			<!-- --------------------------
+				//Điều kiện dùng coupon
+			--------------------------- -->	
+	
+	
+	
+	
+	
+	
+	
+			<!-- --------------------------
+				//Công thức tính giá
+			--------------------------- -->		
+			<div class="pro_box">
+			<h3>Công thức tính</h3>
+			<div class="noi_dung_coupon inside">			
 				<div class="cong_thuc_coupon">
 					<p>
 					<span>Tên công thức</span>
@@ -124,9 +152,7 @@ content
 						/>
 												
 					</p>
-				</div>
-				
-				<div class="cong_thuc_coupon">
+
 					<p><span>Giảm giá tối đa</span>
 						<a class="giai-thich" 
 						href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#giam-toi-da" 
@@ -137,12 +163,19 @@ content
 							value="" 
 							id="coupon_speciality_price_max" 
 						/>						
-					</p>	
-						
-
+					</p>				
 				</div>
 			</div>		
-			</div>	
+			</div>		
+			
+			<!-- --------------------------
+				//Công thức tính giá
+			--------------------------- -->		
+	
+	
+	
+	
+	
 	
 	
 	
@@ -150,7 +183,11 @@ content
 	
 			
 			
+			<!-- --------------------------
+				//hoa hồng người giới thiệu
+			--------------------------- -->	
 			
+			<div class="pro_box">
 			<h3>Người giới thiệu</h3>
 			<div class="noi_dung_coupon inside">
 				<div class="thong_tin_coupon">	
@@ -186,8 +223,11 @@ content
 					</p>		
 				</div>
 			</div>		
-	
-	
+			</div>
+			
+			<!-- --------------------------
+				//hoa hồng người giới thiệu
+			--------------------------- -->		
 	
 	
 		<p class="" style="display:none;"><span>Tiền khuyến mãi<span>
@@ -197,18 +237,156 @@ content
 		</p>		
 	
 	
+			
+			
+			<!-- ------------------
+			Mô tả coupon
+			------------------- -->
+			<div class="pro_box ">
+				<h3>Mô tả coupon</h3>
+				<div class="inside">
+					<textarea class="noi_dung"  
+					id="noi_dung"  rows="10" 
+					cols="100%" placeholder="Vài mô tả cho mã giảm giá này."></textarea>
+				</div>
+			</div>
+			
+			<!-- ------------------------------
+			//Tin nhắn admin 
+			------------------------------- -->
+			<div class="pro_box trang_thai_box ">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea class="quote"  
+					id="coupon_speciality_qoute"  rows="10" cols="100%" 
+					placeholder="Không bắt buộc, chỉ nhập khi nhắn tin với admin"></textarea>					
+				</div>
+			</div>				
+		</div>
+		
+		
+		
+		
+		
+		<div class="pro_col02">		
+			
+			<!-- ------------------
+			//hình đại diện 
+			------------------- -->
+			<div class="pro_box">
+				<h3>Ảnh đại diện 
+				<a class="giai-thich" 
+				href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#banner" 
+				target="_blank"><span>Chọn ảnh banner cho coupon, tỉ lệ 3:1</span></a>	
+				</h3>	
+				<div class="inside">
+					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="button" value="Thêm ảnh" id="btn_featured_image">
+					<div id="img_box_dai_dien"></div>
+					<input type='file' accept="image/*" id='upload_image' style="display:none;">
+				</div>
+			</div>
+			<!-- ------------------
+			// end of hình đại diện 
+			------------------- -->			
+	
+	
+	
+		
+		
+			<!-- Thời gian -->
+			<div class="pro_box">
+				<h3>Hiệu lực</h3>
+				<div class="inside">
+					<p><span>Từ</span><input type="text" value="" id="coupon_speciality_date_star" placeholder="Chọn ngày bắt đầu"/></p>
+					<p><span>Đến</span><input type="text" value="" id="coupon_speciality_date_end" placeholder="Chọn ngày kết thúc"/></p>
+				</div>
+			</div>
+			
+			
+			
+			<!-- --------------
+			//Sử dụng chung coupon 
+			---------------- -->			
+			<div class="pro_box">
+				<h3>Dùng chung với Coupon khác?</h3>
+				<div class="inside">
+					<select id="coupon_speciality_multiple">
+						<%- ojs_share_coupon.show_coupon_multi_select(0) %>
+					</select>	
+				</div>									
+			</div>		
+	
+	
+	
+			<!-- ---------------------------
+			//Số lượng coupon 
+			------------------------------ -->
+			<div class="pro_box">
+				<h3>Số lượng coupon 
+				<a class="giai-thich" 
+				href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#so-luong" 
+				target="_blank"><span>Số lượng coupon được tạo ra</span></a></h3>
+				<div class="inside">
+					<input type="text" value="" id="coupon_speciality_limit_number" />
+				</div>
+			</div>	
+			
+			
+			<!-- ------------------------------
+			//KH dùng tối đa 
+			------------------------------ -->
+			<div class="pro_box" >
+				<h3>Mỗi khách dùng tối đa mấy lần?</h3>
+				<div class="inside">
+					<input 
+					type="text" 
+					value="" 
+					id="coupon_speciality_limit_user" 
+					placeholder="Nhập số lần khách được dùng mã này"
+					/>
+				</div>
+			</div>				
 	
 	
 	
 	
+			<!-- --------------
+			//ẩn hiện coupon
+			---------------- -->			
+			<div class="pro_box">
+				<h3>Ẩn hiện ngoài app ? 
+				<a href="https://hotro.appdala.com/tao-ma-giam-gia-moi/#an-hien"  
+				target="_blank" class="giai-thich"><span>Chọn hiện thì khi vào giỏ 
+				hàng coupon sẽ tự hiển thị</span></a></h3>
+				<div class="inside">
+					<select id="coupon_speciality_show_hide">
+						<%- ojs_share_coupon.show_coupon_show_hide(0) %>
+					</select>	
+				</div>									
+			</div>
+			
+			
+
+
+			<!-- ----------------------------
+			//Trạng thái admin 
+			-------------------------- -->
+			<div class="pro_box trang_thai_box">
+				<h3>Trạng thái admin</h3>
+				<div class="inside">
+					<select id="coupon_speciality_status_admin">
+						<%- ojs_share_all.show_status_pay(0) -%>
+					</select>						
+				</div>
+			</div>	
 	
-	
-	
-	
-	
-	
-	
-	
+		</div>
+	</div>			
+			
+			
+			
+
 	
 	
 	
@@ -368,7 +546,14 @@ $(document).ready(function($){
 	//@
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
-		var datas = get_datas();	
+		var datas = get_datas();
+		if(datas.datas.coupon_speciality_code == "" ){
+			ojs_message.message_ok_show("Chưa nhập mã coupon");
+			return;
+		}
+
+
+		
 		//console.log(datas);
 		//return;
 		
@@ -394,12 +579,6 @@ $(document).ready(function($){
 			coupon_speciality_date_end = coupon_speciality_date_end + " 23:59:59"
 		}
 		
-		if(coupon_speciality_code == "" ){
-			ojs_message.message_ok_show("Chưa nhập mã coupon");
-		}
-
-		
-
 		let coupon_speciality_condition = $('#coupon_speciality_condition  option:selected').val();
 		let coupon_speciality_condition_value = $('#coupon_speciality_condition_value').attr("data_value");
 		

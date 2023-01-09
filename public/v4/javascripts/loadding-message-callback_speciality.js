@@ -268,7 +268,21 @@ ojs_loadding_message_callback = {
 	
 	
 	
-	
+	//@	
+	//@
+	//@
+	//@ [delete_coupon_admin]
+	delete_coupon_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let coupon_id = datas_parse.coupon_id;
+		
+		
+		//alert(coupon_id);
+		//return;
+		
+		ojs_coupon_speciality_admin.ajax_delete_admin(coupon_id);
+		
+	},//end of xoa san pham dac san		
 	
 	
 	
