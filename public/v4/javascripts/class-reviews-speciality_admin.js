@@ -1,7 +1,7 @@
 
 $(document).ready(function($){
 
-	ojs_reviews_speciality = {	
+	ojs_reviews_speciality_admin = {	
 	
 		//
 		//
@@ -20,7 +20,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -52,7 +52,7 @@ $(document).ready(function($){
 		//
 		//
 		//load danh muc cua hang
-		ajax_update: function(datas,review_id){		
+		ajax_update_admin: function(datas,review_id){		
 			//console.log(datas,reviews/reviews_id);
 			//return;
 			//goi api
@@ -66,7 +66,7 @@ $(document).ready(function($){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
@@ -91,40 +91,44 @@ $(document).ready(function($){
 			});	//end of ajax
 		},//end of ajax save				
 			
-		//
-		//load danh muc cua hang
-		ajax_delete: function(review_id){		
-			//alert(reviews/reviews_id);
+
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_delete_admin]
+		ajax_delete_admin: function(review_id){		
+			//alert(reviews_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
+			  type : "delete",	  
 			  url : ojs_loader.host + "/reviews/speciality/delete/" + review_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
 			  error: function (request, status, error) {
-					ojs_loader.show_ajax_error(error);
+					ojs_share_all.show_ajax_error(error);
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được reviews \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được reviews");
-							}
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xoá ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
+						ojs_message.message_ok_show(" Đã xóa ","/reviews/speciality/");
+					}				
+					ojs_loadding.ajax_hide_loadding();
+					
 			  }			  
 			});	
 		}

@@ -524,21 +524,29 @@ ojs_loadding_message_callback = {
 		let comment_id = datas_parse.comment_id;
 		ojs_comments_speciality.ajax_delete(comment_id);
 	},//end of xoa san pham dac san
-	//
-	//				
-	//	
-	//
-	//
-	//xoa reviews
-	delete_review_speciality:function(datas){
+	
+	
+	
+	
+	
+	//@
+	//@				
+	//@	
+	//@
+	//@ [xoa reviews]
+	delete_review_speciality_admin:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let review_id = datas_parse.review_id;
-		ojs_reviews_speciality.ajax_delete(review_id);
+		ojs_reviews_speciality_admin.ajax_delete_admin(review_id);
 	},//end of xoa san pham dac san
+	
+	
+	
+	
+	
+	
 	//
 	//	
-
-	//
 	//
 	//xoa reviews
 	delete_orders_speciality:function(datas){

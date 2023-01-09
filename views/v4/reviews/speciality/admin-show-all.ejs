@@ -1,40 +1,62 @@
-<% 
-if( typeof title == 'string' && title && title.length > 0){} else{ title="" } 
-%>
-<% include ../../masterpage/loader %>
 
-<script src="../../../../../<%= js_css_version %>/javascripts/class-reviews-speciality.js"></script>
+
+<% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/review.css' />
+
+
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-reviews-speciality_admin.js"></script>
+
+
+
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-review %>
 <% include ../../masterpage/function-share-all %>
+
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
-
+</script>
 
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
 	<h1><a href="/admin/">admin</a><i class="fas fa-chevron-right"></i>Danh sách đánh giá</h1>
 
 
+
+
 	<div id="ajax-wrap">	
-		<% include ../../masterpage/widget-reviews-speciality-show-tables %>
+		<% include ../../masterpage/widget-reviews-speciality-show-tables-admin %>
 	</div>
+
+
+
+
+
+
 	
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-
-
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 </div>
 <!-- --------------------
@@ -76,7 +98,7 @@ $(document).ready(function($){
 		//
 		//@
 		let x = "xác nhận xoá";		
-		let y = "delete_review_speciality";//function name in callback 
+		let y = "delete_review_speciality_admin";//function name in callback 
 		let z = ' { "review_id" : "' + review_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
@@ -114,3 +136,25 @@ $(document).ready(function($){
 
 
 <% include ../../masterpage/loader-end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
