@@ -35,6 +35,24 @@ ojs_configs.controller_version +
 
 
 
+const controller_review_active = require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/reviews/controller-admin-review-active.js'
+);
+
+
+
+const controller_review_show = require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/reviews/controller-admin-review-show.js'
+);
+
+
+const controller_review_update = require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/admin/reviews/controller-admin-review-update.js'
+);
+
 
 
 
@@ -48,10 +66,9 @@ ojs_configs.controller_version +
 //@ router
 router.get('/', controller_review_show_all);
 router.delete('/delete/:review_id', controller_review_delete);
-
-
-
-
+router.put('/active/:review_id', controller_review_active);
+router.get('/show/:review_id', controller_review_show);
+router.put('/update/:review_id', controller_review_update);
 
 
 

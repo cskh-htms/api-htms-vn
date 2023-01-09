@@ -25,9 +25,12 @@
 				</a>			
 				<a href="#"><%- review_list[x].products_speciality_name %></a>
 				<div class="row-actions">
-					<span class="edit"><a href="/reviews/speciality/show/<%= review_list[x].reviews_speciality_ID  %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_review_id="<%= review_list[x].reviews_speciality_ID  %>" class="submitdelete">Xóa</a></span>
-					<span class="duyet"><a href="#" data_review_id="<%= review_list[x].reviews_speciality_ID  %>" class="submitdelete">Duyệt</a></span>	
+					<span class="edit">
+					<a href="/reviews/speciality/show/<%= review_list[x].reviews_speciality_ID  %>">Chỉnh sửa</a>   |   </span>
+					<span class="delete">
+					<a href="#" data_review_id="<%= review_list[x].reviews_speciality_ID  %>" class="submitdelete">Xóa</a>   |   </span>
+					<span class="duyet">
+					<a href="#" data_review_id="<%= review_list[x].reviews_speciality_ID  %>" class="submitdelete">Duyệt</a></span>	
 				</div>
 			</td>
 

@@ -67,7 +67,8 @@ const function_export = async function (datas,user_id,res) {
 	//create sql text
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
 	
-	//return sql_text;
+	//res.send([sql_text]);
+	//return;
 	
 	
 	//@
@@ -77,11 +78,9 @@ const function_export = async function (datas,user_id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
-					
-					var error_massage = fields_insert.get_message_error(err);
-					
-					evn = "dev";
+					var evn = ojs_configs.evn;					
+					var error_massage = fields_insert.get_message_error(err);					
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -89,7 +88,7 @@ const function_export = async function (datas,user_id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib->user->update.js",
+						"position" : "lib->user->update",
 						"message": error_send 
 					}); 
 					return;					
@@ -100,7 +99,7 @@ const function_export = async function (datas,user_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -108,7 +107,7 @@ const function_export = async function (datas,user_id,res) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "lib->web->update.js",
+			"position" : "lib->user->update",
 			"message": error_send 
 		}); 
 		return;	

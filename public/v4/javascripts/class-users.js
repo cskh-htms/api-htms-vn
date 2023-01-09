@@ -87,16 +87,26 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();				  
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//
-		//load danh muc cua hang
+		},//end of ajax save
+
+
+
+
+
+
+
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update]
 		ajax_update: function(datas,user_id){		
 			//console.log(datas,user_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
 			  url : ojs_loader.host + "/users/update/" + user_id,
 			  data : JSON.stringify(datas),
@@ -114,21 +124,27 @@ $(document).ready(function($){
 					//ojs_loadding.ajax_hide_loadding();
 					//return;
 					
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							ojs_message.message_ok_show(result.message);
-						}else{
-							ojs_message.message_ok_show(" Đã update",ojs_loader.host + "/users/");
-						}
-					}					  
-					ojs_loadding.ajax_hide_loadding();				  
+						ojs_message.message_ok_show(" Đã update chương trình ",location.href);
+					}				
+					ojs_loadding.ajax_hide_loadding();
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
+		},//end of ajax save
+
+
+
+
+
+
+
+
+
+		
 		//
 		//load danh muc cua hang
 		ajax_delete: function(user_id){		

@@ -70,6 +70,7 @@ BEGIN
 		ON dala_orders_details_speciality_order_id  = dala_orders_speciality_ID  
 		where dala_orders_speciality_user_id  =  NEW.dala_reviews_speciality_user_id 
 		and  dala_orders_details_speciality_product_id =  NEW.dala_reviews_speciality_product_id 
+		and  dala_orders_speciality_status_orders in (100,5,45)  
 			limit 1 
 	);
 		
@@ -80,7 +81,20 @@ BEGIN
 	
 	
 	
-	
+	-- 
+	-- neu danh gia roi thi ko danh gia nua
+	SET @checkID3 = (
+		select dala_reviews_speciality_ID  
+		from dala_reviews_speciality   
+		where dala_reviews_speciality_user_id  =  NEW.dala_reviews_speciality_user_id 
+		and  dala_reviews_speciality_product_id =  NEW.dala_reviews_speciality_product_id 
+			limit 1 
+	);
+		
+	IF (@checkID3 > 0 ) THEN   
+		SIGNAL SQLSTATE '12305' 
+		SET MESSAGE_TEXT = 'trig_reviews_speciality_before_insert_double'; 
+	END IF;		
 	
 	
 -- @

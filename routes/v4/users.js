@@ -83,7 +83,7 @@ const controller_admin_users_ajax_users_list = require(
 //@ router
 router.get('/', controller_users_show_all);
 router.get('/show/:user_id', controller_admin_users_show);
-router.post('/update/:user_id', controller_admin_users_update);
+router.put('/update/:user_id', controller_admin_users_update);
 router.get('/delete/:user_id', controller_admin_users_delete);
 router.get('/add/', controller_admin_users_add);
 router.post('/save/', controller_admin_users_save);

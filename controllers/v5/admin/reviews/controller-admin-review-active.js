@@ -52,7 +52,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var user_id = req.params.user_id;
+			var review_id = req.params.review_id;
 			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
@@ -69,12 +69,12 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->admin->users->update",
+				"position":"web->appdalacom->controllers->admin->review->active",
 				"message": error_send 
 			}); 
 			return;			
 		}		
-		//res.send({"error":"00","message":[user_id,datas]});
+		//res.send({"error":"00","message":[review_id,datas]});
 		//return;	
 		
 		
@@ -87,8 +87,8 @@ async  function function_export(req, res, next) {
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
-				config_api.API_APPDALACOM_VERSION + 				
-				'/admin/users/update?c1='+ user_id,
+				config_api.API_APPDALACOM_VERSION + 
+				'/admin/reviews/active?c1='+ review_id,
 				datas,
 				token
 			);	
@@ -118,7 +118,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->admin->users->update",
+				"position":"web->appdalacom->controllers->admin->review->active",
 				"message": error_send 
 			}); 
 			return;
@@ -149,7 +149,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controllers->admin->users->update",
+			"position":"web->appdalacom->controllers->admin->review->active",
 			"message": error_send 
 		}); 
 		return;			
@@ -162,7 +162,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controllers->admin->users->update",
+		"position":"web->appdalacom->controllers->admin->review->active",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

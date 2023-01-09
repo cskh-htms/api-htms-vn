@@ -22,6 +22,8 @@ function get_message_error(error){
 		return "Chỉ đánh giá từ 1 -> 5 sao";	
 	}else if(error.sqlState == '12304'){
 		return "Bạn chưa mua sản phẩm nên không được đánh giá";
+	}else if(error.sqlState == '12305'){
+		return "Đã đánh giá sản phẩm rồi. Không thể đánh giá nữa";
 		
 	//update
 	}else if(error.sqlState == '12311'){

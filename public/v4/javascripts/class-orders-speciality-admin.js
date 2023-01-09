@@ -1,7 +1,7 @@
 
 $(document).ready(function($){
 
-	ojs_orders_admin_admin = {	
+	ojs_orders_admin = {	
 	
 	
 
@@ -225,10 +225,16 @@ $(document).ready(function($){
 
 
 		
+		
+		
+		
+		
 		//@
 		//@
-		//@ load danh muc cua hang
-		ajax_update: function(datas,orders_id){		
+		//@
+		//@
+		//@	[ajax_update_admin]	
+		ajax_update_admin: function(datas,orders_id){		
 			//console.log(datas,orders_id);
 			//return;
 			//goi api
@@ -246,26 +252,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
+				  
 					//console.log(result);
-					//ojs_loadding.ajax_hide_loadding();	
+					//ojs_loadding.ajax_hide_loadding();
 					//return;
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được orders \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được orders");
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã update orders",location.href);
-						}
+						ojs_message.message_ok_show(" Đã update ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				

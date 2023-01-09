@@ -30,6 +30,26 @@ require(
 	'../../../controllers/admin/reviews/controller-admin-review-delete.js'
 );
 
+const controllers_admin_review_active =  
+require(
+	'../../../controllers/admin/reviews/controller-admin-review-active.js'
+);
+
+
+const controllers_admin_review_show =  
+require(
+	'../../../controllers/admin/reviews/controller-admin-review-show.js'
+);
+
+
+
+const controllers_admin_review_update =  
+require(
+	'../../../controllers/admin/reviews/controller-admin-review-update.js'
+);
+
+
+
 
 
 
@@ -39,10 +59,9 @@ require(
 //@ router
 router.get('/show-all/', middle_ware, controllers_admin_review_show_all );
 router.delete('/delete/', middle_ware, controllers_admin_review_delete );
-
-
-
-
+router.put('/active/', middle_ware, controllers_admin_review_active );
+router.get('/show/', middle_ware, controllers_admin_review_show );
+router.put('/update/', middle_ware, controllers_admin_review_update );
 
 
 

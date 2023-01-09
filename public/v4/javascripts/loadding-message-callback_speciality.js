@@ -61,12 +61,12 @@ ojs_loadding_message_callback = {
 	duyet_danh_gia:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let review_id = datas_parse.review_id;
-		//let datas = datas_parse.datas;
+		let datas_ok = datas_parse.datas;
 		
-		//console.log(review_id);
+		//console.log(datas_ok);
 		//return;
 		
-		ojs_reviews_speciality.duyet_danh_gia(review_id);
+		ojs_reviews_speciality_admin.duyet_danh_gia(datas_ok,review_id);
 		
 	},//huy_tham_gia_discount
 

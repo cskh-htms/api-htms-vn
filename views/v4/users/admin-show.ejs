@@ -48,11 +48,11 @@ content
 		</div>
 
 		<div class="btn_box">
-			<a href="/bussiness/<%= user_id %>" class="btn_back">Quay về</a>
+			<a href="/users/" class="btn_back">Quay về</a>
 			<button id="btn_save" class="btn_save">Save</button>
 		</div>	
 
-		<input type="hidden" id="user_id" value="<%= datas[0].users_type_ID %>"/>
+		<input type="hidden" id="user_id" value="<%= datas[0].users_ID %>"/>
 	</div>
 
 
@@ -101,6 +101,9 @@ $(document).ready(function($){
 		e.preventDefault();
 		//alert("sdasdasd");
 		//return;
+		
+		
+		
 		let users_full_name = $('#users_full_name').val();
 		let users_adress = $('#users_adress').val();
 		let users_email = $('#users_email').val();
@@ -151,7 +154,7 @@ $(document).ready(function($){
 			}
 		}
 		
-		//console.log(datas);
+		//console.log([datas,user_id]);
 		//return;			
 	
 		ojs_users.ajax_update(datas,user_id);		

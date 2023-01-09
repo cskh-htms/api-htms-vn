@@ -3,18 +3,24 @@ $(document).ready(function($){
 
 	ojs_reviews_speciality_admin = {	
 	
-		//
-		//
-		//
-		//load danh muc cua hang
-		duyet_danh_gia: function(review_id){		
+	
+	
+	
+	
+		//@
+		//@
+		//@
+		//@
+		//@ [duyet_danh_gia]
+		duyet_danh_gia: function(datas,review_id){		
 			//console.log(review_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/reviews/speciality/duyet-danh-gia/" + review_id,
+			  url : ojs_loader.host + "/reviews/speciality/active/" + review_id,
+			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -24,40 +30,40 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
 					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
 					//return;
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa phê duyệt được reviews \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa phê duyệt được reviews");
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã Duyệt Đánh giá ",location.href);
-						}
+						ojs_message.message_ok_show(" Đã duyệt ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save		
 	
-		//
-		
-		//
-		//
-		//load danh muc cua hang
+	
+	
+	
+	
+	
+	
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update_admin]
 		ajax_update_admin: function(datas,review_id){		
 			//console.log(datas,reviews/reviews_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
 			  url : ojs_loader.host + "/reviews/speciality/update/" + review_id,
 			  data : JSON.stringify(datas),
@@ -70,23 +76,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được reviews \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được reviews");
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã update ","/reviews/speciality/");
-						}
+						ojs_message.message_ok_show(" Đã update ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
