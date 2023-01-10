@@ -3,6 +3,6 @@
 
 
 
-.test{
-    display: flex;
+.content_wrap #content {
+    padding-bottom: 0;
 }

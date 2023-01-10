@@ -94,10 +94,53 @@ require(
 );
 
 
+
+
+
+
+
 //@
 //@
 //@
-//@ router
+//@ controller manage
+const controller_order_manage_show_all = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/orders/controller-order-manage-show-all'
+);
+
+
+const controller_order_manage_ajax_load = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/orders/controller-order-manage-ajax-load'
+);
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ router manage
+router.get('/manage/:store_id/:status_int', controller_order_manage_show_all);
+router.post('/manage/ajax-load', controller_order_manage_ajax_load);
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ router admin
 router.get('/', controller_admin_orders_show_all);
 router.get('/delete/:order_id', controller_admin_orders_delete);
 router.get('/show/:order_id', controller_admin_orders_show);

@@ -1,3 +1,10 @@
+
+
+//@
+//@
+//@
+//@ file start
+
 const express = require('express');
 const router = express.Router();
 
@@ -15,19 +22,23 @@ const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-ap
 const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
-const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
-const order_count_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search.js');
+const product_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+
+
 
 
 
 
 //@
-async  function store_order_get_all(req, res, next) {
+//@
+//@
+//@ export
+async  function function_export(req, res, next) {
 
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-
+		
 		//@
 		//@
 		var store_id = 0;
@@ -36,31 +47,26 @@ async  function store_order_get_all(req, res, next) {
 		}else{
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+				"position" : "api->appdalacom->controller->stores->manage-show-all",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
-		}	
-
-
-
+		}		
+		
 		//@
 		//@
-		var status_int = 0;
+		var user_id = 0;
 		if(req.query.c2){
-			status_int = req.query.c2;
+			user_id = req.query.c2;
 		}else{
 			res.send({ 
 				"error" : "1", 
-				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+				"position" : "api->appdalacom->controller->stores->manage-show-all",
 				"message": "vui lòng nhập id"
 			}); 	
 			return;
 		}	
-
-
-
-		
+	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -72,14 +78,14 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+			"position" : "api->appdalacom->controller->stores->manage-show-all",
 			"message": error_send 
 		}); 
 		return;	
 	}	
 	
 	
-	//res.send([store_id ,status_int]);
+	//res.send([store_id ,user_id]);
 	//return;
 	
 	
@@ -103,7 +109,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+			"position" : "api->appdalacom->controller->stores->manage-show-all",
 			"message": error_send 
 		}); 
 		return;			
@@ -131,7 +137,7 @@ async  function store_order_get_all(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+				"position" : "api->appdalacom->controller->stores->manage-show-all",
 				"message": error_send 
 			}); 
 			return;			
@@ -147,21 +153,15 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "150", 
-			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+			"position" : "api->appdalacom->controller->stores->manage-show-all",
 			"message": error_send 
 		}); 
 		return;	
 	}	
-	
-	
-	
-	
 	//res.send(["ok"]);
 	//return;	
 	
 	
-	
-
 	
 
 	/////////////////////
@@ -169,6 +169,8 @@ async  function store_order_get_all(req, res, next) {
 	try{	
 		var promise_all = [];
 		promise_all.push(0);
+
+
 
 		//@ 1. lấy news bussiness
 		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
@@ -186,16 +188,11 @@ async  function store_order_get_all(req, res, next) {
 		promise_all.push(fn_get_data_count_bussiness);
 
 
-
-
-
-
+		
 		//@
 		//@
-		//@
-		//@
-		//@ 3. lấy store taget
-		let data_store =    
+		//@lấy store taget
+		var data_store =    
 		{
 		   "select_field" :
 			[
@@ -208,7 +205,7 @@ async  function store_order_get_all(req, res, next) {
 				"stores_wards" ,
 				"stores_payment_limit",
 				"stores_discount_price",
-				"service_type_name"						
+				"service_type_name"				
 			],
 			"condition" :
 			[
@@ -226,117 +223,112 @@ async  function store_order_get_all(req, res, next) {
 			]   
 		}
 		
-		var fn_get_store_list = new Promise((resolve, reject) => {
+		var fn_get_store_taget = new Promise((resolve, reject) => {
 			let result = store_search(data_store,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_store_list);	
-
-
-
-		//@
-		//@
-		//@
-		//@
-		//@ 3. lấy order list
-		let data_order =    
-		{
-		   "select_field" :
-			[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders" ,
-				"orders_speciality_status_orders",
-				"sum(orders_details_speciality_qty)",
-				"sum_price_caution"					
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"orders_speciality_store_id",
-						"value"     : store_id,
-						"compare" : "="
-					},
-					{   
-						"field"     :"orders_speciality_status_pull_money",
-						"value"     : 1,
-						"compare" : "<>"
-					}	          
-					]    
-				}         
-			],
-			"group_by":
-			[
-				"orders_speciality_ID"
-			],
-			"order":
-			 [
-				{ 
-					"field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				}   
-			]   
-		}
+		promise_all.push(fn_get_store_taget);			
 		
-		var fn_get_order_list = new Promise((resolve, reject) => {
-			let result = order_search(data_order,res);
+		
+		
+		//@
+		//@
+		//@
+		//@ product sale
+		let data_product_sale = 	
+			{
+				"select_field" :
+				[ 
+					"products_speciality_ID",
+					"products_speciality_name",
+					"sum_price_caution",
+					"sum(orders_details_speciality_qty)"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"orders_speciality_store_id",
+							"value" 	: store_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_details_speciality_line_order",
+							"value" 	: "product",
+							"compare" : "="
+						},						
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
+							"compare" : "="
+						}
+						]	
+					}				
+				],
+				"group_by":
+				[
+					"products_speciality_ID"
+				]				
+			}	
+		var fn_get_product_sale = new Promise((resolve, reject) => {
+			let result = product_sale(data_product_sale,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_order_list);	
-
-
-
-
-		//@
-		//@
-		//@
-		//@
-		//@ 3. lấy order count
-		let data_order_count =    
-		{
-		   "select_field" :
-			[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders" ,
-				"orders_speciality_status_orders"			
-			],
-			"condition" :
-			[
-				{    
-				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"orders_speciality_store_id",
-						"value"     : store_id,
-						"compare" : "="
-					},
-					{   
-						"field"     :"orders_speciality_status_pull_money",
-						"value"     : 1,
-						"compare" : "<>"
-					}					
-					]    
-				}         
-			]  
-		}
+		promise_all.push(fn_get_product_sale);			
 		
-		var fn_get_order_count = new Promise((resolve, reject) => {
-			let result = order_count_search(data_order_count,res);
+		
+		
+		//@
+		//@
+		//@
+		//@ order sale
+		let data_order_sale = 	
+			{
+				"select_field" :
+				[ 
+					"orders_speciality_ID",
+					"orders_speciality_date_orders",
+					"orders_speciality_status_orders",
+					"sum_price_caution",
+					"sum(orders_details_speciality_qty)"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"orders_speciality_store_id",
+							"value" 	: store_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_details_speciality_line_order",
+							"value" 	: "product",
+							"compare" : "="
+						},						
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
+							"compare" : "="
+						}
+						]	
+					}				
+				],
+				"group_by":
+				[
+					"orders_speciality_ID"
+				]				
+			}	
+		var fn_get_order_sale = new Promise((resolve, reject) => {
+			let result = product_sale(data_order_sale,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_order_count);	
-
-
-
+		promise_all.push(fn_get_order_sale);				
+		
+		
+		
+		
 		//@
 		//@
 		//@
-		//@
-		//@ 3. lấy order list		
+		//@ promise go
 		var promise_result = await Promise.all(promise_all);
 		
 	}
@@ -350,7 +342,7 @@ async  function store_order_get_all(req, res, next) {
 			);
 		res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/v5/controller/stores/controllers-store-order",
+			"position" : "api->appdalacom->controller->stores->manage-show-all",
 			"message": error_send 
 		}); 
 		return;	
@@ -359,8 +351,10 @@ async  function store_order_get_all(req, res, next) {
 	let notes = {
 		"0":"no", 
 		"1":"news bussiness",
-		"2":"count item", 
+		"2":"count data new", 
 		"3":"store taget",	
+		"4":"product_sale",
+		"5":"order_sale",
 	}
 	promise_result.push(notes);
 
@@ -368,4 +362,40 @@ async  function store_order_get_all(req, res, next) {
 	return;
 }
 
-module.exports = store_order_get_all;
+
+
+
+
+
+//@
+//@
+//@
+//@ export
+module.exports = function_export;
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ file end
+
+
+
+
+
+
+
+
+
+
+
+

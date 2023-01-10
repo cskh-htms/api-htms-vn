@@ -1,20 +1,36 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
 
 
-<% include ../masterpage/loader %>
+<% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/order.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/order-show-all.css' />
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>
+
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-orders-speciality.js"></script>
+
+
+
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
-<% include ../masterpage/header %>
-<% include ../masterpage/function-share-orders %>
 
+
+
+<% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-orders %>
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-manage %>
 
 
 <script>
@@ -22,41 +38,43 @@ page wrap
 </script>
 
 
-
 <%
-	let cho_xac_nhan = 0;
-	let cho_lay_hang = 0;
-	let dang_giao = 0;
-	let doi_tra = 0;
-	let don_huy = 0;
-	order_list_all.map( order_status => {
-			let num = order_status.orders_speciality_status_orders;
-			switch(num) {
-				case 0: 
-					cho_xac_nhan += 1;
-					break;
-				case 2:
-					cho_lay_hang += 1;
-					break;
-				case 3:
-					dang_giao += 1;
-					break;
-				case 4:
-					doi_tra += 1;
-					break;
-				case 5:
-					don_huy += 1;
-					break;
-				default:
-					break;
-			}
-		})
+let cho_xac_nhan = 0;
+let cho_lay_hang = 0;
+let dang_giao = 0;
+let doi_tra = 0;
+let don_huy = 0;
+order_list_all.map( order_status => {
+		let num = order_status.orders_speciality_status_orders;
+		switch(num) {
+			case 0: 
+				cho_xac_nhan += 1;
+				break;
+			case 2:
+				cho_lay_hang += 1;
+				break;
+			case 3:
+				dang_giao += 1;
+				break;
+			case 4:
+				doi_tra += 1;
+				break;
+			case 5:
+				don_huy += 1;
+				break;
+			default:
+				break;
+		}
+	})
 %>
 
+
+
+<!-- --------------------
+content
+--------------------- -->
 <div id="content" class="content">
 	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
-
-
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<div class="ul-wrap">
@@ -122,27 +140,28 @@ page wrap
 				</li>				
 			</ul>
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
-		</div>		
+		</div>	
+
+
+
+		
+	</div>	
+		<div id="ajax-wrap">	
+			<% include ../../masterpage/widget-order-show-table-stores %>	
+		</div>	
 	</div>
 
 
 
 
-	<div id="ajax-wrap">	
-		<% include ../masterpage/widget-order-show-table-stores %>	
-	</div>
+
+
+
+
 
 
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>	
 	<input type="hidden" id="store_id" value="<%= store_id %>"/>	
-
-
-
-
-
-
-
-	
 
 
 </div>
@@ -154,12 +173,12 @@ page wrap
 
 
 
-<% include ../masterpage/footer %>
+<% include ../../masterpage/footer %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<% include ../../masterpage/sidebar %>
 
 <!-- --------------------
 //end of page wrap 
@@ -168,7 +187,7 @@ page wrap
 </div><!-- //pagewrap -->
 
 
-<% include ../masterpage/loader-end %>
+<% include ../../masterpage/loader-end %>
 
 
 
@@ -200,7 +219,7 @@ $(document).ready(function($){
 			}
 		}
 			
-		ojs_bussiness.ajax_load_order_detail(datas);
+		ojs_orders.ajax_load_order_detail(datas);
 
 	});//end of save ajax
 	//
@@ -265,7 +284,7 @@ $(document).ready(function($){
 		}		
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness_store(datas);		
+		ojs_orders.ajax_load_order_bussiness_store(datas);		
 		
 		//
 		//@
@@ -308,7 +327,7 @@ $(document).ready(function($){
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness_store(datas);	
+		ojs_orders.ajax_load_order_bussiness_store(datas);	
 				
 		//@
 	});			
@@ -379,7 +398,7 @@ $(document).ready(function($){
 		}	
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness_store(datas);				
+		ojs_orders.ajax_load_order_bussiness_store(datas);				
 		
 	});			
 	//		
@@ -451,9 +470,14 @@ $(document).ready(function($){
 				user_id : user_id
 			}
 		}	
+		
+		
+		
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_order_bussiness_store(datas);				
+		
+		
+		ojs_orders.ajax_load_order_bussiness_store(datas);				
 		
 	});			
 	//		
@@ -486,18 +510,6 @@ $(document).ready(function($){
 ///////////////////////////////////////////////////////
 });//end of document
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

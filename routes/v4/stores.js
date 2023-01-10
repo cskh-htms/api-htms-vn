@@ -19,20 +19,6 @@ const config_api = require('../../api/configs/config-api');
 //@
 //@
 //@ controller
-const controller_store_order_get_all = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/stores/controllers-stores-order-get-all-web-appdalacom.js'
-);
-
-const controller_store_manage = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/stores/controllers-stores-manage.js'
-);
-
 const controller_admin_stores_show_all = 
 require(
 	'../../controllers/' + 
@@ -83,6 +69,35 @@ require(
 
 
 
+
+//@
+//@
+//@
+//@ controller manage
+const controller_store_manage_show_all = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/stores/controllers-stores-manage-show-all.js'
+);
+
+
+
+
+//@
+//@
+//@
+//@ router manage
+router.get('/manage/:store_id/:user_id', controller_store_manage_show_all);
+
+
+
+
+
+
+
+
+
 //@
 //@
 //@
@@ -96,8 +111,13 @@ router.post('/save/', controller_admin_stores_save);
 
 
 
-router.get('/manage/orders/:store_id/:status_int', controller_store_order_get_all);
-router.get('/manage/:store_id/:user_id', controller_store_manage);
+
+
+
+
+
+
+
 
 
 

@@ -1,16 +1,14 @@
-
 <%
-
-
-/* 
+/*
+- file này chỉ loader các function dùng chung cho các trang manage
+- chỉ manage mới dùng  
 -------------------------------------------------
 
 
-1. [show_count_store_menu_html]
-
-2.[show_news_bussiness_menu_sum]
-
-
+[show_news_bussiness_menu_sum]	
+[show_count_bussiness_menu_html]
+[show_count_store_menu_html]	
+[show_count_status_order_by_store]	
 --------------------------------------------------
 */
 
@@ -21,13 +19,14 @@
 
 
 
-ojs_share_sidebar = {
+ojs_share_all_manage = {
+	
+	
 	
 	//@
 	//@
 	//@ 
-	//@ 3.[show_count_status_order_by_store]
-	//@ - hiển thị số đơn hàng theo status	
+	//@ [show_count_status_order_by_store]		
 	show_count_status_order_by_store : function (datas,status_numbet){
 		
 		var data_return = 0;
@@ -45,32 +44,56 @@ ojs_share_sidebar = {
 			return '';
 		}
 		
-	},
+	},	
+	
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@ 
-	//@ 5.[show_count_status_order_by_store]
-	//@ - end of		
-	//@
-	//@
-	//@ lấy tổng số từ chối news bussiness
-	//@ 2.[show_news_bussiness_menu_sum]	
+	//@ [show_news_bussiness_menu_sum]	
 	show_news_bussiness_menu_sum: function(datas){
 		var data_return = 0;
 		for(var i = 0; i < datas.length -1 ; i ++ ){
-			data_return = data_return + datas[i];
+			if(i != 3){
+				data_return = data_return + datas[i];
+			}
 		}
 		
 		data_return = '<span class="news_red">' + data_return + '</span>';
 		return data_return;
-	},		
+	},	
+	
+	
+	
+	
+	//@
 	//@
 	//@ 
+	//@ [show_count_bussiness_menu_html]	
+	show_count_bussiness_menu_html: function(datas,data_number){
+		var data_return = "";
+		for(var i = 0; i < datas.length -1 ; i ++ ){
+			if(i == data_number &&  datas[i] > 0){
+				data_return = '<span class="news_gray" title="danh mục đã duyệt">' + datas[i] + '</span>';
+			}
+		}
+		return data_return;
+	},	
+	
+	
+	
+	
+	
+	
+	
+	//@
+	//@
 	//@ 
-	//@
-	//@
-	//@ tạo html hiển thị count span
-	//@ 1.[show_count_bussiness_menu_html]	
+	//@ [show_count_store_menu_html]	
 	show_count_store_menu_html: function(datas,data_number){
 		var data_return = "";
 		for(var i = 0; i < datas.length -1 ; i ++ ){
@@ -79,8 +102,18 @@ ojs_share_sidebar = {
 			}
 		}
 		return data_return;
-	}
+	}	
+	
+	
+
 }
+
+
+
+
+//@
+//@
+//@ end of oject
 %>
 
 

@@ -1,26 +1,45 @@
 
-<% 
-
-if( typeof title == 'string' && title  && title.length > 0){} else{ title="" } 
-%>
-
-
 
 <% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store.css' />
+
+
+
+
+
+
+<script src="../../../../<%= js_css_version %>/javascripts/class-stores.js"></script>
+
+
+
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
 
+
+
 <% include ../masterpage/header %>
 <% include ../masterpage/function-share-orders %>
+<% include ../masterpage/function-share-all %>
+<% include ../masterpage/function-share-all-manage %>
+
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>		
+</script>
+
+
+
+
 
 
 <!-- --------------------
@@ -35,9 +54,13 @@ content
 	</div>
 	
 	
+	
 	<div style="">
 		<h1>Sản phẩm vừa bán</h1>
 	<div style="max-height: 500px;overflow: auto;">	
+		
+	
+	
 	<table class="table-list ordres-list">
 		<thead>
 			<tr>
@@ -65,7 +88,7 @@ content
 				</td>			
 
 				<td>
-					<%= ojs_share.show_price_format(product_sale[x].sum_price_caution,0,",",".","") %>
+					<%= ojs_share_all.show_price_format(product_sale[x].sum_price_caution,0,",",".","") %>
 				</td>
 			</tr>
 		<% 
@@ -90,6 +113,8 @@ content
 	<div style="">
 		<h1>Đơn hàng mới</h1>
 	<div style="max-height: 500px;overflow: auto;">	
+	
+	
 	<table class="table-list ordres-list">
 		<thead>
 			<tr>
@@ -118,7 +143,7 @@ content
 				</td>			
 
 				<td>
-					<%= ojs_share.show_price_format(order_sale[x].sum_price_caution,0,",",".","") %>
+					<%= ojs_share_all.show_price_format(order_sale[x].sum_price_caution,0,",",".","") %>
 				</td>
 				
 				<td>
@@ -139,11 +164,20 @@ content
 		<tfoot>
 		</tfoot>
 	</table>	
+	
+	
+	
 	</div>		
+	</div>	
 	
-
 	
-	</div>
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </div>
@@ -197,6 +231,12 @@ $(document).ready(function($){
 	
 	
 	
+	
+	
+	
+	
+	
+		
 	
 	
 	
