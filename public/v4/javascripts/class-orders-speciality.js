@@ -77,12 +77,16 @@ $(document).ready(function($){
 		//@
 		//@
 		//@	[ajax_load_order_detail]	 
-		ajax_load_order_detail	: function(datas){		
+		ajax_load_order_detail	: function(datas){	
+
+			//console.log(datas);
+			//return;
+			
 			//goi api
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/orders/speciality/ajax-order-detail-bussiness/",
+			  url : ojs_loader.host + "/orders/speciality/manage/ajax-load-detail",
 			  data : JSON.stringify(datas),
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
@@ -93,12 +97,18 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-				//console.log(result); 
-				//ojs_loadding.ajax_hide_loadding();				
-				//return;
-				ojs_loadding.ajax_hide_loadding();
-				ojs_loadding.ajax_show_content('<div class="order-detail-box">' + result + '</div>');
-				//return;
+					console.log(result);
+					ojs_loadding.ajax_hide_loadding();
+					return;					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
+					}else{
+						ojs_loadding.ajax_show_content('<div class="order-detail-box">' + result + '</div>');
+					}				
+					ojs_loadding.ajax_hide_loadding();					  
+				  
+
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save	
