@@ -44,6 +44,10 @@ const function_export = function (datas,res) {
 			sql_order + 
 			sql_having + 
 			sql_limit;
+			
+			
+			//res.send([get_sql_search_group]);
+			//return;
 		
 	}
 	catch(error){

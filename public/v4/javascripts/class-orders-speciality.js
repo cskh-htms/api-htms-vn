@@ -30,7 +30,7 @@ $(document).ready(function($){
 		//@
 		//@	[ajax_load_order_bussiness_store]	
 		ajax_load_order_bussiness_store	: function(datas){		
-			//console.log("sdfsdfsdf");
+			//console.log(datas);
 			//return;
 			//goi api
 			 $.ajax({
@@ -47,9 +47,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-					console.log(result);
-					ojs_loadding.ajax_hide_loadding();
-					return;					
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;					
 					
 					if(result.error){
 						ojs_message.message_ok_show(result.message);

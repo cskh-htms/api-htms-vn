@@ -29,8 +29,10 @@ require(
 	'../../controllers/orders/controller-order-manage-show-all'
 );
 
-
-
+const controllers_order_manage_ajax_load =  
+require(
+	'../../controllers/orders/controller-order-manage-ajax-load'
+);
 
 
 //@
@@ -41,6 +43,19 @@ require(
 router.get(
 	'/show-all', middle_ware, controllers_order_manage_show_all
 );
+
+router.post(
+	'/ajax-load', middle_ware, controllers_order_manage_ajax_load
+);
+
+
+
+
+
+
+
+
+
 
 
 router.get(

@@ -83,37 +83,7 @@ content
 					<%- ojs_share_orders.show_order_status_select_fitter();	-%>			
 				</Select>	
 				<br>
-				
-				
-				<ul class="status_box" style="display:none;">
-					<li >
-						<a class="one status_link" href="#" status_num="all" data_send="[0,1,2,3,4,5,6,7,8,9]">Tất cả</a>
-					</li>
-					<li>
-						<a href="#" status_num="0" data_send="[0]" class="status_link">Chờ xác nhận
-							<% if(cho_xac_nhan != 0){ %><span class="num_abs"><%= cho_xac_nhan %></span><% } %>
-						</a>
-					</li>	
-					<li>
-						<a href="#" status_num="2" data_send="[2]" class="status_link">Chờ lấy hàng
-						<% if(cho_lay_hang != 0){ %><span class="num_abs"><%= cho_lay_hang %></span><% } %></a>
-					</li>
-					<li>
-						<a href="#" status_num="3" data_send="[3]" class="status_link">Đang giao
-						<% if(dang_giao != 0){ %><span class="num_abs"><%= dang_giao %></span><% } %></a>
-					</li>
-					<li >
-						<a class="one status_link" href="#" status_num="1" data_send="[1]">Hoàn thành</a>
-					</li>
-					<li >
-						<a class="one status_link" href="#" status_num="4" data_send="[4]">Đổi trả
-						<% if(doi_tra != 0){ %><span class="num_abs"><%= doi_tra %></span><% } %></a>
-					</li>
-					<li >
-						<a class="one status_link" href="#" status_num="5" data_send="[5]">Đơn hủy
-						<% if(don_huy != 0){ %><span class="num_abs"><%= don_huy %></span><% } %></a>
-					</li>
-				</ul>
+
 			</div>
 			<ul class="report_link_box">
 				<li class="one report_link">
@@ -197,7 +167,7 @@ $(document).ready(function($){
 	//
 
 	var user_id = $('#user_id').val();
-
+	var store_id = $('#store_id').val();
 	//@
 	//@
 	//@

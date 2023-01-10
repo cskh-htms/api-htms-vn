@@ -73,8 +73,8 @@ async  function function_export(req, res, next) {
 			}); 
 			return;			
 		}		
-		res.send({"error":"00","message":[datas]});
-		return;	
+		//res.send({"error":"00","message":[datas]});
+		//return;	
 		
 		
 		
@@ -92,8 +92,8 @@ async  function function_export(req, res, next) {
 				token
 			);	
 			
-		res.send( data_api_resuilt );
-		return;			
+		//res.send( data_api_resuilt );
+		//return;			
 			
 			
 			
@@ -131,9 +131,9 @@ async  function function_export(req, res, next) {
 		//@
 		//@ send to web	
 		data_send = {
-			'datas' 	: 	data_api_resuilt[1]
+			'orders_list' 			: data_api_resuilt[1],	
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-orders-show-tables', data_send );	
+		res.render( ojs_configs.view_version + '/masterpage/widget-order-show-table-stores', data_send );	
 
 
 
