@@ -6,7 +6,10 @@
 
 
 
-
+.pro_content_edit .pro_col01 {
+    width: calc(100% - 300px);
+    padding-bottom: 100px;
+}
 
 
 

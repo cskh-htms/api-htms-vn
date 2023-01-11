@@ -60,6 +60,15 @@ const controller_product_manage_ajax_load_table =  require(
 	'../../controllers/products/controller-product-manage-ajax-load-table'
 );
 
+const controller_product_manage_add =  require(
+	'../../controllers/products/controller-product-manage-add'
+);
+
+const controller_product_manage_show =  require(
+	'../../controllers/products/controller-product-manage-show'
+);
+
+
 
 
 
@@ -72,8 +81,8 @@ const controller_product_manage_ajax_load_table =  require(
 router.get('/show-all',middle_ware, controller_product_manage_show_all);
 router.post('/ajax-load',middle_ware, controller_product_manage_ajax_load);
 router.post('/ajax-load-table',middle_ware, controller_product_manage_ajax_load_table);
-
-
+router.post('/add',middle_ware, controller_product_manage_add);
+router.get('/show',middle_ware, controller_product_manage_show);
 
 
 

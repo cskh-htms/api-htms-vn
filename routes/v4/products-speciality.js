@@ -137,14 +137,24 @@ const controller_product_manage_ajax_list_table = require(
 
 
 
+const controller_product_manage_add = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-add'
+);
+
+
+const controller_product_manage_show = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-show'
+);
+
+
 
 //@
 //@ router manage
 router.get('/manage/:store_id', controller_product_manage_show_all);
 router.post('/manage/ajax-list/', controller_product_manage_ajax_list);
 router.post('/manage/ajax-list-table/', controller_product_manage_ajax_list_table);
-
-
+router.get('/manage/add/:store_id', controller_product_manage_add);
+router.get('/manage/show/:product_id/:store_id', controller_product_manage_show);
 
 
 

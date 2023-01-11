@@ -38,10 +38,12 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "stores_payment_time as stores_payment_time, " + 	
 
 	config_database.PREFIX  + "stores_upload_limit_day as stores_upload_limit_day, "  + 
-	config_database.PREFIX  + "stores_upload_limit_month as stores_upload_limit_month ";
+	config_database.PREFIX  + "stores_upload_limit_month as stores_upload_limit_month, " + 
 
 
-
+	config_database.PREFIX  + "service_type_name as service_type_name ";
+	
+	
 
 const fields_search_arr = [
 	"stores_ID",
