@@ -52,7 +52,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var datas  = req.body.datas;		
+			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				return;
@@ -73,8 +73,8 @@ async  function function_export(req, res, next) {
 			}); 
 			return;			
 		}		
-		res.send({"error":"00","message":[datas]});
-		return;	
+		//res.send({"error":"00","message":datas});
+		//return;	
 		
 		
 		
@@ -87,13 +87,13 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/orders/ajax-load',
+				'/products/ajax-load',
 				datas,
 				token
 			);	
 			
-		//res.send( data_api_resuilt );
-		//return;			
+		res.send( data_api_resuilt );
+		return;			
 			
 			
 			

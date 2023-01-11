@@ -52,13 +52,23 @@ const controller_product_manage_show_all =  require(
 	'../../controllers/products/controller-product-manage-show-all'
 );
 
+const controller_product_manage_ajax_load =  require(
+	'../../controllers/products/controller-product-manage-ajax-load'
+);
+
+
+
+
+
+
+
 
 //@
 //@
 //@
 //@ router manage
 router.get('/show-all',middle_ware, controller_product_manage_show_all);
-
+router.post('/ajax-load',middle_ware, controller_product_manage_ajax_load);
 
 
 
