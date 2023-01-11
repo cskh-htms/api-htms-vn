@@ -170,6 +170,10 @@ async  function function_export(req, res, next) {
 						] 				
 					}         
 				],
+				"group_by":
+				[
+					"orders_speciality_ID"
+				],	
 				"order" :
 				[		 
 					{    

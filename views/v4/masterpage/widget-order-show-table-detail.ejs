@@ -305,13 +305,19 @@ if(order_taget.length > 0){
 
 <script>
 	$(document).ready(function($){
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@		
 		$('#btn_xac_nhan_order').click(function(e){
 			e.preventDefault();
-			//alert('abc');
-			
-			
+			//alert('abc');			
 			let orders_speciality_status_orders = 101;
-		
 			//
 			var datas = {
 				"datas":{
@@ -319,8 +325,7 @@ if(order_taget.length > 0){
 				}
 			}
 			//console.log(datas);		
-			//return;
-			
+			//return;			
 			//goi api
 			 $.ajax({
 			  type : "put",	  
@@ -339,9 +344,9 @@ if(order_taget.length > 0){
 			  },
 			  success : function(result) {
 				  
-				console.log(result);
-				ojs_loadding.ajax_hide_loadding();	
-				return;
+				//console.log(result);
+				//ojs_loadding.ajax_hide_loadding();	
+				//return;
 				  
 				if(result.error){
 					ojs_message.message_ok_show(result.message);
@@ -352,19 +357,21 @@ if(order_taget.length > 0){
 				
 			  }//end of success			  
 			});	//end of ajax
-			
-			//$('.status_yellow').html('Chờ lấy hàng');
-			
 		});
 		
 		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
 		$('#btn_tu_choi_order').click(function(e){
 			e.preventDefault();
-			//alert('abc');
-			
-			
+			//alert('abc');			
 			let orders_speciality_status_orders = 102;
-		
 			//
 			var datas = {
 				"datas":{
@@ -372,13 +379,14 @@ if(order_taget.length > 0){
 				}
 			}
 			//console.log(datas);		
-			//return;
-			
+			//return;			
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/orders/speciality/update/" + <%= order_taget[0].orders_speciality_ID %>,
+			  url : ojs_loader.host + "/orders/speciality/manage/update/" + 
+			  <%= order_taget[0].orders_speciality_ID %> + "/" + 
+			  <%= order_taget[0].orders_speciality_store_id %> ,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -389,26 +397,21 @@ if(order_taget.length > 0){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
+				  
+				//console.log(result);
+				//ojs_loadding.ajax_hide_loadding();	
+				//return;
+				  
+				if(result.error){
+					ojs_message.message_ok_show(result.message);
 				}else{
-					if(result.error.length > 0){
-						ojs_message.message_ok_show(result.message);
-					}else{
-						ojs_message.message_ok_show(" Đã từ chối đơn hàng ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();		  
+					ojs_message.message_ok_show(" Đã từ chối ",location.href);
+				}
+				ojs_loadding.ajax_hide_loadding();		 
+				
 			  }//end of success			  
 			});	//end of ajax
-			
-			//$('.status_yellow').html('Chờ lấy hàng');
-			
 		});		
-		
-		
 	});
 </script>
 

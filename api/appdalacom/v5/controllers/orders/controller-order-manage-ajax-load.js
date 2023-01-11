@@ -103,45 +103,15 @@ async  function function_export(req, res, next) {
 		//@
 		//@ check role phân quyền
 		const check_role_result = await check_role.check_role(token,res);
-		if(
-		check_role_result == "bussiness" 
-		|| check_role_result == "admin" 
-		){
-			//go
-		}
-		else{
-			var evn = ojs_configs.evn;
-			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( 
-					evn, 
-					check_role_result, 
-					"Lỗi phân quyền, Vui lòng liên hệ admin" 
-				);
-			res.send({ 
-				"error" : "3",
-				"position" : "api->appdalacom->controller->order->manage->show all",
-				"message": error_send 
-			}); 
-			return;			
-		}
 
-
-
-
-
-
-
+	
 		//@
 		//@
-		//@		
-		//@ check owner store
-		try{		
-			//@ check owner store
-			var check_owner_store_resuilt = await check_owner_store(token,datas.store_id,res);
-			if(	
-			check_owner_store_resuilt == "1" 
-			|| check_role_result == "admin" 
-			){
+		//@ 
+		//@ check owner store		
+		if(check_role_result == "bussiness"){			
+			const check_owner_store_resuilt = await check_owner_store(token,datas.store_id,res);
+			if(	check_owner_store_resuilt == "1" ){
 				//go
 			}
 			else{
@@ -150,40 +120,22 @@ async  function function_export(req, res, next) {
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
 						check_role_result, 
-						"Lỗi phân quyền, Vui lòng liên hệ admin" 
+						"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 					);
 				res.send({ 
 					"error" : "333",
-					"position" : "api->appdalacom->controller->order->manage->show all",
+					"position" : "api->appdalacom->controller->order->manage->ajax-load",
 					"message": error_send 
 				}); 
 				return;			
-			}	
+			}				
 		}
-		catch(error){
-			var evn = ojs_configs.evn;
-			evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( 
-					evn, 
-					error, 
-					"Lỗi check ownwr store, Vui lòng liên hệ admin" 
-				);
-			res.send({ 
-				"error" : "150", 
-				"position" : "api->appdalacom->controller->order->manage->show all",
-				"message": error_send 
-			}); 
-			return;	
-		}		
-		//res.send(["ok"]);
-		//return;	
+		//res.send([check_role_result,"store_ok"]);
+		//return;
+	
+	
+	
 			
-
-
-
-
-
-
 
 
 		
@@ -247,6 +199,10 @@ async  function function_export(req, res, next) {
 						] 				
 					}         
 				],
+				"group_by":
+				[
+					"orders_speciality_ID"
+				],				
 				"order" :
 				[		 
 					{    

@@ -71,7 +71,7 @@ async  function function_export(req, res, next) {
 			}); 
 			return;			
 		}		
-		//res.send( [store_id] );
+		//res.send( [status_int] );
 		//return;	
 		
 		

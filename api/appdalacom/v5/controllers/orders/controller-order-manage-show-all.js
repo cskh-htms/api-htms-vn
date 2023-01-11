@@ -52,6 +52,11 @@ async  function store_order_get_all(req, res, next) {
 		var status_int = 0;
 		if(req.query.c2){
 			status_int = req.query.c2;
+			if(status_int == "all"){
+				status_int = '[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100,101,102]';
+			}
+			
+			
 		}else{
 			res.send({ 
 				"error" : "1", 
@@ -86,40 +91,26 @@ async  function store_order_get_all(req, res, next) {
 	
 	
 	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
-	if(
-	check_role_result == "bussiness" 
-	|| check_role_result == "admin" 
-	){
-		//go
-	}
-	else{
-		var evn = ojs_configs.evn;
-		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				check_role_result, 
-				"Lỗi phân quyền, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "3",
-			"position" : "api->appdalacom->controller->order->manage->show all",
-			"message": error_send 
-		}); 
-		return;			
-	}
-
-
 	
-	//@ check owner store
-	try{		
-		//@ check owner store
-		var check_owner_store_resuilt = await check_owner_store(token,store_id,res);
-		if(	
-		check_owner_store_resuilt == "1" 
-		|| check_role_result == "admin" 
-		){
+	
+	
+	
+	//@
+	//@
+	//@ 
+	//@ check owner store		
+	if(check_role_result == "bussiness"){			
+		const check_owner_store_resuilt = await check_owner_store(token,store_id,res);
+		if(	check_owner_store_resuilt == "1" ){
 			//go
 		}
 		else{
@@ -128,7 +119,7 @@ async  function store_order_get_all(req, res, next) {
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
-					"Lỗi phân quyền, Vui lòng liên hệ admin" 
+					"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 				);
 			res.send({ 
 				"error" : "333",
@@ -136,25 +127,10 @@ async  function store_order_get_all(req, res, next) {
 				"message": error_send 
 			}); 
 			return;			
-		}	
+		}				
 	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi check ownwr store, Vui lòng liên hệ admin" 
-			);
-		res.send({ 
-			"error" : "150", 
-			"position" : "api->appdalacom->controller->order->manage->show all",
-			"message": error_send 
-		}); 
-		return;	
-	}		
-	//res.send(["ok"]);
-	//return;	
+	//res.send([check_role_result,"store_ok"]);
+	//return;
 	
 	
 	
@@ -181,6 +157,11 @@ async  function store_order_get_all(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_data_count_bussiness);
+
+
+
+
+
 
 
 
@@ -231,6 +212,11 @@ async  function store_order_get_all(req, res, next) {
 
 
 
+
+
+
+
+
 		//@
 		//@
 		//@
@@ -261,7 +247,12 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"orders_speciality_status_pull_money",
 						"value"     : 1,
 						"compare" : "<>"
-					}	          
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : JSON.parse(status_int),
+						"compare" : "in"
+					}					
 					]    
 				}         
 			],
