@@ -52,6 +52,11 @@ const ojs_shares_fetch_data = require('../../../../shares/' + config_api.API_SHA
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_store = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-store');
 const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+const order_get_one = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-get-one.js');
+const order_detail_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-product.js');
+const shipping_tracking_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/shipping-tracking/shipping-tracking-search.js');
+const order_detail_coupon = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-coupon.js');
+
 
 
 
@@ -143,22 +148,34 @@ async  function function_export(req, res, next) {
 			promise_all.push(0);
 			
 				
+			var fn_get_order_taget = new Promise((resolve, reject) => {
+				let result = order_get_one(datas.order_id,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_order_taget);				
 				
 				
 				
 				
 				
-			/*	
-			//@ lấy order list
-			let data_order_list =    
+				
+	
+			//@
+			//@
+			//@
+			//@ order detail
+			let data_order_detail =    
 			{
 			   "select_field" :
 				[
-					"orders_speciality_ID",
-					"orders_speciality_date_orders" ,
-					"orders_speciality_status_orders",
-					"sum(orders_details_speciality_qty)",
-					"sum_price_caution"					
+					"orders_details_medium_text",
+					"orders_details_speciality_ID",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_price",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"price_caution",
+					"products_speciality_name"			
 				],
 				"condition" :
 				[
@@ -167,52 +184,132 @@ async  function function_export(req, res, next) {
 					"where" :
 						[
 						{   
-							"field"     :"orders_speciality_store_id",
-							"value"     : datas.store_id,
+							"field"     :"orders_details_speciality_order_id",
+							"value"     : datas.order_id,
 							"compare" : "="
-						},
+						},	
 						{   
-							"field"     :"orders_speciality_status_pull_money",
-							"value"     : 1,
-							"compare" : "<>"
-						},						
-						{   
-							"field"     :"orders_speciality_status_orders",
-							"value"     : JSON.parse(datas.status_send),
-							"compare" : "in"
-						},
-						{   
-							"field"     :"orders_speciality_date_orders",
-							"value"     : datas.date_star,
-							"compare" : ">"
-						},
-						{   
-							"field"     :"orders_speciality_date_orders",
-							"value"     : datas.date_end,
-							"compare" : "<"
-						}				
+							"field"     :"orders_details_speciality_line_order",
+							"value"     : 'product',
+							"compare" : "="
+						}							
 						] 				
 					}         
-				],
-				"order" :
-				[		 
-					{    
-						"field"  :"orders_speciality_date_orders",
-						"compare" : "DESC"
-					}			
 				]				
 			 }
 			
-			var fn_get_order_list = new Promise((resolve, reject) => {
-				let result = order_search(data_order_list,res);
+			var fn_get_order_detail = new Promise((resolve, reject) => {
+				let result = order_detail_search(data_order_detail,res);
 				resolve(result);
 			});	
-			promise_all.push(fn_get_order_list);
+			promise_all.push(fn_get_order_detail);
 			
 			
-			*/
+	
+			
+	
+
+
+
+
+			//@
+			//@
+			//@
+			//@ shipping tracking
+			let data_tracking_list =    
+			{
+			   "select_field" :
+				[
+				"shipping_tracking_users_id",
+				"shipping_tracking_date_created",				
+				"shipping_tracking_orders_id",
+				"shipping_tracking_infomation",
+				"shipping_tracking_orders_status",		
+				"shipping_tracking_qoute",
+				"users_full_name",
+				"users_phone"				
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"shipping_tracking_orders_id",
+							"value"     : datas.order_id,
+							"compare" : "="
+						}			
+						] 				
+					}         
+				]				
+			 }
+			
+			var fn_get_tracking_list = new Promise((resolve, reject) => {
+				let result = shipping_tracking_search(data_tracking_list,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_tracking_list);
+
+
+
+
+
+
+
+			//@
+			//@
+			//@
+			//@ order coupon_detail
+			let data_coupon_detail =    
+			{
+			   "select_field" :
+				[
+					"orders_details_medium_text",
+					"orders_details_speciality_ID",
+					"orders_details_speciality_line_order",
+					"orders_details_speciality_price",
+					"orders_details_speciality_product_id",
+					"orders_details_speciality_qty",
+					"price_caution"		
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"orders_details_speciality_order_id",
+							"value"     : datas.order_id,
+							"compare" : "="
+						},	
+						{   
+							"field"     :"orders_details_speciality_line_order",
+							"value"     : 'coupon',
+							"compare" : "="
+						},	
+						{   
+							"field"     :"coupon_speciality_stores_id_created",
+							"value"     : datas.order_id,
+							"compare" : "="
+						}						
+						] 				
+					}         
+				]				
+			 }
+			
+			var fn_get_coupon_detail = new Promise((resolve, reject) => {
+				let result = order_detail_coupon(data_coupon_detail,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_coupon_detail);
 			
 			
+			
+			
+			
+	
 			
 
 
@@ -243,15 +340,18 @@ async  function function_export(req, res, next) {
 
 		
 		
+		
 
 		//@
 		//@
 		//@ add notes
 		let notes = {
 			"0":"no", 
-			"1":"news admin",
-			"2":"user_list",
-			"3":"notes"
+			"1":"order_taget",
+			"2":"order_list",
+			"3":"shipping_tracking_list",
+			"4":"coupon_list",			
+			"5":"notes"
 		}
 		//promise_result.push(data_product);	
 		//promise_result.push(category_resuilt);

@@ -40,6 +40,18 @@ require(
 );
 
 
+const controllers_order_manage_upload =  
+require(
+	'../../controllers/orders/controller-order-manage-update'
+);
+
+
+
+
+
+
+
+
 
 
 
@@ -62,6 +74,9 @@ router.post(
 );
 
 
+router.put(
+	'/update', middle_ware, controllers_order_manage_upload
+);
 
 
 

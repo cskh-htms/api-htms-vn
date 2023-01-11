@@ -18,12 +18,12 @@ const fields_get = 	"" +
 
 
 const fields_search_arr = [
-		"orders_details_speciality_order_id",
-		"orders_details_speciality_line_order",	
-		"orders_details_speciality_product_id",	
-		"orders_details_speciality_qty",
-		"orders_details_speciality_price",
-		"orders_details_medium_text"
+	"orders_details_speciality_order_id",
+	"orders_details_speciality_line_order",	
+	"orders_details_speciality_product_id",	
+	"orders_details_speciality_qty",
+	"orders_details_speciality_price",
+	"orders_details_medium_text"
 ]
 
 
@@ -216,6 +216,9 @@ const link_by_coupon = " " +
 	config_database.PREFIX + "users  ON  " + 
 	config_database.PREFIX + "coupon_speciality_intro  = " + 
 	config_database.PREFIX + "users_ID ";
+
+
+
 
 
 

@@ -1,0 +1,210 @@
+.order-detail-box {
+    background-color: white;
+    padding: 50px;
+    margin-top: 40px;
+    max-width: 1200px;
+    position: relative;
+    border-radius: 5px;
+}
+
+
+.order_detail_top, .order_customer {
+    margin-bottom: 30px;
+}
+.ship_number {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+.order_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.order_content {
+    display: flex;
+    justify-content: space-between;
+}
+.order_tracking_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.order_detail_top .order_id {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 15px;
+}
+
+.order_detail_top .order_status {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 18px;
+}
+.order_detail_top .order_id span {
+    font-size: 22px;
+    display: block;
+    color: #4a914b;
+}
+
+.status_ok {
+    color: #23ca3f;
+}
+.order_content .order_content_col01 {
+    width: 100%;
+}
+.order_detail_top, .order_customer {
+    margin-bottom: 30px;
+}
+
+.order_content .order_content_col01 table {
+    box-shadow: none;
+    border: 1px solid #e5e5e5;
+}
+.order_content .order_content_col01 table {
+    box-shadow: none;
+    border: 1px solid #e5e5e5;
+}
+
+.order_customer .customer_name, .order_customer .customer_address {
+    display: inline-block;
+    vertical-align: middle;
+    border-right: 1px solid lightgray;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.order_customer .customer_name, .order_customer .customer_address {
+    display: inline-block;
+    vertical-align: middle;
+    border-right: 1px solid lightgray;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+.order_customer .order_date {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.order_content .order_content_col01 table td:first-child, .order_content .order_content_col01 table th:first-child {
+    width: 50%;
+    text-align: left;
+}
+.order_content .order_content_col01 table td:first-child, .order_content .order_content_col01 table th:first-child {
+    width: 50%;
+    text-align: left;
+}
+
+.order_sum tr td:last-child {
+    text-align: right;
+    font-weight: bold;
+    color: #4a914b;
+}
+.order_sum tr td {
+    padding: 5px 0;
+}
+
+.order_sum tr td {
+    padding: 5px 0;
+}
+
+
+
+.order_content .order_sum {
+    width: 25%;
+    max-width: 220px;
+    margin-left: 2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

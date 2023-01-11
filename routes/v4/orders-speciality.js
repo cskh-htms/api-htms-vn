@@ -127,6 +127,17 @@ require(
 );
 
 
+const controller_order_manage_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/orders/controller-order-manage-update'
+);
+
+
+
+
+
 
 
 
@@ -137,7 +148,7 @@ require(
 router.get('/manage/:store_id/:status_int', controller_order_manage_show_all);
 router.post('/manage/ajax-load', controller_order_manage_ajax_load);
 router.post('/manage/ajax-load-detail', controller_order_manage_ajax_load_detail);
-
+router.put('/manage/update/:order_id/:store_id', controller_order_manage_update);
 
 
 

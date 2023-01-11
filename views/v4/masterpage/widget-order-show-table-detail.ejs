@@ -1,6 +1,27 @@
 
 
-<% if( typeof orders_detail == 'object' && orders_detail){  } else{ orders_detail=[] } %>
+
+
+
+<%
+//@ kiểm tra nếu biến không có thì set empty
+//@ tránh trường hợp báo lỗi
+
+try {var x = order_taget.length;} catch (error) { order_taget = []; }
+try {var x = orders_detail.length;} catch (error) { orders_detail = []; }
+try {var x = order_tracking.length;} catch (error) { order_tracking = []; }
+try {var x = coupon_list.length;} catch (error) { coupon_list = []; }
+
+%>
+
+
+
+
+
+
+
+
+
 <% include ../masterpage/function-share-orders %>
 
 <%
@@ -22,9 +43,7 @@
 
 <%
 if(coupon_list.length > 0){
-	if(coupon_list[0].coupon_speciality_type == '1'){
-		coupon = coupon_list[0].sum_orders_details_speciality_price
-	}
+	coupon = coupon_list[0].orders_details_speciality_price
 }
 %>
 
@@ -38,6 +57,13 @@ if(coupon_list.length > 0){
 
 
 
+
+
+
+
+<%
+if(order_taget.length > 0){
+%>	
 <div class="order_detail_top">
 	<div class="order_id">Đơn hàng<span>#<%= order_taget[0].orders_speciality_ID %></span></div>
 	<div class="order_status"><%- ojs_share_orders.show_order_status_html(order_taget[0].orders_speciality_status_orders) %></div>
@@ -46,11 +72,22 @@ if(coupon_list.length > 0){
 <div class="ship_number">
 	GHTK | Mã vận đơn : 
 	<span>
-		<a href="https://i.ghtk.vn/<%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %>">
-		<%- ojs_share.unCape(order_taget[0].orders_speciality_shipping_code) %>
+		<a href="https://i.ghtk.vn/<%- ojs_share_all.unCape(order_taget[0].orders_speciality_shipping_code) %>">
+		<%- ojs_share_all.unCape(order_taget[0].orders_speciality_shipping_code) %>
 		</a>
 	</span>
 </div>
+<%
+}
+%>	
+
+
+
+
+
+<!-- -------------------------------------------
+	//details
+--------------------------------------------- -->
 
 <div class="order_content" style="align-items: flex-end;">
 	<div class="order_content_col01">
@@ -70,6 +107,7 @@ if(coupon_list.length > 0){
 			<tbody>
 
 			<% 
+			if(orders_detail.length > 0){
 			for(var  x in orders_detail) { 
 			%>
 				<% 
@@ -83,10 +121,10 @@ if(coupon_list.length > 0){
 							<%= orders_detail[x].orders_details_speciality_qty %>
 						</td>
 						<td class="" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
-							<%= ojs_share.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>
+							<%= ojs_share_all.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>
 						</td>
 						<td class="" data_price="<%= orders_detail[x].price_caution %>">
-							<%= ojs_share.show_price_format(orders_detail[x].price_caution,0,",",".","") %>
+							<%= ojs_share_all.show_price_format(orders_detail[x].price_caution,0,",",".","") %>
 						</td>						
 						
 					</tr>
@@ -100,12 +138,23 @@ if(coupon_list.length > 0){
 				%>
 			<% 
 			} 
+			}
 			%>
 			
 			</tbody>
 		</table>
 		
 		
+		
+		
+		
+		
+		<!- ---
+		// coupon	
+		----- -->	
+		<%
+		if(coupon > 0){
+		%>
 		<table class="table-list">
 			<thead>
 			</thead>
@@ -121,44 +170,42 @@ if(coupon_list.length > 0){
 
 					</td>						
 					<td class="qty_box">
-						<%- ojs_share.show_price_format(coupon,0,",",".","") %>
+						<%- ojs_share_all.show_price_format(coupon,0,",",".","") %>
 					</td>	
 				</tr>
 			</tbody>
-		</table>		
-		
-		
-	</div>
+		</table>	
+		<%
+		}
+		%>		
+	</div>	
 	
 	
 	
-	
-	<!- ----------------------------------------------
-		// tổng cộng	
-	---------------------------------------------- -->
+	<!- ---
+	// tổng cộng	
+	----- -->
 	
 	
 	<table class="order_sum">
 		<tr>
 			<td>Tổng cộng:</td>
-			<td><%= ojs_share.show_price_format(sum_line,0,",",".","")  %></td>
+			<td><%= ojs_share_all.show_price_format(sum_line,0,",",".","")  %></td>
 		</tr>
 		<tr>
 			<td>Giảm giá</td>
-			<td><%- ojs_share.show_price_format(coupon,0,",",".","") %></td>
+			<td><%- ojs_share_all.show_price_format(coupon,0,",",".","") %></td>
 		</tr>
 		<tr>
 			<td>Tổng đơn</td>
-			<td><%- ojs_share.show_price_format(sum_line- coupon,0,",",".","") %></td>
+			<td><%- ojs_share_all.show_price_format(sum_line- coupon,0,",",".","") %></td>
 		</tr>
 		
 	</table>
 	
-	<!- ----------------------------------------------
-		// end of tổng cộng	
-	---------------------------------------------- -->	
-	
-	
+	<!-- --
+	//end of tổng cộng	
+	-- -->			
 </div>
 
 
@@ -172,7 +219,19 @@ if(coupon_list.length > 0){
 <% } %>
 
 
+<!-- -------------------------------------------
+	//details end
+--------------------------------------------- -->
 
+
+
+
+
+
+
+<!-- -------------------------------------------
+	//shipping tracking
+--------------------------------------------- -->
 
 <div class="order_tracking">
 	<h1 class="tracking-title">Theo dõi vận chuyển</div>
@@ -191,21 +250,23 @@ if(coupon_list.length > 0){
 			<tbody>	
 	
 			<% 
+			if(order_tracking.length > 0){
+			let stt = 1;	
 			for(var  x in order_tracking) { 
-				var stt = x;
-				stt ++;
-			%>		
+				%>		
 			   <tr>
 					<td class="title"><%= stt %></td>			
 					<td><%- ojs_share_orders.show_order_status_html(order_tracking[x].shipping_tracking_orders_status) %></td>
-					<td><%= ojs_share.format_date(order_tracking[x].shipping_tracking_date_created) %></td>	
+					<td><%= ojs_share_all.format_date(order_tracking[x].shipping_tracking_date_created) %></td>	
 					<td>
-						Tên : <%- ojs_share.unCape(order_tracking[x].users_full_name) %><br>
-						Điện thoại : <%- ojs_share.unCape(order_tracking[x].users_phone) %>
+						Tên : <%- ojs_share_all.unCape(order_tracking[x].users_full_name) %><br>
+						Điện thoại : <%- ojs_share_all.unCape(order_tracking[x].users_phone) %>
 					</td>						
 			   </tr>		
 			<% 
+			stt ++;
 			} 
+			}
 			%>		
 			</tbody>
 			<tfoot>
@@ -220,6 +281,26 @@ if(coupon_list.length > 0){
 				
 	</div>
 </div>
+
+<!-- -------------------------------------------
+	//end of shipping tracking
+--------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>
@@ -242,9 +323,11 @@ if(coupon_list.length > 0){
 			
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/orders/speciality/update/" + <%= order_taget[0].orders_speciality_ID %>,
+			  url : ojs_loader.host + "/orders/speciality/manage/update/" + 
+			  <%= order_taget[0].orders_speciality_ID %> + "/" + 
+			  <%= order_taget[0].orders_speciality_store_id %> ,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -255,18 +338,18 @@ if(coupon_list.length > 0){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
+				  
+				console.log(result);
+				ojs_loadding.ajax_hide_loadding();	
+				return;
+				  
+				if(result.error){
+					ojs_message.message_ok_show(result.message);
 				}else{
-					if(result.error.length > 0){
-						ojs_message.message_ok_show(result.message);
-					}else{
-						ojs_message.message_ok_show(" Đã xác nhận đơn hàng ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();		  
+					ojs_message.message_ok_show(" Đã xác nhận đơn hàng ",location.href);
+				}
+				ojs_loadding.ajax_hide_loadding();		 
+				
 			  }//end of success			  
 			});	//end of ajax
 			
@@ -328,3 +411,16 @@ if(coupon_list.length > 0){
 		
 	});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -52,8 +52,9 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var datas  = req.body.datas;	
-	
+			var order_id = req.params.order_id;
+			var store_id = req.params.store_id;
+			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				return;
@@ -69,13 +70,15 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->orders->manage->ajax-load-detail",
+				"position":"web->appdalacom->controllers->orders->update",
 				"message": error_send 
 			}); 
 			return;			
 		}		
-		//res.send({"error":"00","message":[datas]});
+		//res.send({"error":"00","message":[order_id,datas]});
 		//return;	
+		
+		
 		
 		
 		
@@ -84,11 +87,11 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ call api
-		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
+		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
-				config_api.API_APPDALACOM_VERSION + 
-				'/orders/ajax-load-detail',
+				config_api.API_APPDALACOM_VERSION + 				
+				'/orders/update?c1='+ order_id + '&c2=' + store_id,
 				datas,
 				token
 			);	
@@ -118,7 +121,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->orders->manage->ajax-load-detail",
+				"position":"web->appdalacom->controllers->admin->users->update",
 				"message": error_send 
 			}); 
 			return;
@@ -130,18 +133,8 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		//@ send to web	
-		//send web
-		data_send = {
-			'order_taget' 		: data_api_resuilt[1],
-			'orders_detail' 	: data_api_resuilt[2],
-			'order_tracking' 	: data_api_resuilt[3],
-			'coupon_list' 		: data_api_resuilt[4]
-			
-			
-		}
-		
-		res.render( ojs_configs.view_version + '/masterpage/widget-order-show-table-detail', data_send );	
+		//@ send data resuilt		
+		res.send({"error":"","datas":data_api_resuilt});
 		return;	
 		
 		
@@ -159,7 +152,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controller->orders->manage->ajax-load-detail",
+			"position":"web->appdalacom->controllers->admin->users->update",
 			"message": error_send 
 		}); 
 		return;			
@@ -172,7 +165,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controller->orders->manage->ajax-load-detail",
+		"position":"web->appdalacom->controllers->admin->users->update",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

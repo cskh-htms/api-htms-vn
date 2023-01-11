@@ -56,7 +56,7 @@ const function_export = function (datas,res) {
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "api/lid/order-details/search", 
+			"position" : "li->order-details->search-by-coupon", 
 			"message": error_send 
 			}); 
 		return;	
@@ -68,15 +68,15 @@ const function_export = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi api/lid/order-details/search, Vui lòng liên hệ admin" 
+							"Lỗi li->order-details->search-by-coupon, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/orders/api/lid/order-details/search", 
+						"position" : "li->order-details->search-by-coupon", 
 						"message": error_send 
 					}); 
 					return;
@@ -87,15 +87,15 @@ const function_export = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi api/lid/order-details/search, Vui lòng liên hệ admin" 
+				"Lỗi li->order-details->search-by-coupon, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/orders/api/lid/order-details/search", 
+			"position" : "li->order-details->search-by-coupon", 
 			"message": error_send 
 		}); 
 		return;
