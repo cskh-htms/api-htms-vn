@@ -1,30 +1,48 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-<% include ../../masterpage/loader %>
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+<% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
+
+
+
+<script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>
+
+
+
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-product %>
 <% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-manage %>
+<% include ../../masterpage/function-share-page-nav %>
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
+</script>
+
+
+
+
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>Danh sách sản phẩm</h1>
-
-
+	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
+	
+	
 	<div class="sap_xep_loc">
 		<div class="sap_xep_wrap">
 			<a href="/products/<%= service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm sản phẩm</a>
@@ -105,9 +123,9 @@ content
 				%>
 			</select>
 			<select id="loc_trang_thai">
-				<option id="all" value="[0,1,2,3,4]" selected>Tất cả trạng thái</option>
-				<option id="draf" value="[-1]">Bản nháp</option>
-				<option id="checking" value="[0]">Chờ duyệt</option>
+				<option id="all" value="[1,2,3,4]" selected>Tất cả trạng thái</option>
+				<option id="checking" value="[0]">Bản nháp</option>
+				<option id="checking" value="[4]">Chờ duyệt</option>
 				<option id="edit" value="[2]">Đã sửa chờ duyệt</option>
 				<option id="refuse" value="[3]">Bị từ chối</option>
 				<option id="checked" value="[1]">Đã duyệt</option>
@@ -133,76 +151,32 @@ content
 			<div class="loc-theo-trang-thai"></div>
 		</div>
 	</div>
-	
-	
+
+
+
+
+
+
+
 	<div id="ajax-wrap">
 	<% include ../../masterpage/widget-product-speciality-show-tables-v5 %>
-	</div>		
-	
-	
-
+	</div>			
 	
 	
 	
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-
+	
+	
+	
+	
+	
+	
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
 </div>
+
 <!----------------------
 end content
 ----------------------->
-
-<style>
-#fillter-inner {
-    display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-.filletr-btn{
-    display: flex;
-    position: relative;
-    padding: 7px 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-	margin-right: 30px;
-	margin-bottom: 10px;
-}
-.f-x {
-	position: absolute;
-    right: -25px;
-    top: 5px;
-    border: 1px solid #27ad43;
-    display: flex;
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    border-radius: 50px;
-    text-indent: -100px;
-    overflow: hidden;
-}
-
-.filletr-btn.reset-btn {
-    background-color: #4a914b;
-    color: white;
-    cursor: pointer;
-}
-.sap_xep_loc {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-.sap_xep_loc .loc_wrap {
-    text-align: right;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-</style>
-
-
 
 
 <% include ../../masterpage/footer %>
@@ -344,7 +318,7 @@ $(document).ready(function($){
 		
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_products(datas);	
+		ojs_products_speciality.ajax_load_products(datas);	
 	});	
 	
 	
@@ -374,7 +348,7 @@ $(document).ready(function($){
 			"loc_khuyen_mai_data" : "all",
 			"text_search_data" : x
 		}	
-		ojs_bussiness.ajax_load_products(datas);		
+		ojs_products_speciality.ajax_load_products(datas);		
 	  }
 	});	
 	
@@ -392,7 +366,7 @@ $(document).ready(function($){
 		add_data_fillter();
 		//console.log(datas);
 		//return;
-		ojs_bussiness.ajax_load_products(datas);	
+		ojs_products_speciality.ajax_load_products(datas);	
 	});	
 	
 	
@@ -410,7 +384,7 @@ $(document).ready(function($){
 		
 		var datas = get_data_ajax();
 		console.log(datas);
-		ojs_bussiness.ajax_load_products_table(datas);
+		ojs_products_speciality.ajax_load_products_table(datas);
 		
 	});		
 	//
@@ -524,6 +498,20 @@ $(document).ready(function($){
 
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
 	
 	
 	

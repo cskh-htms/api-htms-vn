@@ -37,6 +37,44 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 
 
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ controller
+const controller_product_manage_show_all =  require(
+	'../../controllers/products/controller-product-manage-show-all'
+);
+
+
+//@
+//@
+//@
+//@ router manage
+router.get('/show-all',middle_ware, controller_product_manage_show_all);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
 //@
 //@
 //@
@@ -95,6 +133,9 @@ const controllers_products_store_delete =  require(
 
 
 
+
+
+
 //@
 //@
 //@
@@ -116,6 +157,15 @@ router.post('/speciality/ajax-proructs-list-table-admin/',middle_ware,controller
 
 router.delete('/speciality/admin-delete/:product_id',middle_ware, controllers_products_admin_delete );
 router.delete('/speciality/store-delete/:product_id',middle_ware, controllers_products_store_delete );
+*/
+
+
+
+
+
+
+
+
 
 
 

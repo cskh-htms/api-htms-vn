@@ -89,18 +89,7 @@ const controller_product_add = require(
 
 
 
-//phia duoi la chua lam
-const controller_product_by_store = require(
-	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-by-store.js'
-);
 
-const controller_product_store_update = require(
-	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-update.js'
-);
-
-const controller_product_store_delete = require(
-	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-delete.js'
-);
 
 
 
@@ -128,13 +117,76 @@ router.post('/tu-choi/:product_id', controller_product_tu_choi);
 
 
 
+
+
+
+//@
+//@  controller manage
+const controller_product_manage_show_all = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-show-all'
+);
+const controller_product_manage_ajax_list = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-ajax-list'
+);
+
+
+
+
+
+
+//@
+//@ router manage
+router.get('/manage/:store_id', controller_product_manage_show_all);
+router.post('/manage/ajax-list/', controller_product_manage_ajax_list);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const controller_product_store_update = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-update.js'
+);
+
+const controller_product_store_delete = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-delete.js'
+);
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // phai duoi la chua lam
-router.get('/:store_id', controller_product_by_store);
+/*
 router.post('/store-update/:product_id', controller_product_store_update);
 router.delete('/store-delete/:product_id', controller_product_store_delete);
 
 router.get('/add/:store_id/:user_id', controller_product_add);
-
+*/
 
 	
 	
