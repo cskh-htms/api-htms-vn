@@ -555,7 +555,12 @@ async  function store_order_get_all(req, res, next) {
 							"field"     :"check_expired",
 							"value"     : 1,
 							"compare" : "="
-						}  						
+						},					
+						{   
+							"field"     :"discount_program_status_admin",
+							"value"     : 4,
+							"compare" : "="
+						} 						
 					]    
 				}         
 			],

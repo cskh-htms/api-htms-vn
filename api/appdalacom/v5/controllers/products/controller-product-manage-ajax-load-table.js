@@ -109,7 +109,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->product->manage->ajax-load",
+				"position" : "api->appdalacom->controller->product->manage->ajax-load-table",
 				"message": error_send 
 			}); 
 			return;	
@@ -149,7 +149,7 @@ async  function function_export(req, res, next) {
 					);
 				res.send({ 
 					"error" : "333",
-					"position" : "api->appdalacom->controller->product->manage->ajax-load",
+					"position" : "api->appdalacom->controller->product->manage->ajax-load-table",
 					"message": error_send 
 				}); 
 				return;			
@@ -161,7 +161,9 @@ async  function function_export(req, res, next) {
 	
 	
 			
-
+		//@
+		//@
+		//@ 
 		//@
 		var limit_data = [];
 		limit_data.push(
@@ -560,7 +562,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "100", 
-				"position" : "api->appdalacom->controller->product->manage->ajax-load",
+				"position" : "api->appdalacom->controller->product->manage->ajax-load-table",
 				"message": error_send 
 			}); 
 			return;	
@@ -593,7 +595,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"api->appdalacom->controller->product->manage->ajax-load",
+			"position":"api->appdalacom->controller->product->manage->ajax-load-table",
 			"message": error_send 
 		}); 
 		return;			
@@ -606,7 +608,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->product->manage->ajax-load",
+		"position":"api->appdalacom->controller->product->manage->ajax-load-table",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

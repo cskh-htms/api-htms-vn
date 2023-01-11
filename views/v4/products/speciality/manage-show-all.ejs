@@ -4,6 +4,8 @@
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-page-nav.css' />
+
 
 
 
@@ -222,7 +224,7 @@ $(document).ready(function($){
 		
 		
 		var datas = get_data_ajax();
-		ojs_bussiness.ajax_load_products(datas);
+		ojs_products_speciality.ajax_load_products(datas);
 
 	});			
 	//		
@@ -260,16 +262,6 @@ $(document).ready(function($){
 	//	
 	
 	
-	//
-	//@
-	//add class active
-	$(document).on('click','.btn_add_store',function(e) {	
-		e.preventDefault();
-		$('.store_row').find('.btn_add_store').removeClass('active');
-		$(this).addClass('active');
-	});//end of function	
-	//@
-	//@	
 	
 
 	

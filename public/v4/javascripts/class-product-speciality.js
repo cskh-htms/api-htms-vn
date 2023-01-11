@@ -50,9 +50,9 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-					console.log(result);
-					ojs_loadding.ajax_hide_loadding();	
-					return;
+					//console.log(result);
+					///ojs_loadding.ajax_hide_loadding();	
+					//return;
 					
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
@@ -89,9 +89,10 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-					console.log(result);
-					ojs_loadding.ajax_hide_loadding();	
-					return;
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();	
+					//return;
+					
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 						return;

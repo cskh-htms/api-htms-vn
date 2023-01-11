@@ -68,7 +68,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controller->products->manage->ajax-load",
+				"position":"web->appdalacom->controller->products->manage->ajax-load-table",
 				"message": error_send 
 			}); 
 			return;			
@@ -87,7 +87,7 @@ async  function function_export(req, res, next) {
 				ojs_configs.domain + 
 				'/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/products/ajax-load',
+				'/products/ajax-load-table',
 				datas,
 				token
 			);	
@@ -117,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controller->products->manage->ajax-load",
+				"position":"web->appdalacom->controller->products->manage->ajax-load-table",
 				"message": error_send 
 			}); 
 			return;
@@ -135,7 +135,7 @@ async  function function_export(req, res, next) {
 			"category_link_datas" 	: data_api_resuilt[1],	
 			"product_count_all"		: data_api_resuilt[2],				
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-product-speciality-show-tables-v5', data_send );	
+		res.render( ojs_configs.view_version + '/masterpage/widget-product-speciality-show-tables-v5-table', data_send );	
 
 
 
@@ -158,7 +158,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controller->products->manage->ajax-load",
+			"position":"web->appdalacom->controller->products->manage->ajax-load-table",
 			"message": error_send 
 		}); 
 		return;			
@@ -171,7 +171,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controller->products->manage->ajax-load",
+		"position":"web->appdalacom->controller->products->manage->ajax-load-table",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

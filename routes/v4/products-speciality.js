@@ -125,11 +125,15 @@ router.post('/tu-choi/:product_id', controller_product_tu_choi);
 const controller_product_manage_show_all = require(
 	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-show-all'
 );
+
+
 const controller_product_manage_ajax_list = require(
 	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-ajax-list'
 );
 
-
+const controller_product_manage_ajax_list_table = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-ajax-list-table'
+);
 
 
 
@@ -138,7 +142,7 @@ const controller_product_manage_ajax_list = require(
 //@ router manage
 router.get('/manage/:store_id', controller_product_manage_show_all);
 router.post('/manage/ajax-list/', controller_product_manage_ajax_list);
-
+router.post('/manage/ajax-list-table/', controller_product_manage_ajax_list_table);
 
 
 

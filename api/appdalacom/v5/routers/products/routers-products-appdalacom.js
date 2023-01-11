@@ -56,7 +56,9 @@ const controller_product_manage_ajax_load =  require(
 	'../../controllers/products/controller-product-manage-ajax-load'
 );
 
-
+const controller_product_manage_ajax_load_table =  require(
+	'../../controllers/products/controller-product-manage-ajax-load-table'
+);
 
 
 
@@ -69,7 +71,7 @@ const controller_product_manage_ajax_load =  require(
 //@ router manage
 router.get('/show-all',middle_ware, controller_product_manage_show_all);
 router.post('/ajax-load',middle_ware, controller_product_manage_ajax_load);
-
+router.post('/ajax-load-table',middle_ware, controller_product_manage_ajax_load_table);
 
 
 

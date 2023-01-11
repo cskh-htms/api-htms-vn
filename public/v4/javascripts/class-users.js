@@ -128,7 +128,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã update chương trình ",location.href);
+						ojs_message.message_ok_show(" Đã update ",'users');
 					}				
 					ojs_loadding.ajax_hide_loadding();
 					
