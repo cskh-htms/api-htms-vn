@@ -28,6 +28,37 @@ require(
 );
 
 
+const controller_category_manage_save =  
+require(
+	'../../controllers/categorys/controller-category-manage-save'
+);
+
+
+
+const controller_category_manage_show =  
+require(
+	'../../controllers/categorys/controller-category-manage-show'
+);
+
+const controller_category_manage_update =  
+require(
+	'../../controllers/categorys/controller-category-manage-update'
+);
+
+const controller_category_manage_delete =  
+require(
+	'../../controllers/categorys/controller-category-manage-delete'
+);
+
+
+
+const controller_category_manage_product =  
+require(
+	'../../controllers/categorys/controller-category-manage-product'
+);
+
+
+
 
 
 
@@ -40,7 +71,11 @@ require(
 //@ router
 router.get( '/show-all/',middle_ware, controller_category_manage_show_all );
 router.get( '/add/',middle_ware, controller_category_manage_add );
-
+router.post( '/save/',middle_ware, controller_category_manage_save );
+router.get( '/show/',middle_ware, controller_category_manage_show );
+router.put( '/update/',middle_ware, controller_category_manage_update );
+router.delete( '/delete/',middle_ware, controller_category_manage_delete );
+router.get( '/product/',middle_ware, controller_category_manage_product );
 
 
 

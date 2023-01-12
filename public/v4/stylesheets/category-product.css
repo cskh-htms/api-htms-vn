@@ -1,0 +1,21 @@
+.table-list tr td a img {
+    text-decoration: none;
+    max-width: 65px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+
+
+span.price-off {
+    text-decoration: line-through;
+}
+
+
+
+
+
+
+
+

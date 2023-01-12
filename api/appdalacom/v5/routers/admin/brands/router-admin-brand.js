@@ -52,6 +52,10 @@ require(
 );
 
 
+const controllers_admin_brand_show_product =  
+require(
+	'../../../controllers/admin/brands/controller-admin-brand-show-product.js'
+);
 
 
 
@@ -75,7 +79,7 @@ router.delete('/delete', middle_ware, controllers_admin_brand_delete );
 
 
 router.post('/update', middle_ware, controllers_admin_brand_update );
-
+router.get('/show-product', middle_ware, controllers_admin_brand_show_product );
 
 
 

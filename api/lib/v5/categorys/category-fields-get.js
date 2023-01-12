@@ -55,9 +55,16 @@ const link_category_link = 	" " +
 		config_database.PREFIX +  "category_general_speciality_ID = " + 
 		config_database.PREFIX +  "category_general_speciality_link_category_general_id  " + 
 
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "products_speciality  ON  " + 
+	config_database.PREFIX + "category_general_speciality_link_product_id  = " + 
+	config_database.PREFIX + "products_speciality_ID " + 	
+
+
 	" LEFT JOIN " + 
 		config_database.PREFIX +  "stores  ON  " + 
-		config_database.PREFIX +  "category_general_speciality_stores_id = " + 
+		config_database.PREFIX +  "products_speciality_store_id = " + 
 		config_database.PREFIX +  "stores_ID  " + 
 		
 	

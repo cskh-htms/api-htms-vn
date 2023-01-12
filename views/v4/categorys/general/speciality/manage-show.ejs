@@ -43,26 +43,30 @@ content
 --------------------- -->
 <div id="content" class="content">
 	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i><%= title %></h1>
-	
-	
-	
-	
+
+
+
+
 	<div class="pro_content_edit">
 		<div class="pro_col01">
 			<div class="pro_box ten_sp_box">
 				<h3>Tên danh mục</h3>
 				<div class="inside">
-					<input type="text" value="" id="category_general_speciality_name"/>
+					<input type="text" 
+					value="<%- ojs_share_all.unCape(datas[0].category_general_speciality_name) %>" 
+					id="category_general_speciality_name"/>
 				</div>
 			</div>
 			
 			<!-- ------------------
 			//thông tin danh mục
 			------------------- -->
-			<div class="pro_box" style="display: none;">
+			<div class="pro_box" style="display: none">
 				<h3>Mô tả danh mục</h3>
 				<div class="inside">
-					<textarea class="noi_dung" id="noi_dung"  rows="20" cols="100%"></textarea>
+					<textarea  class="noi_dung" id="noi_dung"  rows="20" cols="100%">
+					<%- ojs_share_all.unCape(datas[0].category_general_speciality_infomation) %>
+					</textarea>
 				</div>
 			</div>
 			<!-- ------------------
@@ -72,7 +76,9 @@ content
 			<div class="pro_box">
 				<h3>Lời nhắn từ admin</h3>
 				<div class="inside">
-					<textarea id="category_general_speciality_qoute"  rows="10" cols="100%" ></textarea>
+					<textarea  
+					id="category_general_speciality_qoute"  
+					rows="10" cols="100%" ><%- ojs_share_all.unCape(datas[0].category_general_speciality_qoute) %></textarea>
 				</div>
 			</div>	
 
@@ -84,8 +90,8 @@ content
 			<div id="category_general_wrap" class="value_row pro_box">
 				<h3>Danh mục cha</h3>
 				<div id="category_general_box" class="inside">
-					<select name="category_general" id="category_general_speciality_category_parent_id"  >
-						<% include ../../../masterpage/widget-category-general-check-box-add %>
+					<select name="category_general" id="category_general_speciality_category_parent_id" >
+						<% include ../../../masterpage/widget-category-general-check-box-manage-show %>
 					</select>
 				</div>
 			</div>
@@ -95,31 +101,39 @@ content
 			
 			
 			
+			
+			
 			<!-- ------------------
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
 				<h3>Ảnh đại diện</h3>	
 				<div class="inside">
-					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share_all.unCape( datas[0].category_general_speciality_featured_image ) %>" 
+						style="display:none;" 
+					/>
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
 					<div id="img_box_dai_dien"></div>
 					<input type='file' accept="image/*" id='upload_image' style="display:none;">
 				</div>
 			</div>
+			
+			
+			
+			
+			
 			<!-- ------------------
-			// end of hình đại diện 
+			//sap xep 
 			------------------- -->
-			
-			
-			
 			<div class="pro_box">
-				<h3>Sắp xếp
-				<a class="giai-thich" href="https://hotro.appdala.com/them-danh-muc-san-pham-tren-dala/" 
-				target="_blank"><span>Để sắp xếp thứ tự danh mục trong cửa hàng, ưu tiên số thấp(muốn danh mục đứng đầu nhập '0')</span>
-				</a></h3>
+				<h3>Sắp xếp<span class="giai-thich">
+				<span>Để sắp xếp thứ tự danh mục, ưu tiên số cao(muốn danh mục đứng đầu nhập số lớn nhất)</span></span></h3>
 				<div class="inside">
-					<input type="text" value="0" id="category_general_speciality_sort_order" />
+					<input type="text" value="<%= datas[0].category_general_speciality_sort_order %>" 
+					id="category_general_speciality_sort_order" />
 				</div>
 			</div>
 			
@@ -127,53 +141,51 @@ content
 				<h3>Ẩn hiện danh mục</h3>
 				<div class="select-wrap inside">
 					<select id="category_general_speciality_show">
-						<%- ojs_share_all.show_status_select_share_show_hide(0) %>
-					</select>	
+						<%- ojs_share_all.show_status_select_share_show_hide(datas[0].category_general_speciality_show) %>
+					</select>		
 				</div>
 			</div>
 			
+
+			<div class="pro_box" style="display:none;">
+				<h3>Trạng thái cửa hàng</h3>
+				<div class="inside">
+					<select id="category_general_speciality_stores_status">
+						<%- ojs_share_all.show_status_select_share_all_two(datas[0].category_general_speciality_stores_status ) %>
+					</select>
+				</div>
+			</div>
+			
+
 			
 			<div class="pro_box">
-				<h3>Trạng thái</h3>
+				<h3>Trạng thái admin</h3>
 				<div class="inside">
 					<select id="category_general_speciality_admin_status" disabled>
-						<%- ojs_share_all.show_status(0) %>
+						<%- ojs_share_all.show_status(datas[0].category_general_speciality_admin_status ) %>
 					</select>
 				</div>
 			</div>
 			
 			
+			
 		</div>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+
+
+
+
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="cat_id" value="<%= cat_id %>"/>
+	<input type="hidden" id="store_id" value="<%= datas[0].category_general_speciality_stores_id %>"/>
+	<input type="hidden" id="category_general_speciality_update_status" value="<%= datas[0].category_general_speciality_update_status %>"/>
 
 	<div class="btn_box">
-		<a href="/categorys/general/speciality/<%= store_id %>/" class="btn_back">Quay về</a>
-		<a href="#" class="btn_back" id="btn_draf">Lưu nháp</a>
-		<button id="btn_save" class="btn_save">Gữi duyệt</button>
+		<a href="/categorys/general/speciality/manage/<%= store_id %>/" class="btn_back">Quay về</a>
+		<a href="#" class="btn_back" id="btn_draf">Bản nháp</a>
+		<button id="btn_save" class="btn_save">Gữi duyệt </button>
 	</div>	
-	
-
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
-
-
-
-
-
-
-
-
 
 </div>
 <!-- --------------------
@@ -198,15 +210,13 @@ end content
 </div><!-- //pagewrap -->
 
 
-
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-
-
-	var user_id = $('#user_id').val();
 	//
-	//@
+	
+	var user_id = $('#user_id').val();
+	
 	//
 	//@
 		
@@ -216,33 +226,21 @@ $(document).ready(function($){
 	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
 	//@
 	//@
-	
 	//@
 	$(document).on('click','#btn_featured_image',function(e) {		
 		e.preventDefault();		
 		$('#upload_image').trigger( "click" );
 	});
-	
-	
-	
-	
-	
 	//@
 	$("#upload_image").on("change",function(){
 		let input = this;
 		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
 	});		
-	
-	
-	
-	
-	
-	
-	
 	//
 	//xóa image dai dien
 	$(document).on('click','.xoaAnhDaiDien',function(e) {		
 		e.preventDefault();		
+		
 		
 		// xoa image s3
 		let products_speciality_featured_image = $('#featured_image').attr("data_value");
@@ -258,35 +256,30 @@ $(document).ready(function($){
 		//xoa html
 		$(this).parent(".img_box").remove();
 		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+		
 	});			
 	//		
 	//	
 	
 	
 	
-	
-	
 	//@
 	//@
 	//@
 	//@
-	var store_id = $('#store_id').val();		
+	var store_id = $('#store_id').val();	
+	var cat_id = $('#cat_id').val();	
 	$(document).on('click','#btn_draf',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
 		
-		datas.datas.category_general_speciality_stores_status = 0;
+		datas.datas.category_general_speciality_admin_status = 0;
 		
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_save(datas);
+		ojs_category_general_speciality.ajax_update(datas,cat_id);
 	});
-	
-	
-	
-	
-	
 	
 	//@
 	//@
@@ -295,11 +288,16 @@ $(document).ready(function($){
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
 		var datas = get_datas();	
-		datas.datas.category_general_speciality_admin_status = 4;
+		if(datas.datas.category_general_speciality_update_status == 1){
+			datas.datas.category_general_speciality_admin_status = 2;
+		}else{
+			datas.datas.category_general_speciality_admin_status = 4;
+		}
+		
 		//console.log(datas);
 		//return;
 		
-		ojs_category_general_speciality.ajax_save(datas);
+		ojs_category_general_speciality.ajax_update(datas,cat_id);
 	});	
 	
 	
@@ -313,7 +311,7 @@ $(document).ready(function($){
 	function get_datas(){
 		let category_general_speciality_name = $('#category_general_speciality_name').val();
 		let category_general_speciality_sort_order = $('#category_general_speciality_sort_order').val();
-	
+		let category_general_speciality_update_status = $('#category_general_speciality_update_status').val();
 
 		//@
 		let category_general_speciality_featured_image = $('#featured_image').attr('data_value');
@@ -323,6 +321,8 @@ $(document).ready(function($){
 		//@
 		let category_general_speciality_infomation = $('#noi_dung').val();
 		
+		let category_general_speciality_admin_status = $('#category_general_speciality_admin_status  option:selected').val();
+		let category_general_speciality_stores_status = $('#category_general_speciality_stores_status  option:selected').val();
 		
 		
 		let category_general_speciality_qoute = $('#category_general_speciality_qoute').val();
@@ -340,14 +340,19 @@ $(document).ready(function($){
 				category_general_speciality_sort_order : category_general_speciality_sort_order,
 				category_general_speciality_show : category_general_speciality_show,
 				category_general_speciality_stores_id : store_id,
-				category_general_speciality_qoute : category_general_speciality_qoute
+				category_general_speciality_qoute : category_general_speciality_qoute,
+				category_general_speciality_admin_status : category_general_speciality_admin_status,
+				category_general_speciality_stores_status: category_general_speciality_stores_status,
+				category_general_speciality_update_status : category_general_speciality_update_status
 			}
 		}
 		
 		
 		return datas;
 	}
-	
+		
+			
+		
 
 	//
 	//
@@ -357,31 +362,30 @@ $(document).ready(function($){
 
 
 
+<% include ../../../masterpage/loader-end %>
 
 
 
 
-<% include ../../../masterpage/loader-end %>	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

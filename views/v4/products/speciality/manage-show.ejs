@@ -369,14 +369,7 @@ content
 	
 <div class="btn_box">
 	<a href="/products/speciality/manage/<%= store_id %>/" class="btn_back">Quay về</a>
-	
-	<%
-	if( datas[0].products_speciality_status_admin == "0" ){
-	%>	
-		<a href="#" class="btn_back" id="btn_draf">Lưu nháp</a>
-	<%	
-	}
-	%>
+	<a href="#" class="btn_back" id="btn_draf">Lưu nháp</a>
 	<button id="btn_save" class="btn_save">Gữi duyệt</button>
 	<a href="/products/speciality/manage/<%= store_id %>/" class="btn_back">Quay về</a>	
 	
@@ -662,7 +655,29 @@ $(document).ready(function($){
 	
 		var product_id = $('#product_id').val();
 		var datas = get_datas();	
-		datas.datas.products_speciality_status_store = 1;
+		if(datas.datas.products_speciality_status_update == 1){
+			datas.datas.products_speciality_status_admin = 2;
+		}else{
+			datas.datas.products_speciality_status_admin = 4;
+		}
+		//console.log(datas);	
+		//return;
+		ojs_products_speciality.ajax_update(datas,product_id);			
+	});//end of save ajax
+
+
+
+
+
+	$(document).on('click','#btn_draf',function(e) {		
+		e.preventDefault();	
+		
+		//alert('asdasd');
+		//return;
+	
+		var product_id = $('#product_id').val();
+		var datas = get_datas();	
+		datas.datas.products_speciality_status_admin = 0;
 		//console.log(datas);	
 		//return;
 		ojs_products_speciality.ajax_update(datas,product_id);			
@@ -816,6 +831,7 @@ $(document).ready(function($){
 		
 		
 		var products_speciality_qoute = $('#products_speciality_qoute').val();
+		var products_speciality_status_update = $('#products_speciality_status_update').val();
 		
 		
 		
@@ -918,7 +934,8 @@ $(document).ready(function($){
 				products_speciality_weight : products_speciality_weight,
 				products_speciality_qoute : products_speciality_qoute,
 				products_speciality_status_admin : products_speciality_status_admin,
-				products_speciality_show_hide :products_speciality_show_hide				
+				products_speciality_show_hide :products_speciality_show_hide,
+				products_speciality_status_update : products_speciality_status_update				
 			}
 		}
 		return datas;

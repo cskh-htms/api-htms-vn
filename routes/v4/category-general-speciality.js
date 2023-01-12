@@ -76,6 +76,12 @@ require(
 
 
 
+const controller_category_show_product= 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/categorys/controller-category-show-product.js'
+);
 
 
 
@@ -84,7 +90,7 @@ require(
 //@
 //@
 //@
-//@ router
+//@ router admin
 router.get('/', controller_category_show_all);
 router.post('/ajax-list/', controller_category_ajax_list);
 router.get('/add/:store_id', controller_category_add);
@@ -92,7 +98,7 @@ router.post('/save/', controller_category_save);
 router.get('/show/:category_id', controller_category_show);
 router.put('/update/:category_id', controller_category_update);
 router.delete('/delete/:category_id', controller_category_delete);
-
+router.get( '/show-product/:category_id/', controller_category_show_product );
 
 
 
@@ -107,7 +113,7 @@ router.delete('/delete/:category_id', controller_category_delete);
 //@
 //@
 //@
-//@
+//@ controller manage
 const controller_category_manage_show_all  = 
 require(
 	'../../controllers/' + 
@@ -124,6 +130,44 @@ require(
 );
 
 
+const controller_category_manage_save = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controller-category-manage-save'
+);
+
+const controller_category_manage_show = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controller-category-manage-show'
+);
+
+
+const controller_category_manage_update = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controller-category-manage-update'
+);
+
+
+const controller_category_manage_delete = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controller-category-manage-delete'
+);
+
+const controller_category_manage_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/categorys/controller-category-manage-product'
+);
+
+
 
 
 //@
@@ -132,38 +176,12 @@ require(
 //@ router manage
 router.get( '/manage/:store_id', controller_category_manage_show_all );
 router.get( '/manage/add/:store_id', controller_category_manage_add );
+router.post( '/manage/save/', controller_category_manage_save );
+router.get( '/manage/show/:category_id/:store_id', controller_category_manage_show );
+router.put( '/manage/update/:category_id', controller_category_manage_update );
+router.delete( '/manage/delete/:category_id/:store_id', controller_category_manage_delete );
+router.get( '/manage/product/:category_id/:store_id', controller_category_manage_product );
 
-
-
-
-
-
-
-
-
-/*
-const controller_store_category = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/categorys/controllers-category-store.js'
-);
-
-const controller_store_category_product = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/categorys/controllers-category-store-product.js'
-);
-
-
-
-router.get('/:store_id', controller_store_category);
-router.get('/product/:category_id/:store_id', controller_store_category_product);
-
-
-
-*/
 
 
 

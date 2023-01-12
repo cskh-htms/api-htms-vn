@@ -14,20 +14,6 @@ const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');
 
 
-const controller_brand_store = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/brands/controllers-brand-store.js'
-);
-
-const controller_store_brand_product = 
-require(
-	'../../controllers/' + 
-	ojs_configs.controller_version + 
-	'/brands/controllers-brand-store-product.js'
-);
-
 
 const controller_brand_update = 
 require(
@@ -75,7 +61,12 @@ require(
 );
 
 
-
+const controller_brand_show_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/admin/brands/controller-brand-show-product.js'
+);
 
 
 
@@ -90,6 +81,7 @@ router.get('/add/:store_id', controller_brand_add);
 router.post('/save/', controller_brand_save);
 router.post('/update/:brand_id/', controller_brand_update);
 router.delete('/delete/:brand_id/', controller_brand_delete);
+router.get('/show-product/:brand_id/', controller_brand_show_product);
 
 
 
@@ -97,9 +89,6 @@ router.delete('/delete/:brand_id/', controller_brand_delete);
 
 
 
-
-router.get('/:store_id', controller_brand_store);
-router.get('/product/:brand_id/:store_id', controller_store_brand_product);
 
 
 

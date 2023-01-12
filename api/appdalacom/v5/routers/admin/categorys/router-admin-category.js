@@ -58,6 +58,11 @@ require(
 );
 
 
+const controller_admin_category_show_product =  
+require(
+	'../../../controllers/admin/categorys/controller-admin-category-show-product.js'
+);
+
 
 
 
@@ -76,7 +81,7 @@ router.get('/show/', middle_ware, controller_admin_category_show );
 
 router.put('/update/', middle_ware, controller_admin_category_update );
 router.delete('/delete/', middle_ware, controller_admin_category_delete );
-
+router.get('/show-product/', middle_ware, controller_admin_category_show_product );
 
 
 

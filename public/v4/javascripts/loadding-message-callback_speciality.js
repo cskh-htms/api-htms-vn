@@ -340,7 +340,8 @@ ojs_loadding_message_callback = {
 	delete_category_general_speciality:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let cat_id = datas_parse.cat_id;
-		ojs_category_general_speciality.ajax_delete(cat_id);
+		let store_id = datas_parse.store_id;
+		ojs_category_general_speciality.ajax_delete(cat_id,store_id);
 	},
 	
 	
