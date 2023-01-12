@@ -416,14 +416,19 @@ ojs_loadding_message_callback = {
 		ojs_products_speciality_admin.ajax_delete_admin(product_id);
 	},//end of xoa san pham dac san	
 	
+	
+	
+	
+	
 	//xoa product speciality
 	store_delete_product_speciality:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let product_id = datas_parse.product_id;
-		//console.log(product_id);
+		let store_id = datas_parse.store_id;
+		//console.log([product_id,store_id]);
 		//return;
 		
-		ojs_products_speciality.ajax_delete_store(product_id);
+		ojs_products_speciality.ajax_delete(product_id,store_id);
 	},//end of xoa san pham dac san		
 	
 	//

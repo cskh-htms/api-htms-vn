@@ -59,9 +59,9 @@
 				%>		
 				
 				<div class="row-actions">
-					<span class="edit"><a href="/products/speciality/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
-					<span class="xem"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem">Xem</a></span>
+					<span class="edit"><a href="/products/speciality/manage/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					   |   <span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+					   |   <span class="xem"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="btn-xem">Xem</a></span>
 				</div>
 			</td>
 			<td><%- ojs_share_product.show_category_products(products_list[x].products_speciality_ID,category_link_datas ) %></td>			

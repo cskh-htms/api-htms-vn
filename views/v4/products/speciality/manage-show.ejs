@@ -315,20 +315,24 @@ content
 			//end of hình slider 
 			------------------- -->
 
-
-
-
 			<div class="pro_box trang_thai_box">
-				<h3>Trạng thái admin</h3>	
+				<h3><%= datas[0].products_speciality_show_hide %> Ẩn hiện sản phẩm ( bán hoặc ngưng bán ) </h3>	
 				<div class="inside">
 				
 					<span style="display:none;">Ẩn hiện</span><span 
 					class="giai-thich"style="display:none;"><span style="display:none;">
 					Không bán sản phẩm nữa, hãy ẩn nó đi</span></span>
-					<select id="products_speciality_show_hide" style="display:none;">
+					<select id="products_speciality_show_hide">
 						<%- ojs_share_all.show_status_select_share_show_hide(datas[0].products_speciality_show_hide) %>
 					</select>	
-					
+
+				</div>
+			</div>
+
+
+			<div class="pro_box trang_thai_box">
+				<h3>Trạng thái</h3>	
+				<div class="inside">
 					<select id="products_speciality_status_admin" disabled>
 						<%- ojs_share_all.show_status(datas[0].products_speciality_status_admin) %>
 					</select>
@@ -374,7 +378,8 @@ content
 	}
 	%>
 	<button id="btn_save" class="btn_save">Gữi duyệt</button>
-	<a href="/products/speciality/manage/<%= store_id %>/" class="btn_back">Chỉ update tồn kho </a>
+	<a href="/products/speciality/manage/<%= store_id %>/" class="btn_back">Quay về</a>	
+	
 </div>	
 	
 	
@@ -685,6 +690,10 @@ $(document).ready(function($){
 
 
 
+
+
+
+
 	// ajax update ton kho
 	$(document).on('change','#products_speciality_stock_status,#products_speciality_stock',function(e) {		
 		e.preventDefault();
@@ -697,11 +706,13 @@ $(document).ready(function($){
 		//@@
 		//@@
 		var product_id = $('#product_id').val();
+		var products_speciality_store_id = $('#store_id').val();
 		var products_speciality_stock = $('#products_speciality_stock').val();
 		var datas = {
 			"datas":{
 				products_speciality_stock : products_speciality_stock,
 				products_speciality_stock_status : products_speciality_stock_status,
+				products_speciality_store_id : products_speciality_store_id
 			}
 		}		
 		//console.log([datas,product_id]);
@@ -711,6 +722,15 @@ $(document).ready(function($){
 	});//end of save ajax
 
 
+
+
+
+
+
+
+
+
+
 	// ajax update ton kho
 	$(document).on('change','#products_speciality_show_hide',function(e) {		
 		e.preventDefault();
@@ -718,9 +738,11 @@ $(document).ready(function($){
 		//@@
 		var product_id = $('#product_id').val();
 		var products_speciality_show_hide = $('#products_speciality_show_hide').val();
+		var products_speciality_store_id = $('#store_id').val();
 		var datas = {
 			"datas":{
-				products_speciality_show_hide : products_speciality_show_hide
+				products_speciality_show_hide : products_speciality_show_hide,
+				products_speciality_store_id : products_speciality_store_id
 			}
 		}		
 		//console.log([datas,product_id]);
@@ -739,9 +761,6 @@ $(document).ready(function($){
 	//@
 	//@ function get datas
 	function get_datas(){
-		
-		
-
 		
 		var cat_arr = [];
 		var ojs_cat = $('#category_inner').find('.cat_check_edit');
@@ -847,7 +866,7 @@ $(document).ready(function($){
 		
 		
 		var user_id = $('#user_id').val();
-		
+				
 		if(products_speciality_name == "" ){
 			ojs_message.message_ok_show("Chưa nhập tên sản phẩm");
 		}			

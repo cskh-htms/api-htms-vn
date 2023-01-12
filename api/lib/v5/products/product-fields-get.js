@@ -13,16 +13,14 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "products_speciality_store_id as products_speciality_store_id, " + 
 	config_database.PREFIX  + "products_speciality_parent_id as products_speciality_parent_id, " + 	
 	
-	
-	
-	
+
 
 	config_database.PREFIX  + "products_speciality_featured_image as products_speciality_featured_image, " + 
 	config_database.PREFIX  + "products_speciality_image_slider as products_speciality_image_slider, " + 
 	config_database.PREFIX  + "products_speciality_contents as products_speciality_contents, " + 
 	
 	config_database.PREFIX  + "products_speciality_origin as products_speciality_origin, " + 
-	
+	config_database.PREFIX  + "products_speciality_show_hide as products_speciality_show_hide, " + 
 	
 	config_database.PREFIX  + "products_speciality_price as products_speciality_price, " + 
 	config_database.PREFIX  + "products_speciality_sale_of_price as products_speciality_sale_of_price, " + 

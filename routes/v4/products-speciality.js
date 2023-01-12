@@ -91,10 +91,6 @@ const controller_product_add = require(
 
 
 
-
-
-
-
 //@
 //@
 //@
@@ -112,7 +108,6 @@ router.post('/view/:product_id', controller_product_view);
 router.delete('/delete/:product_id', controller_product_delete);
 router.post('/duyet/:product_id', controller_product_phe_duyet);
 router.post('/tu-choi/:product_id', controller_product_tu_choi);
-
 
 
 
@@ -147,6 +142,35 @@ const controller_product_manage_show = require(
 );
 
 
+const controller_product_manage_update_stock = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-update-stock'
+);
+
+
+const controller_product_manage_update = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-update'
+);
+
+
+const controller_product_manage_update_show_hide = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-update-show-hide'
+);
+
+
+const controller_product_manage_show_content = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-show-content'
+);
+
+
+const controller_product_manage_delete = require(
+	'../../controllers/' + ojs_configs.controller_version + '/products/controller-product-manage-delete'
+);
+
+
+
+
+
+
 
 //@
 //@ router manage
@@ -155,54 +179,17 @@ router.post('/manage/ajax-list/', controller_product_manage_ajax_list);
 router.post('/manage/ajax-list-table/', controller_product_manage_ajax_list_table);
 router.get('/manage/add/:store_id', controller_product_manage_add);
 router.get('/manage/show/:product_id/:store_id', controller_product_manage_show);
+router.put('/manage/update-stock/:product_id', controller_product_manage_update_stock);
+router.put('/manage/update/:product_id', controller_product_manage_update);
+router.put('/manage/update-show-hide/:product_id', controller_product_manage_update_show_hide);
+
+
+router.get('/manage/show-content/:product_id/:store_id', controller_product_manage_show_content);
+router.delete('/manage/delete/:product_id/:store_id', controller_product_manage_delete);
 
 
 
 
-
-
-
-
-
-
-
-/*
-const controller_product_store_update = require(
-	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-update.js'
-);
-
-const controller_product_store_delete = require(
-	'../../controllers/' + ojs_configs.controller_version + '/products/controllers-product-store-delete.js'
-);
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// phai duoi la chua lam
-/*
-router.post('/store-update/:product_id', controller_product_store_update);
-router.delete('/store-delete/:product_id', controller_product_store_delete);
-
-router.get('/add/:store_id/:user_id', controller_product_add);
-*/
-
-	
 	
 	
 	
@@ -220,4 +207,9 @@ module.exports = router;
 	
 	
 
-	
+//@
+//@
+//@
+//@
+//@
+//@ end 

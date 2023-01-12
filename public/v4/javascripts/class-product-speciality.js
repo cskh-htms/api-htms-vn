@@ -104,8 +104,7 @@ $(document).ready(function($){
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save
-		//@
-		//@		
+	
 		
 		
 		
@@ -115,14 +114,14 @@ $(document).ready(function($){
 		//@	
 		//@
 		//@
-		//@ 7.[show_content_product]
-		show_content_product: function(product_id){		
-			//alert(product_id);
+		//@ [show_content_product]
+		show_content_product: function(product_id,store_id){		
+			//console.log(product_id,store_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
-			  url : ojs_loader.host + "/products/speciality/show-content-product/" + product_id,
+			  type : "get",	  
+			  url : ojs_loader.host + "/products/speciality/manage/show-content/" + product_id + "/" + store_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
@@ -131,14 +130,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
 						ojs_loadding.ajax_show_content(result);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();					  
+		  
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save		
@@ -148,63 +152,20 @@ $(document).ready(function($){
 	
 	
 	
-		//
-		//
-		//load danh muc cua hang
-		ajax_save: function(datas){		
-			//console.log(datas,);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/save",
-			  data : JSON.stringify(datas),
-			  dataType : 'json',
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
-					}else{
-						if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được sản phẩm");
-								}
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã tạo sản phẩm",location.href);
-						}
-					}				
-					ojs_loadding.ajax_hide_loadding();				  
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save
-		
-		//
-		//
-		//load danh muc cua hang
+
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update]
 		ajax_update: function(datas,product_id){		
 			//console.log(datas,product_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/update/" + product_id,
+			  url : ojs_loader.host + "/products/speciality/manage/update/" + product_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -215,118 +176,41 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
-								}
-							}
-						}else{
-							String.prototype.rtrim = function (s) {
-								if (s == undefined)
-									s = '\\s';
-								return this.replace(new RegExp("[" + s + "]*$"), '');
-							};
-							var fi = location.href;
-							var x = fi.rtrim('/');
-							var y = x.search("admin");
-							var x_arr = x.split("/");
-							var z = x_arr[x_arr.length - 1];
-
-							if(y > 0){
-								ojs_message.message_ok_show(" Đã update","/products/speciality/");
-							}else{
-								ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
-							}		
-						}
+						ojs_message.message_ok_show(" Đã update ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//
-		//
-		//load danh muc cua hang
-		ajax_update_store: function(datas,product_id){		
-			//console.log(datas,product_id);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/store-update/" + product_id,
-			  data : JSON.stringify(datas),
-			  dataType : 'json',
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
-					}else{
-						if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
-								}
-							}
-						}else{
-							String.prototype.rtrim = function (s) {
-								if (s == undefined)
-									s = '\\s';
-								return this.replace(new RegExp("[" + s + "]*$"), '');
-							};
-							var fi = location.href;
-							var x = fi.rtrim('/');
-							var y = x.search("admin");
-							var x_arr = x.split("/");
-							var z = x_arr[x_arr.length - 1];
+		},//end of ajax save	
 
-							if(y > 0){
-								ojs_message.message_ok_show(" Đã update","/products/speciality/");
-							}else{
-								ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
-							}		
-						}
-					}				
-					ojs_loadding.ajax_hide_loadding();				  
-			  }//end of success			  
-			});	//end of ajax
-		},//end of ajax save				
-		//		
-		//
-		//
-		//ajax_update_stock
+
+
+
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update_stock]
 		ajax_update_stock: function(datas,product_id){		
 			//console.log(datas,product_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/update-stock/" + product_id,
+			  url : ojs_loader.host + "/products/speciality/manage/update-stock/" + product_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -337,40 +221,43 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									//ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm \n xem lỗi ở console");
-								}else{
-									//ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
-								}
-							}
-						}
+						ojs_message.message_ok_show(" Đã lưu ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save			
+		},//end of ajax save	
+
+
+
+
+
+
 		
-		//
-		//
-		//ajax_update_stock
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update_show_hide]
 		ajax_update_show_hide: function(datas,product_id){		
 			//console.log(datas,product_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/products/speciality/update-stock/" + product_id,
+			  url : ojs_loader.host + "/products/speciality/manage/update-show-hide/" + product_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -381,48 +268,41 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa update được sản phẩm");
-								}
-							}
-						}else{
-							var x = location.href;
-							var y = x.search("admin");
-							var x_arr = x.split("/");
-							var z = x_arr[x_arr.length - 1];
-							
-							if(y > 0){
-								ojs_message.message_ok_show(" Đã update","/products/speciality/");
-							}else{
-								ojs_message.message_ok_show(" Đã update","/products/speciality/" + z);
-							}		
-						}
+						ojs_message.message_ok_show(" Đã lưu ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
 		
-		//load danh muc cua hang
-		ajax_delete: function(product_id){		
-			//alert(product_id);
+		
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_delete]
+		ajax_delete: function(product_id,store_id){		
+			//alert([product_id,store_id]);
 			//return;
 			//goi api
 			 $.ajax({
 			  type : "delete",	  
-			  url : ojs_loader.host + "/products/speciality/delete/" + product_id,
+			  url : ojs_loader.host + "/products/speciality/manage/delete/" + product_id + '/' + store_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
@@ -431,116 +311,30 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa được sản phẩm");
-								}
-							}
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xoá sản phẩm ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
+						ojs_message.message_ok_show(" Đã xóa ",location.href);
+					}				
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }			  
 			});	
 		},//end of ajax save	
 
 
-		//load danh muc cua hang
-		ajax_delete_admin: function(product_id){		
-			//alert(product_id);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "delete",	  
-			  url : ojs_loader.host + "/products/speciality/admin-delete/" + product_id,
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa được sản phẩm");
-								}
-							}
-					}else{
-						ojs_message.message_ok_show(" Đã xoá sản phẩm ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
-			  }			  
-			});	
-		},
 
-		//load danh muc cua hang
-		ajax_delete_store: function(product_id){		
-			//alert(product_id);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "delete",	  
-			  url : ojs_loader.host + "/products/speciality/store-delete/" + product_id,
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(typeof result.message == 'string' && result.message){
-								ojs_message.message_ok_show(result.message);
-							}else{
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa sản phẩm \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa xóa được sản phẩm");
-								}
-							}
-					}else{
-						ojs_message.message_ok_show(" Đã xoá sản phẩm ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
-			  }			  
-			});	
-		}		
-		
-		//		//
-	///////////////////////////
+
+
+
+
+	//////////////////////////////
 	//////////////////////////////
 	}//end of ojs loader
 	

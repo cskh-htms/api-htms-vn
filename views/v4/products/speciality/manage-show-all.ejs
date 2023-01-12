@@ -250,12 +250,12 @@ $(document).ready(function($){
 		//@
 		e.preventDefault();		
 		let product_id = $(this).attr("data_product_id");
-
+		let store_id = $('#store_id').val();
 		//
 		//@
 		let x = "xác nhận xoá";		
 		let y = "store_delete_product_speciality";//function name in callback 
-		let z = ' { "product_id" : "' + product_id + '" }';
+		let z = ' { "product_id" : "' + product_id + '", "store_id" : "' + store_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);	
 	});			
 	//		
@@ -272,9 +272,10 @@ $(document).ready(function($){
 		//@
 		e.preventDefault();		
 		var product_id = $(this).attr("data_product_id");
+		let store_id = $('#store_id').val();
 		//alert(product_id);
 		//return;
-		ojs_products_speciality.show_content_product(product_id);
+		ojs_products_speciality.show_content_product(product_id,store_id);
 		//@
 	});		
 	//
