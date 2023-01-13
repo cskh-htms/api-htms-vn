@@ -1,0 +1,131 @@
+
+<% include ./function-share-page-nav %>
+<% include ./function-share-product %>
+
+<% if( typeof product_list == 'object' && product_list){ } else{ product_list=[] } %>
+<% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>
+
+
+<div id="ajax-table">
+<table class="table-list">
+	<thead>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>CT khuyến mãi đang tham gia</th>
+			<th>Tồn kho</th>
+			<th>Trạng thái</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% 
+	for( var  x in product_list ) { 
+	%>
+
+	   <tr>
+			<td class="user-name">
+				<a href="#"  data_product_id="<%= product_list[x].products_speciality_ID  %>" 
+					class="pro-img btn-xem"><img src="<%- product_list[x].products_speciality_featured_image  %>" /></a>
+				<a href="#"  data_product_id="<%= product_list[x].products_speciality_ID  %>" class="btn-xem">
+				<%- product_list[x].products_speciality_name %></a>
+				<%
+				if(product_list[x].products_speciality_type == 2){
+				%>
+					<span style="color:#c76560;display:block;">Sản phẩm quà tặng</span>
+				<%
+				}
+				%>
+				
+				
+				<%
+				//hien thi san pham qua tang
+				var gift_text = "";
+				for(let os in product_list[x].product_gift){
+					gift_text = gift_text + 
+					'<div style="display:flex;align-item:center;">' + 
+						'<img style="width:30px;" src="' + product_list[x].product_gift[os].product_gift_image + '"/>' + 
+						'<span style="display:block;font-size:12px;"><i>' +  
+							product_list[x].product_gift[os].product_gift_name + 
+						'</i></span>' + 
+					'</div>';
+				}		
+				if(gift_text.length > 0){
+				%>
+					<span style="text-decoration: underline;font-weight:bold;">Quà tặng: </span>
+					<%- gift_text %>
+				
+				<%
+				}								
+				%>		
+				
+				<div class="row-actions">
+					<span class="edit"><a href="/products/speciality/manage/show/<%= product_list[x].products_speciality_ID  %>/<%= product_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_product_id="<%= product_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
+					<span class="xem"><a href="#" data_product_id="<%= product_list[x].products_speciality_ID  %>" class="btn-xem">Xem</a></span>
+				</div>
+			</td>
+			<td><%- ojs_share_product.show_category_products(product_list[x].products_speciality_ID,category_link_datas ) %></td>			
+			
+			
+			<% if( product_list[x].products_speciality_sale_of_price != null ){ %>
+				<td class="pro-price">
+					<%- ojs_share_all.show_han_km(product_list[x].products_speciality_sale_of_price_time_check) %>
+					<span class="price-off">
+					<%- ojs_share_all.show_price_format(product_list[x].products_speciality_price,0,",",".","đ") %></span>
+					<%- ojs_share_all.show_price_format(product_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+				</td>
+			<% } else { %>
+				<td class="pro-price"><%- ojs_share_all.show_price_format(product_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+			<% } %>				
+			
+			
+		<td><%= product_list[x].so_luong_da_ban %></td>					
+		<td><%- product_list[x].discount_program[0].name %></td>
+		
+		<td>
+			<%- ojs_share_product.show_stock_html(
+				product_list[x].products_speciality_stock_status,
+				product_list[x].products_speciality_stock
+			) -%>
+			
+		</td>			
+		<td><%- ojs_share_all.show_status_html(product_list[x].products_speciality_status_admin) %></td>			
+			
+	   </tr>
+
+
+	<% } %>
+	
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="user-name">Sản phẩm</th>
+			<th>Danh mục</th>
+			<th>Giá</th>
+			<th>Đã bán</th>
+			<th>CT khuyến mãi đang tham gia</th>
+			<th>Tồn kho</th>
+			<th>Trạng thái</th>
+		</tr>
+	</tfoot>
+</table>
+</div>
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+

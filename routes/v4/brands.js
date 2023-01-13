@@ -141,7 +141,12 @@ require(
 	'/brands/controller-brand-manage-update.js'
 );
 
-
+const controller_brand_manage_product = 
+require(
+	'../../controllers/' + 
+	ojs_configs.controller_version + 
+	'/brands/controller-brand-manage-product.js'
+);
 
 
 
@@ -157,7 +162,7 @@ router.post('/manage/save/', controller_brand_manage_save);
 router.delete('/manage/delete/:brand_id/:store_id', controller_brand_manage_delete);
 router.get('/manage/show/:brand_id/:store_id', controller_brand_manage_show);
 router.put('/manage/update/:brand_id/', controller_brand_manage_update);	
-	
+router.get('/manage/product/:brand_id/:store_id', controller_brand_manage_product);	
 	
 	
 	

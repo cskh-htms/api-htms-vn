@@ -51,6 +51,12 @@ require(
 
 
 
+const controllers_brand_manage_product =  
+require(
+	'../../controllers/brands/controller-brand-manage-product.js'
+);
+
+
 
 
 
@@ -65,7 +71,7 @@ router.post('/save/', middle_ware, controllers_brand_manage_save);
 router.delete('/delete/', middle_ware, controllers_brand_manage_delete);
 router.get('/show/', middle_ware, controllers_brand_manage_show);
 router.put('/update/', middle_ware, controllers_brand_manage_update);
-
+router.get('/product/', middle_ware, controllers_brand_manage_product);
 
 
 

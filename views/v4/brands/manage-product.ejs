@@ -1,28 +1,40 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
 <% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand-product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-brands.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
 
-<script src="../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
 
+<script src="../../../../<%= js_css_version %>/javascripts/class-brands.js"></script>
+<script src="../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../masterpage/header %>
+<% include ../masterpage/function-share-brand %>
+<% include ../masterpage/function-share-all %>
+<% include ../masterpage/function-share-all-manage %>
+
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
 </script>
-
 
 
 
@@ -33,24 +45,33 @@ content
 <div id="content" class="content">
 
 
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>
+	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>
 	[  <%- title  %>  ]	
 	</h1>
 
-	<div class="sap_xep_loc">
-		<div class="sap_xep_wrap">
-			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm thương hiệu</a>
-		</div>
-	</div>
 
-	<div id="tab-3"  class="tab-content">	
-	<% include ../masterpage/widget-product-speciality-show-tables-v5-category %>
-	</div>
+
+
+
+
+	<div id=""  class="">	
+	<% include ../masterpage/widget-product-speciality-show-tables-v5-brand %>
+	</div>	
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>
 
 
 
@@ -83,22 +104,22 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
 	//@
 	//xoa
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
 		let product_id = $(this).attr("data_product_id");
-
+		let store_id = $('#store_id').val();
 		//
 		//@
 		let x = "xác nhận xoá";		
 		let y = "store_delete_product_speciality";//function name in callback 
-		let z = ' { "product_id" : "' + product_id + '" }';
+		let z = ' { "product_id" : "' + product_id + '", "store_id" : "' + store_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);	
 	});			
 	//		
+	//	
 	
 	
 	
@@ -109,13 +130,12 @@ $(document).ready(function($){
 		//@
 		e.preventDefault();		
 		var product_id = $(this).attr("data_product_id");
+		let store_id = $('#store_id').val();
 		//alert(product_id);
 		//return;
-		ojs_products_speciality.show_content_product(product_id);
+		ojs_products_speciality.show_content_product(product_id,store_id);
 		//@
 	});		
-	//
-	//@		
 	
 	
 	
@@ -222,3 +242,8 @@ $(document).ready(function($){
 
 
 
+
+
+
+
+	

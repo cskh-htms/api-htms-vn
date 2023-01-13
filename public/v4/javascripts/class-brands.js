@@ -48,7 +48,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ",location.href);
+						ojs_message.message_ok_show(" Đã lưu ","/brands/manage/" + datas.datas.brands_stores_id);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
