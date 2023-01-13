@@ -52,6 +52,10 @@ require(
 	'../../../controllers/admin/options/controller-admin-option-update.js'
 );
 
+const controller_admin_option_show_product =  
+require(
+	'../../../controllers/admin/options/controller-admin-option-show-product.js'
+);
 
 
 
@@ -68,19 +72,8 @@ router.post('/save/', middle_ware, controller_admin_option_save );
 router.delete('/delete/', middle_ware, controller_admin_option_delete );
 router.get('/show/', middle_ware, controller_admin_option_show );
 router.put('/update/', middle_ware, controller_admin_option_update );
+router.get('/show-product/', middle_ware, controller_admin_option_show_product );
 
-
-/*
-
-router.post('/ajax-list/', middle_ware, controller_admin_option_ajax_list );
-router.get('/add/', middle_ware, controller_admin_option_add );
-
-
-
-
-
-
-*/
 
 
 //@

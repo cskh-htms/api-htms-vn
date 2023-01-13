@@ -95,7 +95,7 @@
 		//Tùy chọn
 		-->
 		<li id="sidebar_option">
-			<a href="/options/<%= store_list[0].service_type_name %>/<%= store_id %>">
+			<a href="/options/<%= store_list[0].service_type_name %>/manage/<%= store_id %>">
 				<i class="fas fa-filter"></i>
 				<div class="menu-name">
 				Tùy chọn
@@ -103,7 +103,7 @@
 				<%-  ojs_share_all_manage.show_count_store_menu_html(news_bussiness_menu,5)  -%>					
 				</div>
 			</a>
-			<a href="/options/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a href="/options/<%= store_list[0].service_type_name %>/manage/add/<%= store_id %>/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 		</li>
 		
 

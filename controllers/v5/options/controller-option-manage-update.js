@@ -52,8 +52,8 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var category_id = req.params.category_id;
-			var store_id = req.params.store_id;
+			var option_id = req.params.option_id;
+			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				return;
@@ -69,12 +69,12 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->categorys->manage->delete",
+				"position":"web->appdalacom->controllers>options->manage->update",
 				"message": error_send 
 			}); 
 			return;			
 		}		
-		//res.send({"error":"00","message":[category_id]});
+		//res.send({"error":"00","message":[option_id,datas]});
 		//return;	
 		
 		
@@ -84,10 +84,11 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ call api
-		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_delete(
+		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
 				ojs_configs.domain + '/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/categorys/delete?c1='+ category_id + '&c2=' + store_id,
+				'/options/update?c1='+ option_id,
+				datas,
 				token
 			);	
 			
@@ -116,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->categorys->manage->delete",
+				"position":"web->appdalacom->controllers>options->manage->update",
 				"message": error_send 
 			}); 
 			return;
@@ -147,7 +148,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controllers->categorys->manage->delete",
+			"position":"web->appdalacom->controllers>options->manage->update",
 			"message": error_send 
 		}); 
 		return;			
@@ -160,7 +161,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controllers->categorys->manage->delete",
+		"position":"web->appdalacom->controllers>options->manage->update",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

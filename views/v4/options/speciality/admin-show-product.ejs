@@ -1,16 +1,14 @@
 
 
-<% include ../../../masterpage/loader %>
+<% include ../../masterpage/loader %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
-<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category.css' />
-<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category-show-all.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/category-product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
 
 
 
-
-
-<script src="../../../../../../<%= js_css_version %>/javascripts/class-category-general-speciality.js"></script>
-
+<script src="../../../../../<%= js_css_version %>/javascripts/class-product-speciality.js"></script>
 
 
 <div id="page_wrap" class="page_wrap">
@@ -24,10 +22,10 @@ page wrap
 
 
 
-<% include ../../../masterpage/header %>
-<% include ../../../masterpage/function-share-category %>
-<% include ../../../masterpage/function-share-all %>
-<% include ../../../masterpage/function-share-all-manage %>
+<% include ../../masterpage/header %>
+<% include ../../masterpage/function-share-category %>
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-manage %>
 
 
 
@@ -38,47 +36,37 @@ page wrap
 
 
 
-
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
 
 
-	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>Danh sách danh mục</h1>
-	
-	<div style="display: flex; justify-content: space-evenly;">
-		<div data_id="tab-1" class="tab active">Danh mục cửa hàng</div>
-		<div data_id="tab-2" class="tab">Danh mục mới tạo</div>
-		<div data_id="tab-3" class="tab">Danh mục Chung</div>
-		<div class="sap_xep_wrap">
-			<a href="/categorys/general/speciality/manage/add/<%= store_id %>/" class="btn_green">Thêm danh mục</a>
-		</div>		
-	</div>	
-	
-	
-	
-	
-	
-	<div id="tab-1" class="tab-content active">	
-	<% include ../../../masterpage/widget-category-general-show-tables-store %>
-	</div>
+	<h1><a href="/categorys/speciality/">category</a><i class="fas fa-chevron-right"></i>
+	[  <%- title  %>  ]	
+	</h1>
 
-	<div id="tab-2"  class="tab-content">	
-	<% include ../../../masterpage/widget-category-general-show-tables-store-create %>
-	</div>
-	
-	<div id="tab-3"  class="tab-content">	
-	<% include ../../../masterpage/widget-category-general-show-tables-store-world %>
-	</div>		
-	
-	
-	
+
+
+
+
+
+	<div id=""  class="">	
+	<% include ../../masterpage/widget-product-speciality-show-tables-v5-option-admin %>
+	</div>	
+
+
+
+
+
+
+
+
 	
 	
 	
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>
-	<input type="hidden" id="store_id" value="<%= store_id %>"/>
+
 </div>
 <!-- --------------------
 end content
@@ -88,12 +76,12 @@ end content
 
 
 
-<% include ../../../masterpage/footer %>
+<% include ../../masterpage/footer %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../../../masterpage/sidebar %>
+<% include ../../masterpage/sidebar %>
 
 <!-- --------------------
 //end of page wrap 
@@ -108,23 +96,44 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
-	//
 	//@
 	//xoa
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let cat_id = $(this).attr("data_cat_id");
+		let product_id = $(this).attr("data_product_id");
 		let store_id = $('#store_id').val();
 		//
 		//@
 		let x = "xác nhận xoá";		
-		let y = "delete_category_general_speciality";//function name in callback 
-		let z = ' { "cat_id" : "' + cat_id + '","store_id":"' + store_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
+		let y = "store_delete_product_speciality";//function name in callback 
+		let z = ' { "product_id" : "' + product_id + '", "store_id" : "' + store_id + '" }';
+		ojs_message.message_yes_no_show(x,y,z);	
 	});			
 	//		
+	//	
+	
+	
+	
+	//
+	//@
+	//xem
+	$(document).on('click','.btn-xem',function(e) {	
+		//@
+		e.preventDefault();		
+		var product_id = $(this).attr("data_product_id");
+		let store_id = $('#store_id').val();
+		//alert(product_id);
+		//return;
+		ojs_products_speciality.show_content_product(product_id,store_id);
+		//@
+	});		
+	
+	
+	
+	
+	
+	
 	
 	//
 	//@
@@ -202,11 +211,44 @@ $(document).ready(function($){
 
 
 
-<% include ../../../masterpage/loader-end %>
+<% include ../../masterpage/loader-end %>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
@@ -221,9 +263,26 @@ $(document).ready(function($){
 	
 	
 	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	

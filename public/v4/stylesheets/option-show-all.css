@@ -1,3 +1,25 @@
-.demo {
-	width: auto;
-}
+
+
+
+
+
+	.tab{
+		background-color:#ccc;
+		cursor: pointer;
+	}
+	.tab.active{
+		background-color: #aee1af;
+		color: white;
+	}
+	.tab-content{
+		display:none;
+	}
+	.tab-content.active{
+		display:block;
+	}
+	
+	
+	
+	
+	
+	

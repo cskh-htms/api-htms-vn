@@ -20,9 +20,10 @@ async  function function_export(req, res, next) {
 	try {
 		var token = req.session.token;	
 		var store_id = req.params.store_id;
+		var option_id = req.params.option_id;
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;
 		}		
 	}
@@ -36,13 +37,16 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1", 
-			"position":"web->controller->options->controllers-option-store",
+			"position":"web->controller->options->manage->product",
 			"message": error_send 
 		}); 
 		return;			
 	}	
-	//res.send( [store_id] );
+	//res.send( [option_id,store_id] );
 	//return;	
+	
+	
+	
 	
 	
 	
@@ -54,13 +58,18 @@ async  function function_export(req, res, next) {
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
 			config_api.API_APPDALACOM_VERSION + 
-			'/options/store?c1=' + store_id, 
+			'/options/product?c1=' + option_id + "&c2=" + store_id, 
 			token
 		);	
 		
+	//res.send(data_api_resuilt);
+	//return;
+	
+	
+		
 	if(data_api_resuilt.error){		
 		if(data_api_resuilt.position == "middle_ware"){
-			res.send( "vui lòng đăng nhập" );
+			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 			return;	
 		}
 		
@@ -73,7 +82,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "99", 
-			"position":"web->controller->options->controllers-option-store",
+			"position":"web->controller->options->manage->product",
 			"message": error_send 
 		}); 
 		return;
@@ -82,11 +91,19 @@ async  function function_export(req, res, next) {
 	//res.send( [data_api_resuilt] );
 	//return;
 	
+	
+	
+	
+	
 	//@
+	//@
+	//@
+	//@
+	//@ go
 	try {
 
 		datas_info = {
-			'title' 				: 'Option ',
+			'title' 				: 'Sản phẩm option ' + data_api_resuilt[5][0].options_product_speciality_name,
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -98,19 +115,19 @@ async  function function_export(req, res, next) {
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
-			'list_data_count' 		: data_api_resuilt[2],				
-
-			'store_list' 			: data_api_resuilt[3],		
-			'option_sale' 		: data_api_resuilt[4],	
-			'option_list' 		: data_api_resuilt[5],		
-			'option_list_create' 	: data_api_resuilt[6],				
+			'list_data_count' 		: data_api_resuilt[2],	
+			
+			'store_list' 			: data_api_resuilt[3],
+			'product_list' 			: data_api_resuilt[6],	
+			'category_link_datas' 	: data_api_resuilt[4],
+	
 		}
 	
 	
 	
 		
 		data_send = {
-			'title' 				: 'Option ',
+			'title' 				: 'Sản phẩm option ' + data_api_resuilt[5][0].options_product_speciality_name,
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_role' 			: ojs_shares_others.get_users_type(token),
@@ -122,17 +139,21 @@ async  function function_export(req, res, next) {
 			'service_type_name' 	: 'speciality',
 			
 			'news_bussiness_menu' 	: data_api_resuilt[1],
-			'list_data_count' 		: data_api_resuilt[2],				
-
-			'store_list' 			: data_api_resuilt[3],		
-			'option_sale' 		: data_api_resuilt[4],	
-			'option_list' 		: data_api_resuilt[5],		
-			'option_list_create' 	: data_api_resuilt[6],	
+			'list_data_count' 		: data_api_resuilt[2],	
+			
+			'store_list' 			: data_api_resuilt[3],
+			'product_list' 			: data_api_resuilt[6],	
+			'category_link_datas' 	: data_api_resuilt[4],
 			
 			'datas_info'			: datas_info			
 		}
 	
-		res.render( ojs_configs.view_version + '/options/speciality/show-all',  data_send );
+		//res.send(data_send);
+		//return;	
+	
+	
+	
+		res.render( ojs_configs.view_version + '/options/speciality/manage-product',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;

@@ -25,12 +25,12 @@
 			<td class="user-name"><a href="#"><%= option_list_create[x].options_product_speciality_name %></a>
 				<div class="row-actions">
 					<span class="edit">
-					<a href="/categorys/general/speciality/show/<%= option_list_create[x].options_product_speciality_ID %>/<%= option_list_create[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_cat_id="<%= option_list_create[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
+					<a href="/options/speciality/manage/show/<%= option_list_create[x].options_product_speciality_ID %>/<%= option_list_create[x].stores_ID %>">Chỉnh sửa</a> | </span>
+					<span class="delete"><a href="#" data_option_id="<%= option_list_create[x].options_product_speciality_ID %>" class="submitdelete">Xóa</a></span>
 				</div>
 			</td>
 	
-			<td style="text-align:center;"><%- ojs_share.show_status_table_share_all(option_list_create[x].options_product_speciality_status_admin) %></td>			
+			<td style="text-align:center;"><%- ojs_share_all.show_status_html(option_list_create[x].options_product_speciality_status_admin) %></td>			
 	   </tr>
   
 	<% } %>

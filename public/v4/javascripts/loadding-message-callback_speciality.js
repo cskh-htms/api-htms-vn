@@ -364,7 +364,8 @@ ojs_loadding_message_callback = {
 	delete_option_speciality:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let option_id = datas_parse.option_id;
-		ojs_option_speciality.ajax_delete(option_id);
+		let store_id = datas_parse.store_id;
+		ojs_option_speciality.ajax_delete(option_id,store_id);
 	},
 	//
 	

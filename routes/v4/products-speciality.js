@@ -108,7 +108,7 @@ router.post('/view/:product_id', controller_product_view);
 router.delete('/delete/:product_id', controller_product_delete);
 router.post('/duyet/:product_id', controller_product_phe_duyet);
 router.post('/tu-choi/:product_id', controller_product_tu_choi);
-
+router.get('/add/:store_id', controller_product_add);
 
 
 

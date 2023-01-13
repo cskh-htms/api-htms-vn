@@ -170,7 +170,12 @@ async  function function_export(req, res, next) {
 							"field"     :"brands_status_admin",
 							"value"     : [1,2,4],
 							"compare" : "in"						
-						}					
+						},
+						{
+							"field"     :"products_speciality_brand",
+							"value"     : "",
+							"compare" : "not null"						
+						}						
 						]    
 					}         
 				],

@@ -1,10 +1,29 @@
 
+
+
+/*
+[ajax_save]
+[ajax_delete]	
+[ajax_update]	
+
+
+*/
+
+
+
+
+
+
+
+
 $(document).ready(function($){
 
 	ojs_option_speciality = {	
-		//
-		//
-		//load danh muc cua hang
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_save]
 		ajax_save: function(datas){		
 			//console.log(datas);
 			//return;
@@ -12,7 +31,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/options/speciality/save",
+			  url : ojs_loader.host + "/options/speciality/manage/save",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -23,37 +42,48 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+          
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được option \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được options");
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã tạo option",location.href);
-						}
+						ojs_message.message_ok_show(" Đã lưu ","/options/speciality/manage/" + datas.datas.options_product_speciality_stores_id);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();
+
+					
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//
-		//load danh muc cua hang
+		},//end of ajax save	
+
+
+
+
+
+
+
+
+
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update]
 		ajax_update: function(datas,option_id){		
 			//console.log(datas,option_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/options/speciality/update/" + option_id,
+			  url : ojs_loader.host + "/options/speciality/manage/update/" + option_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -64,35 +94,43 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được option \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được options");
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã update option",location.href);
-						}
+						ojs_message.message_ok_show( " Đã lưu ",location.href );
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
 		//
 		//load danh muc cua hang
-		ajax_delete: function(option_id){		
-			//alert(option_id);
+		
+		
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_delete]		
+		ajax_delete: function(option_id,store_id){		
+			//alert(store_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
-			  url : ojs_loader.host + "/options/speciality/delete/" + option_id,
+			  type : "delete",	  
+			  url : ojs_loader.host + "/options/speciality/manage/delete/" + option_id + "/" + store_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
@@ -101,23 +139,18 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "demo";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-								if(ojs_loader.evn == "dev"){
-									console.log(result);
-									ojs_message.message_ok_show("Lỗi dữ liệu, chưa tạo được options \n xem lỗi ở console");
-								}else{
-									ojs_message.message_ok_show(result.message);
-								}
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xoá option",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
+						ojs_message.message_ok_show(" Đã xoa ","/options/speciality/manage/" + store_id);
+					}				
+					ojs_loadding.ajax_hide_loadding();	
 			  }			  
 			});	
 		}//end of ajax save				
