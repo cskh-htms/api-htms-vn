@@ -1,10 +1,26 @@
 
+
+
+/*
+[ajax_save]
+[ajax_delete]
+[ajax_update]
+
+
+*/
+
+
+
 $(document).ready(function($){
 
 	ojs_brands = {	
-		//
-		//
-		//load danh muc cua hang
+
+
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_save]
 		ajax_save: function(datas){		
 			//console.log(datas);
 			//return;
@@ -12,7 +28,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/brands/save",
+			  url : ojs_loader.host + "/brands/manage/save",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -23,37 +39,46 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+          
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được brands \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa tao được brands");
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã tạo brands",location.href);
-						}
+						ojs_message.message_ok_show(" Đã lưu ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//
-		//load danh muc cua hang
+		},//end of ajax save	
+
+
+
+
+
+
+
+
+
+
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_update]
 		ajax_update: function(datas,brands_id){		
 			//console.log(datas,brands_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/brands/update/" + brands_id,
+			  url : ojs_loader.host + "/brands/manage/update/" + brands_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -64,35 +89,40 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
+				  
 					//console.log(result);
-					//console.log("fsdfsdf");
+					//ojs_loadding.ajax_hide_loadding();
 					//return;
-				  
-				  
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							ojs_message.message_ok_show(result.message);
-						}else{
-							ojs_message.message_ok_show(" Đã update thành công",location.href);
-						}
+						ojs_message.message_ok_show(" Đã update ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
-		},//end of ajax save				
-		//
-		//load danh muc cua hang
-		ajax_delete: function(brands_id){		
+		},//end of ajax save	
+
+
+
+
+
+		
+		//@
+		//@
+		//@
+		//@
+		//@ [ajax_delete]
+		ajax_delete: function(brands_id,store_id){		
 			//alert(brands_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
-			  url : ojs_loader.host + "/brands/delete/" + brands_id,
+			  type : "delete",	  
+			  url : ojs_loader.host + "/brands/manage/delete/" + brands_id + "/" + store_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
@@ -101,23 +131,18 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(ojs_loader.evn == "dev"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được brands \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show(result.message);
-							}
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xoá brands",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
+						ojs_message.message_ok_show(" Đã xóa ","/brands/manage/" + store_id);
+					}				
+					ojs_loadding.ajax_hide_loadding();	
 			  }			  
 			});	
 		}//end of ajax save				

@@ -70,7 +70,7 @@ const function_export = async function (datas,id,res) {
 						);
 					res.send({ 
 						"error" : "10", 
-						"position" : "lib/coupons/brand-update",
+						"position" : "lib/brands/brand-update",
 						"message": error_send 
 					}); 
 					return;	
@@ -85,11 +85,11 @@ const function_export = async function (datas,id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi coupon-update, Vui lòng liên hệ admin DALA " 
+				"Lỗi update, Vui lòng liên hệ admin DALA " 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/coupons/brand-update",
+			"position" : "lib/brands/brand-update",
 			"message": error_send 
 		}); 
 		return;

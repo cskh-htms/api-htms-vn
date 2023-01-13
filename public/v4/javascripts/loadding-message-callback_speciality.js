@@ -389,7 +389,8 @@ ojs_loadding_message_callback = {
 	delete_brand:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let brand_id = datas_parse.brand_id;
-		ojs_brands.ajax_delete(brand_id);
+		let store_id = datas_parse.store_id;
+		ojs_brands.ajax_delete(brand_id,store_id);
 	},
 	//
 	

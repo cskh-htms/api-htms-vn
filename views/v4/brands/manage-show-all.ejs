@@ -1,42 +1,38 @@
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
+
 <% include ../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand-show-all.css' />
+
+
+
 
 <script src="../../../../<%= js_css_version %>/javascripts/class-brands.js"></script>	
-<script src="../../../../<%= js_css_version %>/javascripts/class-bussiness.js"></script>	
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../masterpage/header %>
+<% include ../masterpage/function-share-option %>
+<% include ../masterpage/function-share-all %>
+<% include ../masterpage/function-share-all-manage %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
 </script>
-
-
-<style>
-	.tab{
-		background-color:#ccc;
-		cursor: pointer;
-	}
-	.tab.active{
-		background-color: #aee1af;
-		color: white;
-	}
-	.tab-content{
-		display:none;
-	}
-	.tab-content.active{
-		display:block;
-	}
-</style>
-
 
 
 
@@ -46,20 +42,20 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-
-
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>Danh sách tùy chọn</h1>
+	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>Danh sách brand</h1>
+	
+	
 	<div style="display: flex; justify-content: space-evenly;">
 		<div data_id="tab-1" class="tab active">thương hiệu của cửa hàng</div>
 		<div data_id="tab-2" class="tab">Thương hiệu mới tạo</div>
 		<div data_id="tab-3" class="tab">Thương hiệu chung</div>
 		<div class="sap_xep_wrap">
-			<a href="/brands/add/<%= store_id %>/<%= user_id %>" class="btn_green">Thêm thương hiệu mới</a>
+			<a href="/brands/manage/add/<%= store_id %>" class="btn_green">Thêm thương hiệu mới</a>
 		</div>		
-	</div>
-
-
-
+	</div>	
+	
+	
+	
 	<div id="tab-1" class="tab-content active">	
 	<% include ../masterpage/widget-brand-show-tables-store %>
 	</div>
@@ -70,12 +66,21 @@ content
 	
 	<div id="tab-3"  class="tab-content">	
 	<% include ../masterpage/widget-brand-show-tables-store-world %>
-	</div>	
+	</div>		
 	
-<input type="hidden" id="user_id" value="<%= user_id %>"/>
-<input type="hidden" id="store_id" value="<%= store_id %>"/>
-
-
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<input type="hidden" id="user_id" value="<%= user_id %>"/>
+	<input type="hidden" id="store_id" value="<%= store_id %>"/>
 
 </div>
 <!-- --------------------
@@ -113,12 +118,13 @@ $(document).ready(function($){
 	$(document).on('click','.submitdelete',function(e) {	
 		//@
 		e.preventDefault();		
-		let cat_id = $(this).attr("data_cat_id");
+		let brand_id = $(this).attr("data_brand_id");
+		let store_id = $('#store_id').val();
 		//
 		//@
 		let x = "xác nhận xoá";		
-		let y = "delete_category_general_speciality";//function name in callback 
-		let z = ' { "cat_id" : "' + cat_id + '" }';
+		let y = "delete_brand";
+		let z = ' { "brand_id" : "' + brand_id + '", "store_id":"' + store_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});			
@@ -210,41 +216,6 @@ $(document).ready(function($){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
