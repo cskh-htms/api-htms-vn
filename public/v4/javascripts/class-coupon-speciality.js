@@ -4,76 +4,14 @@ $(document).ready(function($){
 	ojs_coupon_speciality = {	
 	
 	
-		//@
-		//@
-		//@
-		//@	4. [ajax-load-no]		
-		ajax_load_admin : function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/coupon/speciality/ajax-load-admin/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					//console.log(result);
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax			
-
-		},//end of ajax save		
-		
-			
 	
-		//@
-		//@
-		//@
-		//@	4. [ajax-load-no]		
-		ajax_load_no : function(datas){		
-			//console.log(datas);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "POST",	  
-			  contentType : "application/json",
-			  url : ojs_loader.host + "/coupon/speciality/ajax-load-no/",
-			  data : JSON.stringify(datas),
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-					//console.log(result);
-					$('#ajax-wrap').html(result);
-					ojs_loadding.ajax_hide_loadding();	
-					//return;
-			  }//end of success			  
-			});	//end of ajax			
 
-		},//end of ajax save		
+	
 		
-		
-		
-		
-		
-		//	
-		//
-		//
-		//load danh muc cua hang
+		//@	
+		//@
+		//@
+		//@ [ajax_save]
 		ajax_save: function(datas){		
 			//console.log(datas);
 			//return;
@@ -81,7 +19,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/coupon/speciality/save",
+			  url : ojs_loader.host + "/coupon/speciality/manage/save",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -92,37 +30,41 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
-					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show(result.message);
-							}else{
-								ojs_message.message_ok_show(result.message);
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã tạo coupon","/coupon/speciality/" + $('#store_id').val());
-						}
-					}				
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
 					
-					ojs_loadding.ajax_hide_loadding();				  
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
+					}else{
+						ojs_message.message_ok_show(" Đã tạo coupon ","/coupon/speciality/manage/" + datas.datas.coupon_speciality_stores_id_created);
+					}				
+					ojs_loadding.ajax_hide_loadding();
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save	
-		//
-		//load danh muc cua hang
+		
+		
+		
+		
+		
+		
+		
+		//@	
+		//@
+		//@
+		//@ [ajax_update]
 		ajax_update: function(datas,coupon_id){		
 			//console.log(datas,coupon_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/coupon/speciality/update/" + coupon_id,
+			  url : ojs_loader.host + "/coupon/speciality/manage/update/" + coupon_id,
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -133,36 +75,39 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show(result.message);
-							}else{
-								ojs_message.message_ok_show(result.message);
-							}
-						}else{
-							ojs_message.message_ok_show(" Đã update ",location.href);
-						}
+						ojs_message.message_ok_show(" Đã update ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save				
 			
-		//
-		//load danh muc cua hang
-		ajax_delete: function(coupon_id){		
+			
+			
+			
+			
+			
+		//@	
+		//@
+		//@
+		//@ [ajax_delete]
+		ajax_delete: function(coupon_id,store_id){		
 			//alert(coupon_id);
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "GET",	  
-			  url : ojs_loader.host + "/coupon/speciality/delete/" + coupon_id,
+			  type : "delete",	  
+			  url : ojs_loader.host + "/coupon/speciality/manage/delete/" + coupon_id + '/' + store_id,
 			  beforeSend:  function(xhr){
 				ojs_loadding.ajax_show_loadding();
 			  },			  
@@ -171,23 +116,18 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-				//ojs_loader.evn = "dev";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-							if(ojs_loader.evn == "demo"){
-								console.log(result);
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được coupon \n xem lỗi ở console");
-							}else{
-								ojs_message.message_ok_show("Lỗi dữ liệu, chưa xoa được coupon");
-							}
+				  
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
 						ojs_message.message_ok_show(" Đã xoá ",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
+					}				
+					ojs_loadding.ajax_hide_loadding();	
 			  }			  
 			});	
 		}

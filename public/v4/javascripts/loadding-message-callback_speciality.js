@@ -273,12 +273,12 @@ ojs_loadding_message_callback = {
 	delete_coupon:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let coupon_id = datas_parse.coupon_id;
-		
+		let store_id = datas_parse.store_id;
 		
 		//alert(coupon_id);
 		//return;
 		
-		ojs_coupon_speciality.ajax_delete(coupon_id);
+		ojs_coupon_speciality.ajax_delete( coupon_id,store_id );
 		
 	},//end of xoa san pham dac san	
 	

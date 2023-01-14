@@ -7,7 +7,6 @@ const coupon_search = require('../../lib/' + config_api.API_LIB_VERSION + '/coup
 
 
 const function_export = async function(token,coupon_id,res){
-	
 	//return coupon_id;
 	try {
 		var users_decode = jwt.decode(token);

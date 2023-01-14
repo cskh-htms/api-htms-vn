@@ -29,26 +29,6 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 
 
-//@
-//@
-//@
-//@ controller link
-//const controllers_bussiness_by_user_id =  require('../../controllers/bussiness/controllers-bussiness-by-user-id-appdalacom-api');
-const controllers_coupon_add =  require('../../controllers/coupons/controllers-coupon-add-api-appdalacom');
-const controllers_coupon_show =  require('../../controllers/coupons/controllers-coupon-show-api-appdalacom');
-
-const controllers_coupon_save =  require('../../controllers/coupons/controllers-coupon-save-api-appdalacom');
-const controllers_coupon_delete =  require('../../controllers/coupons/controllers-coupon-delete-api-appdalacom');
-const controllers_coupon_update =  require('../../controllers/coupons/controllers-coupon-update-api-appdalacom');
-
-const controllers_coupon_store_id =  require('../../controllers/coupons/controllers-coupon-store-id-api-appdalacom');
-
-
-//@ admin
-const controllers_coupon_show_admin =  require('../../controllers/coupons/controllers-coupon-show-admin-api-appdalacom');
-const controllers_coupon_quan_ly_admin =  require('../../controllers/coupons/controllers-coupon-quan-ly-admin-api-appdalacom');
-
-
 
 
 
@@ -56,29 +36,54 @@ const controllers_coupon_quan_ly_admin =  require('../../controllers/coupons/con
 //@
 //@
 //@
-//@ router 
-router.get('/', function(req, res, next) {
-  res.end('api appdalacom bussiness by user welcom');
-});
+//@ controller 
+const controller_coupon_manage_show_all =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-show-all.js'
+);
+
+const controller_coupon_manage_add =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-add.js'
+);
+
+const controller_coupon_manage_save =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-save.js'
+);
 
 
-//@ bussiness
-router.get('/add/',middle_ware, controllers_coupon_add );
-router.get('/show/',middle_ware, controllers_coupon_show );
-router.post('/save/',middle_ware, controllers_coupon_save );
-router.delete('/delete/',middle_ware, controllers_coupon_delete );
-router.put('/update/',middle_ware, controllers_coupon_update );
-router.get('/store/',middle_ware, controllers_coupon_store_id );
+const controller_coupon_manage_delete =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-delete.js'
+);
 
 
-//@ admin
-router.get('/show-admin/:coupon_id/:store_id',middle_ware, controllers_coupon_show_admin );
-router.get('/quan-ly-admin/',middle_ware, controllers_coupon_quan_ly_admin );
+const controller_coupon_manage_show =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-show.js'
+);
+
+const controller_coupon_manage_update =  
+require(
+	'../../controllers/coupons/controller-coupon-manage-update.js'
+);
 
 
 
 
-//router.get('/:user_id',middle_ware, controllers_bussiness_by_user_id );
+
+//@
+//@
+//@
+//@ router
+router.get('/show-all/',middle_ware, controller_coupon_manage_show_all );
+router.get('/add/',middle_ware, controller_coupon_manage_add );
+router.post('/save/',middle_ware, controller_coupon_manage_save );
+router.delete('/delete/',middle_ware, controller_coupon_manage_delete );
+
+router.get('/show/',middle_ware, controller_coupon_manage_show );
+router.put('/update/',middle_ware, controller_coupon_manage_update );
 
 
 

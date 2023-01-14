@@ -158,14 +158,14 @@
 		//coupon
 		-->
 		<li id="sidebar_coupon">
-			<a href="/coupon/<%= store_list[0].service_type_name %>/<%= store_id %>">
+			<a href="/coupon/<%= store_list[0].service_type_name %>/manage/<%= store_id %>">
 				<i class="fas fa-ticket-alt"></i>
 				<div class="menu-name">
 					Mã giảm giá
 					<%-  ojs_share_all_manage.show_count_bussiness_menu_html(list_data_count,14)  -%>					
 				</div>
 			</a>
-			<a href="/coupon/<%= store_list[0].service_type_name %>/add/<%= store_id %>/<%= user_id %>" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
+			<a href="/coupon/<%= store_list[0].service_type_name %>/manage/add/<%= store_id %>/" class="btn_add" title="Thêm mới"><i class="fas fa-plus"></i></a>
 			
 		</li>				
 		
