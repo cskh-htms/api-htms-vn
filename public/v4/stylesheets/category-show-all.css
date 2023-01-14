@@ -1,11 +1,15 @@
-
-
-
-
-.tab{
-	background-color:#ccc;
-	cursor: pointer;
+.tab {
+    background-color: #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    border-radius: 5px;
 }
+
+
+
 .tab.active{
 	background-color: #aee1af;
     color: white;
@@ -19,10 +23,6 @@
 .tab-content.active{
 	display:block;
 }
-
-
-
-
 
 
 

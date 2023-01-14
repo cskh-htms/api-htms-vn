@@ -69,7 +69,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->appdalacom->controllers->discount->>manage->product->save",
+				"position":"web->appdalacom->controllers->discount->>manage->product->save-meny",
 				"message": error_send 
 			}); 
 			return;			
@@ -87,7 +87,7 @@ async  function function_export(req, res, next) {
 		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
 				ojs_configs.domain + '/api/appdalacom/' + 
 				config_api.API_APPDALACOM_VERSION + 
-				'/discount-program/product/save',
+				'/discount-program/product/save-meny',
 				datas,
 				token
 			);	
@@ -117,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->appdalacom->controllers->discount->>manage->product->save",
+				"position":"web->appdalacom->controllers->discount->>manage->product->save-meny",
 				"message": error_send 
 			}); 
 			return;
@@ -148,7 +148,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->appdalacom->controllers->discount->>manage->product->save",
+			"position":"web->appdalacom->controllers->discount->>manage->product->save-meny",
 			"message": error_send 
 		}); 
 		return;			
@@ -161,7 +161,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->appdalacom->controllers->discount->>manage->product->save",
+		"position":"web->appdalacom->controllers->discount->>manage->product->save-meny",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	

@@ -44,8 +44,18 @@ const controller_discount_manage_product_add_gift = require(
 	'../../controllers/discount-program/controller-discount-manage-product-add-gift'
 );
 
+const controller_discount_manage_product_save_gift = require(
+	'../../controllers/discount-program/controller-discount-manage-product-save-gift'
+);
+
+const controller_discount_manage_product_add_meny = require(
+	'../../controllers/discount-program/controller-discount-manage-product-add-meny'
+);
 
 
+const controller_discount_manage_product_save_meny = require(
+	'../../controllers/discount-program/controller-discount-manage-product-save-meny'
+);
 
 
 
@@ -59,16 +69,19 @@ const controller_discount_manage_product_add_gift = require(
 //@
 //@ router
 router.get('/show-all/',	middle_ware, controller_discount_manage_show_all);
+
 router.get('/product/add/',	middle_ware, controller_discount_manage_product_add);
 router.post('/product/save/',	middle_ware, controller_discount_manage_product_save);
+
 router.delete('/product/delete/',	middle_ware, controller_discount_manage_product_delete);
 router.get('/view-discount/',	middle_ware, controller_discount_manage_view_discount);
+
 router.get('/product/add-gift/',	middle_ware, controller_discount_manage_product_add_gift);
+router.post('/product/save-gift/',	middle_ware, controller_discount_manage_product_save_gift);
 
 
-
-
-
+router.get('/product/add-meny/',	middle_ware, controller_discount_manage_product_add_meny);
+router.post('/product/save-meny/',	middle_ware, controller_discount_manage_product_save_meny);
 
 
 

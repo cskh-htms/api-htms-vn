@@ -273,7 +273,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/discount-program/speciality/product-save-gift",
+			  url : ojs_loader.host + "/discount-program/speciality/manage/product/save-gift",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -284,27 +284,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loadding.ajax_hide_loadding();
-					//console.log(result);
-					//return;
 				  
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					console.log(result);
+					ojs_loadding.ajax_hide_loadding();
+					return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show(result.message);
-								}else{
-									ojs_message.message_ok_show(result.message);
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình",location.href);
-						}
+						ojs_message.message_ok_show(" Đã lưu ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save		
@@ -329,7 +321,7 @@ $(document).ready(function($){
 			 $.ajax({
 			  type : "POST",	  
 			  contentType : "application/json",
-			  url : ojs_loader.host + "/discount-program/speciality/product-save-meny",
+			  url : ojs_loader.host + "/discount-program/speciality/manage/product/save-meny",
 			  data : JSON.stringify(datas),
 			  dataType : 'json',
 			  beforeSend:  function(xhr){
@@ -340,27 +332,19 @@ $(document).ready(function($){
 					ojs_loadding.ajax_hide_loadding();
 			  },
 			  success : function(result) {
-					//ojs_loadding.ajax_hide_loadding();
-					//console.log(result);
-					//return;
 				  
-					//ojs_loader.evn = "dev";
-					if(ojs_loader.evn == "dev"){
-						ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-						console.log(result);
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
+					
+					
+					if(result.error){
+						ojs_message.message_ok_show(result.message);
 					}else{
-						if(result.error.length > 0){
-								if(ojs_loader.evn == "demo"){
-									console.log(result);
-									ojs_message.message_ok_show(result.message);
-								}else{
-									ojs_message.message_ok_show(result.message);
-								}
-						}else{
-							ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình",location.href);
-						}
+						ojs_message.message_ok_show(" Đã lưu ",location.href);
 					}				
-					ojs_loadding.ajax_hide_loadding();				  
+					ojs_loadding.ajax_hide_loadding();	
+					
 			  }//end of success			  
 			});	//end of ajax
 		},//end of ajax save		

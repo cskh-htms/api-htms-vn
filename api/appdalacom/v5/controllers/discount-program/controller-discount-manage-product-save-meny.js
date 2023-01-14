@@ -10,9 +10,10 @@ const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_
 
 
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_store = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-store');
 const check_owner_product = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-product');
 
-const discount_product_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-insert.js');
+const discount_product_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-insert-meny.js');
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 
 //@
@@ -22,7 +23,7 @@ async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		var datas = req.body.datas;
+		var datas = req.body;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -34,21 +35,16 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api->controller->discount->manage->product->save",
+			"position" : "controller->api-appdalacom->controllers-discount-proogram-product-save-meny-appdalacom-api.js",
 			"message": error_send 
 		}); 
 		return;	
 	}		
-	//res.send(datas);
+	//res.send([datas]);
 	//return;
 	
-
-
-
-
-
-
-
+	
+	
 
 
 	//@
@@ -67,7 +63,7 @@ async  function function_export(req, res, next) {
 	//@ 
 	//@ check owner product		
 	if(check_role_result == "bussiness"){			
-		const check_owner_product_resuilt = await check_owner_product(token,datas.discount_program_product_link_product_speciality_id,res);
+		const check_owner_product_resuilt = await check_owner_product(token,datas.datas.discount_program_product_link_product_speciality_id,res);
 		if(	check_owner_product_resuilt == "1" ){
 			//go
 		}
@@ -81,7 +77,7 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "333",
-				"position" : "api->controller->discount->manage->product->save",
+				"position" : "api->controller->discount->manage->product->save-gift",
 				"message": error_send 
 			}); 
 			return;			
@@ -89,18 +85,10 @@ async  function function_export(req, res, next) {
 	}
 	//res.send([check_role_result,"product_ok"]);
 	//return;
-
-
-
-
-
-
 	
 	
-	//@
-	//@
-	//@ 
-	//@ run		
+	
+	
 	var discount_product_insert_result = await discount_product_insert(datas,res);
 	
 	res.send({"error":"","datas": discount_product_insert_result});
@@ -109,37 +97,4 @@ async  function function_export(req, res, next) {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-//@
-//@
-//@ 
-//@ export
 module.exports = function_export;
-
-
-
-
-
-
-
-
-
-
-//@
-//@
-//@ 
-//@ end
-
-
-
