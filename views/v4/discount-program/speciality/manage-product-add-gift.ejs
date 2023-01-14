@@ -1,26 +1,40 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
-
 
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount-show-all.css' />
 
-<script src="../../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
+
+
+
+<script src="../../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>
+
 
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-all %>
 <% include ../../masterpage/function-share-discount %>
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-manage %>
+
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
+</script>
+
+
 
 
 
@@ -28,11 +42,15 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-
-	<h1><a href="/stores/manage/<%= store_id %>/<%= user_id %>"><%= store_name %></a><i class="fas fa-chevron-right"></i>
-	<a href="/discount-program/speciality/<%= store_id %>">Chương trình khuyến mãi</a><i class="fas fa-chevron-right"></i>Thêm sản phẩm vào chương trình khuyến mãi</h1>
+	<h1>
+		<a href="/stores/manage/<%= store_id %>/"><%= store_name %></a><i class="fas fa-chevron-right"></i>
+		<a href="/discount-program/speciality/manage/<%= store_id %>">Chương trình khuyến mãi</a>
+		<i class="fas fa-chevron-right"></i>Thêm sản phẩm vào chương trình khuyến mãi
+	</h1>
 	
-
+	
+	
+	
 	<div class="pro_content_edit">
 		<div class="pro_col01">	
 			<div class="pro_box ten_sp_box">
@@ -63,20 +81,20 @@ content
 									data_price="<%= products_list[x].products_speciality_price %>" 
 									data_sale_of_price="<%= products_list[x].products_speciality_sale_of_price %>" 
 									>
-										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+										<%- ojs_share_all.unCape(products_list[x].products_speciality_name) -%>
 										
 										
 										<%
 										if(products_list[x].products_speciality_sale_of_price == null){
 										%>
-											( <%- ojs_share.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") -%> ) 										
+											( <%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ") -%> ) 										
 										
 										<%
 										}else{
 										%>	
-											( <%- ojs_share.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") -%> 
+											( <%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ") -%> 
 											   -- 
-											 <%- ojs_share.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") -%> )  
+											 <%- ojs_share_all.show_price_format(products_list[x].products_speciality_sale_of_price,0,",",".","đ") -%> )  
 										<%
 										}
 										%>	
@@ -120,7 +138,7 @@ content
 									data_price="<%= products_gift[x].products_speciality_price %>" 
 									data_sale_of_price="<%= products_gift[x].products_speciality_sale_of_price %>" 
 									>
-										<%- ojs_share.unCape(products_gift[x].products_speciality_name) -%>
+										<%- ojs_share_all.unCape(products_gift[x].products_speciality_name) -%>
 									</option>
 							   <%
 							   } //end of for
@@ -154,7 +172,7 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tên chương trình khuyến mãi</h3>
 				<div class="inside">
-					<input type="text" disabled class= "" value="<%- ojs_share.unCape(discount_tager[0].discount_program_name) -%>" id=""/>
+					<input type="text" disabled class= "" value="<%- ojs_share_all.unCape(discount_tager[0].discount_program_name) -%>" id=""/>
 				</div>
 			</div>	
 		</div>
@@ -180,10 +198,10 @@ content
 						   %>
 								<tr>	
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
-										<img style="width:50px;" src="<%- ojs_share.unCape(products_list[x].products_speciality_featured_image) -%>"/>
+										<img style="width:50px;" src="<%- ojs_share_all.unCape(products_list[x].products_speciality_featured_image) -%>"/>
 									</td>								
 									<td style="padding:10px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
-										<%- ojs_share.unCape(products_list[x].products_speciality_name) -%>
+										<%- ojs_share_all.unCape(products_list[x].products_speciality_name) -%>
 										
 										   <%
 										   for(var s in products_gift_in){
@@ -196,7 +214,7 @@ content
 										   
 											 <div style="font-size:12px;color:#9bcdc1;">
 											 <span> Sản phẩm tặng : </span>
-											 <%- ojs_share.unCape(products_gift_in[s].products_speciality_name) -%>
+											 <%- ojs_share_all.unCape(products_gift_in[s].products_speciality_name) -%>
 											</div>
 											
 										   <% 
@@ -207,13 +225,13 @@ content
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
 										<% if( products_list[x].products_speciality_sale_of_price != null ){ %>
 											<td class="pro-price">
-												<%- ojs_share.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
+												<%- ojs_share_all.show_han_km(products_list[x].products_speciality_sale_of_price_time_check) %>
 												<span class="price-off">
-												<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ") %></span>
-												<%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
+												<%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ") %></span>
+												<%- ojs_share_all.show_price_format(products_list[x].products_speciality_sale_of_price,0,",",".","đ") %>
 											</td>
 										<% } else { %>
-											<td class="pro-price"><%- ojs_share_all.show_price_vnd(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
+											<td class="pro-price"><%- ojs_share_all.show_price_format(products_list[x].products_speciality_price,0,",",".","đ")  %></td>		
 										<% } %>	
 									</td>									
 									<td style="padding:0px 10px;" data_id="<%= products_list[x].products_speciality_ID %>">
@@ -238,18 +256,23 @@ content
 			<%
 			}//end of typeof products_list
 			%>			
-	</div>
-
-
-
-
-
+	</div>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
 
 <div class="btn_box">
-	<a href="/discount-program/speciality/stores/<%= store_id %>/" class="btn_back">Quay về</a>
+	<a href="/discount-program/speciality/manage/stores/<%= store_id %>/" class="btn_back">Quay về</a>
 	<button id="btn_save" class="btn_save">Thêm sản phẩm vào chương trình</button>
 </div>	
 	
@@ -391,3 +414,17 @@ $(document).ready(function($){
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

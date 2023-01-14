@@ -60,8 +60,25 @@ require(
 );
 
 
+const controllers_admin_discount_program_product_add =  
+require(
+	'../../../controllers/admin/discount-programs/controllers-admin-discount-program-product-add'
+);
 
+const controllers_admin_discount_program_product_denied =  
+require(
+	'../../../controllers/admin/discount-programs/controllers-admin-discount-program-product-denied'
+);
 
+const controllers_admin_discount_program_view_discount =  
+require(
+	'../../../controllers/admin/discount-programs/controllers-admin-discount-program-view-discount'
+);
+
+const controllers_admin_discount_program_view_product =  
+require(
+	'../../../controllers/admin/discount-programs/controllers-admin-discount-program-view-product'
+);
 
 
 
@@ -79,11 +96,11 @@ router.get('/add',	middle_ware, controllers_admin_discount_program_add );
 router.post('/save',	middle_ware, controllers_admin_discount_program_save );
 router.delete('/delete',	middle_ware, controllers_admin_discount_program_delete );
 router.delete('/product-delete',	middle_ware, controllers_admin_discount_program_product_delete );
+router.put('/product-add',	middle_ware, controllers_admin_discount_program_product_add );
+router.put('/product-denied',	middle_ware, controllers_admin_discount_program_product_denied );
+router.get('/view-discount',	middle_ware, controllers_admin_discount_program_view_discount );
 
-
-
-
-
+router.get('/view-product',	middle_ware, controllers_admin_discount_program_view_product );
 
 
 

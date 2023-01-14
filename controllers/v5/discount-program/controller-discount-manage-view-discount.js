@@ -12,8 +12,8 @@
 //@
 //@
 //@ configs
-const ojs_configs = require('../../../../configs/config');
-const config_api = require('../../../../api/configs/config-api');
+const ojs_configs = require('../../../configs/config');
+const config_api = require('../../../api/configs/config-api');
 
 
 
@@ -24,9 +24,9 @@ const config_api = require('../../../../api/configs/config-api');
 //@
 //@
 //@ share
-const ojs_shares_show_errors = require('../../../../shares/ojs-shares-show-errors');
-const ojs_shares_others = require('../../../../shares/ojs-shares-others.js');
-const ojs_shares_fetch_data = require('../../../../shares/ojs-shares-fetch-data');
+const ojs_shares_show_errors = require('../../../shares/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../shares/ojs-shares-others.js');
+const ojs_shares_fetch_data = require('../../../shares/ojs-shares-fetch-data');
 
 
 
@@ -45,17 +45,20 @@ async  function function_export(req, res, next) {
 	//@
 	//@ any thing error
 	try {	
-	
+
+
+		//@
+		//@
+		//@ lấy data req
 		try {
-			var token = req.session.token;	
-			var link_id = req.params.link_id;	
-			var datas = req.body.datas;	
+			var token = req.session.token;
+			var datas  = req.body;		
+			var discount_id  = req.params.discount_id;
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				return;
-			}	
-			
+			}		
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -67,13 +70,12 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "1", 
-				"position":"web->controller->admin/discount-product-denied",
+				"position":"web->appdalacom->controllers->discount->>manage->view-discount",
 				"message": error_send 
 			}); 
 			return;			
-		}
-		
-		//res.send( [ datas,link_id ] );
+		}		
+		//res.send({"error":"00","message":[discount_id]});
 		//return;	
 		
 		
@@ -82,18 +84,19 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		//@
-		//@ go 
-		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_put(
-				ojs_configs.domain + '/api/appdalacom/' + config_api.API_APPDALACOM_VERSION + 
-				'/admin/discounts/product-denied?c1=' +  
-				link_id,
-				datas,
+		//@ call api
+		var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
+				ojs_configs.domain + '/api/appdalacom/' + 
+				config_api.API_APPDALACOM_VERSION + 
+				'/discount-program/view-discount?c1=' + discount_id,
 				token
 			);	
 			
-		//res.send({"error":"","datas":data_api_resuilt});
+		//res.send( data_api_resuilt );
 		//return;			
+			
+			
+			
 			
 			
 		//@
@@ -114,7 +117,7 @@ async  function function_export(req, res, next) {
 			);
 			res.send({ 
 				"error" : "99", 
-				"position":"web->controller->admin/discount-product-denied",
+				"position":"web->appdalacom->controllers->discount->>manage->view-discount",
 				"message": error_send 
 			}); 
 			return;
@@ -126,10 +129,18 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@
-		//@
-		//@ result 	
+		//@ send to web	
+		data_send = {
+			'datas' 	: 	data_api_resuilt[1]
+		}
+		res.render( ojs_configs.view_version + '/masterpage/widget-discount-program-view-discount', data_send );	
+
+
+
+		
 		res.send({"error":"","datas":data_api_resuilt});
-		return;
+		return;	
+		
 		
 	//@
 	//@
@@ -145,7 +156,7 @@ async  function function_export(req, res, next) {
 		);
 		res.send({ 
 			"error" : "1000", 
-			"position":"web->controller->admin/discount-product-denied",
+			"position":"web->appdalacom->controllers->discount->>manage->view-discount",
 			"message": error_send 
 		}); 
 		return;			
@@ -158,7 +169,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"web->controller->admin/discount-product-denied",
+		"position":"web->appdalacom->controllers->discount->>manage->view-discount",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;	
@@ -183,9 +194,6 @@ module.exports = function_export;
 //@
 //@
 //@ file end
-
-
-
 
 
 

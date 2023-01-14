@@ -3,8 +3,9 @@
 <% include ../../masterpage/loader %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount.css' />
-
-
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount-show-all.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
 
 
 
@@ -99,38 +100,16 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	
-	//Loc trang thai
-	///////////////////////////
-	$("#loc_trang_thai").change(function() {
-		let user_id = $('#user_id').val();
-		var status_id = $('#loc_trang_thai  option:selected').attr('id');
-		let status_admin = $('#loc_trang_thai').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				status_admin : JSON.parse(status_admin)
-			}
-		}	
-		//console.log(datas);
-		//return;
-		//ojs_discount_program_speciality.ajax_load_discount_program(datas);	
-		
-		if(status_id == "dis-new"){
-			location.href = "/discount-program/speciality/quan-ly";
-		}else if(status_id == "details-new"){
-			location.href = "/discount-program/speciality/store-active";
-		}else if(status_id == "pro-new"){
-			location.href = "/discount-program/speciality/product-active";	
-		}else if(status_id == "dis-all"){
-			location.href = "/discount-program/speciality/quan-ly-show-all";				
-		}		
-	});
+
 	
 	
-	//
+	
+	
 	//@
-	//xoa
+	//@	
+	//@
+	//@
+	//@ Xoá sản phẩm khỏi chương trình
 	$(document).on('click','.submitdelete_add',function(e) {	
 		//@
 		e.preventDefault();		
@@ -151,10 +130,11 @@ $(document).ready(function($){
 	
 	
 	
+	//@
 	//@	
 	//@
 	//@
-	//@ xoa chương trình
+	//@ Xoá sản chương trình
 	$(document).on('click','.submitdelete_discount',function(e) {	
 		//@
 		e.preventDefault();		
@@ -175,54 +155,55 @@ $(document).ready(function($){
 
 	
 	
-
-	//
-	//@
-	//xoa
-	$(document).on('click','.submitdelete',function(e) {	
-		//@
-		e.preventDefault();		
-		let discount_program_link_id = $(this).attr("data_discount_program_link_id");
-		//
-		//@
-		let x = "xác nhận xoá";		
-		let y = "delete_discount_program_link_id";//function name in callback 
-		let z = ' { "discount_program_link_id" : "' + discount_program_link_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
-	});			
 	
-	
-	//
 	//@
-	//xem
-	$(document).on('click','.btn-xem',function(e) {	
-		//@
+	//@	
+	//@
+	//@
+	//@ Xem sản phẩm
+	$(document).on('click','.btn-xem-product',function(e) {	
 		e.preventDefault();		
+		//alert("dasdas");
+		//return;
+		
 		var product_id = $(this).attr("data_product_id");
-		ojs_discount_program_speciality.show_content_product(product_id);
+		ojs_discount_program_speciality_admin.show_content_product(product_id);
 		//@
 	});		
 	
 	
-	//
+	
+	
+	
+	
+	
 	//@
-	//xem
+	//@	
+	//@
+	//@
+	//@ Xem chương trình
 	$(document).on('click','.view-discount',function(e) {	
-		//@
+
 		e.preventDefault();		
-		var discount_id = $(this).attr("data_id");
-		
+		var discount_id = $(this).attr("data_id");		
 		//alert(discount_id);
 		//return;
 		
-		ojs_discount_program_speciality.view_discount(discount_id);
-		//@
-	});		
+		ojs_discount_program_speciality_admin.view_discount(discount_id);
+
+	});	
+
+
+
+
+
 	
-	//
+	
 	//@
-	//xem
+	//@	
+	//@
+	//@
+	//@ Xem cửa hàng
 	$(document).on('click','.view-store',function(e) {	
 		//@
 		e.preventDefault();		
@@ -234,29 +215,42 @@ $(document).ready(function($){
 		ojs_discount_program_speciality.view_store(store_id);
 		//@
 	});		
-	//
+	
+	
+	
+	
+	
 	//@
-	//duyệt
+	//@	
+	//@
+	//@
+	//@ duyệt sản phẩm tham gia
 	$(document).on('click','.btn-duyet',function(e) {	
-		//@
 		e.preventDefault();		
+
 		var link_add_id = $(this).attr("data_id");
-		//ojs_discount_program_speciality.add_product_to_discount(link_add_id);
-		
-		
-		
-				//@
+		var datas = {
+			discount_program_product_link_status : 1
+		}
+
 		let x = "xác nhận phê duyệt";		
 		let y = "discount_add";//function name in callback 
-		let z = ' { "link_add_id" : "' + link_add_id + '"}';
+		let z = ' { "link_add_id" : "' + link_add_id + '","datas":' + JSON.stringify(datas) + '}';
 		ojs_message.message_yes_no_show(x,y,z);	
 
-		//@
 	});		
 	
-	//
+	
+	
+	
+	
+	
+	
 	//@
-	//duyệt
+	//@	
+	//@
+	//@
+	//@ Từ chối sản phẩm tham gia
 	$(document).on('click','.btn-tu-choi',function(e) {	
 		//@
 		e.preventDefault();	
@@ -277,14 +271,25 @@ $(document).ready(function($){
 		//@
 	});		
 	
-	//
+	
+	
+	
+	
 	//@
-	//duyệt
+	//@	
+	//@
+	//@
+	//@ Từ chối sản phẩm tham gia
 	$(document).on('click','#btn-tu-choi-go',function(e) {	
 		//@
 		e.preventDefault();		
 		var link_no_id = $(this).attr("data_product_no_id");
 		var content = $('#tu-choi-content').val();
+		
+		if(content == ""){
+			ojs_message.message_ok_show("Vui lòng nhập lý do từ chối");
+			return;
+		}
 		
 		var datas = {
 			"datas": {   
@@ -293,12 +298,8 @@ $(document).ready(function($){
 			}
 		}
 		
-		
-		//console.log(datas);
-		//return;
+		ojs_discount_program_speciality_admin.no_product_to_discount(datas,link_no_id);
 
-		ojs_discount_program_speciality.no_product_to_discount(datas,link_no_id);
-		//@
 	});			
 	
 	

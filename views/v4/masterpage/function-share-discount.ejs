@@ -5,15 +5,15 @@
 /* 
 -------------------------------------------------
 
-
-[show_discount_position_html]
-[caution_date_product_add]
-[format_date_discount]
-[show_status_discount_detail_html]
 [show_discount_program_time_type]
-[show_status_discount_programs]
-[show_ddiscount_program_type]
-[show_status_html_discount_programs]
+[show_status_discount_detail_html]
+[show_discount_program_type]
+[show_status_discount_detail_html]-------------
+[show_discount_program_gift_type]
+[format_date_discount]
+[caution_date_product_add]
+[show_discount_program_position]
+[show_discount_program_position_store]
 
 
 --------------------------------------------------
@@ -33,34 +33,37 @@ ojs_share_discount = {
 	//@
 	//@
 	//@
-	//@
-	//@ [show_ddiscount_program_type]
-	show_ddiscount_program_type: function(status){	
+	//@ 
+	//@ 
+	//@ [show_status_discount_detail_html]
+	show_status_discount_detail_html: function(status){
 		//
 		let result = "";
 		//
-		if(status == '0'){
+		if(status == 0 || status == null){
 			result = "" +
-			'<option value="0" selected > Chỉ dùng cho cửa hàng tạo ra </option>' + 
-			'<option value="1"> Dùng cho tất cả mọi cửa hàng </option>';	
-		}else if(status == '1'){
-			result = "" +
-			'<option value="0"  > Chỉ dùng cho cửa hàng tạo ra </option>' + 
-			'<option value="1" selected> Dùng cho tất cả mọi cửa hàng </option>';					
-		
+			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
+		}else if(status == 1){
+			result = "" + 
+			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
+		}else if(status == 2){
+			result = "" + 
+			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
+		}else if(status == 3){
+			result = "" + 
+			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
 		}else{
 			result = "" + 
-			'<option value="0">error</option>';
-		}		
+			'<i class="fas fa-times-circle dark_red" title="error"></i>'			
+		}
+
 		//	
-		return result;		
+		return result;	
 	},	
 	
 	
 	
 	
-
-
 	
 	
 	//@
@@ -96,43 +99,6 @@ ojs_share_discount = {
 	
 	
 	
-	//@
-	//@
-	//@
-	//@ 
-	//@ 
-	//@ [show_status_discount_detail_html]
-	show_status_discount_detail_html: function(status){
-		//
-		let result = "";
-		//
-		if(status == 0 || status == null){
-			result = "" +
-			'<i class="fas fa-minus-circle yellow" title="Chờ duyệt"></i>'
-		}else if(status == 1){
-			result = "" + 
-			'<i class="fas fa-check-circle green" title="Đã duyệt"></i>'
-		}else if(status == 2){
-			result = "" + 
-			'<i class="fas fa-minus-circle grey" title="Sửa chờ duyệt"></i>'
-		}else if(status == 3){
-			result = "" + 
-			'<i class="fas fa-times-circle dark_red" title="Từ chối"></i>'
-		}else if(status == 4){
-			result = "" + 
-			'<i class="fas fa-check-circle dark_red" style="color:purple;" title="Đã thanh toán"></i>'
-		}	
-
-		//	
-		return result;	
-	},	
-	
-	
-	
-	
-	
-	
-	
 	
 	//@
 	//@
@@ -161,10 +127,15 @@ ojs_share_discount = {
 		//	
 		return result;		
 	},
+	
+	
+	
+	
+	
 	//@
 	//@
 	//@
-	//@ 13.[show_discount_program_gift_type]
+	//@ [show_discount_program_gift_type]
 	show_discount_program_gift_type: function(status){	
 		//
 		let result = "";
@@ -192,13 +163,17 @@ ojs_share_discount = {
 		return result;		
 	},
 
+
+
+
+
+
+
 	//@ 
 	//@ 
 	//@ 3. [format_date_discount]
-	format_date_discount : function(datas){
-		
-		//return datas;
-		
+	format_date_discount : function(datas){		
+		//return datas;		
 		if(datas == ""  || datas == null || datas == "NULL" || datas == 0){
 			return "Không có thời hạn";
 		}

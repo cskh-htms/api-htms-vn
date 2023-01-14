@@ -68,7 +68,7 @@ ojs_loadding_message_callback = {
 		
 		ojs_reviews_speciality_admin.duyet_danh_gia(datas_ok,review_id);
 		
-	},//huy_tham_gia_discount
+	},
 
 
 
@@ -96,7 +96,7 @@ ojs_loadding_message_callback = {
 		
 		ojs_shipping_speciality.shipper_cap_nhat_order(datas_parse);
 		
-	},//huy_tham_gia_discount
+	},
 
 
 
@@ -122,7 +122,7 @@ ojs_loadding_message_callback = {
 		
 		ojs_orders_admin.push_dala(datas_parse);
 		
-	},//huy_tham_gia_discount
+	},
 
 
 	//@
@@ -138,7 +138,7 @@ ojs_loadding_message_callback = {
 		
 		ojs_orders_admin.push_ghtk(datas_parse);
 		
-	},//huy_tham_gia_discount
+	},
 
 
 	//@
@@ -154,7 +154,7 @@ ojs_loadding_message_callback = {
 		
 		ojs_orders.yeu_cau_rut_tien(datas_send,order_id);
 		
-	},//huy_tham_gia_discount
+	},
 
 	//@
 	//@
@@ -169,7 +169,15 @@ ojs_loadding_message_callback = {
 		
 		ojs_orders.thanh_toan_yeu_cau_rut_tien(datas_send,order_id);
 		
-	},//huy_tham_gia_discount
+	},
+
+
+
+
+
+
+
+
 
 	//@
 	//@
@@ -178,7 +186,7 @@ ojs_loadding_message_callback = {
 	// -------------------------------------*/
 	//@
 	//@
-	//@ 1.1 [huy_tham_gia_discount]
+	//@ [huy_tham_gia_discount]
 	huy_tham_gia_discount:function(datas){
 		let datas_parse = JSON.parse(datas);
 		let discount_detail_id = datas_parse.discount_detail_id;
@@ -188,7 +196,13 @@ ojs_loadding_message_callback = {
 		
 		ojs_discount_program_speciality.huy_tham_gia_discount(discount_detail_id);
 		
-	},//huy_tham_gia_discount
+	},
+
+
+
+
+
+
 
 
 
@@ -213,9 +227,11 @@ ojs_loadding_message_callback = {
 	//xoa san pham dac san
 	discount_add:function(datas){
 		let datas_parse = JSON.parse(datas);
+	
 		let link_add_id = datas_parse.link_add_id;
-		
-		ojs_discount_program_speciality.add_product_to_discount(link_add_id);
+		let datas_send = datas_parse.datas;
+	
+		ojs_discount_program_speciality_admin.add_product_to_discount(datas_send,link_add_id);
 		
 	},//end of xoa san pham dac san	
 

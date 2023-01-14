@@ -11,7 +11,7 @@
 //@
 //@
 //@
-//@ require
+//@ reqiure
 const express = require('express');
 const router = express.Router();
 
@@ -30,6 +30,8 @@ const config_api = require('../../../../../configs/config-api');
 
 
 
+
+
 //@
 //@
 //@
@@ -37,7 +39,7 @@ const config_api = require('../../../../../configs/config-api');
 //@ share
 const ojs_shares_show_errors = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
-
+const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data.js');
 
 
 
@@ -46,11 +48,9 @@ const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHAR
 //@
 //@
 //@
-//@ model
+//@ model database
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const discount_link_update = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products/discount-product-update.js');
-
-
+const product_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-get-one');
 
 
 
@@ -63,29 +63,27 @@ const discount_link_update = require('../../../../../lib/' + config_api.API_LIB_
 async  function function_export(req, res, next) {
 	//@
 	//@
-	//@ any thing error
-	try {	
+	//@ error all
+	try{
 
 		//@
 		//@
-		//@ lấy data req	
+		//@ lấy req data
 		try {
 			var token = req.headers['token'];
-			var datas  = req.body;
 			//@
 			//@
-			var link_id = 0;
+			var product_id = 0;
 			if(req.query.c1){
-				link_id = req.query.c1;
+				product_id = req.query.c1;
 			}else{
 				res.send({ 
 					"error" : "01", 
-					"position" : "api->appdalacom->controller->admin->discount->product-denied",
+					"position" : "api->appdalacom->controller->admin->discount->view-product",
 					"message": "vui lòng nhập id"
 				}); 	
 				return;
-			}	
-
+			}				
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -97,69 +95,91 @@ async  function function_export(req, res, next) {
 				);
 			res.send({ 
 				"error" : "1", 
-				"position" : "api->appdalacom->controller->admin->discount->product-denied",
+				"position" : "api->appdalacom->controller->admin->discount->view-product",
 				"message": error_send 
 			}); 
 			return;	
-		}			
-		//res.send([datas,link_id]);
-		//return;
+		}	
+		//res.send([product_id]);
+		//return;	
+
+
+	
 		
-		
-		
-		
-		
+			
+
 		
 		//@
 		//@
-		//@ check phan quyen
-		const check_role_result = await check_role.check_role(token,res);
-		if(
-			check_role_result == "admin" 
-		){
-			//go
+		//@
+		//@ promise
+		try{	
+			var promise_all = [];
+			promise_all.push(0);
+
+			
+
+			var fn_get_product_taget = new Promise((resolve, reject) => {
+				let result = product_get_one(product_id,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_product_taget);				
+
+			
+
+
+
+			//@
+			//@
+			//@
+			//@ promise go 
+			var promise_result = await Promise.all(promise_all);
+			
+			
+			
 		}
-		else{
+		catch(error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
-					check_role_result, 
-					"Lỗi phân quyền, Vui lòng liên hệ admin" 
+					error, 
+					"Lỗi get data review, Vui lòng liên hệ admin" 
 				);
 			res.send({ 
-				"error" : "3",
-				"position" : "api->appdalacom->controller->admin->discount->product-denied", 
+				"error" : "100", 
+				"position" : "api->appdalacom->controller->admin->discount->view-product",
 				"message": error_send 
 			}); 
-			return;			
-		}
-		//res.send(datas);
-		//return;
-		
-		
-		
-		
-		
+			return;	
+		}	
 
 		
 		
+
 		//@
-		//@	
-		//@ run database
-		var result = await discount_link_update(datas,link_id,res);
+		//@
+		//@ add notes
+		let notes = {
+			"0":"no", 
+			"1":"ndiscount_taget",
+			"2":"notes"
+		}
+
+		promise_result.push(notes);
 		
 		
-			
 		
 		
 		
 		
 		//@
-		//@	
-		//@ send data result	
-		res.send({"error":"", "datas": result });
-		return;	
+		//@
+		//@ send data result
+		res.send(promise_result);
+		return;
+		
+		
 		
 		
 		
@@ -177,7 +197,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1000", 
-			"position" : "api->appdalacom->controller->admin->discount->product-denied",
+			"position" : "api->appdalacom->controller->admin->discount->view-product",
 			"message": error_send 
 		}); 
 		return;	
@@ -190,7 +210,7 @@ async  function function_export(req, res, next) {
 	//@ send error when not return data
 	res.send({ 
 		"error" : "2000", 
-		"position":"api->appdalacom->controller->admin->discount->product-denied",
+		"position":"api->appdalacom->controller->admin->discount->view-product",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
 	return;		
@@ -219,6 +239,7 @@ module.exports = function_export;
 //@
 //@
 //@ file end
+
 
 
 

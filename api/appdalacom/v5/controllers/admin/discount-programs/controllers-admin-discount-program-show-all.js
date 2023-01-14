@@ -123,6 +123,7 @@ async  function function_export(req, res, next) {
 			"discount_program_status_update",
 			"discount_program_information",
 			"discount_program_type",
+			"check_expired",
 			"stores_name",
 			"stores_ID"
 			],

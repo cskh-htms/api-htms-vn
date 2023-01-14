@@ -4,69 +4,71 @@
 <%		
 var i_loop = 0;
 if(discount_program_list.length > 0){ %>	
-	<h1 style="font-weight:bold; font-size:20px;margin:0;">Các Chương trình khuyến mãi của hệ thống DALA</h1>
+	<br>
+	<h1 style="font-weight:bold; font-size:20px;margin:0;">Các Chương trình khuyến mãi có thể tham gia</h1>
+	
+	
 	<hr>
 	<br>
 	
-	<div class="discount-wrap">
+	<div class="discount-wrap">	
 	<% 
 	for( var  x in discount_program_list ) { 
 	if(
-	discount_program_list[x].discount_program_type != "-1" ){
+	discount_program_list[x].discount_program_type == "1" ){
 	i_loop = i_loop + 1;
 	%>	
 		<div class="discount-box" style="flex-wrap:wrap;">
 			<div class="discount-image-wrap">
-				<img  style="cursor: pointer;"   class="view-discount" 
-				data_id="<%= discount_program_list[x].discount_program_ID %>" 
+				<img  style="cursor: pointer;"   
+				class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" 
 				src="<%- ojs_share_all.unCape(discount_program_list[x].discount_program_featured_image) -%>"/>
 			</div>
 			
 			<div style="padding: 0px 20px;">
-			<span >Tên chương trình : </span>
+				<span >Tên chương trình : </span>
 				<div class="discount-title">
-					<div style="cursor: pointer;"  class="view-discount" 
-					data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
+					<div style="cursor: pointer;"  class="view-discount" data_id="<%= discount_program_list[x].discount_program_ID %>" ><strong>
 					<%- ojs_share_all.unCape(discount_program_list[x].discount_program_name) -%></strong>
 					</div>
 
 				</div>
-				<a href="/discount-program/speciality/show/<%= discount_program_list[x].discount_program_ID %>
-				/<%= discount_program_list[x].stores_ID %>" clas="btn_update">update</a>   |    		
 		
-				<span class="delete">
-				<a href="#" data_discount_id="<%= discount_program_list[x].discount_program_ID  %>" class="submitdelete_discount">Xóa</a></span>
-
-		
+			
 				<div class="discount-posittiom">
-					<span> Vị trí khuyến mãi : 
-					<%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %></span>
+					<span> 
+						Vị trí khuyến mãi : 
+						<%- ojs_share_discount.show_discount_position_html(discount_program_list[x].discount_program_position) %>
+					</span>
 				</div>	
-
-				<%
-				if(discount_program_list[x].check_expired == 0){
-				%>
 				
 				<div class="discount-posittiom">
-					<span style="color: burlywood;"> đã hết hạn khuyến mãi</span>
-				</div>						
+					<%
+					if(discount_program_list[x].discount_program_gift_type == 1){					
+					%>
+						<a href="/discount-program/speciality/manage/product/add-gift/<%= discount_program_list[x].discount_program_ID %>
+						/<%= store_id %>">Thêm sản phẩm vào chương trình 
+						</a>
+					
+					<%
+					}else if(discount_program_list[x].discount_program_gift_type == 2){					
+					%>					
+						<a href="/discount-program/speciality/manage/product/add-meny/<%= discount_program_list[x].discount_program_ID %>
+						/<%= store_id %>">Thêm sản phẩm vào chương trình 
+						</a>					
+					<%
+					}else{				
+					%>						
+						<a href="/discount-program/speciality/manage/product/add/<%= discount_program_list[x].discount_program_ID %>
+						/<%= store_id %>">Thêm sản phẩm vào chương trình 
+						</a>					
+					<%
+					}			
+					%>						
+				</div>					
+			</div>	
 				
-				<%
-				}
-				%>
-
-
 				
-				<div class="discount-status">
-					<span> trạng thái : 
-					<%- ojs_share_all.show_status_pay_html(discount_program_list[x].discount_program_status_admin) -%>
-				</div>
-			</div>
-			
-			
-			
-			
-			
 			<!-- ----------------------
 				// product
 			------------------------- -->	
@@ -88,15 +90,13 @@ if(discount_program_list.length > 0){ %>
 										<tr>	
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
 												<img style="width:30px;" src="<%- ojs_share_all.unCape(discount_program_product_list[xx].products_speciality_featured_image) -%>"/>
-											</td>	
+											</td>									
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
-												
-												<a href="#" data_product_id="<%= discount_program_product_list[xx].products_speciality_ID %>" class="btn-xem-product">
 												<%- ojs_share_all.unCape(discount_program_product_list[xx].products_speciality_name) -%>
-												</a>
 												
-												<strong>( <%- ojs_share_all.unCape(discount_program_product_list[xx].stores_name) -%> )</strong>
-												<a href="#" class="submitdelete_add" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Huỷ tham gia</a>
+												
+												
+												
 												   <%
 												   for(var s in products_gift_in){
 												   if(
@@ -115,7 +115,6 @@ if(discount_program_list.length > 0){ %>
 												   }
 												   }
 												   %>												
-												
 												
 																								
 												
@@ -141,7 +140,6 @@ if(discount_program_list.length > 0){ %>
 												   %>													
 												
 												
-																								
 												
 											</td>
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
@@ -155,26 +153,13 @@ if(discount_program_list.length > 0){ %>
 												<% } else { %>
 													<td class="pro-price"><%- ojs_share_all.show_price_format(discount_program_product_list[xx].products_speciality_price,0,",",".","đ")  %></td>		
 												<% } %>	
-											</td>	
+											</td>									
 											<td style="padding:0px 10px;" data_id="<%= discount_program_product_list[xx].products_speciality_ID %>">
 												<%- ojs_share_discount.show_status_discount_detail_html(discount_program_product_list[xx].discount_program_product_link_status) -%>
-											</td>	
-											
-											<% 
-											if(
-											discount_program_product_list[xx].discount_program_product_link_status == 1
-											|| discount_program_product_list[xx].discount_program_product_link_status == 3
-											){
-												//go
-											}else{
-											%>	
+											</td>									
 											<td style="padding:0px 10px;">
-												<a href="#" class="btn-duyet" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Duyệt</a>  |  
-												<a href="#" class="btn-tu-choi" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Từ chối</a>
-											</td>	
-											<% 
-											}
-											%>												
+												<a href="#" class="submitdelete" data_id="<%= discount_program_product_list[xx].discount_program_product_link_ID %>">Huỷ tham gia</a>
+											</td>											
 										</tr>	
 								   <%
 								   }
@@ -194,34 +179,26 @@ if(discount_program_list.length > 0){ %>
 	
 			<!-- ----------------------
 				// product
-			------------------------- -->	
-
-
-
+			------------------------- -->
 			
 		</div>
 	<%
 	} //end if
 	}// end for
-	%>	
+	%>		
 	
 	
-
-	<%
-	//@
-	//@i_loop
-	if(i_loop == 0){
-	%>
-		<div style="text-align:right;">
-		<h1> Không có chương trình khuyến mãi nào</h1>
-		<a style=" background: #5e6a5f;" href="/discount-program/speciality/add/17/<%= user_id %>" class="btn_green">
-			Tạo một chương trình khuyến mãi
-		</a>
-		</div>
-	<%
-	}
-	%>	
-	</div>		
+	
+	
+	
+	
+	
+	
+	
+	</div>
+	
+	
+	
 <%
 } //end if
 %>		

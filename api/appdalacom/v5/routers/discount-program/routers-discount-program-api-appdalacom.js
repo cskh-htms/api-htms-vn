@@ -4,9 +4,95 @@ const express = require('express');
 const router = express.Router();
 
 const config_api = require('../../../../configs/config-api');
-
-
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-appdalacom.js');
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ controller
+const controller_discount_manage_show_all = require(
+	'../../controllers/discount-program/controller-discount-manage-show-all'
+);
+
+
+const controller_discount_manage_product_add = require(
+	'../../controllers/discount-program/controller-discount-manage-product-add'
+);
+
+
+const controller_discount_manage_product_save = require(
+	'../../controllers/discount-program/controller-discount-manage-product-save'
+);
+
+const controller_discount_manage_product_delete = require(
+	'../../controllers/discount-program/controller-discount-manage-product-delete'
+);
+
+const controller_discount_manage_view_discount = require(
+	'../../controllers/discount-program/controller-discount-manage-view-discount'
+);
+
+const controller_discount_manage_product_add_gift = require(
+	'../../controllers/discount-program/controller-discount-manage-product-add-gift'
+);
+
+
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ router
+router.get('/show-all/',	middle_ware, controller_discount_manage_show_all);
+router.get('/product/add/',	middle_ware, controller_discount_manage_product_add);
+router.post('/product/save/',	middle_ware, controller_discount_manage_product_save);
+router.delete('/product/delete/',	middle_ware, controller_discount_manage_product_delete);
+router.get('/view-discount/',	middle_ware, controller_discount_manage_view_discount);
+router.get('/product/add-gift/',	middle_ware, controller_discount_manage_product_add_gift);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 //@
 //@
 //@
@@ -202,4 +288,37 @@ router.get(
 );
 
 
+
+
+*/
+
+
+
+
+
+//@
+//@
+//@ 
+//@ export
 module.exports = router;
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@ 
+//@ end
+
+
+
+
+
+
+
+

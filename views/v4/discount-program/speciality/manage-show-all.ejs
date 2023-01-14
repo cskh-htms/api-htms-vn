@@ -1,44 +1,63 @@
 
-<% if( typeof title == 'string' && title){ title = title } else{ title="" } %>
+
 <% include ../../masterpage/loader %>
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount.css' />
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/discount-show-all.css' />
+
+
+
 
 <script src="../../../../../<%= js_css_version %>/javascripts/class-discount-program-speciality.js"></script>	
+
+
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
 <div id="content-wrap" class="content_wrap">
+
+
 <!-- --------------------
 page wrap 
 --------------------- -->
+
+
+
 <% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-all %>
 <% include ../../masterpage/function-share-discount %>
+<% include ../../masterpage/function-share-all %>
+<% include ../../masterpage/function-share-all-manage %>
 
 
 
 <script>
 	console.log(<%- JSON.stringify({"datas_info" : datas_info}) %>);
-</script>	
+</script>
+
+
+
 
 
 <!-- --------------------
 content
 --------------------- -->
 <div id="content" class="content">
-
-	<h1>
-		<a href="/stores/manage/<%= store_id %>/<%= user_id %>">
-			<%= store_name %>
-		</a>
-		<i class="fas fa-chevron-right"></i>Chương trình khuyến mãi
-	</h1>
-
-
+	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>Chuong trình khuyến mãi</h1>
+	
+	
+	
+	
+	
+	
 	<div style="">
 		<% include ../../masterpage/widget-discount-program-show-store-all %>
-	</div>
-
-
+	</div>	
+	
+	
+	
+	
+	
+	
 
 
 
@@ -77,62 +96,8 @@ end content
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
 	
-	//Loc trang thai
-	///////////////////////////
-	$("#loc_trang_thai").change(function() {
-		let user_id = $('#user_id').val();
-		let store_id = $('#store_id').val();
-		let status_admin = $('#loc_trang_thai').val();
-		
-		var datas = {
-			"datas":{
-				user_id 	: user_id,
-				store_id	:store_id,
-				status_admin : JSON.parse(status_admin)
-			}
-		}	
-		//console.log(datas);
-		//return;
-		ojs_discount_program_speciality.ajax_load_discount_program(datas);	
-	});
-	
-	
-	//
-	//@
-	//xoa
-	$(document).on('click','.btn_discount_delete',function(e) {	
-		//@
-		e.preventDefault();		
-		let discount_program_id = $(this).attr("data_discount_program_id");
-		//alert(discount_program_id);
-		//return;
-		//
-		//@
-		let x = "xác nhận xoá";		
-		let y = "delete_discount_program_id";//function name in callback 
-		let z = ' { "discount_program_id" : "' + discount_program_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
-	});			
-	
-	
-	//
-	//@
-	//xoa
-	$(document).on('click','.btn-huy-tham-gia',function(e) {	
-		//@
-		e.preventDefault();		
-		let discount_detail_id = $(this).attr("data_discount_detail_id");
-		//alert(discount_detail_id);
-		//return;
-		//
-		//@
-		let x = "Xác nhận huỷ";		
-		let y = "huy_tham_gia_discount";//function name in callback 
-		let z = ' { "discount_detail_id" : "' + discount_detail_id + '" }';
-		ojs_message.message_yes_no_show(x,y,z);		
-		//@
-	});			
+
+
 	
 	
 	
@@ -147,12 +112,15 @@ $(document).ready(function($){
 		//return;
 		//
 		//@
-		let x = "xác nhận xoá";		
+		let x = "xác nhận huỷ";		
 		let y = "delete_discount_program_link_id";//function name in callback 
 		let z = ' { "discount_program_link_id" : "' + data_id + '" }';
 		ojs_message.message_yes_no_show(x,y,z);		
 		//@
 	});		
+		
+		
+		
 		
 	
 	//
@@ -170,6 +138,10 @@ $(document).ready(function($){
 		//@
 	});		
 	
+	
+	
+	
+	
 	//
 	//@
 	//xem
@@ -183,7 +155,11 @@ $(document).ready(function($){
 		
 		ojs_discount_program_speciality.view_store(store_id);
 		//@
-	});		
+	});	
+
+
+
+	
 	//
 	//@	
 	//
@@ -211,3 +187,27 @@ $(document).ready(function($){
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
