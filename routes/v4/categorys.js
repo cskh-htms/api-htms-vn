@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-const fetch = require('node-fetch');
+const express = require('express');
+const router = express.Router();
+
 
 const ojs_configs = require('../../configs/config');
 const ojs_shares = require('../../models/ojs-shares');
@@ -16,16 +16,9 @@ router.get('/', function(req, res, next) {
 
 
 router.use('/general/speciality', require('../../routes/' + ojs_configs.router_version  + '/category-general-speciality'));
-
 router.use('/general/speciality/link', require('../../routes/' + ojs_configs.router_version  + '/category-general-speciality-link'));
-
-
 router.use('/general/food-drink', require('../../routes/' + ojs_configs.router_version  + '/category-general-food-drink'));	
-    
-
 router.use('/stores/speciality', require('../../routes/' + ojs_configs.router_version  + '/category-store-speciality'));
-    
-	
 router.use('/news/general', require('../../routes/' + ojs_configs.router_version  + '/category-news-general'));	
 	
 	

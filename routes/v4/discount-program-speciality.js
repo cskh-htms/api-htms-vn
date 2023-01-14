@@ -5,7 +5,6 @@
 //@ reqiure
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch');
 
 const ojs_configs = require('../../configs/config');
 const config_api = require('../../api/configs/config-api');

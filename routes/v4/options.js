@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-const fetch = require('node-fetch');
+const express = require('express');
+const router = express.Router();
+
 
 const ojs_configs = require('../../configs/config');
 const ojs_shares = require('../../models/ojs-shares');

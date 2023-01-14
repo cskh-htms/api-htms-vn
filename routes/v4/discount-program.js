@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-const fetch = require('node-fetch');
+const express = require('express');
+const router = express.Router();
+
 
 const ojs_configs = require('../../configs/config');
 const ojs_shares = require('../../models/ojs-shares');
@@ -9,11 +9,8 @@ const ojs_shares = require('../../models/ojs-shares');
 
 //lay danh sach danh muc
 router.get('/', function(req, res, next) {
-	//
-	let token = req.session.token;
-	let data_send = "a";
-	
-	res.render('/v4/discount-program/speciality/admin-show-all', data_send );
+	res.end("welcom");
+	return;
 });
 
 

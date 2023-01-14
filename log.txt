@@ -1,2 +1,14 @@
 
 
+
+1. login
+
+2. register
+
+3. shipper
+
+4. upload-wp
+
+5. upload
+
+6.users-tracking
