@@ -1,12 +1,5 @@
 
 
-<% if( typeof datas == 'object' && datas && datas.length > 0){ } else{ datas=[] } %>
-
-
-<% datas = list_notes %>
-
-
-
 
 <div class="note-box">
 
@@ -15,6 +8,7 @@
 	<thead>
 		<tr>
 			<th class="user-name">Tiêu đề</th>
+			<th class="user-name">Nội dung</th>
 			<th>Ngày gửi</th>
 			<th>Đã xem</th>		
 		</tr>
@@ -24,7 +18,8 @@
 if(datas.length > 0){
 for(var  x in datas) { %>
 	<tr>
-		<td class="user-name"><a href="/notes/show/<%= store_id %>/<%= datas[x].notes_ID %>/"><%- datas[x].notes_title -%></a></td>
+		<td class="user-name"><a href="#"><%- datas[x].notes_title -%></a></td>
+		<td class="user-name"><%- datas[x].notes_contents -%></td>
 		<td><%= datas[x].notes_date_created %></td>
 		<td><% 
 		if(datas[x].notes_status == '0'){ %>

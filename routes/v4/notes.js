@@ -15,7 +15,7 @@ const config_api = require('../../api/configs/config-api');
 //@
 //@
 //@
-//@ router
+//@ router admin
 const controller_notes_send = require('../../controllers/' + 
 ojs_configs.controller_version + 
 '/admin/notes/controllers-admin-notes-send.js');
@@ -40,11 +40,42 @@ ojs_configs.controller_version +
 //@
 //@
 //@
-//@ controller
+//@ controller admin
 router.get('/send/', controller_notes_send);
 router.post('/ajax-load-user/', controller_notes_ajax_load_user);
 router.post('/ajax-load-store/', controller_notes_ajax_load_store);
 router.post('/save-all/', controller_notes_save_all);
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@ router manage
+const controller_note_manage_show_all = require('../../controllers/' + 
+ojs_configs.controller_version + 
+'/notes/controller-note-manage-show-all.js');
+
+
+
+
+
+//@
+//@
+//@
+//@ controller manage
+router.get('/manage/:store_id', controller_note_manage_show_all);
+
+
+
+
+
+
+
 
 
 
@@ -54,6 +85,22 @@ router.post('/save-all/', controller_notes_save_all);
 //@
 //@ router
 module.exports = router;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
