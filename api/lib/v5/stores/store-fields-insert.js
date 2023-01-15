@@ -13,6 +13,7 @@ const  default_fields = {
 	"stores_wards"				: "",
 	
 	"stores_phone"				: "",
+	"stores_email"				: "",
 	"stores_logo_image"			: "",
 	"stores_banner_image"		: "",
 	"stores_information"		: "",

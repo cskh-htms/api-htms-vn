@@ -10,7 +10,7 @@ const ojs_shares_show_errors = require('./ojs-shares-show-errors.js');
 
 const discount_search_product = require('../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search-product.js');
 const review_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
-const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-sale-by-store.js');
+const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search.js');
 
 //@
 
@@ -137,7 +137,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		   "select_field" :
 			[
 				"orders_details_speciality_product_id",
-				"orders_details_speciality_qty"				
+				"sum(orders_details_speciality_qty)"			
 			],
 			"condition" :
 			[
@@ -149,10 +149,19 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"field"     :"orders_details_speciality_product_id",
 						"value"     : model_product_arr,
 						"compare" : "in"
-					}	
+					},
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : "product",
+						"compare" : "="
+					}					
 					]    
-				}         
-			]   
+				} 
+			],				
+			"group_by" :
+			 [
+				"orders_details_speciality_product_id"
+			 ]      
 		}
 		
 		//@ get datas
@@ -163,7 +172,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			add_data_line = 0;
 			for(y in data_sale){
 				if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
-					add_data_line = data_sale[y].orders_details_speciality_qty;
+					add_data_line = data_sale[y].sum_orders_details_speciality_qty;
 				}							
 			}
 			data_product[x].so_luong_da_ban = add_data_line;

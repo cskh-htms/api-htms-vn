@@ -34,6 +34,7 @@ const function_export = function (data,res) {
 			
 			
 			"stores_phone"						: mysql.escape(datas.stores_phone).replace(/^'|'$/gi, ""),
+			"stores_email"						: mysql.escape(datas.stores_email).replace(/^'|'$/gi, ""),
 			"stores_logo_image"					: mysql.escape(datas.stores_logo_image).replace(/^'|'$/gi, ""),
 			"stores_banner_image"				: mysql.escape(datas.stores_banner_image).replace(/^'|'$/gi, ""),
 			"stores_information"				: mysql.escape(datas.stores_information).replace(/^'|'$/gi, ""),			

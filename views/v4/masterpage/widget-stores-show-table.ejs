@@ -25,7 +25,6 @@ for( var  x in stores_list ) { %>
 		<td class="user-name"><a href="#"><%- ojs_share_all.unCape(stores_list[x].stores_name) %></a>
 			<div class="row-actions">
 				<span class="edit"><a href="/stores/manage/<%= stores_list[x].stores_ID %>/<%= stores_list[x].stores_user_id %>">Quản lý</a> | </span>
-				<span class="edit"><a href="/notes/add/store/<%= stores_list[x].stores_user_id %>">Gửi tin nhắn</a> | </span>
 				<span class="edit"><a href="/stores/show/<%= stores_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 				<span class="delete"><a href="#" data_users_id ="<%= stores_list[x].stores_user_id  %>" data_stores_id="<%= stores_list[x].stores_ID  %>" class="submitdelete">Xóa</a> | </span>
 			</div>	

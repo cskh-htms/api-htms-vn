@@ -103,7 +103,12 @@ content
 		</p>
 		<br>	
 		
-		
+		<p>
+			<span>Email liên hệ</span><input type="text" class= "" 
+			value="" id="stores_email"/>
+			<span class="giai-thich"><span>Email nhận thông tin đơn hàng</span></span>
+		</p>
+		<br>			
 		
 		
 		<p style="display:none;"><span>Tọa độ x</span><input type="text" class= "" value="" id="stores_local_x"/>
@@ -314,6 +319,10 @@ $(document).ready(function($){
 		//@
 		var stores_name = $('#stores_name').val();
 		var stores_phone = $('#stores_phone').val();
+		var stores_email = $('#stores_email').val();
+		
+		
+		
 		var stores_user_id = $('#stores_user_id  option:selected').val();
 		
 		
@@ -358,6 +367,7 @@ $(document).ready(function($){
 		var datas = {
 			"datas":{
 				stores_name : stores_name,
+				stores_email : stores_email,
 				stores_phone :stores_phone,
 				stores_logo_image : stores_logo_image,
 				stores_user_id: stores_user_id,

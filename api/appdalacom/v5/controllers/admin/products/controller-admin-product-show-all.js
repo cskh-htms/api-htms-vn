@@ -164,11 +164,22 @@ async  function function_export(req, res, next) {
 			return;	
 		}		
 			
+		//res.send([data_product]);
+		//return;
+
+
+
+
+
 
 
 		//@ lấy meta
 		try {
 			var get_meta_product_resuilt = await get_meta_product(data_product,model_product_arr,res);
+			//res.send([get_meta_product_resuilt]);
+			//return;
+			
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
@@ -185,7 +196,7 @@ async  function function_export(req, res, next) {
 			}); 
 			return;	
 		}	
-		
+
 		
 
 
