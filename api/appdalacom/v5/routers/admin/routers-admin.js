@@ -37,8 +37,8 @@ router.use('/notes', require('./notes/router-admin-notes.js'));
 router.use('/news', require('./news/router-admin-news.js'));
 router.use('/shippings', require('./shippings/router-admin-shipping.js'));
 router.use('/reviews', require('./reviews/router-admin-review.js'));
-
-
+router.use('/shippers', require('./shippers/router-admin-shipper.js'));
+router.use('/uploads', require('./uploads/router-admin-upload.js'));
 
 
 //@

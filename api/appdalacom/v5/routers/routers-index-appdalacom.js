@@ -31,7 +31,7 @@ router.use('/admin', require('./admin/routers-admin.js'));
 router.use('/categorys', require('./categorys/routers-category.js'));
 router.use('/options', require('./options/routers-option.js'));
 router.use('/brands', require('./brands/routers-brand.js'));
-
+router.use('/uploads', require('./uploads/routers-upload.js'));
 
 
 

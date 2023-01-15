@@ -76,7 +76,7 @@ ojs_share_upload = {
 		//return;
 		
 		$.ajax({
-			type : "POST",	  
+			type : "delete",	  
 			url : ojs_loader.host + "/upload-wp/delete-image/",
 			data : {url:url},
 			beforeSend:  function(xhr){

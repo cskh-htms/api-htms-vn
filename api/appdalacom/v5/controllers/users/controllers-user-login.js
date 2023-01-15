@@ -80,11 +80,19 @@ async  function function_export(req, res, next) {
 	//@
 	if(check_lock.length > 0){
 		if(check_lock[0].users_status == 1){
-			res.send({ "error" : "2", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"} );
+			res.send({ 
+				"error" : "2", 
+				"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+				"message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"
+			});
 			return;					
 		}			
 	}else{
-		res.send({ "error" : "3", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": "Không tìm thấy tài khoản trong hệ thống dala" } );
+		res.send({ 
+			"error" : "3", 
+			"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+			"message": "Không tìm thấy tài khoản trong hệ thống dala" 
+		});
 		return;				
 	}
 
@@ -137,7 +145,11 @@ async  function function_export(req, res, next) {
 			|| role_text == "shipping" 			
 			){
 			}else{
-				res.send({ "error" : "8", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
+				res.send({ 
+					"error" : "8", 
+					"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+					"message": "Lỗi phân quyền, vui lòng đổi user login"
+				}); 				
 				return;
 			}
 			
@@ -176,7 +188,11 @@ async  function function_export(req, res, next) {
 			var evn = ojs_configs.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
-			res.send({ "error" : "10", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": error_send } );
+			res.send({ 
+				"error" : "10", 
+				"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+				"message": error_send 
+			});
 			return;	
 		}		
 		
@@ -222,8 +238,16 @@ async  function function_export(req, res, next) {
 		catch (error){
 			var evn = ojs_configs.evn;
 			//evn = "dev";
-			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
-			res.send({ "error" : "11", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": error_send } );
+			var error_send = ojs_shares_show_errors.show_error( 
+				evn,
+				error, 
+				"Lỗi jwt 2, liên hệ CSKH DALA" 
+			);
+			res.send({ 
+				"error" : "11", 
+				"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+				"message": error_send 
+			});
 			return;	
 		}		
 		
@@ -269,8 +293,16 @@ async  function function_export(req, res, next) {
 		
 		var evn = ojs_configs.evn;
 		//evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
-		res.send({ "error" : "15", "position":"api/appdalacom/v5/ctroller/controllers-user-login", "message": error_send } );
+		var error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			"user hoặc mật khẩu không đúng", 
+			"user hoặc mật khẩu không đúng" 
+		);
+		res.send({ 
+			"error" : "15", 
+			"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
+			"message": error_send 
+		});
 		return;		
 	}
 
