@@ -73,57 +73,6 @@ router.get('/', function(req, res, next) {
 	let token = req.headers.token;
 	res.send(token);
 });
-
-	
-//upload image single
-router.post('/', imageUpload.single('image'), async function(req, res, next) {
-	//
-	//
-	//get token
-	let token = req.headers.token || req.session.token;
-	//
-	//neu chua co token thì trỏ ra login page
-	if(token == "" || token == null || token == undefined){
-		res.redirect("/login")
-	}
-	//
-	//neu khong phai admin thi ra login
-	if(ojs_shares.get_users_type(token) == "2" || ojs_shares.get_users_type(token) == "1") {
-		//goo
-	}else{
-		res.redirect("/login")
-	}
-	
-	//check token data 
-	let send_datas_token = { 
-		"datas" : {
-			"token" : token
-		}
-	}
-	//call api check token  
-	//check token
-	try {
-		let check_user = await ojs_shares.get_data_no_token_post('https://appdala.com/api/v1/users/check-token', send_datas_token );
-		if(check_user.error != "") { res.redirect("/login") }
-	}
-	catch(error){
-		res.send( { "error" : "10" , "message" : error } );
-	}	
-	
-	
-	
-	try {
-		res.send(
-			{
-				name:res.req.file.filename,
-				url: basic_url + res.req.file.filename
-			}
-		);
-	} catch (error) {
-		res.send( {"error" : error, "datas" : {} });
-	}
-//	
-});
 	
 	
 module.exports = router;
