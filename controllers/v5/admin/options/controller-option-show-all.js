@@ -148,6 +148,7 @@ async  function function_export(req, res, next) {
 				
 				'news_admin_menu' 		: data_api_resuilt[1],
 				'option_list'			: data_api_resuilt[2],
+				'option_list_all'			: data_api_resuilt[3],
 				
 			}
 			
@@ -163,6 +164,7 @@ async  function function_export(req, res, next) {
 				
 				'news_admin_menu' 		: data_api_resuilt[1],
 				'option_list'			: data_api_resuilt[2],
+				'option_list_all'			: data_api_resuilt[3],
 				
 				'datas_info'			: datas_info			
 			}

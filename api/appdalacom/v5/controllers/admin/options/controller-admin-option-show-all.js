@@ -59,6 +59,12 @@ const option_link_search = require('../../../../../lib/' +
 	'/options/option-search-by-link.js'
 );
 
+const option_search = require('../../../../../lib/' + 
+	config_api.API_LIB_VERSION + 
+	'/options/option-search.js'
+);
+
+
 
 //@
 //@
@@ -183,7 +189,45 @@ async  function function_export(req, res, next) {
 			promise_all.push(fn_get_option_list);			
 
 
+
+
+
+
+			//@
+			//@			
+			//@
+			//@
+			//@lấy option_list_all
+			var data_option_list_all =    
+			{
+			   "select_field" :
+				[
+					"options_product_speciality_ID",
+					"options_product_speciality_name",
+					"options_product_speciality_parent_id",
+					"options_product_speciality_status_admin"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{
+							"field"     :"options_product_speciality_status_admin",
+							"value"     : [1,2,4],
+							"compare" : "in"						
+						}
+						]    
+					}         
+				]
+			}
 			
+			var fn_get_option_list_all = new Promise((resolve, reject) => {
+				let result = option_search(data_option_list_all,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_option_list_all);				
 
 		
 

@@ -175,7 +175,7 @@ async  function function_export(req, res, next) {
 				"group_by":
 				[
 					"category_general_speciality_ID"
-				]
+				] 				
 			}
 			
 			var fn_get_category_list = new Promise((resolve, reject) => {
