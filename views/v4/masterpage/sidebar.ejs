@@ -5,18 +5,18 @@
 
 
 <% if( sidebar_type == 4){ %> 
-	<% include ./sidebar-store %>
+	<%- include("./sidebar-store") %>
 <% }else if( sidebar_type == 2){ %> 
-	<% include ./sidebar-bussiness %>
+	<%- include ("./sidebar-bussiness") %>
 <% }else if( sidebar_type == 3){ %> 
-	<% include ./sidebar-admin %>	
+	<%- include ("./sidebar-admin") %>	
 <% }else{ %> 
 		<% if( users_type == "admin"){ %> 
-			<% include ./sidebar-admin %>
+			<%- include ("./sidebar-admin") %>
 		<% } else if( users_type == "bussiness"){ %> 
-			<% include ./sidebar-bussiness %>
+			<%- include ("./sidebar-bussiness") %>
 		<% } else if( users_type == "customer"){ %> 
-			<% include ./sidebar-customer %>
+			<%- include ("./sidebar-customer") %>
 		<% } %>
 	
 <% } %>

@@ -1,4 +1,4 @@
-<% include ../masterpage/loader %>
+<%-  include ("../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store.css' />
 
@@ -21,9 +21,9 @@ page wrap
 
 
 
-<% include ../masterpage/function-share-store %>
-<% include ../masterpage/function-share-all-admin %>
-<% include ../masterpage/header %>
+<%- include ("../masterpage/function-share-store") %>
+<%- include ("../masterpage/function-share-all-admin") %>
+<%- include("../masterpage/header") %>
 
 
 
@@ -304,12 +304,12 @@ content
 
 
 
-<% include ../masterpage/footer %>
+<%- include("../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<%-  include("../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -527,7 +527,7 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 

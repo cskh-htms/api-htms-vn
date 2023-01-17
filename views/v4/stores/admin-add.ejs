@@ -1,4 +1,4 @@
-<% include ../masterpage/loader %>
+<%-  include ("../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/store.css' />
 
@@ -18,9 +18,9 @@ page wrap
 
 
 
-<% include ../masterpage/header %>
-<% include ../masterpage/function-share-all-admin %>
-<% include ../masterpage/function-share-store %>
+<%- include("../masterpage/header") %>
+<%- include ("../masterpage/function-share-all-admin") %>
+<%- include ("../masterpage/function-share-store") %>
 
 
 <script>
@@ -127,7 +127,7 @@ content
 		<span>Loại dịch vụ</span>
 		<select name="stores_service_type_id" id="stores_service_type_id">
 			<option value="0">Chọn dịch vụ</option>
-			<% include ../masterpage/widget-service-type %>
+			<%- include ("../masterpage/widget-service-type") %>
 		</select>
 		<span class="giai-thich"><span>Special: đặc sản, food-drink: quán nước</span></span>
 		</div>	
@@ -237,9 +237,9 @@ content
 
 
 
-<% include ../masterpage/footer %>
+<%- include("../masterpage/footer") %>
 </div><!-- //content_wrap -->	
-<% include ../masterpage/sidebar %>
+<%-  include("../masterpage/sidebar") %>
 <!-- --------------------
 //end of page wrap 
 --------------------- -->
@@ -456,7 +456,7 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 

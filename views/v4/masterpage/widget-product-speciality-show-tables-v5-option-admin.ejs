@@ -1,6 +1,6 @@
 
-<% include ./function-share-page-nav %>
-<% include ./function-share-product %>
+<%- include ("./function-share-page-nav") %>
+<%- include ("./function-share-product") %>
 
 <% if( typeof product_list == 'object' && product_list){ } else{ product_list=[] } %>
 <% if( typeof category_link_datas == 'object' && category_link_datas){ } else{ category_link_datas=[] } %>

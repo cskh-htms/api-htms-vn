@@ -4,7 +4,7 @@ if( typeof title == 'string' && title){ title = title } else{ title="" }
 %>
 
 
-<% include ../masterpage/loader %>
+<%-  include ("../masterpage/loader") %>
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -12,7 +12,7 @@ if( typeof title == 'string' && title){ title = title } else{ title="" }
 <!-- --------------------
 page wrap 
 --------------------- -->
-<% include ../masterpage/header %>
+<%- include("../masterpage/header") %>
 
 <!-- --------------------
 content
@@ -30,12 +30,12 @@ end content
 
 
 
-<% include ../masterpage/footer %>
+<%- include("../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<%-  include("../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -43,4 +43,4 @@ end content
 </div><!-- //layout -->	
 </div><!-- //pagewrap -->
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>

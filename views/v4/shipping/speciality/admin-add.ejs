@@ -1,6 +1,6 @@
 
 
-<% include ../../masterpage/loader %>
+<%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/shipping.css' />
 
@@ -23,11 +23,9 @@
 page wrap 
 --------------------- -->
 
-
-
-<% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-shipping %>
-<% include ../../masterpage/function-share-all %>
+<%- include ("../../masterpage/header") %>
+<%- include ("../../masterpage/function-share-shipping") %>
+<%- include ("../../masterpage/function-share-all") %>
 
 
 
@@ -88,7 +86,7 @@ content
 		<div id="shipping_speciality_box">
 		<select name="shipping_speciality_parent_id" id="shipping_speciality_parent_id"  >
 			<option value="">Chọn khu vực cha</option>
-			<% include ../../masterpage/widget-shipping-check-box %>
+			<%- include ("../../masterpage/widget-shipping-check-box") %>
 		</select>
 		</div>
 	</div>	
@@ -114,22 +112,22 @@ content
 	
 
 
+
+
 </div>
 <!-- --------------------
 //end content
 --------------------- -->
 
-
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 
-
-<% include ../../masterpage/footer %>
+<%- include ("../../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../../masterpage/sidebar %>
+<%- include ("../../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -201,7 +199,7 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>
+<%- include ("../../masterpage/loader-end") %>
 
 
 
@@ -217,18 +215,19 @@ $(document).ready(function($){
 
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

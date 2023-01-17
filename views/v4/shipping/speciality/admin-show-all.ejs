@@ -1,6 +1,6 @@
 
 
-<% include ../../masterpage/loader %>
+<%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/shipping.css' />
 
@@ -25,9 +25,9 @@ page wrap
 
 
 
-<% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-shipping %>
-<% include ../../masterpage/function-share-all %>
+<%- include ("../../masterpage/header") %>
+<%- include ("../../masterpage/function-share-shipping") %>
+<%- include ("../../masterpage/function-share-all") %>
 
 
 
@@ -44,11 +44,12 @@ content
 
 
 
+
 	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Quản lý shipping</h1>
 	
 	
 	<div class="ctkm_content">
-		<% include ../../masterpage/widget-shipping-show-tables-admin %>
+		<%- include ("../../masterpage/widget-shipping-show-tables-admin") %>
 	</div>
 
 
@@ -73,12 +74,12 @@ content
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 
 
-<% include ../../masterpage/footer %>
+<%- include ("../../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../../masterpage/sidebar %>
+<%- include ("../../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -131,7 +132,7 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>
+<%- include ("../../masterpage/loader-end") %>
 
 
 
@@ -161,3 +162,19 @@ $(document).ready(function($){
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
