@@ -1,5 +1,6 @@
 app.js
 configs/config.js
+node_modules
 public/v4/javascripts/loader.js
 api/v4/models/models-config.js
 api/lib/v5/connections/connections-datas.js
