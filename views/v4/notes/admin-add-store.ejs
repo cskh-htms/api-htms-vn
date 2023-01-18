@@ -8,7 +8,7 @@
 if( typeof title == 'string' && title && title.length > 0){} else{ title="" }
 %>
 
-<% include ../masterpage/loader %>
+<%- include ("../masterpage/loader") %>
 <script src="../../../../<%= js_css_version %>/javascripts/class-notes.js"></script>	
 
 
@@ -18,7 +18,7 @@ if( typeof title == 'string' && title && title.length > 0){} else{ title="" }
 <!-- --------------------
 page wrap 
 --------------------- -->
-<% include ../masterpage/header %>
+<%- include ("../masterpage/header") %>
 
 
 
@@ -95,12 +95,12 @@ end content
 
 
 
-<% include ../masterpage/footer %>
+<%- include ("../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<%- include ("../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -115,7 +115,7 @@ $(document).ready(function($){
 
 		//
 	//@
-	ojs_loader.loadTinyMCE('noi_dung');
+	//ojs_loader.loadTinyMCE('noi_dung');
 	//
 
 	
@@ -175,7 +175,7 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 

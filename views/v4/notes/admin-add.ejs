@@ -18,7 +18,7 @@ if( typeof title == 'string' && title && title.length > 0){} else{ title="" }
 <!-- --------------------
 page wrap 
 --------------------- -->
-<% include ../masterpage/header %>
+<%- include ("../masterpage/header") %>
 
 
 
@@ -95,12 +95,12 @@ end content
 
 
 
-<% include ../masterpage/footer %>
+<%- include ("../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<%- include ("../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -175,7 +175,7 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 
