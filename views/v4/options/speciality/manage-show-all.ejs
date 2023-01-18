@@ -1,6 +1,6 @@
 
 
-<% include ../../masterpage/loader %>
+<%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-manage.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/option.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/option-show-all.css' />
@@ -23,10 +23,10 @@ page wrap
 
 
 
-<% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-option %>
-<% include ../../masterpage/function-share-all %>
-<% include ../../masterpage/function-share-all-manage %>
+<%- include ("../../masterpage/header") %>
+<%- include ("../../masterpage/function-share-option") %>
+<%- include ("../../masterpage/function-share-all") %>
+<%- include ("../../masterpage/function-share-all-manage") %>
 
 
 
@@ -61,15 +61,15 @@ content
 
 
 	<div id="tab-1" class="tab-content active">	
-	<% include ../../masterpage/widget-option-show-tables-store %>
+	<%- include ("../../masterpage/widget-option-show-tables-store") %>
 	</div>
 
 	<div id="tab-2"  class="tab-content">	
-	<% include ../../masterpage/widget-option-show-tables-store-create %>
+	<%- include ("../../masterpage/widget-option-show-tables-store-create") %>
 	</div>
 	
 	<div id="tab-3"  class="tab-content">	
-	<% include ../../masterpage/widget-option-show-tables-store-world %>
+	<%- include ("../../masterpage/widget-option-show-tables-store-world") %>
 	</div>		
 	
 	
@@ -93,12 +93,12 @@ end content
 
 
 
-<% include ../../masterpage/footer %>
+<%- include ("../../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../../masterpage/sidebar %>
+<%- include ("../../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -213,7 +213,7 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>
+<%- include ("../../masterpage/loader-end") %>	
 
 
 

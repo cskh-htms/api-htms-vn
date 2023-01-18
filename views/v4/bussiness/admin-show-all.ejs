@@ -1,5 +1,5 @@
 
-<% include ../masterpage/loader %>
+<%- include ("../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/bussiness.css' />
 
 
@@ -22,9 +22,9 @@ page wrap
 
 
 
-<% include ../masterpage/header %>
-<% include ../masterpage/function-share-bussiness %>
-<% include ../masterpage/function-share-all %>
+<%- include ("../masterpage/header") %>
+<% include ("../masterpage/function-share-bussiness") %>
+<%- include ("../masterpage/function-share-all") %>
 
 
 
@@ -315,7 +315,7 @@ end content
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 

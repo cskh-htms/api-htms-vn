@@ -87,7 +87,7 @@ $(document).ready(function($){
 						if(result.error){
 							ojs_message.message_ok_show(result.messsage);
 						}else{
-							ojs_message.message_ok_show(" Đã tạo brands",location.href);
+							ojs_message.message_ok_show(" Đã update",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();	
@@ -135,7 +135,7 @@ $(document).ready(function($){
 						if(result.error){
 							ojs_message.message_ok_show(result.messsage);
 						}else{
-							ojs_message.message_ok_show(" Đã tạo brands",location.href);
+							ojs_message.message_ok_show(" Đã xóa",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();	

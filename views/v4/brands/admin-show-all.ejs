@@ -1,5 +1,5 @@
 
-<% include ../masterpage/loader %>
+<%- include ("../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/brand.css' />
 
@@ -26,9 +26,9 @@ page wrap
 
 
 
-<% include ../masterpage/header %>
-<% include ../masterpage/function-share-brand %>
-<% include ../masterpage/function-share-all %>
+<%- include ("../masterpage/header") %>
+<%- include ("../masterpage/function-share-brand") %>
+<%- include ("../masterpage/function-share-all") %>
 
 
 
@@ -62,7 +62,7 @@ content
 	
 	<div id="ajax-wrap">
 	
-	<% include ../masterpage/widget-brand-show-tables-admin %>
+	<%- include ("../masterpage/widget-brand-show-tables-admin") %>
 
 	</div>
 
@@ -99,12 +99,12 @@ end content
 
 
 
-<% include ../masterpage/footer %>
+<%- include ("../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../masterpage/sidebar %>
+<%- include ("../masterpage/sidebar") %>
 
 <!-- --------------------
 //end of page wrap 
@@ -177,7 +177,7 @@ $(document).ready(function($){
 
 
 
-<% include ../masterpage/loader-end %>
+<%- include ("../masterpage/loader-end") %>
 
 
 

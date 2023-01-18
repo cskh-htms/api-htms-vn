@@ -1,4 +1,4 @@
-<% include ../../masterpage/loader %>
+<%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/product-show-all.css' />
@@ -19,9 +19,9 @@ page wrap
 
 
 
-<% include ../../masterpage/header %>
-<% include ../../masterpage/function-share-all %>
-<% include ../../masterpage/function-share-product %>
+<%- include ("../../masterpage/header") %>
+<%- include ("../../masterpage/function-share-all") %>
+<%- include ("../../masterpage/function-share-product") %>
 
 
 
@@ -173,7 +173,7 @@ content
 
 	<div id="ajax-wrap">
 	
-	<% include ../../masterpage/widget-product-speciality-show-tables-v5-admin %>
+	<%- include ("../../masterpage/widget-product-speciality-show-tables-v5-admin") %>
 	
 	</div>		
 
@@ -209,12 +209,12 @@ end content
 
 
 
-<% include ../../masterpage/footer %>
+<%- include ("../../masterpage/footer") %>
 
 </div><!-- //content_wrap -->	
 
 
-<% include ../../masterpage/sidebar %>
+<%- include ("../../masterpage/sidebar") %>
 
 <!----------------------
 //end of page wrap 
@@ -606,7 +606,7 @@ $(document).ready(function($){
 
 
 
-<% include ../../masterpage/loader-end %>	
+<%- include ("../../masterpage/loader-end") %>	
 	
 	
 	
