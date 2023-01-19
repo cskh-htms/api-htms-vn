@@ -135,7 +135,8 @@ async  function function_export(req, res, next) {
 		
 			//@ get datas
 			var data_product = await product_search(data_get,res);
-			
+			//res.send(data_product);
+			//return;			
 			
 			//@ create arr ID product
 			var model_product_arr = [0];

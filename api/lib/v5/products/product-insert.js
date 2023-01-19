@@ -25,6 +25,7 @@ const function_export = function (data,res) {
 	var dataGo = {
 		"products_speciality_name" 	: mysql.escape(datas.products_speciality_name).replace(/^'|'$/gi, ""),
 		"products_speciality_type" 	:  datas.products_speciality_type,
+		"products_speciality_start_buy" 	:  datas.products_speciality_start_buy,
 		"products_speciality_sku" 	: mysql.escape(datas.products_speciality_sku).replace(/^'|'$/gi, ""),
 		"products_speciality_store_id" : datas.products_speciality_store_id,
 		"products_speciality_parent_id" : datas.products_speciality_parent_id,

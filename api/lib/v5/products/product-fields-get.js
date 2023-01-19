@@ -10,6 +10,8 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "products_speciality_name as products_speciality_name, " + 
 	config_database.PREFIX  + "products_speciality_type as products_speciality_type, " + 
 	config_database.PREFIX  + "products_speciality_sku as products_speciality_sku, " + 
+	config_database.PREFIX  + "products_speciality_start_buy as products_speciality_start_buy, " + 
+	
 	config_database.PREFIX  + "products_speciality_store_id as products_speciality_store_id, " + 
 	config_database.PREFIX  + "products_speciality_parent_id as products_speciality_parent_id, " + 	
 	

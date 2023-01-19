@@ -102,8 +102,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 	
 	
 	
-	res.send(data_user); 
-	return;	
+	return data_user; 
 
 
 };	

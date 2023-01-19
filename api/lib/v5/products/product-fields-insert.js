@@ -10,7 +10,8 @@ const  default_fields = {
 				products_speciality_featured_image : '',
 				products_speciality_image_slider : '',
 				products_speciality_contents : '',
-				products_speciality_origin : '',				
+				products_speciality_origin : '',
+				products_speciality_start_buy : 0,				
 				
 				products_speciality_price : '',
 				products_speciality_sale_of_price : null,

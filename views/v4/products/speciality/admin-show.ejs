@@ -53,6 +53,15 @@ content
 			</div>
 			
 			<div class="pro_box ten_sp_box">
+				<h3>số lượng bán</h3>
+				<div class="inside">
+					<input type="text" value="<%=  datas[0].products_speciality_start_buy %>" id="products_speciality_start_buy"/>
+				</div>
+			</div>			
+			
+			
+			
+			<div class="pro_box ten_sp_box">
 				<h3>Loại sản phẩm 
 				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#loai-san-pham" target="_blank">
 				<span>Sản phẩm bình thường, Biến thể(đang phát triển) hoặc sản phẩm làm quà tặng</span>
@@ -744,6 +753,7 @@ $(document).ready(function($){
 		
 		//@
 		var products_speciality_name = $('#products_speciality_name').val();
+		var products_speciality_start_buy = $('#products_speciality_start_buy').val();
 		var products_speciality_type = $('#products_speciality_type  option:selected').val();
 		
 		var products_speciality_status_admin = $('#products_speciality_status_admin  option:selected').val();
@@ -842,6 +852,7 @@ $(document).ready(function($){
 			"cat_string" : cat_string,
 			"datas":{
 				products_speciality_name : products_speciality_name,
+				products_speciality_start_buy : products_speciality_start_buy,
 				products_speciality_type :  products_speciality_type,
 				products_speciality_sku : products_speciality_sku,
 				products_speciality_store_id : products_speciality_store_id,

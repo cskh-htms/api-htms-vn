@@ -25,6 +25,13 @@ config_api.API_LIB_VERSION +
 '/product-speciality-price-meta/product-speciality-price-meta-search.js');
 
 
+//@
+const product_search = require('../../lib/' + 
+config_api.API_LIB_VERSION + 
+'/products/product-search.js');
+
+
+
 
 
 //@
@@ -127,6 +134,72 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 
 
 
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@ get product arr taget
+	try{
+		let data_product_taget =    
+		{
+		   "select_field" :
+			[
+				"products_speciality_ID",
+				"products_speciality_start_buy"			
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"products_speciality_ID",
+						"value"     : model_product_arr,
+						"compare" : "in"
+					}					
+					]    
+				} 
+			]    
+		}
+		
+		//@ get datas
+		var product_taget = await product_search(data_product_taget,res);
+		//res.send(product_taget);
+		//return;
+	}
+	catch(error){
+		let evn = ojs_configs.evn;
+		//evn = "dev";
+		let error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			error, 
+			"lỗi get product product taget, liên hệ admin" 
+		);
+		res.send ({ 
+			"error" : "22", 
+			"position" : "api/shares/get meta product",
+			"message": error_send 
+		});
+	}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//@
 	//@
 	//@
@@ -166,16 +239,36 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		
 		//@ get datas
 		var data_sale = await product_sale(data_get,res);
-		//@ đưa comment vào data return
+		//res.send([product_taget,data_sale]);
+		//return;
+		
+		
+
 		var add_data = [];	
-		for(x in data_product){
+		for(x in product_taget){
 			add_data_line = 0;
-			for(y in data_sale){
-				if(data_product[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
-					add_data_line = data_sale[y].sum_orders_details_speciality_qty;
-				}							
+
+			//@
+			//@
+			//@ 
+			if(data_sale.length > 0){
+				for(y in data_sale){
+					if(product_taget[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+						add_data_line = parseInt(data_sale[y].sum_orders_details_speciality_qty) + parseInt(product_taget[x].products_speciality_start_buy);
+					}							
+				}				
+			}else{
+				add_data_line = product_taget[x].products_speciality_start_buy;
 			}
-			data_product[x].so_luong_da_ban = add_data_line;
+			
+			
+			//@
+			//@
+			for(z in data_product){
+				if(product_taget[x].products_speciality_ID == data_product[z].products_speciality_ID){
+					data_product[z].so_luong_da_ban = add_data_line;
+				}				
+			}			
 		}			
 	}
 	catch(error){
@@ -192,6 +285,15 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			"message": error_send 
 		});
 	}	
+
+
+
+
+	//res.send(data_product);
+	//return;
+
+
+
 
 	
 

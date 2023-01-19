@@ -424,6 +424,18 @@ $(document).ready(function($){
 		var stores_upload_limit_month = $('#stores_upload_limit_month').val();
 
 	
+	
+	
+		if(stores_email == ""){
+			ojs_message.message_ok_show("Vui lòng nhập email");
+			return;
+		}			
+		
+		if(stores_phone == ""){
+			ojs_message.message_ok_show("Vui lòng nhập điện thoại");
+			return;
+		}		
+	
 		
 		//@
 		
