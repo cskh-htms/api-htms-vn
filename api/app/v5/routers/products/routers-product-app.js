@@ -16,6 +16,7 @@ const controllers_product_fillter_app =  require('../../controllers/products/con
 
 const controllers_product_search_by_name_app =  require('../../controllers/products/controllers-product-search-by-name.js');
 const controllers_product_sale_app =  require('../../controllers/products/controllers-product-sale-app.js');
+const controllers_product_by_best_sale_app =  require('../../controllers/products/controllers-product-by-best-sale-app.js');
 
 
 
@@ -31,5 +32,8 @@ router.get('/by-store', middle_ware,controllers_product_by_store_app);
 router.post('/fillter', middle_ware,controllers_product_fillter_app);
 router.get('/by-name', middle_ware,controllers_product_search_by_name_app);
 router.get('/sale', middle_ware,controllers_product_sale_app);
+router.get('/by-best-sale', middle_ware,controllers_product_by_best_sale_app);
+
+
 
 module.exports = router;

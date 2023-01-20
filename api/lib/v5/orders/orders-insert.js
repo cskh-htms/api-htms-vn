@@ -48,7 +48,7 @@ const order_insert = function (datas,data_details,res) {
 	
 	
 	sql_text = "START TRANSACTION ; "
-	sql_text = "INSERT INTO " + config_database.PREFIX + "orders_speciality  SET ? ; ";
+	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "orders_speciality  SET ? ; ";
 
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
 	

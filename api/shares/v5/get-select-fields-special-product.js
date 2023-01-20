@@ -197,6 +197,17 @@ const select_field_special = function(field,res){
 				
 			return sql_field_check;	
 			
+		}else if(field == "sum_best_sale"){	
+			sql_field_check = sql_field_check + 	
+			
+			" CASE " + 
+				"WHEN (" + config_database.PREFIX  +"orders_speciality_status_orders is not null) " +  
+				"THEN sum(" + config_database.PREFIX  +"orders_details_speciality_qty) + " + 
+				config_database.PREFIX  + "products_speciality_start_buy " +  
+				"ELSE " + config_database.PREFIX  + "products_speciality_start_buy " + 
+			" END ";
+			return sql_field_check;					
+			
 		}else{
 			return " ";
 		}

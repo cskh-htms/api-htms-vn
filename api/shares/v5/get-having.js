@@ -39,13 +39,17 @@ const get_having =  function(datas,res){
 							consition_value = "(" + condition_arr[x].where[s].value + ")";
 							consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
 						}
-					}else if(condition_arr[x].where[s].compare == "is not null"){
+					}else if(condition_arr[x].where[s].compare == "is not null" || condition_arr[x].where[s].compare == "is null"){
 						consition_value = condition_arr[x].where[s].value;
 						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
 					}else{
 						consition_value = " '" + condition_arr[x].where[s].value + "' ";
 						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
-					}				
+					}	
+						
+					//res.send([condition_arr[x].where[s].compare]);
+					//return;
+					
 					//@
 					//@
 					//@

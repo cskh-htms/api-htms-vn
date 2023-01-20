@@ -1,6 +1,10 @@
 
-
-const mysql = require('mysql');
+//@
+//@
+//@
+//@
+//@ start
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
@@ -8,10 +12,9 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./orders-fields-get');
+const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
-
 
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
@@ -23,7 +26,17 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const order_search = function (datas,res) {
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ export
+const product_search_by_brand = function (datas,res) {
 
 	try{	
 		var sql_select_type = get_select_type(datas,res);
@@ -38,25 +51,27 @@ const order_search = function (datas,res) {
 			sql_select_type + 
 			sql_select_fields + 
 			fields_get.from_default + 
-			fields_get.link_default + 
+			fields_get.link_sale + 
 			sql_condition +
 			sql_group_by + 
-			sql_order + 
 			sql_having + 
+			sql_order + 			
 			sql_limit;
 		
+		//res.send([get_sql_search_group]);
+		//return;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi order search, Vui lòng liên hệ admin" 
+				"Lỗi product search by brand, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "order search", 
+			"position" : "lib/products/product search by best sale", 
 			"message": error_send 
 			}); 
 		return;	
@@ -72,11 +87,11 @@ const order_search = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi order search, Vui lòng liên hệ admin" 
+							"Lỗi product search by best sale, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/orders/order searchxxx", 
+						"position" : "lib/products/product search by best sale", 
 						"message": error_send 
 					}); 
 					return;
@@ -87,15 +102,15 @@ const order_search = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi order search, Vui lòng liên hệ admin" 
+				"Lỗi product search by brand, Vui lòng liên hệ admin" 
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/orders/order search", 
+			"position" : "lib/products/product search by best sale", 
 			"message": error_send 
 		}); 
 		return;
@@ -103,16 +118,29 @@ const order_search = function (datas,res) {
 };	
 
 
-module.exports = order_search;
 
 
-/*
-@@@@
-@@@@@
-@@@@@
-@@@@@
-*/
 
+//@
+//@
+//@
+//@
+//@ export
+module.exports = product_search_by_brand;
+
+
+
+
+
+
+
+
+
+//@
+//@
+//@
+//@
+//@ end
 
 
 

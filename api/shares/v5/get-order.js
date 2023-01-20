@@ -26,6 +26,7 @@ const get_order =  function(datas,res){
 					if(
 					order_arr[x].field == "products_speciality_sort_by_percen" 
 					|| order_arr[x].field == "products_speciality_price_caution" 
+					|| order_arr[x].field == "sum_best_sale" 
 					){
 						sql_order = "order by " + order_arr[x].field + " " + 
 						order_arr[x].compare +  " ";						
@@ -39,6 +40,7 @@ const get_order =  function(datas,res){
 					if(
 					order_arr[x].field == "products_speciality_sort_by_percen" 
 					|| order_arr[x].field == "products_speciality_price_caution" 
+					|| order_arr[x].field == "sum_best_sale" 
 					){
 						sql_order = sql_order + " , " + order_arr[x].field + " " + 
 						order_arr[x].compare +  " ";

@@ -113,6 +113,7 @@ try {
 				|| field_arr[x] == "products_speciality_sale_of_price_time_check" 
 				|| field_arr[x] == "out_of_stock" 
 				|| field_arr[x] == "products_speciality_sort_by_percen" 
+				|| field_arr[x] == "sum_best_sale" 
 			){
 				sql_field_check  = get_select_fields_special_product(field_arr[x],res);	
 				

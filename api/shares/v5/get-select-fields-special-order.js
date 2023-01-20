@@ -20,9 +20,7 @@ const select_field_special = function(field,res){
 			"sum(" + 
 			config_database.PREFIX  + "orders_details_speciality_qty * " + 
 			config_database.PREFIX  + "orders_details_speciality_price ) ";		
-			return sql_field_check;			
-			
-			
+			return sql_field_check;				
 		}else{
 			return " ";
 		}

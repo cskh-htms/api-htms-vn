@@ -116,6 +116,11 @@ async  function controllers_order_insert_app(req, res, next) {
 		}		
 		
 		var get_store_id_resuilt = await get_store_id(product_id,res);
+		//res.send(get_store_id_resuilt);
+		//return;	
+
+		
+		
 		
 		if(get_store_id_resuilt.length > 0){
 			var store_id = get_store_id_resuilt[0].products_speciality_store_id;
@@ -171,13 +176,21 @@ async  function controllers_order_insert_app(req, res, next) {
 		var datas_assign = Object.assign(fields_insert.default_fields, datas.orders);
 		var order_insert_resuilt = await  order_insert(datas_assign,datas.orders_detail,res);
 		
-		
+		//res.send(order_insert_resuilt);
+		//return;
+
+	
 		//@
 		//@
 		//@ send email
-		var email_title = 'DALA - Có đơn hàng mới [ ' + order_insert_resuilt[0].insertId + ' ]';
+		var email_title = 'DALA - Có đơn hàng mới [ ' + order_insert_resuilt[1].insertId + ' ]';
 		//var email_content = '<strong> DALA - </strong><p> Có đơn hàng mới <b>[ ' + order_insert_resuilt[0].insertId + ' ] </b></p>';
-		var email_content = await content_email_order(order_insert_resuilt[0].insertId,res);
+		var email_content = await content_email_order(order_insert_resuilt[1].insertId,res);
+		//res.send([email_content]);
+		//return;
+
+
+
 
 		if(ojs_configs.domain == "http://localhost:2021"){
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);

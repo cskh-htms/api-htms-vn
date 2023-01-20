@@ -5,8 +5,6 @@ const md5 = require('md5');
 
 
 const ojs_configs = require('../../../../../configs/config');
-
-
 const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
@@ -27,6 +25,7 @@ const get_one_user = require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 const user_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-insert.js');
 
+const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
 
 
 //@
@@ -58,6 +57,37 @@ async  function function_export(req, res, next) {
 	//@ insert
 	
 	var user_insert_result = await user_insert(datas_insert,res);
+	
+	
+	
+	
+	
+	
+	//@	
+	//@
+	//@
+	//@ send email
+	var email_title = 'Chúc mừng DALA vừa có khách hàng mới đăng ký';
+	var email_content = '<strong> DALA - </strong><p> Vừa có khách hàng mới đăng ký trên app SĐT <strong> [ ' + datas.users_phone + ' ] </strong></p>';
+
+	
+	
+	if(ojs_configs.domain == "http://localhost:2021"){
+		ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+	}else{
+		//@ send email to admin
+		ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+		ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+		ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+	}	
+	
+		
+	
+	
+	//@	
+	//@
+	//@
+	//@ send data
 	res.send({"error":"","datas":user_insert_result});
 	return;
 

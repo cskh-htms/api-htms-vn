@@ -31,7 +31,10 @@ const function_export = async function(order_id,res){
 	
 	let txt_return = '';
 
-
+	//res.send([order_id]); 
+	//return;	
+	
+	
 	let data_get =    
 	{
 	   "select_type" : "DISTINCT",
@@ -57,6 +60,10 @@ const function_export = async function(order_id,res){
 
 	//@ get datas
 	var order_result = await order_search(data_get,res);
+	
+	//res.send([order_result]); 
+	//return;	
+	
 
 	var order_arr = [];
 	if(order_result.length > 0){
