@@ -227,7 +227,12 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 						"field"     :"orders_details_speciality_line_order",
 						"value"     : "product",
 						"compare" : "="
-					}					
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					}						
 					]    
 				} 
 			],				

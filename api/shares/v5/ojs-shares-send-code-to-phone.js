@@ -12,6 +12,12 @@
 @
 @
 */
+const ojs_configs = require('../../../configs/config');
+const config_api = require('../../configs/config-api');
+const ojs_shares_send_email = require('./ojs-shares-send-email.js');
+const content_email_order = require('./content-email-order.js');
+
+
 const ojs_shares_fetch_data = require('./ojs-shares-fetch-data');
 //@
 //@
@@ -47,7 +53,7 @@ const ojs_shares_send_code_to_phone = {
 			'sign=' + datas.sign + '&' +
 			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
 			'phoneNumber=' + datas.phoneNumber + '&' + 
-			'message=Quy khach da dat hang thanh cong tai DALA. Don hang so: [' +  code +  ' ]. Cam on quy khach da mua hang tai DALA' + '&' +
+			'message=Quy khach da dat hang thanh cong tai DALA. Don hang so: ' +  code +  ' . Cam on quy khach da mua hang tai DALA' + '&' +
 			'brandName=' + datas.brandName;
 		
 			//res.send(url);
@@ -61,6 +67,28 @@ const ojs_shares_send_code_to_phone = {
 				res.send({"error":"","datas":get_code_verification});
 				return;				
 			}else{
+				
+				//@
+				//@
+				//@ send email
+				var email_title = 'DALA - Tin nhắn đặt hàng không thành công ';
+				var email_content = 'Không gữi được tin nhắn đặt hàng cho khách hàng [ ' + phone + ' ] ';
+
+				if(ojs_configs.domain == "http://localhost:2021"){
+					//@
+					//@
+					//@ send email to dev
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+				}else{
+					//@
+					//@
+					//@ send email to admin
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+				}
+
+				
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
 				return;					
 			}
@@ -113,6 +141,28 @@ const ojs_shares_send_code_to_phone = {
 				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
 			}else{
+				
+				//@
+				//@
+				//@ send email
+				var email_title = 'DALA - gữi tin nhắn cho shipper không thành công ';
+				var email_content = 'Không gữi được tin nhắn cho shipper [ ' + phone + ' ] ';
+
+				if(ojs_configs.domain == "http://localhost:2021"){
+					//@
+					//@
+					//@ send email to dev
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+				}else{
+					//@
+					//@
+					//@ send email to admin
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+				}				
+				
+				
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
 				return;					
 			}
@@ -168,6 +218,28 @@ const ojs_shares_send_code_to_phone = {
 				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
 			}else{
+				
+				//@
+				//@
+				//@ send email
+				var email_title = 'DALA - lấy mã xác thực không thành công ';
+				var email_content = 'Khách hàng [ ' + phone + ' ] Lấy mã xác thực không thành công. Tin nhắn không gữi được';
+
+				if(ojs_configs.domain == "http://localhost:2021"){
+					//@
+					//@
+					//@ send email to dev
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+				}else{
+					//@
+					//@
+					//@ send email to admin
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+				}				
+				
+				
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gửi được tin nhắn"});
 				return;					
 			}
@@ -207,7 +279,7 @@ const ojs_shares_send_code_to_phone = {
 			'sign=' + datas.sign + '&' +
 			'serviceTypeId=' + datas.serviceTypeId + '&'  + 
 			'phoneNumber=' + datas.phoneNumber + '&' + 
-			'message=DALA mat khau moi cua ban la: ' + datas.code + '&'+
+			'message=DALA.VN JSC mat khau moi DALA - Dac San Da Lat cua ban la: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
 			//res.send(url);
@@ -220,7 +292,27 @@ const ojs_shares_send_code_to_phone = {
 			if(get_code_verification.Message == "Success"){
 				res.send({"error":"","datas":"Đã gửi tin nhắn"});
 				return;				
-			}else{
+			}else{				
+				//@
+				//@
+				//@ send email
+				var email_title = 'DALA - Tin nhắn quên mật khẩu không thành công ';
+				var email_content = 'Khách hàng [ ' + phone + ' ] quên mật hẩu không thành công. Tin nhắn không gữi được';
+
+				if(ojs_configs.domain == "http://localhost:2021"){
+					//@
+					//@
+					//@ send email to dev
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+				}else{
+					//@
+					//@
+					//@ send email to admin
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+				}					
+				
 				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1",get_code_verification});
 				return;					
 			}

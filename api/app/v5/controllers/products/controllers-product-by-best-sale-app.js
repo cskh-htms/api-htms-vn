@@ -133,7 +133,8 @@ async  function controllers_product_by_category_app(req, res, next) {
 				"stores_name",
 				"stores_ID",
 				"products_speciality_sort_by_percen",
-				"sum_best_sale"
+				"sum_best_sale",
+				"orders_speciality_status_orders"
 			],
 			"condition" :
 			[
@@ -146,7 +147,26 @@ async  function controllers_product_by_category_app(req, res, next) {
 			[
 				"products_speciality_ID",
 				"orders_speciality_status_orders"
-			],			
+			],
+			"having" :
+			[
+				{    
+				"relation": "or",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "",
+						"compare" : "is null"
+					}                            
+					]    
+				}         
+			], 			
 			"order" :
 			 [		 
 				{    

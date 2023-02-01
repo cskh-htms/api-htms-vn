@@ -59,8 +59,6 @@ if(coupon_list.length > 0){
 
 
 
-
-
 <%
 if(order_taget.length > 0){
 %>	
@@ -304,17 +302,15 @@ if(order_taget.length > 0){
 
 
 <script>
-	$(document).ready(function($){
-		
-		
-		
+	$(document).ready(function($){		
 		
 		//@
 		//@
 		//@
 		//@
 		//@		
-		$('#btn_xac_nhan_order').click(function(e){
+
+		$(document).on('click','#btn_xac_nhan_order',function(e) {				
 			e.preventDefault();
 			//alert('abc');			
 			let orders_speciality_status_orders = 101;
@@ -368,7 +364,7 @@ if(order_taget.length > 0){
 		//@
 		//@
 		//@
-		$('#btn_tu_choi_order').click(function(e){
+		$(document).on('click','#btn_tu_choi_order',function(e) {				
 			e.preventDefault();
 			//alert('abc');			
 			let orders_speciality_status_orders = 102;
@@ -412,6 +408,26 @@ if(order_taget.length > 0){
 			  }//end of success			  
 			});	//end of ajax
 		});		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		$(document).on('click','#ok',function(e) {				
+			e.preventDefault();
+			location.reload();
+		});			
+		
+		
+		
+		
+		
+		
+		
+		
 	});
 </script>
 
