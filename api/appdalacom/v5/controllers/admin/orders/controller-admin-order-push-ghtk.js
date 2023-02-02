@@ -317,6 +317,7 @@ async  function function_export(req, res, next) {
 					"ward": orders_info[0].orders_speciality_wards,
 					"hamlet": "Khác",
 					"is_freeship": "1",
+					"transport": "road",
 					"pick_money": price_order,
 					"note": orders_info[0].orders_speciality_notes,
 					"value": price_order,
