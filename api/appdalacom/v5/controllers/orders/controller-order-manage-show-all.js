@@ -252,6 +252,11 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"orders_speciality_status_orders",
 						"value"     : JSON.parse(status_int),
 						"compare" : "in"
+					},	
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : 'product',
+						"compare" : "="
 					}					
 					]    
 				}         
