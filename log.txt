@@ -1,14 +1,22 @@
 
 
-
-
-
-
-
-
-
-4. upload-wp
-
-5. upload
-
-6.users-tracking
+					"pick_name": stores_info[0].stores_name,
+					"pick_address": stores_info[0].stores_adress,
+					"pick_province": stores_info[0].stores_province,
+					"pick_district": stores_info[0].stores_district,
+					"pick_ward": stores_info[0].stores_wards,
+					"pick_tel": stores_info[0].stores_phone,
+					"tel": orders_info[0].orders_speciality_phone,
+					"name": orders_info[0].orders_speciality_name,
+					"address": 'Số nhà : ' +  orders_info[0].orders_speciality_adress,
+					"province": orders_info[0].orders_speciality_province,
+					"district": orders_info[0].orders_speciality_district,
+					"ward": orders_info[0].orders_speciality_wards,
+					"hamlet": "Khác",
+					"is_freeship": "1",
+					"transport": "road",
+					"pick_money": price_order,
+					"note": orders_info[0].orders_speciality_notes,
+					"value": price_order,
+					"pick_option":"cod",
+					"deliver_option" : "none"

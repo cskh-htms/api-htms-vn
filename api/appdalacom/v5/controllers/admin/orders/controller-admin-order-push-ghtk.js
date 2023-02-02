@@ -287,7 +287,7 @@ async  function function_export(req, res, next) {
 			//@
 			//@
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			if(evn == "dev"){
 				var url = "https://services-staging.ghtklab.com/services/shipment/order/?ver=1.6.3";
 			}else{
@@ -302,7 +302,6 @@ async  function function_export(req, res, next) {
 			let order = 	    
 				{
 					"id": ran + "_" + datas.shipping_tracking_orders_id,
-					//"id": ran + "_" + 1,
 					"pick_name": stores_info[0].stores_name,
 					"pick_address": stores_info[0].stores_adress,
 					"pick_province": stores_info[0].stores_province,
@@ -311,23 +310,22 @@ async  function function_export(req, res, next) {
 					"pick_tel": stores_info[0].stores_phone,
 					"tel": orders_info[0].orders_speciality_phone,
 					"name": orders_info[0].orders_speciality_name,
-					"address": orders_info[0].orders_speciality_adress,
+					"address": 'số nhà ' + orders_info[0].orders_speciality_adress,
 					"province": orders_info[0].orders_speciality_province,
 					"district": orders_info[0].orders_speciality_district,
 					"ward": orders_info[0].orders_speciality_wards,
 					"hamlet": "Khác",
 					"is_freeship": "1",
-					"transport": "road",
 					"pick_money": price_order,
 					"note": orders_info[0].orders_speciality_notes,
-					"value": price_order,
-					"pick_option":"cod",
-					"deliver_option" : "none"
+					"value": price_sum,
+					"pick_option":"cod" ,
+					"deliver_option" : "none",
+					"transport": "road"
 			}			
-			//res.send({"error":"", "datas": [order,url,token,ran]});
+			//res.send({"error":"", "datas": [order]});
 			//return;				
 			
-
 
 			//@
 			//@
@@ -343,7 +341,10 @@ async  function function_export(req, res, next) {
 
 			
 			var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
-		
+			res.send({"error":"", "datas": result_ghtk });
+			return;	
+
+			
 		//@
 		//@
 		}
