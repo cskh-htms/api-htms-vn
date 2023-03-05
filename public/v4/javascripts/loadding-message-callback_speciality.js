@@ -577,11 +577,21 @@ ojs_loadding_message_callback = {
 		let datas_parse = JSON.parse(datas);
 		let order_id = datas_parse.order_id;
 		ojs_orders.ajax_delete(order_id);
-	}//end of xoa san pham dac san
+	},//end of xoa san pham dac san
 	//
 	//	
 		
-		
+	//
+	//	
+	//
+	//xoa reviews
+	delete_orders_speciality_admin:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let order_id = datas_parse.order_id;
+		ojs_orders_admin.ajax_delete(order_id);
+	}//end of xoa san pham dac san
+	//
+	//			
 	
 }	
 	

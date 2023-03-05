@@ -93,7 +93,7 @@ router.post('/save-fee',	middle_ware, controllers_admin_order_save_fee );
 router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
 router.put('/update',	middle_ware, controllers_admin_order_update );
 
-router.delete('/delete',	middle_ware, controllers_admin_order_delete );
+router.delete('/delete',middle_ware, controllers_admin_order_delete );
 router.delete('/detail-delete',	middle_ware, controllers_admin_order_detail_delete );
 
 

@@ -171,7 +171,7 @@ router.put('/update/:order_id', controller_admin_orders_update);
 router.put('/detail/update/:detail_id', controller_admin_orders_detail_update);
 
 router.delete('/detail/delete/:detail_id', controller_admin_orders_detail_delete);
-
+router.delete('/delete/:order_id', controller_admin_orders_delete);
 
 
 
