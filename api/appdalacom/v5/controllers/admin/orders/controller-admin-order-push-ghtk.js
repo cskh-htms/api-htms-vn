@@ -341,8 +341,8 @@ async  function function_export(req, res, next) {
 
 			
 			var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
-			res.send({"error":"", "datas": result_ghtk });
-			return;	
+			//res.send({"error":"", "datas": result_ghtk });
+			//return;	
 
 			
 		//@
@@ -365,11 +365,7 @@ async  function function_export(req, res, next) {
 
 		}			
 		
-		
-		
-		
-
-		
+				
 		
 		//@
 		//@
