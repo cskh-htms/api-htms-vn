@@ -185,6 +185,11 @@ async  function controllers_order_insert_app(req, res, next) {
 		
 		
 		
+		res.send([order_insert_resuilt[1].insertId,store_phone]);
+		return;		
+		
+		
+		
 		if(ojs_configs.domain == "http://localhost:2021"){
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
 			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
