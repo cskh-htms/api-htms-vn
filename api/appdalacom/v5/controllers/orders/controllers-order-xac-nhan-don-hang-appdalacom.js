@@ -116,8 +116,7 @@ async  function function_export(req, res, next) {
 		var data_update = {
 			orders_speciality_status_orders: 101
 		}
-		var order_update_result = await order_update(data_update,decoded.order_id,res);
-		
+		var order_update_result = await order_update(data_update,decoded.order_id,res);		
 		res.send("Đã xác nhận đơn hàng rồi"); 
 		return;
 	}else if(order_result[0].orders_speciality_status_orders == "101"){
