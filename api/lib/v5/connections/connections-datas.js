@@ -14,7 +14,7 @@ if(config.domain == "http://localhost:2021"){
 		user     			: config_database.DATABASE_USER,
 		password 			: config_database.DATABASE_PASS,
 		database 			: config_database.DATABASE_NAME,
-		port 				: 6446,
+		port 				: config_database.PORT,
 		multipleStatements	: true
 	}
 }else{
@@ -24,6 +24,7 @@ if(config.domain == "http://localhost:2021"){
 		user     		: config_database.DATABASE_USER2,
 		password 		: config_database.DATABASE_PASS2,
 		database 		: config_database.DATABASE_NAME2,
+		port 			: config_database.PORT2,
 		multipleStatements	: true
 	}	
 }

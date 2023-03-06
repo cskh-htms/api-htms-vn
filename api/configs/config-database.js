@@ -1,16 +1,23 @@
-const HOST_NAME = "103.110.87.173";
+const HOST_NAME = "45.251.114.248";
 const HOST_IP = "localhost";
 const DATABASE_USER = "yeuem";
 const DATABASE_PASS = "Vanluc@2003";
 const DATABASE_NAME = "dalacenter4";
+const PORT = 6446;
 
 
 
-const HOST_NAME2 = "103.110.86.40"; //server remote
+
+
+const HOST_NAME2 = "45.251.114.248"; //server remote
 const HOST_IP2 = "localhost"; // server user remote
-const DATABASE_USER2 = "remote1";
+const DATABASE_USER2 = "yeuem";
 const DATABASE_PASS2 = "Vanluc@2003";
 const DATABASE_NAME2 = "dalacenter4";
+const PORT2 = 6446;
+
+
+
 
 const PREFIX = "dala_";
 
@@ -43,11 +50,13 @@ module.exports = {
 	DATABASE_USER,
 	DATABASE_PASS,
 	DATABASE_NAME,
+	PORT,
 	HOST_NAME2,
 	HOST_IP2,
 	DATABASE_USER2,
 	DATABASE_PASS2,
 	DATABASE_NAME2,
+	PORT2,
 	PREFIX,
 	user_role_database,	
 	user_role_text
