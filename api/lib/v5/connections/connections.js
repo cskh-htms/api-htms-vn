@@ -6,7 +6,7 @@ const ojs_models_config = require('./connections-datas');
 
 
 
-
+//console.log(ojs_models_config.connection_data);
 
 //const connection = mysql.createConnection(ojs_models_config.connection_data);
 const connection2 = mysql2.createPool(ojs_models_config.connection_data);

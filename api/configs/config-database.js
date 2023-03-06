@@ -1,47 +1,35 @@
-const HOST_NAME = "45.251.114.248";
-const HOST_IP = "localhost";
-const DATABASE_USER = "yeuem";
-const DATABASE_PASS = "Vanluc@2003";
-const DATABASE_NAME = "dalacenter4";
-const PORT = 6446;
+const HOST_NAME = process.env.HOST_NAME;
+const HOST_IP = process.env.HOST_IP;
+const DATABASE_USER = process.env.DATABASE_USER;
+const DATABASE_PASS = process.env.DATABASE_PASS;
+const DATABASE_NAME = process.env.DATABASE_NAME;
+const PORT = process.env.PORT;
 
 
 
 
 
-const HOST_NAME2 = "45.251.114.248"; //server remote
-const HOST_IP2 = "localhost"; // server user remote
-const DATABASE_USER2 = "yeuem";
-const DATABASE_PASS2 = "Vanluc@2003";
-const DATABASE_NAME2 = "dalacenter4";
-const PORT2 = 6446;
+const HOST_NAME2 = process.env.HOST_NAME2;
+const HOST_IP2 = process.env.HOST_IP2;
+const DATABASE_USER2 = process.env.DATABASE_USER2;
+const DATABASE_PASS2 = process.env.DATABASE_PASS2;
+const DATABASE_NAME2 = process.env.DATABASE_NAME2;
+const PORT2 = process.env.PORT2;
 
 
 
 
-const PREFIX = "dala_";
 
 
-//@
-user_role_database =  {
-	"0" : "admin-ne",
-	"1" : "bussiness-ne",
-	"2" : "customer-ne",
-	"3" : "default-ne",
-	"4" : "supper-job-ne",
-	"5" : "shipping-ne"
-}
+
+const PREFIX = process.env.PREFIX;
 
 
 //@
-user_role_text = [
-	"admin",
-	"bussiness",
-	"customer",
-	"default",
-	"supper-job",
-	"shipping"
-]
+user_role_database = JSON.parse(process.env.user_role_database);
+
+//@
+user_role_text = JSON.parse(process.env.user_role_text);
 
 
 module.exports = {

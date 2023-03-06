@@ -1,10 +1,10 @@
 
 
-const API_APP_VERSION = "v5";
-const API_APPDALACOM_VERSION = "v5";
-const API_DALAVN_VERSION = "v5";
-const API_LIB_VERSION = "v5";
-const API_SHARES_VERSION = "v5";
+const API_APP_VERSION = process.env.API_APP_VERSION;
+const API_APPDALACOM_VERSION = process.env.API_APPDALACOM_VERSION;
+const API_DALAVN_VERSION = process.env.API_DALAVN_VERSION;
+const API_LIB_VERSION = process.env.API_LIB_VERSION;
+const API_SHARES_VERSION = process.env.API_SHARES_VERSION;
 
 
 module.exports = {

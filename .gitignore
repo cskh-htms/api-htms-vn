@@ -1,4 +1,12 @@
-app.js
-configs/config.js
+
+
+
 node_modules
+.env
 public/v4/javascripts/loader.js
+
+
+
+
+
+
