@@ -258,15 +258,15 @@ ojs_share_orders = {
 	//@
 	//@ 1. [datas_orders_status]
 	datas_orders_status : [	
-		{"status":"0","name":"chờ xác nhận"},
-		{"status":"100","name":"đã hoàn thành"},
-		{"status":"1","name":"Chưa tiếp nhận"},
-		{"status":"2","name":"Đã tiếp nhận"},
+		{"status":"0","name":"Chờ cửa hàng xác nhận"},
+		{"status":"100","name":"Đã hoàn thành"},
+		{"status":"1","name":"Đã gữi đơn cho GHTK -> chờ xác nhận"},
+		{"status":"2","name":"Shipper đã tiếp nhận đơn hàng"},
 		
 		
 		{"status":"101","name":"Cửa hàng đã xác nhận đơn hàng"},
 		{"status":"102","name":"Cửa hàng đã từ chối đơn hàng"},		
-		
+		{"status":"103","name":"Đã gữi đơn cho Shipper DALA -> chờ Shipper xác nhận"},
 		
 		{"status":"3","name":"Đã lấy hàng/Đã nhập kho"},
 		{"status":"4","name":"Đã điều phối giao hàng/Đang giao hàng"},
@@ -291,19 +291,20 @@ ojs_share_orders = {
 		{"status":"49","name":"Shipper báo không giao được giao hàng"},
 		{"status":"410","name":"Shipper báo delay giao hàng"},
 		
-		{"status":"-1","name":"Hủy đơn hàng"},
+		{"status":"-1","name":"Khách hàng đã hủy đơn hàng"},
 	],
 	datas_orders_status_fillter : [	
-		{"status":"[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100,101,102]","name":"Tất cả"},
-		{"status":"[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,101,102]","name":"Chưa hoàn thành"},
-		{"status":"[100]","name":"đã hoàn thành"},
-		{"status":"[0]","name":"chờ sử lý"},
-		{"status":"[-1]","name":"Hủy đơn hàng"},
-		{"status":"[1]","name":"Chưa tiếp nhận"},
-		{"status":"[2]","name":"Đã tiếp nhận"},
+		{"status":"[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,100,101,102,103]","name":"Tất cả"},
+		{"status":"[-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,123,127,128,45,49,410,101,102,103]","name":"Chưa hoàn thành"},
+		{"status":"[100]","name":"Đã hoàn thành"},
+		{"status":"[0]","name":"Chờ cửa hàng xác nhận"},
+		{"status":"[-1]","name":"Khách hàng đã hủy đơn hàng"},
+		{"status":"[1]","name":"Đã gữi đơn cho GHTK -> chờ xác nhận"},
+		{"status":"[2]","name":"Shipper đã tiếp nhận đơn hàng"},
 		
 		{"status":"[101]","name":"Cửa hàng đã xác nhận đơn hàng"},
 		{"status":"[102]","name":"Cửa hàng đã từ  chối  đơn hàng"},		
+		{"status":"[103]","name":"Đã gữi đơn cho Shipper DALA -> chờ Shipper xác nhận"},	
 		
 		{"status":"[3]","name":"Đã lấy hàng/Đã nhập kho"},
 		{"status":"[4]","name":"Đã điều phối giao hàng/Đang giao hàng"},

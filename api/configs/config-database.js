@@ -1,8 +1,10 @@
-const HOST_NAME = "localhost";
+const HOST_NAME = "103.110.87.173";
 const HOST_IP = "localhost";
-const DATABASE_USER = "root";
-const DATABASE_PASS = "";
+const DATABASE_USER = "yeuem";
+const DATABASE_PASS = "Vanluc@2003";
 const DATABASE_NAME = "dalacenter4";
+
+
 
 const HOST_NAME2 = "103.110.86.40"; //server remote
 const HOST_IP2 = "localhost"; // server user remote
