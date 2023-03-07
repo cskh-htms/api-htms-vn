@@ -13,6 +13,10 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "stores_service_type_id as stores_service_type_id, " + 
 	config_database.PREFIX  + "stores_adress as stores_adress, " + 	
 	
+	config_database.PREFIX  + "stores_sort_order as stores_sort_order, " +
+	
+	
+	
 	config_database.PREFIX  + "stores_province as stores_province, " + 
 	config_database.PREFIX  + "stores_district as stores_district, " + 
 	config_database.PREFIX  + "stores_wards as stores_wards, " + 
