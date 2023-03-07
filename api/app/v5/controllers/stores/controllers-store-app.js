@@ -73,7 +73,7 @@ async  function controllers_store_app(req, res, next) {
 			 [		 
 				{    
 					"field"  :"stores_sort_order",
-					"compare" : "DESC"
+					"compare" : "ASC"
 				}			
 			]    
 		}
