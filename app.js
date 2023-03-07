@@ -56,7 +56,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
+app.use(session({secret: process.env.session_secret,saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
 
 
 
@@ -68,9 +68,11 @@ app.use(session({secret: 'dalaappSession@2020',saveUninitialized: true,resave: t
 //@
 //@
 //@ tao server localhost
-const localHttp = require('http');
-const localServer = localHttp.createServer(app);
-localServer.listen(2021,'localhost');
+
+	const localHttp = require('http');
+	const localServer = localHttp.createServer(app);
+	localServer.listen(2021,'localhost');
+
 
 
 
@@ -99,17 +101,23 @@ app.use('/api/appdalacom/v5/', require('./api/appdalacom/v5/routers/routers-inde
 //@
 //@ Linh tinh
 app.get('/app_version', function(req, res){
+
   version = {
-    "version" : "4.0.27",
-    "versionCode" : "4027"
+    "version" : "5.0.3",
+    "versionCode" : "5003",
+    "android" : {
+      "version" : "5.0.3",
+      "versionCode" : "5003"
+    },
+    "ios" : {
+      "version" : "5.0.3",
+      "versionCode" : "5003"
+    },
+    "maintenance" : 0
   }
   
   res.json(version);
 });
-
-
-
-
 
 
 
