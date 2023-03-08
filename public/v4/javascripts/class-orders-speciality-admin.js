@@ -239,7 +239,7 @@ $(document).ready(function($){
 			//return;
 			//goi api
 			 $.ajax({
-			  type : "POST",	  
+			  type : "put",	  
 			  contentType : "application/json",
 			  url : ojs_loader.host + "/orders/speciality/update/" + orders_id,
 			  data : JSON.stringify(datas),

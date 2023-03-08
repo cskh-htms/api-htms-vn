@@ -71,7 +71,10 @@ require(
 	'../../../controllers/admin/orders/controller-admin-order-update'
 );
 
-
+const controllers_admin_order_webhook_ghtk =  
+require(
+	'../../../controllers/admin/orders/controller-admin-order-webhook-ghtk'
+);
 
 
 
@@ -89,6 +92,11 @@ router.post('/ajax-load',	middle_ware, controllers_admin_order_ajax_load );
 router.post('/push-dala',	middle_ware, controllers_admin_order_push_dala );
 router.post('/push-ghtk',	middle_ware, controllers_admin_order_push_ghtk );
 router.post('/save-fee',	middle_ware, controllers_admin_order_save_fee );
+router.post('/webhook-ghtk', controllers_admin_order_webhook_ghtk );
+
+
+
+
 
 router.put('/detail-update',	middle_ware, controllers_admin_order_detail_update );
 router.put('/update',	middle_ware, controllers_admin_order_update );
