@@ -149,6 +149,9 @@ async  function function_export(req, res, next) {
 					"orders_speciality_status_orders",
 					"orders_speciality_status_payment",
 					"orders_speciality_name",
+					"orders_speciality_province",
+					"orders_speciality_district",
+					"orders_speciality_wards",
 					"stores_ID" ,
 					"stores_name",
 					"users_full_name"				
