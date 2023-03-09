@@ -10,9 +10,10 @@
 
 
 
-<table class="table-list">
+<table class="table-list" style="table-layout: auto;">
 	<thead>
 		<tr>
+			<th class="user-name" style="width:80px; text-align:center;">STT</th>
 			<th class="user-name">Tên tài khoản</th>
 			<th class="user-email">Email</th>
 			<th class="user-phone">Điện thoại</th>
@@ -22,8 +23,11 @@
 	<tbody>
 
 	<% 
-	for(var  x in users_list) { %>
+	var stt = 1;
+	for(var  x in users_list) { 		
+	%>
 	   <tr>
+				<td class="user-name" style="width:80px; text-align:center;"><%= stt %></td>
 				<td class="user-name"><a href="#"><%= users_list[x].users_full_name %></a>
 				<div class="row-actions">
 				
@@ -60,12 +64,14 @@
 				
 		</tr>
 	<% 
+		stt ++ ;
 	} 
 	%>
 
 	</tbody>
 	<tfoot>
 		<tr>
+			<th class="user-name" style="width:80px; text-align:center;">STT</th>
 			<th class="user-name">Tên tài khoản</th>
 			<th class="user-email">Email</th>
 			<th class="user-phone">Điện thoại</th>
