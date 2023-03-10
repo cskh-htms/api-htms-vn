@@ -389,8 +389,8 @@ async  function function_export(req, res, next) {
 		
 		var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,"81C766114DabC2481D725898F52FEa4a20789C6b");
 		
-		res.send({ "error" : "" , "datas" : result}); 
-		return;	
+		//res.send({ "error" : "" , "datas" : result}); 
+		//return;	
 		
 		
 		if(result.fee.fee){
@@ -403,6 +403,7 @@ async  function function_export(req, res, next) {
 			res.send({ "error" : "13" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send }); 
 			return;								
 		}
+
 
 	//@
 	//@
