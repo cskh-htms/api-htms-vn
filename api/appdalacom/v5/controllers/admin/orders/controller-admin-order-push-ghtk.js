@@ -340,7 +340,7 @@ async  function function_export(req, res, next) {
 			//return;	
 
 			
-			var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,token);
+			var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,"81C766114DabC2481D725898F52FEa4a20789C6b");
 			//res.send({"error":"", "datas": result_ghtk });
 			//return;	
 
