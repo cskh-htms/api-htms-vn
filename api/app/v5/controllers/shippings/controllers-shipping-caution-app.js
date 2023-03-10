@@ -275,6 +275,7 @@ async  function function_export(req, res, next) {
 		//@ xong xui gữi lên ghtk lấy giá vận chuyển
 		let arr_id = [];
 		let weight_sum = 0;
+		let price_sum = 0;
 		
 		for(let x in datas.orders_details){
 			arr_id.push(datas.orders_details[x].orders_details_speciality_product_id);
@@ -312,7 +313,7 @@ async  function function_export(req, res, next) {
 		}				
 		
 		var price_list = await product_search(data_get,res);		
-		//res.send(price_caution_ghtk);  
+		//res.send([price_list,datas.orders_details]);  
 		//return;
 
 		if( Array.isArray(price_list) ){
@@ -320,7 +321,8 @@ async  function function_export(req, res, next) {
 				for(let x in price_list){
 					for(let y in datas.orders_details){
 						if(price_list[x].products_speciality_ID == datas.orders_details[y].orders_details_speciality_product_id){
-							weight_sum = weight_sum + ( price_list[x].products_speciality_weight * datas.orders_details[y].orders_details_speciality_qty)
+							weight_sum = weight_sum + ( price_list[x].products_speciality_weight * datas.orders_details[y].orders_details_speciality_qty);
+							price_sum = price_sum + ( price_list[x].products_speciality_price_caution * datas.orders_details[y].orders_details_speciality_qty)
 						}
 					}						
 				}				
@@ -328,7 +330,7 @@ async  function function_export(req, res, next) {
 				//return;
 			}
 		}
-		//res.send(price_caution_ghtk);  
+		//res.send([price_sum]);  
 		//return;	
 
 		let data_get_store =    
@@ -371,17 +373,24 @@ async  function function_export(req, res, next) {
 		"province=" + datas.adress.province + "&" + 
 		"district=" + datas.adress.Districts + "&" + 
 		"weight=" + weight_sum + "&" + 
+		"value=" + price_sum + "&" + 
 		"deliver_option=none";							
 		
-		let token = ojs_configs.token_ghtk;
-		//res.send({ "error" : "" , "datas" : [url,token]}); 
+		
+	
+		
+		//let token_ghtk = process.env.token_ghtk.replace(/^'"\"'$/gi, "");
+		//res.send({ "error" : "" , "datas" : [url,token_ghtk]}); 
 		//return;							
 		
 		
-		var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,token);
 		
-		//res.send({ "error" : "" , "datas" : result}); 
-		//return;	
+		
+		
+		var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,"81C766114DabC2481D725898F52FEa4a20789C6b");
+		
+		res.send({ "error" : "" , "datas" : result}); 
+		return;	
 		
 		
 		if(result.fee.fee){
