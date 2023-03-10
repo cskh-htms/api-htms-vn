@@ -207,8 +207,8 @@ async  function controllers_order_insert_app(req, res, next) {
 			//gữi sms đặt hàng 		
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,store_phone);
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,datas.orders.orders_speciality_phone);
-			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_01);
-			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_02);			
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_01);
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_02);			
 			
 			//@ send email to store
 			ojs_shares_send_email.send_email_to_admin(res,store_email,email_title,email_content);
