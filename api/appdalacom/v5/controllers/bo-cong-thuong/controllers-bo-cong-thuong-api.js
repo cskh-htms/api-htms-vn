@@ -7,19 +7,22 @@ const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+const ojs_shares_date = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
+
+
+
+
 
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_store = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-store');
-
-const get_data_news_bussiness = require('../../shares/get-data-news-bussiness-appdalacom-api.js');
-const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-appdalacom-api.js');
-
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search');
+const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
+
 
 
 //@
 async  function function_export(req, res, next) {
-
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
@@ -69,50 +72,12 @@ async  function function_export(req, res, next) {
 		}); 
 		return;			
 	}
-	res.send(["ok"]);
-	return;
+	//res.send(["ok"]);
+	//return;
 	
 	
 	
 
-	//@
-	//@lấy store taget
-	let data_store =    
-	{
-	   "select_field" :
-		[
-			"stores_ID",
-			"stores_user_id",
-			"stores_name" ,
-			"stores_adress",
-			"stores_province",
-			"stores_district",
-			"stores_wards" ,
-			"stores_payment_limit",
-			"stores_discount_price"						
-		],
-		"condition" :
-		[
-			{    
-			"relation": "and",
-			"where" :
-				[
-				{   
-					"field"     :"stores_ID",
-					"value"     : store_id,
-					"compare" : "="
-				}           
-				]    
-			}         
-		]   
-	}
-	
-	var store_taget_result = await store_search(data_store,res);
-	
-	//res.send(result);
-	//return;	
-	
-	
 
 	/////////////////////
 	////////////////////
@@ -120,33 +85,14 @@ async  function function_export(req, res, next) {
 		var promise_all = [];
 		promise_all.push(0);
 
-		//@ 1. lấy news bussiness
-		var fn_get_data_news_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_news_bussiness(store_taget_result[0].stores_user_id,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_data_news_bussiness);
-
-
-		//@ 2. lấy count datas
-		var fn_get_data_count_bussiness = new Promise((resolve, reject) => {
-			let result = get_data_count_bussiness(store_taget_result[0].stores_user_id,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_data_count_bussiness);
-
 
 		//@
-		//@ 3. lấy order list
-		let data_order =    
+		//@ tong cửa hàng 
+		var count_store_all_data =    
 		{
 		   "select_field" :
 			[
-				"orders_speciality_ID",
-				"orders_speciality_date_orders" ,
-				"orders_speciality_status_orders",
-				"sum(orders_details_speciality_qty)",
-				"sum(price_caution)"					
+				"count(stores_ID)"					
 			],
 			"condition" :
 			[
@@ -155,8 +101,8 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"stores_user_id",
-						"value"     : user_id,
+						"field"     :"stores_status_admin",
+						"value"     : 1,
 						"compare" : "="
 					}           
 					]    
@@ -164,11 +110,195 @@ async  function function_export(req, res, next) {
 			]   
 		}
 		
-		var fn_get_order_list = new Promise((resolve, reject) => {
-			let result = order_search(data_order,res);
+		var fn_get_count_store_all = new Promise((resolve, reject) => {
+			let result = store_search(count_store_all_data,res);
 			resolve(result);
 		});	
-		promise_all.push(fn_get_order_list);	
+		promise_all.push(fn_get_count_store_all);	
+
+
+
+		//@
+		//@ tong cửa hàng mới
+		var count_store_new_data =    
+		{
+		   "select_field" :
+			[
+				"count(stores_ID)"					
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"stores_status_admin",
+						"value"     : 1,
+						"compare" : "="
+					},    
+					{   
+						"field"     :"stores_date_created",
+						"value"     : ojs_shares_date.get_current_month_now(),
+						"compare" : ">"
+					} 					
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_count_store_new = new Promise((resolve, reject) => {
+			let result = store_search(count_store_new_data,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_count_store_new);	
+
+
+
+
+		//@
+		//@ tổng sản phẩm
+		var count_product_all_data =    
+		{
+		   "select_field" :
+			[
+				"count(products_speciality_ID)"					
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"products_speciality_status_admin",
+						"value"     : 1,
+						"compare" : "="
+					}           
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_count_product_all = new Promise((resolve, reject) => {
+			let result = product_search(count_product_all_data,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_count_product_all);	
+
+
+
+
+
+
+		//@
+		//@ tổng sản phẩm mới
+		var count_product_new_data =    
+		{
+		   "select_field" :
+			[
+				"count(products_speciality_ID)"					
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"products_speciality_status_admin",
+						"value"     : 1,
+						"compare" : "="
+					},    
+					{   
+						"field"     :"products_speciality_date_created",
+						"value"     : ojs_shares_date.get_current_month_now(),
+						"compare" : ">"
+					}    					
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_count_product_new = new Promise((resolve, reject) => {
+			let result = product_search(count_product_new_data,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_count_product_new);	
+
+
+
+
+		//@
+		//@ tổng đơn hàng
+		var count_order_all_data =    
+		{
+		   "select_field" :
+			[
+				"count(orders_speciality_ID)"					
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "<>"
+					}           
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_count_order_all = new Promise((resolve, reject) => {
+			let result = order_search(count_order_all_data,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_count_order_all);	
+		
+		
+		
+		
+
+
+		//@
+		//@ tổng đơn hàng thanh cong
+		var count_order_ok_data =    
+		{
+		   "select_field" :
+			[
+				"count(orders_speciality_ID)"					
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "="
+					}           
+					]    
+				}         
+			]   
+		}
+		
+		var fn_get_count_order_ok = new Promise((resolve, reject) => {
+			let result = order_search(count_order_ok_data,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_count_order_ok);	
+
+
+
+
+
+
 
 
 		
@@ -199,7 +329,7 @@ async  function function_export(req, res, next) {
 	}
 	promise_result.push(notes);
 
-	res.send(promise_result);
+	res.send([promise_result]);
 	return;
 }
 

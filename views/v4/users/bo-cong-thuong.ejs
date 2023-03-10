@@ -28,12 +28,12 @@ content
 			<tbody>
 			
 				<tr>
-					<td class="user-name" style="text-align:center;">5</td>
-					<td class="user-name" style="text-align:center;">5</td>
-					<td class="user-name" style="text-align:center;">505</td>
-					<td class="user-name" style="text-align:center;">505</td>
-					<td class="user-name" style="text-align:center;">0</td>
-					<td class="user-name" style="text-align:center;">0</td>
+					<td class="user-name" style="text-align:center;"><%= store_all[0].count_stores_ID %></td>
+					<td class="user-name" style="text-align:center;"><%= store_new[0].count_stores_ID %></td>
+					<td class="user-name" style="text-align:center;"><%= product_all[0].count_products_speciality_ID %></td>
+					<td class="user-name" style="text-align:center;"><%= product_new[0].count_products_speciality_ID %></td>
+					<td class="user-name" style="text-align:center;"><%= order_all[0].count_orders_speciality_ID %></td>
+					<td class="user-name" style="text-align:center;"><%= order_ok[0].count_orders_speciality_ID %></td>
 				</tr>
 			
 			
@@ -63,10 +63,58 @@ end content
 --------------------- -->
 
 
+
 </div><!-- //content_wrap -->	
 </div><!-- //layout -->	
 </div><!-- //pagewrap -->	
 <%- include ("../masterpage/loader-end") %>
+
+
+
+
+<style>
+
+.bo-cong-thuong-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	padding: 30px;
+}
+
+.bo-cong-thuong-logo img {
+    max-width: 300px;
+}
+
+#content .bo-cong-thuong-box h1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #096e35;
+    text-align: center;
+    width: 100%;
+}
+
+.bao-cao-bo-cong-thuong {
+    padding: 0px 3%;
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 	$(document).ready(function(){

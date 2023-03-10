@@ -43,7 +43,55 @@ content
 		<div id="loai_user_wrap">
 		<span>Loại Users </span>
 		<select name="users_users_type_id" id="users_users_type_id">
-			<option value="<%= datas[0].users_type_ID %>"><%= datas[0].users_type_name %></option>
+			<%
+			if(datas[0].users_type_ID == 13){
+			%>	
+				<option value="13" selected >admin</option>
+				<option value="14">Doanh nghiệp</option>
+				<option value="15">Khách hàng</option>
+				<option value="18">Shipping</option>
+				<option value="19">Bộ công thương</option>
+			<%				
+			}else if (datas[0].users_type_ID == 14) {
+			%>		
+				<option value="13">admin</option>
+				<option value="14" selected >Doanh nghiệp</option>
+				<option value="15">Khách hàng</option>
+				<option value="18">Shipping</option>
+				<option value="19">Bộ công thương</option>
+			<%					
+			}else if (datas[0].users_type_ID == 15) {
+			%>				
+				<option value="13">admin</option>
+				<option value="14">Doanh nghiệp</option>
+				<option value="15" selected >Khách hàng</option>
+				<option value="18">Shipping</option>
+				<option value="19">Bộ công thương</option>
+			<%					
+			}else if (datas[0].users_type_ID == 18) {
+			%>				
+				<option value="13">admin</option>
+				<option value="14">Doanh nghiệp</option>
+				<option value="15">Khách hàng</option>
+				<option value="18" selected >Shipping</option>
+				<option value="19">Bộ công thương</option>	
+			<%					
+			}else if (datas[0].users_type_ID == 19) {
+			%>				
+				<option value="13">admin</option>
+				<option value="14">Doanh nghiệp</option>
+				<option value="15">Khách hàng</option>
+				<option value="18">Shipping</option>
+				<option value="19" selected >Bộ công thương</option>					
+			<%					
+			}else{
+			%>
+				<option value="13">error</option>
+			<%	
+			}				
+			%>
+		
+			
 		</select>
 		</div>
 

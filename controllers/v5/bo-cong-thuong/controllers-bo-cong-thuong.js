@@ -68,7 +68,7 @@ async  function function_export(req, res, next) {
 		return;
 	}		
 	
-	//res.send( [data_api_resuilt[3][0].stores_ID] );
+	//res.send( data_api_resuilt[0][1] );
 	//return;
 	
 	//@
@@ -80,6 +80,16 @@ async  function function_export(req, res, next) {
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
 			'js_css_version'		: ojs_configs.js_css_version,
+			'store_all'				: data_api_resuilt[0][1],
+			'store_new'				: data_api_resuilt[0][2],
+			
+			'product_all'			: data_api_resuilt[0][3],
+			'product_new'			: data_api_resuilt[0][4],
+			
+			'order_all'				: data_api_resuilt[0][5],
+			'order_ok'				: data_api_resuilt[0][6],
+			
+			
 		}
 		
 		
@@ -88,10 +98,22 @@ async  function function_export(req, res, next) {
 			'users_type' 			: ojs_shares_others.get_users_type(token),
 			'user_id' 				: ojs_shares_others.get_users_id(token),
 			'user_full_name' 		: ojs_shares_others.get_users_full_name(token),
-			'js_css_version'		: ojs_configs.js_css_version,		
+			'js_css_version'		: ojs_configs.js_css_version,	
+			'store_all'				: data_api_resuilt[0][1],
+			'store_new'				: data_api_resuilt[0][2],
+			
+			'product_all'			: data_api_resuilt[0][3],
+			'product_new'			: data_api_resuilt[0][4],
+			
+			'order_all'				: data_api_resuilt[0][5],
+			'order_ok'				: data_api_resuilt[0][6],
+			
 			'datas_info'			: datas_info			
 		}
 	
+		//res.send(data_send);
+		//return;
+		
 		res.render( ojs_configs.view_version + '/users/bo-cong-thuong',  data_send );
 	}
 	catch(error){

@@ -49,6 +49,7 @@ async function middle_ware(req, res, next){
 									if(token_value_decode.user_role =="admin" 
 									|| token_value_decode.user_role == "bussiness"  
 									|| token_value_decode.user_role == "supper-job" 
+									|| token_value_decode.user_role == "bo-cong-thuong" 
 									|| token_value_decode.user_role == "shipping" 			
 									){
 									}else{

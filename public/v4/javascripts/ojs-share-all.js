@@ -46,6 +46,8 @@ ojs_share_all = {
 			window.location.href  = ojs_loader.host + "/shipper/" + user_id;				
 		}else if(user_type_id == "customer"){		
 			window.location.href  = ojs_loader.host + "/customer";
+		}else if(user_type_id == "bo-cong-thuong"){		
+			window.location.href  = ojs_loader.host + "/bo-cong-thuong";			
 		}
 	},
 

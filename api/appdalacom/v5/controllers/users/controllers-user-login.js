@@ -136,11 +136,12 @@ async  function function_export(req, res, next) {
 			var token_type=0;
 			var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
 			
-			//res.send(role_text);
+			//res.send([role_text]);
 			//return;
 			
 			if(role_text =="admin" 
-			|| role_text == "bussiness"  
+			|| role_text == "bussiness"
+			|| role_text == "bo-cong-thuong"			
 			|| role_text == "supper-job" 
 			|| role_text == "shipping" 			
 			){
