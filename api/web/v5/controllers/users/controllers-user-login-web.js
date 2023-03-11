@@ -125,7 +125,14 @@ async  function function_export(req, res, next) {
 			//res.send(role_text);
 			//return;
 			
-			if(role_text =="customer" || role_text == "default"){
+			if(role_text =="customer" 
+				|| role_text == "default" 
+				|| role_text == "shipping" 
+				|| role_text == "bo-cong-thuong" 
+				|| role_text == "shipper" 			
+				|| role_text == "bussiness" 
+				|| role_text == "admin" 			
+			){
 			}else{
 				res.send({ "error" : "8", "position":"ctl-users->login_web", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
 				return;

@@ -8,7 +8,7 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./store-fields-get');
+const fields_get = require('./traffic-fields-get.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
@@ -55,7 +55,7 @@ const function_export = function (datas,res) {
 			);
 		res.send({ 
 			"error" : "1",
-			"position" : "lib/stores/search", 
+			"position" : "lib/traffic/search", 
 			"message": error_send 
 			}); 
 		return;	
@@ -75,7 +75,7 @@ const function_export = function (datas,res) {
 						);
 					res.send({ 
 						"error" : "2",
-						"position" : "lib/stores/search", 
+						"position" : "lib/traffic/search", 
 						"message": error_send 
 					}); 
 					return;
@@ -94,7 +94,7 @@ const function_export = function (datas,res) {
 			);
 		res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/search", 
+			"position" : "lib/traffic/search", 
 			"message": error_send 
 		}); 
 		return;

@@ -15,12 +15,25 @@ require(
 
 
 
+const controllers_bo_cong_thuong_load  =  
+require(
+	'../../controllers/bo-cong-thuong/controllers-bo-cong-thuong-load-api.js'
+);
+
+
+
+
+
 router.get(
 	'/',
 	middle_ware, 
 	controllers_bo_cong_thuong 
 );
 
-
+router.post(
+	'/ajax-load',
+	middle_ware, 
+	controllers_bo_cong_thuong_load
+);
 
 module.exports = router;

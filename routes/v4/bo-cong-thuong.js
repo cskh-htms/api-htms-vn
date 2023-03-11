@@ -14,12 +14,18 @@ const controller_bo_cong_thuong = require(
 	'../../controllers/' + ojs_configs.controller_version + '/bo-cong-thuong/controllers-bo-cong-thuong.js'
 );
 
+const controller_bo_cong_thuong_load = require(
+	'../../controllers/' + ojs_configs.controller_version + '/bo-cong-thuong/controllers-bo-cong-thuong-load.js'
+);
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
 
 router.get('/', controller_bo_cong_thuong);
+
+router.post('/ajax-load', controller_bo_cong_thuong_load);
+
 
 
 

@@ -7,6 +7,8 @@
 [header_manage]
 [show_ajax_error]
 [show_price_format]
+js_share_all.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>"/>
+
 [string_to_int]
 
 

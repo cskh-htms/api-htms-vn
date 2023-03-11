@@ -12,6 +12,8 @@ const token_search = require('../token/token-search');
 const get_one_users = require('../users/get-one-users');
 
 
+const traffic_update_web = require('../traffic/traffic-update-web');
+
 
 async function middle_ware(req, res, next){
 	try{	
@@ -48,12 +50,15 @@ async function middle_ware(req, res, next){
 								if(token_value_decode.user_role == "bussiness"  
 								|| token_value_decode.user_role == "shipping" 
 								|| token_value_decode.user_role == "customer" 	
-								|| token_value_decode.user_role == "default" 									
+								|| token_value_decode.user_role == "default" 
+								|| token_value_decode.user_role == "bo-cong-thuong" 								
 								){
 								}else{
 									res.send({ "error" : "88", "position":"middle-ware", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
 									return;
-								}												
+								}				
+
+									traffic_update_web(res);
 									next();
 								}else{
 									res.send({ "error" : "3", "postition":"middle-ware","message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 
