@@ -135,11 +135,24 @@ content
 			<p>-----------------</p>
 			<div class="report">
 				<div class="report-box">
-					<span> Có  <strong> [  <%= order_count_ok %>  ] </strong> Đơn hàng đã giao</span>
+					<p><span> Có  <strong> [  <%= order_count_ok %>  ] </strong> Đơn hàng đã giao</span></p>
+					<p><span> Tổng tiền đã bán được  <strong> [  <%= ojs_share_all.show_price_format(sum_product_sale_ok,0,",",".","") %>  ] </strong></span></p>
+					<p><span> Chiếc khấu DALA  <strong> [  
+						<%= 
+						ojs_share_all.show_price_format(
+						
+						sum_product_sale_ok * datas[x].stores_discount_price / 100
+						
+						,0,",",".","") 
+						
+						
+						%>  ] </strong>
+					</span>
+					</p>
 				</div>				
 			
 				<div class="report-box">
-					<span> Tiền có thể rút về <strong> [ <%= ojs_share_all.show_price_format(sum_product_sale_ok,0,",",".","") %> ] </strong> VND</span>
+					<span> Tiền có thể rút về <strong> [ <%= ojs_share_all.show_price_format(sum_product_sale_ok -( sum_product_sale_ok * datas[x].stores_discount_price / 100),0,",",".","") %> ] </strong> VND</span>
 				</div>
 			</div>			
 			
