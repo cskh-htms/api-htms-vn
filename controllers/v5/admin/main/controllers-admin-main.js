@@ -116,9 +116,29 @@ async  function function_export(req, res, next) {
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
 			
-			'product_sale'			: data_api_resuilt[2],
-			'order_list'			: data_api_resuilt[3],	
+			'store_all' 			: data_api_resuilt[2],
+			'store_new' 			: data_api_resuilt[3],
+
+			'product_all' 			: data_api_resuilt[4],
+			'product_new' 			: data_api_resuilt[5],
+
+			'order_all' 			: data_api_resuilt[6],
+			'order_ok' 				: data_api_resuilt[7],
+			'order_no_ok' 			: data_api_resuilt[8],
+			'order_total' 			: data_api_resuilt[9],
+
+			'traffic' 				: data_api_resuilt[10],
 			
+			'user_app' 				: data_api_resuilt[11],			
+			'user_web' 				: data_api_resuilt[12],
+			'user_webapp' 			: data_api_resuilt[13],
+			
+			'order_app' 			: data_api_resuilt[14],
+			'order_app_mon' 		: data_api_resuilt[15],
+			'order_web' 			: data_api_resuilt[16],
+			'order_web_mon' 		: data_api_resuilt[17],
+			'order_webapp' 			: data_api_resuilt[18],		
+			'order_webapp_mon' 		: data_api_resuilt[19],				
 		}
 		
 		
@@ -140,8 +160,30 @@ async  function function_export(req, res, next) {
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
 			
-			'product_sale'			: data_api_resuilt[2],
-			'order_list'			: data_api_resuilt[3],	
+			'store_all' 			: data_api_resuilt[2],
+			'store_new' 			: data_api_resuilt[3],
+
+			'product_all' 			: data_api_resuilt[4],
+			'product_new' 			: data_api_resuilt[5],
+
+			'order_all' 			: data_api_resuilt[6],
+			'order_ok' 				: data_api_resuilt[7],
+			'order_no_ok' 			: data_api_resuilt[8],
+			'order_total' 			: data_api_resuilt[9],
+
+			'traffic' 				: data_api_resuilt[10],
+			
+			'user_app' 				: data_api_resuilt[11],			
+			'user_web' 				: data_api_resuilt[12],
+			'user_webapp' 			: data_api_resuilt[13],
+			
+			'order_app' 			: data_api_resuilt[14],
+			'order_app_mon' 		: data_api_resuilt[15],
+			'order_web' 			: data_api_resuilt[16],
+			'order_web_mon' 		: data_api_resuilt[17],
+			'order_webapp' 			: data_api_resuilt[18],		
+			'order_webapp_mon' 		: data_api_resuilt[19],
+			
 			'datas_info'			: datas_info			
 		}
 	

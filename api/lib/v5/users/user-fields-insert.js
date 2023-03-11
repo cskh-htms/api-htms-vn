@@ -20,7 +20,8 @@ const  default_fields = {
 		"users_shipping_status" : 0,
 		"users_status" 			: 0,
 		"users_verification_status" : 0,
-		"users_verification_code" 	: ""
+		"users_verification_code" 	: "",
+		"users_service" : 0,
 }
 
 //@

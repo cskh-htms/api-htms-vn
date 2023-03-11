@@ -16,7 +16,7 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "orders_speciality_adress as orders_speciality_adress, " + 
 	config_database.PREFIX  + "orders_speciality_notes as orders_speciality_notes, " + 
 	config_database.PREFIX  + "orders_speciality_phone as orders_speciality_phone, " + 	
-		
+	config_database.PREFIX  + "orders_speciality_service as orders_speciality_service, " + 		
 	config_database.PREFIX  + "orders_speciality_email as orders_speciality_email, " + 
 	config_database.PREFIX  + "orders_speciality_company as orders_speciality_company, " + 
 	config_database.PREFIX  + "orders_speciality_province as orders_speciality_province, " + 		
@@ -56,6 +56,7 @@ const fields_search_arr = [
 	"orders_speciality_district",
 	"orders_speciality_wards",
 	"orders_speciality_name",
+	"orders_speciality_service",
 	
 	"orders_speciality_shipping_code",
 	"stores_name",

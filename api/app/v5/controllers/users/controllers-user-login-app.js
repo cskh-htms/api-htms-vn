@@ -42,6 +42,13 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var datas = req.body.datas;
+		if(datas.users_password == ""){
+			res.send({ 
+				"error" : "01", 
+				"position" : "api/web/v5/ctroller/controllers-user-login-app",
+				"message": "Vui lòng nhập mật khẩu"
+			}); 				
+		}		
 		//res.send(datas);
 		//return;
 	}
@@ -55,7 +62,7 @@ async  function function_export(req, res, next) {
 			);
 		res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/ctroller/controllers-user-login-web",
+			"position" : "api/web/v5/ctroller/controllers-user-login-app",
 			"message": error_send 
 		}); 
 		return;	

@@ -1,0 +1,21 @@
+
+
+
+.thong-ke {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.mains-inner-box {
+    display: inline-flex;
+    background-color: white;
+    padding: 30px;
+    border: 1px dashed #ccc;
+    flex-direction: column;
+}
+
+
+.thong-ke-title{
+	border-bottom:1px solid #ccc;
+}

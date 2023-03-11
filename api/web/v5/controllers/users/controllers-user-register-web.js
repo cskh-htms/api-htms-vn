@@ -50,7 +50,8 @@ async  function function_export(req, res, next) {
 	
 	//@ cố định role
 	var role = {
-		"users_users_type_id":15
+		"users_users_type_id":15,
+		"users_service":2
 	};
 	var datas_insert = Object.assign(datas,role);	
 	//res.send(datas_insert);

@@ -40,7 +40,8 @@ const function_export = function (data,res) {
 			"users_api_version"					: mysql.escape(datas.users_api_version).replace(/^'|'$/gi, ""),
 			
 			"users_shipping_status"				: mysql.escape(datas.users_shipping_status).replace(/^'|'$/gi, ""),	
-			"users_status"						: mysql.escape(datas.users_status).replace(/^'|'$/gi, ""),		
+			"users_status"						: mysql.escape(datas.users_status).replace(/^'|'$/gi, ""),	
+			"users_service"						: datas.users_service,		
 			"users_verification_status"			: mysql.escape(datas.users_verification_status).replace(/^'|'$/gi, ""),
 			"users_verification_code"			: mysql.escape(datas.users_verification_code).replace(/^'|'$/gi, "")
 		}

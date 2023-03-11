@@ -18,7 +18,7 @@ const  default_fields = {
 		"orders_speciality_wards"				: "",
 		"orders_speciality_name"				: "",
 
-		
+		"orders_speciality_service"				: 0,
 		"orders_speciality_shipping_code"		:""
 }
 

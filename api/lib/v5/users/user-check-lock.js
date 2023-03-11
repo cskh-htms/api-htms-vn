@@ -58,7 +58,7 @@ const user_search = function (datas,res) {
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi user search, Vui lòng liên hệ admin" 
+							"Lỗi user check-log, Vui lòng liên hệ admin" 
 						);
 					res.send({ 
 						"error" : "2",

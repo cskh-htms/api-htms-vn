@@ -1,6 +1,6 @@
 <%-  include ("../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
-
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/mains.css' />
 
 <div id="page_wrap" class="page_wrap">
 <div id="layout" class="page_width layout">
@@ -26,12 +26,246 @@ page wrap
 
 
 
+	<!-- --------------------
+	//thông kê 1
+	--------------------- -->
+	<div class="thong-ke">	
+		<!-- --------------------
+		//lượt truy cập
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê truy cập </h1>
+			<p>
+				<span> Tổng lượt truy cập <strong>[ 
+					<%= ojs_share_all.show_price_format((traffic[0].traffic_app + 
+					traffic[0].traffic_web + 
+					traffic[0].traffic_webapp),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>
+			<p>
+				<span> Tổng lượt truy cập trên app <strong>[ 
+					<%= ojs_share_all.show_price_format((traffic[0].traffic_app),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+			<p>
+				<span> Tổng lượt truy cập trên web <strong>[ 
+					<%= ojs_share_all.show_price_format((traffic[0].traffic_web),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+
+			<p>
+				<span> Tổng lượt truy cập trên webapp <strong>[ 
+					<%= ojs_share_all.show_price_format((traffic[0].traffic_webapp),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		//lượt truy cập
+		--------------------- -->	
+	
+	
+	
+	
+		<!-- --------------------
+		//đơn hàng
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê đơn hàng </h1>
+			<p>
+				<span> Tổng đơn hàng <strong>[ 
+					<%= ojs_share_all.show_price_format((order_all[0].count_orders_speciality_ID
+),0,",",".","  đơn") %>]</strong>
+				</span>
+			</p>
+			<p>
+				<span> Tổng đơn hàng đã giao <strong>[ 
+					<%= ojs_share_all.show_price_format((order_ok[0].count_orders_speciality_ID
+),0,",",".","  đơn") %>]</strong>
+				</span>
+			</p>				
+			<p>
+				<span> Tổng đơn hàng chưa hoàn thành <strong>[ 
+					<%= ojs_share_all.show_price_format((order_no_ok[0].count_orders_speciality_ID
+),0,",",".","  đơn") %>]</strong>
+				</span>
+			</p>				
+			<p>
+				<span> Tổng doanh thu <strong>[ 
+					<%= ojs_share_all.show_price_format((order_total[0].sum_price_caution),0,",",".","  đ") %>]</strong>
+				</span>
+			</p>				
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		////đơn hàng end
+		--------------------- -->		
+	
+	
+	
+	
+		<!-- --------------------
+		//ĐƠN HÀNG THEO THang
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê đơn hàng theo dịch vụ </h1>
+			<p>
+				<span> Tổng đơn hàng trên app <strong>[ 
+					<%= ojs_share_all.show_price_format((order_app[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+			<p>
+				<span> Tổng đơn hàng trên app trong tháng này <strong>[ 
+					<%= ojs_share_all.show_price_format((order_app_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+
+			<p>
+				<span> Tổng đơn hàng trên web <strong>[ 
+					<%= ojs_share_all.show_price_format((order_web[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+			<p>
+				<span> Tổng đơn hàng tren web trong tháng này <strong>[ 
+					<%= ojs_share_all.show_price_format((order_web_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>
+			
+			<p>
+				<span> Tổng đơn hàng trên webapp <strong>[ 
+					<%= ojs_share_all.show_price_format((order_webapp[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>	
+			<p>
+				<span> Tổng đơn hàng tren webapp trong tháng này <strong>[ 
+					<%= ojs_share_all.show_price_format((order_webapp_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+				</span>
+			</p>				
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		//thong ke don hang service
+		--------------------- -->		
+	
+	
+	
+	
+	</div><!-- end of thống kê 1 -->
 
 
 
 
 
 
+	<!-- --------------------
+	//thông kê 2
+	--------------------- -->
+	<div class="thong-ke">	
+		<!-- --------------------
+		//lượt truy cập
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê user </h1>
+			<p>
+				<span> số User đăng ký mới trên app <strong>[ 
+					<%= ojs_share_all.show_price_format((user_app[0].count_users_ID),0,",",".","  user") %>]</strong>
+				</span>
+			</p>
+			
+			<p>
+				<span> số User đăng ký mới trên web<strong>[ 
+					<%= ojs_share_all.show_price_format((user_web[0].count_users_ID),0,",",".","  user") %>]</strong>
+				</span>
+			</p>
+			
+			
+			<p>
+				<span> số User đăng ký mới trên webapp<strong>[ 
+					<%= ojs_share_all.show_price_format((user_webapp[0].count_users_ID),0,",",".","  user") %>]</strong>
+				</span>
+			</p>			
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		//lượt truy cập
+		--------------------- -->	
+	
+	
+	
+	
+		<!-- --------------------
+		//Cửa hàng
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê cửa hàng </h1>
+
+			<p>
+				<span> Tổng số cửa hàng <strong>[ 
+					<%= ojs_share_all.show_price_format((store_all[0].count_stores_ID),0,",",".","  Cửa hàng") %>]</strong>
+				</span>
+			</p>				
+			<p>
+				<span> Tổng số cửa hàng mới trong tháng này<strong>[ 
+					<%= ojs_share_all.show_price_format((store_new[0].count_stores_ID),0,",",".","  Cửa hàng") %>]</strong>
+				</span>
+			</p>				
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		////Cửa hàng
+		--------------------- -->		
+	
+	
+	
+	
+		<!-- --------------------
+		//sản phẩm
+		--------------------- -->
+		
+		<div class="traffic-box mains-inner-box ">
+			<h1 class="thong-ke-title">Thống kê sản phẩm </h1>
+			<p>
+				<span> Tổng số sản phẩm <strong>[ 
+					<%= ojs_share_all.show_price_format((product_all[0].count_products_speciality_ID),0,",","."," Sản phẩm") %>]</strong>
+				</span>
+			</p>	
+			
+			<p>
+				<span> Tổng số sản phẩm mới trong tháng này <strong>[ 
+					<%= ojs_share_all.show_price_format((product_new[0].count_products_speciality_ID),0,",","."," Sản phẩm") %>]</strong>
+				</span>
+			</p>				
+			
+			
+
+			
+			
+		</div><!-- traffic -->
+				
+		
+		<!-- --------------------
+		//thong ke san pham
+		--------------------- -->		
+	
+	
+	
+	
+	</div><!-- end of thống kê 2 -->
 
 
 
@@ -57,6 +291,9 @@ end content
 --------------------- -->
 </div><!-- //layout -->	
 </div><!-- //pagewrap -->
+
+
+
 
 
 

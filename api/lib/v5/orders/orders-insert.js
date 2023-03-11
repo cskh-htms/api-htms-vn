@@ -38,6 +38,7 @@ const order_insert = function (datas,data_details,res) {
 			"orders_speciality_status_orders"			: datas.orders_speciality_status_orders,
 			"orders_speciality_status_payment"			: datas.orders_speciality_status_payment,
 			"orders_speciality_company"					: datas.orders_speciality_company,
+			"orders_speciality_service"					: datas.orders_speciality_service,
 			"orders_speciality_shipping_code"			: mysql.escape(datas.orders_speciality_shipping_code).replace(/^'|'$/gi, "")			
 	}
 

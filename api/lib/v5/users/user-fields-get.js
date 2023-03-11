@@ -32,6 +32,7 @@ const fields_search = 	"" +
 
 	config_database.PREFIX + "users_type_ID as users_type_ID, " + 
 	config_database.PREFIX + "users_type_name as users_type_name, " + 
+	config_database.PREFIX + "users_service as users_service, " + 
 	config_database.PREFIX + "users_type_infomation as users_type_infomation ";
 
 
@@ -57,6 +58,7 @@ const fields_search_arr = [
 	
 	"users_shipping_status",
 	"users_status",
+	"users_service",
 	"users_verification_status",
 	"users_verification_code"
 ];
