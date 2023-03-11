@@ -16,6 +16,7 @@ content
 		<!-- --------------------
 		//content-box
 		--------------------- -->
+		<div class="bct-print-box">
 		<div class="title-box">
 			<div class="title-box-1">
 				<p>CÔNG TY CỔ PHẦN THƯƠNG MẠI</p>
@@ -25,7 +26,7 @@ content
 			<div class="title-box-1">
 				<p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
 				<p>Độc lập - Tự do - Hạnh phúc</p>
-				<p>Lâm Đồng,  ngày      tháng    năm</p>
+				<p>Lâm Đồng,  ngày <span id="ngay"></span>     tháng  <span id="thang"></span>   năm  <span id="nam"></span> </p>
 			</div>
 		</div>
 		
@@ -71,7 +72,7 @@ content
 				
 
 		</div>		
-			
+		</div><!-- //print-box -->	
 		<!-- --------------------
 		//content-box
 		--------------------- -->			
@@ -175,10 +176,15 @@ p {
 
 .date-box input{
     border: 0;
-    background-color: #efefef;
+    background-color: #ffffff;	
 }
 
-
+.bct-print-box {
+    background-color: white;
+    padding: 50px 5%;
+    border: 1px solid #ccc;
+    margin: 30px 2%;
+}
 
 
 </style>
@@ -216,9 +222,32 @@ p {
 
 
 
-	//
 	//@
-	//xoa
+	//@
+	//@
+	//@	 set lam dong ngay thang nam
+	$(document).on('change','#datepicker2',function(e) {	
+        var date = $( "#datepicker2" ).datepicker('getDate'),
+            day  = date.getDate(); 
+            month = date.getMonth() + 1;              
+            year =  date.getFullYear();
+		
+		$( "#ngay" ).html(day);
+		$( "#thang" ).html(month);
+		$( "#nam" ).html(year);
+		
+		
+	});			
+
+
+
+
+
+
+	//@
+	//@
+	//@
+	//@	 chay bao cao	
 	$(document).on('change','#datepicker,#datepicker2',function(e) {	
 	
 		//alert('asda');
@@ -295,7 +324,7 @@ p {
 				//ojs_loadding.ajax_hide_loadding();
 				//return;
 				
-				ojs_message.message_ok_show("Đã tạo báo cáo hoàn tất");
+				//ojs_message.message_ok_show("Đã tạo báo cáo hoàn tất");
 				
 				$('#ajax-load-bo-cong-thuong').html(result);
 				ojs_loadding.ajax_hide_loadding();

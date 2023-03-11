@@ -22,6 +22,13 @@ require(
 
 
 
+const controllers_bo_cong_thuong_gov  =  
+require(
+	'../../controllers/bo-cong-thuong/controllers-bo-cong-thuong-gov-api.js'
+);
+
+
+
 
 
 router.get(
@@ -30,10 +37,20 @@ router.get(
 	controllers_bo_cong_thuong 
 );
 
+
 router.post(
 	'/ajax-load',
 	middle_ware, 
 	controllers_bo_cong_thuong_load
 );
+
+
+router.post(
+	'/gov', 
+	controllers_bo_cong_thuong_gov
+);
+
+
+
 
 module.exports = router;
