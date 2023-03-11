@@ -32,7 +32,7 @@ async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		var datas  = req.body.datas;
+		var datas  = req.body;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
