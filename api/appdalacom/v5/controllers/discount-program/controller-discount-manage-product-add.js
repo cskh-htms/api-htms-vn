@@ -81,16 +81,31 @@ async  function function_export(req, res, next) {
 	
 
 
-	//res.send([discount_program_id] );
+	//res.send([store_id] );
 	//return;
 
+	//@
+	//@
+	//@
+	//@
+	//@ check role phân quyền
+	const check_role_result = await check_role.check_role(token,res);	
 
-
+	
+	///res.send([check_role_result] );
+	//return;			
+	
 	
 	//@ check owner store
 	try{		
 		//@ check owner store
 		var check_owner_store_resuilt = await check_owner_store(token,store_id,res);
+		
+		//res.send([check_owner_store_resuilt] );
+		//return;		
+		
+		
+		
 		if(	
 		check_owner_store_resuilt == "1" 
 		|| check_role_result == "admin" 
