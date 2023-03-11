@@ -241,6 +241,7 @@ async  function function_export(req, res, next) {
 				[ 
 					"products_speciality_ID",
 					"products_speciality_name",
+					"products_speciality_featured_image",
 					"sum_price_caution",
 					"sum(orders_details_speciality_qty)"
 				],

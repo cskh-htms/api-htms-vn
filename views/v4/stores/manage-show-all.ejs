@@ -64,6 +64,7 @@ content
 		<thead>
 			<tr>
 				<th>Mã sản phẩm</th>
+				<th>Hình ảnh</th>
 				<th>Tên sản phẩm</th>
 				<th>Số lượng bán</th>
 				<th>Tổng tiền bán</th>
@@ -78,6 +79,11 @@ content
 				<td class="qty_box">
 					<%- product_sale[x].products_speciality_ID %> 
 				</td>	
+				
+				<td class="qty_box">
+					<img style="width:50px;" src="<%- product_sale[x].products_speciality_featured_image %>"/>
+				</td>	
+				
 				<td class="qty_box">
 					<%- product_sale[x].products_speciality_name %>
 				</td>	

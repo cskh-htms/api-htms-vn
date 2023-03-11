@@ -85,12 +85,12 @@ content
 		//@
 		//@ order_sum_ok	
 		var order_count_ok = 0;		
-		for(a in order_list) { 
+		for(a in product_sale) { 
 			if(
-			datas[x].stores_ID == order_list[a].orders_speciality_store_id 
-			&& order_list[a].orders_speciality_status_orders == 100 
+			datas[x].stores_ID == product_sale[a].stores_ID  
+			&& product_sale[a].orders_speciality_status_orders == 100 
 			){
-				order_count_ok = order_count_ok + order_list[a].count_orders_speciality_store_id;
+				order_count_ok = order_count_ok + 1;
 			}
 		}				
 		%>
