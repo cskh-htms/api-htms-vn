@@ -731,13 +731,22 @@ async  function function_export(req, res, next) {
 
 
 
-
-
-
-
-
-
-
+		//@
+		//@ 
+		//@tổng số user
+		var user_all =    
+		{
+		   "select_field" :
+			[
+				"count(users_ID)"				
+			]        
+		}
+		
+		var fn_get_user_all = new Promise((resolve, reject) => {
+			let result = user_search(user_all,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_user_all);
 
 
 
@@ -802,6 +811,7 @@ async  function function_export(req, res, next) {
 		
 		"15":"order_webapp",		
 		"16":"order_webapp_mon",	
+		"17":"user_all",
 	}
 	//promise_result.push(data_product);	
 	//promise_result.push(category_resuilt);	

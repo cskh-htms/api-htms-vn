@@ -138,7 +138,8 @@ async  function function_export(req, res, next) {
 			'order_web' 			: data_api_resuilt[16],
 			'order_web_mon' 		: data_api_resuilt[17],
 			'order_webapp' 			: data_api_resuilt[18],		
-			'order_webapp_mon' 		: data_api_resuilt[19],				
+			'order_webapp_mon' 		: data_api_resuilt[19],	
+			'user_all' 				: data_api_resuilt[20],			
 		}
 		
 		
@@ -183,6 +184,7 @@ async  function function_export(req, res, next) {
 			'order_web_mon' 		: data_api_resuilt[17],
 			'order_webapp' 			: data_api_resuilt[18],		
 			'order_webapp_mon' 		: data_api_resuilt[19],
+			'user_all' 				: data_api_resuilt[20],
 			
 			'datas_info'			: datas_info			
 		}

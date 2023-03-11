@@ -118,34 +118,34 @@ page wrap
 			<h1 class="thong-ke-title">Thống kê đơn hàng theo dịch vụ </h1>
 			<p>
 				<span> Tổng đơn hàng trên app <strong>[ 
-					<%= ojs_share_all.show_price_format((order_app[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_app[0].count_orders_speciality_ID),0,",",".","   đơn") %>]</strong>
 				</span>
 			</p>	
 			<p>
 				<span> Tổng đơn hàng trên app trong tháng này <strong>[ 
-					<%= ojs_share_all.show_price_format((order_app_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_app_mon[0].count_orders_speciality_ID),0,",",".","  đơn") %>]</strong>
 				</span>
 			</p>	
 
 			<p>
 				<span> Tổng đơn hàng trên web <strong>[ 
-					<%= ojs_share_all.show_price_format((order_web[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_web[0].count_orders_speciality_ID),0,",",".","  đơn") %>]</strong>
 				</span>
 			</p>	
 			<p>
 				<span> Tổng đơn hàng tren web trong tháng này <strong>[ 
-					<%= ojs_share_all.show_price_format((order_web_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_web_mon[0].count_orders_speciality_ID),0,",",".","  đơn") %>]</strong>
 				</span>
 			</p>
 			
 			<p>
 				<span> Tổng đơn hàng trên webapp <strong>[ 
-					<%= ojs_share_all.show_price_format((order_webapp[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_webapp[0].count_orders_speciality_ID),0,",",".","   đơn") %>]</strong>
 				</span>
 			</p>	
 			<p>
 				<span> Tổng đơn hàng tren webapp trong tháng này <strong>[ 
-					<%= ojs_share_all.show_price_format((order_webapp_mon[0].count_orders_speciality_ID),0,",",".","  Lượt") %>]</strong>
+					<%= ojs_share_all.show_price_format((order_webapp_mon[0].count_orders_speciality_ID),0,",",".","  đơn") %>]</strong>
 				</span>
 			</p>				
 			
@@ -171,26 +171,33 @@ page wrap
 	--------------------- -->
 	<div class="thong-ke">	
 		<!-- --------------------
-		//lượt truy cập
+		//thong ke user
 		--------------------- -->
 		
 		<div class="traffic-box mains-inner-box ">
 			<h1 class="thong-ke-title">Thống kê user </h1>
+			
 			<p>
-				<span> số User đăng ký mới trên app <strong>[ 
+				<span> Tổng số user <strong>[ 
+					<%= ojs_share_all.show_price_format((user_all[0].count_users_ID),0,",",".","  user") %>]</strong>
+				</span>
+			</p>			
+			
+			<p>
+				<span> số User đăng ký trên app <strong>[ 
 					<%= ojs_share_all.show_price_format((user_app[0].count_users_ID),0,",",".","  user") %>]</strong>
 				</span>
 			</p>
 			
 			<p>
-				<span> số User đăng ký mới trên web<strong>[ 
+				<span> số User đăng ký trên web<strong>[ 
 					<%= ojs_share_all.show_price_format((user_web[0].count_users_ID),0,",",".","  user") %>]</strong>
 				</span>
 			</p>
 			
 			
 			<p>
-				<span> số User đăng ký mới trên webapp<strong>[ 
+				<span> số User đăng ký trên webapp<strong>[ 
 					<%= ojs_share_all.show_price_format((user_webapp[0].count_users_ID),0,",",".","  user") %>]</strong>
 				</span>
 			</p>			
@@ -199,7 +206,7 @@ page wrap
 				
 		
 		<!-- --------------------
-		//lượt truy cập
+		//user 
 		--------------------- -->	
 	
 	
