@@ -135,6 +135,7 @@ async  function function_export(req, res, next) {
 				'datas'					: data_api_resuilt[1],
 				'product_sale'			: data_api_resuilt[2],
 				'order_list'			: data_api_resuilt[3],
+				'order_list2'			: data_api_resuilt[4],
 			}
 			
 			
@@ -148,6 +149,7 @@ async  function function_export(req, res, next) {
 				'datas'					: data_api_resuilt[1],
 				'product_sale'			: data_api_resuilt[2],
 				'order_list'			: data_api_resuilt[3],
+				'order_list2'			: data_api_resuilt[4],
 				'datas_info'			: datas_info			
 			}
 		

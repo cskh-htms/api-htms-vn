@@ -285,6 +285,47 @@ async  function function_export(req, res, next) {
 		
 		
 
+		//@
+		//@
+		//@
+		//@ order list2
+		let data_order_list2 = 	
+			{
+				"select_field" :
+				[ 
+					"orders_speciality_ID",
+					"orders_speciality_store_id",
+					"orders_speciality_status_orders"
+				],
+				"condition" : 
+				[
+					{	"relation": "and",
+						"where" : 
+						[
+						{	"field"		:"users_ID",
+							"value" 	: user_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
+							"compare" : "="
+						}
+						]	
+					}				
+				]  			
+			}	
+		var fn_get_order_list2 = new Promise((resolve, reject) => {
+			let result = order_search(data_order_list2,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_order_list2);
+
+
+
+
+
+
+
 
 
 		//@
