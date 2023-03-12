@@ -1,8 +1,8 @@
 
 
 const md5 = require('md5');
-const mysql = require('mysql');
-const connection = require('../connections/connections');
+const mysql = require('mysql2');
+const connection = require('../connections/connections-reader');
 const fields_search_token = require('./fields-search-token');
 const config_database = require('../../../configs/config-database');
 

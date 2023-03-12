@@ -34,7 +34,7 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 //@
 //@
 //@ model
-const connection = require('../connections/connections');
+const connection = require('../connections/connections-reader');
 const fields_get = require('./coupon-fields-get');
 
 

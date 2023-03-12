@@ -25,7 +25,7 @@ const ojs_configs = require('../../../../configs/config');
 //@
 //@
 //@ model
-const connection = require('../connections/connections');
+const connection = require('../connections/connections-reader');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./news-fields-get.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');

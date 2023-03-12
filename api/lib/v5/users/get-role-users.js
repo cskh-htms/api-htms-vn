@@ -1,9 +1,9 @@
 
 const md5 = require('md5');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 
-const connection = require('../connections/connections');
+const connection = require('../connections/connections-reader');
 const config_database = require('../../configs/config-database');
 const fields_search_users = require('./fields-search-users');
 

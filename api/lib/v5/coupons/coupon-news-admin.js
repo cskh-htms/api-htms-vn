@@ -2,7 +2,7 @@
 
 
 const mysql = require('mysql2');
-const connection = require('../connections/connections');
+const connection = require('../connections/connections-reader');
 const config_database = require('../../../configs/config-database');
 const config_api = require('../../../configs/config-api');
 const ojs_configs = require('../../../../configs/config');

@@ -6,7 +6,7 @@ const mysql = require('mysql2');
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
 
-const connection = require('../connections/connections');
+const connection = require('../connections/connections-reader');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
