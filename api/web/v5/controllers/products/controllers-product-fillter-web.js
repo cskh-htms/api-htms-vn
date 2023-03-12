@@ -111,7 +111,12 @@ async  function function_export(req, res, next) {
 			"field"     :"out_of_stock",
 			"value"     : "0",
 			"compare" : "="
-		} 		
+		},				
+		{   
+			"field"     :"products_speciality_show_hide",
+			"value"     : "0",
+			"compare" : "="
+		} 			
 	]	
 	
 	

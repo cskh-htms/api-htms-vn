@@ -90,11 +90,6 @@ async  function controllers_product_by_store_app(req, res, next) {
 						"compare" : "="
 					},				
 					{   
-						"field"     :"products_speciality_status_store",
-						"value"     : "1",
-						"compare" : "="
-					} ,				
-					{   
 						"field"     :"stores_status_admin",
 						"value"     : "1",
 						"compare" : "="
@@ -108,7 +103,12 @@ async  function controllers_product_by_store_app(req, res, next) {
 						"field"     :"out_of_stock",
 						"value"     : "0",
 						"compare" : "="
-					} 		
+					},				
+					{   
+						"field"     :"products_speciality_show_hide",
+						"value"     : "0",
+						"compare" : "="
+					} 			
 					] 				
 				}         
 			],

@@ -103,7 +103,12 @@ async  function function_export(req, res, next) {
 						"field"     :"category_general_speciality_category_parent_id",
 						"value"     : 0,
 						"compare" : "<>"
-					}
+					},
+					{   
+						"field"     :"category_general_speciality_show",
+						"value"     : 0,
+						"compare" : "<>"
+					}					
 					]    
 				}         
 				],

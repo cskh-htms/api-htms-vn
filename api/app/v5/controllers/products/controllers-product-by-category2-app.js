@@ -81,7 +81,12 @@ async  function controllers_product_by_category_app(req, res, next) {
 				"field"     :"out_of_stock",
 				"value"     : "0",
 				"compare" : "="
-			} 	
+			},				
+			{   
+				"field"     :"products_speciality_show_hide",
+				"value"     : "0",
+				"compare" : "="
+			} 
 		]			
 		
 		

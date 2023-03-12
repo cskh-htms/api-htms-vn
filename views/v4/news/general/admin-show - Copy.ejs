@@ -1,15 +1,17 @@
 
 
-<%- include ("../../masterpage/header") %>
+<%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/news.css' />
 
 
 
-<script src="/uploads/files/jquery.min.js"></script>	
+
 
 <script src="../../../../../<%= js_css_version %>/javascripts/ojs-share-upload.js"></script>		
 <script src="../../../../../<%= js_css_version %>/javascripts/class-news-general.js"></script>
+
+
 
 
 
@@ -25,7 +27,7 @@ page wrap
 
 
 
-<%- include ("../../masterpage/loader") %>
+<%- include ("../../masterpage/header") %>
 <%- include ("../../masterpage/function-share-all") %>
 
 
@@ -39,10 +41,7 @@ page wrap
 content
 --------------------- -->
 <div id="content" class="content">
-	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Tạo tin tức</h1>
-	
-	
-	
+	<h1><a href="/admin/">Admin</a><i class="fas fa-chevron-right"></i>Sửa tin tức</h1>
 	
 	
 	
@@ -54,7 +53,7 @@ content
 			<div class="pro_box ten_sp_box">
 				<h3>Tiêu đề</h3>
 				<div class="inside">
-					<input type="text" value="" id="news_title"/>
+					<input type="text" value="<%- ojs_share_all.unCape(datas[0].news_title) -%>" id="news_title"/>
 				</div>
 			</div>
 			
@@ -62,35 +61,34 @@ content
 
 
 			<!-- ------------------
-			Nội dung
+			//Nội dung
 			------------------- -->
 			<div class="pro_box">
 				<h3>Nội dung</h3>
-				<div class="inside">
-					<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"></textarea>
-				</div>
+				<div class="inside"><textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share_all.unCape(datas[0].news_contents ) -%></textarea></div>
 			</div>
 			<!-- ------------------
 			//Nội dung
 			------------------- -->
 		</div>
+		<div class="pro_col02">
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		<div class="pro_col02">		
 			<!-- ------------------
 			//hình đại diện 
 			------------------- -->
 			<div class="pro_box">
-				<h3>Ảnh đại diện</h3>	
+				<h3>Ảnh đại diện 
+				<a class="giai-thich" href="https://hotro.appdala.com/them-san-pham-tren-dala/#anh-dai-dien" target="_blank"><span>Chọn hình có tỉ lệ vuông</span>
+				</a></h3>	
 				<div class="inside">
-					<input type="text" value="" id="featured_image" data_value="" style="display:none;" />
+					<input type="text" 
+						value="" 
+						id="featured_image" 
+						data_value="<%-  ojs_share_all.unCape( datas[0].news_featured_image ) %>" 
+						style="display:none;" 
+					/>
 					<input type="button" value="Thêm ảnh" id="btn_featured_image">
 					<div id="img_box_dai_dien"></div>
 					<input type='file' accept="image/*" id='upload_image' style="display:none;">
@@ -103,12 +101,13 @@ content
 		
 		
 		
+		
 
 			<div class="pro_box trang_thai_box">
 				<h3>Trạng thái</h3>	
 				<div class="inside">
 					<select id="news_status_admin">
-						<%- ojs_share_all.show_status(0) %>
+						<%- ojs_share_all.show_status(datas[0].news_status_admin) %>
 					</select>
 				</div>
 			</div>
@@ -121,7 +120,9 @@ content
 	
 	
 	
-	
+
+
+
 
 
 
@@ -131,13 +132,15 @@ content
 </div>	
 	
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
-
+<input type="hidden" id="news_id" value="<%= news_id %>"/>
 
 </div>
 
 <!-- --------------------
 end content
 --------------------- -->
+
+
 
 
 
@@ -164,9 +167,35 @@ end content
 <script>
 $(document).ready(function($){
 /////////////////////////////////////////////////////	
+	var news_id = $('#news_id').val();
+	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
+	//@
+	//@
+	$(document).on('click','#btn_featured_image',function(e) {		
+		e.preventDefault();		
+		$('#upload_image').trigger( "click" );
+	});
+	//@
+	$("#upload_image").on("change",function(){
+		let input = this;
+		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien",user_id)
+	});		
 	//
-	//@
-	//@
+	//xua image dai dien
+	$(document).on('click','.xoaAnhDaiDien',function(e) {		
+		e.preventDefault();		
+		
+		// xoa image s3
+		let products_speciality_featured_image = $('#featured_image').attr("data_value");
+		let url = products_speciality_featured_image;
+		ojs_share_upload.delete_wp(url);
+
+		//xoa html
+		$(this).parent(".img_box").remove();
+		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
+	});	
+	
+	
 	//@
 	$(document).on('click','#btn_draf',function(e) {		
 		e.preventDefault();
@@ -179,7 +208,7 @@ $(document).ready(function($){
 		
 
 
-		ojs_news_general.ajax_save(datas);	
+		ojs_news_general.ajax_update(datas,news_id);	
 	});
 	
 	//@
@@ -193,48 +222,11 @@ $(document).ready(function($){
 		//console.log(datas);
 		//return;
 		
-		ojs_news_general.ajax_save(datas);	
+		ojs_news_general.ajax_update(datas,news_id);	
 	});
 
 
-	//@
-	ojs_share_upload.show_anh_dai_dien('featured_image','img_box_dai_dien',"","");
-	//@
-	//@
 	
-	//@
-	$(document).on('click','#btn_featured_image',function(e) {		
-		e.preventDefault();		
-		$('#upload_image').trigger( "click" );
-	});
-	//@
-	$("#upload_image").on("change",function(){
-		let input = this;
-		ojs_share_upload.upload_anh_dai_dien(input,"featured_image","img_box_dai_dien")
-	});		
-	//
-	//xóa image dai dien
-	$(document).on('click','.xoaAnhDaiDien',function(e) {		
-		e.preventDefault();		
-		
-		// xoa image s3
-		let products_speciality_featured_image = $('#featured_image').attr("data_value");
-		let url = products_speciality_featured_image;
-		
-		//console.log(url);
-		//return;
-		
-		
-		ojs_share_upload.delete_s3(url);
-		
-		//$('#featured_image').attr("data_s3","");
-		//xoa html
-		$(this).parent(".img_box").remove();
-		ojs_share_upload.set_value_anh_dai_dien('featured_image','img_box_dai_dien');
-		
-	});			
-	//		
-	//		
 	
 	function get_datas(){
 		
@@ -287,14 +279,7 @@ $(document).ready(function($){
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	
