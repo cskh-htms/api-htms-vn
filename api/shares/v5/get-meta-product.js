@@ -576,6 +576,100 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	
 	
 	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ 3. get product sale taht
+	try{
+		let data_get =    
+		{
+		   "select_field" :
+			[
+				"orders_details_speciality_product_id",
+				"sum(orders_details_speciality_qty)"			
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_details_speciality_product_id",
+						"value"     : model_product_arr,
+						"compare" : "in"
+					},
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : "product",
+						"compare" : "="
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					}						
+					]    
+				} 
+			],				
+			"group_by" :
+			 [
+				"orders_details_speciality_product_id"
+			 ]      
+		}
+		
+		//@ get datas
+		var data_sale = await product_sale(data_get,res);
+		//res.send([product_taget,data_sale]);
+		//return;
+		
+		
+
+		var add_data = [];	
+		for(x in product_taget){
+			add_data_line = 0;
+
+			//@
+			//@
+			//@ 
+			if(data_sale.length > 0){
+				for(y in data_sale){
+					if(product_taget[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
+						add_data_line = parseInt(data_sale[y].sum_orders_details_speciality_qty);
+					}							
+				}				
+			}
+			
+			
+			//@
+			//@
+			for(z in data_product){
+				if(product_taget[x].products_speciality_ID == data_product[z].products_speciality_ID){
+					data_product[z].so_luong_da_ban_that = add_data_line;
+				}				
+			}			
+		}			
+	}
+	catch(error){
+		let evn = ojs_configs.evn;
+		//evn = "dev";
+		let error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			error, 
+			"lỗi get product sale that discount, liên hệ admin" 
+		);
+		res.send ({ 
+			"error" : "22", 
+			"position" : "api/shares/get meta product ",
+			"message": error_send 
+		});
+	}		
+	
+	
+	
 
 	return(data_product); 
 };	

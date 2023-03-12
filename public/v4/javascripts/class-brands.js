@@ -48,7 +48,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ","/brands/manage/" + datas.datas.brands_stores_id);
+						ojs_message.message_ok_show(" Đã tạo options","/brands/manage/" + datas.datas.brands_stores_id);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
@@ -98,7 +98,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã update ",location.href);
+						ojs_message.message_ok_show(" Đã update thành công ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
@@ -140,7 +140,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xóa ","/brands/manage/" + store_id);
+						ojs_message.message_ok_show(" Đã xóa thành công ","/brands/manage/" + store_id);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 			  }			  

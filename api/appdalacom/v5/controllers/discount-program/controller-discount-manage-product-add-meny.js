@@ -314,7 +314,12 @@ async  function function_export(req, res, next) {
 								"field"     :"products_speciality_status_admin",
 								"value"     : 1,
 								"compare" 	: '='
-							}								
+							},
+							{   
+								"field"     :"products_speciality_type",
+								"value"     : [0,1],
+								"compare" 	: 'in'
+							}									
 						]    
 					}
 				],

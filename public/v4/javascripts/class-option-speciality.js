@@ -52,7 +52,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ","/options/speciality/manage/" + datas.datas.options_product_speciality_stores_id);
+						ojs_message.message_ok_show(" Đã Tạo Otion thành công ","/options/speciality/manage/" + datas.datas.options_product_speciality_stores_id);
 					}				
 					ojs_loadding.ajax_hide_loadding();
 
@@ -103,7 +103,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show( " Đã lưu ",location.href );
+						ojs_message.message_ok_show( " Đã lưu thành công",location.href );
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
@@ -148,7 +148,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã xoa ","/options/speciality/manage/" + store_id);
+						ojs_message.message_ok_show(" Đã xoa thành công ","/options/speciality/manage/" + store_id);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 			  }			  

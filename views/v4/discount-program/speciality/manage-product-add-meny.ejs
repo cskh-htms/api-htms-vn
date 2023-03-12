@@ -117,7 +117,7 @@ content
 					<div style="display: flex; align-items: center; white-space: nowrap;padding:20px 0px;">
 						<span style="">số lượng từ : </span>
 						<input class="number_change" data_value="1" 
-						type="text" value="1" id="price_from" 
+						type="text" value="1" id="price_from"  disabled 
 						style="width:60px; min-width:60px;text-align:center;">
 						<span style="">Đến : </span>
 						<input class="number_change" data_value="5" type="text" value="5" id="price_to"  
@@ -341,17 +341,32 @@ $(document).ready(function($){
 	$(document).on('click','.btn-add-meny',function(e) {	
 		//@
 		e.preventDefault();		
-		var from = $('#price_from').attr('data_value');
-		var to = $('#price_to').attr('data_value');
-		var price = $('#price_meny').attr('data_value');
+		var from = parseInt($('#price_from').attr('data_value'));
+		var to =  parseInt( $('#price_to').attr('data_value'));
+		var price =  parseInt($('#price_meny').attr('data_value'));
 		if(from == 0 || to == 0 || price == 0){
 			ojs_message.message_ok_show("vui lòng nhập giá trị");
 			return;			
 		}
 		//console.log([from,to,price]);
 		
-		var  html_ok =  $('.price-box').html();
 		
+		var to_a = to + 1;
+		var to_b = to + 5;
+		var price_a = price -(2 * price/100);
+		
+		
+		 $('#price_from').val(to_a);
+		 $('#price_to').val(to_b);
+		 $('#price_meny').val(  ojs_share_all.show_price_format(price_a,0,",",".","")       );
+		 
+		 
+		$('#price_from').attr('data_value',to_a);
+		$('#price_to').attr('data_value',to_b); 
+		$('#price_meny').attr('data_value',price_a);
+		 
+		
+		var  html_ok =  $('.price-box').html();		
 		var x = '' + 
 		'<div class="price-line" style="display:flex;padding:10px 10px";>' + 
 			'Số lượng từ : <strong>  [  <span class="from">' + from + '</span>  ]  </strong>' + 

@@ -146,30 +146,14 @@ async  function function_export(req, res, next) {
 		
 		
 		//@ status
-		if(datas.status_data[0] == -1){
-			condition_data.push(
-				{   
-					"field"     :"products_speciality_status_store",
-					"value"     : 0,
-					"compare" : "="
-				} 
-			)		
-		}else{
-			condition_data.push(
-				{   
-					"field"     :"products_speciality_status_store",
-					"value"     : 1,
-					"compare" : "="
-				} 
-			)		
-			condition_data.push(
-				{   
-					"field"     :"products_speciality_status_admin",
-					"value"     : datas.status_data,
-					"compare" : "in"
-				} 
-			)		
-		}
+		condition_data.push(
+			{   
+				"field"     :"products_speciality_status_admin",
+				"value"     : datas.status_data,
+				"compare" : "in"
+			} 
+		)		
+
 		
 		//@ category
 		if(datas.category_data == "all"){

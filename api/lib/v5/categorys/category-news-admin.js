@@ -20,9 +20,7 @@ const category_news_admin = async function (res) {
 	category_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "category_general_speciality_admin_status in (4,2) "  + 
-	" and " + 
-		config_database.PREFIX + "category_general_speciality_stores_status = 1 "; 	
+		config_database.PREFIX + "category_general_speciality_admin_status in (4,2) ";
 
 	
 

@@ -3,7 +3,7 @@
 <%- include ("../../masterpage/loader") %>
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/share-menu-admin.css' />
 <link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/option.css' />
-
+<link rel='stylesheet' href='/<%= js_css_version %>/stylesheets/option-show.css' />
 
 
 
@@ -58,12 +58,16 @@ content
 				</div>
 			</div>
 			
+			<!-- ------------------
+			thông tin options
+			------------------- -->
 			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>
-				<div class="inside">
-					<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share_all.unCape(datas[0].options_product_speciality_qoute) %></textarea>
-				</div>
+				<span>Mô tả tùy chọn</span>
+				<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share_all.unCape(datas[0].options_product_speciality_information) %></textarea>
 			</div>
+			<!-- ------------------
+			//thông tin danh mục
+			------------------- -->
 		</div>
 
 
@@ -72,11 +76,11 @@ content
 			<!-- ------------------
 			//option cha
 			------------------- -->
-			<div id="category_general_wrap" class="value_row pro_box">
+			<div id="category_general_wrap" class="pro_box">
 				<h3>Tùy chọn cha</h3>
 				<div id="category_general_box" class="inside">
 					<select  name="category_general" id="options_product_speciality_parent_id"  >
-						<%-- include ("../../masterpage/widget-option-check-box") %>
+						<%- include ("../../masterpage/widget-option-check-box") %>
 					</select>
 				</div>
 			</div>
@@ -93,7 +97,12 @@ content
 				</div>
 			</div>
 
-
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="options_product_speciality_qoute"  rows="10" cols="30" ><%- ojs_share_all.unCape(datas[0].options_product_speciality_qoute) %></textarea>
+				</div>
+			</div>
 
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
@@ -132,16 +141,7 @@ content
 
 
 
-	<!-- ------------------
-	thông tin options
-	------------------- -->
-	<div class="value_row">
-		<span>Mô tả tùy chọn</span>
-		<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share_all.unCape(datas[0].options_product_speciality_information) %></textarea>
-	</div>
-	<!-- ------------------
-	//thông tin danh mục
-	------------------- -->
+
 	
 
 
@@ -251,7 +251,8 @@ $(document).ready(function($){
 		var datas = get_datas();	
 		//console.log(datas);
 		//return;
-		
+		datas.datas.options_product_speciality_status_update = 1;
+				
 		ojs_option_speciality_admin.ajax_update_admin(datas,option_id);	
 	});
 

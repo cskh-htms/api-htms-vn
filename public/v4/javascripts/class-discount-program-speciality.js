@@ -245,7 +245,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ",location.href);
+						ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
@@ -285,15 +285,15 @@ $(document).ready(function($){
 			  },
 			  success : function(result) {
 				  
-					console.log(result);
-					ojs_loadding.ajax_hide_loadding();
-					return;
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();
+					//return;
 					
 					
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ",location.href);
+						ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					
@@ -341,7 +341,7 @@ $(document).ready(function($){
 					if(result.error){
 						ojs_message.message_ok_show(result.message);
 					}else{
-						ojs_message.message_ok_show(" Đã lưu ",location.href);
+						ojs_message.message_ok_show(" Đã thêm sản phẩm vào chương trình ",location.href);
 					}				
 					ojs_loadding.ajax_hide_loadding();	
 					

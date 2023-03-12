@@ -58,12 +58,19 @@ content
 					<input  type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].brands_name) %>" id="brands_name"/>
 				</div>
 			</div>
+			
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
 			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>
-				<div class="inside">
-					<textarea   id="brands_qoute"  rows="5" cols="100%" ><%- ojs_share_all.unCape(datas[0].brands_qoute) %></textarea>
-				</div>
+				<span>Chi tiết thương hiệu</span><br>
+				<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share_all.unCape(datas[0].brands_information ) %></textarea>
 			</div>
+			<!-- ------------------
+			//thông tin mô tả
+			------------------- -->
+			
+
 		</div>
 		
 
@@ -86,6 +93,21 @@ content
 					<input type='file' accept="image/*" id='upload_image' style="display:none;">
 				</div>
 			</div>	
+	
+	
+			
+			
+			
+			
+			
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea   id="brands_qoute"  rows="5" cols="30" ><%- ojs_share_all.unCape(datas[0].brands_qoute) %></textarea>
+				</div>
+			</div>	
+	
+	
 	
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
@@ -112,16 +134,7 @@ content
 	//thông tin mô tả
 	------------------- -->
 	
-	<!-- ------------------
-	thông tin mô tả
-	------------------- -->
-	<div class="value_row" ">
-		<span>Chi tiết thương hiệu</span><br>
-		<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share_all.unCape(datas[0].brands_information ) %></textarea>
-	</div>
-	<!-- ------------------
-	//thông tin mô tả
-	------------------- -->
+
 	
 	
 	
@@ -275,7 +288,8 @@ function get_datas(){
 				brands_featured_image : brands_featured_image,
 				brands_information : brands_information,				
 				brands_qoute : brands_qoute,
-				brands_status_admin : brands_status_admin
+				brands_status_admin : brands_status_admin,
+				brands_status_update : 1
 			}
 		}
 		

@@ -23,11 +23,19 @@
 	   <tr class="">
 
 			<td class="user-name"><a href="#"><%= brand_list_create[x].brands_name %></a>
-				<div class="row-actions">
-					<span class="edit">
-					<a href="/brands/manage/show/<%= brand_list_create[x].brands_ID %>/<%= brand_list_create[x].stores_ID %>">Chỉnh sửa</a> | </span>
-					<span class="delete"><a href="#" data_brand_id="<%= brand_list_create[x].brands_ID %>" class="submitdelete">Xóa</a></span>
-				</div>
+				
+				<%
+				if(brand_list_create[x].brands_status_admin != 1 ){
+				%>
+					<div class="row-actions">
+						<span class="edit">
+						<a href="/brands/manage/show/<%= brand_list_create[x].brands_ID %>/<%= brand_list_create[x].stores_ID %>">Chỉnh sửa</a> | </span>
+						<span class="delete"><a href="#" data_brand_id="<%= brand_list_create[x].brands_ID %>" class="submitdelete">Xóa</a></span>
+					</div>
+				<%
+				}
+				%>				
+				
 			</td>
 	
 			<td style="text-align:center;"><%- ojs_share_all.show_status_html(brand_list_create[x].brands_status_admin) %></td>			

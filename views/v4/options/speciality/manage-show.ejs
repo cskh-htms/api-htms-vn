@@ -68,7 +68,7 @@ content
 			<!-- ------------------
 			thông tin options
 			------------------- -->
-			<div class="value_row">
+			<div class="pro_box">
 				<span>Mô tả tùy chọn</span>
 				<textarea class="noi_dung"  id="noi_dung"  rows="20" cols="100%"><%- ojs_share_all.unCape(datas[0].options_product_speciality_information) %></textarea>
 			</div>
@@ -76,13 +76,6 @@ content
 			//thông tin danh mục
 			------------------- -->			
 			
-			
-			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>
-				<div class="inside">
-					<textarea id="options_product_speciality_qoute"  rows="10" cols="100%" ><%- ojs_share_all.unCape(datas[0].options_product_speciality_qoute) %></textarea>
-				</div>
-			</div>
 		</div>
 
 
@@ -112,7 +105,12 @@ content
 				</div>
 			</div>
 
-
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea id="options_product_speciality_qoute"  rows="10" cols="30" ><%- ojs_share_all.unCape(datas[0].options_product_speciality_qoute) %></textarea>
+				</div>
+			</div>
 
 			<div class="pro_box">
 				<h3>Trạng thái admin</h3>
@@ -168,8 +166,8 @@ content
 
 	<div class="btn_box">
 		<a href="/options/speciality/" class="btn_back">Quay về</a>
-		<a href="#" class="btn_back" id="btn_draf">Bản nháp</a>		
-		<button id="btn_save" class="btn_save">Lưu</button>
+		<a href="#" class="btn_back" id="btn_draf">Lưu nháp</a>		
+		<button id="btn_save" class="btn_save">Gữi chờ duyệt</button>
 	</div>	
 		
 
@@ -180,7 +178,7 @@ content
 	<input type="hidden" id="user_id" value="<%= user_id %>"/>
 	<input type="hidden" id="option_id" value="<%= option_id %>"/>
 	<input type="hidden" id="store_id" value="<%=  datas[0].options_product_speciality_stores_id %>"/>
-
+	<input type="hidden" id="options_product_speciality_status_update" value="<%=  datas[0].options_product_speciality_status_update %>"/>
 
 </div>
 <!-- --------------------
@@ -262,7 +260,12 @@ $(document).ready(function($){
 		e.preventDefault();
 		var datas = get_datas();
 		
-		datas.datas.options_product_speciality_status_admin = 4;
+		if(datas.datas.options_product_speciality_status_update == 1){
+			datas.datas.options_product_speciality_status_admin = 2;
+		}else{
+			datas.datas.options_product_speciality_status_admin = 4;
+		}
+		
 
 		
 		//console.log(datas);
@@ -311,7 +314,7 @@ $(document).ready(function($){
 		let options_product_speciality_status_stores = $('#options_product_speciality_status_stores  option:selected').val();
 		
 		let options_product_speciality_status_admin = $('#options_product_speciality_status_admin  option:selected').val();	
-		
+		let options_product_speciality_status_update = $('#options_product_speciality_status_update').val();
 
 	
 		
@@ -324,6 +327,7 @@ $(document).ready(function($){
 				options_product_speciality_qoute : options_product_speciality_qoute,
 				options_product_speciality_stores_id : store_id,
 				options_product_speciality_status_admin:options_product_speciality_status_admin,
+				options_product_speciality_status_update : options_product_speciality_status_update,
 				options_product_speciality_status_stores : options_product_speciality_status_stores
 				
 			}

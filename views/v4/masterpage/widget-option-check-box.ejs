@@ -26,8 +26,8 @@ option_list  && option_list.length > 0) { } else {option_list = [];}
 if( option_list.length > 0){
 for(var  x in option_list) { %>
 	<% 
-	if(option_list[x].options_product_speciality_parent_id == 0) { %>
-
+	if(option_list[x].options_product_speciality_parent_id == 0) { 
+	%>
 		<% 
 		if(option_list[x].options_product_speciality_ID  == data_parent_id ){ 	%>
 			<option  style="font-weight:bold;color:red;"  
@@ -45,7 +45,8 @@ for(var  x in option_list) { %>
 		} 
 		%>			
     <% 
-    } %>
+    } 
+	%>
 <% 
 } 
 %>

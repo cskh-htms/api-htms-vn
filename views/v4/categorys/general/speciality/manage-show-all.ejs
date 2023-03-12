@@ -49,11 +49,11 @@ content
 	<h1><a href="/stores/manage/<%= store_id %>/"><%= store_list[0].stores_name %></a><i class="fas fa-chevron-right"></i>Danh sách danh mục</h1>
 	
 	<div style="display: flex; justify-content: space-evenly;">
-		<div data_id="tab-1" class="tab active">Danh mục cửa hàng</div>
-		<div data_id="tab-2" class="tab">Danh mục mới tạo</div>
-		<div data_id="tab-3" class="tab">Danh mục Chung</div>
+		<div data_id="tab-1" class="tab active">Danh mục có sản phẩm của cửa hàng</div>
+		<div data_id="tab-2" class="tab">Danh mục cửa hàng yêu cầu tạo thêm</div>
+		<div data_id="tab-3" class="tab">Tất cả danh mục chung trên hệ thống</div>
 		<div class="sap_xep_wrap">
-			<a href="/categorys/general/speciality/manage/add/<%= store_id %>/" class="btn_green">Thêm danh mục</a>
+			<a href="/categorys/general/speciality/manage/add/<%= store_id %>/" class="btn_green">Tạo danh mục mới</a>
 		</div>		
 	</div>	
 	

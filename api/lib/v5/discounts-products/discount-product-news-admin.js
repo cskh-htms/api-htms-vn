@@ -20,7 +20,7 @@ const discount_product_news_admin = async function (res) {
 	discount_product_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "discount_program_product_link_status not in (1,3) ";	
+		config_database.PREFIX + "discount_program_product_link_status in (0) ";	
 
 	//@
 	try {	

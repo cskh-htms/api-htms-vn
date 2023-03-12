@@ -266,18 +266,20 @@ async  function store_order_get_all(req, res, next) {
 				"where" :
 					[
 					{
-						"field"     :"options_product_speciality_status_admin",
-						"value"     : 1,
-						"compare" : "<>"						
-					},
-					{
 						"field"     :"stores_ID",
 						"value"     : store_id,
 						"compare" : "="
 					}
 					]    
 				}         
-			]
+			],
+			"order" :
+			 [
+					{    
+						"field"  :"options_product_speciality_date_created",
+						"compare" : "DESC"
+					}   
+			] 
 		}
 		
 		var fn_get_option_list_create = new Promise((resolve, reject) => {

@@ -259,18 +259,20 @@ async  function store_order_get_all(req, res, next) {
 				"where" :
 					[
 					{
-						"field"     :"brands_status_admin",
-						"value"     : 1,
-						"compare" : "<>"						
-					},
-					{
 						"field"     :"stores_ID",
 						"value"     : store_id,
 						"compare" : "="
 					}
 					]    
 				}         
-			]
+			],
+			"order" :
+			 [
+					{    
+						"field"  :"brands_date_created",
+						"compare" : "DESC"
+					}   
+			]  
 		}
 		
 		var fn_get_brand_list_create = new Promise((resolve, reject) => {

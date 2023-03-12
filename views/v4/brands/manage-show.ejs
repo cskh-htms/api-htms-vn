@@ -58,12 +58,19 @@ content
 					<input  type="text" class= "" value="<%- ojs_share_all.unCape(datas[0].brands_name) %>" id="brands_name"/>
 				</div>
 			</div>
+
+			<!-- ------------------
+			thông tin mô tả
+			------------------- -->
 			<div class="pro_box">
-				<h3>Lời nhắn từ admin</h3>
-				<div class="inside">
-					<textarea   id="brands_qoute"  rows="5" cols="100%" ><%- ojs_share_all.unCape(datas[0].brands_qoute) %></textarea>
-				</div>
+				<span>Chi tiết thương hiệu</span><br>
+				<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share_all.unCape(datas[0].brands_information ) %></textarea>
 			</div>
+			<!-- ------------------
+			//thông tin mô tả
+			------------------- -->
+
+
 		</div>
 		
 
@@ -86,6 +93,15 @@ content
 					<input type='file' accept="image/*" id='upload_image' style="display:none;">
 				</div>
 			</div>	
+	
+			<div class="pro_box">
+				<h3>Lời nhắn từ admin</h3>
+				<div class="inside">
+					<textarea   id="brands_qoute"  rows="5" cols="30" ><%- ojs_share_all.unCape(datas[0].brands_qoute) %></textarea>
+				</div>
+			</div>	
+	
+	
 	
 			<div class="pro_box">
 				<h3>Trạng thái</h3>
@@ -112,16 +128,7 @@ content
 	//thông tin mô tả
 	------------------- -->
 	
-	<!-- ------------------
-	thông tin mô tả
-	------------------- -->
-	<div class="value_row" ">
-		<span>Chi tiết thương hiệu</span><br>
-		<textarea   class="noi_dung"  id="noi_dung"  rows="10" cols="100%"><%- ojs_share_all.unCape(datas[0].brands_information ) %></textarea>
-	</div>
-	<!-- ------------------
-	//thông tin mô tả
-	------------------- -->
+
 	
 	
 	
@@ -135,7 +142,7 @@ content
 
 <div class="btn_box">
 	<a href="/brands/manage/<%= store_id %>" class="btn_back">Quay về</a>
-	<a href="#" class="btn_back" id="btn_draf"  >Bản nháp</a>
+	<a href="#" class="btn_back" id="btn_draf"  >Lưu nháp</a>
 	<button id="btn_save" class="btn_save">Gữi duyệt</button>
 </div>	
 	
@@ -146,7 +153,7 @@ content
 <input type="hidden" id="user_id" value="<%= user_id %>"/>
 <input type="hidden" id="brand_id" value="<%= brand_id %>"/>
 <input type="hidden" id="store_id" value="<%= datas[0].brands_stores_id %>"/>
-
+<input type="hidden" id="brands_status_update" value="<%= datas[0].brands_status_update %>"/>
 
 
 
@@ -246,7 +253,12 @@ $(document).ready(function($){
 		e.preventDefault();
 		var datas = get_datas();	
 
-		datas.datas.brands_status_admin = 4;
+		if(datas.datas.brands_status_update == 1){
+			datas.datas.brands_status_admin = 2
+		}else{
+			datas.datas.brands_status_admin = 4			
+		}
+
 
 		//console.log(datas);
 		//return;
@@ -284,6 +296,7 @@ function get_datas(){
 		
 		var brands_qoute =$("#brands_qoute").val();
 		var brands_status_admin = $('#brands_status_admin  option:selected').val();	
+		var brands_status_update = $('#brands_status_update').val();
 		var brands_featured_image = $('#featured_image').attr('data_value');
 		let brands_information = $('#noi_dung').val();		
 		
@@ -296,6 +309,7 @@ function get_datas(){
 				brands_information : brands_information,				
 				brands_qoute : brands_qoute,
 				brands_status_admin : brands_status_admin,
+				brands_status_update:brands_status_update,
 				brands_stores_id : store_id
 			}
 		}

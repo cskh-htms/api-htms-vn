@@ -20,9 +20,7 @@ const product_news_admin = async function (res) {
 	product_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "products_speciality_status_admin in (4,2) " +
-		" and " + 
-		config_database.PREFIX + "products_speciality_status_store = 1 "; 		
+		config_database.PREFIX + "products_speciality_status_admin in (4,2) ";	
 
 	//@
 	try {	

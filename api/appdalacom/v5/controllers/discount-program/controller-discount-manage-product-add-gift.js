@@ -314,7 +314,12 @@ async  function function_export(req, res, next) {
 								"field"     :"products_speciality_status_admin",
 								"value"     : 1,
 								"compare" 	: '='
-							}								
+							},
+							{   
+								"field"     :"products_speciality_type",
+								"value"     : [0,1],
+								"compare" 	: 'in'
+							}									
 						]    
 					}
 				],
@@ -379,8 +384,8 @@ async  function function_export(req, res, next) {
 							},
 							{   
 								"field"     :"products_speciality_type",
-								"value"     : 2,
-								"compare" 	: '='
+								"value"     : [2],
+								"compare" 	: 'in'
 							}									
 						]    
 					}
@@ -438,7 +443,17 @@ async  function function_export(req, res, next) {
 								"field"     :"stores_ID",
 								"value"     : store_id,
 								"compare" 	: '='
-							}									
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : 1,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"products_speciality_type",
+								"value"     : [0,1],
+								"compare" 	: 'in'
+							}										
 						]    
 					}
 				]			

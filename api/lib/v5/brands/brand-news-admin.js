@@ -20,9 +20,7 @@ const brand_news_admin = async function (res) {
 	brand_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "brands_status_admin in (0,2) " +
-		" and " + 
-		config_database.PREFIX + "brands_status_stores = 1 " ; 		
+		config_database.PREFIX + "brands_status_admin in (2,4) ";	
 
 	//@
 	try {	

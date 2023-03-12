@@ -93,7 +93,7 @@ $(document).ready(function($){
 						if(result.error){
 							ojs_message.message_ok_show(result.error);
 						}else{
-							ojs_message.message_ok_show(" Đã tạo option",location.href);
+							ojs_message.message_ok_show(" Đã lưu thành công",location.href);
 						}
 					}				
 					ojs_loadding.ajax_hide_loadding();				  

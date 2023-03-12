@@ -46,27 +46,6 @@
 				%>
 				
 				
-				<%
-				//hien thi san pham qua tang
-				var gift_text = "";
-				for(let os in products_list[x].product_gift){
-					gift_text = gift_text + 
-					'<div style="display:flex;align-item:center;">' + 
-						'<img style="width:30px;" src="' + products_list[x].product_gift[os].product_gift_image + '"/>' + 
-						'<span style="display:block;font-size:12px;"><i>' +  
-							products_list[x].product_gift[os].product_gift_name + 
-						'</i></span>' + 
-					'</div>';
-				}		
-				if(gift_text.length > 0){
-				%>
-					<span style="text-decoration: underline;font-weight:bold;">Quà tặng: </span>
-					<%- gift_text %>
-				
-				<%
-				}								
-				%>		
-				
 				<div class="row-actions">
 					<span class="edit"><a href="/products/speciality/manage/show/<%= products_list[x].products_speciality_ID  %>/<%= products_list[x].stores_ID %>">Chỉnh sửa</a> | </span>
 					   |    <span class="delete"><a href="#" data_product_id="<%= products_list[x].products_speciality_ID  %>" class="submitdelete">Xóa</a></span>
@@ -88,8 +67,56 @@
 			<% } %>				
 			
 			
-		<td><%= products_list[x].so_luong_da_ban %></td>					
-		<td><%- products_list[x].discount_program[0].name %></td>
+		<td><%= products_list[x].so_luong_da_ban_that %></td>					
+		<td>
+			<%- products_list[x].discount_program[0].name %>
+			
+				   <%
+				   for(var s in products_list[x].product_price){
+				   %>									   
+					   <div style="font-size:12px;color:#9bcdc1;">
+							 <span> Số lượng từ  :  </span>
+							 <%= products_list[x].product_price[s].from %>
+							 <span> --->  </span>
+							  <%= products_list[x].product_price[s].to  %>
+							 <span> giá bán  --->  </span>
+							  <%- ojs_share_all.show_price_format(products_list[x].product_price[s].price,0,",",".","đ") %>	
+							 <p><span> Giảm thêm  --->  </span>
+							 <%- 
+								 ojs_share_all.show_price_format((products_list[x].product_price[s].percent - products_list[x].products_speciality_sort_by_percen),0,",",".","%"
+								 ) 
+							 %>	
+							  </p>
+							<p style="border-bottom:1px dashed #ccc;"></p>
+					   </div>
+				   <% 
+				   }
+				   %>				
+			
+			
+					<%
+					//hien thi san pham qua tang
+					var gift_text = "";
+					for(let os in products_list[x].product_gift){
+						gift_text = gift_text + 
+						'<div style="display:flex;align-item:center;">' + 
+							'<img style="width:30px;" src="' + products_list[x].product_gift[os].product_gift_image + '"/>' + 
+							'<span style="display:block;font-size:12px;"><i>' +  
+								products_list[x].product_gift[os].product_gift_name + 
+							'</i></span>' + 
+						'</div>';
+					}		
+					if(gift_text.length > 0){
+					%>
+						<p><span style="text-decoration: underline;font-weight:bold;">Quà tặng: </span></p>
+						<%- gift_text %>
+					
+					<%
+					}								
+					%>				
+			
+			
+		</td>
 		
 		<td>
 			<%- ojs_share_product.show_stock_html(

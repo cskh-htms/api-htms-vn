@@ -20,10 +20,7 @@ const option_news_admin = async function (res) {
 	option_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "options_product_speciality_status_admin in (0,2) " + 
-	" and " + 
-		config_database.PREFIX + "options_product_speciality_status_stores in (1) "; 		
-
+		config_database.PREFIX + "options_product_speciality_status_admin in (2,4) ";
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {

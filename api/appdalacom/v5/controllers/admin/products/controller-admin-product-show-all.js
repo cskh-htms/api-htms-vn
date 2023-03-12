@@ -118,7 +118,7 @@ async  function function_export(req, res, next) {
 						[  
 							{
 								"field" : "products_speciality_status_admin",
-								"value" : [1,4],
+								"value" : [1,2,4],
 								"compare" : "in"
 							}								
 						]    

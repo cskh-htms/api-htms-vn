@@ -21,7 +21,7 @@ const discount_product_news_bussiness_count = async function (store_id,res) {
 	discount_product_fields_get.link_default + 
 	
 	" where " + 
-		config_database.PREFIX + "discount_program_product_link_status = 4 " +
+		config_database.PREFIX + "discount_program_product_link_status = 1 " +
 		" and " + 
 		config_database.PREFIX + "stores_ID = " + store_id + " " ; 		
 

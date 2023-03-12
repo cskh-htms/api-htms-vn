@@ -269,18 +269,20 @@ async  function store_order_get_all(req, res, next) {
 				"where" :
 					[
 					{
-						"field"     :"category_general_speciality_admin_status",
-						"value"     : 1,
-						"compare" : "<>"						
-					},
-					{
 						"field"     :"stores_ID",
 						"value"     : store_id,
 						"compare" : "="
 					}
 					]    
 				}         
-			]
+			],
+			"order" :
+			 [
+				{    
+					"field"  :"category_general_speciality_date_created",
+					"compare" : "DESC"
+				}   
+			] 
 		}
 		
 		var fn_get_category_list_create = new Promise((resolve, reject) => {
