@@ -7,7 +7,7 @@ const config = require('../../../../configs/config');
 
 
 
-if(config.domain == "http://localhost:2021"){
+if(process.env.DATABASE_MODE == "simple"){
 	var connection_data = {		
 		host     			: config_database.HOST_NAME,
 		localAddress 		: config_database.HOST_IP,
