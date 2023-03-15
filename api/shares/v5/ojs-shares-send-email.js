@@ -27,10 +27,12 @@ const ojs_shares_send_email = {
 		//@
 		//@
 		//@
-		const authUser = 'cskh@appdala.com';
-		const authPassword = '+@@~ikgxDW6G';
-		const mailHost = 'h01.azdigimail.com';
-		const mailPort = 465;
+		const authUser = process.env.EMAIL_USER;
+		const authPassword = process.env.EMAIL_PASS;
+		const mailHost = process.env.EMAIL_HOST;
+		const mailPort = process.env.EMAIL_PORT;
+
+
 
 		const transporter = nodeMailer.createTransport({
 			host: mailHost,
