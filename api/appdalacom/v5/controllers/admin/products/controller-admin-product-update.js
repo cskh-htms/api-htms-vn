@@ -219,7 +219,7 @@ async  function function_export(req, res, next) {
 		//@ run database
 		var result = await product_update(datas,product_id,cat_string, option_string,res);
 		
-		if(ojs_configs.domain == "http://localhost:2021"){
+		if(process.env.evn == "tester"){
 			if(datas.products_speciality_status_admin == 4){
 				var email_title = 'DALA - có sảm phẩm mới chờ duyệt Sản Phẩm [ ' + product_id + ' ] ';
 				var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa tạo chờ duyệt';

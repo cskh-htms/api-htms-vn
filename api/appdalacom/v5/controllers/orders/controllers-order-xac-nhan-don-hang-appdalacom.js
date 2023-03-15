@@ -19,6 +19,11 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 const order_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
 const order_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-update');
 
+const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
+
+
+
+
 //@
 async  function function_export(req, res, next) {
 
@@ -118,6 +123,23 @@ async  function function_export(req, res, next) {
 		}
 		var order_update_result = await order_update(data_update,decoded.order_id,res);		
 		res.send("Đã xác nhận đơn hàng rồi"); 
+		
+		
+		
+		var email_title = 'Cửa hàng đã xác nhận đơn [ ' + decoded.order_id + ' ] ';
+		var email_content = 'Cửa hàng đã xác nhận đơn [ ' + decoded.order_id + ' ] ';		
+		
+		if(process.env.evn == "tester"){
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+		}else{
+			//@ send email to admin
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+		}			
+		
+		
+		
+		
 		return;
 	}else if(order_result[0].orders_speciality_status_orders == "101"){
 		res.send("Đơn hàng đã xác nhận  rồi"); 

@@ -205,7 +205,7 @@ async  function function_export(req, res, next) {
 			var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] đã phê duyệt';
 			
 			
-			if(ojs_configs.domain == "http://localhost:2021"){
+			if(process.env.evn == "tester"){
 				email_to4 = "htms.group.vn@gmail.com";
 				ojs_shares_send_email.send_email_to_admin(res,email_to4,email_title,email_content4);	
 			}else{

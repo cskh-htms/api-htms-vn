@@ -148,6 +148,21 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		//return datas;		
 		
 		var orders_update_result = await orders_update(datas_order_huy,order_id,res);
+		
+		
+		var email_title = 'Khách hàng đã hủy đơn [ ' + order_id + ' ] ';
+		var email_content = 'Khách hàng đã hủy đơn [ ' + order_id + ' ] ';		
+		
+		if(process.env.evn == "tester"){
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+		}else{
+			//@ send email to admin
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+		}			
+		
+		
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

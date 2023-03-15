@@ -24,7 +24,6 @@ const get_one_user = require('../../../../lib/' + config_api.API_LIB_VERSION + '
 
 
 const user_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-insert.js');
-
 const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
 
 
@@ -74,7 +73,7 @@ async  function function_export(req, res, next) {
 
 	
 	
-	if(ojs_configs.domain == "http://localhost:2021"){
+	if(process.env.evn == "tester"){
 		ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
 	}else{
 		//@ send email to admin

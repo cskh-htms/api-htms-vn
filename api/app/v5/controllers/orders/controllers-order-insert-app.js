@@ -193,7 +193,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		//return;
 
 
-		if(ojs_configs.domain == "http://localhost:2021"){
+		if(process.env.evn == "tester"){
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
 			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
 			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
