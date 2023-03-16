@@ -151,6 +151,7 @@ async  function function_export(req, res, next) {
 					"coupon_speciality_stores_id_created",
 					"coupon_speciality_info",
 					"coupon_speciality_type",
+					"coupon_speciality_time_type",
 					"coupon_speciality_pay_type",
 					"coupon_speciality_formula_price",
 					"coupon_speciality_formula_price_value",

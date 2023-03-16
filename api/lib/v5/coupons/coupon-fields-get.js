@@ -34,6 +34,7 @@ const fields_get = 	"" +
 	config_database.PREFIX  + "coupon_speciality_status_admin as coupon_speciality_status_admin, " + 
 	config_database.PREFIX  + "coupon_speciality_status_update as coupon_speciality_status_update, " + 
 	config_database.PREFIX  + "coupon_speciality_limit_user as coupon_speciality_limit_user, " + 
+	config_database.PREFIX  + "coupon_speciality_time_type as coupon_speciality_time_type, " + 
 	config_database.PREFIX  + "coupon_speciality_limit_number as coupon_speciality_limit_number, " + 
 	
 	

@@ -22,7 +22,8 @@ const  default_fields = {
 		"coupon_speciality_status_admin"		: 0,
 		"coupon_speciality_status_update"		: 0,
 		"coupon_speciality_limit_user"			: 0,
-		"coupon_speciality_limit_number"		: 0,		
+		"coupon_speciality_limit_number"		: 0,
+		"coupon_speciality_time_type"			: 0,		
 		"coupon_speciality_qoute":""
 }
 

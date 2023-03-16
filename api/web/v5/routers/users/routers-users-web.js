@@ -18,12 +18,12 @@ const controllers_user_verification_code_web =  require('../../controllers/users
 const controllers_user_check_verification_web =  require('../../controllers/users/controllers-user-check-verification-web.js');
 const controllers_user_get_by_id_web =  require('../../controllers/users/controllers-user-get-by-id-web.js');
 
-
 const controllers_user_change_password_web =  require('../../controllers/users/controllers-user-change-password-web.js');
 
 
 
-
+const controllers_user_get_verification_code_lost_web =  require('../../controllers/users/controllers-user-get-verification-code-lost-web.js');
+const controllers_user_verification_code_lost_web =  require('../../controllers/users/controllers-user-verification-code-lost-web.js');
 
 
 
@@ -46,13 +46,14 @@ router.post('/check-token', controllers_user_check_token_web);
 router.post('/register', controllers_user_register_web);
 router.post('/lost-password', controllers_user_lost_password_web);
 router.get('/check-verification', controllers_user_check_verification_web);
-
 router.get('/get-verification-code', middle_ware, controllers_user_get_verification_code_web);
-
 router.post('/verification-code', middle_ware, controllers_user_verification_code_web);
-
 router.get('/get-by-id/:user_id', middle_ware, controllers_user_get_by_id_web);
-
 router.post('/change-password/:user_id', middle_ware, controllers_user_change_password_web);
+
+
+router.get('/get-verification-code-lost', controllers_user_get_verification_code_lost_web);
+router.post('/verification-code-lost', controllers_user_verification_code_lost_web);
+
 
 module.exports = router;

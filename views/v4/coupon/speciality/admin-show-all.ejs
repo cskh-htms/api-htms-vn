@@ -107,15 +107,31 @@ content
 						<%
 						}else{
 						%>	
-							<div class="coupon_da_dung" 
-							style="color:green;font-size:10px;">Bắt đầu: 
-							<%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_star) %>
-							</div>
-							
-							<div class="coupon_thoi_han" 
-							style="color:green;font-size:10px;">Kết thúc: 
-							<%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_end) %>
-							</div>
+							<%
+							if(coupon_list[x].coupon_speciality_time_type == 0){
+							%>
+								<div class="coupon_da_dung" 
+								style="color:green;font-size:10px;">Bắt đầu: Không có thời hạn
+								</div>
+								
+								<div class="coupon_thoi_han" 
+								style="color:green;font-size:10px;">Kết thúc: Không có thời hạn
+								</div>							
+							<%
+							}else{
+							%>	
+								<div class="coupon_da_dung" 
+								style="color:green;font-size:10px;">Bắt đầu: 
+								<%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_star) %>
+								</div>
+								
+								<div class="coupon_thoi_han" 
+								style="color:green;font-size:10px;">Kết thúc: 
+								<%- ojs_share_all.format_date(coupon_list[x].coupon_speciality_date_end) %>
+								</div>
+							<%
+							}
+							%>								
 						
 						<%
 						}

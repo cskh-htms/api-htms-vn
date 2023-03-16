@@ -260,7 +260,9 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 				for(y in data_sale){
 					if(product_taget[x].products_speciality_ID == data_sale[y].orders_details_speciality_product_id){
 						add_data_line = parseInt(data_sale[y].sum_orders_details_speciality_qty) + parseInt(product_taget[x].products_speciality_start_buy);
-					}							
+					}else{
+						add_data_line = parseInt(product_taget[x].products_speciality_start_buy);
+					}						
 				}				
 			}else{
 				add_data_line = product_taget[x].products_speciality_start_buy;

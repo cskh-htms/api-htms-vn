@@ -40,6 +40,7 @@ const fields_search = 	"" +
 
 //@
 const fields_search_arr = [
+	"users_ID",
 	"users_full_name",
 	"users_password",
 	"users_date_created",

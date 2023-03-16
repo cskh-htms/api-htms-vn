@@ -210,6 +210,28 @@ content
 
 
 
+
+			<!-- --------------
+			//thời gian khuyến mãi
+			---------------- -->			
+			<div class="pro_box">
+				<h3>Thời gian khuyến mãi <a href="#"  target="_blank" class="giai_thich_link">
+				<span class="giai-thich"><span>Khuyến mãi không thời hạn hay có thời hạn</span></span>	
+				</a></h3>
+				<div class="inside">
+					<select id="coupon_speciality_time_type">
+						<%- ojs_share_coupon.show_coupon_time_type(datas[0].coupon_speciality_time_type) %>
+					</select>	
+				</div>									
+			</div>		
+
+
+
+
+
+
+
+
 			<!-- Thời gian -->
 			<div class="pro_box">
 				<h3>Hiệu lực</h3>
@@ -522,6 +544,7 @@ $(document).ready(function($){
 		let coupon_speciality_pay_type = $('#coupon_speciality_pay_type  option:selected').val();
 		let coupon_speciality_multiple = $('#coupon_speciality_multiple  option:selected').val();	
 		let coupon_speciality_show_hide = $('#coupon_speciality_show_hide  option:selected').val();
+		let coupon_speciality_time_type = $('#coupon_speciality_time_type  option:selected').val();
 		//@
 		let coupon_speciality_info = $('#noi_dung').val();
 
@@ -554,6 +577,7 @@ $(document).ready(function($){
 				coupon_speciality_show_hide : coupon_speciality_show_hide,
 				coupon_speciality_limit_user : coupon_speciality_limit_user,
 				coupon_speciality_limit_number : coupon_speciality_limit_number,
+				coupon_speciality_time_type : coupon_speciality_time_type,
 				
 				coupon_speciality_status_admin:coupon_speciality_status_admin,
 				coupon_speciality_stores_id_created:store_id				

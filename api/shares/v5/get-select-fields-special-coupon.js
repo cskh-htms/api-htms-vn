@@ -10,7 +10,10 @@ const select_field_special = function(field,res){
 	try {
 		if(field == "check_expired_coupon"){	
 			sql_field_check = sql_field_check + 		
-			"(CASE " + 
+			"(CASE " + 		
+			
+				"WHEN ( " + config_database.PREFIX  + "coupon_speciality_time_type  = 0 ) THEN " +  
+					" 1 " +  			
 					
 				"WHEN ( UNIX_TIMESTAMP(" + config_database.PREFIX + "coupon_speciality_date_end) - UNIX_TIMESTAMP() > 0 ) THEN " + 
 					" 1 " +  
