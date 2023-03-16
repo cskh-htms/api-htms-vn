@@ -39,8 +39,8 @@ const ojs_shares_send_code_to_phone = {
 		//return;	
 
 		var datas = {     
-			"loginName": "AB25934",
-			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"loginName": process.env.SMS_ID,
+			"sign": process.env.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -74,7 +74,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - Tin nhắn đặt hàng không thành công ';
 				var email_content = 'Không gữi được tin nhắn đặt hàng cho khách hàng [ ' + phone + ' ] ';
 
-				if(ojs_configs.domain == "http://localhost:2021"){
+				if(process.env.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -84,7 +84,6 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@ send email to admin
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 				}
 
@@ -113,8 +112,8 @@ const ojs_shares_send_code_to_phone = {
 		//return;	
 
 		var datas = {     
-			"loginName": "AB25934",
-			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"loginName": process.env.SMS_ID,
+			"sign": process.env.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -148,7 +147,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - gữi tin nhắn cho shipper không thành công ';
 				var email_content = 'Không gữi được tin nhắn cho shipper [ ' + phone + ' ] ';
 
-				if(ojs_configs.domain == "http://localhost:2021"){
+				if(process.env.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -158,7 +157,6 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@ send email to admin
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 				}				
 				
@@ -190,8 +188,8 @@ const ojs_shares_send_code_to_phone = {
 
 
 		var datas = {     
-			"loginName": "AB25934",
-			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"loginName": process.env.SMS_ID,
+			"sign": process.env.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -225,7 +223,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - lấy mã xác thực không thành công ';
 				var email_content = 'Khách hàng [ ' + phone + ' ] Lấy mã xác thực không thành công. Tin nhắn không gữi được';
 
-				if(ojs_configs.domain == "http://localhost:2021"){
+				if(process.env.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -235,7 +233,6 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@ send email to admin
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 				}				
 				
@@ -265,8 +262,8 @@ const ojs_shares_send_code_to_phone = {
 
 
 		var datas = {     
-			"loginName": "AB25934",
-			"sign": "158237f5bf43931e398b679fb5cfb636",
+			"loginName": process.env.SMS_ID,
+			"sign": process.env.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -299,7 +296,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - Tin nhắn quên mật khẩu không thành công ';
 				var email_content = 'Khách hàng [ ' + phone + ' ] quên mật hẩu không thành công. Tin nhắn không gữi được';
 
-				if(ojs_configs.domain == "http://localhost:2021"){
+				if(process.env.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -309,7 +306,6 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@ send email to admin
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 				}					
 				
