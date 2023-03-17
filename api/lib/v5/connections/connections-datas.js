@@ -14,7 +14,7 @@ if(process.env.DATABASE_MODE == "simple"){
 		user     			: config_database.DATABASE_USER,
 		password 			: config_database.DATABASE_PASS,
 		database 			: config_database.DATABASE_NAME,
-		port 				: config_database.PORT,
+		port 				: config_database.DATABASE_PORT,
 		multipleStatements	: true
 	}
 }else{

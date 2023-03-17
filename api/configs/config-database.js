@@ -3,7 +3,7 @@ const HOST_IP = process.env.HOST_IP;
 const DATABASE_USER = process.env.DATABASE_USER;
 const DATABASE_PASS = process.env.DATABASE_PASS;
 const DATABASE_NAME = process.env.DATABASE_NAME;
-const PORT = process.env.PORT;
+const DATABASE_PORT = process.env.DATABASE_PORT;
 
 
 
@@ -38,7 +38,7 @@ module.exports = {
 	DATABASE_USER,
 	DATABASE_PASS,
 	DATABASE_NAME,
-	PORT,
+	DATABASE_PORT,
 	HOST_NAME2,
 	HOST_IP2,
 	DATABASE_USER2,
