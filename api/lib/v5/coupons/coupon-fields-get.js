@@ -85,12 +85,35 @@ const link_sale_by_store = 	" " +
 
 
 
+//@	
+const link_by_marketing = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_details_speciality ON  " + 
+	config_database.PREFIX + "coupon_speciality_code  = " + 
+	config_database.PREFIX + "orders_details_medium_text " +    
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_order_id  = " + 
+	config_database.PREFIX + "orders_speciality_ID " +    
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "coupon_speciality_intro  = " + 
+	config_database.PREFIX + "users_ID "; 
+
+
+
+
+
 //export module
 module.exports = { 
 	fields_get,
 	from_default,
 	link_default,
-	link_sale_by_store
+	link_sale_by_store,
+	link_by_marketing 
 };
 
 
