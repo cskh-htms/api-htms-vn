@@ -64,14 +64,6 @@ app.use(session({secret: process.env.session_secret,saveUninitialized: true,resa
 //@
 //@ tao server localhost
 
-const localHttp = require('http');
-const localServer = localHttp.createServer(app);
-localServer.listen(process.env.NODEJS_PORT,'localhost');
-
-
-
-
-
 
 //@
 //@
