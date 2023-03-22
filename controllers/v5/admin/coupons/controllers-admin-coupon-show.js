@@ -148,7 +148,8 @@ async  function function_export(req, res, next) {
 				'coupon_id'			:  coupon_id,
 				
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 		: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],
+				'user_list'			: data_api_resuilt[3],
 			}
 			
 			
@@ -163,7 +164,8 @@ async  function function_export(req, res, next) {
 				'coupon_id'			:  coupon_id,
 				
 				'news_admin_menu' 	: data_api_resuilt[1],
-				'datas' 		: data_api_resuilt[2],
+				'datas' 			: data_api_resuilt[2],
+				'user_list'			: data_api_resuilt[3],
 				
 				'datas_info'			: datas_info			
 			}

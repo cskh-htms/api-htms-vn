@@ -220,7 +220,18 @@ content
 						value="0" 
 						id="coupon_speciality_intro_price" 
 					/>	
-					</p>		
+					</p>	
+
+					<p>
+						<span>Giới hạn tối đa<span>
+						<a class="giai-thich" href="#" target="_blank"><span>Số tiền tối đa dược nhận</span></a>	
+						<input 
+						class="number_change" type="text" 
+						data_value="0"
+						value="0" 
+						id="coupon_speciality_intro_price_limit" 
+					/>	
+					</p>					
 				</div>
 			</div>		
 			</div>
@@ -657,6 +668,7 @@ $(document).ready(function($){
 		let coupon_speciality_limit_number = $('#coupon_speciality_limit_number').val();	
 			
 		let coupon_speciality_intro_price = $('#coupon_speciality_intro_price').attr('data_value');	
+		let coupon_speciality_intro_price_limit = $('#coupon_speciality_intro_price_limit').attr('data_value');	
 		//@
 		let coupon_speciality_featured_image = $('#featured_image').attr('data_value');			
 			
@@ -693,6 +705,7 @@ $(document).ready(function($){
 				coupon_speciality_type : coupon_speciality_type,
 				coupon_speciality_intro : coupon_speciality_intro,
 				coupon_speciality_intro_price : coupon_speciality_intro_price,
+				coupon_speciality_intro_price_limit : coupon_speciality_intro_price_limit,
 				coupon_speciality_pay_type : coupon_speciality_pay_type,				
 				
 				coupon_speciality_featured_image : coupon_speciality_featured_image,

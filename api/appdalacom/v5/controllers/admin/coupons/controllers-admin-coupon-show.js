@@ -56,7 +56,7 @@ const check_owner_user = require('../../../../../shares/' + config_api.API_SHARE
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 const coupon_get_one = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-get-one');
 
-
+const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 
 
 //@
@@ -166,6 +166,39 @@ async  function function_export(req, res, next) {
 				resolve(result);
 			});	
 			promise_all.push(fn_get_coupon_taget);	
+
+
+			//@ 3. lấy users list
+			let data_user_list =    
+			{
+			   "select_field" :
+				[
+					"users_ID",
+					"users_full_name",
+					"users_phone"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"users_users_type_id",
+							"value"     : [13,16,17,19],
+							"compare" : "not in"
+						}          
+						]    
+					}  
+				],
+			}
+			
+			var fn_get_user_list = new Promise((resolve, reject) => {
+				let result = user_search(data_user_list,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_user_list);	
+
 
 
 

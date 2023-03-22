@@ -19,7 +19,10 @@ const controller_admin_main = require(
 	'/admin/main/controllers-admin-main.js'
 );
 
-
+const controller_admin_thong_ke = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/thong-ke/controllers-admin-thong-ke.js'
+);
 
 
 
@@ -29,7 +32,7 @@ const controller_admin_main = require(
 //@
 //@ router
 router.get('/', controller_admin_main);
-
+router.get('/thong-ke/', controller_admin_thong_ke);
 
 
 

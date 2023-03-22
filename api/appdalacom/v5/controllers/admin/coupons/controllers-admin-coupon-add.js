@@ -163,7 +163,26 @@ async  function function_export(req, res, next) {
 					"users_ID",
 					"users_full_name",
 					"users_phone"
-				] 
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+						{   
+							"field"     :"users_users_type_id",
+							"value"     : [13,16,17,19],
+							"compare" : "not in"
+						},
+						{   
+							"field"     :"users_status",
+							"value"     : 0,
+							"compare" : "="
+						}             
+						]    
+					}  
+				],
 			}
 			
 			var fn_get_user_list = new Promise((resolve, reject) => {

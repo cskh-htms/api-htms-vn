@@ -100,6 +100,12 @@ const from_product_sale_by_store = " from " +
 	
 //@	
 const link_default = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "payment_period  ON  " + 
+	config_database.PREFIX + "orders_speciality_ID  = " + 
+	config_database.PREFIX + "payment_period_order_id " + 
+	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "orders_speciality_store_id  = " + 
