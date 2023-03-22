@@ -313,7 +313,7 @@ content
 		
 		
 			<!-- Thời gian -->
-			<div class="pro_box">
+			<div class="pro_box " style="display:none;" id="hieu-luc">
 				<h3>Hiệu lực</h3>
 				<div class="inside">
 					<p><span>Từ</span><input type="text" value="" id="coupon_speciality_date_star" placeholder="Chọn ngày bắt đầu"/></p>
@@ -532,7 +532,10 @@ $(document).ready(function($){
 
 
 
-
+	//@ 
+	//@
+	//@
+	//@ an hien condition
 	$(document).on('change','#coupon_speciality_condition',function(e) {		
 		e.preventDefault();
 		var x = $(this).find("option:selected").val();
@@ -543,6 +546,13 @@ $(document).ready(function($){
 		}
 	});
 
+
+
+
+	//@ 
+	//@
+	//@
+	//@ an hien cong thuc
 	$(document).on('change','#coupon_speciality_formula_price',function(e) {		
 		e.preventDefault();
 		var x = $(this).find("option:selected").val();
@@ -556,6 +566,27 @@ $(document).ready(function($){
 
 
 
+	//@ 
+	//@
+	//@
+	//@ an hien thoi gian
+	$(document).on('change','#coupon_speciality_time_type',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0){
+			$('#hieu-luc').css('display','none');
+		}else{
+			$('#hieu-luc').css('display','block');
+		}
+	});
+
+
+
+
+
+
+
+
 
 
 	//@
@@ -564,14 +595,27 @@ $(document).ready(function($){
 	//@
 	$(document).on('click','#btn_save',function(e) {		
 		e.preventDefault();
+		
+				
+		//@ 
+		//@ tên coupon không để trống	
 		var datas = get_datas();
 		if(datas.datas.coupon_speciality_code == "" ){
 			ojs_message.message_ok_show("Chưa nhập mã coupon");
 			return;
 		}
-
-
 		
+		
+		//@ 
+		//@ ngày tháng không để trống		
+		if(datas.datas.coupon_speciality_time_type == 1 ){			
+			if(datas.datas.coupon_speciality_date_star == "" 
+			|| datas.datas.coupon_speciality_date_end == ""){
+				ojs_message.message_ok_show("Vui lòng nhập ngày bắt đầu, ngày kết thúc");
+				return;				
+			}
+		}
+
 		//console.log(datas);
 		//return;
 		
@@ -599,6 +643,10 @@ $(document).ready(function($){
 		
 		let coupon_speciality_condition = $('#coupon_speciality_condition  option:selected').val();
 		let coupon_speciality_condition_value = $('#coupon_speciality_condition_value').attr("data_value");
+		
+		
+		let coupon_speciality_time_type = $('#coupon_speciality_time_type  option:selected').val();
+		
 		
 		let coupon_speciality_formula_price = $('#coupon_speciality_formula_price  option:selected').val();
 		let coupon_speciality_formula_price_value = $('#coupon_speciality_formula_price_value').attr("data_value");

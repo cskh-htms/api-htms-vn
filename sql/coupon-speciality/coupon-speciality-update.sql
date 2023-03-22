@@ -31,14 +31,22 @@ BEGIN
 
 	--
 	--
-	IF(NEW.dala_coupon_speciality_date_star is null  and  NEW.dala_coupon_speciality_date_end is null) THEN 
+	if(NEW.dala_coupon_speciality_time_type = 0) then 
 		SIGNAL SQLSTATE '01000';
-	ELSE 
-		IF( (UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_star)) <= 0 ) THEN 
-			SIGNAL SQLSTATE '12313' 
-			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_update_date_end_less_star';   
-		END IF;
-	END IF;	
+	else 	
+		IF(NEW.dala_coupon_speciality_date_star is null  or  NEW.dala_coupon_speciality_date_end is null) THEN 
+			SIGNAL SQLSTATE '12393' 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_update_date_empty'; 
+		ELSE 
+			set @sda = UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_star);
+			if(@sda <= 0 ) then 
+				SIGNAL SQLSTATE '12303' 
+				SET MESSAGE_TEXT = 'trig_coupon_speciality_before_update_date_end_less_star';  	
+			end if;	
+		END IF;	
+	end if;
+	
+
 	
 	
 	
@@ -61,7 +69,7 @@ BEGIN
 	
 	
 	
-		--
+	--
 	-- check user gioi thieu
 	-- xem nguoi gioi thieu da co hay chya
 	if(NEW.dala_coupon_speciality_intro  > 0 ) THEN 
@@ -85,6 +93,59 @@ BEGIN
 -- @	
 END $$
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+-- @
+-- @
+DROP TRIGGER  IF EXISTS  trig_coupon_speciality_after_update;
+DELIMITER $$ 
+CREATE TRIGGER trig_coupon_speciality_after_update AFTER UPDATE ON dala_coupon_speciality 
+FOR EACH ROW  
+BEGIN  
+--
+--
+
+	--
+	-- không cho update tên mã giảm giá
+	IF(NEW.dala_coupon_speciality_code <> OLD.dala_coupon_speciality_code ) THEN 
+		SIGNAL SQLSTATE '12321' 
+		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_update_code_name_not_update';   
+	END IF;	
+
+	--
+	-- không cho update id 
+	IF(NEW.dala_coupon_speciality_ID <> OLD.dala_coupon_speciality_ID ) THEN 
+		SIGNAL SQLSTATE '12322' 
+		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_update_id_not_update';   
+	END IF;	
+	
+	
+	
+-- @
+-- @	
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- @
 -- @
 COMMIT ;

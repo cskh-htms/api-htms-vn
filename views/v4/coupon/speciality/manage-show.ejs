@@ -231,8 +231,13 @@ content
 
 
 
-			<!-- Thời gian -->
-			<div class="pro_box">
+			<%
+			var class_ashow_hide = 'style="display:none;"';
+			if(datas[0].coupon_speciality_time_type == 1){
+				class_ashow_hide = 'style="display:block;"';
+			}			
+			%>
+			<div class="pro_box"  <%- class_ashow_hide -%> id="hieu-luc">
 				<h3>Hiệu lực</h3>
 				<div class="inside">
 					<p><span>Từ</span><input type="text" 
@@ -493,6 +498,19 @@ $(document).ready(function($){
 	});
 
 
+	//@ 
+	//@
+	//@
+	//@ an hien thoi gian
+	$(document).on('change','#coupon_speciality_time_type',function(e) {		
+		e.preventDefault();
+		var x = $(this).find("option:selected").val();
+		if(x == 0){
+			$('#hieu-luc').css('display','none');
+		}else{
+			$('#hieu-luc').css('display','block');
+		}
+	});
 
 
 	
@@ -511,12 +529,15 @@ $(document).ready(function($){
 			return;
 		}
 		
-		if(datas.datas.coupon_speciality_status_update == 1){
-			datas.datas.coupon_speciality_status_admin = 2;
-		}else{
-			datas.datas.coupon_speciality_status_admin = 0;
-		}
-		
+		//@ 
+		//@ ngày tháng không để trống		
+		if(datas.datas.coupon_speciality_time_type == 1 ){			
+			if(datas.datas.coupon_speciality_date_star == "" 
+			|| datas.datas.coupon_speciality_date_end == ""){
+				ojs_message.message_ok_show("Vui lòng nhập ngày bắt đầu, ngày kết thúc");
+				return;				
+			}
+		}	
 		
 		ojs_coupon_speciality.ajax_update(datas,coupon_id);	
 	});

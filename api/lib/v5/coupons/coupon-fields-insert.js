@@ -38,6 +38,8 @@ function get_message_error(error){
 		return "Ngày khuyến mãi không hợp lệ";	
 	}else if(error.sqlState == '12304'){
 		return "Không tìm thấy cửa hàng";
+	}else if(error.sqlState == '12393'){
+		return "Chưa nhập đủ ngày tháng";	
 		
 	//update
 	}else if(error.sqlState == '12311'){
@@ -45,14 +47,17 @@ function get_message_error(error){
 	}else if(error.sqlState == '12312'){
 		return "Ngày khuyến mãi không hợp lệ";	
 	}else if(error.sqlState == '12313'){
-		return "Không tìm thấy cửa hàng";
-		
+		return "Không tìm thấy cửa hàng";				
+	}else if(error.sqlState == '12321'){
+		return "Không cho update tên mã giảm giá";		
+	}else if(error.sqlState == '12322'){
+		return "Khôngcho update id";	
 		
 	//delete
 	}else if(error.sqlState == '34501'){
-		return "Mã giảm giá đã có đơn hàng không thể xóa";
-		
-		
+		return "Mã giảm giá đã có đơn hàng không thể xóa";				
+				
+	// khác			
 	}else{
 		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}

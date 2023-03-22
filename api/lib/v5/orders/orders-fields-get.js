@@ -25,10 +25,17 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "orders_speciality_wards as orders_speciality_wards, " + 
 	config_database.PREFIX  + "orders_speciality_name as orders_speciality_name, " + 		
 		
+		
+	config_database.PREFIX  + "orders_speciality_total_qty as orders_speciality_total_qty, " +		
+	config_database.PREFIX  + "orders_speciality_total_product as orders_speciality_total_product, " +			
+	config_database.PREFIX  + "orders_speciality_total_coupon as orders_speciality_total_coupon, " +			
+	config_database.PREFIX  + "orders_speciality_total_shipping as orders_speciality_total_shipping, " +			
+	config_database.PREFIX  + "orders_speciality_total_fee as orders_speciality_total_fee, " +		
+		
+		
 	config_database.PREFIX  + "orders_speciality_shipping_code as orders_speciality_shipping_code, " + 	
 	config_database.PREFIX  + "stores_name as stores_name, " +  
 	config_database.PREFIX  + "stores_ID as stores_ID " ;
-
 
 
 
@@ -52,6 +59,11 @@ const fields_search_arr = [
 	"orders_speciality_company",		
 	"orders_speciality_province",
 	
+	"orders_speciality_total_qty",
+	"orders_speciality_total_product",
+	"orders_speciality_total_coupon",
+	"orders_speciality_total_shipping",
+	"orders_speciality_total_fee",	
 	
 	"orders_speciality_district",
 	"orders_speciality_wards",

@@ -170,7 +170,7 @@ content
 	%>	
 	
 		<div class="order-box" id="order-box">
-			<%- include ("../../masterpage/widget-orders-detail-show-tables") %>
+			<%- include ("../../masterpage/widget-orders-detail-show-tables-admin") %>
 		</div>
 	<% 
 	}
@@ -417,7 +417,7 @@ $(document).ready(function($){
 				orders_details_speciality_qty : orders_details_speciality_qty
 			}
 		}
-		//console.log(datas);
+		//console.log(datas,detail_id);
 		//return;
 		ojs_orders_admin.ajax_update_detail_admin(datas,detail_id);	
 		

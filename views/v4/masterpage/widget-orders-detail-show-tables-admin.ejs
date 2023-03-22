@@ -140,7 +140,8 @@
 					Phí giao hàng
 				</td>	
 				<td class="price_box" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
-					<input class="price" type="text" value="<%= orders_detail[x].orders_details_speciality_price %>"/>
+					<input class="price number_change" data_value="<%= orders_detail[x].orders_details_speciality_price %>" type="text" 
+					value="<%= ojs_share_all.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>"/>
 				</td>	
 
 				<td class="save" >
@@ -208,7 +209,7 @@
 					<%- orders_detail[x].orders_details_medium_text %>
 				</td>	
 				<td class="price_box" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
-					<input class="price number_change" 
+					<input  class="price number_change" 
 						data_value="<%= orders_detail[x].orders_details_speciality_price %>" 
 						type="text" 
 						value="<%= ojs_share_all.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>"
@@ -284,7 +285,10 @@
 					Phiếu giảm giá 
 				</td>	
 				<td class="price_box" data_price="<%= orders_detail[x].orders_details_speciality_price %>">
-					<input class="price" type="text" value="<%= orders_detail[x].orders_details_speciality_price %>"/>
+					<input class="price number_change" 
+						data_value="<%= orders_detail[x].orders_details_speciality_price %>" 
+					type="text" 
+					value="<%= ojs_share_all.show_price_format(orders_detail[x].orders_details_speciality_price,0,",",".","") %>"/>
 				</td>	
 
 				<td class="save" >

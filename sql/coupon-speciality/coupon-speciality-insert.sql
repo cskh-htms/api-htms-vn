@@ -34,15 +34,23 @@ BEGIN
 
 	--
 	--
-	IF(NEW.dala_coupon_speciality_date_star is null  and  NEW.dala_coupon_speciality_date_end is null) THEN 
+
+	
+	
+	if(NEW.dala_coupon_speciality_time_type = 0) then 
 		SIGNAL SQLSTATE '01000';
-	ELSE 
-		IF( (UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_star)) <= 0 ) THEN 
-			SIGNAL SQLSTATE '12303' 
-			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_date_end_less_star';   
-		END IF;
-	END IF;	
-		
+	else 	
+		IF(NEW.dala_coupon_speciality_date_star is null  or  NEW.dala_coupon_speciality_date_end is null) THEN 
+			SIGNAL SQLSTATE '12393' 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_date_null'; 
+		ELSE 
+			set @sda = UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_end) - UNIX_TIMESTAMP(NEW.dala_coupon_speciality_date_star);
+			if(@sda <= 0 ) then 
+				SIGNAL SQLSTATE '12303' 
+				SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_date_end_less_star';  	
+			end if;		
+		END IF;	
+	end if;	
 	
 	
 	

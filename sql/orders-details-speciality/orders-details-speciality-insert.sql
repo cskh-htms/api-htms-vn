@@ -153,10 +153,10 @@ BEGIN
 					 where dala_coupon_speciality_code = NEW.dala_orders_details_medium_text 
 					 and 			
 						(CASE  
+							WHEN (dala_coupon_speciality_time_type = 0 ) THEN  1  					
 							WHEN ( (UNIX_TIMESTAMP(dala_coupon_speciality_date_end) - UNIX_TIMESTAMP()) > 0 ) THEN  1  					
 							ELSE  0 
-						END )  = 1 					 
-					 
+						END )  = 1 						 
 					);
 			IF (@checkID > 0) THEN  
 				SIGNAL SQLSTATE '01000'; 
@@ -259,7 +259,76 @@ BEGIN
 	END IF;	
 
 
+	--
+	-- UPDATE order	
+	-- total product
+	SET @total_product = ( 
+		select  sum(dala_orders_details_speciality_qty * dala_orders_details_speciality_price)   
+		from dala_orders_details_speciality   
+		where dala_orders_details_speciality_line_order = 'product' 
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);	
+	
+	-- total qty
+	SET @total_qty = ( 
+		select  sum(dala_orders_details_speciality_qty) 
+		from dala_orders_details_speciality   
+		where dala_orders_details_speciality_line_order = 'product' 
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);	
+	
+	-- total coupon
+	SET @total_coupon = ( 
+		select  sum(dala_orders_details_speciality_price) 
+		from dala_orders_details_speciality   
+		where dala_orders_details_speciality_line_order = 'coupon' 
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);		
+	
+	-- total shipping
+	SET @total_shipping = ( 
+		select  sum(dala_orders_details_speciality_price) 
+		from dala_orders_details_speciality   
+		where dala_orders_details_speciality_line_order = 'shipping' 
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);			
+	
+	
+	-- total fee
+	SET @total_fee = ( 
+		select  sum(dala_orders_details_speciality_price) 
+		from dala_orders_details_speciality   
+		where dala_orders_details_speciality_line_order = 'add-fee' 
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);		
+	
 
+	--
+	-- update order
+	if(@total_product > 0) then 
+		update dala_orders_speciality set dala_orders_speciality_total_product = @total_product 
+		where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+	end if;
+
+	if(@total_qty > 0) then 
+		update dala_orders_speciality set dala_orders_speciality_total_qty = @total_qty 
+		where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+	end if;
+
+	if(@total_coupon > 0) then 
+		update dala_orders_speciality set dala_orders_speciality_total_coupon = @total_coupon 
+		where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+	end if;
+
+	if(@total_shipping > 0) then 
+		update dala_orders_speciality set dala_orders_speciality_total_shipping = @total_shipping  
+		where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+	end if;
+
+	if(@total_fee > 0) then 
+		update dala_orders_speciality set dala_orders_speciality_total_fee = @total_fee   
+		where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+	end if;
 
 -- 
 -- 

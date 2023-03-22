@@ -26,14 +26,16 @@ const order_insert = function (datas,data_details,res) {
 			"orders_speciality_email"					: mysql.escape(datas.orders_speciality_email).replace(/^'|'$/gi, ""),
 			"orders_speciality_notes"					: mysql.escape(datas.orders_speciality_notes).replace(/^'|'$/gi, ""),
 			
-			
-			
-			
 			"orders_speciality_province"				: mysql.escape(datas.orders_speciality_province).replace(/^'|'$/gi, ""),		
 			"orders_speciality_district"				: mysql.escape(datas.orders_speciality_district).replace(/^'|'$/gi, ""),	
 			"orders_speciality_wards"					: mysql.escape(datas.orders_speciality_wards).replace(/^'|'$/gi, ""),
 			"orders_speciality_name"					: mysql.escape(datas.orders_speciality_name).replace(/^'|'$/gi, ""),			
 			
+			"orders_speciality_total_qty"				: datas.orders_speciality_total_qty,			
+			"orders_speciality_total_product"			: datas.orders_speciality_total_product,			
+			"orders_speciality_total_coupon"			: datas.orders_speciality_total_coupon,			
+			"orders_speciality_total_shipping"			: datas.orders_speciality_total_shipping,	
+			"orders_speciality_total_fee"				: datas.orders_speciality_total_fee,
 			
 			"orders_speciality_status_orders"			: datas.orders_speciality_status_orders,
 			"orders_speciality_status_payment"			: datas.orders_speciality_status_payment,

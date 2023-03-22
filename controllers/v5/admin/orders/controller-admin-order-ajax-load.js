@@ -130,7 +130,7 @@ async  function function_export(req, res, next) {
 		data_send = {
 			'datas' 	: 	data_api_resuilt[1]
 		}
-		res.render( ojs_configs.view_version + '/masterpage/widget-orders-show-tables', data_send );	
+		res.render( ojs_configs.view_version + '/masterpage/widget-orders-show-tables-admin', data_send );	
 
 
 

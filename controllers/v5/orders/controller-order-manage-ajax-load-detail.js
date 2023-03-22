@@ -141,7 +141,7 @@ async  function function_export(req, res, next) {
 			
 		}
 		
-		res.render( ojs_configs.view_version + '/masterpage/widget-order-show-table-detail', data_send );	
+		res.render( ojs_configs.view_version + '/masterpage/widget-order-show-table-detail-manage', data_send );	
 		return;	
 		
 		
