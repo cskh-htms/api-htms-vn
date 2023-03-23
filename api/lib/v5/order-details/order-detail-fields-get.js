@@ -242,11 +242,31 @@ const link_product = " " +
 
 
 
+//@
+//@
+//@ link review
+const link_by_review = " " +
 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "reviews_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
+	config_database.PREFIX + "reviews_speciality_product_id "  + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_order_id = " + 
+	config_database.PREFIX + "orders_speciality_ID " + 
 
-
-
-
+	" LEFT JOIN " +
+	config_database.PREFIX + "products_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
+	config_database.PREFIX + "products_speciality_ID " +  
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "orders_speciality_user_id = " + 
+	config_database.PREFIX + "users_ID ";		
 
 //export module
 module.exports = { 
@@ -259,6 +279,7 @@ module.exports = {
 	link_product_by_store,
 	link_product_by_customer,
 	link_by_coupon,
+	link_by_review,
 	link_product	
 };
 

@@ -13,6 +13,10 @@ const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '
 const controllers_reviews_spaciality_insert_app =  require('../../controllers/controllers-reviews-spaciality-insert-app.js');
 const controllers_reviews_spaciality_update_app =  require('../../controllers/controllers-reviews-spaciality-update-app.js');
 
+const controller_review_get_by_user =  require('../../controllers/reviews/controller-review-get-by-user.js');
+const controller_review_get_product_no_reivew_by_user =  require('../../controllers/reviews/controller-review-get-product-no-review-by-user.js');
+
+
 
 
 const storage = multer.memoryStorage({
@@ -31,8 +35,10 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/insert-app', middle_ware, upload,controllers_reviews_spaciality_insert_app.insert_reviews_spaciality_app);
-
 router.put('/update-app/:review_id', middle_ware, upload,controllers_reviews_spaciality_update_app.update_reviews_spaciality_app);
+
+router.get('/get-by-user', middle_ware, controller_review_get_by_user);
+router.get('/get-product-no-review-by-user', middle_ware, controller_review_get_product_no_reivew_by_user);
 
 
 module.exports = router;

@@ -33,6 +33,16 @@ function get_message_error(error){
 	}else if(error.sqlState == '12313'){
 		return "Chỉ nhận đánh giá từ 1 -> 5 sao";
 		
+		
+	}else if(error.sqlState == '22201'){
+		return "Không được phép sữa id đánh giá"
+	}else if(error.sqlState == '22202'){
+		return "Không được phép sữa id user";
+	}else if(error.sqlState == '22203'){
+		return "Không được phép sữa id product";		
+		
+		
+		
 	}else{
 		return "Một lỗi không xác định đã xảy ra. Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
 	}

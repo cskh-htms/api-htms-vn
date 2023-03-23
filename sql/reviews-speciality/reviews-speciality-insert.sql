@@ -52,8 +52,8 @@ BEGIN
 
 
 	--
-	--
-	IF(NEW.dala_reviews_speciality_number_star <= 0 || NEW.dala_reviews_speciality_number_star > 5 ) THEN 
+	-- chi cho phep tu 1-5 sao
+	IF(NEW.dala_reviews_speciality_number_star <= 0 OR NEW.dala_reviews_speciality_number_star > 5 ) THEN 
 		SIGNAL SQLSTATE '12303' 
 		SET MESSAGE_TEXT = 'trig_reviews_speciality_before_insert_number_star_less';   
 	END IF;
@@ -78,6 +78,7 @@ BEGIN
 		SIGNAL SQLSTATE '12304' 
 		SET MESSAGE_TEXT = 'trig_reviews_speciality_before_insert_not_buy'; 
 	END IF;	
+	
 	
 	
 	
