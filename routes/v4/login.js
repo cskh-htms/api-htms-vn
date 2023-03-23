@@ -43,6 +43,14 @@ router.post('/', async  function(req, res, next) {
 	var session_token = req.session;	
 	var send_datas = { datas : datas }
 	
+	/*
+	return res
+	  .send({ 
+		"error" : "1", 
+		"position" : "rt-login", 
+		"message": send_datas
+	}); 
+	*/
 	
 	//@
 	//@
@@ -51,13 +59,13 @@ router.post('/', async  function(req, res, next) {
 		var datas_users = await ojs_shares_fetch_data.get_data_no_token_post(
 			ojs_configs.domain + '/api/appdalacom/v5/users/login', send_datas
 		);
-		//res.send( datas_users );
-		//return;
+		//return res.send( datas_users );
+		
 
 		if(datas_users.error == "") { 
 			session_token.token = datas_users.token;
-			res.send( datas_users );
-			return;			
+			return  res.send( datas_users );
+					
 		}else{
 			var evn = ojs_configs.evn;
 				//evn = "dev";
@@ -65,12 +73,12 @@ router.post('/', async  function(req, res, next) {
 				evn, 
 				datas_users.message , datas_users.message  
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "rt-login", 
 				"message": error_send 
 			}); 
-			return;				
+						
 		}
 
 
@@ -83,12 +91,12 @@ router.post('/', async  function(req, res, next) {
 			error, 
 			"Lỗi login, vui lòng liên hệ Kỹ thuật dala" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "2", 
 			"position" : "rt-login" , 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 });
 

@@ -110,40 +110,6 @@ end content
 		});
 		//@
 		//@
-		//end of test
-		//login
-		$(document).on('click','#test',function(e) {
-			IT = 0;
-			function myTimer() {
-				IT ++;
-				$('#test-content').html(IT); 
-			}
-
-			//goi api
-			$.ajax({
-				type : "POST",	  
-				contentType : "application/json",
-				url : ojs_loader.host + "/products/speciality/test",
-				dataType : 'json',
-				beforeSend:  function(xhr){
-					ojs_loadding.ajax_show_loadding();
-					myVar = setInterval(myTimer,1);
-				},			  
-				error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-					clearInterval(myVar);
-				},
-				success : function(result) {
-					clearInterval(myVar);
-					console.log(result);
-					ojs_loadding.ajax_hide_loadding();
-				}			  
-			});
-		});		
-		
-		
-		
 	});
 </script>	
 
