@@ -2,12 +2,12 @@
 -- source ./sql/go/go-all-server.sql;	
 
 
-
+/*
 source ./sql/go/go1.sql;	
 source ./sql/go/go2.sql;	
 source ./sql/go/go3.sql;	
 source ./sql/go/go4.sql;
-
+*/
 
 
 
@@ -180,12 +180,17 @@ source ./sql/reviews-speciality/reviews-speciality-update.sql;
 
 
 
+-- payment-coupon
+source ./sql/payment-coupon/payment-coupon-insert.sql;
+source ./sql/payment-coupon/payment-coupon-update.sql;
+source ./sql/payment-coupon/payment-coupon-delete.sql;
 
 
 
-
-
-
+-- payment-period
+source ./sql/payment-period/payment-period-insert.sql;
+source ./sql/payment-period/payment-period-update.sql;
+source ./sql/payment-period/payment-period-delete.sql;
 
 
 

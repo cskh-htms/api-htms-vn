@@ -123,6 +123,15 @@ async  function function_export(req, res, next) {
 		"value"     : "",
 		"compare" : "null"
 	})	
+	
+	condition_data.push(	
+	{   
+		"field"     :"orders_details_speciality_line_order",
+		"value"     : "product",
+		"compare" : "="
+	})		
+	
+	
 
 	//@ lấy req data
 	try {

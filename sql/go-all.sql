@@ -3,12 +3,12 @@
 -- source C://Users/Administrator/Desktop/v5/sql/go-all.sql;	
 
 
-
+/*
 source C:/Users/May006/Desktop/v5/sql/go/go1.sql;	
 source C:/Users/May006/Desktop/v5/sql/go/go2.sql;	
 source C:/Users/May006/Desktop/v5/sql/go/go3.sql;	
 source C:/Users/May006/Desktop/v5/sql/go/go4.sql;
-
+*/
 
 
 

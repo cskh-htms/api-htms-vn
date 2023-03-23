@@ -14,7 +14,7 @@ FOR EACH ROW
 BEGIN  
 
 	--
-	-- check store link
+	-- kiem tra coupon neu da co don hang thi khong the xoa
 	SET @checkID = (
 			select count(dala_orders_details_speciality_ID)   
 			from dala_orders_details_speciality   
@@ -24,9 +24,13 @@ BEGIN
 		);		
 	IF (@checkID > 0) THEN  
 		SIGNAL SQLSTATE '34501' 
-		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_delete'; 
+		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_delete_coupon_have_order'; 
 	END IF;	
 	
+	delete from dala_payment_coupon  
+	where dala_payment_coupon_coupon_code = OLD.dala_coupon_speciality_code;			
+		
+		
 		
 -- @
 -- @	

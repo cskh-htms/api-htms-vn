@@ -45,7 +45,23 @@ ojs_loadding_message_callback = {
 	
 
 
-
+	//@
+	//@
+	/*---------------------------------------
+	          4. CONG NO
+	// -------------------------------------*/
+	//@
+	//@
+	//@
+	//@
+	//@ 3.1 [thanh_toan_cong_no_order]
+	thanh_toan_cong_no_order:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let order_id = datas_parse.order_id;
+		let datas_ok = datas_parse.datas;
+		ojs_thong_ke_admin.ajax_save(datas_ok,order_id);
+		
+	},
 
 
 	//@

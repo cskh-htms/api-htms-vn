@@ -24,8 +24,16 @@ const controller_admin_thong_ke = require(
 	'/admin/thong-ke/controllers-admin-thong-ke.js'
 );
 
+const controller_admin_thong_ke_save = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/thong-ke/controllers-admin-thong-ke-save.js'
+);
 
 
+const controller_admin_thong_ke_marketing = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/thong-ke/controllers-admin-thong-ke-marketing.js'
+);
 
 //@
 //@
@@ -33,7 +41,8 @@ const controller_admin_thong_ke = require(
 //@ router
 router.get('/', controller_admin_main);
 router.get('/thong-ke/', controller_admin_thong_ke);
-
+router.get('/thong-ke-marketing/', controller_admin_thong_ke_marketing);
+router.post('/thong-ke/save/', controller_admin_thong_ke_save);
 
 
 

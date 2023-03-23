@@ -96,7 +96,9 @@ try {
 				|| field_arr[x] == "users_tracking_created" 				
 			
 				//@ category
-				|| field_arr[x] == "payment_period_date_created" 			
+				|| field_arr[x] == "payment_coupon_date_created" 	
+				//@ period
+				|| field_arr[x] == "payment_period_date_created" 
 								
 			){
 				sql_field_check  = "DATE_FORMAT(" + config_database.PREFIX  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";

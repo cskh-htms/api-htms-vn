@@ -21,6 +21,13 @@ BEGIN
 	delete from dala_shipping_tracking 
 	where dala_shipping_tracking_orders_id = OLD.dala_orders_speciality_ID;	
 		
+	delete from dala_payment_period 
+	where dala_payment_period_order_id = OLD.dala_orders_speciality_ID;		
+	
+	delete from dala_payment_coupon  
+	where dala_payment_coupon_order_id = OLD.dala_orders_speciality_ID;	
+	
+		
 -- @
 -- @	
 END $$
