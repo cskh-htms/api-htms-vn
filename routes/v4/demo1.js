@@ -9,12 +9,12 @@ const ojs_shares = require('../../models/ojs-shares');
 
 
 router.get('/', async function (req, res, next) {
-    res.send("demo1");
+    return res.send("demo1");
 });
 
 router.post('/', async function (req, res, next) {
 
-	res.send("vuong san post demo1");
+	return res.send("vuong san post demo1");
 
 });
 

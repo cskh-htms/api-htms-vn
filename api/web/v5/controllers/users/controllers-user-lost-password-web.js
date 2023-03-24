@@ -40,16 +40,16 @@ async  function function_export(req, res, next) {
 	try {
 		var datas = req.body.datas;
 
-		//res.send(datas);
-		//return;
+		//return res.send(datas);
+		//
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "2", "position":"ctl-users->resgister-web", "message": error_send } );
-		return;	
+		return res.send({ "error" : "2", "position":"ctl-users->resgister-web", "message": error_send } );
+			
 	}	
 	
 	
@@ -58,19 +58,19 @@ async  function function_export(req, res, next) {
 	//@
 	//@ check login lock	
 	var check_lock = await user_check_lock(datas,res);
-	//res.send(check_lock);
-	//return;
+	//return res.send(check_lock);
+	//
 	//@
 	//@
 	//@
 	if(check_lock.length > 0){
 		if(check_lock[0].users_status == 1){
-			res.send({ "error" : "2", "position":"ctl-users->lost-password", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"} );
-			return;					
+			return res.send({ "error" : "2", "position":"ctl-users->lost-password", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"} );
+								
 		}			
 	}else{
-		res.send({ "error" : "3", "position":"ctl-users->lost-password", "message": "Không tìm thấy tài khoản trong hệ thống dala" } );
-		return;				
+		return res.send({ "error" : "3", "position":"ctl-users->lost-password", "message": "Không tìm thấy tài khoản trong hệ thống dala" } );
+						
 	}
 
 
@@ -94,8 +94,8 @@ async  function function_export(req, res, next) {
 	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
 	var name_check = datas.users_login_name;
 
-	//res.send([name_check]);
-	//return;
+	//return res.send([name_check]);
+	//
 	
 	
 	//@ nếu là số điện thoại
@@ -107,8 +107,8 @@ async  function function_export(req, res, next) {
 		try {
 			user_search_email_or_phone( datas.users_login_name ).then( results => {
 				
-				//res.send([results]);
-				//return;	
+				//return res.send([results]);
+				//	
 				
 				
 				if(results.length  > 0) {
@@ -123,16 +123,16 @@ async  function function_export(req, res, next) {
 					
 					){
 					}else{
-						res.send({ 
+						return res.send({ 
 						"error" : "5",
 						"position":"ctl-users->lost_password", 
 						"message": "chỉ có customer mới dc lost password" } ); 						
-						return;					
+											
 					}
 					
 					
-					//res.send([users_role]);
-					//return;					
+					//return res.send([users_role]);
+					//					
 					//@
 					//@
 					//@ 
@@ -142,8 +142,8 @@ async  function function_export(req, res, next) {
 					n_password = n_password.toString();
 					
 					
-					//res.send([n_password]);
-					//return;
+					//return res.send([n_password]);
+					//
 					
 					
 					//@
@@ -162,8 +162,8 @@ async  function function_export(req, res, next) {
 							//@
 							//@
 							//send data
-							//res.send(results2);
-							//return;
+							//return res.send(results2);
+							//
 
 
 							var email_to = datas.users_login_name;
@@ -171,8 +171,8 @@ async  function function_export(req, res, next) {
 							var email_content = '<p> mật khẩu mới tại dala app : [' + n_password + ']</p>';
 							
 							
-							//res.send([email_to,email_title,email_content]);
-							//return;
+							//return res.send([email_to,email_title,email_content]);
+							//
 							
 							
 							//@
@@ -184,42 +184,42 @@ async  function function_export(req, res, next) {
 							let message_error = default_field.get_message_error(error);
 							
 							var evn = ojs_configs.evn;
-							//evn = "dev";
+							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
-							res.send({ "error" : "6", "position":"ctl-users->lost_password", "message": error_send } ); 
-							return;	
+							return res.send({ "error" : "6", "position":"ctl-users->lost_password", "message": error_send } ); 
+								
 						});
 					}
 					catch(error){
 						var evn = ojs_configs.evn;
-						//evn = "dev";
+						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-						res.send({ "error" : "7", "position":"ctl-users->lost_password", "message": error_send } );  
-						return;	
+						return res.send({ "error" : "7", "position":"ctl-users->lost_password", "message": error_send } );  
+							
 					}					
 				}else{
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 					evn, "Không tìm thấy email trong hệ thống DALA",
 					"Không tìm thấy email trong hệ thống DALA" );
-					res.send({ "error" : "8", "position":"ctl-users->lost_password", "message": error_send } ); 
-					return;	
+					return res.send({ "error" : "8", "position":"ctl-users->lost_password", "message": error_send } ); 
+						
 				}		
 			}, error => {//enf model run
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-				res.send({ "error" : "9", "position":"ctl-users->lost_password", "message": error_send } );  
-				return;		
+				return res.send({ "error" : "9", "position":"ctl-users->lost_password", "message": error_send } );  
+						
 			});
 		}//enf of try cat
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-			res.send({ "error" : "10", "position":"ctl-users->lost_password", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "10", "position":"ctl-users->lost_password", "message": error_send } ); 
+					
 		}
 
 
@@ -244,14 +244,14 @@ async  function function_export(req, res, next) {
 			// chỉ có khách hàng với chủ cửa hàng mới dc thay đổi mật khẩu
 			if(users_role == "customer"){
 			}else{
-				res.send({ 
+				return res.send({ 
 				"error" : "12", 
 				"position":"ctl-users->lost_password", 
 				"message": "chỉ có customer hoặc mới dc lost password"} ); 				
-				return;					
+									
 			}						
-			//res.send(users_role);
-			//return;
+			//return res.send(users_role);
+			//
 			
 			//@
 			//@
@@ -263,15 +263,15 @@ async  function function_export(req, res, next) {
 				"users_login_name":datas.users_login_name
 			}
 			
-			//res.send( [data_go] ); 
-			//return;				
+			//return res.send( [data_go] ); 
+			//				
 			
 			
 			var datas_users_update =  await user_update_lost_password(data_go,res);
 	
 
-			//res.send( [n_password] ); 
-			//return;					
+			//return res.send( [n_password] ); 
+			//					
 			
 			//@
 			//@
@@ -281,18 +281,18 @@ async  function function_export(req, res, next) {
 			}
 			catch(error){
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi gữi tin nhắn, Liên hệ bộ phan HTKT dala" );
-				res.send({ "error" : "14", "position":"ctl-users->lost_password", "message": error_send } );  
-				return;				
+				return res.send({ "error" : "14", "position":"ctl-users->lost_password", "message": error_send } );  
+								
 			}				
 	
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "số Điện thoại không có trong hệ thống", "số Điện thoại không có trong hệ thống" );
-			res.send({ "error" : "15", "position":"ctl-users->lost_password", "message": error_send } ); 
-			return;					
+			return res.send({ "error" : "15", "position":"ctl-users->lost_password", "message": error_send } ); 
+								
 		}
 		
 	}

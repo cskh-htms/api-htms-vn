@@ -51,27 +51,27 @@ async  function function_export(req, res, next) {
 			var product_id = req.params.product_id;
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
-				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-				return;
+				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+				
 			}			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position":"api->appdalacom->controller->admin->products->phe-duyet",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}		
-		//res.send( [product_id,datas] );
-		//return;	
+		//return res.send( [product_id,datas] );
+		//	
 		
 		
 		
@@ -88,8 +88,8 @@ async  function function_export(req, res, next) {
 				token
 			);	
 				
-		//res.send({"error":"","datas":data_api_resuilt});
-		//return;			
+		//return res.send({"error":"","datas":data_api_resuilt});
+		//			
 				
 				
 
@@ -103,23 +103,23 @@ async  function function_export(req, res, next) {
 		//@ check error		
 		if(data_api_resuilt.error){		
 			if(data_api_resuilt.position =="middle_ware"){
-				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-				return;
+				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+				
 			}		
 			
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				data_api_resuilt.message
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "99", 
 				"position":"api->appdalacom->controller->admin->products->phe-duyet",
 				"message": error_send 
 			}); 
-			return;
+			
 		}	
 		
 		
@@ -129,8 +129,8 @@ async  function function_export(req, res, next) {
 		
 		
 		//@ send 
-		res.send({"error":"","datas":data_api_resuilt});
-		return;
+		return res.send({"error":"","datas":data_api_resuilt});
+		
 
 	//@
 	//@
@@ -138,18 +138,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"api->appdalacom->controller->admin->products->phe-duyet",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -157,12 +157,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->admin->products->phe-duyet",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

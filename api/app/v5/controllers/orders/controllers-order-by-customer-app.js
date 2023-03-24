@@ -35,22 +35,22 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request insert order, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/ctroller/order/by-customer",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([token,order_id]);
-	//return;
+	//return res.send([token,order_id]);
+	//
 
 
 
@@ -103,24 +103,24 @@ async  function function_export(req, res, next) {
 		var orders_search_result = await orders_search(datas_order,res);
 		
 		//@
-		res.send({"error":"","datas":orders_search_result});
-		return;
+		return res.send({"error":"","datas":orders_search_result});
+		
 			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi tìm cửa hàng" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"api/app/v5/ctroller/order/by-customer", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
 

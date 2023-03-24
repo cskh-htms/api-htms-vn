@@ -26,21 +26,21 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->controller->discount->manage->product->save",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send(datas);
-	//return;
+	//return res.send(datas);
+	//
 	
 
 
@@ -73,22 +73,22 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "333",
 				"position" : "api->controller->discount->manage->product->save",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}				
 	}
-	//res.send([check_role_result,"product_ok"]);
-	//return;
+	//return res.send([check_role_result,"product_ok"]);
+	//
 
 
 
@@ -103,8 +103,8 @@ async  function function_export(req, res, next) {
 	//@ run		
 	var discount_product_insert_result = await discount_product_insert(datas,res);
 	
-	res.send({"error":"","datas": discount_product_insert_result});
-	return;
+	return res.send({"error":"","datas": discount_product_insert_result});
+	
 
 
 }

@@ -38,18 +38,18 @@ async  function controllers_product_by_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -138,18 +138,18 @@ async  function controllers_product_by_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
@@ -161,24 +161,24 @@ async  function controllers_product_by_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 
-	res.send({"error":"","datas":get_meta_product_resuilt}); 
-	return;
+	return res.send({"error":"","datas":get_meta_product_resuilt}); 
+	
 	
 }
 

@@ -29,22 +29,22 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([datas,user_id,coupon_code,coupon_selected]);
-	//return;
+	//return res.send([datas,user_id,coupon_code,coupon_selected]);
+	//
 
 
 
@@ -107,38 +107,38 @@ async  function function_export(req, res, next) {
 		if(coupon_list_result.length > 0){
 			var coupon_list = coupon_list_result;
 			if(coupon_list_result[0].check_expired_coupon == "0"){
-				res.send({ 
+				return res.send({ 
 					"error" : "100",
 					"position" : "api/app/v5/coupons/checked-coupon-code",
 					"message": "Mã code đã hết hạn" 
 				}); 
-				return;	
+					
 			}			
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "021",
 				"position" : "api/app/v5/coupons/checked-coupon-code",
 				"message": "Mã coupon không có trên hệ thống DALA" 
 			}); 
-			return;				
+							
 		}
-		//res.send(coupon_list);
-		//return;
+		//return res.send(coupon_list);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get coupon, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "444",
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}
 
 
@@ -154,14 +154,14 @@ async  function function_export(req, res, next) {
 		//@
 		if(coupon_list_result[0].coupon_speciality_type == "0"){
 			
-			//res.send(["code"]);
-			//return;			
+			//return res.send(["code"]);
+			//			
 			
 			var check_resuilt_store = 0;
 			for( var  x in datas ) { 
 				var check_condition = await check_coupon_condition_code.coupon_condition(datas[x],coupon_list,user_id,res);		
-				//res.send([check_condition]);
-				//return;
+				//return res.send([check_condition]);
+				//
 				if(
 				check_condition.store_check == 1
 				&& check_condition.coupon_limit == 1 
@@ -170,8 +170,8 @@ async  function function_export(req, res, next) {
 				){
 					
 					var caution_price = await check_coupon_condition_code.caution_price(datas[x].line_order,coupon_list,res);	
-					//res.send([caution_price]);
-					//return;						
+					//return res.send([caution_price]);
+					//						
 					
 					let data_push = {
 							"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
@@ -189,15 +189,15 @@ async  function function_export(req, res, next) {
 					check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
 					check_resuilt.coupon_new = data_push;
 	
-					res.send({"error":"","datas":check_resuilt});
-					return;		
+					return res.send({"error":"","datas":check_resuilt});
+							
 
 					
 				}
 				
 			}//end of for	
 		
-			res.send({ 
+			return res.send({ 
 				"error" : "1021",
 				"position" : "api/app/v5/coupons/checked-coupon-code",
 				"message": "Mã giảm giá không đủ điều kiện áp dụng với đơn hàng của bạn"
@@ -208,13 +208,13 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		if(coupon_list_result[0].coupon_speciality_type == "1"){
-			//res.send(["code-all"]);
-			//return;
+			//return res.send(["code-all"]);
+			//
 			var check_all = await check_coupon_condition_code_all.coupon_condition(datas,coupon_list,user_id,res);	
 			var caution_price = await check_coupon_condition_code_all.caution_price(datas,coupon_list,res);
 
-			//res.send([caution_price]);
-			//return;
+			//return res.send([caution_price]);
+			//
 
 			
 			let data_push = {
@@ -235,30 +235,30 @@ async  function function_export(req, res, next) {
 		}		
 
 
-		res.send({"error":"","datas":check_resuilt});
-		return;			
+		return res.send({"error":"","datas":check_resuilt});
+					
 
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get condition, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "241",
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}
 
 	//@
-	res.send({"error":"","datas":coupon_search_result});
-	return;
+	return res.send({"error":"","datas":coupon_search_result});
+	
 }
 
 module.exports = function_export;

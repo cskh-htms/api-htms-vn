@@ -28,31 +28,31 @@ async  function function_export(req, res, next) {
 			if(req.query.c1){
 				discount_id = req.query.c1;
 			}else{
-				res.send({ 
+				return res.send({ 
 					"error" : "01", 
 					"position" : "api->appdalacom->controller->disocount->manage->view-discount",
 					"message": "vui lòng nhập id"
 				}); 	
-				return;
+				
 			}	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->appdalacom->controller->disocount->manage->view-discount",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send([discount_id]);
-	//return;
+	//return res.send([discount_id]);
+	//
 	
 
 
@@ -129,18 +129,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data review, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api->appdalacom->controller->disocount->manage->view-discount",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 
 	
@@ -165,8 +165,8 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send data result
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 }
 
 

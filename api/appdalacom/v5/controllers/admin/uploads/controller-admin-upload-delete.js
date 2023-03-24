@@ -79,21 +79,21 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->admin->uploads->save",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}			
-		//res.send([datas]);
-		//return;
+		//return res.send([datas]);
+		//
 		
 		
 		
@@ -114,21 +114,21 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "3",
 				"position" : "api->appdalacom->controller->admin->uploads->delete", 
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
-		//res.send(["ok"]);
-		//return;
+		//return res.send(["ok"]);
+		//
 		
 		
 		
@@ -170,8 +170,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		var upload_taget_result = await upload_search(upload_taget_data,res);
-		//res.send([upload_taget_result]);
-		//return;		
+		//return res.send([upload_taget_result]);
+		//		
 	
 		
 			
@@ -190,22 +190,22 @@ async  function function_export(req, res, next) {
 			}
 			else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
 						check_role_result, 
 						"Lỗi phân quyền (Bạn không phải chủ danh mục), Vui lòng liên hệ admin" 
 					);
-				res.send({ 
+				return res.send({ 
 					"error" : "345",
 					"position" : "api->appdalacom->controller->admin->uploads->delete",
 					"message": error_send 
 				}); 
-				return;			
+							
 			}				
 		}
-		//res.send([check_role_result,"image_ok_ok"]);
-		//return;			
+		//return res.send([check_role_result,"image_ok_ok"]);
+		//			
 
 		
 		
@@ -226,27 +226,27 @@ async  function function_export(req, res, next) {
 				.param('force',true)
 				.delete()
 				.then( function(response) {
-					res.send( {"error":"","datas":response} );
+					return res.send( {"error":"","datas":response} );
 					return ;
 				});	
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi delete image wordpress" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "346",
 				"position" : "api->appdalacom->controller->admin->uploads->delete",
 				"message": error_send 			
 			}); 
-			return;				
+							
 		}
-		//res.send(["delete_ok_ok"]);
-		//return;
+		//return res.send(["delete_ok_ok"]);
+		//
 		
 		
 		
@@ -265,8 +265,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ send data result	
-		res.send({"error":"", "datas": result });
-		return;	
+		return res.send({"error":"", "datas": result });
+			
 		
 		
 		
@@ -276,18 +276,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position" : "api->appdalacom->controller->admin->uploads->save",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -295,12 +295,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->admin->uploads->save",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;		
+			
 }
 
 

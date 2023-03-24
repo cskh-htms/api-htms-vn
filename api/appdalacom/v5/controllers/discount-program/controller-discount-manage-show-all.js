@@ -42,33 +42,33 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		if(req.query.c1){
 			store_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "controller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "controller->api-appdalacom->discount_program_product_add_list-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
-	//res.send([token,store_id]);
-	//return;	
+	//return res.send([token,store_id]);
+	//	
 
 
 	// check role;
@@ -81,22 +81,22 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
-	//res.send(["check owner ok"]);
-	//return;	
+	//return res.send(["check owner ok"]);
+	//	
 
 
 
@@ -114,39 +114,39 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "333",
 				"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
 				"message": error_send 
 			}); 
-			return;			
+						
 		}	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check ownwr store, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "150", 
 			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 
 
-	//res.send(["check owner store ok"]);
-	//return;	
+	//return res.send(["check owner store ok"]);
+	//	
 
 	
 	
@@ -467,18 +467,18 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "ctroller->api-appdalacom->discount_program_store-id-appdalacom-api.js", 
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -492,8 +492,8 @@ async  function controllers_discount_program_product_add_list(req, res, next) {
 	promise_result.push(notes);
 	
 
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 }
 
 module.exports = controllers_discount_program_product_add_list;

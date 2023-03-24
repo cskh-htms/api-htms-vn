@@ -71,7 +71,7 @@ const imageUpload = multer({ storage: _storage, fileFilter: _fileFilter });
 router.get('/', function(req, res, next) {
 	//
 	let token = req.headers.token;
-	res.send(token);
+	return res.send(token);
 });
 	
 	

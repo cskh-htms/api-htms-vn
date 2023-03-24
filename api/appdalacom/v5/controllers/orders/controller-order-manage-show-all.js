@@ -37,12 +37,12 @@ async  function store_order_get_all(req, res, next) {
 		if(req.query.c1){
 			store_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->order->manage->show all",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}	
 
 
@@ -58,12 +58,12 @@ async  function store_order_get_all(req, res, next) {
 			
 			
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->order->manage->show all",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}	
 
 
@@ -72,21 +72,21 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->appdalacom->controller->order->manage->show all",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send([store_id ,status_int]);
-	//return;
+	//return res.send([store_id ,status_int]);
+	//
 	
 	
 	
@@ -115,22 +115,22 @@ async  function store_order_get_all(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "333",
 				"position" : "api->appdalacom->controller->order->manage->show all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}				
 	}
-	//res.send([check_role_result,"store_ok"]);
-	//return;
+	//return res.send([check_role_result,"store_ok"]);
+	//
 	
 	
 	
@@ -335,18 +335,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api->appdalacom->controller->order->manage->show all",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -357,8 +357,8 @@ async  function store_order_get_all(req, res, next) {
 	}
 	promise_result.push(notes);
 
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 }
 
 

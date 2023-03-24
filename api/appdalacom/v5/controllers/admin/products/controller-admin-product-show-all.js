@@ -43,18 +43,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
 		
 		
@@ -65,22 +65,22 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "3",
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 
-		//res.send(["adasdasdasd 1"]);
-		//return;
+		//return res.send(["adasdasdasd 1"]);
+		//
 		
 		
 		var limit_data = [];
@@ -135,8 +135,8 @@ async  function function_export(req, res, next) {
 		
 			//@ get datas
 			var data_product = await product_search(data_get,res);
-			//res.send(data_product);
-			//return;			
+			//return res.send(data_product);
+			//			
 			
 			//@ create arr ID product
 			var model_product_arr = [0];
@@ -151,22 +151,22 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data product, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "3", 
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}		
 			
-		//res.send([data_product]);
-		//return;
+		//return res.send([data_product]);
+		//
 
 
 
@@ -177,25 +177,25 @@ async  function function_export(req, res, next) {
 		//@ lấy meta
 		try {
 			var get_meta_product_resuilt = await get_meta_product(data_product,model_product_arr,res);
-			//res.send([get_meta_product_resuilt]);
-			//return;
+			//return res.send([get_meta_product_resuilt]);
+			//
 			
 			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data product, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "4", 
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
 
 		
@@ -242,18 +242,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data product, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "44", 
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}		
 		
 		
@@ -454,18 +454,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data review, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "100", 
 				"position" : "api->appdalacom->controller->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
 
 		
@@ -488,8 +488,8 @@ async  function function_export(req, res, next) {
 		
 		promise_result.push(notes);
 
-		res.send(promise_result);
-		return;
+		return res.send(promise_result);
+		
 
 	//@
 	//@
@@ -497,18 +497,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"asdasdasd",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -516,12 +516,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"asdasdasd",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

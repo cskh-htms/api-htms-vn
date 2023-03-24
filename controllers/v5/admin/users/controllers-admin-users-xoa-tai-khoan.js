@@ -50,10 +50,10 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers users web -> xoa tai khoan -> 1", "message": error_send } ); 
-		return;			
+		return res.send({ "error" : "routers users web -> xoa tai khoan -> 1", "message": error_send } ); 
+					
 	}
 	
 	//@
@@ -61,8 +61,8 @@ async  function function_export(req, res, next) {
 	//@	
 	// send web
 	 setTimeout(function() { 
-		res.send(datas);	
-		return;
+		return res.send(datas);	
+		
     }, 3000);
 
 };

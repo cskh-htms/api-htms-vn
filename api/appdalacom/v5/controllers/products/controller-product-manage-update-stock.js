@@ -77,31 +77,31 @@ async  function function_export(req, res, next) {
 			if(req.query.c1){
 				product_id = req.query.c1;
 			}else{
-				res.send({ 
+				return res.send({ 
 					"error" : "01", 
 					"position" : "api->appdalacom->controller->products->update-stock",
 					"message": "vui lòng nhập id"
 				}); 	
-				return;
+				
 			}		
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->products->update-stock",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}			
-		//res.send([product_id,datas]);
-		//return;
+		//return res.send([product_id,datas]);
+		//
 		
 		
 		
@@ -133,22 +133,22 @@ async  function function_export(req, res, next) {
 			}
 			else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
 						check_role_result, 
 						"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 					);
-				res.send({ 
+				return res.send({ 
 					"error" : "333",
 					"position" : "api->appdalacom->controller->products->update-stock",
 					"message": error_send 
 				}); 
-				return;			
+							
 			}				
 		}
-		//res.send([check_role_result,"store_ok"]);
-		//return;
+		//return res.send([check_role_result,"store_ok"]);
+		//
 
 
 
@@ -167,22 +167,22 @@ async  function function_export(req, res, next) {
 			}
 			else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
 						check_role_result, 
 						"Lỗi phân quyền (Bạn không pahi3 chủ sản phẩm này) , Vui lòng liên hệ admin" 
 					);
-				res.send({ 
+				return res.send({ 
 					"error" : "333",
 					"position" : "api->appdalacom->controller->products->update-stock",
 					"message": error_send 
 				}); 
-				return;			
+							
 			}				
 		}
-		//res.send([check_role_result,"product ok"]);
-		//return;
+		//return res.send([check_role_result,"product ok"]);
+		//
 
 		
 		
@@ -203,8 +203,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ send data result	
-		res.send({"error":"", "datas": result });
-		return;	
+		return res.send({"error":"", "datas": result });
+			
 		
 		
 		
@@ -214,18 +214,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position" : "api->appdalacom->controller->products->update-stock",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -233,12 +233,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->products->update-stock",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;		
+			
 }
 
 

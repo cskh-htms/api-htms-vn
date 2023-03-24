@@ -42,39 +42,39 @@ async  function controllers_order_insert_app(req, res, next) {
 		var token = req.headers['token'];
 
 		if(!datas.orders.orders_speciality_user_id){
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/controller/order/orders-insert-web",
 				"message":  " Chưa nhập mã khách hàng "
 			});
-			return;
+			
 		}
 		if(!datas.orders_detail){
-			res.send({ 
+			return res.send({ 
 				"error" : "2", 
 				"position" : "api/web/v5/controller/order/orders-insert-web",
 				"message":  " Chưa có data order "
 			});
-			return;
+			
 		}		
 
-		//res.send(datas);
-		//return;
+		//return res.send(datas);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request insert order, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/controller/order/orders-insert-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -89,18 +89,18 @@ async  function controllers_order_insert_app(req, res, next) {
 
 	if(check_owner_user_resuilt != 1){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền , Vui lòng liên hệ admin" , 
 				"Lỗi phân quyền , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api/web/v5/controller/order/orders-insert-web", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
 
@@ -115,12 +115,12 @@ async  function controllers_order_insert_app(req, res, next) {
 			
 			
 		if(product_id == 0){
-			res.send({ 
+			return res.send({ 
 				"error" : "6", 
 				"position":"ctl-orders-spaciality->insert", 
 				"message":  " không tìm thấy cửa hàng "
 			});
-			return;
+			
 		}		
 		
 		var get_store_id_resuilt = await get_store_id(product_id,res);
@@ -133,18 +133,18 @@ async  function controllers_order_insert_app(req, res, next) {
 			
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Không tìm thấy cửa hàng bán sản phẩm này", 
 				"Không tìm thấy cửa hàng bán sản phẩm này" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "7", 
 				"position":"ctl-orders-spaciality->insert", 
 				"message": error_send
 			}); 
-			return;	
+				
 		}
 		
 		datas.orders.orders_speciality_store_id = store_id;
@@ -152,22 +152,22 @@ async  function controllers_order_insert_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi tìm cửa hàng" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"ctl-orders-speciality-insert", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
-	//res.send([datas]);
-	//return;	
+	//return res.send([datas]);
+	//	
 
 	
 	//@ tạo meta data
@@ -186,8 +186,8 @@ async  function controllers_order_insert_app(req, res, next) {
 		
 		
 		
-		//res.send([order_insert_resuilt[1].insertId,store_phone]);
-		//return;		
+		//return res.send([order_insert_resuilt[1].insertId,store_phone]);
+		//		
 		
 		
 		
@@ -218,14 +218,14 @@ async  function controllers_order_insert_app(req, res, next) {
 		}
 
 		
-		res.send( {"error" : "", "datas" : order_insert_resuilt} );
-		return;
+		return res.send( {"error" : "", "datas" : order_insert_resuilt} );
+		
 	}
 	catch(error){
 		env = ojs_configs.api_evn;
 		//env = "dev";
 		var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi truy xuất database" );
-		res.send({ 
+		return res.send({ 
 			"error" : "10", 
 			"position":"ctl-orders-speciality-insert", 
 			"message": error_send 

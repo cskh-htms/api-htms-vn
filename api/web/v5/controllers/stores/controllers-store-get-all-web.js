@@ -26,18 +26,18 @@ async  function controllers_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data store, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctronller/stores/controllers-store/get-all-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -80,18 +80,18 @@ async  function controllers_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data store, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctronller/stores/controllers-store/get-all-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
@@ -99,8 +99,8 @@ async  function controllers_store_app(req, res, next) {
 
 
 
-	res.send({"error":"","datas":data_store}); 
-	return;
+	return res.send({"error":"","datas":data_store}); 
+	
 	
 }
 

@@ -37,23 +37,23 @@ async  function controllers_product_by_category_app(req, res, next) {
 		}		
 		
 		
-		//res.send(limit_data);
-		//return;
+		//return res.send(limit_data);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -136,8 +136,8 @@ async  function controllers_product_by_category_app(req, res, next) {
 	
 		//@ get datas
 		var data_product = await product_search_by_category(data_get,res);
-		//res.send(data_product);
-		//return;
+		//return res.send(data_product);
+		//
 		//@ create arr ID product
 		var model_product_arr = [0];
 		if(data_product.length > 0){
@@ -151,18 +151,18 @@ async  function controllers_product_by_category_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
@@ -174,24 +174,24 @@ async  function controllers_product_by_category_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4", 
 			"position" : "api/web/v5/ctroller/controllers-product-by-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 
-	res.send({"error":"","datas":get_meta_product_resuilt}); 
-	return;
+	return res.send({"error":"","datas":get_meta_product_resuilt}); 
+	
 	
 }
 

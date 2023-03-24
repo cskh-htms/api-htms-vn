@@ -42,34 +42,34 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			brand_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "controller->api-appdalacom->controllers-admin/brand-update",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}			
 		
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "controller->api-appdalacom->controllers-admin/brand-update",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
-	//res.send([brand_id,datas]);
-	//return;
+	//return res.send([brand_id,datas]);
+	//
 	
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
@@ -80,21 +80,21 @@ async  function function_export(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "controller->api-appdalacom->controllers-admin/brand-update", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
-	//res.send([check_role_result]);
-	//return;
+	//return res.send([check_role_result]);
+	//
 
 	
 	
@@ -107,8 +107,8 @@ async  function function_export(req, res, next) {
 	//@go  
 	var result = await brand_update(datas,brand_id,res);
 	
-	res.send({"error":"","datas":result});
-	return;
+	return res.send({"error":"","datas":result});
+	
 
 
 }

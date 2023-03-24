@@ -26,23 +26,23 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		var datas = req.body;
 		var token = req.headers['token'];
 		var review_id = req.params.review_id
-		//res.send([all_files,datas,review_id,token]);
-		//return;
+		//return res.send([all_files,datas,review_id,token]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "ctl-review->update_app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 	
 	
@@ -50,18 +50,18 @@ async  function update_reviews_spaciality_app(req, res, next) {
 	const check_owner_review_resuilt = await check_owner_review.check_owner_review(token,review_id,res);
 	if(check_owner_review_resuilt != "1"){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" , 
 				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "ctl-review->update-app", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}	
 
 
@@ -101,18 +101,18 @@ async  function update_reviews_spaciality_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi upload hình , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "ctl-review->update_app",
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 
@@ -126,32 +126,32 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		var datas_update = Object.assign(datas,datas_assign);			
 		
 		var update_review_resuilt = await update_review(datas_update,review_id,res);
-		res.send({"error":"","datas": update_review_resuilt});
-		return;
+		return res.send({"error":"","datas": update_review_resuilt});
+		
 
 	}
 	catch(error){
 		var message_error = fields_insert.get_message_error(error);
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error,
 				message_error 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "ctl-review->update", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 
 
 		
 	
-	res.send({"error":"","datas":datas_update}); 
-	return;
+	return res.send({"error":"","datas":datas_update}); 
+	
 	
 }
 

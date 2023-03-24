@@ -58,7 +58,7 @@ const function_export = async function (data_order,order_arr,res) {
 		
 		//@ data_order
 		var data_order_details = await orders_search_by_customer(data_get,res);
-		//res.send(data_order);
+		//return res.send(data_order);
 		//return;
 		
 		
@@ -80,18 +80,18 @@ const function_export = async function (data_order,order_arr,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		//res.send ({ 
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get meta product discount propram, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "api/shares/get meta product", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 
@@ -134,7 +134,7 @@ const function_export = async function (data_order,order_arr,res) {
 	
 	//@ data_order
 	var data_shipping = await orders_search_by_customer(data_get,res);
-	//res.send([data_shipping]);
+	//return res.send([data_shipping]);
 	//return;
 	
 	for(let x in data_order){
@@ -194,7 +194,7 @@ const function_export = async function (data_order,order_arr,res) {
 	
 	//@ data_order
 	var data_fee = await orders_search_by_customer(data_get_fee,res);
-	//res.send([data_shipping]);
+	//return res.send([data_shipping]);
 	//return;
 	
 	for(let x in data_order){
@@ -257,7 +257,7 @@ const function_export = async function (data_order,order_arr,res) {
 	
 	//@ data_order
 	var data_shipping_tracking = await shipping_tracking_search(data_get_tracking,res);
-	//res.send([data_shipping_tracking]);
+	//return res.send([data_shipping_tracking]);
 	//return;
 	
 	
@@ -319,7 +319,7 @@ const function_export = async function (data_order,order_arr,res) {
 	
 	//@ data_order
 	var data_order_coupon = await orders_search_by_customer(data_get_coupon,res);
-	//res.send(data_order_coupon);
+	//return res.send(data_order_coupon);
 	//return;
 	
 	for(x in data_order){
@@ -336,20 +336,6 @@ const function_export = async function (data_order,order_arr,res) {
 	}				
 	//return data_order;	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	return(data_order); 
 };	
 

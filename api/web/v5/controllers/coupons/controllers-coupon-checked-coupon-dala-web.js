@@ -27,22 +27,22 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/coupons/checked-coupon-dala",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([datas,user_id,store_id]);
-	//return;
+	//return res.send([datas,user_id,store_id]);
+	//
 
 
 
@@ -116,26 +116,26 @@ async  function function_export(req, res, next) {
 		//return datas;		
 		
 		var coupon_list_result = await coupon_search(datas_coupon,res);		
-		//res.send(coupon_list_result);
-		//return;
+		//return res.send(coupon_list_result);
+		//
 			
 		var coupon_list = coupon_list_result;			
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get coupon, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "444",
 			"position" : "api/app/v5/coupons/checked-coupon-dala",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}
 
 
@@ -189,32 +189,32 @@ async  function function_export(req, res, next) {
 			
 		}//end of for
 		
-		res.send({"error":"","datas":coupon_ok});
-		return;	
+		return res.send({"error":"","datas":coupon_ok});
+			
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get condition, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "414",
 			"position" : "api/app/v5/coupons/checked-coupon-dala",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}
 
 
 
 
 	//@
-	res.send({"error":"","datas":coupon_search_result});
-	return;
+	return res.send({"error":"","datas":coupon_search_result});
+	
 }
 
 module.exports = function_export;

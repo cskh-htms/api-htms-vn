@@ -18,34 +18,34 @@ const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + 
 
 //@
 async  function get_all(req, res, next) {
-	//res.send(["sdasdas","sdasdasdasd"]);
-	//return;
+	//return res.send(["sdasdas","sdasdasdasd"]);
+	//
 	try {
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request coupon get all , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/coupons/get-all",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([token]);
-	//return;
+	//return res.send([token]);
+	//
 
 
 	
-	//res.send(check_role_result);
-	//return;	
+	//return res.send(check_role_result);
+	//	
 
 	//@ get data
 	try{
@@ -112,24 +112,24 @@ async  function get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi lấy data, liên hệ admin DALA " 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"ctl-coupon search", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
 
 	//@
-	res.send({"error":"","datas":coupon_search_result});
-	return;
+	return res.send({"error":"","datas":coupon_search_result});
+	
 }
 
 module.exports = get_all;

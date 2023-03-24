@@ -23,27 +23,27 @@ async  function function_export(req, res, next) {
 		var brand_id = req.params.brand_id;
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web->controller->brands->manage->product",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}	
-	//res.send( [brand_id,store_id] );
-	//return;	
+	//return res.send( [brand_id,store_id] );
+	//	
 	
 	
 	
@@ -62,34 +62,34 @@ async  function function_export(req, res, next) {
 			token
 		);	
 		
-	//res.send(data_api_resuilt);
-	//return;
+	//return res.send(data_api_resuilt);
+	//
 	
 	
 		
 	if(data_api_resuilt.error){		
 		if(data_api_resuilt.position == "middle_ware"){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;	
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 		}
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web->controller->brands->manage->product",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	//res.send( [data_api_resuilt] );
-	//return;
+	//return res.send( [data_api_resuilt] );
+	//
 	
 	
 	
@@ -146,8 +146,8 @@ async  function function_export(req, res, next) {
 			'datas_info'			: datas_info			
 		}
 	
-		//res.send(data_send);
-		//return;	
+		//return res.send(data_send);
+		//	
 	
 	
 	
@@ -155,10 +155,10 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","":"", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","":"", "message": error_send } ); 
+					
 	}			
 };
 

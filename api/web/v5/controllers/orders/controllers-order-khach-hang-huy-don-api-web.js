@@ -24,30 +24,30 @@ const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHA
 
 //@
 async  function controllers_order_khach_hang_huy_don(req, res, next) {
-	//res.send(["sdasdas","sdasdasdasd"]);
-	//return;
+	//return res.send(["sdasdas","sdasdasdasd"]);
+	//
 	try {
 		var order_id = req.params.order_id;
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request insert order, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/order/khach-hang-huy-don",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([token,order_id]);
-	//return;
+	//return res.send([token,order_id]);
+	//
 
 	
 
@@ -56,23 +56,23 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 	const check_owner_order_customer_resuilt = await check_owner_order_customer(token,order_id,res);
 	if(check_owner_order_customer_resuilt != 1){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền , Vui lòng liên hệ admin" , 
 				"Lỗi phân quyền , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api/web/v5/ctroller/order/khach-hang-huy-don", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
 
-	//res.send([check_owner_order_customer_resuilt]);
-	//return;	
+	//return res.send([check_owner_order_customer_resuilt]);
+	//	
 
 
 
@@ -107,13 +107,13 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		
 		if(orders_search_result[0].orders_speciality_status_orders != '0'){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Đơn hàng đã giao vận chuyển không thể hủy, Liên hệ DALA" ,
 				"Đơn hàng đã giao vận chuyển không thể hủy, Liên hệ DALA" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "88", 
 				"position":"ctl-orders-speciality-insert", 
 				"message": error_send 
@@ -123,18 +123,18 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi tìm cửa hàng" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"ctl-orders-speciality-insert", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
 
@@ -166,23 +166,23 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi tìm cửa hàng" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"ctl-orders-speciality-update huy", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
 	//@
-	res.send({"error":"","datas":orders_update_result});
-	return;
+	return res.send({"error":"","datas":orders_update_result});
+	
 }
 
 module.exports = controllers_order_khach_hang_huy_don;

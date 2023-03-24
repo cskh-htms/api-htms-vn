@@ -15,28 +15,28 @@ async  function store_order_get_all(req, res, next) {
 		
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
-			return;
+			return res.send( "vui lòng đăng nhập" );
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web-controller-stores-orfer",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
-	//res.send( [store_id] );
-	//return;	
+	//return res.send( [store_id] );
+	//	
 	
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
@@ -45,33 +45,33 @@ async  function store_order_get_all(req, res, next) {
 			token
 		);	
 		
-	//res.send( [data_api_resuilt] );
-	//return;	
+	//return res.send( [data_api_resuilt] );
+	//	
 		
 		
 	if(data_api_resuilt.error){
 		if(data_api_resuilt.position == "middle_ware"){
-			res.send("Vui lòng đăng nhập");
-			return;
+			return res.send("Vui lòng đăng nhập");
+			
 		}
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web/controller/bussiness/controllers-bussiness-by-user-id",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	//res.send( [data_api_resuilt] );
-	//return;
+	//return res.send( [data_api_resuilt] );
+	//
 	
 	//@
 	try {
@@ -97,8 +97,8 @@ async  function store_order_get_all(req, res, next) {
 			'order_list_all' 		: data_api_resuilt[5]
 		}
 		
-		//res.send( [datas_info] );
-		//return;		
+		//return res.send( [datas_info] );
+		//		
 		
 		
 		
@@ -128,10 +128,10 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","":"", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","":"", "message": error_send } ); 
+					
 	}			
 };
 

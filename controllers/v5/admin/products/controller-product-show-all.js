@@ -49,28 +49,28 @@ async  function function_export(req, res, next) {
 			var token = req.session.token;	
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
-				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-				return;
+				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 			}		
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position":"web->controllers->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 		
-		//res.send( token );
-		//return;	
+		//return res.send( token );
+		//	
 		
 		try {
 			var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
@@ -78,24 +78,24 @@ async  function function_export(req, res, next) {
 					token
 				);	
 				
-			//res.send(data_api_resuilt);
-			//return;			
+			//return res.send(data_api_resuilt);
+			//			
 				
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "2", 
 				"position":"web->controllers->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 		
 		//@
@@ -103,23 +103,23 @@ async  function function_export(req, res, next) {
 		//@ check error		
 		if(data_api_resuilt.error){		
 			if(data_api_resuilt.position =="middle_ware"){
-				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-				return;
+				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+				
 			}		
 			
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				data_api_resuilt.message
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "99", 
 				"position":"web->controllers->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;
+			
 		}			
 		
 		
@@ -173,25 +173,25 @@ async  function function_export(req, res, next) {
 			}
 			
 			
-			//res.send(data_send);
-			//return;
+			//return res.send(data_send);
+			//
 			
 			res.render( ojs_configs.view_version + '/products/speciality/admin-show-all', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				"Lỗi send datas" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "100", 
 				"position":"web->controllers->admin->products->show-all",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
 		
 	//@
@@ -200,18 +200,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"web->controllers->admin->products->show-all",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -219,12 +219,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"web->controllers->admin->products->show-all",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

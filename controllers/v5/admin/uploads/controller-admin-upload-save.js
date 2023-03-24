@@ -55,27 +55,27 @@ async  function function_export(req, res, next) {
 			var user_id = req.params.user_id;
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
-				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-				return;
+				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+				
 			}		
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position":"web->appdalacom->controllers->uploads->save",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}		
-		//res.send({"error":"00","message":[filebuffer]});
-		//return;	
+		//return res.send({"error":"00","message":[filebuffer]});
+		//	
 		
 		
 		
@@ -94,21 +94,21 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "33",
 				"position" : "web->appdalacom->controllers->uploads->save", 
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
-		//res.send(["ok"]);
-		//return;		
+		//return res.send(["ok"]);
+		//		
 		
 		
 		
@@ -129,7 +129,7 @@ async  function function_export(req, res, next) {
 			//@
 			//@
 			var upload_go = await wp.media().file(req.file.buffer,fileName).create();	
-			//res.send( [upload_go] );
+			//return res.send( [upload_go] );
 			//return ;	
 			
 			
@@ -137,21 +137,21 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi upload hình" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "101", 
 				"position":"web->appdalacom->controllers->uploads->save",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}		
-		//res.send({"error":"00","message":[user_id]});
-		//return;	
+		//return res.send({"error":"00","message":[user_id]});
+		//	
 
 		
 
@@ -183,8 +183,8 @@ async  function function_export(req, res, next) {
 				token
 			);	
 			
-		//res.send( data_api_resuilt );
-		//return;			
+		//return res.send( data_api_resuilt );
+		//			
 			
 			
 			
@@ -195,23 +195,23 @@ async  function function_export(req, res, next) {
 		//@ check error		
 		if(data_api_resuilt.error){		
 			if(data_api_resuilt.position =="middle_ware"){
-				res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-				return;
+				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+				
 			}		
 			
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				data_api_resuilt.message
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "99", 
 				"position":"web->appdalacom->controllers->uploads->save",
 				"message": error_send 
 			}); 
-			return;
+			
 		}
 		
 		
@@ -221,8 +221,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ send data resuilt		
-		res.send( {"error":"","datas":[upload_go.id,upload_go.source_url]} );
-		return;	
+		return res.send( {"error":"","datas":[upload_go.id,upload_go.source_url]} );
+			
 		
 		
 	//@
@@ -231,18 +231,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"web->appdalacom->controllers->uploads->save",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -250,12 +250,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"web->appdalacom->controllers->uploads->save",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

@@ -34,23 +34,23 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var token = req.headers['token'];
-		//res.send([token]);
-		//return;
+		//return res.send([token]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/controller/controllers-shipping-get-all-province-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -60,14 +60,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-all-province-web", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-all-province-web", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -85,15 +85,15 @@ async  function function_export(req, res, next) {
 			province.push(province_line);
 		}
 		
-		res.send({"error":"","datas": province});
-		return;		
+		return res.send({"error":"","datas": province});
+				
 
 	} catch (err) {
-	   res.send([err]);
-	   return;
+	   return res.send([err]);
+	   
 	}	
-	//res.send(["dsadasd"]);
-	//return;
+	//return res.send(["dsadasd"]);
+	//
 
 
 }

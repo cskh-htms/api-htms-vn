@@ -12,24 +12,24 @@ async  function review_get_all(req, res, next) {
 		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
-			return;
+			return res.send( "vui lòng đăng nhập" );
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web->controller->reviews->review get all",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -41,18 +41,18 @@ async  function review_get_all(req, res, next) {
 		
 	if(data_api_resuilt.error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web->controller->reviews->review get all",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
 
@@ -91,21 +91,21 @@ async  function review_get_all(req, res, next) {
 			'news_admin_menu' 		: data_api_resuilt[1],
 			'datas_info'			: datas_info			
 		}
-		//res.send(data_send);
-		//return;
+		//return res.send(data_send);
+		//
 		
 		res.render( ojs_configs.view_version + '/reviews/speciality/show-all',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ 
+			return res.send({ 
 				"error" : "100", 
 				"position":"web->controller->reviews->review get all",
 				"message": error_send 
 			}); 
-			return;		
+					
 	}			
 };
 

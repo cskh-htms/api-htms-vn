@@ -37,41 +37,41 @@ async  function function_export(req, res, next) {
 		var datas  = req.body.datas;	
 		var newPayload = jwt.decode(token);
 		if(!datas.adress_meta_user_id){
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api/app/v5/controller/controllers-meta-adress-add-app",
 				"message": "vui lòng nhập id user" 
 			}); 
-			return;	
+				
 		}
 		 
 		//@
 		//@
 		if(datas.adress_meta_user_id != newPayload.users_ID){
-			res.send({ 
+			return res.send({ 
 				"error" : "02", 
 				"position" : "api/app/v5/controller/controllers-meta-adress-add-app",
 				"message": "Quyền thao tác không hợp lệ" 
 			}); 
-			return;	
+				
 		}		
-		//res.send([datas ,token]);
-		//return;
+		//return res.send([datas ,token]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/controller/controllers-meta-adress-add-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -81,14 +81,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/app/v5/controller/controllers-meta-adress-add-app", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"api/app/v5/controller/controllers-meta-adress-add-app", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -100,23 +100,23 @@ async  function function_export(req, res, next) {
 
 		var meta_adress_insert_result= await meta_adress_insert(datas,res);
 		
-		res.send({"error":"","datas":meta_adress_insert_result});
+		return res.send({"error":"","datas":meta_adress_insert_result});
 		return ;
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data  , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5", 
 			"position" : "api/app/v5/controller/controllers-meta-adress-add-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}			
 		
 

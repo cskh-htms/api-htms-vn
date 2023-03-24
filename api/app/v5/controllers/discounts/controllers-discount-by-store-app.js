@@ -36,18 +36,18 @@ async  function controllers_discount_by_position_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/ctroller/discounts/controllers-discount-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -105,28 +105,28 @@ async  function controllers_discount_by_position_app(req, res, next) {
 		let result = await discount_search(data_get,res);
 		
 		
-		res.send({"error":"","datas":result}); 
-		return;
+		return res.send({"error":"","datas":result}); 
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/ctroller/discounts/controllers-discount-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
-	res.send({"error":"","datas":result}); 
-	return;
+	return res.send({"error":"","datas":result}); 
+	
 	
 }
 

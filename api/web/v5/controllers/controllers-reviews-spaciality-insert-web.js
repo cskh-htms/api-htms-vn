@@ -30,36 +30,36 @@ async  function insert_reviews_spaciality_web(req, res, next) {
 		var token = req.headers['token'];
 		
 		if(!datas.reviews_speciality_user_id){
-			res.send({ 
+			return res.send({ 
 				"error" : "1" , 
 				"position" : "api-ctl-review->insert", 
 				"message" : " Chưa nhập mã khách hàng (user_id) " 
 			});
-			return;
+			
 		}
 		if(!datas.reviews_speciality_product_id){
-			res.send({ 
+			return res.send({ 
 				"error" : "11" , 
 				"position" : "api-ctl-review->insert", 
 				"message" : " Chưa nhập mã sản phẩm (user_id) " 
 			});
-			return;
+			
 		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "111", 
 			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 	
 	
@@ -67,18 +67,18 @@ async  function insert_reviews_spaciality_web(req, res, next) {
 	const check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.reviews_speciality_user_id,res);
 	if(check_owner_user_resuilt != 1){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" , 
 				"Lỗi phân quyền user_id đánh giá không hợp lệ, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "122",
 			"position" : "ctl-review->insert-app", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}	
 	
 
@@ -117,18 +117,18 @@ async  function insert_reviews_spaciality_web(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi upload hình , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 	
@@ -147,22 +147,22 @@ async  function insert_reviews_spaciality_web(req, res, next) {
 	catch(error){
 		var message_error = fields_insert.get_message_error(error);
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error,
 				message_error 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api-ctl-review->insert", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 	
-	res.send({"error":"","datas":inserted}); 
-	return;
+	return res.send({"error":"","datas":inserted}); 
+	
 	
 }
 

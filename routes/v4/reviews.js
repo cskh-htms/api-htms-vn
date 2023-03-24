@@ -11,7 +11,7 @@ const ojs_shares = require('../../models/ojs-shares');
 router.get('/', function(req, res, next) {
 	//
 	let token = req.session.token;
-	res.send("welCom !!!");
+	return res.send("welCom !!!");
 });
 
 

@@ -28,24 +28,24 @@ async  function function_export(req, res, next) {
 		
 		var de_token = jwt.decode(token);		
 		if(user_id != de_token.users_ID){
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api/web/v5/ctronller/controllers-user-update-web",
 				"message": "user không khớp với phiên làm việc"
 			}); 	
-			return;			
+						
 		}		
 		
-		//res.send([datas,user_id,de_token]);
-		//return;
+		//return res.send([datas,user_id,de_token]);
+		//
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "2", "position":"ctl-users->change-password", "message": error_send } );
-		return;	
+		return res.send({ "error" : "2", "position":"ctl-users->change-password", "message": error_send } );
+			
 	}	
 	
 
@@ -58,14 +58,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -74,8 +74,8 @@ async  function function_export(req, res, next) {
 
 	//@ insert	
 	var result = await user_update(datas,user_id,res);
-	res.send({"error":"","datas":result});
-	return;
+	return res.send({"error":"","datas":result});
+	
 
 }
 

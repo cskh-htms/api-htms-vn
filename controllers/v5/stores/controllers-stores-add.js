@@ -26,29 +26,29 @@ async  function store_order_get_all(req, res, next) {
 		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
-			return;
+			return res.send( "vui lòng đăng nhập" );
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web/controller/admin/stores/controllers-admin-store-add.js",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
-	//res.send( [token] );
-	//return;	
+	//return res.send( [token] );
+	//	
 	
 	
 	
@@ -62,34 +62,34 @@ async  function store_order_get_all(req, res, next) {
 			token
 		);	
 		
-	//res.send( [data_api_resuilt] );
-	//return;	
+	//return res.send( [data_api_resuilt] );
+	//	
 		
 		
 	if(data_api_resuilt.error){
 		
 		if(data_api_resuilt.position =="middle-ware"){
-			res.send( "vui lòng đăng nhập" );
-			return;
+			return res.send( "vui lòng đăng nhập" );
+			
 		}
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web/controller/admin/stores/controllers-admin-store-add.js",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	//res.send( [data_api_resuilt] );
-	//return;
+	//return res.send( [data_api_resuilt] );
+	//
 	
 	//@
 	try {
@@ -117,8 +117,8 @@ async  function store_order_get_all(req, res, next) {
 		
 		
 		
-		//res.send( datas_info );
-		//return;	
+		//return res.send( datas_info );
+		//	
 
 
 		
@@ -147,10 +147,10 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","position":"web/controller/admin/stores/controllers-admin-store-add.js", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","position":"web/controller/admin/stores/controllers-admin-store-add.js", "message": error_send } ); 
+					
 	}			
 };
 

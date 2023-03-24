@@ -74,18 +74,18 @@ async  function controllers_discount_by_product_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/ctroller/discounts/controllers_discount_by_product_app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -187,7 +187,7 @@ async  function controllers_discount_by_product_app(req, res, next) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
@@ -206,26 +206,26 @@ async  function controllers_discount_by_product_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4", 
 			"position" : "api/app/v5/ctroller/controllers-product-by-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 
 
 
-	res.send({"error":"","datas":get_meta_product_resuilt}); 
-	return;
+	return res.send({"error":"","datas":get_meta_product_resuilt}); 
+	
 	
 }
 

@@ -11,28 +11,28 @@ async  function function_export(req, res, next) {
 	try {
 		var token = req.session.token;	
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"controller->bo-cong-thuong",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
-	//res.send( [token] );
-	//return;	
+	//return res.send( [token] );
+	//	
 	
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
 			ojs_configs.domain + '/api/appdalacom/' + 
@@ -41,35 +41,35 @@ async  function function_export(req, res, next) {
 			token
 		);	
 		
-	//res.send( [data_api_resuilt] );
-	//return;	
+	//return res.send( [data_api_resuilt] );
+	//	
 		
 		
 	if(data_api_resuilt.error){
 		
 		if(data_api_resuilt.position =="middle_ware"){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}		
 		
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"controller->bo-cong-thuong",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	//res.send( data_api_resuilt[0][1] );
-	//return;
+	//return res.send( data_api_resuilt[0][1] );
+	//
 	
 	//@
 	try {
@@ -111,17 +111,17 @@ async  function function_export(req, res, next) {
 			'datas_info'			: datas_info			
 		}
 	
-		//res.send(data_send);
-		//return;
+		//return res.send(data_send);
+		//
 		
 		res.render( ojs_configs.view_version + '/users/bo-cong-thuong',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","":"", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","":"", "message": error_send } ); 
+					
 	}			
 };
 

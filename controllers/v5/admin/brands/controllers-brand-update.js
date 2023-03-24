@@ -13,28 +13,28 @@ async  function function_export(req, res, next) {
 		var brand_id = req.params.brand_id;
 		var datas = req.body.datas;
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-			return;
+			return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"controllers-admin-/brand/update",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
-	//res.send(datas);
-	//return;	
+	//return res.send(datas);
+	//	
 	
 	
 
@@ -54,44 +54,44 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "2", 
 			"position":"controllers-admin-/brand/update",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
 	
 	if(data_api_resuilt.error){
 		if(data_api_resuilt.position =="middle_ware"){
-			res.send({"error":"10","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-			return;
+			return res.send({"error":"10","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+			
 		}
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"controllers-admin-/brand/update",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 
-	res.send(data_api_resuilt);
-	return;
+	return res.send(data_api_resuilt);
+	
 	
 };
 

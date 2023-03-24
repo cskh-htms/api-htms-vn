@@ -54,12 +54,12 @@ async  function store_order_get_all(req, res, next) {
 		if(req.query.c1){
 			option_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api->appdalacom->controller->options->manage->product",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}	
 
 		//@
@@ -68,31 +68,31 @@ async  function store_order_get_all(req, res, next) {
 		if(req.query.c2){
 			store_id = req.query.c2;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "02", 
 				"position" : "api->appdalacom->controller->options->manage->product",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->appdalacom->controller->options->manage->product",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send([option_id,store_id]);
-	//return;
+	//return res.send([option_id,store_id]);
+	//
 	
 	
 	
@@ -121,22 +121,22 @@ async  function store_order_get_all(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "333",
 				"position" : "api->appdalacom->controller->options->manage->product",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}				
 	}
-	//res.send([check_role_result,"store_ok"]);
-	//return;
+	//return res.send([check_role_result,"store_ok"]);
+	//
 	
 	
 	
@@ -208,18 +208,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
@@ -230,18 +230,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4", 
 			"position" : "api/appdalacom/v5/controller/categorys/controllers-category-store",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 
 
@@ -254,8 +254,8 @@ async  function store_order_get_all(req, res, next) {
 	//@	
 	//@ 6. category list by store
 	var option_taget = await option_get_one(option_id,res);
-	//res.send([data_product]);
-	//return;
+	//return res.send([data_product]);
+	//
 
 
 
@@ -351,18 +351,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api->appdalacom->controller->options->manage->product",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -379,8 +379,8 @@ async  function store_order_get_all(req, res, next) {
 	
 	
 	
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 	
 }
 

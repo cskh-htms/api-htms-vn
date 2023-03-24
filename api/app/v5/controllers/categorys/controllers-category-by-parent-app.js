@@ -54,23 +54,23 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			category_id = req.query.c1;
 		}
-		//res.send(category_id);
-		//return;
+		//return res.send(category_id);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/ctroller/category/controllers-category-by-parent-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -132,25 +132,25 @@ async  function function_export(req, res, next) {
 	
 		//@ get datas
 		let result = await category_link_search(data_get,res);
-		res.send({"error":"","datas":result}); 
-		return;
+		return res.send({"error":"","datas":result}); 
+		
 
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/ctroller/category/controllers-category-by-parent-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 	
 }

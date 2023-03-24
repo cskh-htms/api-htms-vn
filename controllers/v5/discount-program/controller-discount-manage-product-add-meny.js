@@ -48,29 +48,29 @@ async  function function_export(req, res, next) {
 			var discount_program_id = req.params.discount_program_id;
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
-				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-				return;
+				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 			}
 			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position":"web->discount-program->manage->product->add-meny",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 		
-		//res.send(["sdfsdfsdf"]);
-		//return;	
+		//return res.send(["sdfsdfsdf"]);
+		//	
 		
 		
 		
@@ -90,25 +90,25 @@ async  function function_export(req, res, next) {
 					store_id,
 					token
 				);	
-			//res.send( data_api_resuilt );
-			//return;	
+			//return res.send( data_api_resuilt );
+			//	
 			
 			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "2", 
 				"position":"web->discount-program->manage->product->add-meny",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 		
 		
@@ -121,25 +121,25 @@ async  function function_export(req, res, next) {
 		//@ check error		    
 		if(data_api_resuilt.error){
 			if(data_api_resuilt.position =="middle_ware"){
-				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-				return;
+				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 			}
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				"Lỗi lấy api" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "99", 
 				"position":"web->discount-program->manage->product->add-meny",
 				"message": error_send 
 			}); 
-			return;
+			
 		}		
-		//res.send( [data_api_resuilt] );
-		//return;
+		//return res.send( [data_api_resuilt] );
+		//
 		
 		
 				
@@ -199,8 +199,8 @@ async  function function_export(req, res, next) {
 		}
 		
 		
-		//res.send(data_api_resuilt[]);
-		//return;
+		//return res.send(data_api_resuilt[]);
+		//
 		
 		res.render( ojs_configs.view_version + '/discount-program/speciality/manage-product-add-meny', data_send );
 
@@ -208,10 +208,10 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-				res.send({ "error" : "100","":"", "message": error_send } ); 
-				return;		
+				return res.send({ "error" : "100","":"", "message": error_send } ); 
+						
 		}			
 	//@
 	//@
@@ -219,18 +219,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"web->discount-program->manage->product->add-meny",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -238,12 +238,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"web->discount-program->manage->product->add-meny",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

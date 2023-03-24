@@ -122,12 +122,12 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 				error, 
 				"Lỗi get meta product discount propram, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "api/shares/get meta product", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 
@@ -169,31 +169,23 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		
 		//@ get datas
 		var product_taget = await product_search(data_product_taget,res);
-		//res.send(product_taget);
+		//return res.send(product_taget);
 		//return;
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		//evn = "dev";
+		//evn = "dev"; 
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"lỗi get product product taget, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "22", 
 			"position" : "api/shares/get meta product",
 			"message": error_send 
 		});
 	}	
-
-
-
-
-
-
-
-
 
 
 
@@ -244,7 +236,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		
 		//@ get datas
 		var data_sale = await product_sale(data_get,res);
-		//res.send([product_taget,data_sale]);
+		//return res.send([product_taget,data_sale]);
 		//return;
 		
 		
@@ -286,7 +278,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			error, 
 			"lỗi get product sale discount, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2", 
 			"position" : "api/shares/get meta product",
 			"message": error_send 
@@ -296,7 +288,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 
 
 
-	//res.send(data_product);
+	//return res.send(data_product);
 	//return;
 
 
@@ -410,7 +402,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			error, 
 			"lỗi get review discount, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "3", 
 			"position":"api/app/v5/controller/discounts/controllers-discount-by-product-app",
 			"message": error_send 
@@ -480,13 +472,13 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"lỗi get product discount gift, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "22", 
 			"position" : "api/shares/get meta product",
 			"message": error_send 
@@ -561,13 +553,13 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"lỗi get product price, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "222", 
 			"position" : "api/shares/get meta product",
 			"message": error_send 
@@ -625,7 +617,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		
 		//@ get datas
 		var data_sale = await product_sale(data_get,res);
-		//res.send([product_taget,data_sale]);
+		//return res.send([product_taget,data_sale]);
 		//return;
 		
 		
@@ -663,7 +655,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			error, 
 			"lỗi get product sale that discount, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "22", 
 			"position" : "api/shares/get meta product ",
 			"message": error_send 

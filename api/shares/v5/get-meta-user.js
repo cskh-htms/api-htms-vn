@@ -67,7 +67,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 	var coupon_list_result = await coupon_search_by_marketing(data_get,res);	
 
 
-	//res.send([coupon_list_result]);
+	//return res.send([coupon_list_result]);
 	//return;	
 	
 	
@@ -117,7 +117,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 	var coupon_result = await coupon_search_by_marketing(data_get,res);	
 
 
-	//res.send([coupon_result]);
+	//return res.send([coupon_result]);
 	//return;
 
 
@@ -132,7 +132,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 			}
 		}
 	}	
-	//res.send([order_arr]);
+	//return res.send([order_arr]);
 	//return;
 	
 	
@@ -178,8 +178,8 @@ const function_export = async function (data_user,model_user_arr,res) {
 	
 	//@ get datas
 	var order_result = await order_details_search(data_get,res);	
-	res.send([order_result]);
-	return;
+	return res.send([order_result]);
+	
 
 
 
@@ -210,8 +210,8 @@ const function_export = async function (data_user,model_user_arr,res) {
 	}
 
 	
-	res.send([coupon_list_result]);
-	return;	
+	return res.send([coupon_list_result]);
+		
 	
 	
 	
@@ -265,8 +265,8 @@ const function_export = async function (data_user,model_user_arr,res) {
 	var coupon_result = await coupon_search_by_marketing(data_get,res);	
 
 
-	res.send([model_user_arr]);
-	return;	
+	return res.send([model_user_arr]);
+		
 	
 	
 	
@@ -347,13 +347,13 @@ const function_export = async function (data_user,model_user_arr,res) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"lỗi get data, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "222", 
 			"position" : "api/shares/get meta user",
 			"message": error_send 
@@ -434,22 +434,22 @@ const function_export = async function (data_user,model_user_arr,res) {
 	}
 	catch(error){
 		let evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"lỗi get data, liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "222", 
 			"position" : "api/shares/get meta user",
 			"message": error_send 
 		});
 	}			
 	
-	
-	
-	
+		
+		
+		
 	return data_user; 
 
 

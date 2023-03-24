@@ -37,18 +37,18 @@ async  function controllers_product_by_category_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/controllers-news/get-all-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -97,29 +97,29 @@ async  function controllers_product_by_category_app(req, res, next) {
 			}
 
 
-		//res.send(data_get);
-		//return;
+		//return res.send(data_get);
+		//
 
 
 		//@ get datas
 		var data_return = await news_search(data_get,res);
-		res.send({"error":"","datas":data_return});
-		return;
+		return res.send({"error":"","datas":data_return});
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/news/get-all-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 
 }

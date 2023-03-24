@@ -13,8 +13,8 @@ router.get('/', async function (req, res, next) {
 
 
 	if(process.env.EMAIL_MODE == "off"){		
-		res.send("welcom !");
-		return;		
+		return res.send("welcom !");
+				
 	}
 	
 
@@ -24,8 +24,8 @@ router.get('/', async function (req, res, next) {
 	const mailPort = process.env.EMAIL_PORT;
 
 
-	//res.send([authUser,authPassword,mailHost,mailPort]);
-	//return;
+	//return res.send([authUser,authPassword,mailHost,mailPort]);
+	//
 
 
 
@@ -49,9 +49,9 @@ router.get('/', async function (req, res, next) {
 	
 	transporter.sendMail(options, function(err,info){
         if (err) {
-            res.send(err);
+            return res.send(err);
         } else {
-            res.send('Message sent: ' +  info.response);
+            return res.send('Message sent: ' +  info.response);
         }
     });
 	
@@ -63,7 +63,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
 
-	res.send("email test");
+	return res.send("email test");
 
 });
 

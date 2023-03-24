@@ -35,16 +35,16 @@ async  function function_export(req, res, next) {
 	try {
 		var datas = req.body.datas;
 
-		//res.send(datas);
-		//return;
+		//return res.send(datas);
+		//
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "2", "position":"ctl-users->resgister-web", "message": error_send } );
-		return;	
+		return res.send({ "error" : "2", "position":"ctl-users->resgister-web", "message": error_send } );
+			
 	}	
 	
 	
@@ -54,8 +54,8 @@ async  function function_export(req, res, next) {
 		"users_service":2
 	};
 	var datas_insert = Object.assign(datas,role);	
-	//res.send(datas_insert);
-	//return;
+	//return res.send(datas_insert);
+	//
 
 	//@ insert
 	
@@ -87,8 +87,8 @@ async  function function_export(req, res, next) {
 	
 	
 	
-	res.send({"error":"","datas":user_insert_result});
-	return;
+	return res.send({"error":"","datas":user_insert_result});
+	
 
 }
 

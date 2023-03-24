@@ -75,21 +75,21 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}			
-		//res.send(datas);
-		//return;
+		//return res.send(datas);
+		//
 		
 		
 		
@@ -108,21 +108,21 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "3",
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk", 
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
-		///res.send([check_role_result]);
-		//return;
+		///return res.send([check_role_result]);
+		//
 		
 		
 		
@@ -182,21 +182,21 @@ async  function function_export(req, res, next) {
 			}
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"đơn hàng không tìm thấy sản phẩm" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "7",
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk", 
 				"message": error_send 
 			}); 
-			return;				
+							
 		}			
-		//res.send({"error":"", "datas": arr_product});
-		//return;			
+		//return res.send({"error":"", "datas": arr_product});
+		//			
 		
 		
 		
@@ -242,18 +242,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"lỗi code get chi tiết đơn hàng , vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "11",
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk", 
 				"message": error_send 
 			}); 
-			return;				
+							
 				
 		}
 		var price_order = (price_sum + add + add_fee + tax + shipping) - coupon - reduce;		
@@ -287,7 +287,7 @@ async  function function_export(req, res, next) {
 			//@
 			//@
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			if(evn == "dev"){
 				var url = "https://services-staging.ghtklab.com/services/shipment/order/?ver=1.6.3";
 			}else{
@@ -326,8 +326,8 @@ async  function function_export(req, res, next) {
 					"deliver_option" : "none",
 					"transport": "road"
 			}			
-			//res.send({"error":"", "datas": [order]});
-			//return;				
+			//return res.send({"error":"", "datas": [order]});
+			//				
 			
 
 			//@
@@ -339,13 +339,13 @@ async  function function_export(req, res, next) {
 					"order": order
 				}	
 
-			//res.send({"error":"", "datas": datas_send });
-			//return;	
+			//return res.send({"error":"", "datas": datas_send });
+			//	
 
 			
 			var result_ghtk = await ojs_shares_fetch_data.get_data_send_token_post_ghtk(url,datas_send,"81C766114DabC2481D725898F52FEa4a20789C6b");
-			res.send({"error":"", "datas": result_ghtk });
-			return;	
+			return res.send({"error":"", "datas": result_ghtk });
+				
 
 			
 		//@
@@ -353,18 +353,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi lưu data. liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "15",
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk", 
 				"message": error_send 
 			}); 
-			return;				
+							
 
 		}			
 		
@@ -381,18 +381,18 @@ async  function function_export(req, res, next) {
 			
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"push đơn hàng không thành công, vui lòng thao tác lại" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "14",
 				"position" : "api->appdalacom->controller->admin->orders->push-ghtk", 
 				"message": error_send 
 			}); 
-			return;				
+							
 		}		
 		
 
@@ -401,8 +401,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ send data result	
-		res.send({"error":"", "datas": result });
-		return;	
+		return res.send({"error":"", "datas": result });
+			
 		
 		
 		
@@ -412,18 +412,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position" : "api->appdalacom->controller->admin->orders->push-ghtk",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -431,12 +431,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->admin->orders->push-ghtk",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;		
+			
 }
 
 

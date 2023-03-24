@@ -27,24 +27,24 @@ async  function controllers_review_update(req, res, next) {
 		var review_id = req.params.review_id;
 		var datas = req.body.datas;
 		
-		//res.send({"error":"","datas":datas});
-		//return;		
+		//return res.send({"error":"","datas":datas});
+		//		
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-updatee_giaappdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -55,23 +55,23 @@ async  function controllers_review_update(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-updatee_giaappdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
 	
-	//res.send({"error":"","asdasd":datas});
-	//return;		
+	//return res.send({"error":"","asdasd":datas});
+	//		
 	
 	
 	
@@ -79,24 +79,24 @@ async  function controllers_review_update(req, res, next) {
 	//@  update	
 	try{		
 		var update_resuilt = await review_update(datas,review_id,res);
-		res.send([update_resuilt]);
-		return;	
+		return res.send([update_resuilt]);
+			
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi xóa đánh giá, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "155", 
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-updatee_giaappdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 }
 

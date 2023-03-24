@@ -38,30 +38,30 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			province_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/controller/controllers-shipping-get-distict-by-province-web",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}
-		//res.send(province_id);
-		//return;
+		//return res.send(province_id);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/controller/controllers-shipping-get-distict-by-province-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -71,14 +71,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-distict-by-province-web", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-get-distict-by-province-web", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -105,14 +105,14 @@ async  function function_export(req, res, next) {
 			}
 		}
 		
-		res.send({"error":"","datas": district});
-		return;
+		return res.send({"error":"","datas": district});
+		
 	} catch (err) {
-	   res.send([err]);
-	   return;
+	   return res.send([err]);
+	   
 	}	
-	//res.send(["dsadasd"]);
-	//return;
+	//return res.send(["dsadasd"]);
+	//
 
 
 }

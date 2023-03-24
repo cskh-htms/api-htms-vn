@@ -43,23 +43,23 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var datas = req.body.datas;
-		//res.send([datas]);
-		//return;
+		//return res.send([datas]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/ctronller/controllers-user-verification-code-lost-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -87,8 +87,8 @@ async  function function_export(req, res, next) {
 	
 	
 	user_search(data_get,res).then( results => {
-		//res.send(results);
-		//return;
+		//return res.send(results);
+		//
 		
 		//@
 		//@
@@ -114,52 +114,52 @@ async  function function_export(req, res, next) {
 					//@
 					// nếu quá hạn 10 phú thì là hết hạn
 					if(date_minute > 10 ){
-						res.send({ 
+						return res.send({ 
 						"error" : "6", 
 						"position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", 
 						"message": "hết thời gian"} ); 
-						return;								
+														
 					}
 					
 				}
 				catch(error){
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi tính thời gian code live, Liên hệ bộ phan HTKT dala" );
-					res.send({ "error" : "7", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } );  
-					return;	
+					return res.send({ "error" : "7", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } );  
+						
 				}		
 
 
-				res.send( {"error" : "", "message" : "Đã xác nhận"} );
-				return;
+				return res.send( {"error" : "", "message" : "Đã xác nhận"} );
+				
 			
 			}else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, 
 				"Mã xác thực không đúng hoặc đã hết hạn", 
 				"Mã xác thực không đúng hoặc đã hết hạn" );
-				res.send({ "error" : "10", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
-				return;					
+				return res.send({ "error" : "10", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
+									
 			}
 		//@
 		//@
 		//@ nếu không có datas
 		}else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
-				res.send({ "error" : "11", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } );  
-				return;				
+				return res.send({ "error" : "11", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } );  
+								
 		}			
 
 	}, error => {
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "12", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
-		return;			
+		return res.send({ "error" : "12", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
+					
 	});
 
 

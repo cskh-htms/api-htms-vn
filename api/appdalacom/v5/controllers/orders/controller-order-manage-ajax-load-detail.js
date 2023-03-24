@@ -81,21 +81,21 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->order->manage->ajax-load-detail",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
-		//res.send([datas]);
-		//return;	
+		//return res.send([datas]);
+		//	
 
 
 	
@@ -116,18 +116,18 @@ async  function function_export(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "3",
 				"position" : "api->appdalacom->controller->order->manage->show all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 
 
@@ -324,18 +324,18 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data review, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "100", 
 				"position" : "api->appdalacom->controller->order->manage->ajax-load-detail",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}	
 
 		
@@ -365,8 +365,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ send data result
-		res.send(promise_result);
-		return;
+		return res.send(promise_result);
+		
 		
 		
 		
@@ -378,18 +378,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position" : "api->appdalacom->controller->order->manage->ajax-load-detail",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -397,12 +397,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->order->manage->ajax-load-detail",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;		
+			
 }
 
 

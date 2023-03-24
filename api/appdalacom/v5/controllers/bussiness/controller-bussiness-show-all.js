@@ -56,32 +56,32 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			user_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api->controller->appdalacom->bussiness->show-all",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}			
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->controller->appdalacom->bussiness->show-all",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
-	//res.send([user_id]);
-	//return;
+	//return res.send([user_id]);
+	//
 	
 	
 	
@@ -103,18 +103,18 @@ async  function function_export(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api->controller->appdalacom->bussiness->show-all", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
 
@@ -129,18 +129,18 @@ async  function function_export(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "333",
 			"position" : "api->controller->appdalacom->bussiness->show-all", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}	
 
 
@@ -336,18 +336,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api/appdalacom/contriller/bussiness/controllers-bussiness-by-user-id-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -358,8 +358,8 @@ async  function function_export(req, res, next) {
 	}
 	promise_result.push(notes);
 
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 }
 
 

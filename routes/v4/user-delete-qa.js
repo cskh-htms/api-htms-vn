@@ -19,8 +19,7 @@ router.get('/:user_id', async function (req, res, next) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers user-delete-qa -> 1", "message": error_send } ); 
-		return;			
+		return res.send({ "error" : "routers user-delete-qa -> 1", "message": error_send } ); 		
 	}
 	
 	
@@ -36,7 +35,7 @@ router.get('/:user_id', async function (req, res, next) {
 		res.render( ojs_configs.view_version + '/ho-tro/ho-tro-xoa-tai-khoan', data_send );	
 	}
 	catch(error){
-		res.send( { "error" : "Loi Ho Tro" , "message" : error } );
+		return res.send( { "error" : "Loi Ho Tro" , "message" : error } );
 	}
 	
 	
@@ -45,7 +44,7 @@ router.get('/:user_id', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
 
-	res.send("email test");
+	return res.send("email test");
 
 });
 

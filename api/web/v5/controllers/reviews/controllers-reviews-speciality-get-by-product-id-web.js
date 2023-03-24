@@ -35,30 +35,30 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			product_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-get-by-product-id-web",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}
-		//res.send(product_id);
-		//return;
+		//return res.send(product_id);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-get-by-product-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -85,32 +85,32 @@ async  function function_export(req, res, next) {
 			]   
 		}
 	
-		//res.send({"error":"","datas":data_get}); 
-		//return;
+		//return res.send({"error":"","datas":data_get}); 
+		//
 
 
 	
 		//@ get datas
 		var result = await review_search.search_reviews_spaciality(data_get,res);
 		
-		res.send({"error":"","datas":result}); 
-		return;
+		return res.send({"error":"","datas":result}); 
+		
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-get-by-product-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 }

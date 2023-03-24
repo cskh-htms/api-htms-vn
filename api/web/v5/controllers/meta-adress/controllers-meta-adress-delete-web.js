@@ -28,16 +28,16 @@ async  function function_export(req, res, next) {
 		var token = req.headers['token'];
 		var meta_adress_id = req.params.meta_adress_id;		
 		var de_token = jwt.decode(token);		
-		//res.send([datas,user_id,de_token]);
-		//return;
+		//return res.send([datas,user_id,de_token]);
+		//
 		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "2", "position":"api/web/v5/ctronller/controllers-meta-adress/delete-web", "message": error_send } );
-		return;	
+		return res.send({ "error" : "2", "position":"api/web/v5/ctronller/controllers-meta-adress/delete-web", "message": error_send } );
+			
 	}	
 	
 
@@ -50,14 +50,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/web/v5/ctronller/controllers-meta-adress/delete-web", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"api/web/v5/ctronller/controllers-meta-adress/delete-web", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -67,8 +67,8 @@ async  function function_export(req, res, next) {
 
 	//@ check chủ sở hữu
 	const check_owner_result = await check_owner_meta_adress(token,meta_adress_id,res);
-	//res.send([check_owner_result]);
-	//return;	
+	//return res.send([check_owner_result]);
+	//	
 
 	if(
 	check_owner_result == "1"
@@ -77,18 +77,18 @@ async  function function_export(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền chủ sở hữu user, Vui lòng liên hệ admin", 
 				"Lỗi phân quyền chủ sở hữu user, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "22",
 			"position" : "api/web/v5/ctronller/controllers-meta-adress/delete-web",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
 
@@ -97,8 +97,8 @@ async  function function_export(req, res, next) {
 
 	//@ insert	
 	var result = await meta_adress_delete(meta_adress_id,res);
-	res.send({"error":"","datas":result});
-	return;
+	return res.send({"error":"","datas":result});
+	
 
 }
 

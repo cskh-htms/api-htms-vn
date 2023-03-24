@@ -45,29 +45,29 @@ async  function function_export(req, res, next) {
 		
 		
 		if(datas.users_password == ""){
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api/web/v5/ctroller/controllers-user-login-web",
 				"message": "Vui lòng nhập mật khẩu"
 			}); 				
 		}
-		//res.send(datas);
-		//return;
+		//return res.send(datas);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/controllers-user-login-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -76,19 +76,19 @@ async  function function_export(req, res, next) {
 	//@
 	//@ check login lock	
 	var check_lock = await user_check_lock(datas,res);
-	//res.send(check_lock);
-	//return;
+	//return res.send(check_lock);
+	//
 	//@
 	//@
 	//@
 	if(check_lock.length > 0){
 		if(check_lock[0].users_status == 1){
-			res.send({ "error" : "2", "position":"ctl-users->login_app", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"} );
-			return;					
+			return res.send({ "error" : "2", "position":"ctl-users->login_app", "message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"} );
+								
 		}			
 	}else{
-		res.send({ "error" : "3", "position":"ctl-users->login_app", "message": "Không tìm thấy tài khoản trong hệ thống dala" } );
-		return;				
+		return res.send({ "error" : "3", "position":"ctl-users->login_app", "message": "Không tìm thấy tài khoản trong hệ thống dala" } );
+						
 	}
 
 
@@ -97,12 +97,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@ login
 	var login_one = await user_login_one(datas,res);
-	//res.send(login_one);
-	//return;
+	//return res.send(login_one);
+	//
 
 	var login_one_lost = await user_login_lost(datas,res);	
-	//res.send(login_one_lost);
-	//return;
+	//return res.send(login_one_lost);
+	//
 
 
 
@@ -121,8 +121,8 @@ async  function function_export(req, res, next) {
 			results = login_one_lost;
 		}
 		
-		//res.send(results);
-		//return;
+		//return res.send(results);
+		//
 		
 		try {	
 		//@
@@ -131,8 +131,8 @@ async  function function_export(req, res, next) {
 			var token_type=0;
 			var role_text = ojs_shares_others.check_role(results[0].users_type_infomation);
 			
-			//res.send(role_text);
-			//return;
+			//return res.send(role_text);
+			//
 			
 			if(role_text =="customer" 
 				|| role_text == "default" 
@@ -143,8 +143,8 @@ async  function function_export(req, res, next) {
 				|| role_text == "admin" 			
 			){
 			}else{
-				res.send({ "error" : "8", "position":"ctl-users->login_web", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
-				return;
+				return res.send({ "error" : "8", "position":"ctl-users->login_web", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
+				
 			}
 			
 			//@
@@ -164,16 +164,16 @@ async  function function_export(req, res, next) {
 			};
 			var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
 			
-			//res.send([token]);
-			//return;
+			//return res.send([token]);
+			//
 	
 		}
 		catch (error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
-			res.send({ "error" : "10", "position":"ctl-users->login_web", "message": error_send } );
-			return;	
+			return res.send({ "error" : "10", "position":"ctl-users->login_web", "message": error_send } );
+				
 		}		
 		
 		
@@ -198,8 +198,8 @@ async  function function_export(req, res, next) {
 			
 			var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});		
 			
-			//res.send([payload_database,token_database]);
-			//return;
+			//return res.send([payload_database,token_database]);
+			//
 			
 			var data_insert = {
 				"datas": {
@@ -210,17 +210,17 @@ async  function function_export(req, res, next) {
 				}
 			}
 			
-			//res.send(data_insert);
-			//return;		
+			//return res.send(data_insert);
+			//		
 			
 			
 		}
 		catch (error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
-			res.send({ "error" : "11", "position":"ctl-users->login_web", "message": error_send } );
-			return;	
+			return res.send({ "error" : "11", "position":"ctl-users->login_web", "message": error_send } );
+				
 		}		
 		
 		
@@ -245,8 +245,8 @@ async  function function_export(req, res, next) {
 		var datas_ob = Object.assign(payload, payload_go);
 
 		let datas_return = { "error" : "","datas" : datas_ob };
-		res.send( datas_return );
-		return;		
+		return res.send( datas_return );
+				
 				
 		
 	//@
@@ -259,15 +259,15 @@ async  function function_export(req, res, next) {
 		}
 		let user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
 		
-		//res.send(user_tracking_insert_result);
-		//return;
+		//return res.send(user_tracking_insert_result);
+		//
 		
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
-		res.send({ "error" : "15", "position":"ctl-users->login_web", "message": error_send } );
-		return;		
+		return res.send({ "error" : "15", "position":"ctl-users->login_web", "message": error_send } );
+				
 	}
 
 	

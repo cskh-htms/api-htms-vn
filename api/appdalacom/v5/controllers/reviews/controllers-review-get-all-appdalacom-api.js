@@ -29,18 +29,18 @@ async  function controllers_review_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -51,22 +51,22 @@ async  function controllers_review_get_all(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 
-	//res.send(["adasdasdasd 1"]);
-	//return;
+	//return res.send(["adasdasdasd 1"]);
+	//
 	/////////////////////
 	////////////////////
 	try{	
@@ -135,18 +135,18 @@ async  function controllers_review_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data review, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api/appdalacom/contriller/reviews/controllers-review-get-all-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -156,8 +156,8 @@ async  function controllers_review_get_all(req, res, next) {
 	}
 	promise_result.push(notes);
 
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 }
 
 module.exports = controllers_review_get_all;

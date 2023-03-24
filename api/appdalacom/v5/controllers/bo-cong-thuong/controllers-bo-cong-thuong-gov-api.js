@@ -36,21 +36,21 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "controller->api-appdalacom->controller->bo-cong-thuong",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send(datas);
-	//return;
+	//return res.send(datas);
+	//
 	
 	
 	
@@ -61,7 +61,7 @@ async  function function_export(req, res, next) {
 	var login_bo_cong_thuong = await user_login_bo_cong_thuong(datas,res);
 	
 	if(login_bo_cong_thuong.length <= 0){
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "ctl->api->bo-cong-thuong",
 			"message": "User hoặc mật khẩu không đúng.",
@@ -71,8 +71,8 @@ async  function function_export(req, res, next) {
 
 
 
-	//res.send(login_bo_cong_thuong);
-	//return;
+	//return res.send(login_bo_cong_thuong);
+	//
 
 
 
@@ -388,8 +388,8 @@ async  function function_export(req, res, next) {
 			"tongSoDonHangKhongThanhCong":promise_result[7][0].count_orders_speciality_ID,	
 			"tongGiaTriGiaoDich":promise_result[8][0].count_orders_speciality_ID,			
 		}
-		res.send(result);
-		return;		
+		return res.send(result);
+				
 		
 		
 		
@@ -402,18 +402,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "controller->api-appdalacom->controller->bo-cong-thuong",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 

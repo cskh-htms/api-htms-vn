@@ -16,15 +16,15 @@ async  function bo_cong_thuong(req, res, next) {
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
 			res.redirect("/login");
-			return;
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy req" );
-		res.send({ "error" : "routers bo cong thuong web -> show all -> get req -> 1", "message": error_send } ); 
-		return;			
+		return res.send({ "error" : "routers bo cong thuong web -> show all -> get req -> 1", "message": error_send } ); 
+					
 	}		
 	//@
 	//@
@@ -55,17 +55,17 @@ async  function bo_cong_thuong(req, res, next) {
 			'datas_info':datas_info
 			
 		}
-		//res.send(data_send);
-		//return;		
+		//return res.send(data_send);
+		//		
 		res.render( ojs_configs.view_version + '/users/bo-cong-thuong',  data_send );
 	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";;
+		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi máy chủ. Liên hệ bộ phận CSKH hoặc thao tác lại" );
-		res.send({ "error" : "35.router_app->brands->get", "message": error_send } ); 
-		return;	
+		return res.send({ "error" : "35.router_app->brands->get", "message": error_send } ); 
+			
 	}			
 };
 

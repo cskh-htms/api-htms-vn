@@ -37,31 +37,31 @@ async  function function_export(req, res, next) {
 		var de_token = jwt.decode(token);
 		
 		if(user_id != de_token.users_ID){
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 				"message": "user không khớp với phiên làm việc"
 			}); 	
-			return;			
+						
 		}
 		
-		//res.send([token,user_id,de_token]);
-		//return;
+		//return res.send([token,user_id,de_token]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -71,14 +71,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"controllers-user-get-by-id-app", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"controllers-user-get-by-id-app", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -117,13 +117,13 @@ async  function function_export(req, res, next) {
 			]   
 		}
 		
-		//res.send(data_get);
+		//return res.send(data_get);
 		//return ;
 		
 		var data_user = await user_search(data_get,res);
 		
 		
-		//res.send({"error":"","datas":data_user});
+		//return res.send({"error":"","datas":data_user});
 		//return ;		
 		
 		
@@ -140,7 +140,7 @@ async  function function_export(req, res, next) {
 		}			
 		
 		
-		//res.send([model_user_arr]);
+		//return res.send([model_user_arr]);
 		//return ;
 	
 
@@ -150,44 +150,44 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "44", 
 				"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}
 
-		//res.send([get_meta_user_resuilt]);
+		//return res.send([get_meta_user_resuilt]);
 		//return ;
 
 		
 		
 		
-		res.send({"error":"","datas":get_meta_user_resuilt});
+		return res.send({"error":"","datas":get_meta_user_resuilt});
 		return ;
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data  , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5", 
 			"position" : "api/web/v5/ctronller/controllers-user-get-by-id-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}			
 		
 

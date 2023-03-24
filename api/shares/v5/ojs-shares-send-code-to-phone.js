@@ -35,7 +35,7 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		//@
 
-		//res.send([phone,code]);
+		//return res.send([phone,code]);
 		//return;	
 
 		var datas = {     
@@ -56,7 +56,7 @@ const ojs_shares_send_code_to_phone = {
 			'message=Quy khach da dat hang thanh cong tai DALA. Don hang so: ' +  code +  ' . Cam on quy khach da mua hang tai DALA' + '&' +
 			'brandName=' + datas.brandName;
 		
-			//res.send(url);
+			//return res.send(url);
 			//return;	
 		
 		//@
@@ -64,8 +64,8 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":get_code_verification});
-				return;				
+				return res.send({"error":"","datas":get_code_verification});
+								
 			}else{
 				
 				//@
@@ -88,13 +88,13 @@ const ojs_shares_send_code_to_phone = {
 				}
 
 				
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
-				return;					
+				return res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
+								
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
-			return;			
+			return res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
+						
 		}
 
 	},		
@@ -108,7 +108,7 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		//@
 
-		//res.send([phone,code]);
+		//return res.send([phone,code]);
 		//return;	
 
 		var datas = {     
@@ -129,7 +129,7 @@ const ojs_shares_send_code_to_phone = {
 			'message=DALA co don hang moi can giao: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
-			//res.send(url);
+			//return res.send(url);
 			//return;	
 		
 		//@
@@ -137,8 +137,8 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gửi tin nhắn"});
-				return;				
+				return res.send({"error":"","datas":"Đã gửi tin nhắn"});
+								
 			}else{
 				
 				//@
@@ -161,13 +161,13 @@ const ojs_shares_send_code_to_phone = {
 				}				
 				
 				
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
-				return;					
+				return res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order -> 1",get_code_verification});
+									
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
-			return;			
+			return res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_order ->","message": "chưa gửi được tin nhắn"});
+						
 		}
 
 	},	
@@ -182,7 +182,7 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		//@
 
-		//res.send([phone,code]);
+		//return res.send([phone,code]);
 		//return;	
 
 
@@ -205,7 +205,7 @@ const ojs_shares_send_code_to_phone = {
 			'message=DALA.VN JSC ma xac nhan DALA - Dac San Da Lat cua ban la: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
-			//res.send(url);
+			//return res.send(url);
 			//return;	
 		
 		//@
@@ -213,8 +213,8 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gửi tin nhắn"});
-				return;				
+				return res.send({"error":"","datas":"Đã gửi tin nhắn"});
+								
 			}else{
 				
 				//@
@@ -237,13 +237,13 @@ const ojs_shares_send_code_to_phone = {
 				}				
 				
 				
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gửi được tin nhắn"});
-				return;					
+				return res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 1","datas":"Chưa gửi được tin nhắn"});
+									
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 2","message": "chưa gửi được tin nhắn"});
-			return;			
+			return res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone -> 2","message": "chưa gửi được tin nhắn"});
+						
 		}
 	},
 	//@
@@ -256,7 +256,7 @@ const ojs_shares_send_code_to_phone = {
 		//@
 		//@
 
-		//res.send([phone,code]);
+		//return res.send([phone,code]);
 		//return;	
 
 
@@ -279,7 +279,7 @@ const ojs_shares_send_code_to_phone = {
 			'message=DALA.VN JSC mat khau moi DALA - Dac San Da Lat cua ban la: ' + datas.code + '&'+
 			'brandName=' + datas.brandName;
 		
-			//res.send(url);
+			//return res.send(url);
 			//return;	
 		
 		//@
@@ -287,8 +287,8 @@ const ojs_shares_send_code_to_phone = {
 		try{
 			var get_code_verification = await ojs_shares_fetch_data.get_data_no_token_get(url);
 			if(get_code_verification.Message == "Success"){
-				res.send({"error":"","datas":"Đã gửi tin nhắn"});
-				return;				
+				return res.send({"error":"","datas":"Đã gửi tin nhắn"});
+								
 			}else{				
 				//@
 				//@
@@ -309,13 +309,13 @@ const ojs_shares_send_code_to_phone = {
 					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 				}					
 				
-				res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1",get_code_verification});
-				return;					
+				return res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1",get_code_verification});
+									
 			}
 		}
 		catch(error){
-			res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass ->","message": "chưa gửi được tin nhắn"});
-			return;			
+			return res.send({"error":"102","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass ->","message": "chưa gửi được tin nhắn"});
+						
 		}
 
 	}		

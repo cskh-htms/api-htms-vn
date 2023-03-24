@@ -53,31 +53,31 @@ async  function store_order_get_all(req, res, next) {
 		if(req.query.c1){
 			store_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->product->manage->show all",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}			
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api->appdalacom->controller->product->manage->show all",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
-	//res.send([store_id]);
-	//return;
+	//return res.send([store_id]);
+	//
 	
 	
 	
@@ -106,22 +106,22 @@ async  function store_order_get_all(req, res, next) {
 		}
 		else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					check_role_result, 
 					"Lỗi phân quyền (Bạn không phải chủ cửa hàng), Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "333",
 				"position" : "api->appdalacom->controller->product->manage->show all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}				
 	}
-	//res.send([check_role_result,"store_ok"]);
-	//return;
+	//return res.send([check_role_result,"store_ok"]);
+	//
 	
 	
 	
@@ -158,14 +158,14 @@ async  function store_order_get_all(req, res, next) {
 	if(store_search_resuilt.length >  0 && store_search_resuilt[0].stores_user_id > 0){
 		var user_id = store_search_resuilt[0].stores_user_id;
 	}else{
-		res.send({ 
+		return res.send({ 
 			"error" : "345",
 			"position" : "api->appdalacom->controller->product->manage->show all",
 			"message": "Không tìm thấy cửa hàng" 
 		}); 
 	}
-	//res.send([store_search_resuilt ,user_id]);
-	//return;
+	//return res.send([store_search_resuilt ,user_id]);
+	//
 	
 
 
@@ -258,18 +258,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
@@ -280,18 +280,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4", 
 			"position" : "api/app/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -344,18 +344,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data product, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "33", 
 			"position" : "api/appdalacom/v5/ctroller/controllers-product-by-store-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 
 
@@ -585,18 +585,18 @@ async  function store_order_get_all(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "api/appdalacom/contriller/bussiness/controllers-products-by-store-appdalacom-api.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	let notes = {
@@ -614,8 +614,8 @@ async  function store_order_get_all(req, res, next) {
 	promise_result.push(notes);
 	
 
-	res.send(promise_result);
-	return;
+	return res.send(promise_result);
+	
 	
 }
 

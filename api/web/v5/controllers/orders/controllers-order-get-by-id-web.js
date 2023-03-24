@@ -29,30 +29,30 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			order_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-id-web",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}
 		//es.send(order_id);
-		//return;
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -62,22 +62,22 @@ async  function function_export(req, res, next) {
 	const check_owner_result = await check_owner(token,order_id,res);
 	if(check_owner_result != 1){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				"Lỗi phân quyền owner - đơn hàng không pahi3 của bạn, Vui lòng liên hệ admin" , 
 				"Lỗi phân quyền owner - đơn hàng không pahi3 của bạn, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "55",
 			"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-id-web", 
 			"message": error_send 
 		}); 
-		return;			
+					
 	}	
 	
-	//res.send(check_owner);
-	//return;
+	//return res.send(check_owner);
+	//
 	
 
 	//@ lấy req data
@@ -103,13 +103,13 @@ async  function function_export(req, res, next) {
 			]   
 		}
 	
-		///res.send({"error":"","datas":data_get}); 
-		//return;
+		///return res.send({"error":"","datas":data_get}); 
+		//
 	
 		//@ get datas
 		var order_result = await order_search(data_get,res);
-		//res.send({"error":"","datas":order_result}); 
-		//return;		
+		//return res.send({"error":"","datas":order_result}); 
+		//		
 		
 		var order_arr = [];
 		if(order_result.length > 0){
@@ -120,33 +120,33 @@ async  function function_export(req, res, next) {
 			}
 		}			
 		
-		//res.send({"error":"","datas":order_arr}); 
-		//return;
+		//return res.send({"error":"","datas":order_arr}); 
+		//
 
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 	//get meta order
 	var get_meta_order_resuilt = await get_meta_order(order_result,order_arr,res);
 
-	res.send({"error":"","datas":get_meta_order_resuilt}); 
-	return;
+	return res.send({"error":"","datas":get_meta_order_resuilt}); 
+	
 
 
 }

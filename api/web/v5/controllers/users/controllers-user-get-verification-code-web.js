@@ -44,23 +44,23 @@ async  function function_export(req, res, next) {
 	try {
 		var token = req.headers['token'];
 		var de_token = jwt.decode(token);
-		//res.send([token]);
-		//return;
+		//return res.send([token]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctronller/controllers-user-verification-code-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -70,14 +70,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -106,16 +106,16 @@ async  function function_export(req, res, next) {
 			]   
 		}
 		
-		//res.send(data_get);
+		//return res.send(data_get);
 		//return ;
 		
 		var user_taget = await user_search(data_get,res);
 		
-		//res.send(user_taget);
+		//return res.send(user_taget);
 		//return ;
 		if(user_taget.length > 0){
 			var check_lock = await user_check_lock({"users_login_name": user_taget[0].users_phone });
-			//res.send( check_lock );
+			//return res.send( check_lock );
 			//return ;
 			
 			//@
@@ -123,38 +123,38 @@ async  function function_export(req, res, next) {
 			//@
 			if(check_lock.length > 0){
 				if(check_lock[0].users_status == 1){
-					res.send({ 
+					return res.send({ 
 					"error" : "3", 
 					"position":"ctl-users->get_verification_code", 
 					"message": "Tài khoản đang bị lock, vui lòng liên hệ CSKH DALA"  } ); 
-					return;					
+										
 				}			
 			}else{
-				res.send({ 
+				return res.send({ 
 				"error" : "4", 
 				"position":"ctl-users->get_verification_code", 
 				"message": "Không tìm thấy tài khoản trong hệ thống dala"} ); 
-				return;					
+									
 			}			
 		}else{			
-			res.send({ 
+			return res.send({ 
 			"error" : "5", 
 			"position":"ctl-users->get_verification_code", 
 			"message": "Không tìm thấy tài khoản trong hệ thống dala"} ); 
-			return;					
+								
 		}
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		res.send({ "error" : "6", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-		return;	
+		return res.send({ "error" : "6", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+			
 	}		
 
 	
-	//res.send(user_taget);
+	//return res.send(user_taget);
 	//return ;
 
 	//@
@@ -184,7 +184,7 @@ async  function function_export(req, res, next) {
 		
 		
 		user_search(data_get,res).then( results => {
-			//res.send(results);
+			//return res.send(results);
 			//return ;
 			//@
 			//@
@@ -210,15 +210,15 @@ async  function function_export(req, res, next) {
 							"users_verification_code":verification_code,
 							"users_verification_time":ojs_shares_date.get_current_date_now()
 						}
-						//res.send(datas_verification);
-						//return;	
+						//return res.send(datas_verification);
+						//	
 						
 						//@
 						//@
 						//@ lưu verification code
 						user_update(datas_verification,de_token.users_ID,res).then( results2 => {
-							//res.send([results2]);
-							//return;
+							//return res.send([results2]);
+							//
 							ojs_shares_send_code_to_phone.send_code_to_phone(res,verification_code,results[0].users_phone);
 
 							//@
@@ -233,8 +233,8 @@ async  function function_export(req, res, next) {
 							user_tracking_insert(datas_tracking,res);
 
 							
-							res.send( {"error" : "", "code" : verification_code} );
-							return;
+							return res.send( {"error" : "", "code" : verification_code} );
+							
 							
 						}, error => {
 							
@@ -243,52 +243,52 @@ async  function function_export(req, res, next) {
 							
 							
 							var evn = ojs_configs.evn;
-							//evn = "dev";
+							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
-							res.send({ "error" : "7", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-							return;	
+							return res.send({ "error" : "7", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+								
 						});
 					}
 					catch(error){
 						var evn = ojs_configs.evn;
-						//evn = "dev";
+						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-						res.send({ "error" : "8", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-						return;	
+						return res.send({ "error" : "8", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+							
 					}	
 					
 				}else{
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, "users đã xác thực", "users đã xác thực" );
-					res.send({ "error" : "9", "position":"ctl-users->get_verification_code", "message": error_send } );  
-					return;					
+					return res.send({ "error" : "9", "position":"ctl-users->get_verification_code", "message": error_send } );  
+										
 				}
 			//@
 			//@
 			//@ nếu không có datas
 			}else{
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
-					res.send({ "error" : "10", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-					return;				
+					return res.send({ "error" : "10", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+									
 			}
 			
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-			res.send({ "error" : "11", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-			return;			
+			return res.send({ "error" : "11", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+						
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-			res.send({ "error" : "12", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-			return;	
+			return res.send({ "error" : "12", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+				
 	}	
 }
 

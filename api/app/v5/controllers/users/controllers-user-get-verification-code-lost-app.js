@@ -46,35 +46,35 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			phone = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "01", 
 				"position" : "api/app/v5/ctronller/controllers-user-verification-code-lost-app",
 				"message": "vui lòng nhập số điện thoại"
 			}); 	
-			return;
+			
 		}	
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/ctronller/controllers-user-verification-code-lost-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
 
 		
-	//res.send([phone]);
-	//return;
+	//return res.send([phone]);
+	//
 
 
 	//@
@@ -104,7 +104,7 @@ async  function function_export(req, res, next) {
 		
 		
 		user_search(data_get,res).then( results => {
-			//res.send(results);
+			//return res.send(results);
 			//return ;
 			//@
 			//@
@@ -127,15 +127,15 @@ async  function function_export(req, res, next) {
 							"users_verification_code":verification_code,
 							"users_verification_time":ojs_shares_date.get_current_date_now()
 						}
-						//res.send(datas_verification);
-						//return;	
+						//return res.send(datas_verification);
+						//	
 						
 						//@
 						//@
 						//@ lưu verification code
 						user_update(datas_verification,results[0].users_ID,res).then( results2 => {
-							//res.send([results2]);
-							//return;
+							//return res.send([results2]);
+							//
 							if(process.env.evn == "tester"){
 								
 							}else{
@@ -144,8 +144,8 @@ async  function function_export(req, res, next) {
 							
 
 							
-							res.send( {"error" : "", "code" : verification_code} );
-							return;
+							return res.send( {"error" : "", "code" : verification_code} );
+							
 							
 						}, error => {
 							
@@ -154,18 +154,18 @@ async  function function_export(req, res, next) {
 							
 							
 							var evn = ojs_configs.evn;
-							//evn = "dev";
+							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
-							res.send({ "error" : "7", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
-							return;	
+							return res.send({ "error" : "7", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
+								
 						});
 					}
 					catch(error){
 						var evn = ojs_configs.evn;
-						//evn = "dev";
+						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-						res.send({ "error" : "8", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
-						return;	
+						return res.send({ "error" : "8", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
+							
 					}	
 					
 			//@
@@ -173,26 +173,26 @@ async  function function_export(req, res, next) {
 			//@ nếu không có datas
 			}else{
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
-					res.send({ "error" : "10", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
-					return;				
+					return res.send({ "error" : "10", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
+									
 			}
 			
 		}, error => {
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-			res.send({ "error" : "11", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
-			return;			
+			return res.send({ "error" : "11", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
+						
 		});
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-			res.send({ "error" : "12", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
-			return;	
+			return res.send({ "error" : "12", "position":"ctl-users->get_verification_code_lost", "message": error_send } ); 
+				
 	}	
 }
 

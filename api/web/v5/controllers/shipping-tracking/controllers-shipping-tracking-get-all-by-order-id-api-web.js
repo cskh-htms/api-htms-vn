@@ -18,30 +18,30 @@ const shipping_tracking_search = require('../../../../lib/' + config_api.API_LIB
 
 //@
 async  function get_all_by_order_id(req, res, next) {
-	//res.send(["sdasdas","sdasdasdasd"]);
-	//return;
+	//return res.send(["sdasdas","sdasdasdasd"]);
+	//
 	try {
 		var order_id = req.params.order_id;
 		var token = req.headers['token'];
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request shipping tracking , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/app/v5/shipping_tracking/search",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
-	//res.send([token,order_id]);
-	//return;
+	//return res.send([token,order_id]);
+	//
 
 	//@ check role phân quyền
 	const check_role_result = await check_role.check_role(token,res);
@@ -52,18 +52,18 @@ async  function get_all_by_order_id(req, res, next) {
 	}
 	else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				check_role_result, 
 				"Lỗi phân quyền, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "api/app/v5/shipping_tracking/search",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -111,24 +111,24 @@ async  function get_all_by_order_id(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error,
 			"Lổi lấy data, liên hệ admin DALA " 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "8", 
 			"position":"ctl-shipping_tracking_search", 
 			"message": error_send 
 		});
-		return;				
+						
 	}	
 
 
 	//@
-	res.send({"error":"","datas":shipping_tracking_search_result});
-	return;
+	return res.send({"error":"","datas":shipping_tracking_search_result});
+	
 }
 
 module.exports = get_all_by_order_id;

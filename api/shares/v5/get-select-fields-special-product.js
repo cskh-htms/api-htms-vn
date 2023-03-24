@@ -214,9 +214,9 @@ const select_field_special = function(field,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		//res.send ({ 
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field special product, liên hệ admin" );
-		res.send ({ "error" : "1", "position":"api/shares/get select field special product","message": error_send });
+		return res.send ({ "error" : "1", "position":"api/shares/get select field special product","message": error_send });
 	}	
 }
 module.exports = select_field_special;

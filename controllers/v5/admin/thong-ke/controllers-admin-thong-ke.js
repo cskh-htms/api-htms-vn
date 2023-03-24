@@ -31,29 +31,29 @@ async  function function_export(req, res, next) {
 		var token = req.session.token;	
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web/controller/admin/thong-ke/controllers-admin-thong-ke.js",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
-	//res.send( [token] );
-	//return;	
+	//return res.send( [token] );
+	//	
 	
 	
 	
@@ -69,8 +69,8 @@ async  function function_export(req, res, next) {
 			token
 		);	
 		
-	//res.send( [data_api_resuilt] );
-	//return;	
+	//return res.send( [data_api_resuilt] );
+	//	
 		
 		
 		
@@ -79,27 +79,27 @@ async  function function_export(req, res, next) {
 	if(data_api_resuilt.error){
 		
 		if(data_api_resuilt.position =="middle-ware"){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web/controller/admin/thong-ke/controllers-admin-thong-ke.js",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	//res.send( [data_api_resuilt] );
-	//return;
+	//return res.send( [data_api_resuilt] );
+	//
 	
 	//@
 	try {
@@ -122,8 +122,8 @@ async  function function_export(req, res, next) {
 		
 		
 	
-		//res.send( datas_info );
-		//return;	
+		//return res.send( datas_info );
+		//	
 
 
 		
@@ -151,10 +151,10 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","position":"web/controller/admin/thong-ke/controllers-admin-thong-ke.js", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","position":"web/controller/admin/thong-ke/controllers-admin-thong-ke.js", "message": error_send } ); 
+					
 	}			
 };
 

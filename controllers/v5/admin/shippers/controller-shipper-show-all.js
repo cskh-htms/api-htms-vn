@@ -49,27 +49,27 @@ async  function function_export(req, res, next) {
 			var token = req.session.token;
 			var shipper_id = req.params.shipper_id;			
 			if(token == "" || token == null || token == undefined || token == 'null'){
-				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-				return;
+				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 			}		
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position":"web->appdalacom->controllers->admin->shipper->show-all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}	
-		res.send(["welcom !!!"]);
-		return;	
+		return res.send(["welcom !!!"]);
+			
 		
 		
 		
@@ -85,24 +85,24 @@ async  function function_export(req, res, next) {
 					'/admin/shippers/show-all?c1=' + shipper_id,
 					token
 				);	
-			res.send([data_api_resuilt]);
-			return;	
+			return res.send([data_api_resuilt]);
+				
 			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lấy req" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "2", 
 				"position":"web->appdalacom->controllers->admin->shipper->show-all",
 				"message": error_send 
 			}); 
-			return;			
+						
 		}
 		
 		
@@ -116,26 +116,26 @@ async  function function_export(req, res, next) {
 		//@ error	
 		if(data_api_resuilt.error){
 			if(data_api_resuilt.position =="middle_ware"){
-				res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-				return;
+				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+				
 			}
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				data_api_resuilt, 
 				"Lỗi lấy api" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "99", 
 				"position":"web->appdalacom->controllers->admin->shipper->show-all",
 				"message": error_send 
 			}); 
-			return;
+			
 		}		
 
-		//res.send( [data_api_resuilt] );
-		//return;
+		//return res.send( [data_api_resuilt] );
+		//
 
 		
 		
@@ -177,25 +177,25 @@ async  function function_export(req, res, next) {
 			}
 			
 			
-			//res.send(data_send);
-			//return;
+			//return res.send(data_send);
+			//
 			
 			res.render( ojs_configs.view_version + '/users/admin-show-all', data_send );
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi send data to browser" 
 			);
-			res.send({ 
+			return res.send({ 
 				"error" : "100", 
 				"position":"web->appdalacom->controllers->admin->shipper->show-all",
 				"message": error_send 
 			}); 
-			return;
+			
 		}			
 	//@
 	//@
@@ -203,18 +203,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position":"controller->users-show-all",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	
@@ -222,12 +222,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"controller->users-show-all",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;	
+		
 	
 };
 

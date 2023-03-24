@@ -14,24 +14,24 @@ async  function delete_review(req, res, next) {
 		
 		
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send( "vui lòng đăng nhập" );
-			return;
+			return res.send( "vui lòng đăng nhập" );
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"web->controller->reviews->delete",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_delete(
@@ -43,22 +43,22 @@ async  function delete_review(req, res, next) {
 		
 	if(data_api_resuilt.error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			"Lỗi lấy api" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web->controller->reviews->delete",
 			"message": error_send 
 		}); 
-		return;
+		
 	}		
 	
-	res.send({"error":"","datas":data_api_resuilt});
-	return;
+	return res.send({"error":"","datas":data_api_resuilt});
+	
 
 };
 

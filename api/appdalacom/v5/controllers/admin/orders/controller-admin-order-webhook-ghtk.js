@@ -73,15 +73,15 @@ async  function function_export(req, res, next) {
 			var hash = req.query.hash;			
 			var order_id = datas.partner_id.split("_")[1];
 			
-			//res.send([order_id]);
-			//return;				
+			//return res.send([order_id]);
+			//				
 			
 			
 			//@
 			//@
 
 			if(hash != "e429d202bbe3a8fe595d5030ca122f66"){
-				res.send({ 
+				return res.send({ 
 					"error" : "01", 
 					"position" : "api->appdalacom->controller->admin->orders->webhook-ghtk",
 					"message": "HASH sai"
@@ -90,21 +90,21 @@ async  function function_export(req, res, next) {
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
 					error, 
 					"Lỗi get data request, Vui lòng liên hệ admin" 
 				);
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api->appdalacom->controller->admin->orders->webhook-ghtk",
 				"message": error_send 
 			}); 
-			return;	
+				
 		}			
-		//res.send([order_id,datas]);
-		//return;
+		//return res.send([order_id,datas]);
+		//
 		
 
 
@@ -145,9 +145,9 @@ async  function function_export(req, res, next) {
 		
 		//@
 		//@	
-		//@ return;
+		//@ 
 		res.sendStatus( 200 ); 
-		return;	
+			
 		
 		
 	//@
@@ -156,18 +156,18 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi không xác định. Vui lòng liên hệ bộ phận kỹ thuật hoặc  thao tác lại" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1000", 
 			"position" : "api->appdalacom->controller->admin->orders->webhook-ghtk",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -175,12 +175,12 @@ async  function function_export(req, res, next) {
 	//@
 	//@
 	//@ send error when not return data
-	res.send({ 
+	return res.send({ 
 		"error" : "2000", 
 		"position":"api->appdalacom->controller->admin->orders->webhook-ghtk",
 		"message": "Lỗi không có data return, Lỗi này khi không có dữ liệu return, Vui lòng liên hệ bộ phận kỹ thuật, hoặc thao tác lại" 
 	}); 
-	return;		
+			
 }
 
 

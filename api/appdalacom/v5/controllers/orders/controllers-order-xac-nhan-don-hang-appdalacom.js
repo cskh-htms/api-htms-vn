@@ -33,30 +33,30 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			url = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/appdala.com/v5/ctroller/orders/controllers-order-xac-nhan-don-hang",
 				"message": "vui lòng nhập id don hang"
 			}); 	
-			return;
+			
 		}
-		//res.send([url]);
-		//return;		
+		//return res.send([url]);
+		//		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2", 
 			"position" : "api/appdala.com/v5/ctroller/orders/controllers-order-xac-nhan-don-hang",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 	
 	
@@ -64,18 +64,18 @@ async  function function_export(req, res, next) {
 		var decoded = jwt.verify(url, ojs_configs.jwt_secret);
 	} catch(err) {
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi giai ma code url, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "22", 
 			"position" : "api/appdala.com/v5/ctroller/orders/controllers-order-xac-nhan-don-hang",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 	
@@ -107,13 +107,13 @@ async  function function_export(req, res, next) {
 		]   
 	}
 
-	//res.send({"error":"","datas":data_get}); 
-	//return;
+	//return res.send({"error":"","datas":data_get}); 
+	//
 
 	//@ get datas
 	var order_result = await order_search(data_get,res);
-	//res.send({"error":"","datas":order_result}); 
-	//return;	
+	//return res.send({"error":"","datas":order_result}); 
+	//	
 	
 		
 	if(order_result[0].orders_speciality_status_orders == "0"){
@@ -122,7 +122,7 @@ async  function function_export(req, res, next) {
 			orders_speciality_status_orders: 101
 		}
 		var order_update_result = await order_update(data_update,decoded.order_id,res);		
-		res.send("Đã xác nhận đơn hàng rồi"); 
+		return res.send("Đã xác nhận đơn hàng rồi"); 
 		
 		
 		
@@ -140,13 +140,13 @@ async  function function_export(req, res, next) {
 		
 		
 		
-		return;
+		
 	}else if(order_result[0].orders_speciality_status_orders == "101"){
-		res.send("Đơn hàng đã xác nhận  rồi"); 
-		return;
+		return res.send("Đơn hàng đã xác nhận  rồi"); 
+		
 	}else{
-		res.send("Đơn hàng đã xác nhận  rồi, đang được xử lý rồi"); 
-		return;
+		return res.send("Đơn hàng đã xác nhận  rồi, đang được xử lý rồi"); 
+		
 	}		
 		
 

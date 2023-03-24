@@ -34,51 +34,51 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			user_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-check-review-by-user-web",
 				"message": "vui lòng nhập user id"
 			}); 	
-			return;
+			
 		}
 		
 		var product_id = 0;
 		if(req.query.c2){
 			product_id = req.query.c2;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "11", 
 				"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-check-review-by-user-web",
 				"message": "vui lòng nhập product id"
 			}); 	
-			return;
+			
 		}		
 		
-		//res.send([user_id,product_id]);
-		//return;
+		//return res.send([user_id,product_id]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "111", 
 			"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-check-review-by-user-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 
 	
 	
-	//res.send([check_role_result]);
-	//return;	
+	//return res.send([check_role_result]);
+	//	
 	
 
 	//@ lấy req data
@@ -113,8 +113,8 @@ async  function function_export(req, res, next) {
 			]   
 		}
 	
-		//res.send({"error":"","datas":data_get}); 
-		//return;
+		//return res.send({"error":"","datas":data_get}); 
+		//
 
 
 	
@@ -122,27 +122,27 @@ async  function function_export(req, res, next) {
 		var result = await order_search(data_get,res);
 		
 		if(result.length > 0){
-			res.send({"error":"","datas":1}); 
-			return;
+			return res.send({"error":"","datas":1}); 
+			
 		}else{
-			res.send({"error":"","datas":0}); 
-			return;			
+			return res.send({"error":"","datas":0}); 
+						
 		}
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/reviews/controllers-reviewr-check-review-by-user-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 }

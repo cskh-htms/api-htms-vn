@@ -28,30 +28,30 @@ async  function function_export(req, res, next) {
 		if(req.query.c1){
 			user_id = req.query.c1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "1", 
 				"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-user-id-web",
 				"message": "vui lòng nhập id"
 			}); 	
-			return;
+			
 		}
-		//res.send(user_id);
-		//return;
+		//return res.send(user_id);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-user-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -80,8 +80,8 @@ async  function function_export(req, res, next) {
 			]   
 		}
 	
-		//res.send({"error":"","datas":data_get}); 
-		//return;
+		//return res.send({"error":"","datas":data_get}); 
+		//
 
 
 	
@@ -97,33 +97,33 @@ async  function function_export(req, res, next) {
 			}
 		}			
 		
-		//res.send({"error":"","datas":order_arr}); 
-		//return;
+		//return res.send({"error":"","datas":order_arr}); 
+		//
 
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/orders/controllers-order-get-by-user-id-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
 	//get meta order
 	var get_meta_order_resuilt = await get_meta_order(order_result,order_arr,res);
 
-	res.send({"error":"","datas":get_meta_order_resuilt}); 
-	return;
+	return res.send({"error":"","datas":get_meta_order_resuilt}); 
+	
 
 
 }

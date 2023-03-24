@@ -35,23 +35,23 @@ async  function function_export(req, res, next) {
 	try {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
-		//res.send([token,datas]);
-		//return;
+		//return res.send([token,datas]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/app/v5/controller/controllers-shipping-caution-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -61,14 +61,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"api/app/v5/controller/controllers-shipping-caution-app", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"api/app/v5/controller/controllers-shipping-caution-app", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -82,8 +82,8 @@ async  function function_export(req, res, next) {
 	//@ kiểm tra data gữi lên đúng chuẩn hay chưa
 	//@ nếu không đúng thì return
 	if(!datas.adress || !datas.orders_details || !datas.type){
-		res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->caution", "message" : "đata gữi lên bị thiếu, vui lòng xem hướng dẫn api"}); 
-		return;			
+		return res.send({ "error" : "2" ,"position":"ctl-shipping_spaciality->caution", "message" : "đata gữi lên bị thiếu, vui lòng xem hướng dẫn api"}); 
+					
 	}
 	
 	if(datas.orders_details[0].orders_details_speciality_product_id){
@@ -117,31 +117,31 @@ async  function function_export(req, res, next) {
 		}
 		
 		var product_search_redult= await product_search(data_get,res);
-		//res.send(product_search_redult);
+		//return res.send(product_search_redult);
 		//return ;
 		
 		
 		
 		var store_id = product_search_redult[0].products_speciality_store_id; 
-		//res.send([store_id]); 
-		//return;					
+		//return res.send([store_id]); 
+		//					
 		
 		if( Array.isArray(product_search_redult)){
 		}else{
 			var evn = ojs_configs.evn;
-			evn = "dev";
+			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, product_search_redult, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
-			res.send({ "error" : "1222" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
-			return;							
+			return res.send({ "error" : "1222" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+										
 		}		
 		
 
 	}else{
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi data gữi lên bị thiếu dữ liệu, Liên hệ HTKT dala" );
-		res.send({ "error" : "1000" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
-		return;			
+		return res.send({ "error" : "1000" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
+					
 	}
 
 
@@ -182,8 +182,8 @@ async  function function_export(req, res, next) {
 			
 			var price_caution = await shipping_search(data_get,res);
 			if(price_caution.length > 0){
-				res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
-				return;	
+				return res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
+					
 			}	
 		}			
 		
@@ -217,8 +217,8 @@ async  function function_export(req, res, next) {
 			
 			var price_caution = await shipping_search(data_get,res);
 			if(price_caution.length > 0){
-				res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
-				return;	
+				return res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
+					
 			}	
 		}	
 
@@ -252,13 +252,13 @@ async  function function_export(req, res, next) {
 			
 			var price_caution = await shipping_search(data_get,res);
 			if(price_caution.length > 0){
-				res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
-				return;	
+				return res.send({ "error" : "" ,"store_id": store_id, "datas" : price_caution[0].shipping_speciality_price});  
+					
 			}			
 		}
 
-		res.send({ "error" : "12" ,"position":"ctl-shipping_spaciality->caution", "message" : "Địa chỉ không có trong hệ thống dala"}); 
-		return;	
+		return res.send({ "error" : "12" ,"position":"ctl-shipping_spaciality->caution", "message" : "Địa chỉ không có trong hệ thống dala"}); 
+			
 		
 		
 	//@
@@ -283,8 +283,8 @@ async  function function_export(req, res, next) {
 		//@
 		//@		
 		
-		//res.send(arr_id);
-		//return;
+		//return res.send(arr_id);
+		//
 		
 		
 		let data_get =    
@@ -313,8 +313,8 @@ async  function function_export(req, res, next) {
 		}				
 		
 		var price_list = await product_search(data_get,res);		
-		//res.send([price_list,datas.orders_details]);  
-		//return;
+		//return res.send([price_list,datas.orders_details]);  
+		//
 
 		if( Array.isArray(price_list) ){
 			if(price_list.length > 0){
@@ -326,12 +326,12 @@ async  function function_export(req, res, next) {
 						}
 					}						
 				}				
-				//res.send({ "error" : "" , "datas" : price_list,"weight":weight_sum}); 
-				//return;
+				//return res.send({ "error" : "" , "datas" : price_list,"weight":weight_sum}); 
+				//
 			}
 		}
-		//res.send([price_sum]);  
-		//return;	
+		//return res.send([price_sum]);  
+		//	
 
 		let data_get_store =    
 		{
@@ -362,7 +362,7 @@ async  function function_export(req, res, next) {
 		}
 		
 		var stores_info = await product_search(data_get_store,res);
-		//res.send(stores_info);
+		//return res.send(stores_info);
 		//return ;
 
 
@@ -380,8 +380,8 @@ async  function function_export(req, res, next) {
 	
 		
 		//let token_ghtk = process.env.token_ghtk.replace(/^'"\"'$/gi, "");
-		//res.send({ "error" : "" , "datas" : [url,token_ghtk]}); 
-		//return;							
+		//return res.send({ "error" : "" , "datas" : [url,token_ghtk]}); 
+		//							
 		
 		
 		
@@ -389,19 +389,19 @@ async  function function_export(req, res, next) {
 		
 		var result = await ojs_shares_fetch_data.get_data_send_token_get_ghtk(url,"81C766114DabC2481D725898F52FEa4a20789C6b");
 		
-		//res.send({ "error" : "" , "datas" : result}); 
-		//return;	
+		//return res.send({ "error" : "" , "datas" : result}); 
+		//	
 		
 		
 		if(result.fee.fee){
-			res.send({ "error" : "" ,"store_id": store_id, "datas" : result.fee.fee}); 	
-			return;
+			return res.send({ "error" : "" ,"store_id": store_id, "datas" : result.fee.fee}); 	
+			
 		}else{
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares.show_error( evn, "Không tìm thấy giá của khu vực này", "Không tìm thấy giá của khu vực này" );
-			res.send({ "error" : "13" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send }); 
-			return;								
+			return res.send({ "error" : "13" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send }); 
+											
 		}
 
 
@@ -410,8 +410,8 @@ async  function function_export(req, res, next) {
 	//@
 	//@		
 	}else{
-		res.send({ "error" : "18" ,"position":"ctl-shipping_spaciality->caution", "message" : "Chưa có type này, chỉ có dala và ghtk"}); 
-		return;			
+		return res.send({ "error" : "18" ,"position":"ctl-shipping_spaciality->caution", "message" : "Chưa có type này, chỉ có dala và ghtk"}); 
+					
 	}
 }
 

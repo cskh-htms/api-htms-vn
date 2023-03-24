@@ -12,28 +12,28 @@ async  function function_export(req, res, next) {
 		var token = req.session.token;	
 		var datas  = req.body.datas;
 		if(token == "" || token == null || token == undefined || token == 'null'){
-			res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
-			return;
+			return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
+			
 		}		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
 			"Lỗi lấy req" 
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"controller->bo-cong-thuong-load",
 			"message": error_send 
 		}); 
-		return;			
+					
 	}
 	
-	//res.send( ["sdfsfsdf"] );
-	//return;	
+	//return res.send( ["sdfsfsdf"] );
+	//	
 	
 	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
 			ojs_configs.domain + '/api/appdalacom/' + 
@@ -43,8 +43,8 @@ async  function function_export(req, res, next) {
 			token
 		);	
 		
-	//res.send( [data_api_resuilt] );
-	//return;	
+	//return res.send( [data_api_resuilt] );
+	//	
 		
 		
 	//@
@@ -52,27 +52,27 @@ async  function function_export(req, res, next) {
 	//@ check error		
 	if(data_api_resuilt.error){		
 		if(data_api_resuilt.position =="middle_ware"){
-			res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
-			return;
+			return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
+			
 		}		
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
 			data_api_resuilt.message
 		);
-		res.send({ 
+		return res.send({ 
 			"error" : "99", 
 			"position":"web->controller->bo-cong-thuong-load",
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 	
-	//res.send( data_api_resuilt[0][1] );
-	//return;
+	//return res.send( data_api_resuilt[0][1] );
+	//
 	
 	//@
 	try {
@@ -90,17 +90,17 @@ async  function function_export(req, res, next) {
 			'traffic'				: data_api_resuilt[0][9],			
 		}
 	
-		//res.send(data_send);
-		//return;
+		//return res.send(data_send);
+		//
 		
 		res.render( ojs_configs.view_version + '/masterpage/widget-bo-cong-thuong',  data_send );
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
-			res.send({ "error" : "100","":"", "message": error_send } ); 
-			return;		
+			return res.send({ "error" : "100","":"", "message": error_send } ); 
+					
 	}			
 };
 

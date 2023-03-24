@@ -17,8 +17,7 @@ const ojs_shares = require('../../models/ojs-shares');
 //@
 //@	router
 router.get('/', async function(req, res, next) {
-	res.send("welCom !!!");
-	return;
+	return res.send("welCom !!!");
 });
 
 	

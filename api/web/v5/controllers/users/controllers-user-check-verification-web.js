@@ -45,23 +45,23 @@ async  function function_export(req, res, next) {
 		var token = req.headers['token'];
 		var newPayload = jwt.decode(token);
 		var user_id = newPayload.users_ID
-		//res.send([user_id]);
-		//return;
+		//return res.send([user_id]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctronller/controllers-user-verification-code-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -71,14 +71,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -109,15 +109,15 @@ async  function function_export(req, res, next) {
 	
 	var user_search_result = await user_search(data_get,res);
 	//var x = Number(user_search_result.users_verification_status);
-	//res.send([user_search_result[0].users_verification_status]);
-	//return;
+	//return res.send([user_search_result[0].users_verification_status]);
+	//
 	
 	if(user_search_result[0].users_verification_status =='1'){
-		res.send({"error":"","datas":{"status":1,"message":"đã xác thực"}});
-		return;
+		return res.send({"error":"","datas":{"status":1,"message":"đã xác thực"}});
+		
 	}else{
-		res.send({"error":"","datas":{"status":0,"message":"chưa xác thực"}});
-		return;		
+		return res.send({"error":"","datas":{"status":0,"message":"chưa xác thực"}});
+				
 	}
 
 

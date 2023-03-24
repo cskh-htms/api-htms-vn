@@ -36,18 +36,18 @@ async  function controllers_category_app(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctroller/category/controllers-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 
 
@@ -103,30 +103,30 @@ async  function controllers_category_app(req, res, next) {
 	
 		//@ get datas
 		let result = await category_search.search_category_spaciality(data_get,res);
-		res.send({"error":"","datas":result}); 
-		return;
+		return res.send({"error":"","datas":result}); 
+		
 
 
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3", 
 			"position" : "api/web/v5/ctroller/category/controllers-category-app",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}		
 		
 
-	res.send({"error":"","datas":result}); 
-	return;
+	return res.send({"error":"","datas":result}); 
+	
 	
 }
 

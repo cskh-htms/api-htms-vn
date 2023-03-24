@@ -37,7 +37,7 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			error, 
@@ -84,7 +84,7 @@ async  function function_export(req, res, next) {
 		}
 		
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
 			data_api_resuilt, 
@@ -195,7 +195,7 @@ async  function function_export(req, res, next) {
 	}
 	catch(error){
 			var evn = ojs_configs.evn;
-			//evn = "dev";
+			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi data_send" );
 			return res.send({ "error" : "100","position":"web/controller/admin/main/controllers-admin-mains.js", "message": error_send } ); 
 					

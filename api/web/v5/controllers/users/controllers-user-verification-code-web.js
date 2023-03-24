@@ -46,23 +46,23 @@ async  function function_export(req, res, next) {
 		var datas = req.body.datas;
 		var user_id = datas.users_ID;
 		
-		//res.send([token,datas,user_id]);
-		//return;
+		//return res.send([token,datas,user_id]);
+		//
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "api/web/v5/ctronller/controllers-user-verification-code-web",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 
@@ -72,14 +72,14 @@ async  function function_export(req, res, next) {
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
-		return;
+		return res.send({ "error" : "2", "position":"ctl-users->get_verification_code", "message": error_send } ); 
+		
 	}	
 		
-	//res.send(de_token);
-	//return;
+	//return res.send(de_token);
+	//
 
 
 
@@ -106,8 +106,8 @@ async  function function_export(req, res, next) {
 	
 	
 	user_search(data_get,res).then( results => {
-		//res.send(results);
-		//return;
+		//return res.send(results);
+		//
 		
 		//@
 		//@
@@ -119,11 +119,11 @@ async  function function_export(req, res, next) {
 			//nếu xác thực rùi thì return
 			//nếu chưa xác thực thì gữi max xác thực
 			if(results[0].users_verification_status == "1"){
-				res.send({ 
+				return res.send({ 
 				"error" : "5", 
 				"position":"ctl-users->verification_code", 
 				"message": "User này đã xác thực rồi" } ); 
-				return;						
+										
 			}
 			
 			//@
@@ -145,20 +145,20 @@ async  function function_export(req, res, next) {
 					//@
 					// nếu quá hạn 10 phú thì là hết hạn
 					if(date_minute > 10 ){
-						res.send({ 
+						return res.send({ 
 						"error" : "6", 
 						"position":"ctl-users->verification_code", 
 						"message": "hết thời gian"} ); 
-						return;								
+														
 					}
 					
 				}
 				catch(error){
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi tính thời gian code live, Liên hệ bộ phan HTKT dala" );
-					res.send({ "error" : "7", "position":"ctl-users->verification_code", "message": error_send } );  
-					return;	
+					return res.send({ "error" : "7", "position":"ctl-users->verification_code", "message": error_send } );  
+						
 				}		
 
 				//@
@@ -170,8 +170,8 @@ async  function function_export(req, res, next) {
 						"users_verification_code":"",
 						"users_verification_status":1
 					}
-					//res.send(datas_verification);
-					//return;	
+					//return res.send(datas_verification);
+					//	
 					
 					//@
 					//@
@@ -180,54 +180,54 @@ async  function function_export(req, res, next) {
 						//@
 						//@
 						//send data
-						res.send( {"error" : "", "message" : "verification ok "} );
-						return;
+						return res.send( {"error" : "", "message" : "verification ok "} );
+						
 
 					}, error => {
 						
 						let message_error = default_field.get_message_error(error);
 						
 						var evn = ojs_configs.evn;
-						//evn = "dev";
+						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
-						res.send({ "error" : "8", "position":"ctl-users->verification_code", "message": error_send } ); 
-						return;	
+						return res.send({ "error" : "8", "position":"ctl-users->verification_code", "message": error_send } ); 
+							
 					});
 				}
 				catch(error){
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
-					res.send({ "error" : "9", "position":"ctl-users->verification_code", "message": error_send } ); 
-					return;	
+					return res.send({ "error" : "9", "position":"ctl-users->verification_code", "message": error_send } ); 
+						
 				}	
 				
 			}else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, 
 				"Mã xác thực không đúng hoặc đã hết hạn", 
 				"Mã xác thực không đúng hoặc đã hết hạn" );
-				res.send({ "error" : "10", "position":"ctl-users->verification_code", "message": error_send } ); 
-				return;					
+				return res.send({ "error" : "10", "position":"ctl-users->verification_code", "message": error_send } ); 
+									
 			}
 		//@
 		//@
 		//@ nếu không có datas
 		}else{
 				var evn = ojs_configs.evn;
-				//evn = "dev";
+				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
-				res.send({ "error" : "11", "position":"ctl-users->verification_code", "message": error_send } );  
-				return;				
+				return res.send({ "error" : "11", "position":"ctl-users->verification_code", "message": error_send } );  
+								
 		}			
 
 	}, error => {
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
-		res.send({ "error" : "12", "position":"ctl-users->verification_code", "message": error_send } ); 
-		return;			
+		return res.send({ "error" : "12", "position":"ctl-users->verification_code", "message": error_send } ); 
+					
 	});
 
 
