@@ -35,18 +35,18 @@ const orders_search_news_admin = async function (res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi order news admin, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/orders/order news admin", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -55,7 +55,7 @@ const orders_search_news_admin = async function (res) {
 	
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -66,7 +66,7 @@ const orders_search_news_admin = async function (res) {
 			"position" : "lib/orders/order news admin",  
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };

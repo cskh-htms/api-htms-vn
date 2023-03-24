@@ -14,8 +14,8 @@ const check_owner_store = async function(token,store_id,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_store , liên hệ admin" );
-		res.send ({ "error" : "1", "position":"api/shares/check_owner_store","message": error_send });
-		return;
+		return res.send ({ "error" : "1", "position":"api/shares/check_owner_store","message": error_send });
+		
 	}
 
 	try {
@@ -60,12 +60,12 @@ const check_owner_store = async function(token,store_id,res){
 				error, 
 				"Lỗi check-owner store, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

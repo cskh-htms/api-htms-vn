@@ -30,18 +30,18 @@ const brand_news_bussiness_count = async function (store_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";;
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi brand count bussiness, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/brands/brand count bussiness", 
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -51,18 +51,18 @@ const brand_news_bussiness_count = async function (store_id,res) {
 	
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi brand bussiness count, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/brands/brand count bussiness", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };

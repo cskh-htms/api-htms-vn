@@ -86,12 +86,12 @@ const function_export = function (id,res) {
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->option->delete",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -101,16 +101,16 @@ const function_export = function (id,res) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
 				"Lỗi delete, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->option->delete",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

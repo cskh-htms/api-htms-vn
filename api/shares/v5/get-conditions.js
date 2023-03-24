@@ -155,7 +155,7 @@ const get_consition =  function(datas,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi decode , liên hệ admin" );
 		return { "error" : "1", "position":"get condition","message": error_send };
 	}	

@@ -67,8 +67,8 @@ const function_export = async function (datas,user_id,res) {
 	//create sql text
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ user_id + '"';
 	
-	//res.send([sql_text]);
-	//return;
+	//return res.send([sql_text]);
+	//
 	
 	
 	//@
@@ -80,18 +80,18 @@ const function_export = async function (datas,user_id,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->user->update",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -99,18 +99,18 @@ const function_export = async function (datas,user_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi insert data user add, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->user->update",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}	
 	
 };	

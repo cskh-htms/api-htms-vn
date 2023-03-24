@@ -36,12 +36,12 @@ const option_news_bussiness = async function (store_id,res) {
 							err, 
 							"Lỗi option news bussiness, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/options/option news bussiness", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -57,12 +57,12 @@ const option_news_bussiness = async function (store_id,res) {
 				error, 
 				"Lỗi option news bussiness, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/options/option news bussiness", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };

@@ -21,12 +21,12 @@ const function_export = async function(token,meta_id,res){
 			error, 
 			"check_owner_coupon , liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "1", 
 			"position":"api/shares/check_owner_meta-adress",
 			"message": error_send 
 		});
-		return;
+		
 	}
 
 
@@ -63,7 +63,7 @@ const function_export = async function(token,meta_id,res){
 		
 		var meta_adress_search_resuilt = await meta_adress_search(datas,res);
 		
-		//res.send(meta_adress_search_resuilt);
+		//return res.send(meta_adress_search_resuilt);
 		//return;
 		
 		if(meta_adress_search_resuilt.length >  0 && meta_adress_search_resuilt[0].adress_meta_user_id == users_decode.users_ID){
@@ -80,12 +80,12 @@ const function_export = async function(token,meta_id,res){
 				error, 
 				"Lỗi check-owner meta adress, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner meta adress", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

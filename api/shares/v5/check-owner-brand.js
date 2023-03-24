@@ -15,7 +15,7 @@ const check_owner_brand = async function(token,brand_id,res){
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_brand , liên hệ admin" );
 		res.send ({ "error" : "1", "position":"api/shares/check_owner_brand","message": error_send });
-		return;
+		
 	}
 
 	try {
@@ -71,7 +71,7 @@ const check_owner_brand = async function(token,brand_id,res){
 			"position" : "api->shares->check-owner-brand", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

@@ -47,18 +47,18 @@ const function_export = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "lib/options/option search", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 	//@
@@ -67,18 +67,18 @@ const function_export = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi lib/options/option search, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/options/option search", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -86,18 +86,18 @@ const function_export = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi lib/options/option search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/options/option search", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

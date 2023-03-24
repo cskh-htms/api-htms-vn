@@ -48,18 +48,18 @@ const function_export = function (coupon_id,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->coupon->limit-number",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -67,18 +67,18 @@ const function_export = function (coupon_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				//evn, 
 				error, 
 				"Lỗi insert data coupon delete, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->coupon->limit-number",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

@@ -22,8 +22,8 @@ const check_role = async function(token,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi decode , liên hệ admin" );
-		res.send ({ "error" : "1", "position":"api/shares/check-role","message": error_send });
-		return;
+		return res.send ({ "error" : "1", "position":"api/shares/check-role","message": error_send });
+		
 	}	
 }
 module.exports = {

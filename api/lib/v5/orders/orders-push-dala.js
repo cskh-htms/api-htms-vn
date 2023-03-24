@@ -78,18 +78,18 @@ const function_export = function (data,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi get assign data coupon, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "lib->orders->push-dala",
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 	
 	//return dataGo;
@@ -103,8 +103,8 @@ const function_export = function (data,res) {
 	}
 
 
-	//res.send([data]);
-	//return;
+	//return res.send([data]);
+	//
 
 	//@
 	//@
@@ -134,18 +134,18 @@ const function_export = function (data,res) {
 					var error_massage = fields_insert.get_message_error(err);	
 
 					
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->orders->push-dala",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -155,18 +155,18 @@ const function_export = function (data,res) {
 		var evn = ojs_configs.evn;
 		
 		
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi insert data coupon add, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->orders->push-dala",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

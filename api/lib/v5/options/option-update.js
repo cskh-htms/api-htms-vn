@@ -114,12 +114,12 @@ const function_export = async function (datas,id,res) {
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib/option/update",
 						"message": error_send 
 					}); 
-					return;	
+						
 				}
 				resolve(results);
 			} );
@@ -133,12 +133,12 @@ const function_export = async function (datas,id,res) {
 				error, 
 				"Lỗi update, Vui lòng liên hệ admin DALA " 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/option/update",
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 };	
 

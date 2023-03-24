@@ -102,7 +102,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				error, 
 				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "api/shares/v5/checked-coupon-condition-code",
 			"message": error_send 
@@ -187,7 +187,7 @@ const check_limit_number = async function(coupon_id,number,res){
 				error, 
 				"Lỗi check_limit_number, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api/shares/v5/checked-coupon-condition-code",
 			"message": error_send 
@@ -231,7 +231,7 @@ const check_limit_user = async function(coupon_id,number,user_id,res){
 				error, 
 				"Lỗi check_limit_user, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api/shares/v5/checked-coupon-condition-code",
 			"message": error_send 
@@ -271,7 +271,7 @@ const check_first_sale = async function(datas,value,user_id,res){
 				error, 
 				"Lỗi check_first_sale, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "api/shares/v5/checked-coupon-condition",
 			"message": error_send 
@@ -310,7 +310,7 @@ const check_qty = async function(datas,value,res){
 				error, 
 				"Lỗi check_qty, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api/shares/v5/checked-coupon-condition",
 			"message": error_send 
@@ -356,12 +356,12 @@ const check_price_percen = async function(datas,value,res){
 				error, 
 				"Lỗi check_price_percen, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "api/shares/v5/checked-coupon-condition",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}		
 		
 }

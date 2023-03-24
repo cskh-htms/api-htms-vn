@@ -67,18 +67,18 @@ const tu_choi_product = function (datas,product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "lib/products/product tu choi", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 	//@
@@ -87,18 +87,18 @@ const tu_choi_product = function (datas,product_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi product từ chối sàn phẩm, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/products/product tu choi", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -106,18 +106,18 @@ const tu_choi_product = function (datas,product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/products/product tu choi", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

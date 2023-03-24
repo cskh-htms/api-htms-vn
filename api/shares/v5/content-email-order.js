@@ -31,7 +31,7 @@ const function_export = async function(order_id,res){
 	
 	let txt_return = '';
 
-	//res.send([order_id]); 
+	//return res.send([order_id]); 
 	//return;	
 	
 	
@@ -55,13 +55,13 @@ const function_export = async function(order_id,res){
 		]   
 	}
 
-	//res.send({"error":"","datas":data_get}); 
+	//return res.send({"error":"","datas":data_get}); 
 	//return;
 
 	//@ get datas
 	var order_result = await order_search(data_get,res);
 	
-	//res.send([order_result]); 
+	//return res.send([order_result]); 
 	//return;	
 	
 
@@ -77,7 +77,7 @@ const function_export = async function(order_id,res){
 
 	var get_meta_order_resuilt = await get_meta_order(order_result,order_arr,res);
 
-	//res.send({"error":"","datas":get_meta_order_resuilt}); 
+	//return res.send({"error":"","datas":get_meta_order_resuilt}); 
 	//return;
 
 

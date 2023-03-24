@@ -26,8 +26,8 @@ const order_insert = function (datas,res) {
 		return Array.from(new Set(arr)) 
 	}	
 	const user_arr_result = unique(datas.notes_user_id);
-	//res.send(user_arr_result);		
-	//return;
+	//return res.send(user_arr_result);		
+	//
 	
 	
 	
@@ -58,8 +58,8 @@ const order_insert = function (datas,res) {
 	
 	sql_text = sql_text +  "COMMIT ; "	
 	
-	//res.send(sql_text);		
-	//return;	
+	//return res.send(sql_text);		
+	//	
 	
 	
 	
@@ -76,18 +76,18 @@ const order_insert = function (datas,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->notes->insert",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			});
@@ -95,18 +95,18 @@ const order_insert = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				//evn, 
 				error, 
 				"Lỗi insert order, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->notes->insert",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

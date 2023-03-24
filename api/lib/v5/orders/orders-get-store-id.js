@@ -41,18 +41,18 @@ const get_store_id = async function (product_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi order get store id, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/orders/order get store id", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -60,18 +60,18 @@ const get_store_id = async function (product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi order get store id, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/orders/order get store id", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 };
 

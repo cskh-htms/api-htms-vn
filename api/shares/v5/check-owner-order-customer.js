@@ -15,12 +15,12 @@ const check_owner_order_customer = async function(token,order_id,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_store , liên hệ admin" );
-		res.send ({ 
+		return res.send ({ 
 			"error" : "1", 
 			"position" : "check-owner-order-customer", 
 			"message": error_send 
 		});
-		return;
+		
 	}
 
 	try {
@@ -62,18 +62,18 @@ const check_owner_order_customer = async function(token,order_id,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check-owner store, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner-order-customer", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

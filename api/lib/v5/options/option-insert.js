@@ -43,12 +43,12 @@ const function_export = function (data,res) {
 				error, 
 				"Lỗi get assign data coupon, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "lib->options->inser",
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 	
 	//return dataGo;
@@ -77,12 +77,12 @@ const function_export = function (data,res) {
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->options->inser",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -96,12 +96,12 @@ const function_export = function (data,res) {
 				error, 
 				"Lỗi insert, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->options->inser",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

@@ -14,7 +14,7 @@ const ojs_shares_all_api = require('../../shares/' + config_api.API_SHARES_VERSI
 //@@[coupon_condition]
 const coupon_condition = async function(datas,coupon_list,user_id,res){
 	
-	//res.send(coupon_list);
+	//return res.send(coupon_list);
 	//return;
 	
 	try{
@@ -53,7 +53,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				res
 			);
 			
-			//res.send([coupon_limit_result]);
+			//return res.send([coupon_limit_result]);
 			//return;
 			
 			
@@ -67,7 +67,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 			);
 			
 			
-			//res.send([user_limit_result]);
+			//return res.send([user_limit_result]);
 			//return;
 			
 			let check_price_percen_result =  await check_price_percen(
@@ -76,7 +76,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				res
 			);
 			
-			//res.send([check_price_percen_result]);
+			//return res.send([check_price_percen_result]);
 			//return;
 
 
@@ -174,12 +174,12 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 				error, 
 				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}		
 }	
 
@@ -260,12 +260,12 @@ const check_limit_user = async function(limit_data,coupon_id,number,user_id,res)
 				error, 
 				"Lỗi check_limit_user, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "6",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}			
 }	
 
@@ -300,12 +300,12 @@ const check_limit_number = async function(limit_data,coupon_id,number,res){
 				error, 
 				"Lỗi check_limit_number, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "5",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}			
 }	
 
@@ -324,7 +324,7 @@ const check_first_sale = async function(datas,value,user_id,res){
 		
 		
 		if(user_first_sale_result.length > 0){
-			res.send({ 
+			return res.send({ 
 				"error" : "03",
 				"position" : "api/shares/v5/checked-coupon-condition-code-all",
 				"message": "Mã giàm giá không đủ điều kiện, Khách hàng này đã từng mua hàng rồi"
@@ -343,12 +343,12 @@ const check_first_sale = async function(datas,value,user_id,res){
 				error, 
 				"Lỗi check_first_sale, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}			
 }	
 
@@ -374,7 +374,7 @@ const check_qty = async function(datas,value,res){
 		if(data_sum >= value){
 			data_return = 1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "02",
 				"position" : "api/shares/v5/checked-coupon-condition-code-all",
 				"message": "Mã giàm giá không đủ điều kiện, Tổng số sản phẩm của đơn hàng phải lớn hơn : " + 
@@ -392,12 +392,12 @@ const check_qty = async function(datas,value,res){
 				error, 
 				"Lỗi check_qty, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}			
 }	
 
@@ -407,7 +407,7 @@ const check_qty = async function(datas,value,res){
 //@@
 //@@ [price_percen]
 const check_price_percen = async function(datas,value,res){
-	//res.send([datas]);
+	//return res.send([datas]);
 	//return ;
 	try{
 		var data_sum = 0;
@@ -438,13 +438,13 @@ const check_price_percen = async function(datas,value,res){
 				}
 				var data_price = await product_search(data_get,res);	
 				if(data_price.length <= 0 ){
-					res.send({ 
+					return res.send({ 
 						"error" : "001",
 						"position" : "api/shares/v5/checked-coupon-condition-code-all",
 						"message": "Không tìm thấy sản phẩm  [ " +  datas[x].line_order[i].orders_details_speciality_product_id + " ]"
 					}); 					
 				}
-				//res.send(data_price);
+				//return res.send(data_price);
 				//return ;
 				
 				var line_sum = datas[x].line_order[i].orders_details_speciality_qty * data_price[0].products_speciality_price_caution;
@@ -459,7 +459,7 @@ const check_price_percen = async function(datas,value,res){
 		if(data_sum >= value){
 			data_return = 1;
 		}else{
-			res.send({ 
+			return res.send({ 
 				"error" : "01",
 				"position" : "api/shares/v5/checked-coupon-condition-code-all",
 				"message": "Mã giàm giá không đủ điều kiện, Tổng đơn hàng phải lớn hơn : " + 
@@ -478,12 +478,12 @@ const check_price_percen = async function(datas,value,res){
 				error, 
 				"Lỗi check_price_percen, Vui lòng liên hệ admin DALA" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "api/shares/v5/checked-coupon-condition-code-all",
 			"message": error_send 
 		}); 
-		return;				
+						
 	}		
 		
 }
@@ -532,7 +532,7 @@ const price_percen = async function(datas,value,max){
 			}
 			var data_price = await product_search(data_get,res);	
 			if(data_price.length <= 0 ){
-				res.send({ 
+				return res.send({ 
 					"error" : "001",
 					"position" : "api/shares/v5/checked-coupon-condition-code-all",
 					"message": "Không tìm thấy sản phẩm  [ " +  datas[x].line_order[i].orders_details_speciality_product_id + " ]"

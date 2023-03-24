@@ -36,12 +36,12 @@ const function_export = async function(token,order_id,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner , liên hệ admin" );
-		res.send ({ 
+		return res.send ({ 
 			"error" : "1", 
 			"position" : "lib->share->check-owner-order-store", 
 			"message": error_send 
 		});
-		return;
+		
 	}
 
 	try {
@@ -83,18 +83,18 @@ const function_export = async function(token,order_id,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check-owner, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "lib->share->check-owner-order-store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

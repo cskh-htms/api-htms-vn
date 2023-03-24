@@ -62,18 +62,18 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi update review, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/reviews/reviews - update", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -81,18 +81,18 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi orders search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/reviews/reviews - update", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 };	
 

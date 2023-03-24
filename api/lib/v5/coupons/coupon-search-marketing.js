@@ -47,18 +47,18 @@ const coupon_search_sale_by_store = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi coupon_search_sale_by_store, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "api/coupons/coupon_search_by_marketing", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 	//@
@@ -67,18 +67,18 @@ const coupon_search_sale_by_store = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi coupon_search_sale_by_store, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "api/coupons/coupon_search_by_marketing", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -86,18 +86,18 @@ const coupon_search_sale_by_store = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi coupon_search_sale_by_store, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "api/coupons/coupon_search_by_marketing", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

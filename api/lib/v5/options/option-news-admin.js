@@ -33,12 +33,12 @@ const option_news_admin = async function (res) {
 							err, 
 							"Lỗi option news admin, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/options/option news admin", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -54,12 +54,12 @@ const option_news_admin = async function (res) {
 				error, 
 				"Lỗi option news admin, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/options/option news admin", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };

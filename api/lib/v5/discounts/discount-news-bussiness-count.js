@@ -30,13 +30,13 @@ const discount_news_bussiness_count = async function (store_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi discount count bussiness, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/discount/discount count bussiness", 
 						"message": error_send 
@@ -49,13 +49,13 @@ const discount_news_bussiness_count = async function (store_id,res) {
 	}	
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi discount bussiness count, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/discount/discount count bussiness", 
 			"message": error_send 

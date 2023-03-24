@@ -29,6 +29,7 @@ const search_category_spaciality = async function (datas,res) {
 		var sql_condition = get_conditions(datas,res);	
 		var sql_limit = get_limit(datas,res);
 		var sql_order = get_order(datas,res);
+		
 		var sql_group_by = get_group_by(datas,res);
 		var sql_having = get_having(datas,res);	
 		
@@ -47,18 +48,18 @@ const search_category_spaciality = async function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi category search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "lib/categorys/category search", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 	//@
@@ -67,18 +68,18 @@ const search_category_spaciality = async function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";;
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi category search, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/categorys/category search", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -86,18 +87,18 @@ const search_category_spaciality = async function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";;
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				err, 
 				"Lỗi category search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/categorys/category search", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

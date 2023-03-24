@@ -55,7 +55,8 @@ const function_export = function (id,res) {
 				error, 
 				"Lỗi lib->payment-period->get one, Vui lòng liên hệ admin" 
 			);
-		return res.send({ 
+		return res.send(
+		{ 
 			"error" : "1",
 			"position" : "lib->payment-period->get one", 
 			"message": error_send 

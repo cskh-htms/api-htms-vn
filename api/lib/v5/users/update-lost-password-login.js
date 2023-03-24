@@ -65,12 +65,12 @@ const function_export = function (datas,res) {
 							err, 
 							"Lỗi update lost password, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/users/update lost password", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -78,18 +78,18 @@ const function_export = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi update lost password, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/users/update lost password", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

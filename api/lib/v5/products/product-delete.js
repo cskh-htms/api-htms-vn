@@ -29,18 +29,18 @@ const delete_product = function (product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product delete, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "lib/products/product delete", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 	//@
@@ -49,7 +49,7 @@ const delete_product = function (product_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					
 					let message_error = fields_insert.get_message_error(err);
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -57,12 +57,12 @@ const delete_product = function (product_id,res) {
 							err, 
 							message_error
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/products/product delete", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -70,18 +70,18 @@ const delete_product = function (product_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product delete, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/products/product delete", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

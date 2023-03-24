@@ -108,18 +108,18 @@ const function_export = async function (datas,id,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib/order-details/update",
 						"message": error_send 
 					}); 
-					return;	
+						
 				}
 				resolve(results);
 			} );
@@ -127,18 +127,18 @@ const function_export = async function (datas,id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi coupon-update, Vui lòng liên hệ admin DALA " 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/order-details/update",
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 };	
 

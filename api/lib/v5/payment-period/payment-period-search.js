@@ -53,7 +53,8 @@ const function_export = function (datas,res) {
 				error, 
 				"Lỗi search, Vui lòng liên hệ admin" 
 			);
-		return res.send({ 
+		return res.send(
+		{ 
 			"error" : "1",
 			"position" : "lib->payment-period->search", 
 			"message": error_send 

@@ -19,12 +19,12 @@ const function_export = async function(token,coupon_id,res){
 			error, 
 			"check_owner_coupon , liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send({ 
 			"error" : "1", 
 			"position":"api/shares/check_owner_coupon",
 			"message": error_send 
 		});
-		return;
+		
 	}
 
 
@@ -74,18 +74,18 @@ const function_export = async function(token,coupon_id,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check-owner coupon, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "check-owner coupon", 
 			"message": error_send 
 			}); 
-		return;	
+		
 	}
 
 	

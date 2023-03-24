@@ -46,18 +46,18 @@ const check_owner_product = async function(product_id,store_id,res){
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi check-owner product, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner product store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

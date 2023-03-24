@@ -31,18 +31,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product store update, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1",
 			"position" : "lib/products/product update store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 
@@ -96,18 +96,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/products/product update store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 
@@ -150,18 +150,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product update store option arr, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/products/product update store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 
@@ -202,18 +202,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product update store cat arr, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "4",
 			"position" : "lib/products/product update store", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}	
 
 
@@ -226,18 +226,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi product search, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "5",
 						"position" : "lib/products/product update store", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -245,18 +245,18 @@ const product_update_store = function (datas,product_id,cat_string, option_strin
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi product search, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "6",
 			"position" : "lib/products/product update store", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

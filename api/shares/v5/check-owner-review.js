@@ -15,12 +15,12 @@ const check_owner_review = async function(token,review_id,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi check_owner_review , liên hệ admin" );
-		res.send ({ 
+		return res.send ({ 
 			"error" : "1", 
 			"position":"api/shares/check_owner_review",
 			"message": error_send 
 		});
-		return;
+		
 	}		
 	
 	try {
@@ -65,12 +65,12 @@ const check_owner_review = async function(token,review_id,res){
 				error, 
 				"Lỗi check-owner reviews, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner reviews", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}			
 	
 }

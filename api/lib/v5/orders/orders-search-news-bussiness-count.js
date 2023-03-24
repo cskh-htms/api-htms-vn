@@ -37,18 +37,18 @@ const orders_search_news_bussiness = async function (store_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi order count bussiness, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/orders/order count bussiness", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -57,7 +57,7 @@ const orders_search_news_bussiness = async function (store_id,res) {
 	
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -68,7 +68,7 @@ const orders_search_news_bussiness = async function (store_id,res) {
 			"position" : "lib/orders/order count bussiness", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };

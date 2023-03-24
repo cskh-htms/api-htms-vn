@@ -19,8 +19,8 @@ const check_owner_user = async function(token,user_id,res){
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_user , liên hệ admin" );
-		res.send ({ "error" : "1", "position":"api/shares/check_owner_user","message": error_send });
-		return;
+		return res.send ({ "error" : "1", "position":"api/shares/check_owner_user","message": error_send });
+		
 	}	
 }
 module.exports = {

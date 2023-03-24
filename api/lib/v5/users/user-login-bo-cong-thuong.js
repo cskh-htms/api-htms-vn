@@ -20,8 +20,8 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 const user_search = function (datas,res) {	
 	
 	
-	//res.send(datas);
-	//return;
+	//return res.send(datas);
+	//
 	
 	
 	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
@@ -51,18 +51,18 @@ const user_search = function (datas,res) {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
 							"Lỗi user login one, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "2",
 						"position" : "lib/users/user login bo cong thuong", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -70,18 +70,18 @@ const user_search = function (datas,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
 				"Lỗi user login one, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "3",
 			"position" : "lib/users/user login bo cong thuong", 
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 };	
 

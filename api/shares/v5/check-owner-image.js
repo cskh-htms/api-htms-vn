@@ -19,12 +19,12 @@ const function_export = async function(token,image_id,res){
 			error, 
 			"check_owner_coupon , liên hệ admin" 
 		);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "1", 
 			"position":"api/shares/check_owner_image",
 			"message": error_send 
 		});
-		return;
+		
 	}
 
 
@@ -80,12 +80,12 @@ const function_export = async function(token,image_id,res){
 				error, 
 				"Lỗi check-owner coupon, Vui lòng liên hệ admin" 
 			);
-		res.send ({ 
+		return res.send ({ 
 			"error" : "2",
 			"position" : "check-owner coupon", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 
 	

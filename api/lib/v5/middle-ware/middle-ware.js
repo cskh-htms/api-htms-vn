@@ -16,24 +16,24 @@ const get_one_users = require('../users/get-one-users');
 async function middle_ware(req, res, next){
 	try{	
 		if( req.headers['token'] == null || req.headers['token'] == "" || req.headers['token'] == undefined ){
-			res.send( {"error": "1","postition":"middle-ware", "message":"Chưa có token"} );
-			return;
+			return res.send( {"error": "1","postition":"middle-ware", "message":"Chưa có token"} );
+			
 		}
 		var token  = req.headers['token'];
 		var newPayload = jwt.decode(token);
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy req middleware, vui lòng liên hệ admin", "Lỗi lấy req middleware, vui lòng liên hệ admin" );
-		res.send({ "error" : "2","postition":"middle-ware", "message": error_send } ); 
-		return;	  
+		return res.send({ "error" : "2","postition":"middle-ware", "message": error_send } ); 
+			  
 	}	
 	try{	
 		jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
 			if (err) {
-				res.send("Phiên làm việc đã hết hạn, Vui lòng đăng nhập lại"); 
-				return;		
+				return res.send("Phiên làm việc đã hết hạn, Vui lòng đăng nhập lại"); 
+						
 			}else{
 				token_search.search_token(token).then( results => {
 					if(Object.entries(results).length  > 0) {
@@ -43,46 +43,46 @@ async function middle_ware(req, res, next){
 								if(token_value_decode.users_phone == results2[0].users_phone && token_value_decode.users_password == results2[0].users_password){
 									next();
 								}else{
-									res.send({ "error" : "3", "postition":"middle-ware","message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 
-									return;								
+									return res.send({ "error" : "3", "postition":"middle-ware","message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 
+																	
 								}
 							}else{
 								var evn = ojs_configs.evn;
-								//evn = "dev";
+								////evn = "dev";
 								var error_send = ojs_shares_show_errors.show_error( evn, "Phiên làm việc đã hết hạn", "Phiên làm việc đã hết hạn" );
-								res.send({ "error" : "4", "postition":"middle-ware","message": error_send } ); 
-								return;	 				
+								return res.send({ "error" : "4", "postition":"middle-ware","message": error_send } ); 
+									 				
 							}
 						}, error => {
 							var evn = ojs_configs.evn;
-							evn = "dev";
+							//evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy token database, Vui lòng liên hệ CSKH dala" );
-							res.send({ "error" : "5", "postition":"middle-ware","message": error_send } ); 
-							return;	 		
+							return res.send({ "error" : "5", "postition":"middle-ware","message": error_send } ); 
+								 		
 						});		
 					}else{
 						var evn = ojs_configs.evn;
-						//evn = "dev";
+						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, "token đã hết hạn hoặc user đã thây đổi mật khẩu", "token đã hết hạn hoặc user đã thây đổi mật khẩu" );
-						res.send({ "error" : "6", "postition":"middle-ware","message": error_send } ); 
-						return;			
+						return res.send({ "error" : "6", "postition":"middle-ware","message": error_send } ); 
+									
 					}
 				}, error => {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "không tim thấy database token" );
-					res.send({ "error" : "7", "postition":"middle-ware","message": error_send } ); 
-					return;	
+					return res.send({ "error" : "7", "postition":"middle-ware","message": error_send } ); 
+						
 				});	
 			}
 		});
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "token đã hết hạn hoặc không hợp lệ", "server đang bận, truy cập lại sau" );
-		res.send({ "error" : "8", "postition":"middle-ware", "message": error_send } ); 
-		return;	  
+		return res.send({ "error" : "8", "postition":"middle-ware", "message": error_send } ); 
+			  
 	}	
 }
 

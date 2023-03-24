@@ -61,7 +61,7 @@ const order_update = async function (datas,order_id,res) {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					//evn = "dev";
+					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -72,7 +72,7 @@ const order_update = async function (datas,order_id,res) {
 						"position" : "lib/orders/order - update", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -80,7 +80,7 @@ const order_update = async function (datas,order_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		//evn = "dev";
+		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -91,7 +91,7 @@ const order_update = async function (datas,order_id,res) {
 			"position" : "lib/orders/order - update",
 			"message": error_send 
 		}); 
-		return;
+		
 	}
 };	
 

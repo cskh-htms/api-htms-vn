@@ -44,12 +44,12 @@ const function_export = function (data,res) {
 				error, 
 				"Lỗi get assign data, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "1", 
 			"position" : "lib->brand->inser.js",
 			"message": error_send 
 		}); 
-		return;
+		
 	}	
 	
 	//return dataGo;
@@ -78,12 +78,12 @@ const function_export = function (data,res) {
 							err, 
 							error_massage
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "10", 
 						"position" : "lib->brand->inser.js",
 						"message": error_send 
 					}); 
-					return;					
+										
 				}
 				resolve(results);
 			} );
@@ -97,12 +97,12 @@ const function_export = function (data,res) {
 				error, 
 				"Lỗi insert data coupon add, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "100", 
 			"position" : "lib->brand->inser.js",
 			"message": error_send 
 		}); 
-		return;	
+			
 	}
 };	
 

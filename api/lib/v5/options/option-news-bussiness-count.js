@@ -36,12 +36,12 @@ const option_news_bussiness_count = async function (store_id,res) {
 							err, 
 							"Lỗi option count bussiness, Vui lòng liên hệ admin" 
 						);
-					res.send({ 
+					return res.send({ 
 						"error" : "1",
 						"position" : "lib/options/option count bussiness", 
 						"message": error_send 
 					}); 
-					return;
+					
 				}
 				resolve(results);
 			} );
@@ -55,12 +55,12 @@ const option_news_bussiness_count = async function (store_id,res) {
 				error, 
 				"Lỗi option news bussiness count, Vui lòng liên hệ admin" 
 			);
-		res.send({ 
+		return res.send({ 
 			"error" : "2",
 			"position" : "lib/options/option count bussiness", 
 			"message": error_send 
 			}); 
-		return;	
+			
 	}
 	
 };
