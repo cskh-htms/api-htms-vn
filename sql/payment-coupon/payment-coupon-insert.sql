@@ -84,6 +84,28 @@ BEGIN
 
 	
 	
+	--
+	-- neu da thanh toan rui thi khong thanh toan nua
+	SET @checkID = (
+			select dala_payment_coupon_ID 
+			from dala_payment_coupon 
+			where dala_payment_coupon_order_id = NEW.dala_payment_coupon_order_id 
+			and dala_payment_coupon_coupon_code = NEW.dala_payment_coupon_coupon_code 
+			limit 1 
+		);		
+	IF (@checkID > 0) THEN  
+		SIGNAL SQLSTATE '11106' 
+		SET MESSAGE_TEXT = 'trig_payment_coupon_before_insert_douple'; 
+	END IF;		
+	
+	
+	
+	
+	
+	
+	
+	
+	
 -- @
 -- @	
 END $$

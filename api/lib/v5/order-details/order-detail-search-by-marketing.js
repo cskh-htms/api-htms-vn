@@ -1,17 +1,18 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
 const config_api = require ('../../../configs/config-api');
+
+const connection = require('../connections/connections-reader');
+const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
+const fields_get = require('./order-detail-fields-get.js');
+const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 
 
-const connection = require('../connections/connections');
-const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./user-fields-get');
-const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
 const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
@@ -22,47 +23,60 @@ const get_group_by = require('../../../shares/' + config_api.API_SHARES_VERSION 
 const get_having = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-having.js');
 
 
-const user_search = function (datas,res) {
-	
-	
-	var regex = /^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+\.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$/;
-	var name_check = datas.users_login_name;
+const function_export = function (datas,res) {
 
-	if (regex.test(name_check)) {
-		//@
-		//if data type là email
-		var sql_text = 	"SELECT " + fields_get.fields_search +
-			fields_get.from_default + 
-			fields_get.link_default +
-			"where " + config_database.PREFIX + "users_email = '" + name_check + "' " ;
-
-
-	} else {
-		//@
-		//if data type là phone
-		var sql_text = 	"SELECT " + fields_get.fields_search +
-			fields_get.from_default + 
-			fields_get.link_default +
-			"where " + config_database.PREFIX + "users_phone = '" + name_check + "' " ;
-	}	
-	
-	//return sql_text;
+	try{	
+		var sql_select_type = get_select_type(datas,res);
+		var sql_select_fields = get_select_fields(datas,res);	
+		var sql_condition = get_conditions(datas,res);	
+		var sql_limit = get_limit(datas,res);
+		var sql_order = get_order(datas,res);
+		var sql_group_by = get_group_by(datas,res);
+		var sql_having = get_having(datas,res);	
 		
+		var get_sql_search_group = "SELECT " + 
+			sql_select_type + 
+			sql_select_fields + 
+			fields_get.from_default + 
+			fields_get.link_by_marketting + 
+			sql_condition +
+			sql_group_by + 
+			sql_order + 
+			sql_having + 
+			sql_limit;
+		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi order details search, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "1",
+			"position" : "lib->order-details->search-by-marketing", 
+			"message": error_send 
+			}); 
+			
+	}	
+
 	//@
 	try {	
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
+			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = ojs_configs.evn;
-					evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi user check-log, Vui lòng liên hệ admin" 
+							"Lỗi lib->order-details->search-by-marketing, Vui lòng liên hệ admin" 
 						);
 					return res.send({ 
 						"error" : "2",
-						"position" : "lib/users/user check-log", 
+						"position" : "lib->order-details->search-by-marketing", 
 						"message": error_send 
 					}); 
 					
@@ -77,11 +91,11 @@ const user_search = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi user check lock, Vui lòng liên hệ admin" 
+				"Lỗi lib->order-details->search-by-marketing, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "3",
-			"position" : "lib/users/user check log", 
+			"position" : "lib->order-details->search-by-marketing", 
 			"message": error_send 
 		}); 
 		
@@ -89,7 +103,7 @@ const user_search = function (datas,res) {
 };	
 
 
-module.exports = user_search;
+module.exports = function_export;
 
 
 /*

@@ -112,6 +112,7 @@ async  function function_export(req, res, next) {
 			'sidebar_type'			:  "",
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
+			'order_list' 			: data_api_resuilt[2],
 
 				
 		}
@@ -134,6 +135,7 @@ async  function function_export(req, res, next) {
 			'sidebar_type'			:  "",
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
+			'order_list' 			: data_api_resuilt[2],
 			
 
 

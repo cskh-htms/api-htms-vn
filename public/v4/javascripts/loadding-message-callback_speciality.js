@@ -59,9 +59,27 @@ ojs_loadding_message_callback = {
 		let datas_parse = JSON.parse(datas);
 		let order_id = datas_parse.order_id;
 		let datas_ok = datas_parse.datas;
-		ojs_thong_ke_admin.ajax_save(datas_ok,order_id);
+		ojs_thong_ke_admin.ajax_save(datas_ok);
 		
 	},
+
+
+	//@
+	//@
+	//@ 3.1 [thanh_toan_cong_no_marketing]
+	thanh_toan_cong_no_narketing:function(datas){
+		let datas_parse = JSON.parse(datas);
+		let datas_ok = datas_parse.datas;
+		
+		//console.log(datas_ok);
+		//return;
+		ojs_thong_ke_marketing_admin.ajax_save(datas_ok);
+		
+	},
+
+
+
+
 
 
 	//@

@@ -68,7 +68,7 @@ page wrap
 
 
 	<div id="ajax-wrap">
-	<%- //include ("../masterpage/widget-thong-ke-admin-show-all") %>
+	<%- include ("../masterpage/widget-thong-ke-marketing-admin-show-all.ejs") %>
 	</div>
 
 
@@ -305,44 +305,22 @@ end content
 
 
 		let order_id = $(this).find('a').attr("data_id");
+		let coupon_code = $(this).find('a').attr("data_coupon_code");
+		let coupon_payment = $(this).parents("tr").find('td .chiec_khau_caution').attr("data_price");
+		
 		var datas = {
-			"payment_period_payment" : 100000,
-			"payment_period_order_id" : order_id
+			"payment_coupon_payment" : coupon_payment,
+			"payment_coupon_order_id" : order_id,
+			"payment_coupon_coupon_code" : coupon_code
 		}			
-		//alert(order_id);
+		//console.log(datas);
 		//return;
-		
-		
 		//
 		//@
 		let x = "xác nhận thanh toán công nợ";		
-		let y = "thanh_toan_cong_no_order";
+		let y = "thanh_toan_cong_no_narketing";
 		let z = ' { "datas":' + JSON.stringify(datas) + ' }';
 		ojs_message.message_yes_no_show(x,y,z);		
-
-		return;
-		//@
-		//@ lấy atatus
-		var data_status = $('#select_status').val();
-				
-		
-		var datas = {
-			"datas":{
-				date_star 	: date_star,
-				date_end 	: date_end,
-				status_send : data_status
-			}
-		}	
-		
-		
-		console.log(datas);
-		return;
-		
-		
-		
-		//ojs_orders_admin.ajax_load_order(datas);	
-				
-		//@
 	});		
 
 

@@ -50,48 +50,7 @@ $(document).ready(function($){
 		
 
 		
-		//
-		//load danh muc cua hang
-		ajax_delete: function(orders_id){		
-			//alert(orders_id);
-			//return;
-			//goi api
-			 $.ajax({
-			  type : "delete",	  
-			  url : ojs_loader.host + "/orders/speciality/delete/" + orders_id,
-			  beforeSend:  function(xhr){
-				ojs_loadding.ajax_show_loadding();
-			  },			  
-			  error: function (request, status, error) {
-					ojs_share_all.show_ajax_error(error);
-					ojs_loadding.ajax_hide_loadding();
-			  },
-			  success : function(result) {
-				  
-				//console.log(result);
-				//ojs_loadding.ajax_hide_loadding();
-				//return;			
-				  
-				  
-				//ojs_loader.evn = "demo";
-				if(ojs_loader.evn == "dev"){
-					ojs_message.message_ok_show("Lấy dữ liệu thành công. xem datas ở console");
-					console.log(result);
-				}else{
-					if(result.error.length > 0){
-						ojs_message.message_ok_show(result.message);
-					}else{
-						ojs_message.message_ok_show(" Đã xoá orders",location.href);
-					}
-				}				
-				ojs_loadding.ajax_hide_loadding();	
-			  }			  
-			});	
-		},//end of ajax save				
-		//
-		//@
-		//@
-		
+
 
 	///////////////////////////
 	//////////////////////////////

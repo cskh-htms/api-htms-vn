@@ -97,6 +97,7 @@ const function_export = function (data,res) {
 			"coupon_speciality_status_update"				: datas.coupon_speciality_status_update,
 			"coupon_speciality_limit_user"					: datas.coupon_speciality_limit_user,
 			"coupon_speciality_time_type"					: datas.coupon_speciality_time_type,
+			"coupon_speciality_marketing_return"			: datas.coupon_speciality_marketing_return,			
 			"coupon_speciality_limit_number"				: datas.coupon_speciality_limit_number,
 
 			"coupon_speciality_qoute"						: mysql.escape(datas.coupon_speciality_qoute).replace(/^'|'$/gi, "")

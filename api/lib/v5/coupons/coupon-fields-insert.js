@@ -24,7 +24,8 @@ const  default_fields = {
 		"coupon_speciality_status_update"		: 0,
 		"coupon_speciality_limit_user"			: 0,
 		"coupon_speciality_limit_number"		: 0,
-		"coupon_speciality_time_type"			: 0,		
+		"coupon_speciality_time_type"			: 0,	
+		"coupon_speciality_marketing_return"	: "",		
 		"coupon_speciality_qoute":""
 }
 
@@ -41,6 +42,10 @@ function get_message_error(error){
 		return "Không tìm thấy cửa hàng";
 	}else if(error.sqlState == '12393'){
 		return "Chưa nhập đủ ngày tháng";	
+	}else if(error.sqlState == '11106'){
+		return "Đơn hàng đã thanh toán công nợ rồi";		
+		
+		
 		
 	//update
 	}else if(error.sqlState == '12311'){
@@ -53,6 +58,9 @@ function get_message_error(error){
 		return "Không cho update tên mã giảm giá";		
 	}else if(error.sqlState == '12322'){
 		return "Khôngcho update id";	
+		
+	}else if(error.sqlState == '22201'){
+		return "Không cho phép update";			
 		
 	//delete
 	}else if(error.sqlState == '34501'){

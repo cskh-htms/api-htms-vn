@@ -26,6 +26,8 @@ function get_message_error(error){
 		
 	}else if(error.sqlState == '11105'){
 		return "Đơn hàng chưa hoàn thành không thể thanh toán công nợ";			
+	}else if(error.sqlState == '11106'){
+		return "Đơn hàng đã thanh toán công nợ rồi";			
 		
 	}else if(error.sqlState == '22201'){
 		return "Không cho phép chỉnh sữa thông tin này";			

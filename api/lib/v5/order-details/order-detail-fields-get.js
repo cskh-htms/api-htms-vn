@@ -268,6 +268,38 @@ const link_by_review = " " +
 	config_database.PREFIX + "orders_speciality_user_id = " + 
 	config_database.PREFIX + "users_ID ";		
 
+
+
+
+//@
+//@
+//@ link review
+const link_by_marketting = " " +
+
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "coupon_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_medium_text  = " + 
+	config_database.PREFIX + "coupon_speciality_code "  + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_order_id = " + 
+	config_database.PREFIX + "orders_speciality_ID " + 
+
+	" LEFT JOIN " +
+	config_database.PREFIX + "payment_coupon  ON  " + 
+	config_database.PREFIX + "orders_speciality_ID  = " + 
+	config_database.PREFIX + "payment_coupon_order_id " +  
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "users  ON  " + 
+	config_database.PREFIX + "orders_speciality_user_id = " + 
+	config_database.PREFIX + "users_ID ";		
+
+
+
+
 //export module
 module.exports = { 
 	fields_get,
@@ -280,6 +312,7 @@ module.exports = {
 	link_product_by_customer,
 	link_by_coupon,
 	link_by_review,
+	link_by_marketting,
 	link_product	
 };
 

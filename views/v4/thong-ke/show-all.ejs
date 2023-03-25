@@ -319,30 +319,6 @@ end content
 		let y = "thanh_toan_cong_no_order";
 		let z = ' { "datas":' + JSON.stringify(datas) + ' }';
 		ojs_message.message_yes_no_show(x,y,z);		
-
-		return;
-		//@
-		//@ lấy atatus
-		var data_status = $('#select_status').val();
-				
-		
-		var datas = {
-			"datas":{
-				date_star 	: date_star,
-				date_end 	: date_end,
-				status_send : data_status
-			}
-		}	
-		
-		
-		console.log(datas);
-		return;
-		
-		
-		
-		//ojs_orders_admin.ajax_load_order(datas);	
-				
-		//@
 	});		
 
 

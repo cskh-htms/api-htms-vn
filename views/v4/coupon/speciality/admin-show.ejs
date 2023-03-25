@@ -215,7 +215,21 @@ content
 						value="<%= ojs_share_all.show_price_format(datas[0].coupon_speciality_intro_price_limit,0,",",".","") %>" 
 						id="coupon_speciality_intro_price_limit" 
 					/>	
-					</p>					
+					</p>	
+
+
+					<p>
+						<span>Website của người giới thiệu<span>
+						<a class="giai-thich" href="#" target="_blank"><span>Website của người giới thiệu </span></a>	
+						<input 
+							type="text" 
+							value="<%- datas[0].coupon_speciality_marketing_return %>" 
+							id="coupon_speciality_marketing_return" 
+							placeholder="Nhập địa chỉ website "
+						/>
+					</p>
+
+					
 				</div>
 			</div>		
 			</div>
@@ -649,6 +663,7 @@ $(document).ready(function($){
 		
 		
 		let coupon_speciality_intro = $('#coupon_speciality_intro  option:selected').val();
+		let coupon_speciality_marketing_return = $('#coupon_speciality_marketing_return').val();
 		let coupon_speciality_intro_price = $('#coupon_speciality_intro_price').attr("data_value");		
 		let coupon_speciality_intro_price_limit = $('#coupon_speciality_intro_price_limit').attr("data_value");			
 		
@@ -700,6 +715,7 @@ $(document).ready(function($){
 				coupon_speciality_info : coupon_speciality_info,
 				
 				coupon_speciality_intro : coupon_speciality_intro,
+				coupon_speciality_marketing_return : coupon_speciality_marketing_return,
 				coupon_speciality_intro_price : coupon_speciality_intro_price,
 				coupon_speciality_intro_price_limit : coupon_speciality_intro_price_limit,
 				

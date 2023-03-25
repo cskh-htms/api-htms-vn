@@ -26,8 +26,8 @@ const check_owner_user = require('../../../../../shares/' + config_api.API_SHARE
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 
-const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
-const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
+
+const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
 
 
 //@
@@ -104,7 +104,70 @@ async  function function_export(req, res, next) {
 
 
 
-
+		//@
+		//@
+		//@lấy order list
+		var data_order_list =    
+		{
+		   "select_field" :
+			[
+				"orders_speciality_ID",
+				"orders_speciality_date_orders",
+				"orders_speciality_status_orders",
+				"orders_speciality_total_qty",
+				"orders_speciality_total_product",
+				"orders_speciality_total_shipping",
+				"orders_speciality_total_coupon",
+				"orders_speciality_total_fee",					
+				"orders_speciality_total_caution",
+				
+				
+				"coupon_speciality_ID",
+				"coupon_speciality_code",
+				"coupon_speciality_intro" ,
+				"coupon_speciality_intro_price",
+				"coupon_speciality_intro_price_limit",				
+				
+				"payment_coupon_ID",
+				
+				"users_full_name",
+				"users_ID"
+				
+				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : "coupon",
+						"compare" : "="
+					},		
+					{   
+						"field"     :"coupon_speciality_intro",
+						"value"     : 0,
+						"compare" : ">"
+					}
+					] 				
+				}         
+			],	
+			"order" :
+			[		 
+				{    
+					"field"  :"orders_speciality_date_orders",
+					"compare" : "DESC"
+				}			
+			]				
+		 }
+		
+		var fn_get_order_list = new Promise((resolve, reject) => {
+			let result = order_detail_search(data_order_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_order_list);	
 			
 
 
@@ -139,6 +202,7 @@ async  function function_export(req, res, next) {
 	let notes = {
 		"0":"no", 
 		"1":"news admin",
+		"2":"data_merketing",
 	}
 	
 	promise_result.push(notes);
