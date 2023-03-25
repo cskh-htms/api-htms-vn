@@ -113,6 +113,9 @@ async  function function_export(req, res, next) {
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
 			'order_list' 			: data_api_resuilt[2],
+			'order_list2' 			: data_api_resuilt[3],
+			'user_list' 			: data_api_resuilt[4],
+			'coupon_list' 			: data_api_resuilt[5],
 
 				
 		}
@@ -136,9 +139,9 @@ async  function function_export(req, res, next) {
 			'user_role'				: ojs_shares_others.get_users_type(token),			
 			'news_admin_menu' 		: data_api_resuilt[1],
 			'order_list' 			: data_api_resuilt[2],
-			
-
-
+			'order_list2' 			: data_api_resuilt[3],
+			'user_list' 			: data_api_resuilt[4],
+			'coupon_list' 			: data_api_resuilt[5],
 			
 			'datas_info'			: datas_info			
 		}

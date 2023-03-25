@@ -26,6 +26,8 @@ const controllers_user_get_verification_code_lost_web =  require('../../controll
 const controllers_user_verification_code_lost_web =  require('../../controllers/users/controllers-user-verification-code-lost-web.js');
 
 
+const controllers_user_get_marketing_total =  require('../../controllers/users/controllers-user-get-marketing-total.js');
+const controllers_user_get_marketing_order =  require('../../controllers/users/controllers-user-get-marketing-order.js');
 
 
 
@@ -54,6 +56,16 @@ router.post('/change-password/:user_id', middle_ware, controllers_user_change_pa
 
 router.get('/get-verification-code-lost', controllers_user_get_verification_code_lost_web);
 router.post('/verification-code-lost', controllers_user_verification_code_lost_web);
+
+
+router.get('/marketing-total', middle_ware, controllers_user_get_marketing_total);
+router.get('/marketing-order', middle_ware, controllers_user_get_marketing_order);
+
+
+
+
+
+
 
 
 module.exports = router;

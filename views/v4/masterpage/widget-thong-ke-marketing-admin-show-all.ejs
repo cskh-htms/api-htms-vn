@@ -8,21 +8,20 @@ if(order_list.length == 0){
 <% } else{
 %>	
 	
+	
+<div class="ajax-table-box">	
+	<div class="thong-ke-box-1">
 	<table class="table-list">
 		<thead>
 			<tr>
 				<th class="user-name">STT</th>
-				<th class="user-name">ID đơn hàng</th>
-				<th class="user-name">Ngày đặt hàng</th>
-				<th class="user-name">Tổng tiền hàng</th>
+				<th class="user-name">ID đơn hàng</th>				
 				<th class="user-name">Mã giảm giá</th>
-				<th class="user-name">Người giới thiệu</th>
+				<th class="user-name">Tổng tiền hàng</th>
 				<th class="user-name">chiếc khấu</th>
-				<th class="user-name">Doanh thu</th>
+				<th class="user-name">Tiền nhận được</th>
 				<th class="user-name">Trạng thái đơn hàng</th>				
 				<th class="user-name">Công nợ</th>
-				<th class="user-name">Đã thanh toán</th>
-				<th class="user-name">Chưa thanh toán</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,12 +29,12 @@ if(order_list.length == 0){
 
 		<% 
 		var i = 1;
-		for( var  x in order_list ) { 
+		for( var  x in order_list ) { 		
 		%>
-
 		   <tr>
 				<td class="user-name"><%= i %></a>
 				<td class="user-name"><a href="#">#<%- order_list[x].orders_speciality_ID %></a>
+					<p><%- order_list[x].orders_speciality_date_orders %></p>
 					<div class="row-actions">
 						<span class="thanh-toan">						
 						<a 
@@ -44,15 +43,21 @@ if(order_list.length == 0){
 							href="#">Thanh toán công nợ
 						</a> | </span>
 					</div>
-				</td>
-				<td class="user-name"><%- order_list[x].orders_speciality_date_orders %></td>
-				<td class="user-name"><%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_product,0,",",".","đ") %></td>
+					
+					
+				</td>				
 		
-				<td class="user-name"><%- order_list[x].coupon_speciality_code %></td>
-				<td class="user-name"><%- order_list[x].users_full_name %></td>
+				<td class="user-name">
+					[ <%- order_list[x].coupon_speciality_code %> ]
+					<p><%- order_list[x].users_full_name %></p>
+				</td>
 	
 				<td class="user-name">
-					<p>Chiếc khấu <%- order_list[x].coupon_speciality_intro_price %> %</p>
+					<%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_product,0,",",".","đ") %>
+				</td>	
+				
+				<td class="user-name">
+					<p>[ <%- order_list[x].coupon_speciality_intro_price %> % ]</p>
 					<%
 					if(order_list[x].coupon_speciality_intro_price_limit > 0){
 					%>
@@ -86,13 +91,11 @@ if(order_list.length == 0){
 					<td class="user-name"><span style="color:green;">Đã thanh toán</td>					
 				<%
 				}
-				%>	
-
-	
+				%>		
 		   </tr>
 
 
-		<% 
+		<% 		
 		i = i + 1;
 		} 
 		%>
@@ -101,20 +104,66 @@ if(order_list.length == 0){
 		<tfoot>
 			<tr>
 				<th class="user-name">STT</th>
-				<th class="user-name">ID đơn hàng</th>
-				<th class="user-name">Ngày đặt hàng</th>
-				<th class="user-name">Tổng tiền hàng</th>
+				<th class="user-name">ID đơn hàng</th>				
 				<th class="user-name">Mã giảm giá</th>
-				<th class="user-name">Người giới thiệu</th>
+				<th class="user-name">Tổng tiền hàng</th>
 				<th class="user-name">chiếc khấu</th>
-				<th class="user-name">Doanh thu</th>	
-				<th class="user-name">Trạng thái đơn hàng</th>					
-				<th class="user-name">Công nợ</th>				
-				<th class="user-name">Đã thanh toán</th>
-				<th class="user-name">Chưa thanh toán</th>				
+				<th class="user-name">Tiền nhận được</th>
+				<th class="user-name">Trạng thái đơn hàng</th>				
+				<th class="user-name">Công nợ</th>		
 			</tr>
 		</tfoot>
 	</table>
+	</div>
+	
+	
+	
+	
+	
+	
+	<% 
+	var i = 1;
+	var tong_tiep_thi = 0;
+	var tong_tiep_thi_ok = 0;
+	var tong_tiep_thi_no_ok = 0;
+	
+	var tong_chiec_khau = 0;
+	var tong_chiec_khau_ok = 0;
+	var tong_chiec_khau_no_ok = 0;			
+	for( var  x in order_list2 ) { 		
+		if(order_list2[x].orders_speciality_status_orders == 100){
+			tong_tiep_thi = tong_tiep_thi + parseInt(order_list2[x].orders_speciality_total_product);
+			tong_tiep_thi_ok = tong_tiep_thi_ok + parseInt(order_list2[x].orders_speciality_total_product);
+			
+			tong_chiec_khau = tong_chiec_khau + parseInt(order_list2[x].orders_speciality_total_marketing);
+			tong_chiec_khau_ok = tong_chiec_khau_ok + parseInt(order_list2[x].orders_speciality_total_marketing);			
+		}else{
+			tong_tiep_thi = tong_tiep_thi + parseInt(order_list2[x].orders_speciality_total_product);
+			tong_tiep_thi_no_ok = tong_tiep_thi_no_ok + parseInt(order_list2[x].orders_speciality_total_product);
+			
+			tong_chiec_khau = tong_chiec_khau + parseInt(order_list2[x].orders_speciality_total_marketing);
+			tong_chiec_khau_no_ok = tong_chiec_khau_no_ok+ parseInt(order_list2[x].orders_speciality_total_marketing);			
+			
+		}	
+	}
+	%>
+	
+	
+	<div class="thong-ke-box-2">
+		<div class="thong-ke-inner-1">
+			<p>Tổng tiếp thị : <%- ojs_share_all.show_price_format(tong_tiep_thi,0,",",".","đ") %></p>
+			<p>Tổng tiếp thị hoàng thành : <%- ojs_share_all.show_price_format(tong_tiep_thi_ok,0,",",".","đ") %></p>
+			<p>Tổng tiếp thị chưa hoàng thành : <%- ojs_share_all.show_price_format(tong_tiep_thi_no_ok,0,",",".","đ") %></p>
+		</div>
+		<div class="thong-ke-inner-2">
+			<p>Tổng chiếc khấu : <%- ojs_share_all.show_price_format(tong_chiec_khau,0,",",".","đ") %></p>
+			<p>Tổng chiếc khấu hoàng thành : <%- ojs_share_all.show_price_format(tong_chiec_khau_ok,0,",",".","đ") %></p>
+			<p>Tổng chiếc khấu chưa hoàng thành : <%- ojs_share_all.show_price_format(tong_chiec_khau_no_ok,0,",",".","đ") %></p>
+		</div>
+	
+	</div>
+	
+</div>	
 <% 
 }
 %>

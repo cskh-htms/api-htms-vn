@@ -48,6 +48,48 @@ $(document).ready(function($){
 
 				
 		
+		
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@
+		//@ 2. [/load data/]			
+		ajax_load: function(datas){		
+			//alert("no");
+			//console.log(datas);
+			//return;
+			//goi api
+			 $.ajax({
+			  type : "POST",	  
+			  contentType : "application/json",
+			  url : ojs_loader.host + "/admin/thong-ke-marketing/ajax",
+			  data : JSON.stringify(datas),
+			  beforeSend:  function(xhr){
+				ojs_loadding.ajax_show_loadding();
+			  },			  
+			  error: function (request, status, error) {
+					ojs_share_all.show_ajax_error(error);
+					ojs_loadding.ajax_hide_loadding();
+			  },
+			  success : function(result) {
+					//console.log(result);
+					//ojs_loadding.ajax_hide_loadding();	
+					//return;
+					
+					$('#ajax-wrap').html(result);
+					ojs_loadding.ajax_hide_loadding();	
+					//return;
+			  }//end of success			  
+			});	//end of ajax
+		},//end of ajax save			
+		
+		
+		
+		
+		
+		
 
 	///////////////////////////
 	//////////////////////////////

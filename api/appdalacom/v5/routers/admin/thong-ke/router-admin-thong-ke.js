@@ -38,11 +38,20 @@ require(
 	'../../../controllers/admin/thong-ke/controllers-admin-thong-ke-save-marketing.js'
 );
 
+
+const controllers_admin_thong_ke_marketing_ajax =  
+require(
+	'../../../controllers/admin/thong-ke/controllers-admin-thong-ke-marketing-ajax.js'
+);
+
+
+
+
 router.get('/get-all',	middle_ware, controllers_admin_thong_ke );
 router.post('/save',	middle_ware, controllers_admin_thong_ke_save );
 router.get('/marketing',	middle_ware, controllers_admin_thong_ke_marketing );
 router.post('/save-marketing',	middle_ware, controllers_admin_thong_ke_save_marketing );
-
+router.post('/marketing-ajax',	middle_ware, controllers_admin_thong_ke_marketing_ajax );
 
 
 

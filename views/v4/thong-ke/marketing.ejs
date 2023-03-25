@@ -31,6 +31,68 @@ page wrap
 	<h1><%= title %></h1>
 
 
+
+
+
+	<div class="loc-wrap">		
+		<div class="loc-wrap-inner">
+			<p>Lọc người giới thiệu</p>
+			<select id="loc_user_markrting">
+				<option value="all"></option>
+				<% 
+				if( user_list.length > 0){
+				for(x in user_list){
+				%>	
+					<option value="<%= user_list[x].users_ID %>">
+						<%= user_list[x].users_full_name %>
+						( <%= user_list[x].users_phone %> )
+					</option>
+				<%
+				}
+				}
+				%>				
+			</select>
+		</div>
+		
+		<div class="loc-wrap-inner">
+			<p>Lọc theo mã giảm giá</p>
+			<select id="loc_coupon_markrting"">
+				<option value="all"></option>
+				<% 
+				if( coupon_list.length > 0){
+				for(x in coupon_list){
+				%>	
+					<option value="<%= coupon_list[x].coupon_speciality_ID %>">
+						<%= coupon_list[x].coupon_speciality_code %>
+					</option>
+				<%
+				}
+				}
+				%>				
+			</select>
+		</div>	
+
+
+		<div class="loc-wrap-inner">
+			<p>Lọc theo trạng thái đơn hàng</p>
+			<select id="loc_order_status"">
+				<option value="all"></option>
+				<option value="1">Đã hoàn thành</option>
+				<option value="2">Chưa hoàn thành</option>
+			</select>
+		</div>	
+
+
+		<div class="loc-wrap-inner">
+			<p>Lọc theo trạng thái công nợ</p>
+			<select id="loc_cong_no"">
+				<option value="all"></option>
+				<option value="1">Đã thanh toám</option>
+				<option value="2">Chưa thanh toán</option>
+			</select>
+		</div>			
+	</div>	
+
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">
@@ -156,21 +218,13 @@ end content
 		var datas = {
 			"datas":{
 				date_star : date_01_ok,
-				date_end : date_02_ok,
-				status_send : data_status
+				date_end : date_02_ok
 			}
-		}	
-
+		}			
+		//console.log(datas);
+		//return;
 		
-		console.log(datas);
-		return;
-		
-		
-		//ojs_thong_ke_admin.ajax_load_order(datas);	
-		
-		//
-		//@
-		//@
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
 	});			
 	//		
 	//	
@@ -199,18 +253,13 @@ end content
 		var datas = {
 			"datas":{
 				date_star 	: date_star,
-				date_end 	: date_end,
-				status_send : data_status
+				date_end 	: date_end
 			}
 		}	
+		//console.log(datas);
+		//return;
 		
-		
-		console.log(datas);
-		return;
-		
-		
-		
-		//ojs_orders_admin.ajax_load_order(datas);	
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
 				
 		//@
 	});			
@@ -273,18 +322,13 @@ end content
 		var datas = {
 			"datas":{
 				date_star 	: date_star,
-				date_end 	: date_end,
-				status_send : data_status
+				date_end 	: date_end
 			}
 		}	
+		//console.log(datas);
+		//return;
 		
-		
-		
-		console.log(datas);
-		return;
-		
-		
-		//ojs_orders_admin.ajax_load_order(datas);			
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
 		
 	});			
 	//		

@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 		if(user_id != de_token.users_ID){
 			return res.send({ 
 				"error" : "01", 
-				"position" : "api/app/v5/contronller/controllers-user-getmarketing-total",
+				"position" : "api/web/v5/contronller/controllers-user-getmarketing-total",
 				"message": "user không khớp với phiên làm việc"
 			});						
 		}		
@@ -88,7 +88,7 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "1", 
-			"position" : "api/app/v5/contronller/controllers-user-getmarketing-total",
+			"position" : "api/web/v5/contronller/controllers-user-getmarketing-total",
 			"message": error_send 
 		}); 
 			

@@ -47,11 +47,10 @@ async  function function_export(req, res, next) {
 		if(user_id != de_token.users_ID){
 			return res.send({ 
 				"error" : "01", 
-				"position" : "api/app/v5/contronller/controllers-user-getmarketing-total",
+				"position" : "api/app/v5/contronller/controllers-user-getmarketing-order",
 				"message": "user không khớp với phiên làm việc"
 			});						
 		}		
-		
 		
 		//@
 		//@ limit
@@ -76,7 +75,9 @@ async  function function_export(req, res, next) {
 		var sort_type = "DESC";
 		if(req.query.c5){
 			sort_type = req.query.c5;
-		}	
+		}		
+		
+
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -88,12 +89,14 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "1", 
-			"position" : "api/app/v5/contronller/controllers-user-getmarketing-total",
+			"position" : "api/app/v5/contronller/controllers-user-getmarketing-order",
 			"message": error_send 
 		}); 
 			
 	}	
-	//return res.send([user_id,limit_data,order_data]);
+	
+
+	//return res.send([user_id,limit_data]);
 
 
 
@@ -104,7 +107,7 @@ async  function function_export(req, res, next) {
 		var evn = ojs_configs.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
-		return res.send({ "error" : "2", "position":"controllers-user-get-by-id-app", "message": error_send } ); 
+		return res.send({ "error" : "2", "position":"api/app/v5/contronller/controllers-user-getmarketing-order", "message": error_send } ); 
 		
 	}	
 		
@@ -114,11 +117,9 @@ async  function function_export(req, res, next) {
 
 
 
-
 	//@
 	//@
-	//@lấy tat ca coupon cua user gioi thiệu
-	
+	//@lấy order list
 	//@
 	//@ limit
 	var limit_data = [];
@@ -167,98 +168,39 @@ async  function function_export(req, res, next) {
 			"field"     :"payment_coupon_coupon_code",
 			"value"     : "",
 			"compare" : "null"
-		}		
-	)
-		
+		}	
+	)	
 	
-	//@
-	//@
-	//@ get data coupon
+	
 	var data_order_list =    
 	{
 	   "select_field" :
 		[
-			"coupon_speciality_code"
-		],
-		"condition" :
-		[
-			{    
-			"relation": "and",
-			"where" : condition_data				
-			}         
-        ],
-        "group_by" :
-         [
-            "coupon_speciality_code"
-        ],	
-		"limit":limit_data,
-		"order" :order_data			
-	 }
-	 //return res.send(data_order_list);	
-	var result_coupon = await order_detail_search(data_order_list,res);
-	//return res.send({"error":"","datas":result_coupon});
-
-
-
-
-
-
-
-
-	//@
-	//@
-	//@lấy order list
-	var data_order_list =    
-	{
-	   "select_field" :
-		[
-			"coupon_speciality_code",
-			"sum(orders_speciality_total_product)",
+			"orders_speciality_ID",
+			"orders_speciality_date_orders",
 			"orders_speciality_status_orders",
-			"sum_orders_speciality_total_marketing"
+			
+			"coupon_speciality_ID",
+			"coupon_speciality_code",
+			"coupon_speciality_featured_image",			
+			
+			"orders_speciality_total_qty",
+			"orders_speciality_total_product",
+			"orders_speciality_total_caution"
 		],
 		"condition" :
 		[
 			{    
 			"relation": "and",
-			"where" :condition_data			
+			"where" :condition_data		
 			}         
         ],
-        "group_by" :
-         [
-            "coupon_speciality_code",
-			"orders_speciality_status_orders"
-        ],	
-		"limit":limit_data,
-		"order" :order_data			
+		"limit" :limit_data	,
+		"order" :order_data				
 	 }
 	
-	var result = await order_detail_search(data_order_list,res);
-	//return res.send({"error":"","datas":[result_coupon,result]});
-
-	//@
-	//@
-	//@ gep datas
-	for(let x in result_coupon){
-		let add_data_line = [];
-		var tien_ok = 0;
-		var tien_no_ok = 0;
-		for(let y in result){			
-			if(result_coupon[x].coupon_speciality_code == result[y].coupon_speciality_code){
-				if(result[y].orders_speciality_status_orders == 100){
-					tien_ok = tien_ok + result[y].sum_orders_speciality_total_marketing
-				}else{
-					tien_no_ok = tien_no_ok + result[y].sum_orders_speciality_total_marketing					
-				}
-			}							
-		}
-		result_coupon[x].tien_ok = tien_ok;
-		result_coupon[x].tien_no_ok = tien_no_ok;
-		result_coupon[x].tong_tien_tiep_thi = tien_ok + tien_no_ok;
-	}		
-	
-	
-	return res.send({"error":"","datas":result_coupon});
+	var result = await order_detail_search(data_order_list,res);	
+	return res.send({"error":"","datas":result});
 		
 	
 

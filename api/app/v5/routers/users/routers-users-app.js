@@ -44,6 +44,7 @@ const controllers_user_update_app =  require('../../controllers/users/controller
 
 
 const controllers_user_get_marketing_total =  require('../../controllers/users/controllers-user-get-marketing-total.js');
+const controllers_user_get_marketing_order =  require('../../controllers/users/controllers-user-get-marketing-order.js');
 
 
 //@
@@ -68,7 +69,7 @@ router.post('/update/:user_id', middle_ware, controllers_user_update_app);
 
 
 router.get('/marketing-total', middle_ware, controllers_user_get_marketing_total);
-
+router.get('/marketing-order', middle_ware, controllers_user_get_marketing_order);
 
 
 //@
