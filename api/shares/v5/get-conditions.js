@@ -70,6 +70,8 @@ const get_consition =  function(datas,res){
 						condition_arr[x].where[s].field == "price_caution" 
 						|| condition_arr[x].where[s].field == "sum_price_caution"  
 						|| condition_arr[x].where[s].field == "orders_speciality_total_caution"  
+						|| condition_arr[x].where[s].field == "orders_speciality_total_marketing"  
+						|| condition_arr[x].where[s].field == "sum_orders_speciality_total_marketing"  						
 					){
 						consition_field  = get_select_fields_special_order(condition_arr[x].where[s].field,res);							
 					}

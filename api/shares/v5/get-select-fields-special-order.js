@@ -30,7 +30,41 @@ const select_field_special = function(field,res){
 			config_database.PREFIX  + "orders_speciality_total_fee) - " + 
 			config_database.PREFIX  + "orders_speciality_total_coupon " ;			
 			
-			return sql_field_check;		
+			return sql_field_check;	
+
+		}else if(field == "orders_speciality_total_marketing"){		
+			sql_field_check = sql_field_check + 
+			"(CASE " + 
+				"WHEN " +  
+					config_database.PREFIX  + "coupon_speciality_intro_price_limit > 0 " + 
+					"AND (" + config_database.PREFIX  + "orders_speciality_total_product * " + 
+						config_database.PREFIX  + "coupon_speciality_intro_price / 100 >  " +
+						config_database.PREFIX  + "coupon_speciality_intro_price_limit ) " + 
+				"THEN " + 
+					config_database.PREFIX  + "coupon_speciality_intro_price_limit"  + 					
+				"ELSE " +  
+					config_database.PREFIX  + "orders_speciality_total_product * " + 
+					config_database.PREFIX  + "coupon_speciality_intro_price / 100 "  + 
+			"END ) ";
+				
+			return sql_field_check;			
+
+		}else if(field == "sum_orders_speciality_total_marketing"){	
+			sql_field_check = sql_field_check + 
+			"(CASE " + 
+				"WHEN " +  
+					config_database.PREFIX  + "coupon_speciality_intro_price_limit > 0 " + 
+					"AND (" + config_database.PREFIX  + "orders_speciality_total_product * " + 
+						config_database.PREFIX  + "coupon_speciality_intro_price / 100 >  " +
+						config_database.PREFIX  + "coupon_speciality_intro_price_limit ) " + 
+				"THEN " + 
+					" sum( " + config_database.PREFIX  + "coupon_speciality_intro_price_limit ) "  + 					
+				"ELSE " +  
+					" sum( " + config_database.PREFIX  + "orders_speciality_total_product * " + 
+					config_database.PREFIX  + "coupon_speciality_intro_price / 100 )"  + 
+			"END ) ";
+				
+			return sql_field_check;					
 
 		}else{
 			return " ";
