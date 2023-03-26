@@ -31,6 +31,50 @@ page wrap
 	<h1><%= title %></h1>
 
 
+
+	<div class="loc-wrap">	
+
+		<div class="loc-wrap-inner">
+			<p>Lọc theo cửa hàng</p>
+			<select id="loc_by_store"">
+				<option value="all"></option>
+				<% 
+				if( store_list.length > 0){
+				for(x in store_list){
+				%>	
+					<option value="<%= store_list[x].stores_ID %>">
+						<%= store_list[x].stores_name %>
+						( <%= store_list[x].stores_phone %> )
+					</option>
+				<%
+				}
+				}
+				%>	
+			</select>
+		</div>	
+
+	
+		<div class="loc-wrap-inner">
+			<p>Lọc theo trạng thái đơn hàng</p>
+			<select id="loc_order_status"">
+				<option value="all"></option>
+				<option value="1">Đã hoàn thành</option>
+				<option value="2">Chưa hoàn thành</option>
+			</select>
+		</div>	
+
+
+		<div class="loc-wrap-inner">
+			<p>Lọc theo trạng thái công nợ</p>
+			<select id="loc_cong_no"">
+				<option value="all"></option>
+				<option value="1">Đã thanh toám</option>
+				<option value="2">Chưa thanh toán</option>
+			</select>
+		</div>			
+	</div>	
+
+
 	<div class="report_wrap">
 		<div class="report_bock report_bock_order">
 			<ul class="report_link_box">

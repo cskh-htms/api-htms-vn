@@ -28,7 +28,7 @@ const get_data_news_admin = require('../../../shares/get-data-news-admin-appdala
 
 const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
 const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
-
+const store_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 
 //@
 //@
@@ -123,6 +123,7 @@ async  function function_export(req, res, next) {
 				"orders_speciality_district",
 				"orders_speciality_wards",
 				"stores_ID" ,
+				"stores_discount_price",
 				"stores_name",
 				"users_full_name",
 				"payment_period_ID",
@@ -130,9 +131,8 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_product",
 				"orders_speciality_total_shipping",
 				"orders_speciality_total_coupon",
-				"orders_speciality_total_fee",				
-				
-				
+				"orders_speciality_total_fee",
+				"orders_speciality_total_caution",	
 			],
 			"condition" :
 			[
@@ -149,7 +149,12 @@ async  function function_export(req, res, next) {
 						"field"     :"orders_speciality_date_orders",
 						"value"     : ojs_shares_date.get_current_date_end(),
 						"compare" : "<="
-					}						
+					},
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : [-1,21,20,102],
+						"compare" : "not in"
+					}							
 					] 				
 				}         
 			],	
@@ -174,6 +179,43 @@ async  function function_export(req, res, next) {
 
 
 
+
+
+		//@
+		//@
+		//@ store list
+		var data_store_list =    
+		{
+		   "select_field" :
+			[
+				"stores_ID",
+				"stores_name",
+				"stores_phone"
+			]						
+		 }
+		
+		var fn_get_store_list = new Promise((resolve, reject) => {
+			let result = store_search(data_store_list,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_store_list);	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//@
 		//@
 		//@
@@ -186,7 +228,7 @@ async  function function_export(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get data review, Vui lòng liên hệ admin" 
+				"Lỗi get data , Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "100", 

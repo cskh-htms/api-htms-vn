@@ -70,7 +70,7 @@ async  function function_export(req, res, next) {
 		);	
 		
 	//return res.send( [data_api_resuilt] );
-	//	
+		
 		
 		
 		
@@ -117,6 +117,7 @@ async  function function_export(req, res, next) {
 			'news_admin_menu' 		: data_api_resuilt[1],
 			
 			'order_list' 			: data_api_resuilt[2],
+			'store_list' 			: data_api_resuilt[3],
 				
 		}
 		
@@ -140,6 +141,7 @@ async  function function_export(req, res, next) {
 			'news_admin_menu' 		: data_api_resuilt[1],
 			
 			'order_list' 			: data_api_resuilt[2],
+			'store_list' 			: data_api_resuilt[3],
 
 			
 			'datas_info'			: datas_info			

@@ -13,13 +13,12 @@ if(order_list.length == 0){
 			<tr>
 				<th class="user-name">STT</th>
 				<th class="user-name">ID đơn hàng</th>
-				<th class="user-name">Ngày đặt hàng</th>
-				<th class="user-name">Tổng tiền hàng</th>
 				<th class="user-name">Cửa hàng</th>
-				<th class="user-name">Địa chỉ</th>
-				<th class="user-name">Ghi chú</th>				
-				<th class="user-name">Hoàn thành</th>
-				<th class="user-name">Công nợ</th>
+				<th class="user-name">Tổng tiền hàng</th>				
+				<th class="user-name">Cửa hàng nhận</th>			
+				<th class="user-name">Chiếc khấu dala</th>
+				<th class="user-name">DALA thực nhận</th>
+				<th class="user-name">Công nợ</th>	
 			</tr>
 		</thead>
 		<tbody>
@@ -33,20 +32,55 @@ if(order_list.length == 0){
 		   <tr>
 				<td class="user-name"><%= i %></a>
 				<td class="user-name"><a href="#">#<%- order_list[x].orders_speciality_ID %></a>
+				<%- order_list[x].orders_speciality_date_orders %>
+				<p><%- ojs_share_orders.show_order_status_html(order_list[x].orders_speciality_status_orders) %></p>				
 					<div class="row-actions">
 						<span class="thanh-toan"><a data_id="<%- order_list[x].orders_speciality_ID %>" href="#">Thanh toán công nợ</a> | </span>
 					</div>
 				</td>
 				
-				<td class="user-name"><%- order_list[x].orders_speciality_date_orders %></td>
-				<td class="user-name"><%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_product,0,",",".","đ") %></td>
-		
-				<td class="user-name"></td>
-				<td class="user-name">
+				<td class="user-name"><%- ojs_share_all.unCape(order_list[x].stores_name) %></td>
+				<td class="user-name">				
+					<strong>[ <%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_product,0,",",".","đ") %> ] </strong> 
+					<p>Vận chuyển : <%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_shipping,0,",",".","đ") %></p>
+					<p>Mã giảm giá : <%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_coupon ,0,",",".","đ") %></p>
+					<p>phụ thu: <%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_fee ,0,",",".","đ") %></p>				
+				
 				</td>
-				<td class="user-name"></td>
-							
-				<td class="user-name"><%- ojs_share_orders.show_order_status_html(order_list[x].orders_speciality_status_orders) %></td>
+				<td class="user-name">				
+					<%
+					var cua_hang_nhan = 0;
+					var sa = 0;
+					if(order_list[x].stores_discount_price == 0 ){
+						cua_hang_nhan = order_list[x].orders_speciality_total_product;
+					}else{						
+						sa = order_list[x].orders_speciality_total_product * order_list[x].stores_discount_price /100;
+						cua_hang_nhan =  parseInt(order_list[x].orders_speciality_total_product) - sa;
+					}					
+					%>
+				
+				
+					<%- ojs_share_all.show_price_format(cua_hang_nhan ,0,",",".","đ") %>
+				</td>		
+				<td class="user-name">
+				<%
+					var chiec_khau_dala = 0;
+					var sa = 0;
+					if(order_list[x].stores_discount_price == 0 ){
+						chiec_khau_dala = 0;
+					}else{						
+						chiec_khau_dala = order_list[x].orders_speciality_total_product * order_list[x].stores_discount_price /100;
+					}					
+					%>			
+					<%- ojs_share_all.show_price_format(chiec_khau_dala ,0,",",".","đ") %>		
+				</td>
+						
+
+				<td class="user-name">
+				<%- ojs_share_all.show_price_format(order_list[x].orders_speciality_total_caution ,0,",",".","đ") %>		
+				</td>
+
+						
 				<% 
 				if(order_list[x].payment_period_ID == null){				
 				%>
@@ -72,13 +106,12 @@ if(order_list.length == 0){
 			<tr>
 				<th class="user-name">STT</th>
 				<th class="user-name">ID đơn hàng</th>
-				<th class="user-name">Ngày đặt hàng</th>
-				<th class="user-name">Khách hàng</th>
-				<th class="user-name">Cửa hàng</th>				
-				<th class="user-name">Địa chỉ</th>
-				<th class="user-name">Ghi chú</th>
-				<th class="user-name">Hoàn thành</th>
-				<th class="user-name">Công nợ</th>
+				<th class="user-name">Cửa hàng</th>
+				<th class="user-name">Tổng tiền hàng</th>				
+				<th class="user-name">Cửa hàng nhận</th>			
+				<th class="user-name">Chiếc khấu dala</th>
+				<th class="user-name">DALA thực nhận</th>
+				<th class="user-name">Công nợ</th>				
 				
 			</tr>
 		</tfoot>

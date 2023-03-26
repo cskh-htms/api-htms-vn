@@ -105,6 +105,43 @@
 
 
 
+.ajax-table-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.thong-ke-box-1 {
+    width: 70%;
+}
+
+
+.thong-ke-inner-1 {
+    border: 1px solid #ccc;
+    padding: 10px;
+	margin-top:30px;
+}
+.thong-ke-inner-2 {
+    border: 1px solid #ccc;
+    padding: 10px;
+	margin-top:30px;
+}
+
+
+.loc-wrap {
+    display: flex;
+    padding-bottom: 30px;
+	flex-wrap:wrap;
+}
+
+.loc-wrap-inner {
+    margin-right: 20px;
+}
+
+
+
+
+
 
 
 
