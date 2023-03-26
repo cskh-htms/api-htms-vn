@@ -186,7 +186,9 @@ async  function function_export(req, res, next) {
 			
 			"orders_speciality_total_qty",
 			"orders_speciality_total_product",
-			"orders_speciality_total_caution"
+			"orders_speciality_total_marketing",
+			"coupon_speciality_intro_price",
+			"coupon_speciality_intro_price_limit"
 		],
 		"condition" :
 		[
