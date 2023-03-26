@@ -176,6 +176,11 @@ async  function controllers_order_insert_app(req, res, next) {
 		var datas_assign = Object.assign(fields_insert.default_fields, datas.orders);
 		var order_insert_resuilt = await  order_insert(datas_assign,datas.orders_detail,res);
 		
+		
+		
+		
+		
+		
 		//return res.send(order_insert_resuilt);
 		//
 

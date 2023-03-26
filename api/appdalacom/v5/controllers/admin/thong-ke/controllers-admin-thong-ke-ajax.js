@@ -26,9 +26,9 @@ const check_owner_user = require('../../../../../shares/' + config_api.API_SHARE
 
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 
-const user_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-search');
+
 const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
-const store_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
+
 
 //@
 //@
@@ -40,8 +40,7 @@ async  function function_export(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		//return res.send([store_id]);
-		//	
+		var datas  = req.body;		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -53,11 +52,13 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "1", 
-			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke.js",
+			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke-ajax",
 			"message": error_send 
 		}); 
 			
-	}	
+	}		
+	//return res.send([datas]);	
+	
 	
 	
 	//@ check role phân quyền
@@ -75,14 +76,13 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "3",
-			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke.js",
+			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke-ajax",
 			"message": error_send 
 		}); 
 					
 	}
-
-	//return res.send(["adasdasdasd 1"]);
-	//
+	//return res.send([datas]);
+	
 	
 
 
@@ -95,19 +95,140 @@ async  function function_export(req, res, next) {
 		var promise_all = [];
 		promise_all.push(0);
 
-		//@ 1. lấy news admin
-		var fn_get_data_news_admin = new Promise((resolve, reject) => {
-			let result = get_data_news_admin(res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_data_news_admin);
-
-
-
-
 		//@
 		//@
 		//@lấy order list
+		
+		
+		//@ 
+		//@ limit
+		var limit_data = [];
+		if(datas.limit){
+			limit_data.push(
+				{
+					"limit_number" : datas.limit
+				}
+			);		
+		}
+		if(datas.offset){
+			limit_data.push(
+				{
+					"limit_offset" : datas.offset
+				}
+			);		
+		}		
+
+
+
+		//@ order
+		var order_data = [];
+		if(datas.sort_field){
+			order_data.push(
+				{
+					"field"  :datas.sort_field
+				}					
+			)
+		}
+		if(datas.sort_type){
+			order_data.push(
+				{
+					"compare"  :datas.sort_type
+				}					
+			)
+		}
+		
+	
+		
+		
+		//@
+		//@ condition
+		var condition_data = [];
+		condition_data.push(	
+			{   
+				"field"     :"orders_speciality_date_orders",
+				"value"     : datas.date_star,
+				"compare" : ">"
+			},
+			{   
+				"field"     :"orders_speciality_date_orders",
+				"value"     : datas.date_end,
+				"compare" : "<="
+			},
+			{   
+				"field"     :"orders_speciality_status_orders",
+				"value"     : [-1,21,20,102],
+				"compare" : "not in"
+			}			
+		)	
+
+
+		//@
+		//@ loc store
+		if(datas.loc_by_store != "all"){
+			condition_data.push(	
+				{   
+					"field"     :"orders_speciality_store_id",
+					"value"     : datas.loc_by_store,
+					"compare" : "="
+				}			
+			)
+		}
+	
+
+
+		//@
+		//@ loc order status
+		if(datas.loc_order_status != "all"){
+			if(datas.loc_order_status == 1){
+				condition_data.push(	
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "="
+					}			
+				)				
+			}else{
+				condition_data.push(	
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "<>"
+					}			
+				)					
+			}
+
+		}
+
+
+
+		//@
+		//@ loc cong no
+		if(datas.loc_cong_no != "all"){
+			if(datas.loc_cong_no == 1){
+				condition_data.push(	
+					{   
+						"field"     :"payment_period_ID",
+						"value"     : "",
+						"compare" : "not null"
+					}			
+				)				
+			}else{
+				condition_data.push(	
+					{   
+						"field"     :"payment_period_ID",
+						"value"     : "",
+						"compare" : "null"
+					}			
+				)					
+			}
+
+		}
+		//return res.send(condition_data);
+
+
+		//@
+		//@
+		//@ goo
 		var data_order_list =    
 		{
 		   "select_field" :
@@ -132,39 +253,17 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_shipping",
 				"orders_speciality_total_coupon",
 				"orders_speciality_total_fee",
-				"orders_speciality_total_caution",	
+				"orders_speciality_total_caution",						
 			],
 			"condition" :
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"orders_speciality_date_orders",
-						"value"     : ojs_shares_date.get_current_month_now(),
-						"compare" : ">"
-					},
-					{   
-						"field"     :"orders_speciality_date_orders",
-						"value"     : ojs_shares_date.get_current_date_end(),
-						"compare" : "<="
-					},
-					{   
-						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
-					}							
-					] 				
+				"where" :condition_data		
 				}         
 			],	
-			"order" :
-			[		 
-				{    
-					"field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				}			
-			]				
+			"limit":limit_data,
+			"order" :order_data				
 		 }
 		
 		var fn_get_order_list = new Promise((resolve, reject) => {
@@ -173,43 +272,12 @@ async  function function_export(req, res, next) {
 		});	
 		promise_all.push(fn_get_order_list);	
 			
-			
-			
-			
-
-
 
 
 
 		//@
 		//@
-		//@ store list
-		var data_store_list =    
-		{
-		   "select_field" :
-			[
-				"stores_ID",
-				"stores_name",
-				"stores_phone"
-			]						
-		 }
-		
-		var fn_get_store_list = new Promise((resolve, reject) => {
-			let result = store_search(data_store_list,res);
-			resolve(result);
-		});	
-		promise_all.push(fn_get_store_list);	
-
-
-
-
-
-
-
-
-		//@
-		//@
-		//@lấy order list
+		//@ goo
 		var data_order_list =    
 		{
 		   "select_field" :
@@ -220,39 +288,17 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_fee",
 				"orders_speciality_total_caution",
 				"stores_discount_price",
-				"orders_speciality_status_orders",	
+				"orders_speciality_status_orders",					
 			],
 			"condition" :
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"orders_speciality_date_orders",
-						"value"     : ojs_shares_date.get_current_month_now(),
-						"compare" : ">"
-					},
-					{   
-						"field"     :"orders_speciality_date_orders",
-						"value"     : ojs_shares_date.get_current_date_end(),
-						"compare" : "<="
-					},
-					{   
-						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
-					}							
-					] 				
+				"where" :condition_data		
 				}         
 			],	
-			"order" :
-			[		 
-				{    
-					"field"  :"orders_speciality_date_orders",
-					"compare" : "DESC"
-				}			
-			]				
+			"limit":limit_data,
+			"order" :order_data				
 		 }
 		
 		var fn_get_order_list2 = new Promise((resolve, reject) => {
@@ -260,11 +306,6 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_order_list2);	
-
-
-
-
-
 
 
 
@@ -280,11 +321,11 @@ async  function function_export(req, res, next) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi get data , Vui lòng liên hệ admin" 
+				"Lỗi get data review, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "100", 
-			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke.js",
+			"position" : "api/appdalacom/controller/admin/thong-ke/controllers-admin-thong-ke-ajax",
 			"message": error_send 
 		}); 
 			
@@ -297,7 +338,8 @@ async  function function_export(req, res, next) {
 	
 	let notes = {
 		"0":"no", 
-		"1":"news admin",
+		"1":"data_merketing",
+		"2":"data_merketing_all",
 	}
 	
 	promise_result.push(notes);

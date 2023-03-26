@@ -1,13 +1,24 @@
 
 
 <% if( typeof order_list == 'object' && order_list){ } else{ order_list=[] } %>
+
+
+<script>
+	console.log(<%- JSON.stringify({"datas" : [order_list,order_list2]}) %>);
+</script>	
+
+
+
+
+
 <%
 if(order_list.length == 0){
 %>
 	<div class="not_order"><span>Chưa có đơn hàng nào ...... </span></div>
 <% } else{
 %>	
-	
+<div class="ajax-table-box">	
+	<div class="thong-ke-box-1">	
 	<table class="table-list">
 		<thead>
 			<tr>
@@ -116,6 +127,84 @@ if(order_list.length == 0){
 			</tr>
 		</tfoot>
 	</table>
+	</div>
+	<% 
+	var i = 1;
+	var tong_tien_ban = 0;
+	var tong_tien_ban_ok = 0;
+	var tong_tien_ban_no_ok = 0;
+	
+	var tong_chiec_khau = 0;
+	var tong_chiec_khau_ok = 0;
+	var tong_chiec_khau_no_ok = 0;	
+	var tong_cong_no = 0;		
+	var tong_cong_no_ok = 0;
+	var tong_cong_no_no_ok = 0;		
+	
+	
+	for( var  x in order_list2 ) { 	
+
+		var chiec_khau_dala = 0;
+		if(order_list2[x].stores_discount_price == 0 ){
+			chiec_khau_dala = 0;
+		}else{						
+			chiec_khau_dala = order_list2[x].orders_speciality_total_product * order_list2[x].stores_discount_price /100;
+		}					
+
+	
+		if(order_list2[x].orders_speciality_status_orders == 100){
+			tong_tien_ban = tong_tien_ban + parseInt(order_list2[x].orders_speciality_total_product);
+			tong_tien_ban_ok = tong_tien_ban_ok + parseInt(order_list2[x].orders_speciality_total_product);
+			
+		
+			tong_chiec_khau = tong_chiec_khau + chiec_khau_dala;
+			tong_chiec_khau_ok = tong_chiec_khau_ok + chiec_khau_dala;			
+		}else{
+			tong_tien_ban = tong_tien_ban + parseInt(order_list2[x].orders_speciality_total_product);
+			tong_tien_ban_no_ok = tong_tien_ban_no_ok + parseInt(order_list2[x].orders_speciality_total_product);
+
+			tong_chiec_khau = tong_chiec_khau + chiec_khau_dala;
+			tong_chiec_khau_no_ok = tong_chiec_khau_no_ok + chiec_khau_dala;			
+			
+		}	
+		
+		
+		if(order_list2[x].payment_period_ID != null){
+			tong_cong_no = tong_cong_no + parseInt(order_list2[x].orders_speciality_total_product) - chiec_khau_dala;
+			tong_cong_no_ok = tong_cong_no_ok + parseInt(order_list2[x].orders_speciality_total_product) - chiec_khau_dala;
+		}else{
+			tong_cong_no = tong_cong_no + parseInt(order_list2[x].orders_speciality_total_product) - chiec_khau_dala;
+			tong_cong_no_no_ok = tong_cong_no_no_ok + parseInt(order_list2[x].orders_speciality_total_product) - chiec_khau_dala;			
+		}
+	}
+	%>
+	
+	
+	<div class="thong-ke-box-2">
+		<div class="thong-ke-inner-1">
+			<p>Tổng doanh thu : <%- ojs_share_all.show_price_format(tong_tien_ban,0,",",".","đ") %></p>
+			<p>Tổng tiền đơn đã giao : <%- ojs_share_all.show_price_format(tong_tien_ban_ok,0,",",".","đ") %></p>
+			<p>Tổng tiền đơn chưa giao : <%- ojs_share_all.show_price_format(tong_tien_ban_no_ok,0,",",".","đ") %></p>
+		</div>
+		
+		<div class="thong-ke-inner-1">
+			<p>Tổng công nợ : <%- ojs_share_all.show_price_format(tong_cong_no,0,",",".","đ") %></p>
+			<p>Tổng tiền đơn đã giao : <%- ojs_share_all.show_price_format(tong_cong_no_ok,0,",",".","đ") %></p>
+			<p>Tổng tiền đơn chưa giao : <%- ojs_share_all.show_price_format(tong_cong_no_no_ok,0,",",".","đ") %></p>
+		</div>		
+		
+		<div class="thong-ke-inner-2">
+			<p>Tổng chiếc khấu DALA nhận: <%- ojs_share_all.show_price_format(tong_chiec_khau,0,",",".","đ") %></p>
+			<p>Tổng tiền đơn đã giao : <%- ojs_share_all.show_price_format(tong_chiec_khau_ok,0,",",".","đ") %></p>
+			<p>Tổng đơn chưa giao : <%- ojs_share_all.show_price_format(tong_chiec_khau_no_ok,0,",",".","đ") %></p>
+		</div>
+	
+	</div>
+	
+</div>		
+	
+	
+	
 <% 
 }
 %>

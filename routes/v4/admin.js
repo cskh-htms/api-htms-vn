@@ -45,6 +45,14 @@ const controller_admin_thong_ke_marketing_ajax = require(
 	'/admin/thong-ke/controllers-admin-thong-ke-marketing-ajax.js'
 );
 
+const controller_admin_thong_ke_ajax = require(
+	'../../controllers/' + ojs_configs.controller_version + 
+	'/admin/thong-ke/controllers-admin-thong-ke-ajax.js'
+);
+
+
+
+
 //@
 //@
 //@
@@ -55,7 +63,7 @@ router.get('/thong-ke-marketing/', controller_admin_thong_ke_marketing);
 router.post('/thong-ke/save/', controller_admin_thong_ke_save);
 router.post('/thong-ke-marketing/save/', controller_admin_thong_ke_marketing_save);
 router.post('/thong-ke-marketing/ajax/', controller_admin_thong_ke_marketing_ajax);
-
+router.post('/thong-ke/ajax/', controller_admin_thong_ke_ajax);
 //@
 //@
 //@
