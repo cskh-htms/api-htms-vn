@@ -52,7 +52,7 @@ async  function function_export(req, res, next) {
 		//@ lấy data req
 		try {
 			var token = req.session.token;
-			var datas  = req.body.datas;		
+			var datas  = req.body;		
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				return res.send({"error":"01","message":"Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại"});
 				
@@ -73,7 +73,7 @@ async  function function_export(req, res, next) {
 			}); 
 						
 		}		
-		//return res.send({"error":"00","message":[datas]});
+		///return res.send({"error":"00","message":[datas]});
 			
 		
 		

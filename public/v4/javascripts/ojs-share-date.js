@@ -169,6 +169,12 @@ ojs_share_date = {
 		var time_string = "";
 		var time_add_zone = new Date(Date.now());
 		
+		var date = new Date();
+		var current_day = date.getDay();
+		if(current_day == 0){
+			time_add_zone.setDate(time_add_zone.getDate() - 1)
+		}
+		
 		//@
 		//@
 		let y = time_add_zone.getFullYear();

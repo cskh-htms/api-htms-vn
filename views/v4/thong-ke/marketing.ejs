@@ -118,7 +118,7 @@ page wrap
 			<div class="custom_date">Từ ngày: <input type="text" id="datepicker" > đến ngày <input type="text" id="datepicker2" ><button id="btn_date">Xem</button></div>
 			<ul class="reset_box">
 					<li>
-						<a href="/admin/thong-ke/"  data_send="" class="">Đặt lại</a>
+						<a href="/admin/thong-ke-marketing/"  data_send="" class="">Đặt lại</a>
 					</li>				
 					
 				</ul>
@@ -132,6 +132,7 @@ page wrap
 	<div id="ajax-wrap">
 	<%- include ("../masterpage/widget-thong-ke-marketing-admin-show-all.ejs") %>
 	</div>
+
 
 
 
@@ -182,163 +183,7 @@ end content
 		}
 	);
 	
-
-	//
-	//@
-	//xoa
-	$(document).on('click','#btn_date',function(e) {	
 	
-		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
-		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
-
-		
-		if(date_01 == null || date_02 == null){
-			ojs_message.message_ok_show("vui lòng chọn ngày");
-			return;
-		}
-	
-		//
-		//
-		$(this).parents('#content').find(".report_wrap").find("a").removeClass("report_active");
-		$(this).addClass("report_active");
-		//@
-		e.preventDefault();		
-		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
-		var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
-		date_01_ok = date_01_ok + " 00:00:00";
-		//@
-		//@
-		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
-		var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
-		date_02_ok = date_02_ok + " 23:59:59";
-
-		var data_status = $('#select_status').val();
-		
-		//
-		var datas = {
-			"datas":{
-				date_star : date_01_ok,
-				date_end : date_02_ok
-			}
-		}			
-		//console.log(datas);
-		//return;
-		
-		ojs_thong_ke_marketing_admin.ajax_load(datas);	
-	});			
-	//		
-	//	
-	
-	
-	//
-	//@
-	//search theo ngày giờ set class
-	$(document).on('click','.report_link_box li a',function(e) {	
-		//@
-		e.preventDefault();	
-		$(this).parents('.report_link_box').find("a").removeClass("report_active");
-		$(this).addClass("report_active");
-		$('#btn_date').removeClass("report_active");
-		//
-		//lay thòi gian
-		var date_send = $(this).attr("data_send");
-		var date_star = ojs_share_date.get_date_star(date_send);
-		var date_end = ojs_share_date.get_date_end(date_send);
-		
-		//
-		//lấy atatus
-		var data_status = $('#select_status').val();
-				
-		
-		var datas = {
-			"datas":{
-				date_star 	: date_star,
-				date_end 	: date_end
-			}
-		}	
-		//console.log(datas);
-		//return;
-		
-		ojs_thong_ke_marketing_admin.ajax_load(datas);	
-				
-		//@
-	});			
-	//		
-	//		
-	
-	//
-	//@
-	//search theo ngày giờ set class
-	$(document).on('click','.status_box li a',function(e) {	
-		//@
-		e.preventDefault();	
-		
-		var check_day = $('.report_link_box').find('.report_active');
-		//
-		if($("#btn_date").hasClass( "report_active" ) == false && check_day.length == 0){
-			var date_star = "2020/01/01 00:00:00";
-			var date_end = ojs_share_date.get_date_end('hom_nay');	
-		}else{
-			var date_star="";
-			var date_end="";
-			//@@
-			if($("#btn_date").hasClass( "report_active" )){
-				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
-				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
-
-			
-				if(date_01 == null || date_02 == null){
-					ojs_message.message_ok_show("vui lòng chọn ngày");
-					return;
-				}
-			
-				var date_01 = $( "#datepicker" ).datepicker( "getDate" );
-				var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
-				date_star = date_01_ok + " 00:00:00";
-				//@
-				//@
-				var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
-				var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
-				date_end = date_02_ok  + " 23:59:59";			
-			}else{
-			//lay thòi gian
-				var date_send = $('.report_link_box').find('.report_active').attr("data_send");
-				var date_star = ojs_share_date.get_date_star(date_send);
-				var date_end = ojs_share_date.get_date_end(date_send);			
-			}
-		}
-		//
-		//
-		
-		$(this).parents('.status_box').find("a").removeClass("status_active");
-		$(this).addClass("status_active");
-				
-		
-		//
-		//@
-		var data_status = $('#select_status').val();
-			
-		//@
-		var datas = {
-			"datas":{
-				date_star 	: date_star,
-				date_end 	: date_end
-			}
-		}	
-		//console.log(datas);
-		//return;
-		
-		ojs_thong_ke_marketing_admin.ajax_load(datas);	
-		
-	});			
-	//		
-	//		
-
-
-
-
-
-
 	//@
 	//@
 	//@
@@ -365,19 +210,168 @@ end content
 		let y = "thanh_toan_cong_no_narketing";
 		let z = ' { "datas":' + JSON.stringify(datas) + ' }';
 		ojs_message.message_yes_no_show(x,y,z);		
-	});		
+	});	
+	
+	
+	
+	
+	//@
+	//@
+	//@ date click
+	$(document).on('click','#btn_date',function(e) {	
+	
+		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+
+		
+		if(date_01 == null || date_02 == null){
+			ojs_message.message_ok_show("vui lòng chọn ngày");
+			return;
+		}
+	
+		//
+		//
+		$(this).parents('#content').find(".report_wrap").find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		//@
+		e.preventDefault();		
+		var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+		var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+		date_01_ok = date_01_ok + " 00:00:00";
+		//@
+		//@
+		var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+		var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+		date_02_ok = date_02_ok + " 23:59:59";
+
+		var datas = get_data_ajax();
+		//console.log(datas);
+		//return;
+		
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
+	});			
+	//		
+	//	
+	
+	
+	//
+	//@
+	//search theo ngày giờ set class
+	$(document).on('click','.report_link_box li a',function(e) {	
+		//@
+		e.preventDefault();	
+		$(this).parents('.report_link_box').find("a").removeClass("report_active");
+		$(this).addClass("report_active");
+		$('#btn_date').removeClass("report_active");
+
+
+		$( "#datepicker" ).val("");
+		$( "#datepicker2" ).val("");
+
+		var datas = get_data_ajax();
+		//console.log(datas);
+		//return;
+		
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
+				
+		//@
+	});			
+	//		
+	//		
+	
+
+
+	//@
+	//@
+	//@ lọc
+	$("#loc_user_markrting,#loc_coupon_markrting,#loc_order_status,#loc_cong_no").change(function() {	
+		var datas = get_data_ajax();
+		//console.log(datas);
+		//return;
+		
+		ojs_thong_ke_marketing_admin.ajax_load(datas);	
+	});			
+	//		
+	//		
+	
 
 
 
 
 
 
+	//@
+	//@
+	//@
+	//@ get_data_ajax	
+	//@ get_data_ajax	
+	function get_data_ajax(){
+	
+		//@
+		//@
+		//@ lấy ngày thang
+		var x = $(".report_link_box").find("li a.report_active");
+		
+		
+		var date_send = "";
+		var date_star = "";
+		var date_end = "";
+		if(x.length > 0){
+			date_send = $(x).attr("data_send");
+			date_star = ojs_share_date.get_date_star(date_send);
+			date_end = ojs_share_date.get_date_end(date_send);			
+		}else{
+			var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+			var date_02 = $( "#datepicker2" ).datepicker( "getDate" );	
+			
+			if(date_01 == null || date_02 == null){
+				ojs_message.message_ok_show("vui lòng chọn ngày");
+				return;
+			}
+			var date_01 = $( "#datepicker" ).datepicker( "getDate" );
+			var date_01_ok = $.datepicker.formatDate("yy-mm-dd", date_01);
+			date_01_ok = date_01_ok + " 00:00:00";
+			//@
+			//@
+			var date_02 = $( "#datepicker2" ).datepicker( "getDate" );
+			var date_02_ok = $.datepicker.formatDate("yy-mm-dd", date_02);
+			date_02_ok = date_02_ok + " 23:59:59";	
+
+			date_star = date_01_ok;
+			date_end = date_02_ok;
+			
+		}
+
+		
+		//@
+		//@
+		//@ data
+		var loc_user_marketing = $('#loc_user_markrting').val();
+		var loc_coupon_marketing = $('#loc_coupon_markrting').val();
+		var loc_order_status = $('#loc_order_status').val();
+		var loc_cong_no = $('#loc_cong_no').val();	
 
 
 
-
-
-
+		limit = 2000;
+		offset = 0;
+		sort_field = "";
+		sort_type = "";	
+		
+		var datas = {
+			loc_user_marketing:loc_user_marketing,
+			loc_coupon_marketing : loc_coupon_marketing,
+			loc_order_status:loc_order_status,
+			loc_cong_no:loc_cong_no,
+			date_star : date_star,
+			date_end : date_end,
+			limit : limit,
+			offset : offset,
+			sort_field : sort_field,
+			sort_type : sort_type
+		}
+		return datas;
+	}	
 
 	
 	/////////////////////////////////////////////////		

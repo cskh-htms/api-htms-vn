@@ -122,10 +122,24 @@ async  function function_export(req, res, next) {
 
 		//@ order
 		var order_data = [];
-		if(datas.sort){
-
+		if(datas.sort_field){
+			order_data.push(
+				{
+					"field"  :datas.sort_field
+				}					
+			)
 		}
-
+		if(datas.sort_type){
+			order_data.push(
+				{
+					"compare"  :datas.sort_type
+				}					
+			)
+		}
+		
+	
+		
+		
 		//@
 		//@ condition
 		var condition_data = [];
@@ -134,12 +148,7 @@ async  function function_export(req, res, next) {
 				"field"     :"orders_details_speciality_line_order",
 				"value"     : "coupon",
 				"compare" : "="
-			},		
-			{   
-				"field"     :"coupon_speciality_intro",
-				"value"     : 0,
-				"compare" : ">"
-			},	
+			},
 			{   
 				"field"     :"orders_speciality_status_orders",
 				"value"     : [-1,21,20,102],
@@ -158,6 +167,86 @@ async  function function_export(req, res, next) {
 		)	
 
 
+		//@
+		//@ loc user
+		if(datas.loc_user_marketing != "all"){
+			condition_data.push(	
+				{   
+					"field"     :"coupon_speciality_intro",
+					"value"     : datas.loc_user_marketing,
+					"compare" : "="
+				}			
+			)
+		}
+	
+
+
+		//@
+		//@ loc coupon
+		if(datas.loc_coupon_marketing != "all"){
+			condition_data.push(	
+				{   
+					"field"     :"coupon_speciality_ID",
+					"value"     : datas.loc_coupon_marketing,
+					"compare" : "="
+				}			
+			)
+		}
+
+
+		//@
+		//@ loc order status
+		if(datas.loc_order_status != "all"){
+			if(datas.loc_order_status == 1){
+				condition_data.push(	
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "="
+					}			
+				)				
+			}else{
+				condition_data.push(	
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : 100,
+						"compare" : "<>"
+					}			
+				)					
+			}
+
+		}
+
+
+
+		//@
+		//@ loc cong no
+		if(datas.loc_cong_no != "all"){
+			if(datas.loc_cong_no == 1){
+				condition_data.push(	
+					{   
+						"field"     :"payment_coupon_coupon_code",
+						"value"     : "",
+						"compare" : "not null"
+					}			
+				)				
+			}else{
+				condition_data.push(	
+					{   
+						"field"     :"payment_coupon_coupon_code",
+						"value"     : "",
+						"compare" : "null"
+					}			
+				)					
+			}
+
+		}
+		//return res.send(condition_data);
+
+
+		//@
+		//@
+		//@ goo
 		var data_order_list =    
 		{
 		   "select_field" :
@@ -219,15 +308,17 @@ async  function function_export(req, res, next) {
 					"orders_speciality_total_marketing",
 					
 					"coupon_speciality_intro_price",
-					"coupon_speciality_intro_price_limit",				
+					"coupon_speciality_intro_price_limit",	
+					"payment_coupon_coupon_code",					
 				],
 				"condition" :
 				[
 					{    
 					"relation": "and",
-					"where" : condition_data				
+					"where" :condition_data		
 					}         
 				],	
+				"limit":limit_data,
 				"order" :order_data			
 			 }
 			
