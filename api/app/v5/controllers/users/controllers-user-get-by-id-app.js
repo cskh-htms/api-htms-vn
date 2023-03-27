@@ -127,7 +127,7 @@ async  function function_export(req, res, next) {
 		//return ;		
 		
 		
-		
+		/*
 
 		//@ create arr ID product
 		var model_user_arr = [0];
@@ -166,11 +166,11 @@ async  function function_export(req, res, next) {
 
 		//return res.send([get_meta_user_resuilt]);
 		//return ;
-
+		*/
 		
 		
 		
-		return res.send({"error":"","datas":get_meta_user_resuilt});
+		return res.send({"error":"","datas":data_user});
 		return ;
 
 	}
