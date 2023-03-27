@@ -162,7 +162,7 @@ async  function function_export(req, res, next) {
 
 		
 		
-		return res.send({"error":"","datas":data_user});
+		return res.send(data_user);
 
 	}
 	catch(error){
