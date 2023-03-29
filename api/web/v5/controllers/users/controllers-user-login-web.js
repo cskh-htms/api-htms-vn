@@ -148,12 +148,7 @@ async  function function_export(req, res, next) {
 			}
 			
 			//@
-			if(role_text =="customer"){
-				token_type = 4;
-			}
-			if(role_text =="default"){
-				token_type = 0;
-			}	
+			token_type = 3;
 			//@
 			//@
 			//tạo token send data

@@ -141,34 +141,26 @@ async  function function_export(req, res, next) {
 			
 			if(role_text =="admin" 
 			|| role_text == "bussiness"
-			|| role_text == "bo-cong-thuong"			
-			|| role_text == "supper-job" 
-			|| role_text == "shipping" 			
+			|| role_text == "bo-cong-thuong"		
 			){
 			}else{
 				return res.send({ 
 					"error" : "8", 
 					"position":"api/appdalacom/v5/ctroller/controllers-user-login", 
-					"message": "Lỗi phân quyền, vui lòng đổi user login"
+					"message": "Lỗi phân quyền chỉ có ảun trị mới login ở đây, vui lòng đổi user login"
 				}); 				
 				
 			}
 			
 			//@
-			if(role_text =="customer"){
-				token_type = 4;
-			}
-			if(role_text =="default"){
+			if(role_text =="admin" || role_text =="bo-cong-thuong"){
 				token_type = 0;
-			}	
-			if(role_text =="admin"){
-				token_type = 1;
 			}
 			if(role_text =="bussingess"){
-				token_type = 2;
+				token_type = 1;
 			}				
 			if(role_text =="shipping"){
-				token_type = 3;
+				token_type = 4;
 			}				
 			
 			//@
