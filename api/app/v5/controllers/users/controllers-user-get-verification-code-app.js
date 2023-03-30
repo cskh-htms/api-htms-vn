@@ -231,7 +231,7 @@ async  function function_export(req, res, next) {
 								"users_tracking_action": "3",			
 								"users_tracking_status": "1",
 							}
-							user_tracking_insert(datas_tracking,res);
+							//user_tracking_insert(datas_tracking,res);
 
 							
 							return res.send( {"error" : "", "code" : verification_code} );
