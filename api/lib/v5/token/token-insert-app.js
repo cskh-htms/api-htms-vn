@@ -77,7 +77,7 @@ const function_export = function (data,res) {
 						);
 					return res.send({ 
 						"error" : "10", 
-						"position" : "lib->token->inser-web.js",
+						"position" : "lib->token->inser-app.js",
 						"message": error_send 
 					}); 
 										
@@ -96,7 +96,7 @@ const function_export = function (data,res) {
 			);
 		return res.send({ 
 			"error" : "100", 
-			"position" : "lib->token->inser-web.js",
+			"position" : "lib->token->inser-app.js",
 			"message": error_send 
 		}); 
 			

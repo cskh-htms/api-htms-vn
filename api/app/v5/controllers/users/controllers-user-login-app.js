@@ -23,8 +23,8 @@ const update_lost_password = require('../../../../lib/' + config_api.API_LIB_VER
 const update_lost_password_login = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/update-lost-password-login.js');
 
 
-const token_insert_web = require('../../../../lib/' + config_api.API_LIB_VERSION + '/token/token-insert-web.js');
-
+const token_insert_app = require('../../../../lib/' + config_api.API_LIB_VERSION + '/token/token-insert-app.js');
+const token_delete_old = require('../../../../lib/' + config_api.API_LIB_VERSION + '/token/token-delete-old.js');
 
 
 
@@ -231,15 +231,46 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@
-		//update lost qua password
-		var token_insert_web_result = await token_insert_web(data_insert,res);
+		//@ insert token
+		var token_insert_app_result = await token_insert_app(data_insert,res);
+		
+		
+		//@
+		//@
+		//@
+		//@ delete token cũ
+		var data_delete = {
+			"token_key": token,
+			'token_type':token_type,
+			"token_value": token_database,
+			"token_user_id": results[0].users_ID
+		}			
+		
+		var token_delete_old_result = await token_delete_old(data_delete,res);		
+		
+		
+		
+		
+		
+		
+		
 		
 		var payload_go = {
 			"token":token
 		}
 		var datas_ob = Object.assign(payload, payload_go);
-
+		
+		
 		let datas_return = { "error" : "","token": token,"datas" : datas_ob };
+		
+		
+		var datas_tracking = {
+			"users_tracking_user_id": check_lock[0].users_ID,
+			"users_tracking_action": "0",			
+			"users_tracking_status": "0",
+		}
+		var user_tracking_insert_OK = await user_tracking_insert(datas_tracking,res);		
+		
 		return res.send( datas_return );
 				
 				
@@ -250,9 +281,9 @@ async  function function_export(req, res, next) {
 		var datas_tracking = {
 			"users_tracking_user_id": check_lock[0].users_ID,
 			"users_tracking_action": "0",			
-			"users_tracking_status": "1",
+			"users_tracking_status": "0",
 		}
-		let user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
+		var user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
 		
 		//return res.send(user_tracking_insert_result);
 		//

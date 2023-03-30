@@ -29,6 +29,17 @@ BEGIN
 
 
 
+	SET @check_login_ok = (
+			select count(dala_users_tracking_ID) 
+			from dala_users_tracking 
+			where dala_users_tracking_user_id = NEW.dala_users_tracking_user_id 
+			and dala_users_tracking_action = 0 
+			and dala_users_tracking_status = 0 
+		);
+
+
+
+
 	SET @check_login_fail = (
 			select count(dala_users_tracking_ID) 
 			from dala_users_tracking 
@@ -65,10 +76,11 @@ BEGIN
 		
 		
 	IF (
-		@check_login_fail > 5 
-		or @check_lost_pass > 5 
-		or @check_verification_fail > 5 
-		or @check_verification > 5  	
+		@check_login_fail > 10 
+		or @check_login_ok > 50 
+		or @check_lost_pass > 10 
+		or @check_verification_fail > 10 
+		or @check_verification > 10   	
 		) THEN  
 		
 
