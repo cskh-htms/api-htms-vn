@@ -289,7 +289,7 @@ async  function function_export(req, res, next) {
 			"users_tracking_action": "0",			
 			"users_tracking_status": "0",
 		}
-		let user_tracking_insert_OK = await user_tracking_insert(datas_tracking,res);		
+		//let user_tracking_insert_OK = await user_tracking_insert(datas_tracking,res);		
 		
 		
 		
@@ -305,7 +305,7 @@ async  function function_export(req, res, next) {
 			"users_tracking_action": "0",			
 			"users_tracking_status": "1",
 		}
-		let user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
+		//let user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
 		
 		//return res.send(user_tracking_insert_result);
 		//

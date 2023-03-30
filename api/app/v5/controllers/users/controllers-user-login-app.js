@@ -269,7 +269,7 @@ async  function function_export(req, res, next) {
 			"users_tracking_action": "0",			
 			"users_tracking_status": "0",
 		}
-		var user_tracking_insert_OK = await user_tracking_insert(datas_tracking,res);		
+		//var user_tracking_insert_OK = await user_tracking_insert(datas_tracking,res);		
 		
 		return res.send( datas_return );
 				
@@ -283,7 +283,7 @@ async  function function_export(req, res, next) {
 			"users_tracking_action": "0",			
 			"users_tracking_status": "0",
 		}
-		var user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
+		//var user_tracking_insert_result = await user_tracking_insert(datas_tracking,res);
 		
 		//return res.send(user_tracking_insert_result);
 		//
