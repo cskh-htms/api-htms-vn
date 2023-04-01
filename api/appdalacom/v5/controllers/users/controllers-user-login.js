@@ -41,6 +41,7 @@ const token_delete_old = require('../../../../lib/' + config_api.API_LIB_VERSION
 //@ file export
 async  function function_export(req, res, next) {
 	
+	
 	//@
 	//@
 	//@
@@ -48,6 +49,8 @@ async  function function_export(req, res, next) {
 	// lấy data request
 	try {
 		var datas = req.body.datas;
+		
+		
 		return res.send([req.ip]);
 		//
 	}
