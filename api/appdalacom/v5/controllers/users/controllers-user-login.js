@@ -51,7 +51,7 @@ async  function function_export(req, res, next) {
 		var datas = req.body.datas;
 		
 		
-		return res.send([req.ip]);
+		//return res.send([req.ip]);
 		//
 	}
 	catch(error){
