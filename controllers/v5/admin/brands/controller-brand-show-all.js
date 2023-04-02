@@ -84,7 +84,7 @@ async  function function_export(req, res, next) {
 					'/admin/brands/show-all/',
 					token
 				);	
-			//return res.send([data_api_resuilt]);
+			return res.send([data_api_resuilt]);
 			//		
 			
 		}

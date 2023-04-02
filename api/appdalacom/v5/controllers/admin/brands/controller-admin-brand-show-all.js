@@ -79,6 +79,9 @@ async  function function_export(req, res, next) {
 		//@ lấy req data
 		try {
 			var token = req.headers['token'];
+			
+			return res.send([req.ip,req.ips,req.hostname,req.baseurl,req.app,req.path]);
+			
 		}
 		catch(error){
 			var evn = ojs_configs.evn;
