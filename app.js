@@ -72,6 +72,7 @@ app.use(session({secret: process.env.session_secret,saveUninitialized: true,resa
 
 
 
+
 //@
 //@
 //@
@@ -86,7 +87,7 @@ app.use(session({secret: process.env.session_secret,saveUninitialized: true,resa
 app.use('/', require('./routes/' + app_config.router_version + '/index'));
 app.use('/api/app/v5/', require('./api/app/v5/routers/routers-index-app'));
 app.use('/api/web/v5/', require('./api/web/v5/routers/routers-index-web'));
-app.use('/api/appdalacom/v5/', require('./api/appdalacom/v5/routers/routers-index-appdalacom'));
+//app.use('/api/appdalacom/v5/', require('./api/appdalacom/v5/routers/routers-index-appdalacom'));
 
 
 
