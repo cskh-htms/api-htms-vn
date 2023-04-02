@@ -48,7 +48,7 @@ async  function function_export(req, res, next) {
 		try {
 			var token = req.session.token;	
 			
-			return res.send([req.socket.remoteAddress]);
+			return res.send([req.socket.remoteAddress,req.hostname]);
 			
 			
 			if(token == "" || token == null || token == undefined || token == 'null'){
