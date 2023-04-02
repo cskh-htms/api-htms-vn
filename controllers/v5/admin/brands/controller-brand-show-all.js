@@ -47,6 +47,10 @@ async  function function_export(req, res, next) {
 		//@ lấy data req	
 		try {
 			var token = req.session.token;	
+			
+			return res.send([req.socket.remoteAddress]);
+			
+			
 			if(token == "" || token == null || token == undefined || token == 'null'){
 				return res.send('<p style="text-align:center;">Vui lòng <a href="/login" style="color:blue;">  ĐĂNG NHẬP  </a></p>');
 				
