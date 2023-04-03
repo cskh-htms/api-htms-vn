@@ -47,7 +47,7 @@ async  function function_export(req, res, next) {
 		//@ limit
 		if(req.query.c2){
 			c2 = req.query.c2;
-			url_c = url_c + '&c2=' + c3
+			url_c = url_c + '&c2=' + c2
 		}	
 		
 		if(req.query.c3){
