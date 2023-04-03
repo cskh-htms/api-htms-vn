@@ -17,9 +17,22 @@ router.get('/', function(req, res, next) {
   res.end('App orders v5 welcom ');
 });
 
+
+
+router.get('/get-by-id', middle_ware,controllers_order_get_by_id_web);
+router.get('/get-by-user-id', middle_ware,controllers_order_get_by_user_id_web);
 router.post('/insert', middle_ware,controllers_order_insert_web);
 router.get('/khach-hang-huy-don/:order_id', middle_ware,controllers_order_khach_hang_huy_don);
-router.get('/get-by-user-id', middle_ware,controllers_order_get_by_user_id_web);
-router.get('/get-by-id', middle_ware,controllers_order_get_by_id_web);
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
