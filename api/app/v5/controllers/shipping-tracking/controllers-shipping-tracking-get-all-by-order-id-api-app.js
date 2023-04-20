@@ -18,7 +18,7 @@ const shipping_tracking_search = require('../../../../lib/' + config_api.API_LIB
 
 //@
 async  function get_all_by_order_id(req, res, next) {
-	//return res.send(["sdasdas","sdasdasdasd"]);
+	
 	//
 	try {
 		var order_id = req.params.order_id;
@@ -91,7 +91,7 @@ async  function get_all_by_order_id(req, res, next) {
 				"where" :
 					[
 						{   
-							"field"     :"orders_speciality_ID",
+							"field"     :"shipping_tracking_orders_id",
 							"value"     : order_id,
 							"compare" : "="
 						} 						

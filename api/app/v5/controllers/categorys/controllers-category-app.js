@@ -27,12 +27,6 @@ async  function controllers_category_app(req, res, next) {
 	//@ lấy req data
 	try {
 		var token = req.headers['token'];
-		/*
-		var category_id = -1;
-		if(req.query.c1){
-			store_id = req.query.c1;
-		}
-		*/
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

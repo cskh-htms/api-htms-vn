@@ -24,12 +24,14 @@ const check_owner_meta_adress = require('../../../../shares/' + config_api.API_S
 
 //@
 async  function function_export(req, res, next) {
+	
 	try {
-		var datas = req.body.datas;
+		var datas = req.body.datas;		
 		var token = req.headers['token'];
-		var meta_adress_id = req.params.meta_adress_id;		
+		var meta_adress_id = req.params.meta_adress_id;				
 		var de_token = jwt.decode(token);		
-		//return res.send([datas,user_id,de_token]);
+		
+		//return res.send([datas,token,meta_adress_id,de_token]);
 		//
 		
 	}
@@ -41,6 +43,7 @@ async  function function_export(req, res, next) {
 			
 	}	
 	
+
 
 
 
@@ -92,12 +95,12 @@ async  function function_export(req, res, next) {
 					
 	}
 
-
+	//return res.send([check_owner_result]);
 
 
 
 	//@ insert	
-	var result = await meta_adress_update(datas,meta_adress_id,res);
+	var result = await meta_adress_update(de_token.users_ID,datas,meta_adress_id,res);
 	return res.send({"error":"","datas":result});
 	
 

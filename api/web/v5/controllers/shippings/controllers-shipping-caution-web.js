@@ -384,7 +384,7 @@ async  function function_export(req, res, next) {
 		let token = process.env.token_ghtk;
 		
 		//@ test
-		return res.send({ "error" : "" , "datas" : [url,token]}); 
+		//return res.send({ "error" : "" , "datas" : [url,token]}); 
 						
 		
 		
