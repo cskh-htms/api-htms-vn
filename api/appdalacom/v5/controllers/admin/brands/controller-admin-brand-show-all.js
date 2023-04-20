@@ -83,7 +83,7 @@ async  function function_export(req, res, next) {
 		try {
 			var token = req.headers['token'];
 			
-			return res.send([req.socket.remoteAddress,req.hostname]);
+			//return res.send([req.socket.remoteAddress,req.hostname]);
 			
 		}
 		catch(error){

@@ -27,11 +27,8 @@ const product_search = require('../../../../../lib/' + config_api.API_LIB_VERSIO
 
 
 const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const ojs_get_email_content_create_product = require('../../../../../../models/get-content-email-create-product.js');
-const ojs_shares_send_email = require('../../../../../../models/ojs-shares-send-email');
-
-
-
+const ojs_shares_send_email = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email');
+const ojs_get_email_content_create_product = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/content-email-create-product.js');
 
 
 

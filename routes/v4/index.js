@@ -10,9 +10,15 @@ router.get('/', function(req, res, next) {
 });
 
 
+
+
+
+
+
 /*------------------------------------------------
 	
 ---------------------------------------------- */
+/*
 router.use('/demo', require('../../routes/' + app_config.router_version + '/demo') );
 
 router.use('/user-delete-qa', require('../../routes/' + app_config.router_version + '/user-delete-qa') );
@@ -61,5 +67,15 @@ router.use('/ho-tro', require('../../routes/' + app_config.router_version + '/ho
 router.use('/users-tracking', require('../../routes/' + app_config.router_version + '/users-tracking') );
 
 router.use('/shipper', require('../../routes/' + app_config.router_version + '/shipper') );
+
+
+*/
+
+
+
+
+
+
+
 
 module.exports = router;
