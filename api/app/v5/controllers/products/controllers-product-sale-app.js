@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-
-
 const ojs_configs = require('../../../../../configs/config');
 const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
-const ojs_shares_show_errors = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-	
-const ojs_shares_others = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
+const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const ojs_shares_fetch_data = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data');
+const product_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
+
+
 
 
 
@@ -22,8 +19,7 @@ const ojs_shares_fetch_data = require('../../../../shares/' +
 //@
 //@
 //@
-//@
-//@ function-export
+//@ function export
 async  function function_export(req, res, next) {
 	
 	try {
@@ -39,7 +35,7 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "1", 
-			"position" : "api/app/v5/ctroller/controllers-product-sale-app-client",
+			"position" : "api/app/v5/ctroller/controllers-product-sale-app",
 			"message": error_send 
 		}); 
 			
@@ -50,24 +46,78 @@ async  function function_export(req, res, next) {
 
 
 
-	//@
-	//@
-	//@ call api			
-	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_get(
-			ojs_configs.domain + '/api/app/' + 
-			config_api.API_APPDALACOM_VERSION + 
-			'/products/sale', 
-			token
-		);				
-	return res.send( data_api_resuilt );	
+	//@ lấy req data
+	try {
+		//@ 3. get model
+		let data_get =    
+		{
+		   "select_field" :
+			[
+				"sum(orders_details_speciality_qty)",
+				"orders_details_speciality_product_id",
+				"products_speciality_name"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : "100",
+						"compare" : "="
+					}
+					] 				
+				}         
+			],
+			"group_by" :
+			 [
+				"orders_details_speciality_product_id"
+			 ]   
+		}
+		
+
+		//@ get datas
+		var data_product = await product_sale(data_get,res);
+		return res.send({"error":"","datas":data_product}); 
+				
+
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		////evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get data product, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "3", 
+			"position" : "api/app/v5/ctroller/controllers-product-sale-app",
+			"message": error_send 
+		}); 
+			
+	}		
 }
 
 
 
-module.exports = function_export;
+
 
 
 //@
-//@	
-//@	
-//@ end
+//@
+//@
+//@ export
+module.exports = function_export;
+
+
+
+
+
+
+//@
+//@
+//@
+//@ file end

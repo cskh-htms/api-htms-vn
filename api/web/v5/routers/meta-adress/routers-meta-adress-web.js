@@ -14,11 +14,12 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/add/', middle_ware, controllers_meta_adress_add_web);
-router.delete('/delete/:meta_adress_id', middle_ware, controllers_meta_adress_delete_web);
-router.get('/get-by-user-id/:user_id', middle_ware, controllers_meta_adress_get_by_user_id_web);
-router.put('/update/:meta_adress_id', middle_ware, controllers_meta_adress_update_web);
 
+router.get('/get-by-user-id/:user_id', middle_ware, controllers_meta_adress_get_by_user_id_web);
+
+router.post('/add/', middle_ware, controllers_meta_adress_add_web);
+router.put('/update/:meta_adress_id', middle_ware, controllers_meta_adress_update_web);
+router.delete('/delete/:meta_adress_id', middle_ware, controllers_meta_adress_delete_web);
 
 
 

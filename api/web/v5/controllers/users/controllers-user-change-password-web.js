@@ -1,33 +1,28 @@
 const express = require('express');
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 
 
 const ojs_configs = require('../../../../../configs/config');
+
+
 const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
-const ojs_shares_show_errors = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-	
-const ojs_shares_others = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
-
-const ojs_shares_fetch_data = require('../../../../shares/' + 
-	config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data');
+const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
 
 
+const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const user_update = require('../../../../lib/' + config_api.API_LIB_VERSION + '/users/user-update.js');
 
 
 
 //@
-//@
-//@
-//@
-//@ function export
 async  function function_export(req, res, next) {
 	try {
-		var datas = req.body;
+		var datas = req.body.datas;
 		var token = req.headers['token'];
 		var user_id = req.params.user_id;
 		
@@ -35,44 +30,53 @@ async  function function_export(req, res, next) {
 		if(user_id != de_token.users_ID){
 			return res.send({ 
 				"error" : "01", 
-				"position" : "api/web/v5/ctronller/controllers-user-change-password-web-client",
+				"position" : "api/web/v5/ctronller/controllers-user-change-password-web",
 				"message": "user không khớp với phiên làm việc"
 			}); 	
+						
 		}		
-
+		
+		//return res.send([datas,user_id,de_token]);
+		//
+		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
-		return res.send({ "error" : "2", "position":"ctl-users->change-password-client", "message": error_send } );
+		return res.send({ "error" : "2", "position":"ctl-users->change-password", "message": error_send } );
 			
 	}	
 	
 
 
+
+
+
 	//@
 	//@
-	//@ call api			
-	var data_api_resuilt = await ojs_shares_fetch_data.get_data_send_token_post(
-			ojs_configs.domain + '/api/web/' + 
-			config_api.API_APPDALACOM_VERSION + 
-			'/users/change-password/' + user_id, 
-			datas,
-			token
-		);				
-	return res.send( data_api_resuilt );	
+	//neu không có token thì trỏ ra login page
+	if(token == "" || token == null || token == undefined){
+		var evn = ojs_configs.evn;
+		////evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
+		return res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
+		
+	}	
+		
+	//return res.send(de_token);
+	//
+
+
+
+
+
+
+	//@ insert	
+	var result = await user_update(datas,user_id,res);
+	return res.send({"error":"","datas":result});
 	
+
 }
 
 module.exports = function_export;
-
-
-
-
-
-
-//@
-//@
-//@
-//@ end

@@ -36,10 +36,9 @@ const ojs_shares_fetch_data = {
 			}
 		});;
 
-		return response.json();		
-		
-		
+		return response.json();				
 	},
+
 
 	//
 	//

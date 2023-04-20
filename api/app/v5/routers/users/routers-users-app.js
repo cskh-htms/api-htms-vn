@@ -51,14 +51,6 @@ const controllers_user_get_marketing_order =  require('../../controllers/users/c
 //@
 //@
 //@ router
-router.post('/register', controllers_user_register_app);
-router.post('/login', controllers_user_login_app);
-router.post('/check-token', controllers_user_check_token_app);
-router.post('/verification-code', middle_ware, controllers_user_verification_code_app);
-router.post('/verification-code-lost', controllers_user_verification_code_lost_app);
-router.post('/change-password/:user_id', middle_ware, controllers_user_change_password_app);
-router.post('/lost-password', controllers_user_lost_password_app);
-router.post('/update/:user_id', middle_ware, controllers_user_update_app);
 
 
 router.get('/get-by-id/:user_id', middle_ware, controllers_user_get_by_id_app);
@@ -70,6 +62,19 @@ router.get('/marketing-order', middle_ware, controllers_user_get_marketing_order
 
 
 
+
+
+router.post('/register', controllers_user_register_app);
+router.post('/login', controllers_user_login_app);
+router.post('/check-token', controllers_user_check_token_app);
+
+
+router.post('/verification-code', middle_ware, controllers_user_verification_code_app);
+router.post('/verification-code-lost', controllers_user_verification_code_lost_app);
+
+router.post('/change-password/:user_id', middle_ware, controllers_user_change_password_app);
+router.post('/lost-password', controllers_user_lost_password_app);
+router.post('/update/:user_id', middle_ware, controllers_user_update_app);
 
 
 

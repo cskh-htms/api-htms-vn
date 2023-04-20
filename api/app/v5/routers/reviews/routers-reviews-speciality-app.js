@@ -34,11 +34,14 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.get('/get-by-user', middle_ware, controller_review_get_by_user);
+router.get('/get-product-no-review-by-user', middle_ware, controller_review_get_product_no_reivew_by_user);
+
+
 router.post('/insert-app', middle_ware, upload,controllers_reviews_spaciality_insert_app.insert_reviews_spaciality_app);
 router.put('/update-app/:review_id', middle_ware, upload,controllers_reviews_spaciality_update_app.update_reviews_spaciality_app);
 
-router.get('/get-by-user', middle_ware, controller_review_get_by_user);
-router.get('/get-product-no-review-by-user', middle_ware, controller_review_get_product_no_reivew_by_user);
+
 
 
 

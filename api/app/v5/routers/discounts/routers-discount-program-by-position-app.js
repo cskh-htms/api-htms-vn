@@ -16,9 +16,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/by-position', middle_ware,controllers_discount_by_position_app);
-
 router.get('/by-product', middle_ware,controllers_discount_by_product_app);
-
 router.get('/by-store', middle_ware,controllers_discount_by_store_app);
 
 

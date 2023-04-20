@@ -13,11 +13,8 @@ router.get('/', function(req, res, next) {
   res.end('App store v5 welcom ');
 });
 
-
-
-router.get('/by-id/', middle_ware,controllers_store_by_id_web);
 router.get('/get-all', middle_ware,controllers_store_get_all_web);
-
+router.get('/by-id/', middle_ware,controllers_store_by_id_web);
 
 
 
