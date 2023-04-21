@@ -28,21 +28,24 @@ const content_email_order = require('../../../../shares/' + config_api.API_SHARE
 
 
 
+
 //@
 //@
 //@
 //@		
 //@ function 
 async  function controllers_order_insert_app(req, res, next) {
-	
+	return res.send(["dfsd"]);
 	try {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
+		
+		return res.send([datas]); 
 
 		if(!datas.orders.orders_speciality_user_id){
 			return res.send({ 
 				"error" : "1", 
-				"position" : "api/app/v5/controller/order/orders-insert",
+				"position" : "api/app/v5/controller/order/orders-insert-master",
 				"message":  " Chưa nhập mã khách hàng "
 			});
 			
@@ -50,7 +53,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		if(!datas.orders_detail){
 			return res.send({ 
 				"error" : "2", 
-				"position" : "api/app/v5/controller/order/orders-insert",
+				"position" : "api/app/v5/controller/order/orders-insert-master",
 				"message":  " Chưa có data order "
 			});
 			
@@ -66,7 +69,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "3", 
-			"position" : "api/app/v5/controller/order/orders-insert",
+			"position" : "api/app/v5/controller/order/orders-insert-master",
 			"message": error_send 
 		}); 
 			
@@ -88,7 +91,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "5",
-			"position" : "api/app/v5/controller/order/orders-insert", 
+			"position" : "api/app/v5/controller/order/orders-insert-master", 
 			"message": error_send 
 		}); 					
 	}

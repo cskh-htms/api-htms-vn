@@ -29,6 +29,22 @@ BEGIN
 	END IF;	
 		
 	
+
+	--
+	-- check order master
+	SET @checkID1 = (
+			select dala_orders_speciality_master_ID 
+			from dala_orders_speciality_master 
+			where dala_orders_speciality_master_ID = NEW.dala_orders_speciality_orders_speciality_master_id  
+		);		
+	IF (@checkID1 > 0) THEN  
+		SIGNAL SQLSTATE '01000'; 
+	ELSE 
+		SIGNAL SQLSTATE '11301' 
+		SET MESSAGE_TEXT = 'trig_orders_speciality_before_insert_before_insert_order_master_not_refer'; 
+	END IF;	
+		
+
 	
 	
 	--

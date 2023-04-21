@@ -7,6 +7,7 @@ const fields_search = 	"" +
 
 	config_database.PREFIX  + "orders_speciality_ID as orders_speciality_ID, " +
 	config_database.PREFIX  + "orders_speciality_user_id as orders_speciality_user_id, " + 
+	config_database.PREFIX  + "orders_speciality_orders_speciality_master_id as orders_speciality_orders_speciality_master_id, " + 	
 	"DATE_FORMAT(" + config_database.PREFIX  + "orders_speciality_date_orders," + "'%Y/%m/%d %H:%i:%s'"  + ") as orders_speciality_date_orders, " + 	
 		
 	config_database.PREFIX  + "orders_speciality_store_id as orders_speciality_store_id, " + 
@@ -46,6 +47,7 @@ const fields_search_arr = [
 	"orders_speciality_ID",
 	"orders_speciality_date_orders",
 	"orders_speciality_user_id",
+	"orders_speciality_orders_speciality_master_id",
 	
 	"orders_speciality_store_id",
 	"orders_speciality_status_orders",	

@@ -8,8 +8,8 @@ const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./orders-fields-get');
-const fields_insert = require('./orders-fields-insert.js');
+const fields_get = require('./orders-master-fields-get.js');
+const fields_insert = require('./orders-master-fields-insert.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 const ojs_configs = require('../../../../configs/config');
 

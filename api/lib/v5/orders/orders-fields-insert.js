@@ -4,6 +4,7 @@
 const  default_fields = {
 		"orders_speciality_user_id"				: "",
 		"orders_speciality_store_id"			: "",
+		"orders_speciality_orders_speciality_master_id" : 0,
 		"orders_speciality_status_orders"		: 0,	
 		"orders_speciality_status_payment"		: 0,	
 		"orders_speciality_adress"			    : "",
