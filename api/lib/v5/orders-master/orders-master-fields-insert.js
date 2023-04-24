@@ -39,7 +39,7 @@ function get_message_error(error){
 	}else if(error.sqlState == '22202'){
 		return "Email không hợp lệ";	
 		
-	if(error.sqlState == '22203' ){
+	}else if(error.sqlState == '22203' ){
 		return "Chưa nhập khách hàng hoặc khách hàng không có trong hệ thống";		
 	
 		
