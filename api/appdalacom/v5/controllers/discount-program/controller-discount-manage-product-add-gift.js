@@ -22,7 +22,8 @@ const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '
 const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount.js');
 const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search.js');
 const product_search_gift = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
-const product_search_gift_in = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
+const product_search_gift_in = 
+	require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts-products-gift/discount-product-gift-search.js');
 
 //@
 //@
@@ -345,6 +346,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ 4. product_gift
+		//@ danh sach san pham qua tang
 		let data_product_gift =    
 			{
 				"select_field" :
@@ -410,6 +412,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//@ 4. product_gift_in
+		//@ danh sach san pham qua tang co tham gia
 		let data_product_gift_in =    
 			{
 				"select_field" :
@@ -443,17 +446,7 @@ async  function function_export(req, res, next) {
 								"field"     :"stores_ID",
 								"value"     : store_id,
 								"compare" 	: '='
-							},
-							{   
-								"field"     :"products_speciality_status_admin",
-								"value"     : 1,
-								"compare" 	: '='
-							},
-							{   
-								"field"     :"products_speciality_type",
-								"value"     : [0,1],
-								"compare" 	: 'in'
-							}										
+							}								
 						]    
 					}
 				]			

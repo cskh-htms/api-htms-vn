@@ -8,29 +8,29 @@ const config_api = require ('../../configs/config-api');
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors.js');
 
-const discount_search_product = require('../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search-product.js');
-const review_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
-const product_sale = require('../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search.js');
+const discount_search_product = 
+	require('../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search-product.js');
+const review_search = 
+	require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
+const product_sale = 
+	require('../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search.js');
 
 //@
 
 
 const discount_product_gift_search = require('../../lib/' + 
-config_api.API_LIB_VERSION + 
-'/discounts-products-gift/discount-product-gift-search.js');
+	config_api.API_LIB_VERSION + 
+	'/discounts-products-gift/discount-product-gift-search.js');
 
 //@
 const price_search = require('../../lib/' + 
-config_api.API_LIB_VERSION + 
-'/product-speciality-price-meta/product-speciality-price-meta-search.js');
-
+	config_api.API_LIB_VERSION + 
+	'/product-speciality-price-meta/product-speciality-price-meta-search.js');
 
 //@
 const product_search = require('../../lib/' + 
-config_api.API_LIB_VERSION + 
-'/products/product-search.js');
-
-
+	config_api.API_LIB_VERSION + 
+	'/products/product-search.js');
 
 
 
@@ -460,7 +460,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			for(let y in data_product_gift){
 				if(data_product[x].products_speciality_ID == data_product_gift[y].discount_program_gift_link_product_speciality_id){
 					let data_push_line = {
-						"product_gift_id": data_product_gift[y].products_speciality_ID,
+						"product_gift_id": data_product_gift[y].discount_program_gift_link_product_speciality_id,
 						"product_gift_name": data_product_gift[y].products_speciality_name,
 						"product_gift_image": data_product_gift[y].products_speciality_featured_image,
 					}

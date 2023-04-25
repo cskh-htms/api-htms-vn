@@ -17,7 +17,8 @@ const ojs_shares_send_code_to_phone = require('../../../../shares/' + config_api
 const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-send-email.js');
 const content_email_order = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/content-email-order.js');
 const get_datas_order_insert = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-datas-order-insert.js');
-
+const get_datas_order_coupon_insert = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-datas-order-coupon-insert.js');
 
 const order_master_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders-master/orders-master-insert.js');
 
@@ -85,16 +86,38 @@ async  function controllers_order_insert_app(req, res, next) {
 					
 	}
 	
-	var datas_order_store_arr = [];
+	
+	
+	
+	//@
+	//@
+	//@ lấy giá mới cho sản phẩm
+	var datas_order_store_price_caution_arr = [];
 	for (x in datas.orders_store){
 		var get_order_data = await  get_datas_order_insert(datas.orders_store[x],res);
-		datas_order_store_arr.push(get_order_data);
+		datas_order_store_price_caution_arr.push(get_order_data);
 	}
+	//return res.send([datas_order_store_price_caution_arr]);
+	
+
+	//@
+	//@
+	//@ check lai coupon
+	var datas_order_store_coupon_caution_arr = [];
+	for (x in datas_order_store_price_caution_arr){
+		var datas_order_store_coupon_caution = 
+			await  get_datas_order_coupon_insert(datas_order_store_price_caution_arr[x],datas.orders_master.orders_speciality_user_id,res);
+		datas_order_store_coupon_caution_arr.push(datas_order_store_coupon_caution);
+	}	
+
+	
+	
+	
 	//@
 	//@
 	//@
 	//@		
-	return res.send([datas_order_store_arr]);
+	return res.send([datas_order_store_coupon_caution_arr]);
 	
 	
 	

@@ -144,6 +144,27 @@ const function_export = async function(datas,res){
 						datas.order_details[x].orders_details_speciality_price = 
 						get_meta_product_resuilt[y].products_speciality_price_caution
 					}	
+					
+
+					//@
+					//@ 
+					//@ lấy danh sách sản phẩm tặng
+					if(	get_meta_product_resuilt[y].discount_program[0].type
+					&& get_meta_product_resuilt[y].discount_program[0].type == 1 ){
+						
+						//@
+						//@ lấy giá theo số lượng
+
+						var product_gift_add = {
+							"orders_details_speciality_line_order": "gift",
+							"orders_details_speciality_product_id": get_meta_product_resuilt[y].product_gift[0].product_gift_id,
+							"orders_details_speciality_qty": datas.order_details[x].orders_details_speciality_qty,
+							"orders_details_speciality_price": 0
+						}
+
+						datas.order_details.push(product_gift_add);
+						break; 
+					}				
 				}					
 			}
 		}

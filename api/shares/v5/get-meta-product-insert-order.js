@@ -124,7 +124,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			);
 		return res.send({ 
 			"error" : "1",
-			"position" : "api/shares/get meta product", 
+			"position" : "api/shares/get meta product orser -nsert orser -nsert", 
 			"message": error_send 
 			}); 
 			
@@ -208,7 +208,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		);
 		return res.send ({ 
 			"error" : "222", 
-			"position" : "api/shares/get meta product",
+			"position" : "api/shares/get meta product orser -nsert",
 			"message": error_send 
 		});
 	}			
@@ -219,7 +219,83 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	
 	
 	
-
+	
+	//@ 3. get product gift
+	try{
+		let data_get =    
+		{
+		   "select_field" :
+			[
+				"products_speciality_ID",
+				"discount_program_gift_link_product_speciality_id",
+				"products_speciality_featured_image",
+				"products_speciality_name",			
+				"stores_name",
+				"stores_ID"			
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"discount_program_gift_link_product_speciality_id",
+						"value"     : model_product_arr,
+						"compare" : "in"
+					},
+					{   
+						"field"     :"check_expired",
+						"value"     : 1,
+						"compare" : "="
+					}					
+					]    
+				}         
+			]   
+		}
+		
+		
+		
+		
+		
+		
+		//@ get datas
+		var data_product_gift = await discount_product_gift_search(data_get,res);
+		//@ đưa comment vào data return
+		let add_data = [];	
+		for(let x in data_product){
+			let add_data_line = [];
+			for(let y in data_product_gift){
+				if(data_product[x].products_speciality_ID == data_product_gift[y].discount_program_gift_link_product_speciality_id){
+					let data_push_line = {
+						"product_id": data_product_gift[y].discount_program_gift_link_product_speciality_id,
+						"product_gift_id": data_product_gift[y].products_speciality_ID,
+						"product_gift_name": data_product_gift[y].products_speciality_name,
+						"product_gift_image": data_product_gift[y].products_speciality_featured_image,
+					}
+					add_data_line.push(data_push_line);
+				}							
+			}
+			data_product[x].product_gift = add_data_line;
+		}			
+	}
+	catch(error){
+		let evn = ojs_configs.evn;
+		//evn = "dev";
+		let error_send = ojs_shares_show_errors.show_error( 
+			evn, 
+			error, 
+			"lỗi get product discount gift, liên hệ admin" 
+		);
+		return res.send ({ 
+			"error" : "22", 
+			"position" : "api/shares/get meta product orser -insert",
+			"message": error_send 
+		});
+	}		
+		
+	
+	
 	return(data_product); 
 };	
 
