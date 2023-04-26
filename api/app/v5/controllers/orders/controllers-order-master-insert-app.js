@@ -100,13 +100,20 @@ async  function controllers_order_insert_app(req, res, next) {
 	//return res.send([datas_order_store_price_caution_arr]);
 	
 
+
+
+
 	//@
 	//@
 	//@ check lai coupon
 	var datas_order_store_coupon_caution_arr = [];
-	for (x in datas_order_store_price_caution_arr){
+	for (y in datas_order_store_price_caution_arr){
 		var datas_order_store_coupon_caution = 
-			await  get_datas_order_coupon_insert(datas_order_store_price_caution_arr[x],datas.orders_master.orders_speciality_user_id,res);
+			await  get_datas_order_coupon_insert(
+					datas_order_store_price_caution_arr[y],
+					datas.orders_master.orders_speciality_user_id,
+					res
+				);
 		datas_order_store_coupon_caution_arr.push(datas_order_store_coupon_caution);
 	}	
 
