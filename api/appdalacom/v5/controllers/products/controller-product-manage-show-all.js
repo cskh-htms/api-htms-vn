@@ -218,12 +218,12 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"products_speciality_store_id",
 						"value"     : store_id,
 						"compare" : "="
-					},				
+					},	
 					{   
-						"field"     :"products_speciality_status_store",
-						"value"     : "1",
-						"compare" : "="
-					} ,				
+						"field"     :"products_speciality_status_admin",
+						"value"     : [1,2,3,4],
+						"compare" : "in"
+					},					
 					{   
 						"field"     :"stores_status_admin",
 						"value"     : "1",
@@ -497,12 +497,7 @@ async  function store_order_get_all(req, res, next) {
 							"field"     :"stores_ID",
 							"value"     : store_id,
 							"compare" : "="
-						}, 
-						{   
-							"field"     :"products_speciality_status_store",
-							"value"     : "1",
-							"compare" : "="
-						} ,					
+						}, 				
 						{   
 							"field"     :"products_speciality_status_admin",
 							"value"     : [1,2,3,4],

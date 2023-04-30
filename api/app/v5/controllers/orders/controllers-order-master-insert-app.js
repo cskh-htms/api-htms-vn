@@ -33,8 +33,9 @@ async  function controllers_order_insert_app(req, res, next) {
 	try {
 		var datas = req.body.datas;
 		var token = req.headers['token'];
+		//return res.send( datas  );
 
-		if(!datas.orders_master.orders_speciality_user_id){
+		if(!datas.orders_master.orders_speciality_master_user_id){
 			return res.send({ 
 				"error" : "1", 
 				"position" : "api/app/v5/controller/order/orders-master-insert",
@@ -67,16 +68,25 @@ async  function controllers_order_insert_app(req, res, next) {
 		}); 
 			
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//@ check owner user
-	const check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.orders_master.orders_speciality_user_id,res);
+	const check_owner_user_resuilt = 
+		await check_owner_user.check_owner_user(token,datas.orders_master.orders_speciality_master_user_id,res);
 	if(check_owner_user_resuilt != 1){
 		var evn = ojs_configs.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
-				"Lỗi phân quyền , Vui lòng liên hệ admin" , 
-				"Lỗi phân quyền , Vui lòng liên hệ admin" 
+				"Lỗi phân quyền, user đặt hàng và token không giống nhau , Vui lòng liên hệ admin" , 
+				"Lỗi phân quyền , user đặt hàng và token không giống nhau, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "5",
@@ -97,7 +107,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		var get_order_data = await  get_datas_order_insert(datas.orders_store[x],res);
 		datas_order_store_price_caution_arr.push(get_order_data);
 	}
-	//return res.send([datas_order_store_price_caution_arr]);
+	return res.send([datas_order_store_price_caution_arr]);
 	
 
 
@@ -117,6 +127,22 @@ async  function controllers_order_insert_app(req, res, next) {
 		datas_order_store_coupon_caution_arr.push(datas_order_store_coupon_caution);
 	}	
 
+	
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ insert order
+	//var order_master_insert_result = await order_master_insert(datas_order_store_coupon_caution_arr,res)
+	
+	return res.send({"error":"", "datas":order_master_insert_result});
+	
+	
+	
+	
 	
 	
 	

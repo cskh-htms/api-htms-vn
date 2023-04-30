@@ -14,35 +14,19 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 const ojs_configs = require('../../../../configs/config');
 
 
-const order_insert = function (datas,data_details,res) {
+const order_insert = function (datas,res) {
 	
 	var sql_text = "";
 	var dataGo = {
-			"orders_speciality_user_id"					: datas.orders_speciality_user_id,
-			"orders_speciality_orders_speciality_master_id" : datas.orders_speciality_orders_speciality_master_id,
-			"orders_speciality_store_id"				: datas.orders_speciality_store_id,
-			
-			"orders_speciality_adress"					: mysql.escape(datas.orders_speciality_adress).replace(/^'|'$/gi, ""),		
-			"orders_speciality_phone"					: mysql.escape(datas.orders_speciality_phone).replace(/^'|'$/gi, ""),	
-			"orders_speciality_email"					: mysql.escape(datas.orders_speciality_email).replace(/^'|'$/gi, ""),
-			"orders_speciality_notes"					: mysql.escape(datas.orders_speciality_notes).replace(/^'|'$/gi, ""),
-			
-			"orders_speciality_province"				: mysql.escape(datas.orders_speciality_province).replace(/^'|'$/gi, ""),		
-			"orders_speciality_district"				: mysql.escape(datas.orders_speciality_district).replace(/^'|'$/gi, ""),	
-			"orders_speciality_wards"					: mysql.escape(datas.orders_speciality_wards).replace(/^'|'$/gi, ""),
-			"orders_speciality_name"					: mysql.escape(datas.orders_speciality_name).replace(/^'|'$/gi, ""),			
-			
-			"orders_speciality_total_qty"				: datas.orders_speciality_total_qty,			
-			"orders_speciality_total_product"			: datas.orders_speciality_total_product,			
-			"orders_speciality_total_coupon"			: datas.orders_speciality_total_coupon,			
-			"orders_speciality_total_shipping"			: datas.orders_speciality_total_shipping,	
-			"orders_speciality_total_fee"				: datas.orders_speciality_total_fee,
-			
-			"orders_speciality_status_orders"			: datas.orders_speciality_status_orders,
-			"orders_speciality_status_payment"			: datas.orders_speciality_status_payment,
-			"orders_speciality_company"					: datas.orders_speciality_company,
-			"orders_speciality_service"					: datas.orders_speciality_service,
-			"orders_speciality_shipping_code"			: mysql.escape(datas.orders_speciality_shipping_code).replace(/^'|'$/gi, "")			
+			"orders_speciality_master_user_id"				: datas.orders_speciality_master_user_id,
+			"orders_speciality_master_province"				: mysql.escape(datas.orders_speciality_master_province).replace(/^'|'$/gi, ""),		
+			"orders_speciality_master_district"				: mysql.escape(datas.orders_speciality_master_district).replace(/^'|'$/gi, ""),	
+			"orders_speciality_master_wards"				: mysql.escape(datas.orders_speciality_master_wards).replace(/^'|'$/gi, ""),
+			"orders_speciality_master_adress"				: mysql.escape(datas.orders_speciality_master_adress).replace(/^'|'$/gi, ""),
+			"orders_speciality_master_notes"				: mysql.escape(datas.orders_speciality_master_notes).replace(/^'|'$/gi, ""),
+			"orders_speciality_master_phone"				: mysql.escape(datas.orders_speciality_master_phone).replace(/^'|'$/gi, ""),			
+			"orders_speciality_master_name"					: mysql.escape(datas.orders_speciality_master_name).replace(/^'|'$/gi, ""),		
+			"orders_speciality_master_email"				: mysql.escape(datas.orders_speciality_master_email).replace(/^'|'$/gi, ""),			
 	}
 
 	var kes = Object.keys(dataGo);
@@ -52,25 +36,63 @@ const order_insert = function (datas,data_details,res) {
 	
 	
 	sql_text = "START TRANSACTION ; "
-	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "orders_speciality  SET ? ; ";
+	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "orders_speciality_master  SET ? ; ";
 
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
 	
 	
 	//return sql_text;
+
+	
+	//@	
+	//@
+	//@	
+	//@
+	//@ insert order order_store
+	if(datas.length > 0){
+		let sql_order_store = "";
+		for(let i = 0; i < datas.length; i ++){
+			sql_details = "INSERT INTO " + config_database.PREFIX + "orders_speciality  ";
+			sql_details = sql_details + "(" +
+							config_database.PREFIX + "orders_details_speciality_order_id" + "," + 
+							config_database.PREFIX + "orders_details_speciality_line_order" + "," + 
+							config_database.PREFIX + "orders_details_speciality_product_id " + "," + 
+							config_database.PREFIX + "orders_details_speciality_qty " + "," + 
+							config_database.PREFIX + "orders_details_speciality_price "  + "," + 
+							config_database.PREFIX + "orders_details_medium_text "  + 
+						") " + 
+						"values(" + 
+						"@aa, '" + 
+						datas[i].orders_details_speciality_line_order +  "', " + 
+						datas[i].orders_details_speciality_product_id +  ", " + 
+						datas[i].orders_details_speciality_qty +  ", " + 
+						datas[i].orders_details_speciality_price +  ", '" + 
+						orders_details_medium_text + "' " + 
+						") ; ";		
+			sql_order_store	= sql_order_store  + sql_details		
+		}//end of for option_arr	
+		sql_text = sql_text + sql_order_store;
+	}
+	//
+	// end of sql details
+	//-----------------------------		
+	
+	
+	
+	
+	
+	
 	
 	
 	//
 	// sql details
-	//
-
-	if(data_details.length > 0){
-		let sql_details_all = "";
-		for(let i = 0; i < data_details.length; i ++){
+	if(datas.length > 0){
+		let sql_order_store = "";
+		for(let i = 0; i < datas.length; i ++){
 			///ex
 			var orders_details_medium_text = "";
-			if(data_details[i].orders_details_medium_text){
-				var orders_details_medium_text = data_details[i].orders_details_medium_text;
+			if(datas[i].orders_details_medium_text){
+				var orders_details_medium_text = datas[i].orders_details_medium_text;
 			}
 			
 			
@@ -86,15 +108,15 @@ const order_insert = function (datas,data_details,res) {
 						") " + 
 						"values(" + 
 						"@aa, '" + 
-						data_details[i].orders_details_speciality_line_order +  "', " + 
-						data_details[i].orders_details_speciality_product_id +  ", " + 
-						data_details[i].orders_details_speciality_qty +  ", " + 
-						data_details[i].orders_details_speciality_price +  ", '" + 
+						datas[i].orders_details_speciality_line_order +  "', " + 
+						datas[i].orders_details_speciality_product_id +  ", " + 
+						datas[i].orders_details_speciality_qty +  ", " + 
+						datas[i].orders_details_speciality_price +  ", '" + 
 						orders_details_medium_text + "' " + 
 						") ; ";		
-			sql_details_all	= sql_details_all  + sql_details		
+			sql_order_store	= sql_order_store  + sql_details		
 		}//end of for option_arr	
-		sql_text = sql_text + sql_details_all;
+		sql_text = sql_text + sql_order_store;
 	}
 	//
 	// end of sql details

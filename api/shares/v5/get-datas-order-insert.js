@@ -49,6 +49,7 @@ const function_export = async function(datas,res){
 		   "select_field" :
 			[
 				"products_speciality_ID",
+				"products_speciality_name",
 				"products_speciality_price_caution",
 				"products_speciality_sale_of_price",
 				"products_speciality_sale_of_price_time_check",
@@ -112,15 +113,21 @@ const function_export = async function(datas,res){
 		//@
 		//@ loop qua data gốc
 		for (x in datas.order_details){
+		if(	datas.order_details[x].orders_details_speciality_line_order == 'product'				
+		){			
+			
 			//@
 			// loop qua datas product meta
+			var price_return = 0;
+			var product_name = "";
 			for (y in get_meta_product_resuilt){
 				//@
 				//@ neu line order = product và id = nhau
-				if(	datas.order_details[x].orders_details_speciality_line_order == 'product'  
-				&& 	datas.order_details[x].orders_details_speciality_product_id == 
+				if(	
+					datas.order_details[x].orders_details_speciality_product_id == 
 					get_meta_product_resuilt[y].products_speciality_ID						
 				){
+					product_name = get_meta_product_resuilt[y].products_speciality_name;
 					//@				
 					//@nếu có chương trình khuyến mãi 
 					//@ và chương trình khuyến mãi là [2] (mua nhiều giảm nhiều)
@@ -130,22 +137,36 @@ const function_export = async function(datas,res){
 						
 						//@
 						//@ lấy giá theo số lượng
+						var from_max = 0;
+						var check_price = 0;
+						var price_max = 0;
+						
 						for (z in get_meta_product_resuilt[y].product_price){
+							
 							var from = parseInt(get_meta_product_resuilt[y].product_price[z].from);
 							var to = parseInt(get_meta_product_resuilt[y].product_price[z].to);
 							var qty = parseInt(datas.order_details[x].orders_details_speciality_qty);
+							
 							if(	qty  >= from && qty <= to ){
-								datas.order_details[x].orders_details_speciality_price = 
-								get_meta_product_resuilt[y].product_price[z].price;
+								price_return = get_meta_product_resuilt[y].product_price[z].price;
+								check_price = 1;								
 								break; 							
+							}else{
+								if(from > from_max){
+									from_max = from;
+									price_max = get_meta_product_resuilt[y].product_price[z].price;					
+								}
 							}
+						}						
+						if(check_price == 0){
+							price_return = price_max;							
 						}
 					}else{
-						datas.order_details[x].orders_details_speciality_price = 
-						get_meta_product_resuilt[y].products_speciality_price_caution
-					}	
+						price_return = get_meta_product_resuilt[y].products_speciality_price_caution
+					}						
+						
 					
-
+					
 					//@
 					//@ 
 					//@ lấy danh sách sản phẩm tặng
@@ -163,12 +184,34 @@ const function_export = async function(datas,res){
 						}
 
 						datas.order_details.push(product_gift_add);
-						break; 
-					}				
-				}					
+					}	
+					
+				}
+			}//end of for meta
+
+
+
+
+			//return res.send([price_return])
+
+			//@
+			//@
+			//@
+			//@ nếu giá đã thay đỗi thì báo lỗi		
+			if(parseInt(datas.order_details[x].orders_details_speciality_price) 
+			!= parseInt(price_return) ){
+				return res.send({ 
+					"error" : "0002",
+					"position" : "api/shares/v5/get-data-order-insert",
+					"message": "Xin lỗi giá sản phẩm [" + 
+					product_name + " ] đã thay đổi từ (" + 
+					datas.order_details[x].orders_details_speciality_price + " -> " + 
+					price_return + " ) " + 
+					" ] vui lòng đặt hàng lại" 
+				}); 
 			}
 		}
-		
+		}//end of for details
 		
 		//@
 		//@

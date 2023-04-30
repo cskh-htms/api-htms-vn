@@ -115,7 +115,7 @@ async  function function_export(req, res, next) {
 				
 		}	
 		//return res.send([datas]);
-		//	
+			
 
 
 	
@@ -218,13 +218,6 @@ async  function function_export(req, res, next) {
 				} 
 			)		
 		}else{
-			condition_data.push(
-				{   
-					"field"     :"products_speciality_status_store",
-					"value"     : 1,
-					"compare" : "="
-				} 
-			)		
 			condition_data.push(
 				{   
 					"field"     :"products_speciality_status_admin",

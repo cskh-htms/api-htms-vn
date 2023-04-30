@@ -57,11 +57,9 @@ const ojs_shares_send_email = {
 		
 		transporter.sendMail(options, function(err,info){
 			if (err) {
-				return res.send({"error":"function send email 1","message":err});
-				
+				//return res.send({"error":"function send email 1","message":err});				
 			} else {
-				return res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});
-				
+				//return res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});				
 			}
 		});		
 	},
@@ -104,10 +102,10 @@ const ojs_shares_send_email = {
 		
 		transporter.sendMail(options, function(err,info){
 			if (err) {
-				return res.send({"error":"function send email 1","message":err});
+				//return res.send({"error":"function send email 1","message":err});
 				
 			} else {
-				return res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});
+				//return res.send({"error":"","datas":"mật khẩu mới đã gữi vào email : " +  email_to});
 				
 			}
 		});		

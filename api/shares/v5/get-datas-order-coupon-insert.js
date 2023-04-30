@@ -53,6 +53,17 @@ const function_export = async function(datas,user_id,res){
 					user_id,
 					res
 				);
+				/*
+				if(datas.order_details[y].orders_details_speciality_price != coupon_price){
+					return res.send({ 
+						"error" : "0001",
+						"position" : "api/shares/v5/get-data-order-coupon-insert",
+						"message": "Xin lỗi mã giảm giá [" + 
+						datas.order_details[y].orders_details_medium_text + " ] đã thay đổi " + 
+						"vui lòng đặt hàng lại" 
+					});
+				}	
+				*/				
 				datas.order_details[y].orders_details_speciality_price = coupon_price
 			}
 		}		
