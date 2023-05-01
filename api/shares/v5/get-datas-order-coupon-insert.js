@@ -29,11 +29,10 @@ const function_export = async function(datas,user_id,res){
 		//@
 		//@
 		//@ lấy datas line orfer product
-		var data_product = {};
-		data_product.line_order = [];
+		var data_product = [];
 		for (x in datas.order_details){
 			if(datas.order_details[x].orders_details_speciality_line_order == 'product'){
-				data_product.line_order.push(datas.order_details[x]);
+				data_product.push(datas.order_details[x]);
 			}
 		}		
 		
@@ -53,18 +52,20 @@ const function_export = async function(datas,user_id,res){
 					user_id,
 					res
 				);
-				/*
+
 				if(datas.order_details[y].orders_details_speciality_price != coupon_price){
 					return res.send({ 
 						"error" : "0001",
 						"position" : "api/shares/v5/get-data-order-coupon-insert",
 						"message": "Xin lỗi mã giảm giá [" + 
-						datas.order_details[y].orders_details_medium_text + " ] đã thay đổi " + 
-						"vui lòng đặt hàng lại" 
+						datas.order_details[y].orders_details_medium_text + " ] đã có sự thay đổi " + 
+						" Từ [ " + datas.order_details[y].orders_details_speciality_price + " -> " + 
+						coupon_price + " ] " +  
+						" vui lòng đặt hàng lại" 
 					});
 				}	
-				*/				
-				datas.order_details[y].orders_details_speciality_price = coupon_price
+		
+				//datas.order_details[y].orders_details_speciality_price = coupon_price
 			}
 		}		
 		

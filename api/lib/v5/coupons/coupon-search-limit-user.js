@@ -62,11 +62,11 @@ const function_export = function (coupon_id,user_id,res) {
 							err, 
 							error_massage
 						);
-					return res.send({ 
-						"error" : "10", 
-						"position" : "lib->coupon->limit-user",
-						"message": error_send 
-					}); 
+						return res.send({ 
+							"error" : "10", 
+							"position" : "lib->coupon->limit-user",
+							"message": error_send 
+						}); 
 										
 				}
 				resolve(results);

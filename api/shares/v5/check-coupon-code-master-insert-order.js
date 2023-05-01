@@ -1,6 +1,5 @@
-//@
-//@
-//@ require
+
+//const jwt = require('jsonwebtoken');
 const ojs_configs = require('../../../configs/config');
 const config_api = require('../../configs/config-api');
 const ojs_shares_show_errors = 
@@ -10,9 +9,6 @@ const ojs_shares_all_api =
 
 
 
-//@
-//@
-//@ model
 const coupon_search = 
 	require('../../lib/' + config_api.API_LIB_VERSION + 
 	'/coupons/coupon-search.js');
@@ -34,19 +30,16 @@ const check_first_buy =
 
 const get_price_coupon_caution = 
 	require('../../shares/' + config_api.API_SHARES_VERSION + '/coupon-function/get-price-coupon-caution.js');
-	
-	
-	
-	
-	
+
+
 //@@
 //@@
 //@@
 //@@
 //@@function export
-const function_export = async function(datas,coupon_code,store_id,user_id,res){	
+const function_export = async function(datas,coupon_code,user_id,res){	
 
-	//return datas;	
+	//return res.send([datas,coupon_code,user_id]);
 	//@
 	//@
 	//@ lấy data coupon
@@ -96,12 +89,12 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 		//return datas;		
 		
 		var coupon_list = await coupon_search(datas_coupon,res);	
-		//return coupon_list_result;
+		//return res.send([coupon_list]);
 	
 		if(coupon_list.length <= 0){
 			return res.send({ 
 				"error" : "1",
-				"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
+				"position" : "api/shares/v5/checked-coupon-code-master-insert-order",
 				"message": "Mã coupon không có trên hệ thống DALA" 
 			}); 							
 		}	
@@ -116,7 +109,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 			);
 		return res.send({ 
 			"error" : "2",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
+			"position" : "api/shares/v5/checked-coupon-code-master-insert-order",
 			"message": error_send 
 		}); 
 	}	
@@ -132,33 +125,14 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	//@ kiem tra neu coupon het han thì thong báo
 	if(coupon_list[0].check_expired_coupon != 1){
 		return res.send({ 
-			"error" : "0003",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
+			"error" : "3",
+			"position" : "api/shares/v5/checked-coupon-code-master-insert-order",
 			"message": "Mã coupon đã hêt hạn" 
 		}); 
 	}		
 	
-	
-	
-	
-	//@
-	//@
-	//@
-	//@
-	//@ kiem tra neu coupon ko thuoc cua hàng thì báo lỗi
-	if(store_id != coupon_list[0].stores_ID){
-		return res.send({ 
-			"error" : "3",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
-			"message": "Mã coupon không do cửa hàng tạo ra" 
-		}); 
-	}	
-	
-	
-	
-	
-	
 
+	
 	//@
 	//@
 	//@
@@ -174,12 +148,11 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	if(coupon_limit_result <= 0){
 		return res.send({ 
 			"error" : "4",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
-			"message": "Coupon đã dùng hết"
+			"position" : "api/shares/v5/checked-coupon-condition-code-master-insert-order",
+			"message": coupon_limit_result.message
 		});
-	}		
-	
-	
+	}			
+		
 	
 	
 	
@@ -199,8 +172,8 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	if(user_limit_result <= 0){
 		return res.send({ 
 			"error" : "5",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
-			"message": "User này đã dùng hết số lượng giới hạn"
+			"position" : "api/shares/v5/checked-coupon-condition-code-master-insert-order",
+			"message": user_limit_result.message
 		});
 	}	
 
@@ -210,7 +183,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 
 
 
-
+	
 	//@
 	//@
 	//@
@@ -241,7 +214,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	}else{
 		return res.send({ 
 			"error" : "7",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
+			"position" : "api/shares/v5/checked-coupon-condition-code-master-insert-order",
 			"message": "Lỗi, Không tìm thấy điều kiện app dụng coupon, chúng tôi không thể so sánh điều kiện áp dụng"
 		});
 	}	
@@ -258,7 +231,6 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 
 
 
-
 	//@
 	//@
 	//@
@@ -266,13 +238,12 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	//@@[caution_price]
 	const get_price_coupon_caution_result = await get_price_coupon_caution(datas,coupon_list,res);
 	return get_price_coupon_caution_result;
+
 	
-//@
-//@	
-}	
-	
-	
-	
+}//end of function export
+
+
+
 
 
 //@
