@@ -24,11 +24,12 @@ BEGIN
 	or NEW.dala_orders_details_speciality_line_order = 'shipping' 
 	or NEW.dala_orders_details_speciality_line_order = 'coupon' 
 	or NEW.dala_orders_details_speciality_line_order = 'add_fee' 
+	or NEW.dala_orders_details_speciality_line_order = 'gift' 
 	) THEN 
 		SIGNAL SQLSTATE '01000';
 	ELSE 
 		SIGNAL SQLSTATE '22381' 
-		SET MESSAGE_TEXT = 'Chỉ hổ trợ line order product,shipping,coupon,add_fee'; 
+		SET MESSAGE_TEXT = 'Chỉ hổ trợ line order product,shipping,coupon,add_fee,gift'; 
 	END IF;	
 	
 	

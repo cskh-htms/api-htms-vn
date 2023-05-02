@@ -218,7 +218,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			}
 		}
 	}	
-	return res.send({"error":"", "datas":datas_order_master_coupon_caution_arr});
+	//return res.send({"error":"", "datas":datas_order_master_coupon_caution_arr});
 	
 	
 	
@@ -226,22 +226,16 @@ async  function controllers_order_insert_app(req, res, next) {
 	//@
 	//@
 	//@ insert order
+	
+	datas.orders_master.orders_speciality_master_service = 1;
 	var order_master_insert_result = 
 		await order_master_insert(datas.orders_master,datas_order_master_coupon_caution_arr,res)
-	
-	return res.send({"error":"", "datas":order_master_insert_result});
-	
-	
-	
-	
-	
-	
-	
+
 	//@
 	//@
 	//@
 	//@		
-	return res.send([datas_order_store_coupon_caution_arr]);
+	return res.send({"error":"","datas":order_master_insert_result});
 	
 	
 	

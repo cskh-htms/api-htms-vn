@@ -6,6 +6,7 @@ const config_database = require('../../../configs/config-database');
 const fields_search = 	"" + 
 
 	config_database.PREFIX  + "orders_speciality_master_ID as orders_speciality_master_ID, " +
+	config_database.PREFIX  + "orders_speciality_master_service as orders_speciality_master_service, " +
 	config_database.PREFIX  + "orders_speciality_master_user_id as orders_speciality_master_user_id, " + 
 	"DATE_FORMAT(" + config_database.PREFIX  + "orders_speciality_master_date_orders," + "'%Y/%m/%d %H:%i:%s'"  + ") as orders_speciality_master_date_orders, " + 	
 		
@@ -29,6 +30,7 @@ const fields_search_arr = [
 	"orders_speciality_master_ID",
 	"orders_speciality_master_date_orders",
 	"orders_speciality_master_user_id",
+	"orders_speciality_master_service",
 	"orders_speciality_master_province",
 	"orders_speciality_master_district",
 	"orders_speciality_master_wards",

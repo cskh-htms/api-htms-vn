@@ -14,29 +14,7 @@ BEGIN
 
 
 
-	--
-	--
-	IF(LENGTH(NEW.dala_orders_speciality_phone) > 0) THEN 
-		IF (NEW.dala_orders_speciality_phone REGEXP '^[0-9]{10,11}$' ) = 0 THEN 
-			SIGNAL SQLSTATE '12311' 
-			SET MESSAGE_TEXT = 'trig_orders_speciality_phone_data_type';   
-		END IF;   
-	END IF;
 
-
-
-
-	--
-	--
-	IF(LENGTH(NEW.dala_orders_speciality_email) > 0 ) THEN 	
-		IF (NEW.dala_orders_speciality_email REGEXP '^[A-Za-z][A-Za-z0-9_.-]+@[A-Za-z]+.[A-Za-z]{2,4}(.[A-Za-z]{2,4})*$' ) = 0 THEN  
-			SIGNAL SQLSTATE '12312' 
-			SET MESSAGE_TEXT = 'trig_orders_speciality_before_update_email_data_type';   
-		END IF;	
-	END IF;
-
-
-	
 	--
 	-- check store link
 	IF(NEW.dala_orders_speciality_store_id > 0) THEN 	
@@ -54,22 +32,6 @@ BEGIN
 	END IF;			
 	
 	
-	
-	--
-	-- check user link
-	IF(NEW.dala_orders_speciality_user_id > 0) THEN 	
-		SET @checkID2 = (
-				select dala_users_ID 
-				from dala_users 
-				where dala_users_ID  = NEW.dala_orders_speciality_user_id   
-			);		
-		IF (@checkID2 > 0) THEN  
-			SIGNAL SQLSTATE '01000'; 
-		ELSE 
-			SIGNAL SQLSTATE '12314' 
-			SET MESSAGE_TEXT = 'trig_orders_speciality_before_update_user_not_refer'; 
-		END IF;		
-	END IF;	
 	
 	
 

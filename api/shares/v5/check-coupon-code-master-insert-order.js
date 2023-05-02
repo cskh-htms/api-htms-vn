@@ -149,7 +149,7 @@ const function_export = async function(datas,coupon_code,user_id,res){
 		return res.send({ 
 			"error" : "4",
 			"position" : "api/shares/v5/checked-coupon-condition-code-master-insert-order",
-			"message": coupon_limit_result.message
+			"message": "Coupon đã dùng hết"
 		});
 	}			
 		
@@ -173,7 +173,7 @@ const function_export = async function(datas,coupon_code,user_id,res){
 		return res.send({ 
 			"error" : "5",
 			"position" : "api/shares/v5/checked-coupon-condition-code-master-insert-order",
-			"message": user_limit_result.message
+			"message": "User này đã dùng hết số lượng giới hạn"
 		});
 	}	
 

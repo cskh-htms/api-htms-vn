@@ -3,6 +3,7 @@
 //@
 const  default_fields = {
 		"orders_speciality_master_user_id"			: "",
+		"orders_speciality_master_service"			: "",
 		"orders_speciality_master_province"			: "",
 		"orders_speciality_master_district"			: "",
 		"orders_speciality_master_wards"			: "",
