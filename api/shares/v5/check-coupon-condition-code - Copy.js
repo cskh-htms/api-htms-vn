@@ -14,15 +14,6 @@ const ojs_shares_all_api =
 	require('../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api.js');
 
 
-
-
-
-
-
-
-
-
-
 //@@
 //@@[coupon_condition]
 const coupon_condition = async function(datas,coupon_list,user_id,res){
@@ -74,8 +65,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 			date_return.check = "1";			
 			
 		}else if(coupon_list[0].coupon_speciality_condition == 1){			
-			let check_price_percen_result =  
-				await check_price_percen(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);
+			let check_price_percen_result =  await check_price_percen(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);
 			//date_return.check = check_price_percen_result			
 			if(check_price_percen_result.error == ""){
 				date_return.check = 1;
@@ -84,8 +74,7 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 			}	
 			
 		}else if(coupon_list[0].coupon_speciality_condition == 2){	
-			let check_qty_result = 
-				await check_qty(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);			
+			let check_qty_result = await check_qty(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);			
 			//date_return.check = check_qty_result			
 			if(check_qty_result.error == ""){
 				date_return.check = 1;
@@ -94,10 +83,8 @@ const coupon_condition = async function(datas,coupon_list,user_id,res){
 			}				
 
 		}else if(coupon_list[0].coupon_speciality_condition == 3){	
-			let check_qty_result = 
-				await check_qty(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);
-			let check_first_sale_result = 
-				await check_first_sale(datas.line_order,coupon_list[0].coupon_speciality_condition_value,user_id,res);			
+			let check_qty_result = await check_qty(datas.line_order,coupon_list[0].coupon_speciality_condition_value,res);
+			let check_first_sale_result = await check_first_sale(datas.line_order,coupon_list[0].coupon_speciality_condition_value,user_id,res);			
 			//date_return.check = check_first_sale_result			
 			if(check_first_sale_result.error == ""){
 				date_return.check = 1;

@@ -247,7 +247,7 @@ const link_order_by_customer = 	" " +
 
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_user_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_user_id  = " + 
 	config_database.PREFIX + "users_ID " +	
 
 	" LEFT JOIN " + 

@@ -42,7 +42,7 @@ const check_owner_order_customer = async function(token,order_id,res){
 							"compare" : "="
 						},
 						{   
-							"field"     :"orders_speciality_user_id",
+							"field"     :"orders_speciality_master_user_id",
 							"value"     : users_decode.users_ID,
 							"compare" : "="
 						}  						

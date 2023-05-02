@@ -28,7 +28,8 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 	//
 	try {
 		var order_id = req.params.order_id;
-		var token = req.headers['token'];
+		var token = req.headers['token'];		
+		//return res.send([order_id]);		
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -155,17 +156,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
 			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
 		}				
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 	catch(error){
 		var evn = ojs_configs.evn;

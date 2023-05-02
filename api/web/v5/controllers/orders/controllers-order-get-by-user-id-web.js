@@ -71,7 +71,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_user_id",
+						"field"     :"orders_speciality_master_user_id",
 						"value"     : user_id,
 						"compare" : "="
 					}

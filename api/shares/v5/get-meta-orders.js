@@ -95,6 +95,93 @@ const function_export = async function (data_order,order_arr,res) {
 	}	
 
 
+
+
+
+
+
+
+
+	//@
+	//@ 
+	//@ gift sản phẩm quà tặng
+	try{
+		let data_get =    
+		{
+		   "select_field" :
+			[
+				"orders_speciality_ID",
+				"products_speciality_name",
+				"products_speciality_featured_image",
+				"orders_details_speciality_line_order",
+				"orders_details_speciality_qty",
+				"orders_details_speciality_price",
+				"price_caution"				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"orders_speciality_ID",
+						"value"     : order_arr,
+						"compare" : "in"
+					},						
+					{   
+						"field"     :"orders_details_speciality_line_order",
+						"value"     : "gift",
+						"compare" : "="
+					}
+					]    
+				}         
+			]   
+		}
+		
+		//@ data_order
+		var data_gift = await orders_search_by_customer(data_get,res);
+		//return res.send(data_order);
+		//return;
+		
+		
+		
+		
+		for(x in data_order){
+			var add_data = [];
+			var add_data_line = {};
+			for(y in data_gift){
+				if(data_order[x].orders_speciality_ID == data_gift[y].orders_speciality_ID){
+					add_data.push(data_gift[y]);
+				}							
+			}
+			//add_data.push(add_data_line);
+			data_order[x].order_gift = add_data;
+		}				
+		//return data_order;		
+	}
+	catch(error){
+		var evn = ojs_configs.evn;
+		//res.send ({ 
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get meta product discount propram, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "001",
+			"position" : "api/shares/get meta product", 
+			"message": error_send 
+			}); 
+			
+	}	
+
+
+
+
+
+
+
 	//@
 	//@
 	//@

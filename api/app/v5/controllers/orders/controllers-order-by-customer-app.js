@@ -1,19 +1,25 @@
 const express = require('express');
+//@
+//@
+//@
+//@
+//@
+//@
 const router = express.Router();
-
-
 const ojs_configs = require('../../../../../configs/config');
-
-
 const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
 
-const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-fields-insert');
-const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_order_customer = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-order-customer.js');
-
-const orders_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-by-customer.js');
+const ojs_shares_show_errors = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const fields_insert = 
+	require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-fields-insert');
+const check_role = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_order_customer = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-order-customer.js');
+const orders_search = 
+	require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-by-customer.js');
 
 
 
@@ -49,7 +55,7 @@ async  function function_export(req, res, next) {
 			
 	}
 
-	//return res.send([token,order_id]);
+	//return res.send([token,user_id]);
 	//
 
 
@@ -74,7 +80,15 @@ async  function function_export(req, res, next) {
                 "orders_speciality_province",
                 "orders_speciality_district",
                 "orders_speciality_wards",
-                "products_speciality_featured_image"
+                "products_speciality_featured_image",
+				
+				
+				
+                "orders_speciality_master_adress",
+                "orders_speciality_master_phone",				
+				"orders_speciality_master_province",
+                "orders_speciality_master_district",
+                "orders_speciality_master_wards",								
 			],
 			"condition" :
 			[

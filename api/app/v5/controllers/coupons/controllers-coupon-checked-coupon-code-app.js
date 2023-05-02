@@ -1,21 +1,57 @@
+//@
+//@
+//@
+//@
+//@	
+//@
 const express = require('express');
 const router = express.Router();
 
 
-const ojs_configs = require('../../../../../configs/config');
 
+
+//@
+//@	
+//@
+const ojs_configs = require('../../../../../configs/config');
 
 const config_database = require('../../../../configs/config-database');
 const config_api = require('../../../../configs/config-api');
+const ojs_shares_show_errors = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const check_role = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_order_customer = 
+	require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-order-customer.js');
 
-const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_order_customer = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-order-customer.js');
 
-const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
-const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
-const check_coupon_condition_code = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code');
-const check_coupon_condition_code_all = require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code-all');
+
+//@
+//@	
+//@
+const product_search = 
+	require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
+const coupon_search = 
+	require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
+const check_coupon_condition_code = 
+	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code');
+const check_coupon_condition_code_all = 
+	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code-all');
+	
+
+
+const get_meta_product = 
+require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-product-insert-order.js');	
+	
+	
+	
+	
+	
+//@
+//@
+//@
+//@
+//@	
 //@
 async  function function_export(req, res, next) {
 
@@ -43,7 +79,7 @@ async  function function_export(req, res, next) {
 			
 	}
 
-	//return res.send([datas,user_id,coupon_code,coupon_selected]);
+	//return res.send([datas]);
 	//
 
 
@@ -136,6 +172,207 @@ async  function function_export(req, res, next) {
 		}); 
 						
 	}
+
+
+
+
+
+
+
+
+	//@
+	//@
+	//@ lấy line product
+	var product_data = [];
+	var product_id_arr = [];
+	for (x in datas){
+		for (y in datas[x].line_order){
+			if(datas[x].line_order[y].orders_details_speciality_line_order == 'product'){
+				product_data.push(datas[x].line_order[y])
+				product_id_arr.push(datas[x].line_order[y].orders_details_speciality_product_id)
+			}
+		}
+	}
+	//return res.send([product_data,product_id_arr]);
+
+
+	//@
+	//@
+	//@ lấy thông tin product theo arr id
+	try{
+		//@
+		//@
+		//@ 			
+		var data_get =    
+		{
+		   "select_field" :
+			[
+				"products_speciality_ID",
+				"products_speciality_name",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",				
+				"stores_name",
+				"stores_ID",
+				"products_speciality_sort_by_percen"
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" : 
+					[
+					{   
+						"field"     :"products_speciality_ID",
+						"value"     : product_id_arr,
+						"compare" : "in"
+					}
+					]		
+				}					
+			]
+		}		
+		var data_product = await product_search(data_get,res);	
+		var get_meta_product_resuilt = await get_meta_product(data_product,product_id_arr,res);		
+		
+		
+		//@
+		//@
+		//@
+		//return res.send(get_meta_product_resuilt);
+	}	
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
+			);
+		return res.send({ 
+			"error" : "001",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
+			"message": error_send 
+		}); 
+						
+	}		
+
+
+
+
+
+
+	//@
+	//@
+	//@ kiểm tra giá sản phẩm
+	try{		
+		//@
+		//@
+		//@ loop qua data gốc
+		for (x in product_data){
+		if(	product_data[x].orders_details_speciality_line_order == 'product'				
+		){			
+			
+			//@
+			// loop qua datas product meta
+			var price_return = 0;
+			var product_name = "";
+			for (y in get_meta_product_resuilt){
+				//@
+				//@ neu line order = product và id = nhau
+				if(	
+					product_data[x].orders_details_speciality_product_id == 
+					get_meta_product_resuilt[y].products_speciality_ID						
+				){
+					product_name = get_meta_product_resuilt[y].products_speciality_name;
+					//@				
+					//@nếu có chương trình khuyến mãi 
+					//@ và chương trình khuyến mãi là [2] (mua nhiều giảm nhiều)
+					//@ thì so sánh giá theo số lượng và lấy giá
+					if(	get_meta_product_resuilt[y].discount_program[0].type
+					&& get_meta_product_resuilt[y].discount_program[0].type == 2 ){
+						
+						//@
+						//@ lấy giá theo số lượng
+						var from_max = 0;
+						var check_price = 0;
+						var price_max = 0;
+						
+						for (z in get_meta_product_resuilt[y].product_price){
+							
+							var from = parseInt(get_meta_product_resuilt[y].product_price[z].from);
+							var to = parseInt(get_meta_product_resuilt[y].product_price[z].to);
+							var qty = parseInt(product_data[x].orders_details_speciality_qty);
+							
+							if(	qty  >= from && qty <= to ){
+								price_return = get_meta_product_resuilt[y].product_price[z].price;
+								check_price = 1;								
+								break; 							
+							}else{
+								if(from > from_max){
+									from_max = from;
+									price_max = get_meta_product_resuilt[y].product_price[z].price;					
+								}
+							}
+						}						
+						if(check_price == 0){
+							price_return = price_max;							
+						}
+					}else{
+						price_return = get_meta_product_resuilt[y].products_speciality_price_caution
+					}						
+				}
+			}//end of for meta
+
+
+
+
+			//return res.send([price_return])
+
+			//@
+			//@
+			//@
+			//@ nếu giá đã thay đỗi thì báo lỗi		
+			if(parseInt(product_data[x].orders_details_speciality_price) 
+			!= parseInt(price_return) ){
+				return res.send({ 
+					"error" : "0002",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Xin lỗi giá sản phẩm [" + 
+					product_name + " ] đã thay đổi từ (" + 
+					product_data[x].orders_details_speciality_price + " -> " + 
+					price_return + " ) " + 
+					" ] vui lòng đặt hàng lại" 
+				}); 
+			}
+		}
+		}//end of for details
+	}	
+	catch(error){
+		var evn = ojs_configs.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
+			);
+		return res.send({ 
+			"error" : "003",
+			"position" : "api/app/v5/coupons/checked-coupon-code",
+			"message": error_send 
+		}); 
+						
+	}
+	//return res.send(["price ok"]);
+
+
+
+
+
+
 
 
 
