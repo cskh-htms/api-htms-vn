@@ -27,6 +27,22 @@ const fields_search = 	"" +
 	config_database.PREFIX  + "orders_speciality_name as orders_speciality_name, " + 		
 		
 		
+		
+	config_database.PREFIX  + "orders_speciality_master_adress as orders_speciality_master_adress, " + 
+	config_database.PREFIX  + "orders_speciality_master_notes as orders_speciality_master_notes, " + 
+	config_database.PREFIX  + "orders_speciality_master_phone as orders_speciality_master_phone, " + 	
+	config_database.PREFIX  + "orders_speciality_master_service as orders_speciality_master_service, " + 		
+	config_database.PREFIX  + "orders_speciality_master_email as orders_speciality_master_email, " + 
+	config_database.PREFIX  + "orders_speciality_master_province as orders_speciality_master_province, " + 		
+	
+	config_database.PREFIX  + "orders_speciality_master_district as orders_speciality_master_district, " + 
+	config_database.PREFIX  + "orders_speciality_master_wards as orders_speciality_master_wards, " + 
+	config_database.PREFIX  + "orders_speciality_master_name as orders_speciality_master_name, " + 			
+		
+		
+		
+		
+		
 	config_database.PREFIX  + "orders_speciality_total_qty as orders_speciality_total_qty, " +		
 	config_database.PREFIX  + "orders_speciality_total_product as orders_speciality_total_product, " +			
 	config_database.PREFIX  + "orders_speciality_total_coupon as orders_speciality_total_coupon, " +			
@@ -74,7 +90,23 @@ const fields_search_arr = [
 	
 	"orders_speciality_shipping_code",
 	"stores_name",
-	"stores_ID"
+	"stores_ID",
+	
+	"orders_speciality_master_province",		
+	"orders_speciality_master_district",
+	"orders_speciality_master_wards",
+	"orders_speciality_master_name",
+	"orders_speciality_master_service",	
+	
+	"orders_speciality_master_adress",
+	"orders_speciality_master_notes",
+	"orders_speciality_master_phone",
+	
+	"orders_speciality_master_email"
+
+	
+	
+	
 ]
 
 
@@ -104,6 +136,12 @@ const from_product_sale_by_store = " from " +
 const link_default = 	" " +
 
 	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+
+
+	" LEFT JOIN " + 
 	config_database.PREFIX + "payment_period  ON  " + 
 	config_database.PREFIX + "orders_speciality_ID  = " + 
 	config_database.PREFIX + "payment_period_order_id " + 
@@ -117,8 +155,19 @@ const link_default = 	" " +
 	config_database.PREFIX + "users  ON  " + 
 	config_database.PREFIX + "stores_user_id  = " + 
 	config_database.PREFIX + "users_ID "; 	
+	
+	
+	
+	
+	
 
 const link_shipper = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
 	config_database.PREFIX + "orders_speciality_shipper_id  = " + 
@@ -132,6 +181,12 @@ const link_shipper = 	" " +
 
 
 const link_order_by_store = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "orders_details_speciality ON  " + 
 	config_database.PREFIX + "orders_speciality_ID  = " + 
@@ -164,6 +219,12 @@ const link_order_by_store = 	" " +
 
 
 const link_order_by_customer = 	" " +
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+
 	" LEFT JOIN " + 
 	config_database.PREFIX + "orders_details_speciality ON  " + 
 	config_database.PREFIX + "orders_speciality_ID  = " + 

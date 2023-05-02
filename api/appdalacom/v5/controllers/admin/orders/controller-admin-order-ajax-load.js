@@ -145,13 +145,21 @@ async  function function_export(req, res, next) {
 					"orders_speciality_ID",
 					"orders_speciality_adress",
 					"orders_speciality_date_orders" ,
-					"orders_speciality_notes",
 					"orders_speciality_status_orders",
 					"orders_speciality_status_payment",
 					"orders_speciality_name",
 					"orders_speciality_province",
 					"orders_speciality_district",
 					"orders_speciality_wards",
+					
+					
+					"orders_speciality_master_adress",
+					"orders_speciality_master_notes",
+					"orders_speciality_master_name",
+					"orders_speciality_master_province",
+					"orders_speciality_master_district",
+					"orders_speciality_master_wards",	
+					
 					"stores_ID" ,
 					"stores_name",
 					"users_full_name"				

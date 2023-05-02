@@ -187,11 +187,6 @@ async  function function_export(req, res, next) {
 							"field"     :"orders_details_speciality_order_id",
 							"value"     : datas.order_id,
 							"compare" : "="
-						},	
-						{   
-							"field"     :"orders_details_speciality_line_order",
-							"value"     : 'product',
-							"compare" : "="
 						}							
 						] 				
 					}         
