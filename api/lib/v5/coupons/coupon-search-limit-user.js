@@ -15,8 +15,10 @@ const fields_insert = require('./coupon-fields-insert.js');
 const function_export = function (coupon_id,user_id,res) {
 	
 	//return [coupon_id,user_id];
-	var sql_text = 'SELECT COUNT(' + 
-	config_database.PREFIX + 'orders_details_speciality_ID' + ') AS user_sum ' + 
+	var sql_text = 'SELECT ' + 
+	config_database.PREFIX + 'orders_speciality_master_user_id, ' + 
+	config_database.PREFIX + 'orders_speciality_master_ID, ' + 
+	config_database.PREFIX + 'coupon_speciality_ID ' + 
 	'FROM ' + 
 		config_database.PREFIX + 'orders_details_speciality ' + 
 		
@@ -26,8 +28,13 @@ const function_export = function (coupon_id,user_id,res) {
 		config_database.PREFIX + "orders_speciality_ID " + 
 	
 	" LEFT JOIN " + 
+		config_database.PREFIX + "orders_speciality_master  ON  " + 
+		config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+		config_database.PREFIX + "orders_speciality_master_ID " + 		
+	
+	" LEFT JOIN " + 
 		config_database.PREFIX + "users  ON  " + 
-		config_database.PREFIX + "orders_speciality_user_id  = " + 
+		config_database.PREFIX + "orders_speciality_master_user_id  = " + 
 		config_database.PREFIX + "users_ID " + 	
 	
 	" LEFT JOIN " + 
@@ -40,11 +47,16 @@ const function_export = function (coupon_id,user_id,res) {
 	" AND " + 
 		config_database.PREFIX + "orders_speciality_status_orders <> -1" + 
 	" AND " + 
-		config_database.PREFIX + "orders_speciality_user_id = " + user_id + 	
+		config_database.PREFIX + "orders_speciality_master_user_id = " + user_id + 	
 	" AND " + 
-		config_database.PREFIX + "orders_details_speciality_line_order = 'coupon'";
+		config_database.PREFIX + "orders_details_speciality_line_order = 'coupon' " + 
 	
-
+	" GROUP BY " + 
+	config_database.PREFIX + 'orders_speciality_master_user_id, ' + 
+	config_database.PREFIX + 'orders_speciality_master_ID, ' + 
+	config_database.PREFIX + 'coupon_speciality_ID ' ;
+		
+		
 	//return sql_text;
 	
 	

@@ -142,7 +142,7 @@ async  function controllers_order_insert_app(req, res, next) {
 
 
 
-
+	//return res.send({"error":"", "datas":datas_order_store_price_caution_arr});
 
 
 

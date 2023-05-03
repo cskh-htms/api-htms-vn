@@ -17,6 +17,8 @@ const coupon_search_limit_number =
 //@@
 //@@  [check_limit_number]
 const function_export = async function(coupon_id,number,res){
+	
+	//return res.send([coupon_id,number]); 
 	try{
 		var data_sum = 0;
 		var data_return = {};
@@ -25,19 +27,28 @@ const function_export = async function(coupon_id,number,res){
 			data_return.error = "";
 		}else{	
 			var limit_number_result = await coupon_search_limit_number(coupon_id,res);
-			//return limit_number_result;
+			//return res.send({ 
+				//"error" : "00000",
+				//"position" : "api/shares/v5/coupon-function/checked-limit-number",
+				//"message": limit_number_result
+			//}); 
+			
 			
 			if(limit_number_result.length > 0){
-				if(parseInt(limit_number_result[0].coupons_sum) < number){
+				if(limit_number_result.length  <  number){
 					data_return.error = ""
 				}else{
-					data_return.error = "01",
-					data_return.message = "Số lượng đã hết, Tối da chỉ dùng được [ " + number + " ] mã";
+					data_return.error = "01";
+					return res.send({ 
+						"error" : "5",
+						"position" : "api/shares/v5/coupon-function/checked-limit-number",
+						"message": "Số lượng đã hết, Tối da chỉ dùng được [ " + number + " ] mã" 
+					}); 
 				}
 			}	
 		}
 		
-		return data_return;
+		return limit_number_result;
 	}	
 	catch(error){
 		var evn = ojs_configs.evn;

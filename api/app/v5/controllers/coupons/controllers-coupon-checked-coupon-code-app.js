@@ -33,10 +33,14 @@ const product_search =
 	require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const coupon_search = 
 	require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
+	
 const check_coupon_condition_code = 
-	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code');
+	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-code-store.js');
 const check_coupon_condition_code_all = 
-	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-condition-code-all');
+	require('../../../../shares/' + config_api.API_LIB_VERSION + '/check-coupon-code-master.js');	
+	
+const get_price_coupon = 
+	require('../../../../shares/' + config_api.API_LIB_VERSION + '/coupon-function/get-price-coupon-caution.js');
 	
 
 
@@ -72,7 +76,7 @@ async  function function_export(req, res, next) {
 				"Lỗi get data request , Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
-			"error" : "3", 
+			"error" : "2305030916", 
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
@@ -86,6 +90,30 @@ async  function function_export(req, res, next) {
 
 
 
+	//@
+	//@
+	//@ kiểm tra nếu coupon đã có trong đơn hàng chưa
+	for(x in coupon_selected_by_store){
+		if(coupon_selected_by_store[x].coupon_speciality_code == coupon_code){
+			return res.send({ 
+				"error" : "2305030955",
+				"position" : "api/app/v5/coupons/checked-coupon-code",
+				"message": "Mã coupon đã có trong đơn hàng rồi" 
+			}); 
+		}
+	}
+
+	for(x in coupon_selected_by_dala){
+		if(coupon_selected_by_dala[x].coupon_speciality_code == coupon_code){
+			return res.send({ 
+				"error" : "2305031124",
+				"position" : "api/app/v5/coupons/checked-coupon-code",
+				"message": "Mã coupon đã có trong đơn hàng rồi" 
+			}); 
+		}
+	}
+	
+	
 	//@
 	//@
 	//@ lấy thong tin coupon
@@ -140,15 +168,14 @@ async  function function_export(req, res, next) {
 			var coupon_list = coupon_list_result;
 			if(coupon_list_result[0].check_expired_coupon == "0"){
 				return res.send({ 
-					"error" : "100",
+					"error" : "2305030917",
 					"position" : "api/app/v5/coupons/checked-coupon-code",
 					"message": "Mã code đã hết hạn" 
-				}); 
-					
+				}); 					
 			}			
 		}else{
 			return res.send({ 
-				"error" : "021",
+				"error" : "3",
 				"position" : "api/app/v5/coupons/checked-coupon-code",
 				"message": "Mã coupon không có trên hệ thống DALA" 
 			}); 
@@ -166,7 +193,7 @@ async  function function_export(req, res, next) {
 				"Lỗi get coupon, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
-			"error" : "444",
+			"error" : "4",
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
@@ -194,6 +221,11 @@ async  function function_export(req, res, next) {
 		}
 	}
 	//return res.send([product_data,product_id_arr]);
+
+
+
+
+
 
 
 	//@
@@ -253,11 +285,10 @@ async  function function_export(req, res, next) {
 				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
 			);
 		return res.send({ 
-			"error" : "001",
+			"error" : "5",
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
-		}); 
-						
+		}); 						
 	}		
 
 
@@ -339,7 +370,7 @@ async  function function_export(req, res, next) {
 			if(parseInt(product_data[x].orders_details_speciality_price) 
 			!= parseInt(price_return) ){
 				return res.send({ 
-					"error" : "0002",
+					"error" : "06",
 					"position" : "api/app/v5/coupons/checked-coupon-code",
 					"message": "Xin lỗi giá sản phẩm [" + 
 					product_name + " ] đã thay đổi từ (" + 
@@ -360,7 +391,7 @@ async  function function_export(req, res, next) {
 				"Lỗi coupon_condition, Vui lòng liên hệ admin DALA" 
 			);
 		return res.send({ 
-			"error" : "003",
+			"error" : "7",
 			"position" : "api/app/v5/coupons/checked-coupon-code",
 			"message": error_send 
 		}); 
@@ -375,123 +406,122 @@ async  function function_export(req, res, next) {
 
 
 
-
 	//@
 	//@
 	//@
 	//@
-	//@ check điều kiện áp dụng
-	try{	
-		var check_resuilt = {};
-		//@
-		//@
-		if(coupon_list_result[0].coupon_speciality_type == "0"){
-			
-			//return res.send(["code"]);
-			//			
-			
-			var check_resuilt_store = 0;
-			for( var  x in datas ) { 
-				var check_condition = await check_coupon_condition_code.coupon_condition(datas[x],coupon_list,user_id,res);		
-				//return res.send([check_condition]);
-				//
-				if(
-				check_condition.store_check == 1
-				&& check_condition.coupon_limit == 1 
-				&& check_condition.user_limit == 1 
-				&& check_condition.check == 1 
-				){
-					
-					var caution_price = await check_coupon_condition_code.caution_price(datas[x].line_order,coupon_list,res);	
-					//return res.send([caution_price]);
-					//						
-					
-					let data_push = {
-							"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
-							"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
-							"coupon_price_caution": caution_price,
-							"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
-							"store_id":coupon_list_result[0].stores_ID,
-							"store_name":coupon_list_result[0].stores_name,
-							"dung_chung":coupon_list_result[0].coupon_speciality_type,
-							"coupon_speciality_formula_price":coupon_list_result[0].coupon_speciality_formula_price
-						}  
-
-					coupon_selected_by_store.push(data_push);
-					check_resuilt.coupon_selected_store = coupon_selected_by_store;
-					check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
-					check_resuilt.coupon_new = data_push;
-	
-					return res.send({"error":"","datas":check_resuilt});
-							
-
-					
-				}
-				
-			}//end of for	
-		
-			return res.send({ 
-				"error" : "1021",
-				"position" : "api/app/v5/coupons/checked-coupon-code",
-				"message": "Mã giảm giá không đủ điều kiện áp dụng với đơn hàng của bạn"
-			}); 
+	//@ nếu cửa hàng tạo coupon không có 
+	//@ trong danh sách cửa hàng thì báo lỗi
+	if(coupon_list[0].stores_ID != 17 ){
+		var check_store_coupon = 0;
+		for(x in datas){
+			if(datas[x].store_id == coupon_list[0].stores_ID){
+				check_store_coupon = check_store_coupon + 1;
+			}
 		}
-		
-		
-		//@
-		//@
-		if(coupon_list_result[0].coupon_speciality_type == "1"){
-			//return res.send(["code-all"]);
-			//
-			var check_all = await check_coupon_condition_code_all.coupon_condition(datas,coupon_list,user_id,res);	
-			var caution_price = await check_coupon_condition_code_all.caution_price(datas,coupon_list,res);
-
-			//return res.send([caution_price]);
-			//
-
-			
-			let data_push = {
-					"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
-					"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
-					"coupon_price_caution": caution_price,
-					"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
-					"store_id":17,
-					"store_name":"DALA",
-					"dung_chung":coupon_list_result[0].coupon_speciality_type,
-					"coupon_speciality_formula_price":coupon_list_result[0].coupon_speciality_formula_price
-				}  
-
-			coupon_selected_by_dala.push(data_push);
-			check_resuilt.coupon_selected_store = coupon_selected_by_store;
-			check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
-			check_resuilt.coupon_new = data_push;
-		}		
-
-
-		return res.send({"error":"","datas":check_resuilt});
-					
-
-
+		if(check_store_coupon == 0){
+			return res.send({ 
+				"error" : "8",
+				"position" : "api/app/v5/coupons/checked-coupon-code",
+				"message": "mã coupon không có trong danh sách cửa hàng đã đặt hàng" 
+			}); 		
+		}
 	}
-	catch(error){
-		var evn = ojs_configs.evn;
-		////evn = "dev";
-		var error_send = ojs_shares_show_errors.show_error( 
-				evn, 
-				error, 
-				"Lỗi get condition, Vui lòng liên hệ admin" 
-			);
-		return res.send({ 
-			"error" : "241",
-			"position" : "api/app/v5/coupons/checked-coupon-code",
-			"message": error_send 
-		}); 
-						
-	}
-
-	//@
-	return res.send({"error":"","datas":coupon_search_result});
 	
+	
+	
+	
+	//return res.send(["condition ok"]);
+	
+	//@
+	//@
+	//@
+	//@
+	//@ kiểm tra đều kiện áp dụng coupon
+	if(coupon_list[0].stores_ID == 17 ){
+		await check_coupon_condition_code_all(product_data,coupon_list,user_id,res);
+	}else{
+		for(x in datas){
+			if(datas[x].store_id == coupon_list[0].stores_ID){
+				var data_condition = [];
+				for(i in datas[x].line_order ){
+					if(datas[x].line_order[i].orders_details_speciality_line_order == "product"){
+						data_condition.push(datas[x].line_order[i]);
+					}
+				}
+							
+				await check_coupon_condition_code(data_condition,coupon_list,user_id,res);
+			}
+
+		}
+	}
+	//return res.send(["condition ok"]);
+	
+	
+	
+	
+	//@
+	//@
+	//@
+	//@ lấy giá coupon
+	var check_resuilt = {};	
+	if(coupon_list[0].stores_ID == 17 ){
+		var get_price_coupon_result = 
+			await get_price_coupon(product_data,coupon_list,res);
+			
+		let data_push = {
+				"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
+				"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
+				"coupon_price_caution": get_price_coupon_result,
+				"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
+				"store_id":coupon_list_result[0].stores_ID,
+				"store_name":coupon_list_result[0].stores_name,
+				"dung_chung":coupon_list_result[0].coupon_speciality_type,
+				"coupon_speciality_formula_price":coupon_list_result[0].coupon_speciality_formula_price
+			}  
+
+		coupon_selected_by_dala.push(data_push);
+		check_resuilt.coupon_selected_store = coupon_selected_by_store;
+		check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
+		check_resuilt.coupon_new = data_push;
+
+		return res.send({"error":"","datas":check_resuilt});	
+
+	}else{		
+		for(x in datas){
+			if(datas[x].store_id == coupon_list[0].stores_ID){
+				var data_condition = [];
+				for(i in datas[x].line_order ){
+					if(datas[x].line_order[i].orders_details_speciality_line_order == "product"){
+						data_condition.push(datas[x].line_order[i]);
+					}
+				}
+							
+				var get_price_coupon_result = 
+					await get_price_coupon(data_condition,coupon_list,res);
+				//return res.send([get_price_coupon_result]);
+				
+				
+				let data_push = {
+						"coupon_speciality_ID": coupon_list_result[0].coupon_speciality_ID,
+						"coupon_speciality_code": coupon_list_result[0].coupon_speciality_code,
+						"coupon_price_caution": get_price_coupon_result,
+						"coupon_speciality_multiple":coupon_list_result[0].coupon_speciality_multiple,
+						"store_id":coupon_list_result[0].stores_ID,
+						"store_name":coupon_list_result[0].stores_name,
+						"dung_chung":coupon_list_result[0].coupon_speciality_type,
+						"coupon_speciality_formula_price":coupon_list_result[0].coupon_speciality_formula_price
+					}  
+
+				coupon_selected_by_store.push(data_push);
+				check_resuilt.coupon_selected_store = coupon_selected_by_store;
+				check_resuilt.coupon_selected_dala = coupon_selected_by_dala;
+				check_resuilt.coupon_new = data_push;
+
+				return res.send({"error":"","datas":check_resuilt});				
+			}
+		}
+	}
 }
 
 module.exports = function_export;

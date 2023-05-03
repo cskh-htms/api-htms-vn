@@ -16,24 +16,35 @@ const coupon_search_limit_user =
 //@@
 //@@
 //@@  [check_limit_user]
-const  function_export = async function(limit_data,coupon_id,number,user_id,res){	
-	//return res.send([limit_data,coupon_id,number,user_id]);
+const  function_export = async function(coupon_id,number,user_id,res){	
+	//return res.send([coupon_id,number,user_id]);
 	try{
 		var data_sum = 0;
 		var data_return = 0;
-		if(limit_data <= 0){
+		if(number <= 0){
 			data_return = 1;
 		}else{
 			var limit_user_result = await coupon_search_limit_user(coupon_id,user_id,res);
-			//return res.send([limit_user_result]);
+			//return res.send({ 
+				//"error" : "0000",
+				//"position" : "api/shares/v5/coupon-function/check-limit user",
+				//"message": limit_user_result
+			//});			
 			
 			if(limit_user_result.length > 0){
-				if(parseInt(limit_user_result[0].user_sum) < number){
+				if( limit_user_result.length  < number){
+					data_return = 0;
+				}else{
 					data_return = 1;
+					return res.send({ 
+						"error" : "1",
+						"position" : "api/shares/v5/coupon-function/check-limit user",
+						"message": "Số lượng dùng của user này đã hết, Tối da chỉ dùng được [ " + number + " ] mã" 
+					});
 				}
 			}
 		}
-		return data_return;
+		return limit_user_result;
 	}	
 	catch(error){
 		var evn = ojs_configs.evn;
@@ -44,7 +55,7 @@ const  function_export = async function(limit_data,coupon_id,number,user_id,res)
 				"Lỗi check_limit_user, Vui lòng liên hệ admin DALA" 
 			);
 		return res.send({ 
-			"error" : "1",
+			"error" : "2",
 			"position" : "api/shares/v5/coupon-function/check-limit user",
 			"message": error_send 
 		}); 

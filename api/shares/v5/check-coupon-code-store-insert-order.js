@@ -96,7 +96,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 		//return datas;		
 		
 		var coupon_list = await coupon_search(datas_coupon,res);	
-		//return coupon_list_result;
+		//return res.send(coupon_list);
 	
 		if(coupon_list.length <= 0){
 			return res.send({ 
@@ -157,7 +157,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	
 	
 	
-	
+
 
 	//@
 	//@
@@ -165,22 +165,12 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	//@
 	//@ kiểm tra limit number ( số lượng coupon đã hết )
 	var coupon_limit_result =  await check_limit_number(
-		coupon_list[0].coupon_speciality_limit_number,
 		coupon_list[0].coupon_speciality_ID,
 		coupon_list[0].coupon_speciality_limit_number,
 		res
 	);
 	
-	if(coupon_limit_result <= 0){
-		return res.send({ 
-			"error" : "4",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
-			"message": "Coupon đã dùng hết"
-		});
-	}		
-	
-	
-	
+
 	
 	
 	//@
@@ -189,24 +179,12 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 	//@
 	//@ kiểm tra limit user
 	var user_limit_result =  await check_limit_user(
-		coupon_list[0].coupon_speciality_limit_user,
 		coupon_list[0].coupon_speciality_ID,
 		coupon_list[0].coupon_speciality_limit_user,
 		user_id,
 		res
 	);	
 	
-	if(user_limit_result <= 0){
-		return res.send({ 
-			"error" : "5",
-			"position" : "api/shares/v5/checked-coupon-condition-code-store-insert-order",
-			"message": "User này đã dùng hết số lượng giới hạn"
-		});
-	}	
-
-
-
-
 
 
 

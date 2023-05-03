@@ -15,8 +15,10 @@ const fields_insert = require('./coupon-fields-insert.js');
 const function_export = function (coupon_id,res) {
 	
 
-	var sql_text = 'SELECT COUNT(' + 
-	config_database.PREFIX + 'orders_details_speciality_ID' + ') AS coupons_sum ' + 
+	var sql_text = 'SELECT ' + 
+	config_database.PREFIX + 'orders_speciality_master_ID, ' + 
+	config_database.PREFIX + 'coupon_speciality_ID ' + 
+
 	'FROM ' + 
 		config_database.PREFIX + 'orders_details_speciality ' + 
 		
@@ -24,6 +26,11 @@ const function_export = function (coupon_id,res) {
 		config_database.PREFIX + "orders_speciality  ON  " + 
 		config_database.PREFIX + "orders_details_speciality_order_id  = " + 
 		config_database.PREFIX + "orders_speciality_ID " + 
+		
+	" LEFT JOIN " + 
+		config_database.PREFIX + "orders_speciality_master  ON  " + 
+		config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+		config_database.PREFIX + "orders_speciality_master_ID " + 		
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "coupon_speciality  ON  " + 
@@ -35,9 +42,10 @@ const function_export = function (coupon_id,res) {
 	" AND " + 
 		config_database.PREFIX + "orders_speciality_status_orders <> -1" + 
 	" AND " + 
-		config_database.PREFIX + "orders_details_speciality_line_order = 'coupon'";
-	
-
+		config_database.PREFIX + "orders_details_speciality_line_order = 'coupon' " + 
+	" GROUP BY " + 	
+	config_database.PREFIX + 'orders_speciality_master_ID, ' + 
+	config_database.PREFIX + 'coupon_speciality_ID ' ;
 	//return sql_text;
 	
 	//@
@@ -48,7 +56,7 @@ const function_export = function (coupon_id,res) {
 				if( err ) {
 					var evn = ojs_configs.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					////evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -67,9 +75,9 @@ const function_export = function (coupon_id,res) {
 	}
 	catch(error){
 		var evn = ojs_configs.evn;
-		////evn = "dev";
+		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
 				"Lỗi insert data coupon delete, Vui lòng liên hệ admin" 
 			);
