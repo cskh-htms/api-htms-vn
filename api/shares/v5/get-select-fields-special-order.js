@@ -28,7 +28,8 @@ const select_field_special = function(field,res){
 			config_database.PREFIX  + "orders_speciality_total_product + " + 
 			config_database.PREFIX  + "orders_speciality_total_shipping + " + 
 			config_database.PREFIX  + "orders_speciality_total_fee) - " + 
-			config_database.PREFIX  + "orders_speciality_total_coupon " ;			
+			config_database.PREFIX  + "orders_speciality_total_coupon_dala -  "  + 
+			config_database.PREFIX  + "orders_speciality_total_coupon_store " ;			
 			
 			return sql_field_check;	
 
@@ -78,4 +79,6 @@ const select_field_special = function(field,res){
 	}	
 }
 module.exports = select_field_special;
+
+
 

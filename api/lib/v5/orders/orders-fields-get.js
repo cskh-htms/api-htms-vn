@@ -45,7 +45,8 @@ const fields_search = 	"" +
 		
 	config_database.PREFIX  + "orders_speciality_total_qty as orders_speciality_total_qty, " +		
 	config_database.PREFIX  + "orders_speciality_total_product as orders_speciality_total_product, " +			
-	config_database.PREFIX  + "orders_speciality_total_coupon as orders_speciality_total_coupon, " +			
+	config_database.PREFIX  + "orders_speciality_total_coupon_dala as orders_speciality_total_coupon_dala, " +	
+	config_database.PREFIX  + "orders_speciality_total_coupon_store as orders_speciality_total_coupon_store, " +	
 	config_database.PREFIX  + "orders_speciality_total_shipping as orders_speciality_total_shipping, " +			
 	config_database.PREFIX  + "orders_speciality_total_fee as orders_speciality_total_fee, " +		
 		
@@ -79,7 +80,8 @@ const fields_search_arr = [
 	
 	"orders_speciality_total_qty",
 	"orders_speciality_total_product",
-	"orders_speciality_total_coupon",
+	"orders_speciality_total_coupon_dala",
+	"orders_speciality_total_coupon_store",	
 	"orders_speciality_total_shipping",
 	"orders_speciality_total_fee",	
 	

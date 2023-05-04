@@ -34,7 +34,8 @@ const order_insert = function (datas,data_details,res) {
 			
 			"orders_speciality_total_qty"				: datas.orders_speciality_total_qty,			
 			"orders_speciality_total_product"			: datas.orders_speciality_total_product,			
-			"orders_speciality_total_coupon"			: datas.orders_speciality_total_coupon,			
+			"orders_speciality_total_coupon_dala"		: datas.orders_speciality_total_coupon_dala,			
+			"orders_speciality_total_coupon_store"		: datas.orders_speciality_total_coupon_store,					
 			"orders_speciality_total_shipping"			: datas.orders_speciality_total_shipping,	
 			"orders_speciality_total_fee"				: datas.orders_speciality_total_fee,
 			

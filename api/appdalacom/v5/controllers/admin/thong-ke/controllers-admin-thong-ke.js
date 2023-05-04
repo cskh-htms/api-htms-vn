@@ -104,7 +104,8 @@ async  function function_export(req, res, next) {
 
 
 
-
+		
+		
 		//@
 		//@
 		//@lấy order list
@@ -130,7 +131,8 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_qty",
 				"orders_speciality_total_product",
 				"orders_speciality_total_shipping",
-				"orders_speciality_total_coupon",
+				"orders_speciality_total_coupon_store",
+				"orders_speciality_total_coupon_dala",
 				"orders_speciality_total_fee",
 				"orders_speciality_total_caution",	
 			],
@@ -216,7 +218,8 @@ async  function function_export(req, res, next) {
 			[
 				"payment_period_ID",
 				"orders_speciality_total_product",
-				"orders_speciality_total_coupon",
+				"orders_speciality_total_coupon_store",
+				"orders_speciality_total_coupon_dala",
 				"orders_speciality_total_fee",
 				"orders_speciality_total_caution",
 				"stores_discount_price",
@@ -260,7 +263,6 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_order_list2);	
-
 
 
 

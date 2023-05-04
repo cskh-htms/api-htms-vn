@@ -49,6 +49,11 @@ const link_default = 	" " +
 	config_database.PREFIX + "orders_speciality_ID " + 
 	
 	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
+	
+	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "orders_speciality_store_id  = " + 
 	config_database.PREFIX + "stores_ID " + 
@@ -68,6 +73,11 @@ const link_by_store = " " +
 	config_database.PREFIX + "orders_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_order_id = " + 
 	config_database.PREFIX + "orders_speciality_ID " + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
@@ -102,6 +112,11 @@ const link_by_customer = " " +
 	config_database.PREFIX + "orders_speciality_ID " + 
 	
 	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
+	
+	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "orders_speciality_store_id  = " + 
 	config_database.PREFIX + "stores_ID " + 	
@@ -113,7 +128,7 @@ const link_by_customer = " " +
 
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_user_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_user_id  = " + 
 	config_database.PREFIX + "users_ID " +	
 
 	" LEFT JOIN " + 
@@ -131,6 +146,11 @@ const link_product_by_store = " " +
 	config_database.PREFIX + "orders_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_order_id = " + 
 	config_database.PREFIX + "orders_speciality_ID " + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "products_speciality  ON  " + 
@@ -170,6 +190,12 @@ const link_product_by_customer= " " +
 	config_database.PREFIX + "orders_speciality_ID " + 
 	
 	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
+	
+	
+	" LEFT JOIN " + 
 	config_database.PREFIX + "products_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
 	config_database.PREFIX + "products_speciality_ID " + 		
@@ -186,7 +212,7 @@ const link_product_by_customer= " " +
 
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_user_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_user_id  = " + 
 	config_database.PREFIX + "users_ID " +	
 
 	" LEFT JOIN " + 
@@ -206,6 +232,16 @@ const link_by_coupon = " " +
 	config_database.PREFIX + "orders_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_order_id = " + 
 	config_database.PREFIX + "orders_speciality_ID " + 
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
+	
+	" LEFT JOIN " + 
+	config_database.PREFIX + "products_speciality  ON  " + 
+	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
+	config_database.PREFIX + "products_speciality_ID " + 		
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "coupon_speciality  ON  " + 
@@ -236,6 +272,11 @@ const link_product = " " +
 	config_database.PREFIX + "orders_speciality_ID " + 
 	
 	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+	
+	" LEFT JOIN " + 
 	config_database.PREFIX + "products_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
 	config_database.PREFIX + "products_speciality_ID ";	
@@ -258,6 +299,11 @@ const link_by_review = " " +
 	config_database.PREFIX + "orders_details_speciality_order_id = " + 
 	config_database.PREFIX + "orders_speciality_ID " + 
 
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+
 	" LEFT JOIN " +
 	config_database.PREFIX + "products_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_product_id  = " + 
@@ -265,7 +311,7 @@ const link_by_review = " " +
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_user_id = " + 
+	config_database.PREFIX + "orders_speciality_mater_user_id = " + 
 	config_database.PREFIX + "users_ID ";		
 
 
@@ -287,6 +333,13 @@ const link_by_marketting = " " +
 	config_database.PREFIX + "orders_details_speciality_order_id = " + 
 	config_database.PREFIX + "orders_speciality_ID " + 
 
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 
+	
+
 	" LEFT JOIN " +
 	config_database.PREFIX + "payment_coupon  ON  " + 
 	config_database.PREFIX + "orders_speciality_ID  = " + 
@@ -294,7 +347,7 @@ const link_by_marketting = " " +
 	
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_user_id = " + 
+	config_database.PREFIX + "orders_speciality_master_user_id = " + 
 	config_database.PREFIX + "users_ID ";		
 
 

@@ -24,7 +24,8 @@ const  default_fields = {
 		
 		"orders_speciality_total_qty"			: 0,
 		"orders_speciality_total_product"		: 0,
-		"orders_speciality_total_coupon"		: 0,
+		"orders_speciality_total_coupon_dala"		: 0,
+		"orders_speciality_total_coupon_store"		: 0,		
 		"orders_speciality_total_shipping"		: 0,
 		"orders_speciality_total_fee"			: 0
 }

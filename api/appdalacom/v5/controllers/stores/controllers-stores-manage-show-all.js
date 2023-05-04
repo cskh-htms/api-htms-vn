@@ -24,7 +24,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
 const product_sale = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-store.js');
 
-
+const order_detail_coupon = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-coupon.js');
 
 
 
@@ -322,6 +322,68 @@ async  function function_export(req, res, next) {
 			resolve(result);
 		});	
 		promise_all.push(fn_get_order_sale);				
+		
+		
+		
+		
+		
+		//@
+		//@
+		//@
+		//@ order detail coupon
+		let data_order_detail =    
+		{
+		   "select_field" :
+			[
+				"orders_details_medium_text",
+				"orders_details_speciality_ID",
+				"orders_details_speciality_line_order",
+				"orders_details_speciality_price",
+				"orders_details_speciality_product_id",
+				"orders_details_speciality_qty",
+				"price_caution",
+				"products_speciality_name",
+				"coupon_speciality_stores_id_created",
+				"orders_speciality_ID",
+				"orders_speciality_total_product",
+				"orders_speciality_date_orders",
+				"orders_speciality_status_orders",				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+						{	"field"		:"coupon_speciality_stores_id_created",
+							"value" 	: store_id,
+							"compare" : "="
+						},
+						{	"field"		:"orders_details_speciality_line_order",
+							"value" 	: "coupon",
+							"compare" : "="
+						},						
+						{	"field"		:"orders_speciality_status_pull_money",
+							"value" 	: 0,
+							"compare" : "="
+						}							
+					] 				
+				}         
+			]				
+		 }
+		
+		var fn_get_order_detail = new Promise((resolve, reject) => {
+			let result = order_detail_coupon(data_order_detail,res);
+			resolve(result);
+		});	
+		promise_all.push(fn_get_order_detail);
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

@@ -175,7 +175,8 @@ async  function function_export(req, res, next) {
 					"orders_details_speciality_product_id",
 					"orders_details_speciality_qty",
 					"price_caution",
-					"products_speciality_name"			
+					"products_speciality_name",
+					"coupon_speciality_stores_id_created"					
 				],
 				"condition" :
 				[
@@ -194,7 +195,7 @@ async  function function_export(req, res, next) {
 			 }
 			
 			var fn_get_order_detail = new Promise((resolve, reject) => {
-				let result = order_detail_search(data_order_detail,res);
+				let result = order_detail_coupon(data_order_detail,res);
 				resolve(result);
 			});	
 			promise_all.push(fn_get_order_detail);

@@ -162,13 +162,29 @@ BEGIN
 		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
 	);	
 	
-	-- total coupon
-	SET @total_coupon = ( 
+	-- total coupon_dala
+	SET @total_coupon_dala = ( 
 		select  sum(dala_orders_details_speciality_price) 
 		from dala_orders_details_speciality   
+		left join dala_coupon_speciality on 
+			dala_orders_details_medium_text = dala_coupon_speciality_code 
 		where dala_orders_details_speciality_line_order = 'coupon' 
+		and  dala_coupon_speciality_stores_id_created = 17  
 		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
 	);		
+	
+	
+	-- total coupon_store
+	SET @total_coupon_store = ( 
+		select  sum(dala_orders_details_speciality_price) 
+		from dala_orders_details_speciality   
+		left join dala_coupon_speciality on 
+			dala_orders_details_medium_text = dala_coupon_speciality_code 
+		where dala_orders_details_speciality_line_order = 'coupon' 
+		and  dala_coupon_speciality_stores_id_created <> 17  
+		and  dala_orders_details_speciality_order_id = NEW.dala_orders_details_speciality_order_id
+	);			
+	
 	
 	-- total shipping
 	SET @total_shipping = ( 
@@ -213,14 +229,35 @@ BEGIN
 
 
 
-	if(@total_coupon > 0) then 
+	if(@total_coupon_dala > 0) then 
 		SIGNAL SQLSTATE '01000'; 	
 	else 
-		set @total_coupon = 0;
+		set @total_coupon_dala = 0;
 	end if;
 	
-	update dala_orders_speciality set dala_orders_speciality_total_coupon = @total_coupon 
+	update dala_orders_speciality set dala_orders_speciality_total_coupon_dala = @total_coupon_dala  
 	where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+
+
+
+	if(@total_coupon_store > 0) then 
+		SIGNAL SQLSTATE '01000'; 	
+	else 
+		set @total_coupon_store = 0;
+	end if;
+	
+	update dala_orders_speciality set dala_orders_speciality_total_coupon_store = @total_coupon_store  
+	where dala_orders_speciality_ID = NEW.dala_orders_details_speciality_order_id;
+
+
+
+
+
+
+
+
+
+
 
 
 	if(@total_shipping > 0) then 
