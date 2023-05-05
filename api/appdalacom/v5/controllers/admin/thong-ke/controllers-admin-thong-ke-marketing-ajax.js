@@ -13,21 +13,28 @@ const ojs_configs = require('../../../../../../configs/config');
 const config_database = require('../../../../../configs/config-database');
 const config_api = require('../../../../../configs/config-api');
 
-const ojs_shares_show_errors = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
-const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data.js');
-const ojs_shares_date = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
+const ojs_shares_show_errors = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+const ojs_shares_fetch_data = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data.js');
+const ojs_shares_date = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
 
 
 
-const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
-const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
-
-const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
-
-
-const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
+const fields_insert = 
+	require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
+const check_role = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_user = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
+const get_data_news_admin = 
+	require('../../../shares/get-data-news-admin-appdalacom-api.js');
+const order_detail_search = 
+	require('../../../../../lib/' + 
+		config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
 
 
 //@
@@ -83,6 +90,159 @@ async  function function_export(req, res, next) {
 	}
 	//return res.send([datas]);
 	
+
+
+
+	//@
+	//@
+	//@ tổng hợp điều kiện lọc
+	//return res.send(datas);	
+	
+	
+	
+	//@ 
+	//@ limit
+	var limit_data = [];
+	if(datas.limit){
+		limit_data.push(
+			{
+				"limit_number" : datas.limit
+			}
+		);		
+	}
+	if(datas.offset){
+		limit_data.push(
+			{
+				"limit_offset" : datas.offset
+			}
+		);		
+	}		
+
+
+
+	//@ order
+	var order_data = [];
+	if(datas.sort_field){
+		order_data.push(
+			{
+				"field"  :datas.sort_field
+			}					
+		)
+	}
+	if(datas.sort_type){
+		order_data.push(
+			{
+				"compare"  :datas.sort_type
+			}					
+		)
+	}
+	
+
+	
+	
+	//@
+	//@ condition
+	var condition_data = [];
+	condition_data.push(	
+		{   
+			"field"     :"orders_details_speciality_line_order",
+			"value"     : "coupon",
+			"compare" : "="
+		},
+		{   
+			"field"     :"orders_speciality_status_orders",
+			"value"     : [-1,21,20,102],
+			"compare" : "not in"
+		},
+		{   
+			"field"     :"orders_speciality_date_orders",
+			"value"     : datas.date_star,
+			"compare" : ">"
+		},
+		{   
+			"field"     :"orders_speciality_date_orders",
+			"value"     : datas.date_end,
+			"compare" : "<"
+		}			
+	)	
+
+
+	//@
+	//@ loc user
+	if(datas.loc_user_marketing != "all"){
+		condition_data.push(	
+			{   
+				"field"     :"coupon_speciality_intro",
+				"value"     : datas.loc_user_marketing,
+				"compare" : "="
+			}			
+		)
+	}
+
+	
+
+	//@
+	//@ loc coupon
+	if(datas.loc_coupon_marketing != "all"){
+		condition_data.push(	
+			{   
+				"field"     :"coupon_speciality_ID",
+				"value"     : datas.loc_coupon_marketing,
+				"compare" : "="
+			}			
+		)
+	}
+
+
+	//@
+	//@ loc order status
+	if(datas.loc_order_status != "all"){
+		if(datas.loc_order_status == 1){
+			condition_data.push(	
+				{   
+					"field"     :"orders_speciality_status_orders",
+					"value"     : 100,
+					"compare" : "="
+				}			
+			)				
+		}else{
+			condition_data.push(	
+				{   
+					"field"     :"orders_speciality_status_orders",
+					"value"     : 100,
+					"compare" : "<>"
+				}			
+			)					
+		}
+
+	}
+
+
+
+	//@
+	//@ loc cong no
+	if(datas.loc_cong_no != "all"){
+		if(datas.loc_cong_no == 1){
+			condition_data.push(	
+				{   
+					"field"     :"payment_coupon_coupon_code",
+					"value"     : "",
+					"compare" : "not null"
+				}			
+			)				
+		}else{
+			condition_data.push(	
+				{   
+					"field"     :"payment_coupon_coupon_code",
+					"value"     : "",
+					"compare" : "null"
+				}			
+			)					
+		}
+
+	}
+	//return res.send(condition_data);
+
 	
 
 
@@ -94,155 +254,6 @@ async  function function_export(req, res, next) {
 	try{	
 		var promise_all = [];
 		promise_all.push(0);
-
-		//@
-		//@
-		//@lấy order list
-		
-		
-		//@ 
-		//@ limit
-		var limit_data = [];
-		if(datas.limit){
-			limit_data.push(
-				{
-					"limit_number" : datas.limit
-				}
-			);		
-		}
-		if(datas.offset){
-			limit_data.push(
-				{
-					"limit_offset" : datas.offset
-				}
-			);		
-		}		
-
-
-
-		//@ order
-		var order_data = [];
-		if(datas.sort_field){
-			order_data.push(
-				{
-					"field"  :datas.sort_field
-				}					
-			)
-		}
-		if(datas.sort_type){
-			order_data.push(
-				{
-					"compare"  :datas.sort_type
-				}					
-			)
-		}
-		
-	
-		
-		
-		//@
-		//@ condition
-		var condition_data = [];
-		condition_data.push(	
-			{   
-				"field"     :"orders_details_speciality_line_order",
-				"value"     : "coupon",
-				"compare" : "="
-			},
-			{   
-				"field"     :"orders_speciality_status_orders",
-				"value"     : [-1,21,20,102],
-				"compare" : "not in"
-			},
-			{   
-				"field"     :"orders_speciality_date_orders",
-				"value"     : datas.date_star,
-				"compare" : ">"
-			},
-			{   
-				"field"     :"orders_speciality_date_orders",
-				"value"     : datas.date_end,
-				"compare" : "<"
-			}			
-		)	
-
-
-		//@
-		//@ loc user
-		if(datas.loc_user_marketing != "all"){
-			condition_data.push(	
-				{   
-					"field"     :"coupon_speciality_intro",
-					"value"     : datas.loc_user_marketing,
-					"compare" : "="
-				}			
-			)
-		}
-	
-
-
-		//@
-		//@ loc coupon
-		if(datas.loc_coupon_marketing != "all"){
-			condition_data.push(	
-				{   
-					"field"     :"coupon_speciality_ID",
-					"value"     : datas.loc_coupon_marketing,
-					"compare" : "="
-				}			
-			)
-		}
-
-
-		//@
-		//@ loc order status
-		if(datas.loc_order_status != "all"){
-			if(datas.loc_order_status == 1){
-				condition_data.push(	
-					{   
-						"field"     :"orders_speciality_status_orders",
-						"value"     : 100,
-						"compare" : "="
-					}			
-				)				
-			}else{
-				condition_data.push(	
-					{   
-						"field"     :"orders_speciality_status_orders",
-						"value"     : 100,
-						"compare" : "<>"
-					}			
-				)					
-			}
-
-		}
-
-
-
-		//@
-		//@ loc cong no
-		if(datas.loc_cong_no != "all"){
-			if(datas.loc_cong_no == 1){
-				condition_data.push(	
-					{   
-						"field"     :"payment_coupon_coupon_code",
-						"value"     : "",
-						"compare" : "not null"
-					}			
-				)				
-			}else{
-				condition_data.push(	
-					{   
-						"field"     :"payment_coupon_coupon_code",
-						"value"     : "",
-						"compare" : "null"
-					}			
-				)					
-			}
-
-		}
-		return res.send(condition_data);
-
 
 		//@
 		//@

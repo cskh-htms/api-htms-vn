@@ -13,21 +13,33 @@ const ojs_configs = require('../../../../../../configs/config');
 const config_database = require('../../../../../configs/config-database');
 const config_api = require('../../../../../configs/config-api');
 
-const ojs_shares_show_errors = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const ojs_shares_others = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
-const ojs_shares_fetch_data = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data.js');
-const ojs_shares_date = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
+const ojs_shares_show_errors = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
+const ojs_shares_others = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
+const ojs_shares_fetch_data = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-fetch-data.js');
+const ojs_shares_date = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-date.js');
 
 
 
-const fields_insert = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
-const check_role = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-const check_owner_user = require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
+const fields_insert = 
+	require('../../../../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-fields-insert');
+const check_role = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
+const check_owner_user = 
+	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-user');
+const get_data_news_admin = 
+	require('../../../shares/get-data-news-admin-appdalacom-api.js');
+const order_detail_search = 
+	require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
 
-const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 
 
-const order_detail_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
+
+
+
 
 
 //@

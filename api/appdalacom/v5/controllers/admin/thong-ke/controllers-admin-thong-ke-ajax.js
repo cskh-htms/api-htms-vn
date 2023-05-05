@@ -153,12 +153,7 @@ async  function function_export(req, res, next) {
 				"field"     :"orders_speciality_date_orders",
 				"value"     : datas.date_end,
 				"compare" : "<="
-			},
-			{   
-				"field"     :"orders_speciality_status_orders",
-				"value"     : [-1,21,20,102],
-				"compare" : "not in"
-			}			
+			}		
 		)	
 
 
@@ -191,8 +186,8 @@ async  function function_export(req, res, next) {
 				condition_data.push(	
 					{   
 						"field"     :"orders_speciality_status_orders",
-						"value"     : 100,
-						"compare" : "<>"
+						"value"     : 21,
+						"compare" : "="
 					}			
 				)					
 			}
@@ -254,7 +249,8 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_coupon_store",
 				"orders_speciality_total_coupon_dala",
 				"orders_speciality_total_fee",
-				"orders_speciality_total_caution",						
+				"orders_speciality_total_caution",
+				"payment_period_payment"				
 			],
 			"condition" :
 			[

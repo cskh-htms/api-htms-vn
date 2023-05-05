@@ -134,7 +134,8 @@ async  function function_export(req, res, next) {
 				"orders_speciality_total_coupon_store",
 				"orders_speciality_total_coupon_dala",
 				"orders_speciality_total_fee",
-				"orders_speciality_total_caution",	
+				"orders_speciality_total_caution",
+				"payment_period_payment"				
 			],
 			"condition" :
 			[
@@ -154,8 +155,8 @@ async  function function_export(req, res, next) {
 					},
 					{   
 						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
+						"value"     : [21,100],
+						"compare" : "in"
 					}							
 					] 				
 				}         
@@ -243,8 +244,8 @@ async  function function_export(req, res, next) {
 					},
 					{   
 						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
+						"value"     : [21,100],
+						"compare" : "in"
 					}							
 					] 				
 				}         
