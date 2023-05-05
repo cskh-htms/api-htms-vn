@@ -151,8 +151,8 @@ async  function function_export(req, res, next) {
 		},
 		{   
 			"field"     :"orders_speciality_status_orders",
-			"value"     : [-1,21,20,102],
-			"compare" : "not in"
+			"value"     : 100,
+			"compare" : "="
 		},
 		{   
 			"field"     :"orders_speciality_date_orders",
@@ -195,45 +195,20 @@ async  function function_export(req, res, next) {
 
 
 	//@
-	//@ loc order status
-	if(datas.loc_order_status != "all"){
-		if(datas.loc_order_status == 1){
-			condition_data.push(	
-				{   
-					"field"     :"orders_speciality_status_orders",
-					"value"     : 100,
-					"compare" : "="
-				}			
-			)				
-		}else{
-			condition_data.push(	
-				{   
-					"field"     :"orders_speciality_status_orders",
-					"value"     : 100,
-					"compare" : "<>"
-				}			
-			)					
-		}
-
-	}
-
-
-
-	//@
 	//@ loc cong no
 	if(datas.loc_cong_no != "all"){
 		if(datas.loc_cong_no == 1){
 			condition_data.push(	
 				{   
-					"field"     :"payment_coupon_coupon_code",
-					"value"     : "",
-					"compare" : "not null"
+					"field"     :"payment_coupon_ID",
+					"value"     : 0,
+					"compare" : ">"
 				}			
 			)				
 		}else{
 			condition_data.push(	
 				{   
-					"field"     :"payment_coupon_coupon_code",
+					"field"     :"payment_coupon_ID",
 					"value"     : "",
 					"compare" : "null"
 				}			

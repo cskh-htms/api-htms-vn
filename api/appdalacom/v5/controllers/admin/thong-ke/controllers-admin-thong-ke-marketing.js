@@ -166,6 +166,7 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_intro_price_limit",				
 				
 				"payment_coupon_ID",
+				"payment_coupon_payment",
 				
 				"users_full_name",
 				"users_ID"						
@@ -185,16 +186,11 @@ async  function function_export(req, res, next) {
 						"field"     :"coupon_speciality_intro",
 						"value"     : 0,
 						"compare" : ">"
-					},		
-					{   
-						"field"     :"payment_coupon_ID",
-						"value"     : "",
-						"compare" : "null"
-					},		
+					},	
 					{   
 						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
+						"value"     : 100,
+						"compare" : "="
 					}					
 					] 				
 				}         
@@ -244,16 +240,11 @@ async  function function_export(req, res, next) {
 						"field"     :"coupon_speciality_intro",
 						"value"     : 0,
 						"compare" : ">"
-					},		
-					{   
-						"field"     :"payment_coupon_ID",
-						"value"     : "",
-						"compare" : "null"
-					},		
+					},	
 					{   
 						"field"     :"orders_speciality_status_orders",
-						"value"     : [-1,21,20,102],
-						"compare" : "not in"
+						"value"     : 100,
+						"compare" : "="
 					}					
 					] 				
 				}         
@@ -303,16 +294,11 @@ async  function function_export(req, res, next) {
 							"field"     :"coupon_speciality_intro",
 							"value"     : 0,
 							"compare" : ">"
-						},		
-						{   
-							"field"     :"payment_coupon_ID",
-							"value"     : "",
-							"compare" : "null"
-						},		
+						},	
 						{   
 							"field"     :"orders_speciality_status_orders",
-							"value"     : [-1,21,20,102],
-							"compare" : "not in"
+							"value"     : 100,
+							"compare" : "="
 						}					
 						] 	
 					
