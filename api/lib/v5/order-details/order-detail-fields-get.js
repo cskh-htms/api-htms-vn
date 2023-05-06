@@ -344,10 +344,13 @@ const link_by_marketting = " " +
 	config_database.PREFIX + "payment_coupon  ON  " + 
 	config_database.PREFIX + "orders_speciality_ID  = " + 
 	config_database.PREFIX + "payment_coupon_order_id " +  
-	
+	"and " + 
+		config_database.PREFIX + "orders_details_medium_text  = " + 
+		config_database.PREFIX + "payment_coupon_coupon_code " + 
+		
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 
-	config_database.PREFIX + "orders_speciality_master_user_id = " + 
+	config_database.PREFIX + "coupon_speciality_intro = " + 
 	config_database.PREFIX + "users_ID ";		
 
 

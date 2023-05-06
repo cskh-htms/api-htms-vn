@@ -169,14 +169,22 @@ async  function function_export(req, res, next) {
 
 	//@
 	//@ loc user
-	if(datas.loc_user_marketing != "all"){
+	if(datas.loc_user_marketing == "all"){
+		condition_data.push(	
+			{   
+				"field"     :"coupon_speciality_intro",
+				"value"     : 0,
+				"compare" : ">"
+			}			
+		)
+	}else{
 		condition_data.push(	
 			{   
 				"field"     :"coupon_speciality_intro",
 				"value"     : datas.loc_user_marketing,
 				"compare" : "="
 			}			
-		)
+		)		
 	}
 
 	

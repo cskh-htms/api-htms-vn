@@ -45,7 +45,8 @@ function get_message_error(error){
 	}else if(error.sqlState == '11106'){
 		return "Đơn hàng đã thanh toán công nợ rồi";		
 		
-		
+	}else if(error.sqlState == '12306'){
+		return "Mã giảm giá của cửa hàng không cho marketing";			
 		
 	//update
 	}else if(error.sqlState == '12311'){
@@ -61,6 +62,13 @@ function get_message_error(error){
 		
 	}else if(error.sqlState == '22201'){
 		return "Không cho phép update";			
+		
+	}else if(error.sqlState == '22203'){
+		return "Mã giảm giá của cửa hàng không cho marketing";			
+		
+	}else if(error.sqlState == '22223'){
+		return "Khong cho update người giới thiệu";				
+		
 		
 	//delete
 	}else if(error.sqlState == '34501'){

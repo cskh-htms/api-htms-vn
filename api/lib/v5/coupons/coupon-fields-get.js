@@ -76,6 +76,14 @@ const link_sale_by_store = 	" " +
 	config_database.PREFIX + "orders_details_speciality_order_id  = " + 
 	config_database.PREFIX + "orders_speciality_ID " +    
 
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
+
+
+
 	" LEFT JOIN " + 
 	config_database.PREFIX + "stores  ON  " + 
 	config_database.PREFIX + "orders_speciality_store_id  = " + 
@@ -100,6 +108,11 @@ const link_by_marketing = 	" " +
 	config_database.PREFIX + "orders_speciality  ON  " + 
 	config_database.PREFIX + "orders_details_speciality_order_id  = " + 
 	config_database.PREFIX + "orders_speciality_ID " +    
+
+	" LEFT JOIN " + 
+	config_database.PREFIX + "orders_speciality_master  ON  " + 
+	config_database.PREFIX + "orders_speciality_orders_speciality_master_id  = " + 
+	config_database.PREFIX + "orders_speciality_master_ID " + 	
 
 	" LEFT JOIN " + 
 	config_database.PREFIX + "users  ON  " + 

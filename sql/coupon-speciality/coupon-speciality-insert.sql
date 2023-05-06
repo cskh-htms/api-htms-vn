@@ -88,6 +88,19 @@ BEGIN
 	END IF;	
 	
 	
+	
+	--
+	-- kiem tra neu coupon cua cua hang thi 
+	-- khong cho insert nguoi gioi thieu
+	-- neu cua hang <> 17 là coupon cua cua hang
+	if(NEW.dala_coupon_speciality_intro  > 0 ) THEN 
+		IF (NEW.dala_coupon_speciality_stores_id_created <> 17) THEN  
+			SIGNAL SQLSTATE '12306' 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_before_insert_intro_user_not_store'; 
+		END IF;		
+	END IF;		
+	
+	
 -- @
 -- @	
 END $$

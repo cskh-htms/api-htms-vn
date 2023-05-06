@@ -121,11 +121,32 @@ BEGIN
 	END IF;	
 
 	--
-	-- không cho update id 
+	-- không cho update id coupon
 	IF(NEW.dala_coupon_speciality_ID <> OLD.dala_coupon_speciality_ID ) THEN 
 		SIGNAL SQLSTATE '12322' 
 		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_update_id_not_update';   
 	END IF;	
+	
+	
+	--
+	-- kiem tra neu coupon cua cua hang thi 
+	-- khong cho insert nguoi gioi thieu
+	-- neu cua hang <> 17 là coupon cua cua hang
+	if(OLD.dala_coupon_speciality_intro  > 0 ) THEN 
+		IF (OLD.dala_coupon_speciality_stores_id_created <> 17) THEN  
+			SIGNAL SQLSTATE '22203' 
+			SET MESSAGE_TEXT = 'trig_coupon_speciality_after_update_intro_user_not_store'; 
+		END IF;		
+	END IF;		
+		
+	
+	--
+	-- không cho update id nguoi gioi thieu
+	IF(NEW.dala_coupon_speciality_intro <> OLD.dala_coupon_speciality_intro ) THEN 
+		SIGNAL SQLSTATE '22223' 
+		SET MESSAGE_TEXT = 'trig_coupon_speciality_after_update_id_user_intro_not_update';   
+	END IF;		
+	
 	
 	
 	
