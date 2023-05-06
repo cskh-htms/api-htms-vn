@@ -191,7 +191,14 @@ async  function function_export(req, res, next) {
 					}			
 				)					
 			}
-
+		}else{			
+			condition_data.push(	
+				{   
+					"field"     :"orders_speciality_status_orders",
+					"value"     : [100,21],
+					"compare" : "in"
+				}			
+			)				
 		}
 
 
