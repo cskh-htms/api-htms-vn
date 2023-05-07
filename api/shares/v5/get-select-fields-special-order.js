@@ -45,7 +45,7 @@ const select_field_special = function(field,res){
 				"THEN " + 
 					config_database.PREFIX  + "coupon_speciality_intro_price_limit "  + 					
 				"ELSE " +  
-					config_database.PREFIX  + "orders_speciality_total_product - " + 
+					"( " + config_database.PREFIX  + "orders_speciality_total_product - " + 
 					config_database.PREFIX  + "orders_speciality_total_coupon_store ) * " +
 					config_database.PREFIX  + "coupon_speciality_intro_price / 100 "  + 
 			"END ) ";
