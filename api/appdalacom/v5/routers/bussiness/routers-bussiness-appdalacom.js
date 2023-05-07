@@ -24,10 +24,11 @@ const controllers_bussiness_show_all =
 require('../../controllers/bussiness/controller-bussiness-show-all');
 
 
-//@ controller
 const controllers_bussiness_ajax_load =  
 require('../../controllers/bussiness/controller-bussiness-ajax-load.js');
 
+const controllers_bussiness_ajax_load_order_detail =  
+require('../../controllers/bussiness/controller-bussiness-ajax-load-order-detail.js');
 
 
 
@@ -49,6 +50,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/show-all',middle_ware, controllers_bussiness_show_all );
 router.post('/ajax-load',middle_ware, controllers_bussiness_ajax_load );
+router.post('/ajax-load-order-detail',middle_ware, controllers_bussiness_ajax_load_order_detail );
+
+
 
 
 

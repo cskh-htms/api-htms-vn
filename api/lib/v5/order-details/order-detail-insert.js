@@ -74,7 +74,7 @@ const function_export = function (data,res) {
 			"orders_details_speciality_product_id"					: datas.orders_details_speciality_product_id,
 			"orders_details_speciality_price"						: datas.orders_details_speciality_price,			
 			"orders_details_speciality_qty"							: datas.orders_details_speciality_qty,	
-			"orders_details_medium_text"						: mysql.escape(datas.orders_details_medium_text).replace(/^'|'$/gi, "")
+			"orders_details_medium_text"							: mysql.escape(datas.orders_details_medium_text).replace(/^'|'$/gi, "")
 		}
 	}
 	catch(error){

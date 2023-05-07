@@ -1,5 +1,8 @@
 
 
+const mysql = require('mysql2');
+
+
 const ojs_configs = require('../../../configs/config');
 const config_api = require('../../configs/config-api');
 const config_database = require('../../configs/config-database.js');
@@ -16,6 +19,19 @@ const get_select_fields_special_coupon = require('../../shares/' + config_api.AP
 
 
 const get_consition =  function(datas,res){
+	
+	
+	
+	//@
+	//@
+	//@ @mysql.escape().replace(/^'|'$/gi, "")
+	//@ escap datta search chong sql injection
+	for (var x in datas.condition){
+		for (var s in datas.condition[x].where){
+			datas.condition[x].where[s].value = 
+				mysql.escape(datas.condition[x].where[s].value).replace(/^'|'$/gi, "");
+		}
+	}
 	
 	try {
 		var sql_condition = "";

@@ -23,7 +23,9 @@ const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION
 
 const get_meta_user = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-user.js');
 
-const order_detail_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
+const order_detail_search = 
+	require('../../../../lib/' + 
+	config_api.API_LIB_VERSION + '/order-details/order-detail-search-by-marketing');
 
 
 
@@ -93,7 +95,7 @@ async  function function_export(req, res, next) {
 		}); 
 			
 	}	
-	//return res.send([user_id,limit_data,order_data]);
+	//return res.send([user_id,limit,order]);
 
 
 
@@ -167,7 +169,7 @@ async  function function_export(req, res, next) {
 			"field"     :"payment_coupon_coupon_code",
 			"value"     : "",
 			"compare" : "null"
-		}		
+		}	
 	)
 		
 	
@@ -248,7 +250,17 @@ async  function function_export(req, res, next) {
 				if(result[y].orders_speciality_status_orders == 100){
 					tien_ok = tien_ok + result[y].sum_orders_speciality_total_marketing
 				}else{
-					tien_no_ok = tien_no_ok + result[y].sum_orders_speciality_total_marketing					
+					if(
+					result[y].orders_speciality_status_orders != 20 
+					&& 
+					result[y].orders_speciality_status_orders != 21  
+					&& 
+					result[y].orders_speciality_status_orders != -1 
+					&& 
+					result[y].orders_speciality_status_orders != -102 					
+					){
+						tien_no_ok = tien_no_ok + result[y].sum_orders_speciality_total_marketing
+					}					
 				}
 			}							
 		}

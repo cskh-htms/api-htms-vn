@@ -38,13 +38,15 @@ const select_field_special = function(field,res){
 			"(CASE " + 
 				"WHEN " +  
 					config_database.PREFIX  + "coupon_speciality_intro_price_limit > 0 " + 
-					"AND (" + config_database.PREFIX  + "orders_speciality_total_product * " + 
+					"AND ((" + config_database.PREFIX  + "orders_speciality_total_product - " + 
+						config_database.PREFIX  + "orders_speciality_total_coupon_store ) * " +
 						config_database.PREFIX  + "coupon_speciality_intro_price / 100 >  " +
 						config_database.PREFIX  + "coupon_speciality_intro_price_limit ) " + 
 				"THEN " + 
 					config_database.PREFIX  + "coupon_speciality_intro_price_limit "  + 					
 				"ELSE " +  
-					config_database.PREFIX  + "orders_speciality_total_product * " + 
+					config_database.PREFIX  + "orders_speciality_total_product - " + 
+					config_database.PREFIX  + "orders_speciality_total_coupon_store ) * " +
 					config_database.PREFIX  + "coupon_speciality_intro_price / 100 "  + 
 			"END ) ";
 				
@@ -55,13 +57,15 @@ const select_field_special = function(field,res){
 			"(CASE " + 
 				"WHEN " +  
 					config_database.PREFIX  + "coupon_speciality_intro_price_limit > 0 " + 
-					"AND (" + config_database.PREFIX  + "orders_speciality_total_product * " + 
+					"AND ((" + config_database.PREFIX  + "orders_speciality_total_product - " + 
+						config_database.PREFIX  + "orders_speciality_total_coupon_store ) * " +
 						config_database.PREFIX  + "coupon_speciality_intro_price / 100 >  " +
 						config_database.PREFIX  + "coupon_speciality_intro_price_limit ) " + 
 				"THEN " + 
 					" sum( " + config_database.PREFIX  + "coupon_speciality_intro_price_limit ) "  + 					
 				"ELSE " +  
-					" sum( " + config_database.PREFIX  + "orders_speciality_total_product * " + 
+					" sum(( " + config_database.PREFIX  + "orders_speciality_total_product - " + 
+					config_database.PREFIX  + "orders_speciality_total_coupon_store ) * " +
 					config_database.PREFIX  + "coupon_speciality_intro_price / 100 )"  + 
 			"END ) ";
 				

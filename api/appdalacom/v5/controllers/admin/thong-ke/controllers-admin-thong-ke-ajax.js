@@ -27,7 +27,9 @@ const check_owner_user = require('../../../../../shares/' + config_api.API_SHARE
 const get_data_news_admin = require('../../../shares/get-data-news-admin-appdalacom-api.js');
 
 
-const order_search = require('../../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search');
+const order_search = 
+require('../../../../../lib/' + 
+config_api.API_LIB_VERSION + '/orders/orders-search');
 
 
 //@

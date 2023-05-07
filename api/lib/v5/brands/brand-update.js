@@ -1,6 +1,6 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 const config_database = require ('../../../configs/config-database');
@@ -50,7 +50,7 @@ const function_export = async function (datas,id,res) {
 
 	let table_name  = config_database.PREFIX + "brands ";
 	let field_where  = config_database.PREFIX + "brands_ID ";
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ id + '"';
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ parseInt(id) + '"';
 	
 	//return(sql_text);
 	

@@ -93,7 +93,7 @@ const function_export = function (data,res) {
 		var evn = ojs_configs.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
-				//evn, 
+				evn, 
 				error, 
 				"Lỗi insert data coupon add, Vui lòng liên hệ admin" 
 			);

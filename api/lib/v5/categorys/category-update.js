@@ -96,7 +96,7 @@ const function_export = async function (datas,id,res) {
 
 	let table_name  = config_database.PREFIX + "category_general_speciality ";
 	let field_where  = config_database.PREFIX + "category_general_speciality_ID ";
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ id + '"';
+	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ parseInt(id) + '"';
 	
 	//return(sql_text);
 	

@@ -216,7 +216,7 @@ async  function function_export(req, res, next) {
 						"compare" : "="
 					}			
 				)				
-			}else{
+			}else if(datas.loc_order_status == 3){
 				condition_data.push(	
 					{   
 						"field"     :"orders_speciality_status_orders",
@@ -224,6 +224,14 @@ async  function function_export(req, res, next) {
 						"compare" : "="
 					}			
 				)					
+			}else{
+				condition_data.push(	
+					{   
+						"field"     :"orders_speciality_status_orders",
+						"value"     : [100,21],
+						"compare" : "not in"
+					}			
+				)				
 			}
 		}else{			
 			condition_data.push(	

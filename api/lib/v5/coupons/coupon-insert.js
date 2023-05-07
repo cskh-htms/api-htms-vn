@@ -83,7 +83,7 @@ const function_export = function (data,res) {
 
 			"coupon_speciality_condition_value"				: datas.coupon_speciality_condition_value,
 			
-			"coupon_speciality_featured_image"				: datas.coupon_speciality_featured_image,
+			"coupon_speciality_featured_image"				: mysql.escape(datas.coupon_speciality_featured_image).replace(/^'|'$/gi, ""),
 			
 			
 			"coupon_speciality_price_max"					: datas.coupon_speciality_price_max,
