@@ -265,6 +265,7 @@ async  function function_export(req, res, next) {
 				"coupon_speciality_intro_price_limit",				
 				
 				"payment_coupon_ID",
+				"payment_coupon_payment",
 				
 				"users_full_name",
 				"users_ID"						
