@@ -126,6 +126,33 @@ async  function function_export(req, res, next) {
 		
 			
 
+
+		//@
+		//@ condition
+		var condition_data = [];
+		condition_data.push(	
+			{   
+				"field"     :"users_type_ID",
+				"value"     : datas.status_admin,
+				"compare" : "in"
+			} 		
+		)	
+
+
+
+		//@
+		//@ id
+		if(datas.user_id > 0 ){
+			condition_data.push(	
+				{   
+					"field"     :"users_ID",
+					"value"     : datas.user_id,
+					"compare" : "="
+				}			
+			)
+		}
+
+
 		
 		//@
 		//@
@@ -164,16 +191,9 @@ async  function function_export(req, res, next) {
 			[
 				{    
 				"relation": "and",
-				"where" :
-					[
-					{   
-						"field"     :"users_type_ID",
-						"value"     : datas.status_admin,
-						"compare" : "in"
-					}           
-					]    
+				"where" :condition_data		
 				}         
-			],  
+			],
 			"order" :
 				 [
 					{
