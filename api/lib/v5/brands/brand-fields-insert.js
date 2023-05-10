@@ -17,25 +17,25 @@ const  default_fields = {
 
 //@
 function get_message_error(error){
-		if(error.sqlMessage.search("trig_brands_name_data_type") >= 0 ){
-			return "Tên brands không được để trống";
-			
-		}else if(error.sqlMessage.search("trig_brands_name_data_type") >= 0){
-			return " Tên brands không hợp lệ ";		
-
-		}else if(error.sqlMessage.search("trig_brands_stores_id_empty") >= 0){
-			return " Chưa nhập id cửa hàng ";	
-
-		}else if(error.sqlMessage.search("brands_stores_id") >= 0){
-			return " Không tìm thấy id cửa hàng ";
-
-		}else if(error.sqlMessage.search("trig_brands_name_name_empty") >= 0){
-			return " Tên thương chưa nhập ";				
-						
-
-		}else{
-			return "Lỗi nhập dữ liệu vui lòng liên hệ bộ phận cskh, hoặc thao tác lại";
-		}
+	//insert
+	if(error.sqlState == '11101' ){
+		return "Vui lòng nhập tên thương hiệu";
+	}else if(error.sqlState == '11102'){
+		return "Không tìm thấy cửa hàng trong hệ thống ";
+	}
+		
+	//update
+	}else if(error.sqlState == '22201'){
+		return "Cửa hàng không có trên hệ thống"
+	}else if(error.sqlState == '23201'){
+		return "Vui lòng nhập tên thương hiệu";
+	}else if(error.sqlState == '23202'){
+		return "Cửa hàng không có trên hệ thống"
+		
+		
+	}else{
+		return "Một lỗi không xác định đã xảy ra trong database . Thao tác không thành công, Vui lòng liên hệ bộ phận HTKT";
+	}
 }	
 
 //@
