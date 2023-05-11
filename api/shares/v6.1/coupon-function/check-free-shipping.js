@@ -1,7 +1,9 @@
 
 //const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('../configs/config');
+
+
+
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const coupon_search_limit_user = require('../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search-limit-user.js');
 const coupon_search_limit_number = require('../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search-limit-number.js');
@@ -82,7 +84,7 @@ const function_export = async function(datas,coupon_code,store_id,user_id,res){
 		}	
 	}	
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -326,7 +328,7 @@ const check_limit_number = async function(coupon_id,number,res){
 		return data_return;
 	}	
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -370,7 +372,7 @@ const check_limit_user = async function(coupon_id,number,user_id,res){
 		return data_return;
 	}	
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -410,7 +412,7 @@ const check_first_sale = async function(datas,value,user_id,res){
 		return data_return;
 	}	
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -449,7 +451,7 @@ const check_qty = async function(datas,value,res){
 		return data_return;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -495,7 +497,7 @@ const check_price_percen = async function(datas,value,res){
 	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

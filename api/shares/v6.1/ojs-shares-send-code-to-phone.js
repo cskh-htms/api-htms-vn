@@ -12,8 +12,11 @@
 @
 @
 */
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
+
 const ojs_shares_send_email = require('./ojs-shares-send-email.js');
 const content_email_order = require('./content-email-order.js');
 
@@ -78,13 +81,13 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@
 					//@ send email to dev
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 				}else{
 					//@
 					//@
 					//@ send email to admin
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);			
 				}
 
 				
@@ -151,13 +154,13 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@
 					//@ send email to dev
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 				}else{
 					//@
 					//@
 					//@ send email to admin
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);			
 				}				
 				
 				
@@ -227,13 +230,13 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@
 					//@ send email to dev
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 				}else{
 					//@
 					//@
 					//@ send email to admin
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);			
 				}				
 				
 				
@@ -300,13 +303,13 @@ const ojs_shares_send_code_to_phone = {
 					//@
 					//@
 					//@ send email to dev
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 				}else{
 					//@
 					//@
 					//@ send email to admin
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-					ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+					ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);			
 				}					
 				
 				return res.send({"error":"101","info":"ojs_shares_send_code_to_phone -> send_code_to_phone_lost_pass -> 1",get_code_verification});

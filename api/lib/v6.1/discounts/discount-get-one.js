@@ -12,14 +12,8 @@
 
 
 
-//@
-//@
-//@
-//@ config
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
 
+const config_api = require('../configs/config');
 
 
 
@@ -47,10 +41,10 @@ const function_export = function (id,res) {
 			fields_get.fields_get + 
 			fields_get.from_default + 
 			fields_get.link_default + 
-			"where " + config_database.PREFIX + "discount_program_ID =" + id;  
+			"where " + config_api.PREFIX + "discount_program_ID =" + id;  
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -70,7 +64,7 @@ const function_export = function (id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -89,7 +83,7 @@ const function_export = function (id,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

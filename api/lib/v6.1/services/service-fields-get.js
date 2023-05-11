@@ -1,13 +1,15 @@
 
-const config_database = require('../../../configs/config-database');
+
+const config_api = require('../configs/config');
+
 
 
 //@
 const fields_search = 	"" + 
-	config_database.PREFIX  + "service_type_ID as service_type_ID, " + 
+	config_api.PREFIX  + "service_type_ID as service_type_ID, " + 
 	
-	config_database.PREFIX  + "service_type_name as service_type_name, " + 
-	config_database.PREFIX  + "service_type_information as service_type_information ";
+	config_api.PREFIX  + "service_type_name as service_type_name, " + 
+	config_api.PREFIX  + "service_type_information as service_type_information ";
 
 
 
@@ -28,7 +30,7 @@ const fields_search_arr = [
 
 //@
 const from_default = 	" from " + 
-	config_database.PREFIX + "service_type ";	
+	config_api.PREFIX + "service_type ";	
 	
 //@	
 const link_default = 	" ";

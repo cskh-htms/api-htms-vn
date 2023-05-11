@@ -3,9 +3,10 @@
 const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
+
+const config_api = require('../configs/config');
+
+
 
 
 const connection = require('../connections/connections-reader');
@@ -28,7 +29,7 @@ const user_search = function (user_id,res) {
 					fields_get.from_default + 
 					fields_get.link_default + 
 					" where " + 
-					config_database.PREFIX + "users_ID = '" + user_id + "' " 
+					config_api.PREFIX + "users_ID = '" + user_id + "' " 
 		
 		//return get_sql_search_group;
 		
@@ -37,7 +38,7 @@ const user_search = function (user_id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -56,7 +57,7 @@ const user_search = function (user_id,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

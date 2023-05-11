@@ -21,19 +21,7 @@ const mysql = require('mysql2');
 
 
 
-
-
-
-//@
-//@
-//@
-//@ config
-const ojs_configs = require('../../../../configs/config');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-
-
-
+const config_api = require('../configs/config');
 
 
 //@
@@ -64,13 +52,13 @@ const fields_insert = require('./traffic-fields-insert.js');
 const function_export = async function (res) {
 	
 	let sqlSet = "set @n = (select " + 
-	config_database.PREFIX + "traffic_app " + 
-	" from " + config_database.PREFIX + "traffic); ";
+	config_api.PREFIX + "traffic_app " + 
+	" from " + config_api.PREFIX + "traffic); ";
 	
 	
-	let table_name  = config_database.PREFIX + "traffic ";
+	let table_name  = config_api.PREFIX + "traffic ";
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + 
-	config_database.PREFIX + "traffic_app = @n + 1 ;";
+	config_api.PREFIX + "traffic_app = @n + 1 ;";
 	
 	
 	sqlSet = sqlSet + sql_text;
@@ -83,7 +71,7 @@ const function_export = async function (res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sqlSet, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -103,7 +91,7 @@ const function_export = async function (res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

@@ -1,10 +1,12 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-const ojs_configs = require('../../../configs/config');
-const config_database = require ('../../configs/config-database');
-const config_api = require ('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors.js');
 
@@ -115,7 +117,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -173,7 +175,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		//return;
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev"; 
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -271,7 +273,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		}			
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -395,7 +397,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		}			
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -471,7 +473,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		}			
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -552,7 +554,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		}	
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -648,7 +650,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		}			
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 

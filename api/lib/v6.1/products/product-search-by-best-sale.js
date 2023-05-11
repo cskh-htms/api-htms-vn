@@ -7,15 +7,14 @@
 const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+const config_api = require('../configs/config');
+
+
 
 const connection = require('../connections/connections-reader');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
-
 
 const get_select_type = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-type');
 const get_select_fields = require('../../../shares/' + config_api.API_SHARES_VERSION + '/get-select-fields');
@@ -62,7 +61,7 @@ const product_search_by_brand = function (datas,res) {
 		//
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -82,7 +81,7 @@ const product_search_by_brand = function (datas,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -101,7 +100,7 @@ const product_search_by_brand = function (datas,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

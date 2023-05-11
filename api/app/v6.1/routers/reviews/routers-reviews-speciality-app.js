@@ -4,7 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 const WPAPI = require( 'wpapi' );
 
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
 
 
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-app.js');

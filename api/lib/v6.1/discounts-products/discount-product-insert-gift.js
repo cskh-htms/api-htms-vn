@@ -3,13 +3,15 @@
 const mysql = require('mysql');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+
+const config_api = require('../configs/config');
+
+
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
+
 
 const fields_insert = require('./discount-product-fields-insert.js');
 
@@ -42,7 +44,7 @@ const function_export = function (data,res) {
 		}	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -64,23 +66,23 @@ const function_export = function (data,res) {
 	//@
 	var kes = Object.keys(dataGo);
 	for(var x in kes){
-		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
+		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_api.PREFIX + kes[x] );
 	}
 
 
 	sql_text = sql_text + "START TRANSACTION ; ";
-	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "discount_program_product_link  SET ? ; ";	
+	sql_text = sql_text + "INSERT INTO " + config_api.PREFIX + "discount_program_product_link  SET ? ; ";	
 	sql_text = sql_text + "SET @aa :=LAST_INSERT_ID(); ";	
 
 
 	//@
 	//@
 	//@ insert gift
-	sql_text  = sql_text + "INSERT INTO " + config_database.PREFIX + "discount_program_gift_link  ";
+	sql_text  = sql_text + "INSERT INTO " + config_api.PREFIX + "discount_program_gift_link  ";
 	sql_text = sql_text + "(" +
-					config_database.PREFIX + "discount_program_gift_link_discount_program_product_link_id" + "," + 
-					config_database.PREFIX + "discount_program_gift_link_product_speciality_id" + "," + 
-					config_database.PREFIX + "discount_program_gift_link_product_speciality_gift_id " + 
+					config_api.PREFIX + "discount_program_gift_link_discount_program_product_link_id" + "," + 
+					config_api.PREFIX + "discount_program_gift_link_product_speciality_id" + "," + 
+					config_api.PREFIX + "discount_program_gift_link_product_speciality_gift_id " + 
 				") " + 
 				"values(" + 
 				"@aa, '" + 
@@ -104,7 +106,7 @@ const function_export = function (data,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -124,7 +126,7 @@ const function_export = function (data,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

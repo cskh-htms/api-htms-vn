@@ -1,5 +1,5 @@
 
-const config_database = require('../../../configs/config-database');
+const config_database = require('../configs/config');
 
 
 //@

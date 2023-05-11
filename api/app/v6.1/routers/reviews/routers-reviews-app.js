@@ -1,5 +1,18 @@
-var express = require('express');
-var router = express.Router();
+
+
+
+//@
+//@
+//@
+//@ require
+const express = require('express');
+const router = express.Router();
+const config_api = require('../../configs/config');
+
+
+//@
+//@
+//@
 
 router.get('/', function(req, res, next) {
   res.end('App API reviews v5 welcom ');

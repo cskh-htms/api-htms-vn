@@ -1,7 +1,9 @@
 
 const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const orders_search_by_customer = require('../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-search-by-customer.js');
 
@@ -12,7 +14,7 @@ const check_owner_order_customer = async function(token,order_id,res){
 		var users_decode = jwt.decode(token);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_store , liên hệ admin" );
 		return res.send ({ 
@@ -61,7 +63,7 @@ const check_owner_order_customer = async function(token,order_id,res){
 		};
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

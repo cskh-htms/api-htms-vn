@@ -1,11 +1,12 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
+
+const config_api = require('../configs/config');
+
+
 
 
 const connection = require('../connections/connections');
@@ -34,7 +35,7 @@ const user_search = function (datas,res) {
 		var sql_text = 	"SELECT " + fields_get.fields_search +
 			fields_get.from_default + 
 			fields_get.link_default +
-			"where " + config_database.PREFIX + "users_email = '" + name_check + "' " ;
+			"where " + config_api.PREFIX + "users_email = '" + name_check + "' " ;
 
 
 	} else {
@@ -43,7 +44,7 @@ const user_search = function (datas,res) {
 		var sql_text = 	"SELECT " + fields_get.fields_search +
 			fields_get.from_default + 
 			fields_get.link_default +
-			"where " + config_database.PREFIX + "users_phone = '" + name_check + "' " ;
+			"where " + config_api.PREFIX + "users_phone = '" + name_check + "' " ;
 	}	
 	
 	//return sql_text;
@@ -53,7 +54,7 @@ const user_search = function (datas,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -72,7 +73,7 @@ const user_search = function (datas,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

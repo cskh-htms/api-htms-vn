@@ -4,7 +4,10 @@ const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 
 const connection = require('../connections/connections-reader');
-const config_database = require('../../configs/config-database');
+
+const config_api = require('../configs/config');
+
+
 const fields_search_users = require('./fields-search-users');
 
 
@@ -15,7 +18,7 @@ const get_one_users = async function (user_id) {
 	fields_search_users.from_default + 
 	fields_search_users.link_default + 
 	" where " + 
-	config_database.PREFIX + "users_ID = '" + user_id + "' " 
+	config_api.PREFIX + "users_ID = '" + user_id + "' " 
 
 	try {
 		return new Promise( (resolve,reject) => {

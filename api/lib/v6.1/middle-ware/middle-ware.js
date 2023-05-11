@@ -2,9 +2,10 @@
 
 const jwt    = require('jsonwebtoken');
 
-const ojs_configs = require('../../../../configs/config');
-const config_database = require('../../../configs/config-database');
-const config_api = require('../../../configs/config-api');
+
+const config_api = require('../configs/config');
+
+
 
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const token_insert = require('../token/token-insert');
@@ -23,14 +24,14 @@ async function middle_ware(req, res, next){
 		var newPayload = jwt.decode(token);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "Lỗi lấy req middleware, vui lòng liên hệ admin", "Lỗi lấy req middleware, vui lòng liên hệ admin" );
 		return res.send({ "error" : "2","postition":"middle-ware", "message": error_send } ); 
 			  
 	}	
 	try{	
-		jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
+		jwt.verify(token, config_api.jwt_secret, (err, decoded) =>{  
 			if (err) {
 				return res.send("Phiên làm việc đã hết hạn, Vui lòng đăng nhập lại"); 
 						
@@ -47,28 +48,28 @@ async function middle_ware(req, res, next){
 																	
 								}
 							}else{
-								var evn = ojs_configs.evn;
+								var evn = config_api.evn;
 								////evn = "dev";
 								var error_send = ojs_shares_show_errors.show_error( evn, "Phiên làm việc đã hết hạn", "Phiên làm việc đã hết hạn" );
 								return res.send({ "error" : "4", "postition":"middle-ware","message": error_send } ); 
 									 				
 							}
 						}, error => {
-							var evn = ojs_configs.evn;
+							var evn = config_api.evn;
 							//evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy token database, Vui lòng liên hệ CSKH dala" );
 							return res.send({ "error" : "5", "postition":"middle-ware","message": error_send } ); 
 								 		
 						});		
 					}else{
-						var evn = ojs_configs.evn;
+						var evn = config_api.evn;
 						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, "token đã hết hạn hoặc user đã thây đổi mật khẩu", "token đã hết hạn hoặc user đã thây đổi mật khẩu" );
 						return res.send({ "error" : "6", "postition":"middle-ware","message": error_send } ); 
 									
 					}
 				}, error => {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "không tim thấy database token" );
 					return res.send({ "error" : "7", "postition":"middle-ware","message": error_send } ); 
@@ -78,7 +79,7 @@ async function middle_ware(req, res, next){
 		});
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "token đã hết hạn hoặc không hợp lệ", "server đang bận, truy cập lại sau" );
 		return res.send({ "error" : "8", "postition":"middle-ware", "message": error_send } ); 

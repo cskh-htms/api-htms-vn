@@ -1,8 +1,9 @@
 //@
 //@
 //@ require
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
 const ojs_shares_show_errors = 
 	require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_all_api = 

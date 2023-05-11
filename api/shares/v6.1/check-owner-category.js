@@ -1,7 +1,8 @@
 
 const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const category_search = require('../../lib/' + config_api.API_LIB_VERSION + '/categorys/categorys-search.js');
 
@@ -11,7 +12,7 @@ const check_owner_category = async function(token,category_id,res){
 		var users_decode = jwt.decode(token);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "check_owner_category , liên hệ admin" );
 		return res.send({ "error" : "1", "position":"api/shares/check_owner_category","message": error_send });
@@ -58,7 +59,7 @@ const check_owner_category = async function(token,category_id,res){
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

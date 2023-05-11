@@ -13,16 +13,10 @@ const mysql = require('mysql2');
 
 
 
-//@
-//@
-//@
-//@ config
-const ojs_configs = require('../../../../configs/config');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+
+const config_api = require('../configs/config');
 
 
-//@
 //@
 //@
 //@ share
@@ -85,7 +79,7 @@ const function_export = function (datas,res) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -105,7 +99,7 @@ const function_export = function (datas,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -124,7 +118,7 @@ const function_export = function (datas,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

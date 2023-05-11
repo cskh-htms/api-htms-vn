@@ -1,10 +1,12 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-const ojs_configs = require('../../../configs/config');
-const config_database = require ('../../configs/config-database');
-const config_api = require ('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors.js');
 
@@ -346,7 +348,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 		}	
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -433,7 +435,7 @@ const function_export = async function (data_user,model_user_arr,res) {
 		}	
 	}
 	catch(error){
-		let evn = ojs_configs.evn;
+		let evn = config_api.evn;
 		//evn = "dev";
 		let error_send = ojs_shares_show_errors.show_error( 
 			evn, 

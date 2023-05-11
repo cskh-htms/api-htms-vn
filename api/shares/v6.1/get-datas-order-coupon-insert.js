@@ -3,8 +3,7 @@
 //@@
 //@@
 //@@
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
 
 const ojs_shares_show_errors = 
 require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
@@ -72,7 +71,7 @@ const function_export = async function(datas,user_id,res){
 		return datas;
 	}	
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

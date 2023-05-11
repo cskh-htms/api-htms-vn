@@ -1,8 +1,10 @@
 
 
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
-const config_database = require('../../configs/config-database.js');
+const config_api = require('./configs/config');
+
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const ojs_shares_date = require('./ojs-shares-date.js');
@@ -31,7 +33,7 @@ const get_limit =  function(datas,res){
 		return limit;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get limit , liên hệ admin" );
 		return { "error" : "1", "position":"get limit","message": error_send };

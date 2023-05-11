@@ -1,7 +1,9 @@
 
 const jwt = require('jsonwebtoken');
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
 
 const reviews_search = require('../../lib/' + config_api.API_LIB_VERSION + '/reviews/reviews-search.js');
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
@@ -12,7 +14,7 @@ const check_owner_review = async function(token,review_id,res){
 		var users_decode = jwt.decode(token);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi check_owner_review , liên hệ admin" );
 		return res.send ({ 
@@ -58,7 +60,7 @@ const check_owner_review = async function(token,review_id,res){
 		};
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

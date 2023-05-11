@@ -3,9 +3,9 @@
 //@
 //@
 //@ require
-var express = require('express');
-var router = express.Router();
-const config_api = require('../../../../configs/config-api');
+const express = require('express');
+const router = express.Router();
+const config_api = require('../../configs/config');
 
 
 

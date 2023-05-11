@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+const config_api = require('../../configs/config');
 
-const ojs_configs = require('../../../../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
@@ -25,7 +23,7 @@ async  function get_all_by_order_id(req, res, next) {
 		var token = req.headers['token'];
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -49,7 +47,7 @@ async  function get_all_by_order_id(req, res, next) {
 	//@ check owner user
 	const check_owner_order_customer_resuilt = await check_owner_order_customer(token,order_id,res);
 	if(check_owner_order_customer_resuilt != 1){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -111,7 +109,7 @@ async  function get_all_by_order_id(req, res, next) {
 		var shipping_tracking_search_result = await shipping_tracking_search(datas,res);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 

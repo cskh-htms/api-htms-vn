@@ -1,11 +1,11 @@
 
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+
+const config_api = require('../configs/config');
 
 
 const connection = require('../connections/connections');
@@ -21,7 +21,7 @@ const insert_reviews_spaciality = async function (datas) {
 	var datas_assign = Object.assign(fields_insert_reviews.default_fields, datas);
 		
 	//@
-	let sql_text = "INSERT INTO " + config_database.PREFIX + "reviews_speciality  SET ?";
+	let sql_text = "INSERT INTO " + config_api.PREFIX + "reviews_speciality  SET ?";
 	let dataGo = {
 			"reviews_speciality_user_id"					: datas_assign.reviews_speciality_user_id,	
 			"reviews_speciality_product_id"					: datas_assign.reviews_speciality_product_id,	
@@ -34,7 +34,7 @@ const insert_reviews_spaciality = async function (datas) {
 
 	var kes = Object.keys(dataGo);
 	for(let x in kes){
-		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
+		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_api.PREFIX + kes[x] );
 	}
 	//@
 

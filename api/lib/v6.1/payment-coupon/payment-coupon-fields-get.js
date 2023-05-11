@@ -1,18 +1,19 @@
 
-const config_database = require('../../../configs/config-database');
+const config_api = require('../configs/config');
+
 
 
 //@
 const fields_search = 	"" + 
-	config_database.PREFIX  + "payment_coupon_ID as payment_coupon_ID, " + 
-	"DATE_FORMAT(" + config_database.PREFIX  + "payment_coupon_date_created,'%Y/%m/%d %H:%i:%s') as payment_coupon_date_created, " +	
+	config_api.PREFIX  + "payment_coupon_ID as payment_coupon_ID, " + 
+	"DATE_FORMAT(" + config_api.PREFIX  + "payment_coupon_date_created,'%Y/%m/%d %H:%i:%s') as payment_coupon_date_created, " +	
 	
-	config_database.PREFIX  + "payment_coupon_order_id as payment_coupon_order_id, " + 
-	config_database.PREFIX  + "payment_coupon_coupon_code as payment_coupon_coupon_code, " + 
+	config_api.PREFIX  + "payment_coupon_order_id as payment_coupon_order_id, " + 
+	config_api.PREFIX  + "payment_coupon_coupon_code as payment_coupon_coupon_code, " + 
 	
 	
-	config_database.PREFIX  + "payment_coupon_contents as payment_coupon_contents, " + 
-	config_database.PREFIX  + "payment_coupon_payment as payment_coupon_payment " ;
+	config_api.PREFIX  + "payment_coupon_contents as payment_coupon_contents, " + 
+	config_api.PREFIX  + "payment_coupon_payment as payment_coupon_payment " ;
 	
 	
 
@@ -36,7 +37,7 @@ const fields_get_one = fields_search_arr;
 
 //@
 const from_default = 	" from " + 
-	config_database.PREFIX + "payment_coupon ";	
+	config_api.PREFIX + "payment_coupon ";	
 	
 //@	
 const link_default = " ";

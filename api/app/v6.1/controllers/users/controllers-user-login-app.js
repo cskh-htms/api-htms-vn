@@ -3,12 +3,10 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
+const config_api = require('../../configs/config');
 
-const ojs_configs = require('../../../../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
@@ -53,7 +51,7 @@ async  function function_export(req, res, next) {
 		//
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -157,14 +155,14 @@ async  function function_export(req, res, next) {
 				"users_full_name" :  results[0].users_full_name, 
 				"user_role":role_text
 			};
-			var token = jwt.sign(payload, ojs_configs.jwt_secret, {});
+			var token = jwt.sign(payload, config_api.jwt_secret, {});
 			
 			//return res.send([token]);
 			//
 	
 		}
 		catch (error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
 			return res.send({ "error" : "10", "position":"ctl-users->login_web", "message": error_send } );
@@ -191,7 +189,7 @@ async  function function_export(req, res, next) {
 				"user_role":role_text
 			};
 			
-			var token_database = jwt.sign(payload_database, ojs_configs.jwt_secret, {});		
+			var token_database = jwt.sign(payload_database, config_api.jwt_secret, {});		
 			
 			//return res.send([payload_database,token_database]);
 			//
@@ -211,7 +209,7 @@ async  function function_export(req, res, next) {
 			
 		}
 		catch (error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt 2, liên hệ CSKH DALA" );
 			return res.send({ "error" : "11", "position":"ctl-users->login_web", "message": error_send } );
@@ -289,7 +287,7 @@ async  function function_export(req, res, next) {
 		//
 		
 		
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "user hoặc mật khẩu không đúng", "user hoặc mật khẩu không đúng" );
 		return res.send({ "error" : "15", "position":"ctl-users->login_web", "message": error_send } );

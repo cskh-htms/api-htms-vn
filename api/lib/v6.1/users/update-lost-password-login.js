@@ -1,13 +1,14 @@
 
 
 const md5 = require('md5');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
+
+const config_api = require('../configs/config');
+
+
 
 
 const connection = require('../connections/connections');
@@ -30,25 +31,25 @@ const function_export = function (datas,res) {
 		//@
 		//if data type là email
 		var sql_text = 	"UPDATE " + 
-			config_database.PREFIX + "users set " + 
-			config_database.PREFIX + "users_password_lost = '', " + 
-			config_database.PREFIX + "users_password = '" + 
+			config_api.PREFIX + "users set " + 
+			config_api.PREFIX + "users_password_lost = '', " + 
+			config_api.PREFIX + "users_password = '" + 
 			md5(datas.users_password.toString()) + "' " + 
 			
-			"where " + config_database.PREFIX + "users_email = '" + datas.users_login_name + "' " ;
+			"where " + config_api.PREFIX + "users_email = '" + datas.users_login_name + "' " ;
 
 
 	} else {
 		//@
 		//if data type là phone
 		var sql_text = 	"UPDATE " + 
-			config_database.PREFIX + "users set " + 
-			config_database.PREFIX + "users_password_lost = '', " + 
-			config_database.PREFIX + "users_password = '" + 
+			config_api.PREFIX + "users set " + 
+			config_api.PREFIX + "users_password_lost = '', " + 
+			config_api.PREFIX + "users_password = '" + 
 			md5(datas.users_password.toString()) + "' " + 
 			
 			
-			"where " + config_database.PREFIX + "users_phone = '" + datas.users_login_name + "' " ;
+			"where " + config_api.PREFIX + "users_phone = '" + datas.users_login_name + "' " ;
 	}	
 	
 	//return sql_text;
@@ -58,7 +59,7 @@ const function_export = function (datas,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -77,7 +78,7 @@ const function_export = function (datas,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

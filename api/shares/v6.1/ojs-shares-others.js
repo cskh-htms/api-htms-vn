@@ -22,7 +22,11 @@
 	
 */
 
-const ojs_configs = require('../../../configs/config');
+const config_api = require('./configs/config');
+
+
+
+
 const md5 = require('md5');
 const jwt    = require('jsonwebtoken');
 
@@ -61,10 +65,10 @@ const ojs_shares_others = {
 		var role_return = "";
 		//var test = [];
 		
-		for (const [key, value] of Object.entries(ojs_configs.user_role_database)) {
+		for (const [key, value] of Object.entries(config_api.user_role_database)) {
 			
 			if(md5(value) == role){
-				role_return = ojs_configs.user_role_text[key];
+				role_return = config_api.user_role_text[key];
 				return role_return;
 			}
 		}	

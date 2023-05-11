@@ -5,9 +5,10 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 //const jwt = require('jsonwebtoken');
-const config_database = require('../../configs/config-database');
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
+const config_api = require('./configs/config');
+
+
+
 const ojs_shares_show_errors = require('../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_all_api = require('../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api.js');
 
@@ -86,10 +87,10 @@ const function_export = async function(order_id,res){
 		"order_id": order_id,
 		"sdf":"fdsdfsdf"
 	};
-	var url_code = jwt.sign(payload, ojs_configs.jwt_secret, {});
+	var url_code = jwt.sign(payload, config_api.jwt_secret, {});
 
 	//let url_arr = [{"id":order_result[0].orders_ID}];	
-	//let url_code = crypto.AES.encrypt(JSON.stringify(url_arr),ojs_configs.hash_secret).toString();
+	//let url_code = crypto.AES.encrypt(JSON.stringify(url_arr),config_api.hash_secret).toString();
 
 
 	//@
@@ -114,7 +115,7 @@ const function_export = async function(order_id,res){
 		'<div style="text-align:center;margin-bottom:60px;">' + 
 			'<p><a style="padding: 7px 30px; border-radius: 15px;' + 
 			'background-color: #4a914b;color: white;display: inline-flex;text-decoration: none;" ' + 
-			'href="' + ojs_configs.domain + '/api/appdalacom/v5/orders/xac-nhan-don-hang?c1=' + url_code + '">Xác nhận đơn hàng </a></p>' + 
+			'href="' + config_api.domain + '/api/appdalacom/v5/orders/xac-nhan-don-hang?c1=' + url_code + '">Xác nhận đơn hàng </a></p>' + 
 		'</div>';
 		
 		//@
@@ -299,7 +300,7 @@ const function_export = async function(order_id,res){
 			'<p>Cảm ơn Bạn đã tin tưởng và mua hàng tại DALA</p>' + 
 			'<p>DALA sẽ giao hàng cho bạn trong thời gian sớm nhất. hãy vào App DALA theo dõi đơn hàng của mình</p>' + 
 			'<p>' + 
-				'<a href="' + ojs_configs.domain + '/stores/manage/orders/' + order_result[0].stores_ID + '/all">Quản lý đơn hàng </a> ' +
+				'<a href="' + config_api.domain + '/stores/manage/orders/' + order_result[0].stores_ID + '/all">Quản lý đơn hàng </a> ' +
 			'</p>' + 
 		'</div>' + 
 	  '</div>' ; 	

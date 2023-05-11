@@ -3,9 +3,7 @@
 const mysql = require('mysql2');
 
 
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
-const config_database = require('../../configs/config-database.js');
+const config_api = require('./configs/config');
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const ojs_shares_date = require('./ojs-shares-date.js');
@@ -56,7 +54,7 @@ const get_consition =  function(datas,res){
 					let consition_field = "";//condition_arr[x].where[s].field
 					
 					consition_value = " '" + condition_arr[x].where[s].value + "' ";
-					consition_field = config_database.PREFIX + condition_arr[x].where[s].field;			
+					consition_field = config_api.PREFIX + condition_arr[x].where[s].field;			
 
 
 					//@ field đặt biệt product
@@ -98,7 +96,7 @@ const get_consition =  function(datas,res){
 					|| ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == 1  
 					){
 						consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
-						consition_field = " UNIX_TIMESTAMP(" + config_database.PREFIX + condition_arr[x].where[s].field + ") ";
+						consition_field = " UNIX_TIMESTAMP(" + config_api.PREFIX + condition_arr[x].where[s].field + ") ";
 					
 					}					
 					
@@ -110,7 +108,7 @@ const get_consition =  function(datas,res){
 						|| condition_arr[x].where[s].compare == "NOT IN" 
 					){
 						consition_value = "(" + condition_arr[x].where[s].value + ")";
-						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+						consition_field = config_api.PREFIX + condition_arr[x].where[s].field;
 					}
 
 					//@[null] and [not null] condition
@@ -121,7 +119,7 @@ const get_consition =  function(datas,res){
 						|| condition_arr[x].where[s].compare == "NOT NULL" 
 					){
 						consition_value = " ";
-						consition_field = config_database.PREFIX + condition_arr[x].where[s].field + " IS ";
+						consition_field = config_api.PREFIX + condition_arr[x].where[s].field + " IS ";
 					}					
 					
 					//@[like] condition
@@ -142,10 +140,10 @@ const get_consition =  function(datas,res){
 							txt_value =  txt_value + '%';
 							
 							consition_value = "'" + txt_value + "'";
-							consition_field = config_database.PREFIX + condition_arr[x].where[s].field ;		
+							consition_field = config_api.PREFIX + condition_arr[x].where[s].field ;		
 						}else{
 							consition_value = "'%" + condition_arr[x].where[s].value + "%'";
-							consition_field = config_database.PREFIX + condition_arr[x].where[s].field ;
+							consition_field = config_api.PREFIX + condition_arr[x].where[s].field ;
 						}
 					}		
 		
@@ -174,7 +172,7 @@ const get_consition =  function(datas,res){
 		return sql_conditions;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi decode , liên hệ admin" );
 		return { "error" : "1", "position":"get condition","message": error_send };

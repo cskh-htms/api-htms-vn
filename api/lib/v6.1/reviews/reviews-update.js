@@ -1,11 +1,10 @@
 
+const mysql = require('mysql2');
 
-const mysql = require('mysql');
+
+const config_api = require('../configs/config');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
@@ -33,15 +32,15 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 		//
 		if(arrValueDatas[i]== null){
 			if(sqlSet.length == 0){
-				sqlSet = config_database.PREFIX + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+				sqlSet = config_api.PREFIX + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
 			}else{
-				sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+				sqlSet = sqlSet + ',' + config_api.PREFIX + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
 			}
 		}else{
 			if(sqlSet.length == 0){
-				sqlSet = config_database.PREFIX + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
+				sqlSet = config_api.PREFIX + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
 			}else{
-				sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
+				sqlSet = sqlSet + ',' + config_api.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
 			}		
 		}
 		
@@ -49,8 +48,8 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 		i = i + 1 ;
 	});		
 
-	let table_name  = config_database.PREFIX + "reviews_speciality ";
-	let field_where  = config_database.PREFIX + "reviews_speciality_ID ";
+	let table_name  = config_api.PREFIX + "reviews_speciality ";
+	let field_where  = config_api.PREFIX + "reviews_speciality_ID ";
 	let sql_text = 'UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ review_id + '"';
 	
 	//return(sql_text);
@@ -61,7 +60,7 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -80,7 +79,7 @@ const update_reviews_spaciality = async function (datas,review_id,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

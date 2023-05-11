@@ -6,9 +6,9 @@
 //@
 //@
 const mysql = require('mysql2');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-const ojs_configs = require('../../../../configs/config');
+
+const config_api = require('../configs/config');
+
 
 
 const connection = require('../connections/connections');
@@ -46,12 +46,12 @@ const order_insert = function (data,datas_order,res) {
 
 	var kes = Object.keys(dataGo);
 	for(let x in kes){
-		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
+		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_api.PREFIX + kes[x] );
 	}
 	
 	
 	sql_text = "START TRANSACTION ; "
-	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "orders_speciality_master  SET ? ; ";
+	sql_text = sql_text + "INSERT INTO " + config_api.PREFIX + "orders_speciality_master  SET ? ; ";
 	sql_text = sql_text + "SET @master_id :=LAST_INSERT_ID(); ";	
 		//return res.send([datas_master,datas_order]);
 	
@@ -64,10 +64,10 @@ const order_insert = function (data,datas_order,res) {
 	if(datas_order.length > 0){
 		let sql_order_store = "";
 		for(let i = 0; i < datas_order.length; i ++){
-			sql_details = "INSERT INTO " + config_database.PREFIX + "orders_speciality  ";
+			sql_details = "INSERT INTO " + config_api.PREFIX + "orders_speciality  ";
 			sql_details = sql_details + "(" +
-					config_database.PREFIX + "orders_speciality_orders_speciality_master_id" + "," + 
-					config_database.PREFIX + "orders_speciality_store_id" +
+					config_api.PREFIX + "orders_speciality_orders_speciality_master_id" + "," + 
+					config_api.PREFIX + "orders_speciality_store_id" +
 				") " + 
 				"values(" + 
 				"@master_id, " + 
@@ -81,14 +81,14 @@ const order_insert = function (data,datas_order,res) {
 						orders_details_medium_text = datas_order[i].order_details[x].orders_details_medium_text;
 					}
 					
-					sql_details = sql_details + " INSERT INTO " + config_database.PREFIX + "orders_details_speciality  ";
+					sql_details = sql_details + " INSERT INTO " + config_api.PREFIX + "orders_details_speciality  ";
 					sql_details = sql_details + "(" +
-							config_database.PREFIX + "orders_details_speciality_order_id" + "," + 
-							config_database.PREFIX + "orders_details_speciality_line_order" + "," + 
-							config_database.PREFIX + "orders_details_speciality_product_id " + "," + 
-							config_database.PREFIX + "orders_details_speciality_qty " + "," + 
-							config_database.PREFIX + "orders_details_speciality_price "  + "," + 
-							config_database.PREFIX + "orders_details_medium_text "  + 
+							config_api.PREFIX + "orders_details_speciality_order_id" + "," + 
+							config_api.PREFIX + "orders_details_speciality_line_order" + "," + 
+							config_api.PREFIX + "orders_details_speciality_product_id " + "," + 
+							config_api.PREFIX + "orders_details_speciality_qty " + "," + 
+							config_api.PREFIX + "orders_details_speciality_price "  + "," + 
+							config_api.PREFIX + "orders_details_medium_text "  + 
 						") " + 
 						"values(" + 
 						"@order_id, '" + 
@@ -117,7 +117,7 @@ const order_insert = function (data,datas_order,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo,  ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -137,7 +137,7 @@ const order_insert = function (data,datas_order,res) {
 		} );		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

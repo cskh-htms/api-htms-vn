@@ -3,25 +3,15 @@
 const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-//@
-//@
-//@
-//@ file start
+
+const config_api = require('../configs/config');
 
 
-
-
-
-const config_api = require ('../../../configs/config-api');
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./product-fields-get');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
-
-
 
 
 
@@ -46,7 +36,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 		}	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -87,15 +77,15 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			//
 			if(arrValueDatas[i]== null){
 				if(sqlSet.length == 0){
-					sqlSet = config_database.PREFIX + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+					sqlSet = config_api.PREFIX + item + '=' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
 				}else{
-					sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
+					sqlSet = sqlSet + ',' + config_api.PREFIX + item  + '=' +  mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") ;
 				}
 			}else{
 				if(sqlSet.length == 0){
-					sqlSet = config_database.PREFIX + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
+					sqlSet = config_api.PREFIX + item + '="' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "") + '"';
 				}else{
-					sqlSet = sqlSet + ',' + config_database.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
+					sqlSet = sqlSet + ',' + config_api.PREFIX + item  + '= "' + mysql.escape(arrValueDatas[i]).replace(/^'|'$/gi, "")  + '"' ;
 				}		
 			}
 
@@ -103,15 +93,15 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 		});		
 
 
-		let table_name  = config_database.PREFIX + "products_speciality ";
-		let field_where  = config_database.PREFIX + "products_speciality_ID ";
+		let table_name  = config_api.PREFIX + "products_speciality ";
+		let field_where  = config_api.PREFIX + "products_speciality_ID ";
 		//create sql text
 		
 		sql_text =  sql_text + ' UPDATE ' + table_name + ' SET ' + sqlSet + ' where ' + field_where + ' = "'+ product_id + '" ;';
 
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -131,17 +121,17 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 	try{
 		if(option_string && option_arr.length > 0){	
 			var sql_option_all = "";
-			var table_name_option  = config_database.PREFIX + "options_product_speciality_link ";
-			var field_where_option  = config_database.PREFIX + "options_product_speciality_link_product_id ";	
+			var table_name_option  = config_api.PREFIX + "options_product_speciality_link ";
+			var field_where_option  = config_api.PREFIX + "options_product_speciality_link_product_id ";	
 			var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
 		
 			for(let i = 0; i < option_arr.length; i ++){
 				
 				///ex
-				sql_option = "INSERT INTO " + config_database.PREFIX + "options_product_speciality_link  ";
+				sql_option = "INSERT INTO " + config_api.PREFIX + "options_product_speciality_link  ";
 				sql_option = sql_option + "(" +
-								config_database.PREFIX + "options_product_speciality_link_product_id" + "," + 
-								config_database.PREFIX + "options_product_speciality_link_option_id" + 
+								config_api.PREFIX + "options_product_speciality_link_product_id" + "," + 
+								config_api.PREFIX + "options_product_speciality_link_option_id" + 
 							") " + 
 							"values(" + 
 							product_id + ", " + 
@@ -155,8 +145,8 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			sql_text = sql_text + sql_option_delete + sql_option_all;
 		}else{
 			var sql_option_all = "";
-			var table_name_option  = config_database.PREFIX + "options_product_speciality_link ";
-			var field_where_option  = config_database.PREFIX + "options_product_speciality_link_product_id ";	
+			var table_name_option  = config_api.PREFIX + "options_product_speciality_link ";
+			var field_where_option  = config_api.PREFIX + "options_product_speciality_link_product_id ";	
 			var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
 			
 			//sql_text = sql_text + sql_option_delete + sql_option_all;
@@ -165,7 +155,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -186,17 +176,17 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 	try{
 		if(cat_string && cat_arr.length > 0){	
 			var sql_cat_all = "";
-			var table_name_cat  = config_database.PREFIX + "category_general_speciality_link ";
-			var field_where_cat  = config_database.PREFIX + "category_general_speciality_link_product_id ";
+			var table_name_cat  = config_api.PREFIX + "category_general_speciality_link ";
+			var field_where_cat  = config_api.PREFIX + "category_general_speciality_link_product_id ";
 			var sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';	
 		
 		
 			for(let i = 0; i < cat_arr.length; i ++){
 				///ex
-				sql_cat = "INSERT INTO " + config_database.PREFIX + "category_general_speciality_link  ";
+				sql_cat = "INSERT INTO " + config_api.PREFIX + "category_general_speciality_link  ";
 				sql_cat = sql_cat + "(" +
-								config_database.PREFIX + "category_general_speciality_link_product_id" + "," + 
-								config_database.PREFIX + "category_general_speciality_link_category_general_id" + 
+								config_api.PREFIX + "category_general_speciality_link_product_id" + "," + 
+								config_api.PREFIX + "category_general_speciality_link_category_general_id" + 
 							") " + 
 							"values(" + 
 							product_id + ", " + 
@@ -208,8 +198,8 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			sql_text = sql_text + sql_cat_delete +  sql_cat_all;
 		}else{
 			var sql_cat_all = "";
-			var table_name_cat  = config_database.PREFIX + "category_general_speciality_link ";
-			var field_where_cat  = config_database.PREFIX + "category_general_speciality_link_product_id ";
+			var table_name_cat  = config_api.PREFIX + "category_general_speciality_link ";
+			var field_where_cat  = config_api.PREFIX + "category_general_speciality_link_product_id ";
 			var sql_cat_delete = 'DELETE FROM ' + table_name_cat + ' where ' + field_where_cat + ' = "'+ product_id + '" ; ';	
 
 			sql_text = sql_text + sql_cat_delete;		
@@ -217,7 +207,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -241,7 +231,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
@@ -260,7 +250,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

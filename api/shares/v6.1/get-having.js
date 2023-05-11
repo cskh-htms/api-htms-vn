@@ -1,8 +1,9 @@
 
+const config_api = require('./configs/config');
 
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
-const config_database = require('../../configs/config-database.js');
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const ojs_shares_date = require('./ojs-shares-date.js');
@@ -30,21 +31,21 @@ const get_having =  function(datas,res){
 					//@@ edit date order
 					if(ojs_shares_date.check_date_full(condition_arr[x].where[s].value) == true || ojs_shares_date.check_date(condition_arr[x].where[s].value) == true ){
 						consition_value = " UNIX_TIMESTAMP('" + condition_arr[x].where[s].value + "') ";
-						consition_field = " UNIX_TIMESTAMP(" + config_database.PREFIX + condition_arr[x].where[s].field + ") ";
+						consition_field = " UNIX_TIMESTAMP(" + config_api.PREFIX + condition_arr[x].where[s].field + ") ";
 					}else if(condition_arr[x].where[s].compare == "in"){
 						if(condition_arr[x].where[s].field == "products_speciality_sale_of_price_time_check"){
 							consition_value = "(" + condition_arr[x].where[s].value + ")";
 							consition_field = condition_arr[x].where[s].field;							
 						}else{
 							consition_value = "(" + condition_arr[x].where[s].value + ")";
-							consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+							consition_field = config_api.PREFIX + condition_arr[x].where[s].field;
 						}
 					}else if(condition_arr[x].where[s].compare == "is not null" || condition_arr[x].where[s].compare == "is null"){
 						consition_value = condition_arr[x].where[s].value;
-						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+						consition_field = config_api.PREFIX + condition_arr[x].where[s].field;
 					}else{
 						consition_value = " '" + condition_arr[x].where[s].value + "' ";
-						consition_field = config_database.PREFIX + condition_arr[x].where[s].field;
+						consition_field = config_api.PREFIX + condition_arr[x].where[s].field;
 					}	
 						
 					//res.send([condition_arr[x].where[s].compare]);
@@ -80,7 +81,7 @@ const get_having =  function(datas,res){
 		return sql_conditions;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get order , liên hệ admin" );
 		return { "error" : "1", "position":"get having","message": error_send };

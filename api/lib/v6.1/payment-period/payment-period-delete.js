@@ -20,19 +20,7 @@ const mysql = require('mysql2');
 
 
 
-
-
-
-
-
-//@
-//@
-//@
-//@ config
-const ojs_configs = require('../../../../configs/config');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-
+const config_api = require('../configs/config');
 
 
 
@@ -63,8 +51,8 @@ const function_export = function (id,res) {
 	
 	//return id;
 	
-	var table_name  = config_database.PREFIX + "payment-period ";
-	var field_where  = config_database.PREFIX + "payment-period_ID ";
+	var table_name  = config_api.PREFIX + "payment-period ";
+	var field_where  = config_api.PREFIX + "payment-period_ID ";
 	//create sql text
 	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ id + '"';
 	
@@ -78,7 +66,7 @@ const function_export = function (id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }  , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
 					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -98,7 +86,7 @@ const function_export = function (id,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

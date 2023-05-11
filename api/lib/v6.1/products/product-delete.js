@@ -1,17 +1,18 @@
 
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+
+const config_api = require('../configs/config');
+
+
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const fields_get = require('./product-fields-get');
 const fields_insert = require('./product-fields-insert.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const ojs_configs = require('../../../../configs/config');
 
 
 
@@ -20,15 +21,15 @@ const delete_product = function (product_id,res) {
 	var sql_text = '';
 	try{	
 
-		let table_name  = config_database.PREFIX + "products_speciality ";
-		let field_where  = config_database.PREFIX + "products_speciality_ID ";
+		let table_name  = config_api.PREFIX + "products_speciality ";
+		let field_where  = config_api.PREFIX + "products_speciality_ID ";
 		//create sql text
 		
 		sql_text =  sql_text + ' DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ product_id + '" ;';
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -48,7 +49,7 @@ const delete_product = function (product_id,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					
 					let message_error = fields_insert.get_message_error(err);
@@ -69,7 +70,7 @@ const delete_product = function (product_id,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

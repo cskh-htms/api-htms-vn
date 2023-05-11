@@ -1,8 +1,10 @@
 
 
-const ojs_configs = require('../../../configs/config');
-const config_api = require('../../configs/config-api');
-const config_database = require('../../configs/config-database.js');
+const config_api = require('./configs/config');
+
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 const ojs_shares_date = require('./ojs-shares-date.js');
@@ -31,7 +33,7 @@ const get_order =  function(datas,res){
 						sql_order = "order by " + order_arr[x].field + " " + 
 						order_arr[x].compare +  " ";						
 					}else{
-						sql_order = "order by " + config_database.PREFIX + order_arr[x].field + " " + 
+						sql_order = "order by " + config_api.PREFIX + order_arr[x].field + " " + 
 						order_arr[x].compare +  " "; 
 					}
 				}else{
@@ -45,7 +47,7 @@ const get_order =  function(datas,res){
 						sql_order = sql_order + " , " + order_arr[x].field + " " + 
 						order_arr[x].compare +  " ";
 					}else{
-						sql_order = sql_order + " , " + config_database.PREFIX + order_arr[x].field + " " + 
+						sql_order = sql_order + " , " + config_api.PREFIX + order_arr[x].field + " " + 
 						order_arr[x].compare +  " ";
 					}						
 				}
@@ -54,7 +56,7 @@ const get_order =  function(datas,res){
 		return sql_order;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get order , liên hệ admin" );
 		return { "error" : "1", "position":"get order","message": error_send };

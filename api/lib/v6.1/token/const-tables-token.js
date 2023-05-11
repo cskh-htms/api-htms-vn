@@ -2,8 +2,6 @@
 
 	//lấy function check
 	const check_data_fields = require('../const-tables/check-data-fields');
-	const ojs_shares = require('../../../models/ojs-shares');
-
 
 	//create default data frome mysql tblUsers
 	const  default_fields = {

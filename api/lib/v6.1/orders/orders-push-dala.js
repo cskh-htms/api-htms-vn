@@ -19,19 +19,7 @@ const mysql = require('mysql2');
 
 
 
-
-
-
-
-
-
-//@
-//@
-//@
-//@ config
-const ojs_configs = require('../../../../configs/config');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
+const config_api = require('../configs/config');
 
 
 
@@ -77,7 +65,7 @@ const function_export = function (data,res) {
 		}
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -99,7 +87,7 @@ const function_export = function (data,res) {
 	//@
 	var kes = Object.keys(dataGo);
 	for(var x in kes){
-		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_database.PREFIX + kes[x] );
+		dataGo = shares_all_api.rename_key(dataGo, kes[x], config_api.PREFIX + kes[x] );
 	}
 
 
@@ -110,11 +98,11 @@ const function_export = function (data,res) {
 	//@
 	//@ sql
 	sql_text = "START TRANSACTION ; "
-	sql_text = sql_text + "INSERT INTO " + config_database.PREFIX + "shipping_tracking  SET ? ; ";
-	sql_text = sql_text + "UPDATE " + config_database.PREFIX + "orders_speciality  SET  " + 
-				config_database.PREFIX + "orders_speciality_status_orders = " + data.shipping_tracking_orders_status +  ", " + 
-				config_database.PREFIX + "orders_speciality_shipper_id = " + data.shipping_tracking_users_id + 
-				" WHERE " + config_database.PREFIX + "orders_speciality_ID = " + data.shipping_tracking_orders_id  + " ;" ;
+	sql_text = sql_text + "INSERT INTO " + config_api.PREFIX + "shipping_tracking  SET ? ; ";
+	sql_text = sql_text + "UPDATE " + config_api.PREFIX + "orders_speciality  SET  " + 
+				config_api.PREFIX + "orders_speciality_status_orders = " + data.shipping_tracking_orders_status +  ", " + 
+				config_api.PREFIX + "orders_speciality_shipper_id = " + data.shipping_tracking_users_id + 
+				" WHERE " + config_api.PREFIX + "orders_speciality_ID = " + data.shipping_tracking_orders_id  + " ;" ;
 	
 	
 	sql_text = sql_text + " COMMIT;"
@@ -130,7 +118,7 @@ const function_export = function (data,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 } , dataGo , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);	
 
 					
@@ -152,7 +140,7 @@ const function_export = function (data,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		
 		
 		////evn = "dev";

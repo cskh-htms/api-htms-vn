@@ -1,9 +1,10 @@
 
 const jwt = require('jsonwebtoken');
+const config_api = require('./configs/config');
 
-const ojs_configs = require('../../../configs/config');
-const config_database = require('../../configs/config-database.js');
-const config_api = require('../../configs/config-api');
+
+
+
 
 const ojs_shares_show_errors = require('./ojs-shares-show-errors');
 
@@ -101,12 +102,12 @@ try {
 				|| field_arr[x] == "payment_period_date_created" 
 								
 			){
-				sql_field_check  = "DATE_FORMAT(" + config_database.PREFIX  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
+				sql_field_check  = "DATE_FORMAT(" + config_api.PREFIX  + field_arr[x] + "," + "'%Y/%m/%d %H:%i:%s'"  + ")";
 				
 				
 			//@ nếu là biểu thức
 			}else if(regex.test(field_arr[x]) ){
-				sql_field_check  = " " + split_arr[0].trim() + "(" + config_database.PREFIX  + split_arr[1].trim();	
+				sql_field_check  = " " + split_arr[0].trim() + "(" + config_api.PREFIX  + split_arr[1].trim();	
 				
 				
 			//@ field đặt biệt product
@@ -146,7 +147,7 @@ try {
 				sql_field_check  = get_select_fields_special_order(field_arr[x],res);					
 				
 			}else{
-				sql_field_check  = config_database.PREFIX + field_arr[x];
+				sql_field_check  = config_api.PREFIX + field_arr[x];
 			}			
 			
 			//@@ kết quả sql
@@ -172,7 +173,7 @@ try {
 	return sql_field;
 }
 catch(error){
-	var evn = ojs_configs.evn;
+	var evn = config_api.evn;
 	//evn = "dev";
 	var error_send = ojs_shares_show_errors.show_error( evn, error, "lỗi get select field , liên hệ admin" );
 	return { "error" : "1", "position":"get select field","message": error_send };

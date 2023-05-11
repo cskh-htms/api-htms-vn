@@ -21,18 +21,7 @@ const mysql = require('mysql2');
 
 
 
-
-
-
-
-//@
-//@
-//@
-//@ config
-const ojs_configs = require('../../../../configs/config');
-const config_database = require ('../../../configs/config-database');
-const config_api = require ('../../../configs/config-api');
-
+const config_api = require('../configs/config');
 
 
 
@@ -63,15 +52,15 @@ const function_export = function (data_delete,res) {
 	
 	//return id;
 	
-	var table_name  = config_database.PREFIX + "token ";
+	var table_name  = config_api.PREFIX + "token ";
 	//create sql text
 	var sql_text = 'DELETE FROM ' + table_name + 
 		' where ' + 	
-			config_database.PREFIX + 'token_key <> "'+ data_delete.token_key + '"' + 
+			config_api.PREFIX + 'token_key <> "'+ data_delete.token_key + '"' + 
 		' and ' + 	
-			config_database.PREFIX + 'token_type = '+ data_delete.token_type + 
+			config_api.PREFIX + 'token_type = '+ data_delete.token_type + 
 		' and ' + 	
-			config_database.PREFIX + 'token_user_id = '+ data_delete.token_user_id; 
+			config_api.PREFIX + 'token_user_id = '+ data_delete.token_user_id; 
 	//return sql_text;
 	
 	
@@ -81,7 +70,7 @@ const function_export = function (data_delete,res) {
 		return new Promise( (resolve,reject) => {
 			connection.query( { sql: sql_text, timeout: 20000 }  , ( err , results , fields ) => {
 				if( err ) {
-					var evn = ojs_configs.evn;					
+					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
@@ -101,7 +90,7 @@ const function_export = function (data_delete,res) {
 		} );
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

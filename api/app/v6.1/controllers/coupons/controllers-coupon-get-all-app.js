@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 
-const ojs_configs = require('../../../../../configs/config');
-
-
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 const check_owner_order_customer = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-owner-order-customer.js');
 
 const coupon_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/coupons/coupon-search.js');
+
 
 
 
@@ -24,7 +21,7 @@ async  function get_all(req, res, next) {
 		var token = req.headers['token'];
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -106,7 +103,7 @@ async  function get_all(req, res, next) {
 		var coupon_search_result = await coupon_search(datas,res);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
