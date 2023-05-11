@@ -18,15 +18,9 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@
-//@ configs
-const ojs_configs = require('../../../../../configs/config');
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
 
+
+const config_api = require('../../configs/config');
 
 
 
@@ -82,7 +76,7 @@ async  function function_export(req, res, next) {
 			}		
 		}
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -128,7 +122,7 @@ async  function function_export(req, res, next) {
 				//go
 			}
 			else{
-				var evn = ojs_configs.evn;
+				var evn = config_api.evn;
 				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
@@ -162,7 +156,7 @@ async  function function_export(req, res, next) {
 				//go
 			}
 			else{
-				var evn = ojs_configs.evn;
+				var evn = config_api.evn;
 				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
@@ -191,28 +185,28 @@ async  function function_export(req, res, next) {
 		var result = await product_update(datas,product_id,cat_string, option_string,res);
 		
 		
-		if(ojs_configs.domain == "http://localhost:2021"){
+		if(config_api.domain == "http://localhost:2021"){
 			if(datas.products_speciality_status_admin == 4){
 				var email_title = 'DALA - có sảm phẩm mới chờ duyệt Sản Phẩm [ ' + product_id + ' ] ';
 				var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa tạo chờ duyệt';
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content4);	
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content4);	
 			}else if(datas.products_speciality_status_admin == 2){
 				var email_title = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa sữa nội dung chờ duyệt';
 				var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa sữa nội dung chờ duyệt';
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content4);	
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content4);	
 			}		
 		}else{
 			if(datas.products_speciality_status_admin == 4){
 				var email_title = 'DALA - có sảm phẩm mới chờ duyệt Sản Phẩm [ ' + product_id + ' ] ';
 				var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa tạo chờ duyệt';
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content4);	
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content4);	
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content4);	
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_02,email_title,email_content4);	
 				
 			}else if(datas.products_speciality_status_admin == 2){
 				var email_title = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa sữa nội dung chờ duyệt';
 				var email_content4 = 'DALA - Sản Phẩm [ ' + product_id + ' ] vừa sữa nội dung chờ duyệt';
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content4);	
-				ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content4);					
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content4);	
+				ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_02,email_title,email_content4);					
 			}	
 		}				
 		
@@ -232,7 +226,7 @@ async  function function_export(req, res, next) {
 	//@ catch all error	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

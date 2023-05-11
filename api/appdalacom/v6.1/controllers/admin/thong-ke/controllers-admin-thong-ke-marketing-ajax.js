@@ -9,9 +9,12 @@ const express = require('express');
 const router = express.Router();
 
 
-const ojs_configs = require('../../../../../../configs/config');
-const config_database = require('../../../../../configs/config-database');
-const config_api = require('../../../../../configs/config-api');
+
+
+const config_api = require('../../../configs/config');
+
+
+
 
 const ojs_shares_show_errors = 
 	require('../../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
@@ -50,7 +53,7 @@ async  function function_export(req, res, next) {
 		var datas  = req.body;		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -74,7 +77,7 @@ async  function function_export(req, res, next) {
 		//go
 	}
 	else{
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -334,7 +337,7 @@ async  function function_export(req, res, next) {
 		var promise_result = await Promise.all(promise_all);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 
-const ojs_configs = require('../../../../../configs/config');
+
+const config_api = require('../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-fields-insert');
@@ -31,7 +31,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		var token = req.headers['token'];
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -55,7 +55,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 	//@ check owner user
 	const check_owner_order_customer_resuilt = await check_owner_order_customer(token,order_id,res);
 	if(check_owner_order_customer_resuilt != 1){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -106,7 +106,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		var orders_search_result = await orders_search(datas_order,res);
 		
 		if(orders_search_result[0].orders_speciality_status_orders != '0'){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -122,7 +122,7 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 			
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -154,18 +154,18 @@ async  function controllers_order_khach_hang_huy_don(req, res, next) {
 		var email_content = 'Khách hàng đã hủy đơn [ ' + order_id + ' ] ';		
 		
 		if(process.env.evn == "tester"){
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 		}else{
 			//@ send email to admin
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);			
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);			
 		}			
 		
 		
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 

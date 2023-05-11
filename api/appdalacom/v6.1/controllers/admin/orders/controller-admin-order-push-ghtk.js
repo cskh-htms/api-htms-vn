@@ -18,14 +18,9 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@
-//@ configs
-const ojs_configs = require('../../../../../../configs/config');
-const config_database = require('../../../../../configs/config-database');
-const config_api = require('../../../../../configs/config-api');
+
+
+const config_api = require('../../../configs/config');
 
 
 
@@ -74,7 +69,7 @@ async  function function_export(req, res, next) {
 			var datas  = req.body.datas;
 		}
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -107,7 +102,7 @@ async  function function_export(req, res, next) {
 			//go
 		}
 		else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -181,7 +176,7 @@ async  function function_export(req, res, next) {
 				}
 			}
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -241,7 +236,7 @@ async  function function_export(req, res, next) {
 			}
 		}
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -286,18 +281,18 @@ async  function function_export(req, res, next) {
 
 			//@
 			//@
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			if(evn == "dev"){
 				var url = "https://services-staging.ghtklab.com/services/shipment/order/?ver=1.6.3";
 			}else{
-				var url = ojs_configs.domain_ghtk_push_order;
+				var url = config_api.domain_ghtk_push_order;
 			}
 			
 			
 			
-			var url = ojs_configs.domain_ghtk_push_order;
-			let token = ojs_configs.token_ghtk;
+			var url = config_api.domain_ghtk_push_order;
+			let token = config_api.token_ghtk;
 			let ran = Math.random().toString(36).slice(-10);
 			//@
 			//@
@@ -352,7 +347,7 @@ async  function function_export(req, res, next) {
 		//@
 		}
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -380,7 +375,7 @@ async  function function_export(req, res, next) {
 			var result = await order_push_ghtk(datas,tracking,res);
 			
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -411,7 +406,7 @@ async  function function_export(req, res, next) {
 	//@ catch all error	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

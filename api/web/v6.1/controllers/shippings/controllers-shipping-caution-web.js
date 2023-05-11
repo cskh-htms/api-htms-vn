@@ -4,9 +4,12 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 
-const ojs_configs = require('../../../../../configs/config');
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+
+
+const config_api = require('../../configs/config');
+
+
+
 
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
@@ -39,7 +42,7 @@ async  function function_export(req, res, next) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -60,7 +63,7 @@ async  function function_export(req, res, next) {
 	//@
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return res.send({ "error" : "2", "position":"api/web/v5/controller/controllers-shipping-caution-web", "message": error_send } ); 
@@ -128,7 +131,7 @@ async  function function_export(req, res, next) {
 		
 		if( Array.isArray(product_search_redult)){
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			//evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, product_search_redult, "Lỗi code get chi tiết cửa hàng , vui lòng liên hệ admin" );					
 			return res.send({ "error" : "1222" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
@@ -137,7 +140,7 @@ async  function function_export(req, res, next) {
 		
 
 	}else{
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi data gữi lên bị thiếu dữ liệu, Liên hệ HTKT dala" );
 		return res.send({ "error" : "1000" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send}); 
@@ -373,7 +376,7 @@ async  function function_export(req, res, next) {
 
 
 	//Lấy danh sách loại danh mục
-		let url = ojs_configs.domain_ghtk + 
+		let url = config_api.domain_ghtk + 
 		"pick_province=" + stores_info[0].stores_province + "&" + 
 		"pick_district=" + stores_info[0].stores_district + "&" +  
 		"province=" + datas.adress.province + "&" + 
@@ -398,7 +401,7 @@ async  function function_export(req, res, next) {
 			return res.send({ "error" : "" ,"store_id": store_id, "datas" : result.fee.fee}); 	
 			
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares.show_error( evn, "Không tìm thấy giá của khu vực này", "Không tìm thấy giá của khu vực này" );
 			return res.send({ "error" : "13" ,"position":"ctl-shipping_spaciality->caution", "message" : error_send }); 

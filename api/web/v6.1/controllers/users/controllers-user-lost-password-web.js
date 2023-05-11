@@ -4,11 +4,12 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 
-const ojs_configs = require('../../../../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
+
+
+
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
@@ -45,7 +46,7 @@ async  function function_export(req, res, next) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		return res.send({ "error" : "2", "position":"ctl-users->resgister-web", "message": error_send } );
@@ -183,7 +184,7 @@ async  function function_export(req, res, next) {
 							
 							let message_error = default_field.get_message_error(error);
 							
-							var evn = ojs_configs.evn;
+							var evn = config_api.evn;
 							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 							return res.send({ "error" : "6", "position":"ctl-users->lost_password", "message": error_send } ); 
@@ -191,14 +192,14 @@ async  function function_export(req, res, next) {
 						});
 					}
 					catch(error){
-						var evn = ojs_configs.evn;
+						var evn = config_api.evn;
 						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 						return res.send({ "error" : "7", "position":"ctl-users->lost_password", "message": error_send } );  
 							
 					}					
 				}else{
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 					evn, "Không tìm thấy email trong hệ thống DALA",
@@ -207,7 +208,7 @@ async  function function_export(req, res, next) {
 						
 				}		
 			}, error => {//enf model run
-				var evn = ojs_configs.evn;
+				var evn = config_api.evn;
 				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 				return res.send({ "error" : "9", "position":"ctl-users->lost_password", "message": error_send } );  
@@ -215,7 +216,7 @@ async  function function_export(req, res, next) {
 			});
 		}//enf of try cat
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 			return res.send({ "error" : "10", "position":"ctl-users->lost_password", "message": error_send } ); 
@@ -280,7 +281,7 @@ async  function function_export(req, res, next) {
 				ojs_shares_send_code_to_phone.send_code_to_phone_lost_pass(res,n_password,datas.users_login_name);
 			}
 			catch(error){
-				var evn = ojs_configs.evn;
+				var evn = config_api.evn;
 				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi gữi tin nhắn, Liên hệ bộ phan HTKT dala" );
 				return res.send({ "error" : "14", "position":"ctl-users->lost_password", "message": error_send } );  
@@ -288,7 +289,7 @@ async  function function_export(req, res, next) {
 			}				
 	
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, "số Điện thoại không có trong hệ thống", "số Điện thoại không có trong hệ thống" );
 			return res.send({ "error" : "15", "position":"ctl-users->lost_password", "message": error_send } ); 

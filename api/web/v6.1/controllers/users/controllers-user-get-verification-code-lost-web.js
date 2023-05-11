@@ -4,11 +4,12 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 
-const ojs_configs = require('../../../../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
+
+
+
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
@@ -55,7 +56,7 @@ async  function function_export(req, res, next) {
 		}	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -153,7 +154,7 @@ async  function function_export(req, res, next) {
 							let message_error = "Lỗi update user";
 							
 							
-							var evn = ojs_configs.evn;
+							var evn = config_api.evn;
 							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, message_error );
 							return res.send({ "error" : "7", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
@@ -161,7 +162,7 @@ async  function function_export(req, res, next) {
 						});
 					}
 					catch(error){
-						var evn = ojs_configs.evn;
+						var evn = config_api.evn;
 						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi update user, Liên hệ bộ phan HTKT dala" );
 						return res.send({ "error" : "8", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
@@ -172,7 +173,7 @@ async  function function_export(req, res, next) {
 			//@
 			//@ nếu không có datas
 			}else{
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, error, "Không tìm thấy users" );
 					return res.send({ "error" : "10", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
@@ -180,7 +181,7 @@ async  function function_export(req, res, next) {
 			}
 			
 		}, error => {
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			return res.send({ "error" : "11", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 
@@ -188,7 +189,7 @@ async  function function_export(req, res, next) {
 		});
 	}
 	catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data user, liên hệ bộ phận HTKT dala" );
 			return res.send({ "error" : "12", "position":"api/app/v5/ctronller/controllers-user-verification-code-lost-web", "message": error_send } ); 

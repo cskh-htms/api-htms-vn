@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 
-const ojs_configs = require('../../../../../configs/config');
+
+const config_api = require('../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const ojs_shares_others = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-others.js');
@@ -48,7 +48,7 @@ async  function function_export(req, res, next) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi get data request, Vui lòng liên hệ admin" );
 		return res.send({ "error" : "2", "position":"ctl-users->check_token web", "message": error_send } );
@@ -65,7 +65,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@
 		//xac thực token
-		jwt.verify(token, ojs_configs.jwt_secret, (err, decoded) =>{  
+		jwt.verify(token, config_api.jwt_secret, (err, decoded) =>{  
 			//@
 			//@
 			//neu token het han
@@ -119,7 +119,7 @@ async  function function_export(req, res, next) {
 																			
 								}
 							}else{
-								var evn = ojs_configs.evn;
+								var evn = config_api.evn;
 								////evn = "dev";
 								var error_send = ojs_shares_show_errors.show_error( evn, "Phiên làm việc đã hết hạn", "Phiên làm việc đã hết hạn" );
 								return res.send({ "error" : "5", "position":"ctl-users->check_token", "message": error_send } );
@@ -130,7 +130,7 @@ async  function function_export(req, res, next) {
 						//@
 						//nếu đăng nhập không có user theo id token database
 						}, error => {
-							var evn = ojs_configs.evn;
+							var evn = config_api.evn;
 							////evn = "dev";
 							var error_send = ojs_shares_show_errors.show_error( evn, error, "Lỗi lấy token database, Vui lòng liên hệ CSKH dala" );
 							return res.send({ "error" : "7", "position":"ctl-users->check_token web", "message": error_send } );
@@ -140,7 +140,7 @@ async  function function_export(req, res, next) {
 					//@
 					//nếu mật khẩu đã bị thay đổi							
 					}else{
-						var evn = ojs_configs.evn;
+						var evn = config_api.evn;
 						////evn = "dev";
 						var error_send = ojs_shares_show_errors.show_error( evn, 
 						"token đã hết hạn hoặc user đã thây đổi mật khẩu", 
@@ -154,7 +154,7 @@ async  function function_export(req, res, next) {
 				//@
 				//	kiểm tra đăng nhập lần nữa thất bại				
 				}, error => {
-					var evn = ojs_configs.evn;
+					var evn = config_api.evn;
 					////evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( evn, "không có database token", "không có database token" );
 					return res.send({ "error" : "9", "position":"ctl-users->check_token", "message": error_send } );
@@ -166,7 +166,7 @@ async  function function_export(req, res, next) {
 		//@
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn, "token đã hết hạn hoặc không hợp lệ", "server đang bận, truy cập lại sau" );
 		return res.send({ "error" : "10", "position":"ctl-users->check_token web", "message": error_send } );

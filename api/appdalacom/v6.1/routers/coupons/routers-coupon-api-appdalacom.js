@@ -18,11 +18,10 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@ config
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
+
+
+
 const middle_ware =  require('../../../../lib/' + config_api.API_LIB_VERSION + '/middle-ware/middle-ware-appdalacom.js');
 
 

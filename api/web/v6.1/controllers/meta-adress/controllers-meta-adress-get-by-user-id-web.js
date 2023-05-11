@@ -4,9 +4,12 @@ const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 
 
-const ojs_configs = require('../../../../../configs/config');
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+
+
+const config_api = require('../../configs/config');
+
+
+
 
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
@@ -50,7 +53,7 @@ async  function function_export(req, res, next) {
 		//
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -71,7 +74,7 @@ async  function function_export(req, res, next) {
 	//@
 	//neu không có token thì trỏ ra login page
 	if(token == "" || token == null || token == undefined){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( evn,"Bạn không có quyền truy cập", "Bạn không có quyền truy cập" );
 		return res.send({ "error" : "2", "position":"controllers-user-get-by-id-web", "message": error_send } ); 
@@ -130,7 +133,7 @@ async  function function_export(req, res, next) {
 		return ;
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

@@ -6,13 +6,16 @@ const mysql = require('mysql2');
 //@
 //@
 //@
+
 //@ config
 const config_api = require('../configs/config');
+
+
 
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
-const config_api = require('../../../../configs/config');
+
 
 const fields_insert = require('./brand-fields-insert.js');
 

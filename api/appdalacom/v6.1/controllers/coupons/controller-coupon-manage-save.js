@@ -18,14 +18,9 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@
-//@ configs
-const ojs_configs = require('../../../../../configs/config');
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+
+
+const config_api = require('../../configs/config');
 
 
 
@@ -76,7 +71,7 @@ async  function function_export(req, res, next) {
 			var datas  = req.body.datas;
 		}
 		catch(error){
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 					evn, 
@@ -118,7 +113,7 @@ async  function function_export(req, res, next) {
 				//go
 			}
 			else{
-				var evn = ojs_configs.evn;
+				var evn = config_api.evn;
 				////evn = "dev";
 				var error_send = ojs_shares_show_errors.show_error( 
 						evn, 
@@ -164,7 +159,7 @@ async  function function_export(req, res, next) {
 	//@ catch all error	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 

@@ -17,11 +17,9 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@ config
-const config_api = require('../../../../configs/config-api');
+
+
+const config_api = require('../../configs/config');
 
 
 

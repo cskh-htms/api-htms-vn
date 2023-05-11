@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const ojs_configs = require('../../../../../configs/config');
 
 
-const config_database = require('../../../../configs/config-database');
-const config_api = require('../../../../configs/config-api');
+const config_api = require('../../configs/config');
+
+
+
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/orders/orders-fields-insert');
@@ -62,7 +63,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		//
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -88,7 +89,7 @@ async  function controllers_order_insert_app(req, res, next) {
 	const check_owner_user_resuilt = await check_owner_user.check_owner_user(token,datas.orders.orders_speciality_user_id,res);
 
 	if(check_owner_user_resuilt != 1){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -132,7 +133,7 @@ async  function controllers_order_insert_app(req, res, next) {
 			var store_phone = get_store_id_resuilt[0].stores_phone;			
 			
 		}else{
-			var evn = ojs_configs.evn;
+			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -151,7 +152,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 			evn, 
@@ -193,23 +194,23 @@ async  function controllers_order_insert_app(req, res, next) {
 		
 		
 		if(process.env.evn == "tester"){
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
-			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_02,email_title,email_content);
-			//ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
+			//ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+			//ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_02,email_title,email_content);
+			//ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 		}else{
 			
 			
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_01,email_title,email_content);
-			ojs_shares_send_email.send_email_to_admin(res,ojs_configs.email_admin_04,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_01,email_title,email_content);
+			ojs_shares_send_email.send_email_to_admin(res,config_api.email_admin_04,email_title,email_content);
 		
 			//@
 			//@
 			//gữi sms đặt hàng 		
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,store_phone);
 			ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,datas.orders.orders_speciality_phone);
-			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_01);
-			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,ojs_configs.phone_admin_02);			
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,config_api.phone_admin_01);
+			//ojs_shares_send_code_to_phone.send_code_to_phone_order(res,order_insert_resuilt[1].insertId,config_api.phone_admin_02);			
 			
 			//@ send email to store
 			ojs_shares_send_email.send_email_to_admin(res,store_email,email_title,email_content);
@@ -222,7 +223,7 @@ async  function controllers_order_insert_app(req, res, next) {
 		
 	}
 	catch(error){
-		env = ojs_configs.api_evn;
+		env = config_api.api_evn;
 		//env = "dev";
 		var error_send = ojs_shares_show_errors.show_error( env, error, "lỗi truy xuất database" );
 		return res.send({ 

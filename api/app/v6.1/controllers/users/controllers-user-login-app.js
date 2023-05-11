@@ -43,7 +43,7 @@ async  function function_export(req, res, next) {
 		if(datas.users_password == ""){
 			return res.send({ 
 				"error" : "01", 
-				"position" : "api/web/v5/ctroller/controllers-user-login-app",
+				"position" : "api/app/v5/ctroller/controllers-user-login-app",
 				"message": "Vui lòng nhập mật khẩu"
 			}); 				
 		}		
@@ -60,7 +60,7 @@ async  function function_export(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "1", 
-			"position" : "api/web/v5/ctroller/controllers-user-login-app",
+			"position" : "api/app/v5/ctroller/controllers-user-login-app",
 			"message": error_send 
 		}); 
 			
@@ -95,6 +95,7 @@ async  function function_export(req, res, next) {
 	var login_one = await user_login_one(datas,res);
 	//return res.send(login_one);
 	//
+	
 
 	var login_one_lost = await user_login_lost(datas,res);	
 	//return res.send(login_one_lost);
@@ -165,7 +166,7 @@ async  function function_export(req, res, next) {
 			var evn = config_api.evn;
 			////evn = "dev";
 			var error_send = ojs_shares_show_errors.show_error( evn,error, "Lỗi jwt, liên hệ CSKH DALA" );
-			return res.send({ "error" : "10", "position":"ctl-users->login_web", "message": error_send } );
+			return res.send({ "error" : "10", "position":"ctl-users->login_app", "message": error_send } );
 				
 		}		
 		

@@ -9,6 +9,8 @@
 
 
 
+
+
 //@
 //@
 //@
@@ -78,6 +80,7 @@ app.use(session({secret: process.env.session_secret_v6_1,saveUninitialized: true
 
 
 
+
 //@
 //@
 //@
@@ -85,8 +88,9 @@ app.use(session({secret: process.env.session_secret_v6_1,saveUninitialized: true
 app.use('/', require('./routes/index'));
 
 app.use('/api/app/v6.1/', require('./api/app/v6.1/routers/routers-index-app'));
-//app.use('/api/web/v6.1/', require('./api/web/v6.1/routers/routers-index-web'));
-//app.use('/api/appdalacom/v6.1/', require('./api/appdalacom/v6.1/routers/routers-index-appdalacom'));
+app.use('/api/web/v6.1/', require('./api/web/v6.1/routers/routers-index-web'));
+app.use('/api/appdalacom/v6.1/', 
+	require('./api/appdalacom/v6.1/routers/routers-index-appdalacom'));
 
 
 

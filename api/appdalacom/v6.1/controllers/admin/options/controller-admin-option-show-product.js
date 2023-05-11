@@ -18,14 +18,8 @@ const router = express.Router();
 
 
 
-//@
-//@
-//@
-//@
-//@ configs
-const ojs_configs = require('../../../../../../configs/config');
-const config_database = require('../../../../../configs/config-database');
-const config_api = require('../../../../../configs/config-api');
+
+const config_api = require('../../../configs/config');
 
 
 
@@ -103,7 +97,7 @@ async  function store_order_get_all(req, res, next) {
 		}	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -134,7 +128,7 @@ async  function store_order_get_all(req, res, next) {
 		//go
 	}
 	else{
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -218,7 +212,7 @@ async  function store_order_get_all(req, res, next) {
 
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -240,7 +234,7 @@ async  function store_order_get_all(req, res, next) {
 		var get_meta_product_resuilt = await get_meta_product(data_product,model_product_arr,res);
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
@@ -347,7 +341,7 @@ async  function store_order_get_all(req, res, next) {
 	//@	
 	}
 	catch(error){
-		var evn = ojs_configs.evn;
+		var evn = config_api.evn;
 		////evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
