@@ -12,7 +12,6 @@
 //@
 //@
 //@ require
-require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -20,13 +19,17 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser'); 
 const session = require('express-session');
-const app_config = require('./configs/config');
 const app = express();
 
 
 
 
-
+require('dotenv').config();
+const result = require("dotenv").config({ path: ".env.v6.1" });
+process.env = {
+	...process.env,
+	...result.parsed,
+};
 
 
 
@@ -53,7 +56,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(session({secret: process.env.session_secret,saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
+app.use(session({secret: process.env.session_secret_v6_1,saveUninitialized: true,resave: true,  rolling: true, cookie: {httpOnly: true, maxAge: 1*60*60*1000}}));
 
 
 
@@ -78,12 +81,7 @@ app.use(session({secret: process.env.session_secret,saveUninitialized: true,resa
 //@
 //@
 //@ router
-app.use('/', require('./routes/' + app_config.router_version + '/index'));
-app.use('/api/app/v5/', require('./api/app/v5/routers/routers-index-app'));
-app.use('/api/web/v5/', require('./api/web/v5/routers/routers-index-web'));
-app.use('/api/appdalacom/v5/', require('./api/appdalacom/v5/routers/routers-index-appdalacom'));
-
-
+app.use('/', require('./routes/index'));
 
 app.use('/api/app/v6.1/', require('./api/app/v6.1/routers/routers-index-app'));
 app.use('/api/web/v6.1/', require('./api/web/v6.1/routers/routers-index-web'));
