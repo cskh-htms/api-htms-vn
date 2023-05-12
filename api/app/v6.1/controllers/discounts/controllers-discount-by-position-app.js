@@ -48,7 +48,7 @@ async  function controllers_discount_by_position_app(req, res, next) {
 			condition_where.push(
 				{   
 					"field"     :"discount_program_position",
-					"value"     : [position_number,6],
+					"value"     : [0,6],
 					"compare" : "in"
 				} 
 			);

@@ -56,6 +56,10 @@ require('../../../../shares/' + config_api.API_SHARES_VERSION + '/get-meta-produ
 //@
 async  function function_export(req, res, next) {
 
+
+	return res.send(["API này đã dừng hoạt động, hãy sử dụng api check-coupon-code thay thế "]);
+
+
 	try {
 		var token = req.headers['token'];
 		var datas = req.body.datas;

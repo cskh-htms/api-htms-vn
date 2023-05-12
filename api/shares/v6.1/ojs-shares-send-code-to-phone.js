@@ -42,8 +42,8 @@ const ojs_shares_send_code_to_phone = {
 		//return;	
 
 		var datas = {     
-			"loginName": process.env.SMS_ID,
-			"sign": process.env.SMS_SIGN,
+			"loginName": config_api.SMS_ID,
+			"sign": config_api.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -77,7 +77,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - Tin nhắn đặt hàng không thành công ';
 				var email_content = 'Không gữi được tin nhắn đặt hàng cho khách hàng [ ' + phone + ' ] ';
 
-				if(process.env.evn == "tester"){
+				if(config_api.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -115,8 +115,8 @@ const ojs_shares_send_code_to_phone = {
 		//return;	
 
 		var datas = {     
-			"loginName": process.env.SMS_ID,
-			"sign": process.env.SMS_SIGN,
+			"loginName": config_api.SMS_ID,
+			"sign": config_api.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -150,7 +150,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - gữi tin nhắn cho shipper không thành công ';
 				var email_content = 'Không gữi được tin nhắn cho shipper [ ' + phone + ' ] ';
 
-				if(process.env.evn == "tester"){
+				if(config_api.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -191,8 +191,8 @@ const ojs_shares_send_code_to_phone = {
 
 
 		var datas = {     
-			"loginName": process.env.SMS_ID,
-			"sign": process.env.SMS_SIGN,
+			"loginName": config_api.SMS_ID,
+			"sign": config_api.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -226,7 +226,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - lấy mã xác thực không thành công ';
 				var email_content = 'Khách hàng [ ' + phone + ' ] Lấy mã xác thực không thành công. Tin nhắn không gữi được';
 
-				if(process.env.evn == "tester"){
+				if(config_api.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev
@@ -265,8 +265,8 @@ const ojs_shares_send_code_to_phone = {
 
 
 		var datas = {     
-			"loginName": process.env.SMS_ID,
-			"sign": process.env.SMS_SIGN,
+			"loginName": config_api.SMS_ID,
+			"sign": config_api.SMS_SIGN,
 			"serviceTypeId": "30",
 			"phoneNumber": phone,
 			"code": code,
@@ -299,7 +299,7 @@ const ojs_shares_send_code_to_phone = {
 				var email_title = 'DALA - Tin nhắn quên mật khẩu không thành công ';
 				var email_content = 'Khách hàng [ ' + phone + ' ] quên mật hẩu không thành công. Tin nhắn không gữi được';
 
-				if(process.env.evn == "tester"){
+				if(config_api.evn == "tester"){
 					//@
 					//@
 					//@ send email to dev

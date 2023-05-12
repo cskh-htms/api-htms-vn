@@ -312,7 +312,7 @@ const link_by_review = " " +
 	
 	" LEFT JOIN " + 
 	config_api.PREFIX + "users  ON  " + 
-	config_api.PREFIX + "orders_speciality_mater_user_id = " + 
+	config_api.PREFIX + "orders_speciality_master_user_id = " + 
 	config_api.PREFIX + "users_ID ";		
 
 

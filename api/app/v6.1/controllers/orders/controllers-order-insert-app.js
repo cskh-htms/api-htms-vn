@@ -31,6 +31,8 @@ const content_email_order = require('../../../../shares/' + config_api.API_SHARE
 //@ function 
 async  function controllers_order_insert_app(req, res, next) {
 	
+	return res.send(["Api đã dừng hoạt động, hãy dùng api master-insert"]);
+	
 	try {
 		var datas = req.body.datas;
 		var token = req.headers['token'];

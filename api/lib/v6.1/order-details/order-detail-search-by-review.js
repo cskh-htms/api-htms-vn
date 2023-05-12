@@ -67,7 +67,7 @@ const function_export = function (datas,res) {
 			connection.query( { sql: get_sql_search_group, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = config_api.evn;
-					////evn = "dev";
+					//evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
@@ -75,7 +75,7 @@ const function_export = function (datas,res) {
 						);
 					return res.send({ 
 						"error" : "2",
-						"position" : "li->order-details->search-by-coupon", 
+						"position" : "li->order-details->search-by-review", 
 						"message": error_send 
 					}); 
 					
@@ -90,11 +90,11 @@ const function_export = function (datas,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi li->order-details->search-by-coupon, Vui lòng liên hệ admin" 
+				"Lỗi li->order-details->search-by-review, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "3",
-			"position" : "li->order-details->search-by-coupon", 
+			"position" : "li->order-details->search-by-review", 
 			"message": error_send 
 		}); 
 		

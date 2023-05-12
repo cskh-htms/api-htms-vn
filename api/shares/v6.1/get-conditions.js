@@ -24,13 +24,31 @@ const get_consition =  function(datas,res){
 	//@
 	//@ @mysql.escape().replace(/^'|'$/gi, "")
 	//@ escap datta search chong sql injection
+	/*
+	for (var x in datas.condition){
+		for (var s in datas.condition[x].where){
+			if(
+				datas.condition[x].where[s].compare == 'in' 
+				|| datas.condition[x].where[s].compare == 'IN' 
+				|| datas.condition[x].where[s].compare == 'not in' 
+				|| datas.condition[x].where[s].compare == 'NOT IN' 			
+			){
+				//datas.condition[x].where[s].value = 
+					//mysql.escape(datas.condition[x].where[s].value);
+			}else{
+				datas.condition[x].where[s].value = 
+					mysql.escape(datas.condition[x].where[s].value).replace(/^'|'$/gi, "");
+			}
+		}
+	}
+	
 	for (var x in datas.condition){
 		for (var s in datas.condition[x].where){
 			datas.condition[x].where[s].value = 
 				mysql.escape(datas.condition[x].where[s].value).replace(/^'|'$/gi, "");
 		}
 	}
-	
+	*/
 	try {
 		var sql_condition = "";
 		var sql_conditions = " where '2020' = '2020' and ";
@@ -107,7 +125,7 @@ const get_consition =  function(datas,res){
 						|| condition_arr[x].where[s].compare == "not in" 
 						|| condition_arr[x].where[s].compare == "NOT IN" 
 					){
-						consition_value = "(" + condition_arr[x].where[s].value + ")";
+						consition_value = "(" + condition_arr[x].where[s].value.replace(/^'|'$/gi, "") + ")";
 						consition_field = config_api.PREFIX + condition_arr[x].where[s].field;
 					}
 
