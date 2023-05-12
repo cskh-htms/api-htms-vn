@@ -28,11 +28,28 @@ require(
 	'../../../controllers/admin/main/controllers-admin-main.js'
 );
 
+const controllers_admin_main_test_post =  
+require(
+	'../../../controllers/admin/main/controllers-admin-main-test-post.js'
+);
+const controllers_admin_main_test_get =  
+require(
+	'../../../controllers/admin/main/controllers-admin-main-test-get.js'
+);
+
+
+
+
+
+
 
 router.get('/',	middle_ware, controllers_admin_main );
 
 
 
+
+router.post('/test-post',	middle_ware, controllers_admin_main_test_post );
+router.get('/test-get',	middle_ware, controllers_admin_main_test_get );
 
 
 
