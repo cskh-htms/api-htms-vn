@@ -14,7 +14,7 @@ const check_coupon_condition = require('../../../../shares/' + config_api.API_LI
 
 //@
 async  function function_export(req, res, next) {
-
+	return res.send("Api dừng hoạt động, Chuyển qua sử dụng API-check-coupon-code");
 	try {
 		var token = req.headers['token'];
 		var datas = req.body.datas;

@@ -48,7 +48,7 @@ async  function function_export(req, res, next) {
 			}); 	
 			
 		}
-		//return res.send(district_id);
+		//return res.send(["dsfsdfsdf"]);
 		//
 	}
 	catch(error){

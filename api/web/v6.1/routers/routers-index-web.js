@@ -18,5 +18,5 @@ router.use('/coupons', require('./coupons/routers-coupon-web'));
 router.use('/users', require('./users/routers-users-web'));
 router.use('/news', require('./news/routers-news-web'));
 router.use('/meta-adress', require('./meta-adress/routers-meta-adress-web.js'));
-
+router.use('/trackings', require('./trackings/routers-tracking-web.js'));
 module.exports = router;

@@ -60,7 +60,7 @@ const user_search = function (datas,res) {
 		sql_having + 
 		sql_limit;
 		
-		return get_sql_search_group;
+		//return get_sql_search_group;
 		
 	//@
 	try {	

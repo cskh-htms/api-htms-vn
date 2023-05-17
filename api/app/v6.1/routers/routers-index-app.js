@@ -24,4 +24,5 @@ router.use('/shipping-tracking', require('./shipping-tracking/routers-shipping-t
 router.use('/coupons', require('./coupons/routers-coupon-app'));
 router.use('/meta-adress', require('./meta-adress/routers-meta-adress-app'));
 router.use('/shipping', require('./shippings/routers-shipping-app'));
+router.use('/trackings', require('./trackings/routers-tracking-app'));
 module.exports = router;

@@ -12,7 +12,7 @@ const token_insert = require('../token/token-insert');
 const token_search = require('../token/token-search');
 const get_one_users = require('../users/get-one-users');
 
-const traffic_update_app = require('../traffic/traffic-update-app');
+//const traffic_update_app = require('../traffic/traffic-update-app');
 
 async function middle_ware(req, res, next){
 	try{	
@@ -56,7 +56,7 @@ async function middle_ware(req, res, next){
 									return res.send({ "error" : "88", "position":"middle-ware", "message": "Lỗi phân quyền, vui lòng đổi user login"} ); 				
 									
 								}		
-									traffic_update_app(res);								
+									//traffic_update_app(res);								
 									next();
 								}else{
 									return res.send({ "error" : "3", "postition":"middle-ware","message": "User đã thay đổi mật khẩu, vui lòng đăng nhập lại"} ); 
