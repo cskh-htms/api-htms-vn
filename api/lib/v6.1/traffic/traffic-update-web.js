@@ -79,7 +79,7 @@ const function_export = async function (res) {
 							err, 
 							error_massage
 						);
-					return res.send({ 
+					return ({ 
 						"error" : "10", 
 						"position" : "lib/traffic/update",
 						"message": error_send 
@@ -98,7 +98,7 @@ const function_export = async function (res) {
 				error, 
 				"Lỗi update, Vui lòng liên hệ admin DALA " 
 			);
-		return res.send({ 
+		return ({ 
 			"error" : "3",
 			"position" : "lib/traffic/update",
 			"message": error_send 

@@ -134,7 +134,13 @@ async  function function_export(req, res, next) {
 								ojs_shares_send_code_to_phone.send_code_to_phone(res,verification_code,phone);
 							}
 							
-
+							//@ insert users tracking
+							var datas_tracking = {
+								"users_tracking_user_id": de_token.users_ID,
+								"users_tracking_action": "1",			
+								"users_tracking_status": "1",
+							}
+							user_tracking_insert(datas_tracking,res);
 							
 							return res.send( {"error" : "", "code" : verification_code,"datas":"Đã gữi tin nhắn"} );
 							

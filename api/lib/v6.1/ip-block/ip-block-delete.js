@@ -1,4 +1,5 @@
 
+
 //@
 //@
 //@
@@ -18,10 +19,8 @@ const mysql = require('mysql2');
 
 
 
-
-
-
 const config_api = require('../configs/config');
+
 
 
 //@
@@ -37,10 +36,7 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 //@
 //@ model
 const connection = require('../connections/connections');
-const fields_insert = require('./traffic-fields-insert.js');
-
-
-
+const fields_insert = require('./ip-block-fields-insert.js');
 
 
 
@@ -49,27 +45,24 @@ const fields_insert = require('./traffic-fields-insert.js');
 //@
 //@
 //@ function export
-const function_export = async function (res) {
+const function_export = function (ip,res) {
 	
-	let sqlSet = "set @n = (select " + 
-	config_api.PREFIX + "traffic_app " + 
-	" from " + config_api.PREFIX + "traffic); ";
+	//return ip;
 	
-	
-	let table_name  = config_api.PREFIX + "traffic ";
-	let sql_text = 'UPDATE ' + table_name + ' SET ' + 
-	config_api.PREFIX + "traffic_app = @n + 1 ;";
+	var table_name  = config_api.PREFIX + "ip_block ";
+	var field_where  = config_api.PREFIX + "ip_block_ip ";
+	//create sql text
+	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ ip + '"';
 	
 	
-	sqlSet = sqlSet + sql_text;
-	
-	//return(sql_text);
+	//return sql_text;
 	
 	
 	//@
+	//@
 	try {
 		return new Promise( (resolve,reject) => {
-			connection.query( { sql: sqlSet, timeout: 20000 } , ( err , results , fields ) => {
+			connection.query( { sql: sql_text, timeout: 20000 }  , ( err , results , fields ) => {
 				if( err ) {
 					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
@@ -79,12 +72,12 @@ const function_export = async function (res) {
 							err, 
 							error_massage
 						);
-					return ({ 
+					return res.send({ 
 						"error" : "10", 
-						"position" : "lib/traffic/update",
+						"position" : "lib->ip-block->delete",
 						"message": error_send 
 					}); 
-						
+										
 				}
 				resolve(results);
 			} );
@@ -96,14 +89,14 @@ const function_export = async function (res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi update, Vui lòng liên hệ admin DALA " 
+				"Lỗi delete, Vui lòng liên hệ admin" 
 			);
 		return ({ 
-			"error" : "3",
-			"position" : "lib/traffic/update",
+			"error" : "100", 
+			"position" : "lib->ip-block->delete",
 			"message": error_send 
 		}); 
-		
+			
 	}
 };	
 
@@ -127,6 +120,9 @@ module.exports = function_export;
 //@
 //@
 //@ file end
+
+
+
 
 
 

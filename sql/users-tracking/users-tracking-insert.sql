@@ -76,15 +76,11 @@ BEGIN
 		
 		
 	IF (
-		@check_login_fail > 10 
-		or @check_login_ok > 50 
-		or @check_lost_pass > 10 
-		or @check_verification_fail > 10 
-		or @check_verification > 10   	
+		@check_lost_pass > 10   	
 		) THEN  
 		
 
-		UPDATE dala_users set dala_users_status = '0' where  dala_users_ID = NEW.dala_users_tracking_user_id ;
+		UPDATE dala_users set dala_users_status = '1' where  dala_users_ID = NEW.dala_users_tracking_user_id ;
 		
 		SIGNAL SQLSTATE '01000' 
 		SET MESSAGE_TEXT = 'ok'; 

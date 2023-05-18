@@ -8,7 +8,9 @@ const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SH
 const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
 const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
 
-const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search.js');
+const traffic_update_app = require('../../../../lib/' + config_api.API_LIB_VERSION + '/traffic/traffic-update-app');
+const ip_tracking_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/ip-tracking/ip-tracking-insert.js');
+const ip_block_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/ip-block/ip-block-search.js');
 
 
 //@
@@ -17,8 +19,27 @@ async  function controllers_store_app(req, res, next) {
 	//return res.send(['asdasdasd']);
 	
 	try {
-		var token = req.headers['token'];	
+		var token = req.headers['token'];
 		var datas = req.body;
+		
+		var ip = "";
+		if(datas.ip){
+			ip = datas.ip;
+		}
+		
+		var link = "";
+		if(datas.link){
+			link = datas.link;
+		}		
+		
+		if(ip == "" || link == ""){
+			return res.send({ 
+				"error" : "1", 
+				"position" : "api/app/v5/ctroller/tracking/controllers-tracking-app",
+				"message": "Vui lòng nhập data ip và link" 
+			}); 			
+		}
+		
 	}
 	catch(error){
 		var evn = config_api.evn;
@@ -29,27 +50,28 @@ async  function controllers_store_app(req, res, next) {
 				"Lỗi get data store, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
-			"error" : "1", 
+			"error" : "2", 
 			"position" : "api/app/v5/ctroller/trackings//controllers-tracking-app",
 			"message": error_send 
-		}); 
-			
+		}); 			
 	}
-
-	return res.send([datas]);
-
-	//@ lấy req data
+	//return res.send([info]);
+	
+	
+	
+	
+	//@
+	//@
+	//@	
+	//@ check ip block
 	try {
+		//@ get datas
 		//@ 3. get model
-		let data_get =    
+		let data_ip_block =    
 		{
 		   "select_field" :
 			[
-				"stores_ID",
-				"stores_name",
-				"stores_logo_image",
-				"stores_date_created",
-				"stores_sort_order"
+				"ip_block_ip"				
 			],
 			"condition" :
 			[
@@ -58,29 +80,72 @@ async  function controllers_store_app(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"stores_status_admin",
-						"value"     : "1",
+						"field"     :"ip_block_ip",
+						"value"     : ip,
 						"compare" : "="
-					}	
-					] 				
+					}
+					]    
 				}         
-			],
-			"order" :
-			 [		 
-				{    
-					"field"  :"stores_sort_order",
-					"compare" : "ASC"
-				}			
-			]    
+			]  
+		}		
+		var ip_block_search_result = await ip_block_search(data_ip_block,res);
+		//return res.send(ip_block_search_result);
+		
+		
+		
+		if(ip_block_search_result.error){
+			return res.send({ 
+				"error" : "3", 
+				"position" : "api/app/v5/ctroller/trackings/controllers-tracking-app",
+				"message": ip_block_search_result.message
+			}); 			
 		}
+		if(ip_block_search_result.length > 0){
+			return res.send({ 
+				"error" : "4", 
+				"position" : "api/app/v5/ctroller/trackings/controllers-tracking-app",
+				"message": "ip đã bị block, vui lòng liên hệ admin dala"
+			}); 			
+		}
+	}
+	catch(error){
+		var evn = config_api.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get data store, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "5", 
+			"position" : "api/app/v5/ctroller/trackings//controllers-tracking-app",
+			"message": error_send 
+		}); 
+			
+	}			
 	
+	
+	
+	
+	
+	//@
+	//@
+	//@	
+	//@ update traffic app
+	try {
 		//@ get datas
-		var data_store = await store_search(data_get,res);
+		var traffic_update_app_result = await traffic_update_app(res);
+		
+		var data_tracking_insert = {
+			"ip_tracking_ip": ip
+		}
+		var ip_tracking_insert_result = await ip_tracking_insert(data_tracking_insert,res);
+		
 
 	}
 	catch(error){
 		var evn = config_api.evn;
-		////evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -92,16 +157,10 @@ async  function controllers_store_app(req, res, next) {
 			"message": error_send 
 		}); 
 			
-	}		
+	}				
+
+	return res.send({"error":"","datas":"ok"}); 
 		
-
-
-
-
-
-	return res.send({"error":"","datas":data_store}); 
-	
-	
 }
 
 module.exports = controllers_store_app;

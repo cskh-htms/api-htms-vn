@@ -5,4 +5,4 @@ ON COMPLETION NOT PRESERVE DISABLE ON SLAVE
 COMMENT 'delete user tracking data' 
 DO DELETE FROM dala_users_tracking      
 WHERE
-    CURRENT_TIMESTAMP() - UNIX_TIMESTAMP(dala_users_tracking_created)  > 30 * 60;
+    CURRENT_TIMESTAMP() - UNIX_TIMESTAMP(dala_users_tracking_created)  > 5 * 60;
