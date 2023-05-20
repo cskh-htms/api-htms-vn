@@ -5,12 +5,9 @@ const config_api = require('../../configs/config');
 
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
-const fields_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-fields-insert');
-const check_role = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/check-role');
-
-
 const ip_tracking_insert = require('../../../../lib/' + config_api.API_LIB_VERSION + '/ip-tracking/ip-tracking-insert.js');
 const ip_block_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/ip-block/ip-block-search.js');
+const ip_black_list_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/ip-black-list/ip-black-list-search.js');
 
 
 //@
@@ -35,7 +32,7 @@ async  function controllers_store_app(req, res, next) {
 		if(ip == "" || link == ""){
 			return res.send({ 
 				"error" : "1", 
-				"position" : "api/app/v5/ctroller/tracking/controllers-tracking-app",
+				"position" : "api/app/v5/ctroller/tracking/controllers-tracking-appdalacom",
 				"message": "Vui lòng nhập data ip và link" 
 			}); 			
 		}
@@ -43,7 +40,7 @@ async  function controllers_store_app(req, res, next) {
 	}
 	catch(error){
 		var evn = config_api.evn;
-		////evn = "dev";
+		//evn = "dev";
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
@@ -51,13 +48,90 @@ async  function controllers_store_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "2", 
-			"position" : "api/app/v5/ctroller/trackings/controllers-tracking-appdalacom",
+			"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacomdalacom",
 			"message": error_send 
 		}); 			
 	}
 	//return res.send([info]);
 	
 	
+
+
+
+
+	//@
+	//@
+	//@	
+	//@ check ip black list
+	try {
+		//@ get datas
+		//@ 3. get model
+		let data_ip_black_list =    
+		{
+		   "select_field" :
+			[
+				"count(ip_black_list_ip)"				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"ip_black_list_ip",
+						"value"     : ip,
+						"compare" : "="
+					}
+					]    
+				}         
+			]  
+		}		
+		var ip_black_list_search_result = await ip_black_list_search(data_ip_black_list,res);
+		//return res.send(ip_block_search_result);
+		
+		
+		
+		if(ip_black_list_search_result.error){
+			return res.send({ 
+				"error" : "33", 
+				"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacom",
+				"message": ip_black_list_search_result.message
+			}); 			
+		}
+		if(ip_black_list_search_result.length > 0){
+			if(ip_black_list_search_result[0].count_ip_black_list_ip > 5){
+				return res.send({ 
+					"error" : "44", 
+					"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacom",
+					"message": "ip đã bị block vì nằm trong danh sách black list, vui lòng liên hệ admin dala"
+				});
+			} 			
+		}else{
+			return res.send({ 
+				"error" : "55", 
+				"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacom",
+				"message": "Lỗi check ip black list, vui lòng liên hệ admin dala"
+			}); 			
+		}
+	}
+	catch(error){
+		var evn = config_api.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get data store, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "5", 
+			"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacomdalacom",
+			"message": error_send 
+		}); 
+			
+	}	
+
+
 	
 	
 	//@
@@ -96,14 +170,14 @@ async  function controllers_store_app(req, res, next) {
 		if(ip_block_search_result.error){
 			return res.send({ 
 				"error" : "3", 
-				"position" : "api/app/v5/ctroller/trackings/controllers-tracking-app",
+				"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacom",
 				"message": ip_block_search_result.message
 			}); 			
 		}
 		if(ip_block_search_result.length > 0){
 			return res.send({ 
 				"error" : "4", 
-				"position" : "api/app/v5/ctroller/trackings/controllers-tracking-app",
+				"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacom",
 				"message": "ip đã bị block, vui lòng liên hệ admin dala"
 			}); 			
 		}
@@ -118,7 +192,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "5", 
-			"position" : "api/app/v5/ctroller/trackings/controllers-tracking-appdalacom",
+			"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacomdalacom",
 			"message": error_send 
 		}); 
 			
@@ -137,7 +211,7 @@ async  function controllers_store_app(req, res, next) {
 		var data_tracking_insert = {
 			"ip_tracking_ip": ip
 		}
-		var ip_tracking_insert_result = await ip_tracking_insert(data_tracking_insert,res);
+		var ip_tracking_insert_result = ip_tracking_insert(data_tracking_insert,res);
 		
 
 	}
@@ -151,7 +225,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		return res.send ({ 
 			"error" : "3", 
-			"position" : "api/app/v5/ctroller/trackings/controllers-tracking-appdalacom",
+			"position" : "api/appdalacom/v5/ctroller/trackings/controllers-tracking-appdalacomdalacom",
 			"message": error_send 
 		}); 
 			

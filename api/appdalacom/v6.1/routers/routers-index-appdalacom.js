@@ -35,7 +35,7 @@ router.use('/uploads', require('./uploads/routers-upload.js'));
 router.use('/users-tracking', require('./users-tracking/routers-user-tracking.js'));
 
 router.use('/trackings', require('./trackings/routers-tracking-appdalacom'));
-
+router.use('/traffics', require('./traffics/routers-traffic-appdalacom'));
 
 
 

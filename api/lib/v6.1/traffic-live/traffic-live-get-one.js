@@ -17,7 +17,7 @@ const config_api = require('../configs/config');
 //@ model
 const connection = require('../connections/connections');
 const shares_all_api = require('../../../shares/' + config_api.API_SHARES_VERSION + '/shares-all-api');
-const fields_get = require('./store-fields-get');
+const fields_get = require('./traffic-live-fields-get.js');
 const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors.js');
 
 
@@ -35,7 +35,7 @@ const function_export = function (id,res) {
 			fields_get.fields_search + 
 			fields_get.from_default + 
 			fields_get.link_default + 
-			"where " + config_api.PREFIX + "stores_ID =" + id;  
+			"where " + config_api.PREFIX + "traffic_live_ID =" + id;  
 	}
 	catch(error){
 		var evn = config_api.evn;
@@ -43,11 +43,11 @@ const function_export = function (id,res) {
 		var error_send = ojs_shares_show_errors.show_error( 
 				evn, 
 				error, 
-				"Lỗi lib->stores->get one, Vui lòng liên hệ admin" 
+				"Lỗi lib->traffic_live->get one, Vui lòng liên hệ admin" 
 			);
 		return res.send({ 
 			"error" : "1",
-			"position" : "lib->stores->get one", 
+			"position" : "lib->traffic_live->get one", 
 			"message": error_send 
 			}); 
 			
@@ -67,7 +67,7 @@ const function_export = function (id,res) {
 						);
 					return res.send({ 
 						"error" : "2",
-						"position" : "lib/stores/get-one", 
+						"position" : "lib->traffic_live->get one", 
 						"message": error_send 
 					}); 
 					
@@ -86,7 +86,7 @@ const function_export = function (id,res) {
 			);
 		return res.send({ 
 			"error" : "3",
-			"position" : "lib/stores/get-one", 
+			"position" : "lib->traffic_live->get one", 
 			"message": error_send 
 		}); 
 		

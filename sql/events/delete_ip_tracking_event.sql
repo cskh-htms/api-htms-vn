@@ -1,8 +1,6 @@
-DROP EVENT IF EXISTS delete_ip_block_event;
-CREATE  EVENT delete_ip_block_event 
-ON SCHEDULE EVERY 5 MINUTE STARTS '2023-03-29 19:10:24' 
+DROP EVENT IF EXISTS delete_ip_tracking_event;
+CREATE  EVENT delete_ip_tracking_event 
+ON SCHEDULE EVERY 2 MINUTE STARTS '2023-03-29 19:10:24' 
 ON COMPLETION NOT PRESERVE DISABLE ON SLAVE 
-COMMENT 'delete ip block data' 
-DO DELETE FROM dala_ip_block 
-WHERE
-    CURRENT_TIMESTAMP() - UNIX_TIMESTAMP(dala_ip_block_created)  > 15 * 60;
+COMMENT 'delete ip tracking data' 
+DO TRUNCATE TABLE dala_ip_tracking;
