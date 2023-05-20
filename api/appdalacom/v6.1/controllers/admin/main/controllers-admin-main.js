@@ -518,7 +518,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 1,
 						"compare" : "="
 					}					
@@ -552,7 +552,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 1,
 						"compare" : "="
 					},    
@@ -593,7 +593,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 2,
 						"compare" : "="
 					}					
@@ -627,7 +627,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 2,
 						"compare" : "="
 					},    
@@ -671,7 +671,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 3,
 						"compare" : "="
 					}					
@@ -705,7 +705,7 @@ async  function function_export(req, res, next) {
 				"where" :
 					[
 					{   
-						"field"     :"orders_speciality_service",
+						"field"     :"orders_speciality_master_service",
 						"value"     : 3,
 						"compare" : "="
 					},    

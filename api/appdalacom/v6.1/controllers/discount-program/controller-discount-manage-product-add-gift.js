@@ -23,7 +23,7 @@ const get_data_count_bussiness = require('../../shares/get-data-count-bussiness-
 
 
 const store_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/stores/store-search');
-const product_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount.js');
+const product_search_by_discount = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search-by-discount.js');
 const discount_search = require('../../../../lib/' + config_api.API_LIB_VERSION + '/discounts/discount-search.js');
 const product_search_gift = require('../../../../lib/' + config_api.API_LIB_VERSION + '/products/product-search.js');
 const product_search_gift_in = 
@@ -324,6 +324,11 @@ async  function function_export(req, res, next) {
 								"field"     :"products_speciality_type",
 								"value"     : [0,1],
 								"compare" 	: 'in'
+							},
+							{   
+								"field"     :"discount_program_product_link_product_speciality_id",
+								"value"     : "",
+								"compare" 	: "null"
 							}									
 						]    
 					}
@@ -338,7 +343,7 @@ async  function function_export(req, res, next) {
 			}
 		
 		var fn_get_discount_program_product = new Promise((resolve, reject) => {
-			let result = product_search(data_discount_program_product,res);
+			let result = product_search_by_discount(data_discount_program_product,res);
 			resolve(result);
 		});	
 		promise_all.push(fn_get_discount_program_product);	
@@ -466,7 +471,90 @@ async  function function_export(req, res, next) {
 		
 		
 
+	
+		//@
+		//@
+		//@ 4. discount program product_ok
+		var data_discount_program_product_ok =    
+			{
+				"select_field" :
+				[
+				"products_speciality_ID",
+				"discount_program_product_link_ID",
+				"products_speciality_featured_image",
+				"products_speciality_name",
+				"products_speciality_price",
+				"products_speciality_price_caution",
+				"products_speciality_sale_of_price",
+				"products_speciality_sale_of_price_time_check",
+				"products_speciality_stock_status",
+				"products_speciality_stock",
+				"products_speciality_sku",
+				"products_speciality_type",	
+				"products_speciality_status_store",
+				"products_speciality_status_admin",	
+				"products_speciality_sort_by_percen",				
+				"stores_name",
+				"stores_ID",
+				"discount_program_product_link_status",
+				"discount_program_product_link_discount_program_id",
+				"check_expired"
+				],
+				"condition" :
+				[				
+					{    
+						"relation": "and",
+						"where" :
+						[  							
+							{   
+								"field"     :"stores_ID",
+								"value"     : store_id,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"products_speciality_status_admin",
+								"value"     : 1,
+								"compare" 	: '='
+							},
+							{   
+								"field"     :"products_speciality_type",
+								"value"     : [0,1],
+								"compare" 	: 'in'
+							},
+							{   
+								"field"     :"discount_program_product_link_product_speciality_id",
+								"value"     : "",
+								"compare" 	: "not null"
+							}
+						]    
+					}
+				],
+				"order" :
+				 [		 
+					{    
+						"field"  :"discount_program_product_link_date_created",
+						"compare" : "DESC"
+					}			
+				]			
+			}
 		
+		var fn_get_discount_program_product_ok = new Promise((resolve, reject) => {
+			let discount_program_product_ok_result = 
+				product_search_by_discount(data_discount_program_product_ok,res);
+			resolve(discount_program_product_ok_result);
+		});	
+		promise_all.push(fn_get_discount_program_product_ok);		
+
+
+
+
+
+
+
+
+
+
+	
 	
 		
 		
@@ -502,7 +590,8 @@ async  function function_export(req, res, next) {
 		"3":"data_store_taget",
 		"4":"discount taget",
 		"5":"product_list",
-		"6":"product_list gift",		
+		"6":"product_list gift",	
+		"7":"product_list_okt",		
 	}
 
 	promise_result.push(notes);

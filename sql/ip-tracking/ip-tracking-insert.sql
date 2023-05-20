@@ -19,7 +19,7 @@ BEGIN
 		where dala_ip_tracking_ip = NEW.dala_ip_tracking_ip 
 		and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(dala_ip_tracking_created) < 1 * 30
 						);	
-	IF( @check_ip > 30 ) THEN 
+	IF( @check_ip > 100 ) THEN 
 		set @ip = NEW.dala_ip_tracking_ip; 
 		insert into dala_ip_block (dala_ip_block_ip) values(@ip);
 		insert into dala_ip_black_list (dala_ip_black_list_ip) values(@ip);
