@@ -12,9 +12,9 @@ const traffic_live_insert =
 	require('../../../../lib/' + 
 	config_api.API_LIB_VERSION + '/traffic-live/traffic-live-insert.js');
 
-const traffic_update_app = 
+const traffic_update_web = 
 	require('../../../../lib/' + 
-	config_api.API_LIB_VERSION + '/traffic/traffic-update-app.js');
+	config_api.API_LIB_VERSION + '/traffic/traffic-update-web.js');
 
 
 //@
@@ -37,7 +37,7 @@ async  function controllers_store_app(req, res, next) {
 		if(ip == "" || link == ""){
 			return res.send({ 
 				"error" : "1", 
-				"position" : "api/app/v5/ctroller/traffic/controllers-traffic-app",
+				"position" : "api/web/v5/ctroller/traffic/controllers-traffic-web",
 				"message": "Vui lòng nhập data ip và link" 
 			}); 			
 		}
@@ -59,7 +59,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "2", 
-			"position" : "api/app/v5/ctroller/traffic/controllers-traffic-app",
+			"position" : "api/web/v5/ctroller/traffic/controllers-traffic-web",
 			"message": error_send 
 		}); 			
 	}
@@ -81,7 +81,7 @@ async  function controllers_store_app(req, res, next) {
 			"traffic_live_service" : 0
 		}		
 		var traffic_live_insert_result =  await traffic_live_insert(data_traffic_live,res);
-		var traffic_update_app_result =  await traffic_update_app(res);
+		var traffic_update_web_result =  await traffic_update_web(res);
 	}
 	catch(error){
 		var evn = config_api.evn;
@@ -93,7 +93,7 @@ async  function controllers_store_app(req, res, next) {
 			);
 		return res.send({ 
 			"error" : "5", 
-			"position" : "api/app/v5/ctroller/traffic/controllers-traffic-app",
+			"position" : "api/web/v5/ctroller/traffic/controllers-traffic-web",
 			"message": error_send 
 		}); 
 			
@@ -103,7 +103,7 @@ async  function controllers_store_app(req, res, next) {
 	
 			
 
-	return res.send({"error":"","datas": [traffic_live_insert_result,traffic_update_app_result]}); 
+	return res.send({"error":"","datas":[traffic_live_insert_result,traffic_update_web_result]}); 
 		
 }
 
