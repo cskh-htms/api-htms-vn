@@ -39,13 +39,14 @@ BEGIN
 		
 	-- 
 	-- @ kiem tra so dien thoai co dung chuan chua
-	IF(  NEW.dala_adress_meta_phone REGEXP '^[0-9]{9,11}*$' ) THEN 	
-		SIGNAL SQLSTATE '01000'; 
-	ELSE  
-		SIGNAL SQLSTATE '11103' 
-		SET MESSAGE_TEXT = 'trig_adress_meta_before_insert_phone_data_type'; 	
-	END IF;
-		
+	IF(LENGTH(NEW.dala_adress_meta_phone ) > 0 ) THEN 
+		IF(  NEW.dala_adress_meta_phone REGEXP '^[0-9]{9,11}*$' ) THEN 	
+			SIGNAL SQLSTATE '01000'; 
+		ELSE  
+			SIGNAL SQLSTATE '11103' 
+			SET MESSAGE_TEXT = 'trig_adress_meta_before_insert_phone_data_type'; 	
+		END IF;
+	END IF;	
 		
 		
 		

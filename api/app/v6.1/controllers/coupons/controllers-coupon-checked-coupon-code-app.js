@@ -84,7 +84,42 @@ async  function function_export(req, res, next) {
 	//
 
 
+	//@
+	//@
+	//@ kiểm tra data đầu vào
+	for (x in datas){
+		for (y in datas[x].line_order){
+			if(!datas[x].line_order[y].orders_details_speciality_line_order){
+				return res.send({ 
+					"error" : "20230222202253",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Chưa có Fields [orders_details_speciality_line_order]" 
+				}); 				
+			}
+			if(!datas[x].line_order[y].orders_details_speciality_product_id){
+				return res.send({ 
+					"error" : "20230222202253",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Chưa có Fields [orders_details_speciality_product_id]" 
+				}); 				
+			}		
 
+			if(!datas[x].line_order[y].orders_details_speciality_qty){
+				return res.send({ 
+					"error" : "20230222202253",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Chưa có Fields [orders_details_speciality_qty]" 
+				}); 				
+			}
+			if(!datas[x].line_order[y].orders_details_speciality_price){
+				return res.send({ 
+					"error" : "20230222202253",
+					"position" : "api/app/v5/coupons/checked-coupon-code",
+					"message": "Chưa có Fields [orders_details_speciality_price] giá sản phẩm là bắt buộc nhập" 
+				}); 				
+			}			
+		}
+	}
 
 
 	//@
