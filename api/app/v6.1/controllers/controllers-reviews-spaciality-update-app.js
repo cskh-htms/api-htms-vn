@@ -29,7 +29,7 @@ async  function update_reviews_spaciality_app(req, res, next) {
 		var datas = req.body;
 		var token = req.headers['token'];
 		var review_id = req.params.review_id
-		//return res.send([all_files,datas,review_id,token]);
+		//return res.send(["sdfsdfsdf"]);
 		//
 	}
 	catch(error){
