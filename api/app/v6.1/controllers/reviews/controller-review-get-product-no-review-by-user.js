@@ -112,7 +112,7 @@ async  function function_export(req, res, next) {
 	var condition_data = [];
 	condition_data.push(	
 	{   
-		"field"     :"orders_speciality_user_id",
+		"field"     :"orders_speciality_master_user_id",
 		"value"     : user_id,
 		"compare" : "="
 	})

@@ -67,8 +67,11 @@ BEGIN
 		select dala_orders_details_speciality_ID   
 		from dala_orders_details_speciality  
 		LEFT JOIN dala_orders_speciality  
-		ON dala_orders_details_speciality_order_id  = dala_orders_speciality_ID  
-		where dala_orders_speciality_user_id  =  NEW.dala_reviews_speciality_user_id 
+			ON dala_orders_details_speciality_order_id  = dala_orders_speciality_ID  
+		LEFT JOIN dala_orders_speciality_master 
+			ON dala_orders_speciality_orders_speciality_master_id  
+				= dala_orders_speciality_master_ID   		
+		where dala_orders_speciality_master_user_id  =  NEW.dala_reviews_speciality_user_id 
 		and  dala_orders_details_speciality_product_id =  NEW.dala_reviews_speciality_product_id 
 		and  dala_orders_speciality_status_orders in (100,5,45)  
 			limit 1 
