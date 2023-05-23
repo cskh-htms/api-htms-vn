@@ -98,9 +98,6 @@ async  function controllers_store_app(req, res, next) {
 		}); 
 			
 	}			
-	
-	
-	
 			
 
 	return res.send({"error":"","datas": [traffic_live_insert_result,traffic_update_app_result]}); 
