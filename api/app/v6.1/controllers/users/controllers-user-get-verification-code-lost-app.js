@@ -103,6 +103,13 @@ async  function function_export(req, res, next) {
 			//@ nếu có datas
 			if(results.length > 0){
 				
+				if(results[0].users_status == 5){
+					return res.send({ 
+					"error" : "33", 
+					"position":"api/app/v5/ctronller/controllers-user-verification-code-lost-app", 
+					"message": "Tài khoản đang bị lock tin nhắn, vui lòng liên hệ CSKH DALA"  } ); 
+										
+				}					
 				//@
 				//@
 

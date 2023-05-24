@@ -121,7 +121,7 @@ async  function function_export(req, res, next) {
 			//@
 			//@
 			if(check_lock.length > 0){
-				if(check_lock[0].users_status == 1){
+				if(check_lock[0].users_status == 5){
 					return res.send({ 
 					"error" : "3", 
 					"position":"ctl-users->get_verification_code", 

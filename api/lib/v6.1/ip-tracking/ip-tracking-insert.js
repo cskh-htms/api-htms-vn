@@ -25,7 +25,8 @@ const function_export = function (data,res) {
 			
 		var sql_text = "INSERT INTO " + config_api.PREFIX + "ip_tracking  SET ?";
 		var dataGo = {
-			"ip_tracking_ip"				: mysql.escape(datas.ip_tracking_ip).replace(/^'|'$/gi, "")	
+			"ip_tracking_ip"				: mysql.escape(datas.ip_tracking_ip).replace(/^'|'$/gi, ""),
+			"ip_tracking_user_id"			: datas.ip_tracking_ip		
 		}
 	}
 	catch(error){

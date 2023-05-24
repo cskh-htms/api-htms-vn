@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const config_api = require('../../configs/config');
-
+const jwt = require('jsonwebtoken');
 
 
 const ojs_shares_show_errors = require('../../../../shares/' + config_api.API_SHARES_VERSION + '/ojs-shares-show-errors');
@@ -18,6 +18,10 @@ async  function controllers_store_app(req, res, next) {
 	try {
 		var token = req.headers['token'];
 		var datas = req.body;
+		
+		//return res.send([token]);
+		
+		
 		
 		var ip = "";
 		if(datas.ip){
@@ -36,6 +40,15 @@ async  function controllers_store_app(req, res, next) {
 				"message": "Vui lòng nhập data ip và link" 
 			}); 			
 		}
+
+		var newPayload = jwt.decode(token);
+		//return res.send([newPayload]);
+		user_id = 0;
+		if(newPayload != null){
+			user_id = newPayload.users_ID;
+		}
+		//return res.send([user_id]);	
+
 		
 	}
 	catch(error){
@@ -52,7 +65,7 @@ async  function controllers_store_app(req, res, next) {
 			"message": error_send 
 		}); 			
 	}
-	//return res.send([info]);
+	//return res.send([datas]);
 	
 	
 
@@ -88,7 +101,7 @@ async  function controllers_store_app(req, res, next) {
 			]  
 		}		
 		var ip_black_list_search_result = await ip_black_list_search(data_ip_black_list,res);
-		//return res.send(ip_block_search_result);
+		//return res.send(ip_black_list_search_result);
 		
 		
 		
@@ -209,7 +222,8 @@ async  function controllers_store_app(req, res, next) {
 	try {
 		//@ get datas		
 		var data_tracking_insert = {
-			"ip_tracking_ip": ip
+			"ip_tracking_ip": ip,
+			"ip_tracking_user_id" : user_id
 		}
 		var ip_tracking_insert_result = ip_tracking_insert(data_tracking_insert,res);
 		

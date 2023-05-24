@@ -2,7 +2,8 @@
 
 //@
 const  default_fields = {
-		"ip_block_ip"		: ""
+		"ip_block_ip"		: "",
+		"ip_block_user_id"	: 0
 }
 
 //@

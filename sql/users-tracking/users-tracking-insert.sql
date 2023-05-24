@@ -80,7 +80,7 @@ BEGIN
 		) THEN  
 		
 
-		UPDATE dala_users set dala_users_status = '1' where  dala_users_ID = NEW.dala_users_tracking_user_id ;
+		UPDATE dala_users set dala_users_status = '5' where  dala_users_ID = NEW.dala_users_tracking_user_id ;
 		
 		SIGNAL SQLSTATE '01000' 
 		SET MESSAGE_TEXT = 'ok'; 

@@ -6,6 +6,7 @@ const config_api = require('../configs/config');
 //@
 const fields_search = 	"" + 
 	config_api.PREFIX  + "ip_tracking_ID as ip_tracking_ID, " + 
+	config_api.PREFIX  + "ip_tracking_user_id as ip_tracking_user_id, " + 
 	"DATE_FORMAT(" + config_api.PREFIX  + "ip_tracking_created,'%Y/%m/%d %H:%i:%s') as ip_tracking_created, " +	
 	
 	config_api.PREFIX  + "ip_tracking_ip as ip_tracking_ip ";

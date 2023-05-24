@@ -2,7 +2,8 @@
 
 //@
 const  default_fields = {
-		"ip_tracking_ip"		: ""
+		"ip_tracking_ip"		: "",
+		"ip_tracking_user_id"	: 0
 }
 
 //@

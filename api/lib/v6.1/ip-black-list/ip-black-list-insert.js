@@ -25,7 +25,8 @@ const function_export = function (data,res) {
 			
 		var sql_text = "INSERT INTO " + config_api.PREFIX + "ip_black_list  SET ?";
 		var dataGo = {
-			"ip_black_list_ip"				: mysql.escape(datas.ip_black_list_ip).replace(/^'|'$/gi, "")	
+			"ip_black_list_ip"				: mysql.escape(datas.ip_black_list_ip).replace(/^'|'$/gi, ""),
+			"ip_black_list_user_id"			: datas.ip_black_list_user_id)		
 		}
 	}
 	catch(error){

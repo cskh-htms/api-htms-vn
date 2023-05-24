@@ -46,7 +46,7 @@ async  function controllers_store_app(req, res, next) {
 		if(newPayload != null){
 			user_id = newPayload.users_ID;
 		}
-		//return res.send([user_id]);
+		//return res.send(["sdfsdf"]);
 	}
 	catch(error){
 		var evn = config_api.evn;

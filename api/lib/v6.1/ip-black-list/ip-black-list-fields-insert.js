@@ -2,7 +2,8 @@
 
 //@
 const  default_fields = {
-		"ip_black_list_ip"		: ""
+		"ip_black_list_ip"		: "",
+		"ip_black_list_user_id"		: 0
 }
 
 //@

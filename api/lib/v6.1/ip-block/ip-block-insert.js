@@ -25,7 +25,8 @@ const function_export = function (data,res) {
 			
 		var sql_text = "INSERT INTO " + config_api.PREFIX + "ip_block  SET ?";
 		var dataGo = {
-			"ip_block_ip"				: mysql.escape(datas.ip_block_ip).replace(/^'|'$/gi, "")	
+			"ip_block_ip"				: mysql.escape(datas.ip_block_ip).replace(/^'|'$/gi, ""),
+			"ip_block_user_id"			: datas.ip_block_user_id)			
 		}
 	}
 	catch(error){
