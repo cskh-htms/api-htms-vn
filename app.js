@@ -91,10 +91,11 @@ app.use('/', require('./routes/index'));
 
 app.use('/api/app/v6.1/', require('./api/app/v6.1/routers/routers-index-app'));
 app.use('/api/web/v6.1/', require('./api/web/v6.1/routers/routers-index-web'));
-app.use('/api/appdalacom/v6.1/', 
-	require('./api/appdalacom/v6.1/routers/routers-index-appdalacom'));
+app.use('/api/admin/v6.1/', 
+	require('./api/admin/v6.1/routers/routers-index-admin'));
 
-
+app.use('/api/bussiness/v6.1/', 
+	require('./api/bussiness/v6.1/routers/routers-index-bussiness'));
 
 
 

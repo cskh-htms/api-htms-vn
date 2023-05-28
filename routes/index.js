@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-	res.render('index', { title : "DALA welcome !!" });
+	res.render('index', { title : "htms welcome !!" });
 });
 
 
