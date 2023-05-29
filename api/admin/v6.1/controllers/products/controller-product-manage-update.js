@@ -44,6 +44,7 @@ const ojs_shares_send_email = require('../../../../shares/' + config_api.API_SHA
 //@
 //@ function export
 async  function function_export(req, res, next) {
+	//return res.send(['dfsdfsdf']);
 	//@
 	//@
 	//@ any thing error

@@ -232,11 +232,11 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			connection.query( { sql: sql_text, timeout: 20000 }, ( err , results , fields ) => {
 				if( err ) {
 					var evn = config_api.evn;
-					////evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
-							"Lỗi product search, Vui lòng liên hệ admin" 
+							"Lỗi product update, Vui lòng liên hệ admin" 
 						);
 					return res.send({ 
 						"error" : "5",

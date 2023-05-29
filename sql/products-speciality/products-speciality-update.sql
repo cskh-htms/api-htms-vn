@@ -103,29 +103,6 @@ BEGIN
 
 
 
-
-	--
-	--
-	IF(LENGTH(NEW.dala_products_speciality_sku) > 0) THEN 
-		SET @sku_old = (select dala_products_speciality_sku   
-			from dala_products_speciality 
-			where dala_products_speciality_ID  = NEW.dala_products_speciality_ID 	
-		);
-		
-		IF (@sku_old is null or @sku_old = '' or @sku_old = 'null' or @sku_old = NEW.dala_products_speciality_sku ) THEN   
-			SIGNAL SQLSTATE '01000';
-		ELSE 
-			
-			SET @check_sku = (select dala_products_speciality_ID   
-				from dala_products_speciality 
-				where dala_products_speciality_sku  = NEW.dala_products_speciality_sku 	
-			);	
-			IF(@check_sku > 0 ) THEN
-				SIGNAL SQLSTATE '12319' 
-				SET MESSAGE_TEXT = 'trig_products_speciality_before_update_sku_double'; 		
-			END IF;
-		END IF;	
-	END IF;	
 	
 -- 
 -- 	
@@ -133,6 +110,53 @@ END $$
 DELIMITER ;
 -- @
 -- @
+
+
+
+-- @
+-- @
+DROP TRIGGER  IF EXISTS  trig_products_speciality_after_update;
+DELIMITER $$ 
+CREATE TRIGGER trig_products_speciality_after_update AFTER UPDATE ON dala_products_speciality 
+FOR EACH ROW  
+BEGIN  
+--
+--
+
+	--
+	--
+	SET @check_sku = (select count(dala_products_speciality_ID)   
+		from dala_products_speciality 
+		where dala_products_speciality_sku  = NEW.dala_products_speciality_sku 	
+	);	
+	IF(@check_sku > 1 ) THEN
+		SIGNAL SQLSTATE '12320' 
+		SET MESSAGE_TEXT = 'trig_products_speciality_after_update_sku_double'; 		
+	END IF;
+
+	
+-- 
+-- 	
+END $$
+DELIMITER ;
+-- @
+-- @
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 COMMIT ;
 
 
