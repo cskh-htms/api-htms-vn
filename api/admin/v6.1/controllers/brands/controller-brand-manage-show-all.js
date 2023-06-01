@@ -226,7 +226,12 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"brands_status_admin",
 						"value"     : 1,
 						"compare" : "="						
-					}
+					},
+					{   
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					}					
 					]    
 				}         
 			]

@@ -34,6 +34,11 @@ const product_search = require('../../lib/' +
 	config_api.API_LIB_VERSION + 
 	'/products/product-search.js');
 
+//@
+const option_variant_search = require('../../lib/' + 
+	config_api.API_LIB_VERSION + 
+	'/options-variant-link/option-variant-link-search.js');
+
 
 
 //@
@@ -136,6 +141,69 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 
 
 
+	//@ 3. get variant option
+	try{
+		let data_get_variant =    
+		{
+		   "select_field" :
+			[
+				"options_variant_link_ID",
+				"options_variant_link_product_id",
+				"options_variant_link_option_arr",
+				"options_variant_link_option_name",	
+				"options_variant_link_price",	
+				"options_variant_link_sale_of_price",
+				"options_variant_link_stock",				
+			],
+			"condition" :
+			[
+				{    
+				"relation": "and",
+				"where" :
+					[
+					{   
+						"field"     :"options_variant_link_product_id",
+						"value"     : model_product_arr,
+						"compare" : "in"
+					}
+					]    
+				}         
+			]   
+		}
+		
+		//@ get datas
+		var data_variant = await option_variant_search(data_get_variant,res);
+		
+		for(x in data_variant){
+			var add_data = [];
+			var add_data_line = {};
+			for(y in data_variant){
+				if(data_product[x].products_speciality_ID == 
+				data_variant[y].options_variant_link_product_id){
+					add_data_line = data_variant[y];
+				}							
+			}
+			add_data.push(add_data_line);
+			data_product[x].variant_option = add_data;
+		}		
+		
+	
+	}
+	catch(error){
+		var evn = config_api.evn;
+		//evn = "dev";
+		var error_send = ojs_shares_show_errors.show_error( 
+				evn, 
+				error, 
+				"Lỗi get meta variant option, Vui lòng liên hệ admin" 
+			);
+		return res.send({ 
+			"error" : "1001",
+			"position" : "api/shares/get meta product", 
+			"message": error_send 
+			}); 
+			
+	}	
 
 
 

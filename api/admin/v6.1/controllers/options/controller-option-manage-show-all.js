@@ -232,7 +232,12 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"options_product_speciality_status_admin",
 						"value"     : 1,
 						"compare" : "="						
-					}
+					},
+					{
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					}					
 					]    
 				}         
 			]

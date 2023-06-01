@@ -121,21 +121,29 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 	try{
 		if(option_string && option_arr.length > 0){	
 			var sql_option_all = "";
-			var table_name_option  = config_api.PREFIX + "options_product_speciality_link ";
-			var field_where_option  = config_api.PREFIX + "options_product_speciality_link_product_id ";	
+			var table_name_option  = config_api.PREFIX + "options_variant_link ";
+			var field_where_option  = config_api.PREFIX + "options_variant_link_product_id ";	
 			var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
 		
 			for(let i = 0; i < option_arr.length; i ++){
 				
 				///ex
-				sql_option = "INSERT INTO " + config_api.PREFIX + "options_product_speciality_link  ";
+				sql_option = "INSERT INTO " + config_api.PREFIX + "options_variant_link  ";
 				sql_option = sql_option + "(" +
-								config_api.PREFIX + "options_product_speciality_link_product_id" + "," + 
-								config_api.PREFIX + "options_product_speciality_link_option_id" + 
+								config_api.PREFIX + "options_variant_link_product_id" + "," + 
+								config_api.PREFIX + "options_variant_link_option_arr" + "," +
+								config_api.PREFIX + "options_variant_link_option_name" + "," +
+								config_api.PREFIX + "options_variant_link_price" + "," +
+								config_api.PREFIX + "options_variant_link_sale_of_price" + "," +
+								config_api.PREFIX + "options_variant_link_stock" + 
 							") " + 
 							"values(" + 
-							product_id + ", " + 
-							option_arr[i] + 
+							option_arr[i].product_id + ", '" + 
+							option_arr[i].option_id + "', '" + 
+							option_arr[i].option_name + "', " + 
+							option_arr[i].option_price + ", " + 
+							option_arr[i].option_sale_of_price + ", " + 
+							option_arr[i].option_stock + 
 							") ; ";		
 				sql_option_all	= sql_option_all + 	sql_option		
 			}//end of for option_arr	
@@ -145,8 +153,8 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			sql_text = sql_text + sql_option_delete + sql_option_all;
 		}else{
 			var sql_option_all = "";
-			var table_name_option  = config_api.PREFIX + "options_product_speciality_link ";
-			var field_where_option  = config_api.PREFIX + "options_product_speciality_link_product_id ";	
+			var table_name_option  = config_api.PREFIX + "options_variant_link ";
+			var field_where_option  = config_api.PREFIX + "options_variant_link_product_id ";	
 			var sql_option_delete = 'DELETE FROM ' + table_name_option + ' where ' + field_where_option + ' = "'+ product_id + '" ; ';		
 			
 			//sql_text = sql_text + sql_option_delete + sql_option_all;

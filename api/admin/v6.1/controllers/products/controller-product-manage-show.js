@@ -260,7 +260,21 @@ async  function function_export(req, res, next) {
 					"brands_stores_id",
 					"stores_ID",
 					"users_ID"
-				]
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+							{   
+								"field"     :"brands_stores_id",
+								"value"     : store_id,
+								"compare" : "="
+							}  						
+						]    
+					}         
+				] 				
 			}
 			
 			var fn_get_brand_list = new Promise((resolve, reject) => {
@@ -304,7 +318,12 @@ async  function function_export(req, res, next) {
 								"field"     :"category_general_speciality_admin_status",
 								"value"     : 1,
 								"compare" : "="
-							}  						
+							},
+							{   
+								"field"     :"category_general_speciality_stores_id",
+								"value"     : process.env.store_main_id,
+								"compare" : "="
+							} 							
 						]    
 					}         
 				] 
@@ -388,7 +407,12 @@ async  function function_export(req, res, next) {
 								"field"     :"options_product_speciality_status_admin",
 								"value"     : 1,
 								"compare" : "="
-							}  						
+							},  
+							{   
+								"field"     :"options_product_speciality_stores_id",
+								"value"     : store_id,
+								"compare" : "="
+							}  							
 						]    
 					}         
 				]  
@@ -440,7 +464,52 @@ async  function function_export(req, res, next) {
 
 
 
-
+			//@
+			//@
+			//@
+			//@ category store list
+			let data_category_store_list =    
+			{
+			   "select_field" :
+				[
+					"category_general_speciality_ID",
+					"category_general_speciality_admin_status",
+					"category_general_speciality_category_parent_id",
+					"category_general_speciality_date_created",
+					"category_general_speciality_name",
+					"category_general_speciality_show",
+					"category_general_speciality_stores_id",
+					"category_general_speciality_stores_status",
+					"stores_ID",
+					"users_ID",
+					"category_general_speciality_update_status"
+				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+							{   
+								"field"     :"category_general_speciality_admin_status",
+								"value"     : 1,
+								"compare" : "="
+							},
+							{   
+								"field"     :"category_general_speciality_stores_id",
+								"value"     : store_id,
+								"compare" : "="
+							} 							
+						]    
+					}         
+				] 
+			}
+			
+			var fn_get_category_store_list = new Promise((resolve, reject) => {
+				let result = category_search(data_category_store_list,res);
+				resolve(result);
+			});	
+			promise_all.push(fn_get_category_store_list);
 
 
 

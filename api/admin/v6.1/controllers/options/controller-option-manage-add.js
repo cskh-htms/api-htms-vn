@@ -211,7 +211,12 @@ async  function function_export(req, res, next) {
 							"field"     :"options_product_speciality_status_admin",
 							"value"     : 1,
 							"compare" : "="						
-						}					
+						},
+						{
+							"field"     :"options_product_speciality_stores_id",
+							"value"     : store_id,
+							"compare" : "="						
+						}						
 						]    
 					}         
 				],

@@ -235,7 +235,12 @@ async  function store_order_get_all(req, res, next) {
 						"field"     :"category_general_speciality_admin_status",
 						"value"     : 1,
 						"compare" : "="						
-					}
+					},
+					{
+						"field"     :"stores_ID",
+						"value"     : store_id,
+						"compare" : "="
+					}					
 					]    
 				}         
 			]
