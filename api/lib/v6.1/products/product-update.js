@@ -22,6 +22,9 @@ const ojs_shares_show_errors = require('../../../shares/' + config_api.API_SHARE
 //@
 //@ function export
 const function_export = function (datas,product_id,cat_string, option_string,res) {
+	if(datas.products_speciality_sale_of_price == 0){
+		datas.products_speciality_sale_of_price = null;
+	}
 
 	//@
 	//@
@@ -50,6 +53,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			}); 
 			
 	}
+
 
 
 
@@ -112,8 +116,7 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 			"error" : "2",
 			"position" : "lib/products/product-update", 
 			"message": error_send 
-			}); 
-			
+			}); 			
 	}	
 
 
@@ -232,6 +235,9 @@ const function_export = function (datas,product_id,cat_string, option_string,res
 
 
 	sql_text = sql_text + " COMMIT;"
+
+
+	//return res.send([sql_text]);
 
 
 	//@ run

@@ -69,7 +69,7 @@ async  function function_export(req, res, next) {
 			var token = req.headers['token'];
 			var datas_insert = req.body;
 			var datas  = req.body.datas;
-			var cat_string  = req.body.cat_string;
+			datas_insert.cat_string  = "[" + process.env.category_main_id + "]";
 		}
 		catch(error){
 			var evn = config_api.evn;
@@ -86,8 +86,8 @@ async  function function_export(req, res, next) {
 			}); 
 				
 		}	
-		//return res.send([datas]);
-		//	
+		//return res.send([datas_insert]);
+			
 
 
 

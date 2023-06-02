@@ -48,7 +48,12 @@ BEGIN
 		where dala_comments_speciality_product_id = OLD.dala_products_speciality_ID;
 
 		DELETE FROM dala_reviews_speciality 
-		where dala_reviews_speciality_product_id = OLD.dala_products_speciality_ID;			
+		where dala_reviews_speciality_product_id = OLD.dala_products_speciality_ID;	
+
+		DELETE FROM dala_options_variant_link 
+		where dala_options_variant_link_product_id = OLD.dala_products_speciality_ID;	
+
+		
 	END IF;	
 
 

@@ -174,16 +174,14 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 		//@ get datas
 		var data_variant = await option_variant_search(data_get_variant,res);
 		
-		for(x in data_variant){
-			var add_data = [];
-			var add_data_line = {};
-			for(y in data_variant){
+		for(x in data_product){
+			var add_data = [];		
+			for(y in data_variant){				
 				if(data_product[x].products_speciality_ID == 
 				data_variant[y].options_variant_link_product_id){
-					add_data_line = data_variant[y];
+					add_data.push(data_variant[y]);
 				}							
 			}
-			add_data.push(add_data_line);
 			data_product[x].variant_option = add_data;
 		}		
 		
@@ -201,8 +199,7 @@ const get_meta_product = async function (data_product,model_product_arr,res) {
 			"error" : "1001",
 			"position" : "api/shares/get meta product", 
 			"message": error_send 
-			}); 
-			
+			}); 			
 	}	
 
 

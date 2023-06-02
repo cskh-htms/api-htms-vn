@@ -19,7 +19,13 @@ const function_export = function (data,res) {
 	var datao = data.datas;
 	var cat_string = JSON.parse(data.cat_string);
 	
+	//return res.send([cat_string]);
+	
+	
 	var datas = Object.assign(fields_insert.default_fields, datao);
+	
+	
+	
 	
 	
 	var sql_text = "";
@@ -117,7 +123,7 @@ const function_export = function (data,res) {
 				if( err ) {
 					var evn = config_api.evn;					
 					var error_massage = fields_insert.get_message_error(err);					
-					//evn = "dev";
+					evn = "dev";
 					var error_send = ojs_shares_show_errors.show_error( 
 							evn, 
 							err, 
