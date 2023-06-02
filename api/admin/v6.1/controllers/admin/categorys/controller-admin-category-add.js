@@ -174,7 +174,12 @@ async  function function_export(req, res, next) {
 							"field"     :"category_general_speciality_admin_status",
 							"value"     : 1,
 							"compare" : "="						
-						}
+						},
+						{
+							"field"     :"category_general_speciality_stores_id",
+							"value"     : process.env.store_main_id,
+							"compare" : "="						
+						}						
 						]    
 					}         
 				],
