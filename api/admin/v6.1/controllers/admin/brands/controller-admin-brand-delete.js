@@ -123,7 +123,7 @@ async  function function_export(req, res, next) {
 			}); 
 						
 		}
-		///return res.send([check_role_result]);
+		//return res.send([check_role_result]);
 		//
 		
 		
@@ -147,7 +147,7 @@ async  function function_export(req, res, next) {
 		//@
 		//@	
 		//@ send data result	
-		return res.send({"error":"", "datas": result });
+		return res.send({"error":"", "datas": result});
 			
 		
 		

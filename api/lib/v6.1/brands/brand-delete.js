@@ -35,9 +35,6 @@ const config_api = require('../configs/config');
 
 
 
-
-
-
 //@
 //@
 //@
@@ -62,15 +59,14 @@ const fields_insert = require('./brand-fields-insert.js');
 //@ function export
 const function_export = function (id,res) {
 	
-	//return id;
-	
-	var table_name  = config_database.PREFIX + "brands ";
-	var field_where  = config_database.PREFIX + "brands_ID ";
+
+	var table_name  = config_api.PREFIX + "brands ";
+	var field_where  = config_api.PREFIX + "brands_ID ";
 	//create sql text
 	var sql_text = 'DELETE FROM ' + table_name + ' where ' + field_where + ' = "'+ id + '"';
 	
 	
-	//return sql_text;
+	//return [sql_text];
 	
 	
 	//@

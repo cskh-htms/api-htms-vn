@@ -68,6 +68,7 @@ async  function function_export(req, res, next) {
 		try {
 			var token = req.headers['token'];
 			var datas  = req.body;
+			datas.cat_string  = "[" + process.env.category_main_id + "]";
 		}
 		catch(error){
 			var evn = config_api.evn;

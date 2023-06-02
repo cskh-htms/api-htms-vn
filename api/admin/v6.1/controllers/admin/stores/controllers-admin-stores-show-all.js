@@ -154,6 +154,20 @@ async  function function_export(req, res, next) {
 					"stores_status_admin",
 					"users_full_name"					
 				],
+				"condition" :
+				[
+					{    
+					"relation": "and",
+					"where" :
+						[
+							{   
+								"field"     :"stores_ID",
+								"value"     : process.env.store_main_id,
+								"compare" : "<>"
+							}  						
+						]    
+					}         
+				],				
 				"order" :
 				 [
 					{    
