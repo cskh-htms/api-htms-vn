@@ -92,6 +92,7 @@ const function_export = function (data,res) {
 	//@
 	//@
 	//update sku
+	/*
 	var ram = Math.random().toString(36).substring(11).toUpperCase();
 	var sql_sku = 	" " + 
 					" UPDATE " +  
@@ -103,7 +104,7 @@ const function_export = function (data,res) {
 
 
 	sql_text = sql_text + sql_sku ;	
-	
+	*/
 	
 	sql_text = sql_text + " COMMIT;"		
 	//return res.send([sql_text]);

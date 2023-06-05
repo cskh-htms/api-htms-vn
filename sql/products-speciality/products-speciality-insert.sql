@@ -16,6 +16,22 @@ BEGIN
 
 
 	--
+	--	tao sku		
+	set @sku = (SELECT LAST_INSERT_ID());	
+	set @sku_go = @sku + 1;
+	set @str_sku = (SELECT SUBSTR(MD5(@sku), 1, 3));
+	set @sku_ok = UPPER(CONCAT(@str_sku,'-',@sku_go)); 
+	-- SIGNAL SQLSTATE '12301' 
+	-- SET MESSAGE_TEXT = @sku_ok;   	
+	set NEW.dala_products_speciality_sku = @sku_ok;
+	
+	-- set @str_sku = SELECT SUBSTR(MD5(@sku), 1, 3);	
+	-- set @sku_ok = CONCAT(@str_sku,@sku); 
+	
+	-- set NEW.dala_products_speciality_sku = 	@sku_ok;
+
+
+	--
 	--
 	IF(NEW.dala_products_speciality_name  is null or NEW.dala_products_speciality_name = '') THEN 
 		SIGNAL SQLSTATE '12301' 
@@ -74,6 +90,8 @@ BEGIN
 		END IF;	
 	END IF;
 		
+		
+
 	
 	
 -- 
