@@ -102,15 +102,33 @@ BEGIN
 	--
 	-- check ton kho
 	-- kiem tra so luong ton con du de ban hay khong
-	IF(NEW.dala_orders_session_speciality_line_order = 'product' ) THEN 	
+	IF(NEW.dala_orders_session_speciality_line_order = 'product' ) THEN  
+	
+		-- lay trang thai quan ly ton
 		SET @check_stock_status = ( select  dala_products_speciality_stock_status 
-						 from dala_products_speciality    
-						 where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id 
-							);
-		SET @check_stock_number = ( select  dala_products_speciality_stock  
-						 from dala_products_speciality    
-						 where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id 
-							);							
+			from dala_products_speciality    
+			where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id);
+			
+		-- neu la san pham co bien the	
+		-- lấy so lượng tồn biến thể
+		if(length(NEW.dala_orders_session_speciality_medium_text) > 0) then 
+			SET @check_stock_number = ( select  dala_options_variant_link_stock   
+				 from dala_products_speciality 
+				 left join dala_options_variant_link 
+					on dala_products_speciality_ID = 
+						dala_options_variant_link_product_id 
+				 where dala_products_speciality_ID = 
+					NEW.dala_orders_session_speciality_product_id 
+				 and dala_options_variant_link_option_name = 
+					dala_orders_session_speciality_medium_text 
+				limit 1	);					 
+		else 
+			SET @check_stock_number = ( select  dala_products_speciality_stock  
+				 from dala_products_speciality    
+				 where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id );			
+		end if;
+		
+						
 		IF (
 			(@check_stock_status = 1 and  NEW.dala_orders_session_speciality_qty <= @check_stock_number) 
 			or (@check_stock_status = 0)
@@ -122,6 +140,133 @@ BEGIN
 			SET MESSAGE_TEXT = @m; 
 		END IF;		
 	END IF;		
+
+
+
+
+
+
+
+
+	--
+	-- check price
+	-- kiem tra giá sản phẩm có thay đổi chưa
+	IF(NEW.dala_orders_session_speciality_line_order = 'product' ) THEN  
+	
+		-- neu la san pham co bien the	
+		-- lấy giá
+		if(length(NEW.dala_orders_session_speciality_medium_text) > 0) then 
+			SET @price = ( select  
+			CASE 
+				WHEN  
+					dala_products_speciality_sale_of_price IS NULL 
+				THEN 
+					dala_options_variant_link_price 
+				WHEN   
+					dala_products_speciality_date_start IS NULL and 
+					dala_products_speciality_date_end IS NULL 
+				THEN 
+					dala_options_variant_link_sale_of_price  		
+				WHEN   
+					dala_products_speciality_date_start IS NOT NULL and 
+					dala_products_speciality_date_end IS NULL and " + 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP(" + dala_products_speciality_date_start ) > 0 
+				THEN  
+					dala_options_variant_link_sale_of_price  	
+				WHEN  
+					dala_products_speciality_date_start IS NULL and 
+					dala_products_speciality_date_end IS NOT NULL and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP( dala_products_speciality_date_end ) < 0 
+				THEN 
+					dala_options_variant_link_sale_of_price  																	
+				WHEN 
+					dala_products_speciality_date_start IS NOT NULL and 
+					dala_products_speciality_date_end IS NOT NULL and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0  and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP( dala_products_speciality_date_end ) < 0  								
+				THEN 
+					dala_options_variant_link_sale_of_price  
+				ELSE  
+					dala_options_variant_link_price 
+			END 
+			from dala_products_speciality 
+			left join dala_options_variant_link 
+				on dala_products_speciality_ID = 
+					dala_options_variant_link_product_id 
+			where dala_products_speciality_ID = 
+				NEW.dala_orders_session_speciality_product_id 
+			and dala_options_variant_link_option_name = 
+				dala_orders_session_speciality_medium_text 
+			limit 1	);	
+		else 
+			SET @price = ( select   
+			CASE 
+				WHEN  
+					dala_products_speciality_sale_of_price IS NULL 
+				THEN 
+					dala_products_speciality_price 
+				WHEN   
+					dala_products_speciality_date_start IS NULL and 
+					dala_products_speciality_date_end IS NULL 
+				THEN 
+					dala_products_speciality_sale_of_price 		
+				WHEN   
+					dala_products_speciality_date_start IS NOT NULL and 
+					dala_products_speciality_date_end IS NULL and " + 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP(" + dala_products_speciality_date_start ) > 0 
+				THEN  
+					dala_products_speciality_sale_of_price 	
+				WHEN  
+					dala_products_speciality_date_start IS NULL and 
+					dala_products_speciality_date_end IS NOT NULL and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP( dala_products_speciality_date_end ) < 0 
+				THEN 
+					dala_products_speciality_sale_of_price  																	
+				WHEN 
+					dala_products_speciality_date_start IS NOT NULL and 
+					dala_products_speciality_date_end IS NOT NULL and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP(dala_products_speciality_date_start ) > 0  and 
+					UNIX_TIMESTAMP(NOW()) - 
+					UNIX_TIMESTAMP( dala_products_speciality_date_end ) < 0  								
+				THEN 
+					dala_products_speciality_sale_of_price 
+				ELSE  
+					dala_products_speciality_price 
+			END	 
+			from dala_products_speciality 
+			left join dala_options_variant_link 
+				on dala_products_speciality_ID = 
+					dala_options_variant_link_product_id 
+			where dala_products_speciality_ID = 
+				NEW.dala_orders_session_speciality_product_id 
+			and dala_options_variant_link_option_name = 
+				dala_orders_session_speciality_medium_text 
+			limit 1	);				
+		end if;		
+		
+
+		-- so sanh gia 
+		if(@price <> NEW.dala_orders_session_speciality_price) then 
+				set @m = CONCAT('Giá sàn phẩm (',
+					NEW.dala_orders_session_speciality_product_id,
+					') - [ ',
+					@name,' ] ',
+					' Đã thay đổi thành ',
+					@price,
+					'Vui lòng đặt hàng lại '
+					); 
+				SIGNAL SQLSTATE '22305' 
+				SET MESSAGE_TEXT = @m; 	
+		end if;		
+	END IF;		
+
 
 
 
@@ -175,13 +320,12 @@ DELIMITER ;
 
 
 
+
+
 -- @
 -- @
--- @
--- @
--- @
--- @ trigger chay sau khi inser chi tiet order
--- @ update lai ton kho
+-- @ 
+-- @ 
 DROP TRIGGER  IF EXISTS  trig_orders_session_speciality_after_insert;
 DELIMITER $$ 
 CREATE TRIGGER trig_orders_session_speciality_after_insert AFTER INSERT ON dala_orders_session_speciality  
@@ -190,150 +334,13 @@ BEGIN
 --
 --
 
-
-	IF(NEW.dala_orders_session_speciality_line_order = 'product') THEN 		
-		SET @discounID = ( select  dala_discount_program_ID 
-			 from dala_discount_program 
-			 
-			 left join dala_discount_program_product_link on 
-				dala_discount_program_product_link_discount_program_id = dala_discount_program_ID 	
-			 
-			 where 
-				 dala_discount_program_product_link_product_speciality_id = NEW.dala_orders_session_speciality_product_id 
-				 and 							 
-					(CASE 
-						WHEN ( 	dala_discount_program_time_type  = 0 ) THEN  
-							1 
-						WHEN ( UNIX_TIMESTAMP(dala_discount_program_date_end) < UNIX_TIMESTAMP() ) THEN 
-							1 
-						ELSE   
-							0
-					END) = 1 	
-				 and dala_discount_program_product_link_status = 1 
-			);
-		IF(@discounID > 0) THEN 	
-			insert into dala_orders_session_speciality_discount set 
-			dala_orders_session_speciality_discount_order_id = NEW.dala_orders_session_speciality_order_id, 
-			dala_orders_session_speciality_discount_order_session_id = NEW.dala_orders_session_speciality_ID,
-			dala_orders_session_speciality_discount_discount_id = @discounID, 
-			dala_orders_session_speciality_discount_product_id = NEW.dala_orders_session_speciality_product_id, 
-			dala_orders_session_speciality_discount_qty = NEW.dala_orders_session_speciality_qty, 
-			dala_orders_session_speciality_discount_price = NEW.dala_orders_session_speciality_price,
-			dala_orders_session_speciality_discount_medium_text = NEW.dala_orders_session_medium_text;
-		END IF;
-		
-		--
-		-- tru ton kho
-		-- tru so luong ton khi ban 
-		SET @stock_status = ( select  dala_products_speciality_stock_status 
-						 from dala_products_speciality    
-						 where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id 
-							);
-		SET @check_stock_number = ( select  dala_products_speciality_stock  
-						 from dala_products_speciality    
-						 where dala_products_speciality_ID = NEW.dala_orders_session_speciality_product_id 
-							);									
-		IF ( @stock_status = 1 ) THEN  
-			update  dala_products_speciality set 
-			dala_products_speciality_stock = @check_stock_number  -  NEW.dala_orders_session_speciality_qty 
-			where 
-			dala_products_speciality_ID  =  NEW.dala_orders_session_speciality_product_id ;
-		END IF;				
-
-		
-	END IF;	
-
-
-	--
-	-- UPDATE order	
-	-- total product
-	SET @total_product = ( 
-		select  sum(dala_orders_session_speciality_qty * dala_orders_session_speciality_price)   
-		from dala_orders_session_speciality   
-		where dala_orders_session_speciality_line_order = 'product' 
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);	
-	
-	-- total qty
-	SET @total_qty = ( 
-		select  sum(dala_orders_session_speciality_qty) 
-		from dala_orders_session_speciality   
-		where dala_orders_session_speciality_line_order = 'product' 
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);	
-	
-	-- total coupon dala
-	SET @total_coupon_dala = ( 
-		select  sum(dala_orders_session_speciality_price) 
-		from dala_orders_session_speciality  
-		left join dala_coupon_speciality on 
-			dala_orders_session_medium_text = dala_coupon_speciality_code 
-		where dala_orders_session_speciality_line_order = 'coupon' 
-		and  dala_coupon_speciality_stores_id_created = 17  
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);		
-	
-	-- total coupon store
-	SET @total_coupon_store = ( 
-		select  sum(dala_orders_session_speciality_price) 
-		from dala_orders_session_speciality  
-		left join dala_coupon_speciality on 
-			dala_orders_session_medium_text = dala_coupon_speciality_code 
-		where dala_orders_session_speciality_line_order = 'coupon' 
-		and  dala_coupon_speciality_stores_id_created <> 17  
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);		
-	
-	
-	-- total shipping
-	SET @total_shipping = ( 
-		select  sum(dala_orders_session_speciality_price) 
-		from dala_orders_session_speciality   
-		where dala_orders_session_speciality_line_order = 'shipping' 
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);			
-	
-	
-	-- total fee
-	SET @total_fee = ( 
-		select  sum(dala_orders_session_speciality_price) 
-		from dala_orders_session_speciality   
-		where dala_orders_session_speciality_line_order = 'add-fee' 
-		and  dala_orders_session_speciality_order_id = NEW.dala_orders_session_speciality_order_id
-	);		
-	
-
-	--
-	-- update order
-	if(@total_product > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_product = @total_product 
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;
-
-	if(@total_qty > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_qty = @total_qty 
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;
-
-	if(@total_coupon_dala > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_coupon_dala = @total_coupon_dala 
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;
-	
-	if(@total_coupon_store > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_coupon_store = @total_coupon_store  
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;	
-
-	if(@total_shipping > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_shipping = @total_shipping  
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;
-
-	if(@total_fee > 0) then 
-		update dala_orders_speciality set dala_orders_speciality_total_fee = @total_fee   
-		where dala_orders_speciality_ID = NEW.dala_orders_session_speciality_order_id;
-	end if;
+	-- 
+	-- 
+	-- xoa line shipping
+	delete from dala_orders_session_speciality 
+	where dala_orders_session_speciality_line_order = 'shipping' 
+	and dala_orders_session_speciality_name = 
+		NEW.dala_orders_session_speciality_name ;
 
 -- 
 -- 
